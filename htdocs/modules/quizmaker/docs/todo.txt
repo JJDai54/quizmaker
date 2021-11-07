@@ -1,0 +1,101 @@
+SELECT 
+tChild.quest_id, tChild.quest_parent_id, tChild.quest_flag, tChild.quest_quiz_id,tChild.quest_type_question,
+tParent.quest_id, tParent.quest_parent_id, tParent.quest_flag, tParent.quest_quiz_id
+
+FROM x251_creaquiz_questions tChild
+LEFT JOIN x251_creaquiz_questions tParent 
+
+ON tChild.quest_parent_id = tParent.quest_flag
+
+AND tChild.quest_parent_id >0
+AND tChild.quest_quiz_id=15
+ORDER BY tChild.quest_id
+---------------------------------------------------
+SELECT * FROM `x251_creaquiz_questions` 
+WHERE `quest_quiz_id`=15
+ORDER BY quest_weight
+-------------------------------------------------
+
+
+SELECT tChild.*
+FROM x251_creaquiz_questions tChild
+WHERE  tChild.quest_quiz_id=14 AND tChild.quest_parent_id > 0
+
+
+SELECT tChild.*
+FROM x251_creaquiz_questions tChild
+LEFT JOIN x251_creaquiz_questions tParent 
+ON tChild.quest_parent_id = tParent.quest_flag 
+
+WHERE tChild.quest_parent_id = tParent.quest_id 
+AND tChild.quest_quiz_id=14 AND tChild.quest_parent_id > 0
+
+-------------------------------------------------
+Nombre de réponses : {repondu} / {totalQuestions}
+score : {score} /  {scoreMaxi}
+score minimum : {scoreMini}
+temps de réponse : {duree}
+-------------------------------------------------
+
+
+
+
+UPDATE x251_creaquiz_questions SET quest_flag=0;
+UPDATE x251_creaquiz_questions SET quest_flag=0 WHERE quest_quiz_id=7;
+update x251_creaquiz_questions  , x251_creaquiz_questions tp
+right join x251_creaquiz_questions tq ON tq.quest_parent_id = tp.quest_id 
+SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, (tp.quest_weight*1000)+tq.quest_weight)
+WHERE tq.quest_quiz_id = 7;
+
+SELECT `quest_id`, `quest_parent_id`, `quest_flag`, `quest_quiz_id`, `quest_weight` 
+FROM `x251_creaquiz_questions` 
+WHERE `quest_quiz_id`=7
+ORDER BY quest_weight;
+
+--------------------------------------
+UPDATE x251_creaquiz_questions SET quest_flag=0;
+UPDATE x251_creaquiz_questions SET quest_flag=0 WHERE quest_quiz_id=7;
+update x251_creaquiz_questions  , x251_creaquiz_questions tp
+right join x251_creaquiz_questions tq ON tq.quest_parent_id = tp.quest_id AND tq.quest_quiz_id = 7
+SET tq.quest_flag = tq.quest_id;
+
+SELECT `quest_id`, `quest_parent_id`, `quest_flag`, `quest_quiz_id`, `quest_weight` 
+FROM `x251_creaquiz_questions` 
+WHERE `quest_quiz_id`=7 OR 1=1
+ORDER BY quest_weight;
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+update x251_creaquiz_questions  , x251_creaquiz_questions tp
+left join x251_creaquiz_questions tq ON tq.quest_parent_id = tp.quest_id
+SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, (tp.quest_weight*1000)+tq.quest_weight);
+
+
+
+---------------------------------------------
+update x251_creaquiz_questions  , x251_creaquiz_questions tp
+left join x251_creaquiz_questions tq ON tq.quest_parent_id = tp.quest_id
+SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, tp.quest_weight*1000+tq.quest_weight);
+
+---------------------------------------------
+SELECT tq.* , if(tp.quest_id is null, tq.quest_weight*1000, tp.quest_weight*1000+tq.quest_weight) AS newWeight
+FROM x251_creaquiz_questions tq
+left join x251_creaquiz_questions tp ON tq.quest_parent_id = tp.quest_id
+WHERE tq.quest_quiz_id = 7
+ORDER BY newWeight
+
+---------------------------------------------
+SELECT tq.* , ifnull(tp.quest_weight, 1) AS parentWeight
+FROM x251_creaquiz_questions tq
+left join x251_creaquiz_questions tp ON tq.quest_parent_id = tp.quest_id
+WHERE tq.quest_quiz_id = 7
+ORDER BY tq.quest_weight
+----------------------------------------------
