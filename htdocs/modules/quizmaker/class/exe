@@ -29,14 +29,11 @@ namespace XoopsModules\Quizmaker;
 use XoopsModules\Quizmaker;
 use Xmf\Request;
 use JJD;
-//include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/Utility.php";
-                            
-//$utility = new \XoopsModules\Quizmaker\Utility();
 
 /**
  * Class Utility
  */
-class QuizUtility extends Utility
+class QuizUtility
 {
     use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
     use Common\ServerStats; // getServerStats Trait
@@ -717,100 +714,5 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
 //     
 //     return ($ret) ? 1 : 0 ;
 //}
-
-    /**
-     * @param \Xmf\Module\Helper $helper
-     * @param array|null         $options
-     * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
-     */
-    public static function getEditor($caption, $name, $value, $description = "", $newOptions = null, $helper = null)
-    {
-        if ($helper === null) $helper = \XoopsModules\Quizmaker\Helper::getInstance();
-        $options           = [];
-        $options['name']   = $name;
-        $options['value']  = $value;
-        $options['rows']   = 10;
-        $options['cols']   = '100%';
-        $options['width']  = '100%';
-        $options['height'] = '400px';
-        $options['editor'] = $helper->getConfig('editor_admin');
-        
-        if($newOptions !== null){
-          $keys = array('rows','cols','width','height');
-          for ($h=0; $h < count($keys); $h++){
-                $key = $keys[$h];
-                if (isset($newOptions[$key]) )  $options[$key] = $newOptions[$key];
-          }
-        }
-
-        $isAdmin = $helper->isUserAdmin();
-
-        if (class_exists('XoopsFormEditor')) {
-            if ($isAdmin) {
-                $descEditor = new \XoopsFormEditor($caption, $name, $options, $nohtml = false, $onfailure = 'textarea');
-            } else {
-                $descEditor = new \XoopsFormEditor($caption, $name, $options, $nohtml = false, $onfailure = 'textarea');
-            }
-        } else {
-            $descEditor = new \XoopsFormDhtmlTextArea($caption, $name, $options['value'], '100%', '100%');
-        }
-
-        //        $form->addElement($descEditor);
-        if($description) $descEditor->setDescription($description);
-        return $descEditor;
-    }
-    
-/**********************************************************************
- * 
- **********************************************************************/
-    public static function loadTextFile ($fullName){
-
-
-  if (!is_readable($fullName)){return '';}
-  
-  $fp = fopen($fullName,'rb');
-  $taille = filesize($fullName);
-  $content = fread($fp, $taille);
-  fclose($fp);
-  
-  return $content;
-
-}
-
-//     public static function getEditor($caption, $name, $value, $description = "", $newOptions = null, $helper = null)
-//     {
-//         $options           = [];
-//         $options['name']   = $name;
-//         $options['value']  = $value;
-//         $options['rows']   = 10;
-//         $options['cols']   = '100%';
-//         $options['width']  = '100%';
-//         $options['height'] = '400px';
-//         
-//         if($newOptions !== null){
-//           $keys = array('rows','cols','width','height');
-//           for ($h=0; $h < count($keys); $h++){
-//                 $key = $keys[$h];
-//                 if (isset($newOptions[$key]) )  $options[$key] = $newOptions[$key];
-//           }
-//         }
-// 
-//         if ($helper === null) $helper = \XoopsModules\Quizmaker\Helper::getInstance();
-//         $isAdmin = $helper->isUserAdmin();
-// 
-//         if (class_exists('XoopsFormEditor')) {
-//             if ($isAdmin) {
-//                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editor_admin'), $options, $nohtml = false, $onfailure = 'textarea');
-//             } else {
-//                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editor_user'), $options, $nohtml = false, $onfailure = 'textarea');
-//             }
-//         } else {
-//             $descEditor = new \XoopsFormDhtmlTextArea(ucfirst($options['name']), $options['name'], $options['value'], '100%', '100%');
-//         }
-// 
-//         //        $form->addElement($descEditor);
-//         if($description) $descEditor->setDescription($description);
-//         return $descEditor;
-//     }
 
 }  //fin de la classe

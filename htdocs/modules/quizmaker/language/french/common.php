@@ -160,7 +160,7 @@ define('_CO_QUIZMAKER_TYPE_PNN', "<br>Chaque option est associée un nombre de p
 define('_CO_QUIZMAKER_TYPE_PAC', "<br>Ni la ponctuation, ni l'accentuation ni la casse ne sont prises en compte pour comparer le résultat");
 define('_CO_QUIZMAKER_TYPE_CHECKBOX', "Question à réponses multiples");
 
-define('_CO_QUIZMAKER_TYPE_CHECKBOXLOGICAL', "Question de logique à répopnses multiples");
+define('_CO_QUIZMAKER_TYPE_CHECKBOXLOGICAL', "Question de logique à réponses multiples");
 define('_CO_QUIZMAKER_TYPE_CHECKBOXLOGICAL_DESC', "Ce slide est composé de plusieurs options qui ont des points communs.<br>Il faut cocher toutes les options qui ont également ces points communs.");
 define('_CO_QUIZMAKER_TYPE_LISTBOXINTRUDERS1', "Chasser les intrus");
 define('_CO_QUIZMAKER_TYPE_LISTBOXINTRUDERS1_DESC', "Ce slide est composé d'une liste dans la quelle il faut supprimer les intrus.<br>Pas de retour arrière.");
@@ -195,8 +195,10 @@ define('_CO_QUIZMAKER_POINTS_UNDER_DEV', "<span style='color:red;'><b>Fonction e
 define('_CO_QUIZMAKER_POINTS', "Points");
 define('_CO_QUIZMAKER_SOMMAIRE', "Sommaire des questions");
 
-define('_CO_QUIZMAKER_EXECUTION_NONE', "Pas d'exécution");
-define('_CO_QUIZMAKER_EXECUTION_INLINE', "Exécution dans le site");
-define('_CO_QUIZMAKER_EXECUTION_OUTLINE', "exécution hors du site");
+define('_CO_QUIZMAKER_PUBLISH_NONE', "Pas d'exécution");
+define('_CO_QUIZMAKER_PUBLISH_INLINE', "Exécution dans le site");
+define('_CO_QUIZMAKER_PUBLISH_OUTLINE', "exécution hors du site");
+define('_CO_QUIZMAKER_PUBLISH_QUIZ', "Publication du quiz");
+define('_CO_QUIZMAKER_LEGEND', "Légende");
 
 ?>

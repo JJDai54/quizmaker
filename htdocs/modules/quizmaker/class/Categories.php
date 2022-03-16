@@ -184,10 +184,24 @@ class Categories extends \XoopsObject
 	public function getValuesCategories($keys = null, $format = null, $maxDepth = null)
 	{
         global $quizUtility, $quizHandler;
+        $ret = $this->getValuesCategoriesLight($keys, $format, $maxDepth);
+        if(!$quizHandler){
+    		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
+            $quizHandler = $helper->getHandler('Quiz');
+        } 
+            
+        $criteria = new \Criteria("quiz_cat_id", $ret['id'], '=');
+        $ret['nbQuiz'] = $quizHandler->getCount($criteria);
+		return $ret;
+	}
+	public function getValuesCategoriesLight($keys = null, $format = null, $maxDepth = null)
+	{
+        global $quizUtility, $quizHandler;
         
 		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
 		$ret = $this->getValues($keys, $format, $maxDepth);
+        
 		$ret['id']                = $this->getVar('cat_id');
 		$ret['name']              = $this->getVar('cat_name');
 		$ret['description']       = $this->getVar('cat_description', 'e');
@@ -198,8 +212,6 @@ class Categories extends \XoopsObject
 		$ret['creation']          = \JJD\getDateSql2Str($this->getVar('cat_creation'));
 		$ret['update']            = \JJD\getDateSql2Str($this->getVar('cat_update'));
         
-        $criteria = new \Criteria("quiz_cat_id", $ret['id'], '=');
-        $ret['nbQuiz']            = $quizHandler->getCount($criteria);
 		return $ret;
 	}
 

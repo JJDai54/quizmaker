@@ -12,12 +12,11 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
-HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
 	+quizmaker
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -98,6 +97,8 @@ _quizmaker
 					assets\icons\16\retour.png
 					assets\icons\16\retour-1.png
 					assets\icons\16\retour-2.png
+					assets\icons\16\sigma-01.png
+					assets\icons\16\sommaire.png
 					assets\icons\16\status0.png
 					assets\icons\16\status1.png
 					assets\icons\16\status2.png
@@ -109,6 +110,9 @@ _quizmaker
 					assets\icons\16\verrou-open.png
 				-32
 					assets\icons\32\album.png
+					assets\icons\32\ampoule-00.png
+					assets\icons\32\ampoule-01.png
+					assets\icons\32\ampoule-05.jpg
 					assets\icons\32\block.png
 					assets\icons\32\broken.png
 					assets\icons\32\calculator.png
@@ -143,17 +147,27 @@ _quizmaker
 					assets\images\modeles\slide_textarea-00.jpg
 					assets\images\modeles\slide_textareaInput-00.jpg
 					assets\images\modeles\slide_textareaListbox-00.jpg
+				assets\images\ampoule-05.jpg
 				assets\images\blank.gif
 				assets\images\blank.png
 				assets\images\index.html
+				assets\images\jean-jacquesdelalandre_logo.png
 				assets\images\logoModule.png
+				assets\images\run_quiz_00.png
 				assets\images\run_quiz_01.gif
 				assets\images\run_quiz_01.jpg
 				assets\images\run_quiz_01.png
 				assets\images\run_quiz_02.png
-			+js
-				+quiz
-					+css
+				assets\images\solution-00.png
+				assets\images\solution-01 - Copie.png
+				assets\images\solution-01.png
+				assets\images\solution-02.png
+				assets\images\solution-03.png
+			-js
+				-quiz
+					-css
+						-progressbarr
+							assets\js\quiz\css\progressbarr\shaded-green.png
 						assets\js\quiz\css\index.html
 						assets\js\quiz\css\quiz.css
 						assets\js\quiz\css\quiz-tmp.css
@@ -239,7 +253,7 @@ _quizmaker
 							assets\js\quiz\images\magenta\Thumbs.db
 							assets\js\quiz\images\magenta\top.png
 							assets\js\quiz\images\magenta\up.png
-					+js
+					-js
 						-language
 							assets\js\quiz\js\language\quiz-english.js
 							assets\js\quiz\js\language\quiz-french.js
@@ -278,9 +292,8 @@ _quizmaker
 		-blocks
 			blocks\categories.php
 			blocks\index.html
-			blocks\menu_xbootstrap.php
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -293,7 +306,7 @@ _quizmaker
 				class\Common\Resizer.php
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
-			+type_question
+			-type_question
 				class\type_question\slide_checkbox.php
 				class\type_question\slide_checkboxLogical.php
 				class\type_question\slide_listboxIntruders1.php
@@ -314,6 +327,7 @@ _quizmaker
 			class\Categories.php
 			class\CategoriesHandler.php
 			class\Constants.php
+			class\exe
 			class\Helper.php
 			class\index.html
 			class\Messages.php
@@ -336,7 +350,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\index.html
@@ -421,7 +435,7 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -432,7 +446,7 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
+		-language
 			-english
 				-help
 					language\english\help\help.html
@@ -451,7 +465,6 @@ _quizmaker
 					language\english\mail_template\Quiz_delete_notify.tpl
 					language\english\mail_template\Quiz_modify_notify.tpl
 				-slide_help
-					language\english\slide_help\slide_admin.php
 					language\english\slide_help\slide_checkbox.html
 					language\english\slide_help\slide_checkboxLogical.html
 					language\english\slide_help\slide_listboxIntruders1.html
@@ -473,7 +486,7 @@ _quizmaker
 				language\english\index.html
 				language\english\main.php
 				language\english\modinfo.php
-			+french
+			-french
 				-help
 					language\french\help\help.html
 					language\french\help\index.html
@@ -490,8 +503,9 @@ _quizmaker
 					language\french\mail_template\Quiz_comment_notify.tpl
 					language\french\mail_template\Quiz_delete_notify.tpl
 					language\french\mail_template\Quiz_modify_notify.tpl
+				-slide
+					language\french\slide\slide_resultats.html
 				-slide_help
-					language\french\slide_help\slide_admin.php
 					language\french\slide_help\slide_checkbox.html
 					language\french\slide_help\slide_checkboxLogical.html
 					language\french\slide_help\slide_listboxIntruders1.html
@@ -518,12 +532,13 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		-quiz
-		+sql
+		-sql
+			sql\datasql.sql
 			sql\index.html
+			sql\mysql - Copie.sql
 			sql\mysql.sql
-		+templates
-			+admin
+		-templates
+			-admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
@@ -543,9 +558,8 @@ _quizmaker
 				templates\admin\quizmaker_admin_results.tpl
 				templates\admin\quizmaker_admin_type_new_question.tpl
 				templates\admin\quizmaker_admin_type_question.tpl
-			+blocks
+			-blocks
 				templates\blocks\quizmaker_block_categories.tpl
-				templates\blocks\quizmaker_block_menu_xbootstrap.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
 			-quiz
 				templates\quiz\index.html
@@ -598,43 +612,10 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=solutions.php
-1=templates\quizmaker_quiz_solutions.tpl
-2=class\Type_question.php
-3=class\QuizUtility.php
-4=admin\export.php
-5=sql\mysql.sql
-6=class\Questions.php
-7=admin\questions.php
-8=admin\quiz.php
+0=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=admin\quiz.php
-[solutions.php]
-TopLine=42
-Caret=11,34
-[templates\quizmaker_quiz_solutions.tpl]
-TopLine=3
-Caret=1,30
-Mark1=1,50
-[class\Type_question.php]
-TopLine=350
-Caret=1,385
-[class\QuizUtility.php]
-TopLine=402
-Caret=38,428
-[admin\export.php]
-TopLine=35
-Caret=65,53
-[sql\mysql.sql]
-TopLine=153
-Caret=49,155
-[class\Questions.php]
-TopLine=17
-Caret=1,1
-[admin\questions.php]
-TopLine=23
-Caret=1,46
-[admin\quiz.php]
-TopLine=21
-Caret=1,44
+Selected=xoops_version.php
+[xoops_version.php]
+TopLine=9
+Caret=38,41

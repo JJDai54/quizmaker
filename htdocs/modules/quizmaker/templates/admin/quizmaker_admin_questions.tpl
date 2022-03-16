@@ -58,7 +58,8 @@ return false;
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_FORM_TYPE_SHORT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_QUESTION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_MINREPONSE}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_MINREPONSE2}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_CHRONO}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_CREATION}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_OPTIONS}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
@@ -132,6 +133,7 @@ return false;
                 </td>
                 
 				<td class='center' <{$styleParent}> ><{$Questions.minReponse}></td>
+				<td class='center' <{$styleParent}> ><{$Questions.quest_timer}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.creation}></td>
                 
 				<td class="center  width5" <{$styleParent}> >

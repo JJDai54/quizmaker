@@ -39,10 +39,10 @@ define('_MI_QUIZMAKER_ADMENU9', "Permissions");
 define('_MI_QUIZMAKER_ADMENU10', "Feedback");
 define('_MI_QUIZMAKER_ADMENU11', "Messages JS");
 define('_MI_QUIZMAKER_ABOUT', "Sur");
-define('_MI_QUIZMAKER_ADMIN_PAGER', "Téléavertisseur d'administrateur");
-define('_MI_QUIZMAKER_ADMIN_PAGER_DESC', "Liste d'administrateurs par page");
-define('_MI_QUIZMAKER_USER_PAGER', "Téléavertisseur utilisateur");
-define('_MI_QUIZMAKER_USER_PAGER_DESC', "Liste des utilisateurs par page");
+define('_MI_QUIZMAKER_ADMIN_PAGER', "Nombre d'items par page côté adminstration");
+define('_MI_QUIZMAKER_ADMIN_PAGER_DESC', "Pagination des listes dans l'administration");
+define('_MI_QUIZMAKER_USER_PAGER', "Nombre d'item par page côté utilisateur");
+define('_MI_QUIZMAKER_USER_PAGER_DESC', "Pagination des listes dans l'interface utilisateur");
 define('_MI_QUIZMAKER_SMNAME1', "Sommaire");
 define('_MI_QUIZMAKER_SMNAME2', "Soumettre un quizz");
 define('_MI_QUIZMAKER_SMNAME4', "Soumettre des questions");
@@ -220,7 +220,8 @@ define('_MI_QUIZMAKER_HIGHSLIDE_DESC', "Dossier d'installation du framework <a h
 define('_MI_QUIZMAKER_ADMENU7', "Messages");
 
 // JJDai
-define('_MI_QUIZMAKER_MENU_XBOOTSTRAP', 'news - Menu pour theme xbootstrap');
-define('_MI_QUIZMAKER_MENU_XBOOTSTRAP_DSC', 'Block pour menu du theme xbootstrap');
+define('_MI_QUIZMAKER_KEYWORDS_LIST', "quizmaker,quiz,qcm,question,réponse,jeu,résultats,questionnaire,interrogation");
+
+
 
 ?>

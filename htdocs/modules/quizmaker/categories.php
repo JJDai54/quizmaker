@@ -80,7 +80,8 @@ $stat = $quizHandler->getStatistics();
             //if (!in_array($i, $catPerm)) continue;
 			$categories[$i] = $categoriesAll[$i]->getValuesCategories();
             
-            $crQuiz = new \CriteriaCompo(new \Criteria('quiz_execution', 0, ">"));
+            //$crQuiz = new \CriteriaCompo(new \Criteria('quiz_publishQuiz', 0, ">"));
+            $crQuiz = new \CriteriaCompo(new \Criteria('quiz_actif', 1, "="));
             if ($catId > 0){
               if ($catId == $categories[$i]['cat_id']){
                   $crQuiz->add( new \Criteria( 'quiz_cat_id', $catId, "=") );
@@ -127,6 +128,7 @@ $stat = $quizHandler->getStatistics();
     //recherche des quiz de la catégorie
     
 		$GLOBALS['xoopsTpl']->assign('categories', $categories);
+$GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));        
 //echoArray($categories);    
 		unset($categories);
 ////////////////////////////////////////////////////////////

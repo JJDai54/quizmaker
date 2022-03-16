@@ -108,7 +108,9 @@ switch($op) {
 		$QuizDateEndArr = Request::getArray('quiz_dateEnd');
 		$QuizDateEnd = strtotime($QuizDateEndArr['date']) + (int)$QuizDateEndArr['time'];
 		$quizObj->setVar('quiz_dateEnd', $QuizDateEnd);
-		$quizObj->setVar('quiz_execution', Request::getInt('quiz_execution', 0));
+		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
+		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
+		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_onClickSimple', Request::getInt('quiz_onClickSimple', 0));
 		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'default'));
 		$quizObj->setVar('quiz_answerBeforeNext', Request::getInt('quiz_answerBeforeNext', 0));

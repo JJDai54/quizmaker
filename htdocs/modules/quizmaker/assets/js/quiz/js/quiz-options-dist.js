@@ -4,7 +4,7 @@ const quiz_bit = {
   next:      2,  // next si repondu
   popup:     4,  // popup des réponse valide
   timer:     8,  // timer
-  reponses: 16   //affichage des répnses et des points en bas de page pour des tests
+  reponses: 16   //affichage des réponses et des points en bas de page pour des tests
   };
 
 const quiz_mode = {

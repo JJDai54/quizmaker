@@ -105,7 +105,9 @@ $GLOBALS['xoTheme']->addStylesheet( $style2, null );
 		$xoopsTpl->assign('admin', true);        
 		$xoopsTpl->assign('modPathIcon16', $modPathIcon16);        
 
-
+$GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));
+// Breadcrumbs
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS];
 
 
 

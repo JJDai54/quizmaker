@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
  
-define('QUIZMAKER_SHOW_TPL_NAME', 1);
+define('QUIZMAKER_SHOW_TPL_NAME', 0);
  
  
 if (!defined('XOOPS_ICONS32_PATH')) {

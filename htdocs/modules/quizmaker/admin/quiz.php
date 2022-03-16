@@ -142,7 +142,9 @@ if($quizId > 0 && $sender != 'cat_id'){
 		//$quizObj->setVar('quiz_dateEnd', \JJD\getSqlDate($QuizDateEnd));
 		$quizObj->setVar('quiz_dateEnd', \JJD\getSqlDate($QuizDateEndArr));
                 
-		$quizObj->setVar('quiz_execution', Request::getInt('quiz_execution', 0));
+		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
+		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
+		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_onClickSimple', Request::getInt('quiz_onClickSimple', 0));
 		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'defaut'));
 		$quizObj->setVar('quiz_answerBeforeNext', Request::getInt('quiz_answerBeforeNext', 0));
@@ -250,7 +252,8 @@ if($quizId > 0 && $sender != 'cat_id'){
         
 	case 'change_etat':
         $field = Request::getString('field');
-        $quizHandler->changeEtat($quizId, $field);
+        $modulo = Request::getInt('modulo', 2);
+        $quizHandler->changeEtat($quizId, $field, $modulo);
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
 	break;
     

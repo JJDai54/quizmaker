@@ -35,8 +35,9 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_fileName` varchar(80) NOT NULL,
   `quiz_description` text NOT NULL,
   `quiz_attempts` int(8) NOT NULL DEFAULT '0',
-  `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
-  `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
+  `quiz_publishQuiz` tinyint(1) NOT NULL DEFAULT '0',
+  `quiz_publishResults` tinyint(1) NOT NULL DEFAULT '0',
+  `quiz_publishAnswers` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_dateBegin` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_dateEnd` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_onClickSimple` tinyint(1) NOT NULL DEFAULT '1',
@@ -60,7 +61,8 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_showTypeQuestion` tinyint(4) NOT NULL DEFAULT '0',
   `quiz_build` int(10) NOT NULL DEFAULT '0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
-  `quiz_execution` int(11) NOT NULL DEFAULT '0',
+  `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
+  `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   PRIMARY KEY (`quiz_id`)
 ) ENGINE=InnoDB;
 
@@ -84,7 +86,7 @@ CREATE TABLE `quizmaker_questions` (
   `quest_comment2` text NOT NULL,
   `quest_weight` int(11) NOT NULL DEFAULT '0',
   `quest_isQuestion` int(1) NOT NULL DEFAULT '1',
-  `quest_timer` int(11) NOT NULL,
+  `quest_timer` int(11) NOT NULL DEFAULT '0',
   `quest_options` varchar(50) NOT NULL,
   `quest_shuffleAnswers` tinyint(4) NOT NULL DEFAULT '0',
   `quest_numbering` tinyint(1) NOT NULL DEFAULT '0',

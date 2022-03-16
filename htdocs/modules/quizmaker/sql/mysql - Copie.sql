@@ -13,9 +13,11 @@
 
 CREATE TABLE `quizmaker_categories` (
   `cat_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cat_parent_id` int(8) NOT NULL DEFAULT '0',
   `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_description` text NOT NULL,
   `cat_theme` varchar(50) NOT NULL DEFAULT '0',
+  `cat_weight` int(11) NOT NULL DEFAULT '0',
   `cat_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `cat_update` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   PRIMARY KEY (`cat_id`)
@@ -33,8 +35,9 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_fileName` varchar(80) NOT NULL,
   `quiz_description` text NOT NULL,
   `quiz_attempts` int(8) NOT NULL DEFAULT '0',
-  `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
-  `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
+  `quiz_publishQuiz` tinyint(1) NOT NULL DEFAULT '0',
+  `quiz_publishResults` tinyint(1) NOT NULL DEFAULT '0',
+  `quiz_publishAnswers` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_dateBegin` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_dateEnd` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_onClickSimple` tinyint(1) NOT NULL DEFAULT '1',
@@ -58,7 +61,8 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_showTypeQuestion` tinyint(4) NOT NULL DEFAULT '0',
   `quiz_build` int(10) NOT NULL DEFAULT '0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
-  `quiz_execution` int(11) NOT NULL DEFAULT '0',
+  `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
+  `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   PRIMARY KEY (`quiz_id`)
 ) ENGINE=InnoDB;
 
@@ -73,12 +77,13 @@ CREATE TABLE `quizmaker_questions` (
   `quest_quiz_id` int(10) NOT NULL DEFAULT '0',
   `quest_question` varchar(255) NOT NULL DEFAULT '',
   `quest_comment1` text NOT NULL,
-  `quest_comment2` text NOT NULL,
   `quest_type_question` varchar(30) NOT NULL DEFAULT '',
   `quest_type_form` tinyint(1) NOT NULL DEFAULT '0',
+  `quest_explanation` text NOT NULL,
   `quest_minReponse` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   `quest_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quest_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
+  `quest_comment2` text NOT NULL,
   `quest_weight` int(11) NOT NULL DEFAULT '0',
   `quest_isQuestion` int(1) NOT NULL DEFAULT '1',
   `quest_timer` int(11) NOT NULL,
@@ -154,10 +159,12 @@ CREATE TABLE `quizmaker_results` (
 ) ENGINE=InnoDB;
 
 
-INSERT INTO `quizmaker_categories`( `cat_name`, `cat_description`,  `cat_theme`) VALUES ('Test', 'Catégorie de test', 'default');
+INSERT INTO quizmaker_categories( `cat_name`, `cat_description`,  `cat_theme`, `cat_weight`) VALUES 
+('Test', 'Catégorie de test', 'default', 0);
 
-INSERT INTO `quizmaker_messages`( `msg_code`, `msg_constant`) VALUES 
-('message01', 'MESSAGES_JS_MESSAGE01');
+
+INSERT INTO quizmaker_messages( `msg_code`, `msg_constant`) VALUES 
+('message01', 'MESSAGES_JS_MESSAGE01'),
 ('results', 'MESSAGES_JS_RESULTS'),
 ('sortCombobox', 'MESSAGES_JS_SORTCOMBOBOX'),
 ('radio', 'MESSAGES_JS_RADIO'),

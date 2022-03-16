@@ -30,6 +30,9 @@ const quiz_messages = {
     resultScore : "Votre score est de {points} / {totalPoints} points",
     points : "point(s)", 
     bonneReponse : "La bonne réponse pour {points} point(s) est :", 
+    readerTimer : "Temps de lecture : {timer} secondes", 
+    goodAnswers : "Bonnes réponses", 
+    badAnswers : "Mauvaises réponses", 
 
     tplWord : "<span style='color: red;'>{word}</span>", 
     tplWord2 : "<span style='color: white;'>{word}</span>", 

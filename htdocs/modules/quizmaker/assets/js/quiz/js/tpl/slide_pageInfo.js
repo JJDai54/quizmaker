@@ -20,6 +20,7 @@ var name = this.getName();
 
       for(var k in currentQuestion.answers){
         var id = this.getId(k);
+        if(currentQuestion.answers[k].proposition == '') continue;
           answers.push(
             `<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled>${currentQuestion.answers[k].proposition}</div>
         `);
@@ -32,6 +33,30 @@ var name = this.getName();
       return answers.join("\n");
 
   }
+
+build2 (){
+var currentQuestion=this.question;
+var name = this.getName();
+
+      const answers = [];
+      answers.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled>`);
+
+      for(var k in currentQuestion.answers){
+        var id = this.getId(k);
+          answers.push(
+            `${currentQuestion.answers[k].proposition}<br>
+        `);
+          
+      }
+      answers.push(`</div>`);
+      if(this.typeForm == 3){
+          answers.push(this.buildFormSubmitAnswers());
+      }
+//alert(answers);
+      return answers.join("\n");
+
+  }
+  
 //---------------------------------------------------
 buildFormSubmitAnswers(){
     var tNamesId = ['quiz_id', 'uid', 'answers_total', 'answers_achieved', 
@@ -111,8 +136,10 @@ reloadQuestion()
   {
     var currentQuestion = this.question;
     for(var k in currentQuestion.answers){
+      //if(currentQuestion.answers[k].proposition == '') continue;
       var id = this.getId(k);
       var obDiv = document.getElementById(id);
+      if(!obDiv) continue;
       obDiv.innerHTML = replaceBalisesByValues(currentQuestion.answers[k].proposition);
     }
   } 

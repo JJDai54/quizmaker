@@ -350,6 +350,26 @@ hr.quiz-style-two {
   width: 25em;
 }
 
+.quiz-shadowbox-question {
+  font-size : 1em;
+  color : black;
+  width: 90%;
+  border: 1px solid #333;
+  box-shadow: 8px 8px 5px #444;
+  padding: 8px 12px 12px 12px;
+  background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
+  margin: auto;
+  margin-top:10px;
+  margin-bottom:10px;
+
+  border: 0px solid;
+  -moz-border-radius: 8px 8px 8px 8px;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -khtml-border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 8px 8px;
+  
+}
+
 textarea.slide-proposition{
   font-size: 1.2em;
   margin-itemRound-bottom: 10px;
@@ -381,10 +401,53 @@ input.slide-proposition2{
   color: #0000FF;
   /* width: 50%; */
   text-align:left;
-  margin: 0 auto;
+  margin: 0px auto;
   padding: 1px;
   width: 150px;
   resize : none;
 
   }
 
+
+/* ------------------------------ */
+#pb_contenair{
+  background-color:lightgray;
+  width:500px;
+  height:24px;
+  padding:2px 0px 2px 0px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  text-align:left;
+  border:1px solid gray;	
+  
+
+}
+#pb_base{
+  /* width:340px; */
+  display: inline-block;
+
+  padding:1px;
+  background-color:white;
+  border:1px solid black;
+  height:16px;
+}
+#pb_text{
+  display: inline-block;
+  vertical-align: top;
+  padding: 1px 1px 0px 1px;
+  text-align:center;
+
+  width:100px;
+  height:18px;
+  background-color:lightgray;
+
+}
+#pb_indicator{
+  width: 50px;
+  background-image: url("progressbarr/shaded-green.png");
+  background-size: auto  16px;
+  background-repeat: repeat-x;
+  height: 14px;
+  margin: 0;
+  padding: 0px 0px 0px 0px;
+}

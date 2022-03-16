@@ -194,7 +194,7 @@ class slide_checkbox extends XoopsModules\Quizmaker\Type_question
     $scoreMin = 0;
     $html = array();
 
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
     
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();

@@ -93,36 +93,41 @@ tth_trierTableau('quiz_question_list', 7);
     text-align: left;
     margin:8px;
 }
+.quiz_legend3{
+    text-align: left;
+    margin:8px;
+    width:50px;
+}
 
 </style>
-    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
+    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._CO_QUIZMAKER_LEGEND}></center></div>
     <div class="itemRound-none <{$catTheme}>-itemBody">
     <center>
-<table style='margin:0px;'>
+<table class='quizTbl'>
     <tr>
-        <td class='quiz_legend'><img src="<{$modPathIcon16}>/notes/005.png"></td>
+        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/005.png"></td>
         <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_5}></td>
-    </tr>
-    <tr>
-        <td class='quiz_legend'><img src="<{$modPathIcon16}>/notes/004.png"></td>
-        <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_4}></td>
-    </tr>
-    <tr>
-        <td class='quiz_legend'><img src="<{$modPathIcon16}>/notes/003.png"></td>
-        <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_3}></td>
-    </tr>
-    <tr>
-        <td class='quiz_legend'><img src="<{$modPathIcon16}>/notes/002.png"></td>
+        <td class='quiz_legend3'></td>
+        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/002.png"></td>
         <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_2}></td>
     </tr>
     <tr>
-        <td class='quiz_legend'><img src="<{$modPathIcon16}>/notes/001.png"></td>
+        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/004.png"></td>
+        <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_4}></td>
+        <td class='quiz_legend3'></td>
+        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/001.png"></td>
         <td class='quiz_legend left'><{$smarty.const._MA_QUIZMAKER_RESULT_1}></td>
     </tr>
     <tr>
-        <td class='quiz_legend'><img src="<{$modPathIcon16}>/notes/000.png"></td>
+        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/003.png"></td>
+        <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_3}></td>
+        <td class='quiz_legend3'></td>
+        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/000.png"></td>
         <td class='quiz_legend left'><{$smarty.const._MA_QUIZMAKER_RESULT_0}></td>
     </tr>
+    
+    
+
 </table>
     </center>
     </div>

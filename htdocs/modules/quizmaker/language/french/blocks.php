@@ -37,9 +37,10 @@ define('_MB_QUIZMAKER_ALL_CATEGORIES', "toutes catégories");
 define('_MB_QUIZMAKER_CAT_NAME', "Nom");
 define('_MB_QUIZMAKER_CAT_UPDATE', "Mettre à jour");
 
-define('_MB_QUIZMAKER_ALL_QUIZ', "Tous les quiz");
+
 define('_MB_QUIZMAKER_QUIZ', "Quiz");
 define('_MB_QUIZMAKER_CAT_INDEX', "Catégories des Quiz");
+define('_MB_QUIZMAKER_TITLE_XBOOTSTRAP', "Quiz ...");
 
 
 ?>

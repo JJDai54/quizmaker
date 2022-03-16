@@ -186,7 +186,7 @@ class slide_radioMultiple2 extends XoopsModules\Quizmaker\Type_question
     $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
     
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
 //    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;

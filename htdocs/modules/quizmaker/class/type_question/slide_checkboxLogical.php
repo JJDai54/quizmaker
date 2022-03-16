@@ -209,7 +209,7 @@ class slide_checkboxLogical extends XoopsModules\Quizmaker\Type_question
     $tp = $this->combineAndSorAnswer($ans);    
 
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
 //    echoArray($answersAll);
 //    echoArray($tPoints);
     $ret = array();

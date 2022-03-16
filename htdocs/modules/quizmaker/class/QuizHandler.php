@@ -146,7 +146,7 @@ class QuizHandler extends \XoopsPersistableObjectHandler
                 
         foreach (array_keys($allAllowed) as $i) {
             $key = $allAllowed[$i]->getVar('quiz_id');
-            $ret[$key] = $allAllowed[$i]->getVar('quiz_name') . ((QUIZMAKER_ADD_ID) ? " ({$key})" : "");;
+            $ret[$key] = $allAllowed[$i]->getVar('quiz_name') . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");;
         
         }
 
@@ -290,9 +290,10 @@ global $questionsHandler, $resultsHandler;
  * @$quizId : id du quiz
  * @$field : nom du champ à changer
  * *********************** */
-    public function changeEtat($quizId, $field)
+    public function changeEtat($quizId, $field, $modulo = 2)
     {
-        $sql = "UPDATE " . $this->table . " SET {$field} = not {$field} WHERE quiz_id={$quizId};";
+        //$sql = "UPDATE " . $this->table . " SET {$field} = not {$field} WHERE quiz_id={$quizId};";
+        $sql = "UPDATE " . $this->table . " SET {$field} = mod({$field}+1,{$modulo}) WHERE quiz_id={$quizId};";
         $ret = $this->db->queryf($sql);
         return $ret;
     }

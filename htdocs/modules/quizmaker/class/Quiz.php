@@ -50,7 +50,9 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_update', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('quiz_dateBegin', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('quiz_dateEnd', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
-		$this->initVar('quiz_execution', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_publishQuiz', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_publishResults', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_publishAnswers', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_onClickSimple', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_theme', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_answerBeforeNext', XOBJ_DTYPE_INT);
@@ -141,7 +143,10 @@ $quiId = $this->getVar('quiz_id');
 		$fileNameTray->addElement($inpFileName, true);
         
 		// Form Editor DhtmlTextArea quizDescription
-        $editDescription = \JJD\getformTextarea(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),_AM_QUIZMAKER_DESCRIPTION_DESC);
+//        $editDescription = \JJD\getformTextarea(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),_AM_QUIZMAKER_DESCRIPTION_DESC);
+        $editDescription = $quizUtility->getEditor(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $helper);
+            
+            
 		$form->addElement($editDescription, true);
         
 		// Form number quiz_build
@@ -161,20 +166,31 @@ $quiId = $this->getVar('quiz_id');
         $quizDateEnd = \JJD\xoopsformDateOkTray(_AM_QUIZMAKER_DATEEND, 'quiz_dateEndOk', $this->getVar('quiz_dateEndOk'), 'quiz_dateEnd', $this->getVar('quiz_dateEnd'));
 		$form->addElement($quizDateEnd);
         
-		// Form Check Box quiz_execution
-		$quizExecution = $this->isNew() ? 0 : $this->getVar('quiz_execution');
-		$inpExecution = new \XoopsFormRadio( _AM_QUIZMAKER_QUIZ_EXECUTION, 'quiz_execution', $quizExecution);
-        $inpExecution->setDescription(_AM_QUIZMAKER_QUIZ_EXECUTION_DESC);
-		$inpExecution->addOption(0, _CO_QUIZMAKER_EXECUTION_NONE);
-		$inpExecution->addOption(1, _CO_QUIZMAKER_EXECUTION_INLINE);
-		$inpExecution->addOption(2, _CO_QUIZMAKER_EXECUTION_OUTLINE);
+		// Form Check Box quiz_publishQuiz
+		$quizExecution = $this->isNew() ? 0 : $this->getVar('quiz_publishQuiz');
+		$inpExecution = new \XoopsFormRadio( _CO_QUIZMAKER_PUBLISH_QUIZ, 'quiz_publishQuiz', $quizExecution);
+        $inpExecution->setDescription(_AM_QUIZMAKER_PUBLISH_QUIZ_DESC);
+		$inpExecution->addOption(0, _CO_QUIZMAKER_PUBLISH_NONE);
+		$inpExecution->addOption(1, _CO_QUIZMAKER_PUBLISH_INLINE);
+		$inpExecution->addOption(2, _CO_QUIZMAKER_PUBLISH_OUTLINE);
 		$form->addElement($inpExecution);
         
 		// Form Check Box quiz_actif
 		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
 		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
 		$form->addElement($inpActif);
+
+        $publishArr = array(0=>_NO, 1=>_YES, 2=>_AM_QUIZMAKER_AUTO);
+        $inpPublishResults = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_RESULTS , 'quiz_publishResults', $this->getVar('quiz_publishResults'));
+        $inpPublishResults->addOptionArray($publishArr);
+        $inpPublishResults->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
+		$form->addElement($inpPublishResults);
         
+        $inpPublishAnswers = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_ANSWERS , 'quiz_publishAnswers', $this->getVar('quiz_publishAnswers'));
+        $inpPublishAnswers->addOptionArray($publishArr);
+        $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
+		$form->addElement($inpPublishAnswers);
+
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_QUIZ . '</div></center>');
         //========================================================
@@ -183,10 +199,12 @@ $quiId = $this->getVar('quiz_id');
 		$inpTheme->setDescription(_AM_QUIZMAKER_THEME_DESC);
         $inpTheme->addOptionArray($quizUtility::get_css_color(true));
 		$form->addElement($inpTheme, false);
-		
+
+/*
         // Form Editor DhtmlTextArea quizLegend
         $editLegend = \JJD\getformTextarea(_AM_QUIZMAKER_LEGEND, 'quiz_legend', $this->getVar('quiz_legend', 'e'), _AM_QUIZMAKER_LEGEND_DESC);
-		$form->addElement($editLegend, true);
+		$form->addElement($editLegend, false);
+*/		
         
 		// Form Check Box quizOnClick
 		$quizOnClick = $this->isNew() ? 0 : $this->getVar('quiz_onClickSimple');
@@ -359,10 +377,15 @@ $quiId = $this->getVar('quiz_id');
 		$ret['dateBegin']          = \JJD\getDateSql2Str($this->getVar('quiz_dateBegin'));
 		$ret['dateEnd']            = \JJD\getDateSql2Str($this->getVar('quiz_dateEnd'));
 		$ret['periodeOK']          = \JJD\isDateBetween($this->getVar('quiz_dateBegin'), $this->getVar('quiz_dateEnd'), $this->getVar('quiz_dateBeginOk'), $this->getVar('quiz_dateEndOk'));
+         
+		$ret['publishQuiz']         = $this->getVar('quiz_publishQuiz');
+		$ret['publishQuiz_lib']     = Array(_CO_QUIZMAKER_PUBLISH_NONE,_CO_QUIZMAKER_PUBLISH_INLINE,_CO_QUIZMAKER_PUBLISH_OUTLINE)[$ret['publishQuiz']];
+		
         
-                
-		$ret['execution']         = $this->getVar('quiz_execution');
-		$ret['execution_lib']     = Array(_CO_QUIZMAKER_EXECUTION_NONE,_CO_QUIZMAKER_EXECUTION_INLINE,_CO_QUIZMAKER_EXECUTION_OUTLINE)[$ret['execution']];
+        $ret['publishResults']      = $this->getVar('quiz_publishResults');
+        $ret['publishResultsOk']    = (($ret['periodeOK']==0 && $ret['publishQuiz']>0 && $ret['publishResults']==2) || $ret['publishResults']==1) ? 1 : 0;
+		$ret['publishAnswers']      = $this->getVar('quiz_publishAnswers');
+        $ret['publishAnswersOk']    = (($ret['periodeOK']==0 && $ret['publishQuiz']>0 && $ret['publishAnswers']==2) || $ret['publishAnswers']==1) ? 1 : 0;
 
 		$ret['onClickSimple']     = $this->getVar('quiz_onClickSimple');
 		$ret['theme']             = $this->getVar('quiz_theme');
@@ -395,7 +418,6 @@ $quiId = $this->getVar('quiz_id');
         $quiz_tpl = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$ret['fileName']}.tpl"; 
         $ret['quiz_tpl'] = (file_exists($quiz_tpl)) ?  QUIZMAKER_UPLOAD_QUIZ_URL . "/{$ret['fileName']}.tpl" : '';
         $ret['quiz_tpl_path'] = (file_exists($quiz_tpl)) ?  $quiz_tpl : '';
-        $ret['showSolutions'] = true;
 		return $ret;
 	}
 

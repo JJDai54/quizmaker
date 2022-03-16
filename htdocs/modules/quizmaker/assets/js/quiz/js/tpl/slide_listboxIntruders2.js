@@ -40,14 +40,16 @@ build (){
         var RightArray = []; 
     }
          
-   
+//alert (this.data.captions[0] + "-" + this.data.captions[1] );  
+var caption1 = ((this.data.captions[0] != '') ? this.data.captions[0] :  quiz_messages.goodAnswers);
+var caption2 = ((this.data.captions[1] != '') ? this.data.captions[1] :  quiz_messages.badAnswers);
     //--------------------------------------------------------------------------------
     var id1 = `${name}-1`;
     var id2 = `${name}-2`;
+    tHtml.push(`<table class="question">`);
+    //tHtml.push(`<tr><td>${quiz_messages.goodAnswers}</td><td>${quiz_messages.badAnswers}</td><tr><td>`);
+    tHtml.push(`<tr><td>${caption1}</td><td>${caption2}</td><tr><td>`);
 
-    tHtml.push(`<table class="question"><tr><td>`);
-    
-    
     var extra = `${click}="quiz_basculeValue('${id1}','${id2}');"`;
     tHtml.push(getHtmlListbox(name, id1, leftArray, keys.length, -1, currentQuestion.numbering, 0, extra));
     
@@ -69,10 +71,12 @@ build (){
 prepareData(){
 var tKeyWords = [];
     var currentQuestion = this.question;
+//alert("caption = " + currentQuestion.answers[0].caption);
         
      for (var k=0; k < 1; k++){
        var tw = currentQuestion.answers[k].proposition.split(",");  
        var tp = padStr2Array(currentQuestion.answers[k].points, tw.length);    
+       var tc = currentQuestion.answers[k].caption.split("|");  
        currentQuestion.answers[k].words = tw;  
        
        for (var h=0; h < tw.length; h++){
@@ -81,6 +85,7 @@ var tKeyWords = [];
      }
      
      this.data.keyWords = tKeyWords;  
+     this.data.captions = tc;  
      currentQuestion.answers[0].keys = Object.keys(tKeyWords);  
     
 } 

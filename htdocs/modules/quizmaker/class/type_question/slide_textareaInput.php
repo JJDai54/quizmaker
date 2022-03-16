@@ -133,7 +133,7 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
 //    echoArray($answersAll);
     $ret = array();
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
     
     $ans = $answersAll[0]->getValuesAnswers();
     

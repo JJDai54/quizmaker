@@ -58,10 +58,8 @@ $pg = array_merge($_GET, $_POST);
           //$imgNameDef     = Request::getString('sld_short_name');
           $uploaderErrors = '';
           $uploader = new \XoopsMediaUploader(QUIZMAKER_UPLOAD_FILES_PATH , 
-                                                      array('application/x-gzip','application/zip', 'text/plain','application/gzip','application/x-compressed','application/x-zip-compressed'), 
-                                                      50000, null, null);
-     
-
+                      array('application/x-gzip','application/zip', 'text/plain','application/gzip','application/x-compressed','application/x-zip-compressed'), 
+                      50000, null, null);
  
                                                       
           if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -83,7 +81,6 @@ $pg = array_merge($_GET, $_POST);
                   }
                 } 
 
-
             redirect_header("questions.php?op=list&quiz_id={$newQuizId}&sender=", 5, "Importation Ok dans quiz_id={$newQuizId}");
     break;
     
@@ -92,9 +89,9 @@ $pg = array_merge($_GET, $_POST);
 	default:
 		$templateMain = 'quizmaker_admin_import.tpl';
 		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
-		if (false === $action) {
-			$action = $_SERVER['REQUEST_URI'];
-		}
+// 		if (false === $action) {
+// 			$action = $_SERVER['REQUEST_URI'];
+// 		}
 		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 		// Permissions for uploader
 		$grouppermHandler = xoops_getHandler('groupperm');

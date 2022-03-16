@@ -76,7 +76,7 @@ class slide_pageInfo extends XoopsModules\Quizmaker\Type_question
 * *************************************************/
  	public function getForm($questId)
  	{
-        global $utility, $answersHandler;
+        global $utility, $quizUtility, $answersHandler;
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
@@ -91,7 +91,9 @@ class slide_pageInfo extends XoopsModules\Quizmaker\Type_question
             $name = $this->getName($i,'proposition');
             $proposition = (isset($answers[$i])) ? $answers[$i]->getVar('answer_proposition', 'e') : '';
             //$inpPropo = $this->getformTextarea(_AM_QUIZMAKER_SLIDE_TEXTES, $name, $proposition);        
-            $inpPropo = $this->getformAdmin(_AM_QUIZMAKER_SLIDE_TEXTES, $name, $proposition);        
+            //$inpPropo = $this->getformAdmin(_AM_QUIZMAKER_SLIDE_TEXTES, $name, $proposition);      
+            $inpPropo  = $quizUtility->getEditor(_AM_QUIZMAKER_SLIDE_TEXTES, $name, $proposition,  null , null, null);
+              
             $trayAllAns->addElement($inpPropo);      
         }
 

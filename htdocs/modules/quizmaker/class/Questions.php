@@ -91,7 +91,7 @@ class Questions extends \XoopsObject
 	 */
  	public function getFormQuestions($action = false, $sender="")
  	{
-        global $quizHandler, $utility, $type_questionHandler;
+        global $quizHandler, $utility, $quizUtility, $type_questionHandler;
         //---------------------------------------------- 
 		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
@@ -172,7 +172,7 @@ class Questions extends \XoopsObject
         ___IMG___;
         $inpImg = new \XoopsFormLabel  ('', $img);  
         $inpImg->setExtra("class='highslide-gallery'");
-\JJD\include_highslide();       
+\JJD\include_highslide(null,"quizmaker");       
         $trayParent->addElement($inpImg);
         //--------------------------------
 		$form->addElement($trayParent);
@@ -223,39 +223,11 @@ class Questions extends \XoopsObject
         $form->addElement($inpOptions, false);
         //--------------------------------------------------------------
 		// Form Editor DhtmlTextArea questComment1
-		$editorConfigs = [];
-		if ($isAdmin) {
-			$editor = $helper->getConfig('editor_admin');
-		} else {
-			$editor = $helper->getConfig('editor_user');
-		}
-		$editorConfigs['name'] = 'quest_comment1';
-		$editorConfigs['value'] = $this->getVar('quest_comment1', 'e');
-		$editorConfigs['rows'] = 5;
-		$editorConfigs['cols'] = 40;
-		$editorConfigs['width'] = '100%';
-		$editorConfigs['height'] = '400px';
-		$editorConfigs['editor'] = $editor;
-		$inpComment1 = new \XoopsFormEditor( _AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $editorConfigs);
-        $inpComment1->setDescription(_AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC);
+        $inpComment1  = $quizUtility->getEditor(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $helper);        
 		$form->addElement($inpComment1);
         //--------------------------------------------------------------
 		// Form Editor DhtmlTextArea quest_explanation
-		$editorConfigs = [];
-		if ($isAdmin) {
-			$editor = $helper->getConfig('editor_admin');
-		} else {
-			$editor = $helper->getConfig('editor_user');
-		}
-		$editorConfigs['name'] = 'quest_explanation';
-		$editorConfigs['value'] = $this->getVar('quest_explanation', 'e');
-		$editorConfigs['rows'] = 5;
-		$editorConfigs['cols'] = 40;
-		$editorConfigs['width'] = '70%';
-		$editorConfigs['height'] = '200px';
-		$editorConfigs['editor'] = $editor;
-        $inpExplanation = new \XoopsFormEditor( _AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $editorConfigs) ;
-        $inpExplanation->setDescription(_AM_QUIZMAKER_EXPLANATION_DESC);
+        $inpExplanation  = $quizUtility->getEditor(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $helper);        
 		$form->addElement($inpExplanation);
         
         /* ***** Option uniquement pour les questions ***** */
@@ -273,6 +245,7 @@ class Questions extends \XoopsObject
 
         
         //----------------------------------------------------------
+		// Form int quest_shuffleAnswers
         $inpShuffleAns = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS , 'quest_shuffleAnswers', $this->getVar('quest_shuffleAnswers'));        
 		$inpShuffleAns->setDescription(_AM_QUIZMAKER_SHUFFLE_ANS_DESC);
 		$form->addElement($inpShuffleAns);
@@ -287,10 +260,13 @@ class Questions extends \XoopsObject
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight')) );
 		
         // Form Text Select questTimer
-        $inpTimer = new \XoopsFormText( _AM_QUIZMAKER_TIMER, 'quest_timer', 20, 50,  $this->getVar('quest_timer'));
+        $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, 'quest_timer', 8, 8, $this->getVar('quest_timer'));
+        $inpTimer->setMinMax(0, 30);
         $inpTimer->setDescription(_AM_QUIZMAKER_TIMER_DESC);
 		$form->addElement($inpTimer);
-		
+
+        
+		$form->addElement($fileNameTray);
         
         
                 
@@ -300,7 +276,7 @@ class Questions extends \XoopsObject
         $form->addElement($inpVisible);
         
         // Form quest_actif
-		$inpActif = new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'quest_visible', $this->getVar('quest_actif'));
+		$inpActif = new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'quest_actif', $this->getVar('quest_actif'));
         $inpActif->setDescription(_AM_QUIZMAKER_ACTIF_DESC);
         $form->addElement($inpActif);
         

@@ -111,6 +111,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('expQuiz', $expQuiz);
         //---------------------------------------------        
         //test du quiz
+        if($quiz){
         if($quizValues["quiz_html"] != '' ){
             $imgTest = new XoopsFormImg(_AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'], QUIZMAKER_ICONS_URL . "/32/quiz-1.png", $quizValues["quiz_html"] );
         }else{
@@ -118,6 +119,7 @@ switch($op) {
         } 
         $imgTest->setExtra("target='blank'");
         $btn['imgTest'] = $imgTest->render();
+        }
         
         
         $btn['exportQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_EXPORT_YML, 'export_quiz', QUIZMAKER_ICONS_URL."/16/add.png",  _AM_QUIZMAKER_EXPORT_QUIZ_YML);
@@ -197,6 +199,14 @@ switch($op) {
             $questionsObj->setVar('quest_visible', 1);
             $questionsObj->setVar('quest_actif', 1);
             $questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
+/*
+            $lanquage = $xoopsConfig['language'];
+            //$f = XOOPS_ROOT_PATH . "/modules/quizmaker/language/{$lanquage}/slide/slide_resultats.html";
+            $f = QUIZMAKER_PATH . "/language/{$lanquage}/slide/slide_resultats.html";
+            $slideresultats = $quizUtility->loadTextFile($f);
+echo "<hr>{$f}<hr>{$slideresultats}<hr>";    
+*/            
+        
         }else if($op == 'addingroup'){
             $typeQuestion = Request::getString('quest_type_question', "");
         }

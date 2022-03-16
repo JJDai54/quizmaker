@@ -155,7 +155,7 @@ class slide_matchItems extends XoopsModules\Quizmaker\Type_question
     $answersAll = $answersHandler->getListByParent($questId);
     
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
 //    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;

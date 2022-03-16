@@ -163,7 +163,7 @@ class slide_radioSimple extends XoopsModules\Quizmaker\Type_question
     $scoreMax = 0;
     $scoreMin = 0;
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
     
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();

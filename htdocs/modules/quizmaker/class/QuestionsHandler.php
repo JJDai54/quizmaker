@@ -141,7 +141,7 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
         $obs = $this->getObjects($criteria, true);
         foreach (array_keys($obs) as $i) {
             $key = $obs[$i]->getVar('quest_id');
-            $ret[$key] = $obs[$i]->getVar($fieldsName) . ((QUIZMAKER_ADD_ID) ? " ({$key})" : "");
+            $ret[$key] = $obs[$i]->getVar($fieldsName) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
         
         }
 

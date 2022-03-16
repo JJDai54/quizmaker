@@ -22,6 +22,7 @@ const quiz_const = {
 }
 
 var quizard = [];
+var currentSlide = 0;
  
 (function theQuiz(){
   // Functions
@@ -57,10 +58,12 @@ filtrerQuestions(); //pour tester chaque type de question une par une
     output.push(`<div id="quiz_box_title" name="quiz_box_title" class="itemRound-top ${quiz.theme}-itemHead">${quiz.name}</div>
                  <div id="quiz_box_all_slides" name="quiz_box_all_slides" class="itemRound-no ${quiz.theme}-itemBody">${htmlSlides}</div>
                  <div id="quiz_box_buttons" name="quiz_box_buttons" class="itemRound-no ${quiz.theme}-itemBody">${buttons}</div>
-                 <div id="quiz_box_legend" name="quiz_box_legend" class=" itemRound-no ${quiz.theme}-itemFoot">${legend}</div>
+                 <div id="quiz_progressbar" name="quiz_progressbar" class=" itemRound-no ${quiz.theme}-itemBody" style="padding: 0px 0px 5px 0px;"><center>${getProgressbarHTML()}</center></div>
                  <div id="quiz_box_results" name="quiz_box_results" class="itemRound-no ${quiz.theme}-itemFoot">${results}</div>
                  <div id="quiz_box_foot" name="quiz_box_foot" class="itemRound-bottom ${quiz.theme}-itemHead">${version}</div>`);
-
+/*
+                 <div id="quiz_box_legend" name="quiz_box_legend" class=" itemRound-no ${quiz.theme}-itemFoot">${legend}</div>
+*/
 
 //    if (quiz.showResultPopup) {
     if (quiz.showReponsesBottom) {
@@ -92,6 +95,20 @@ el.setAttribute('src',"");
 alert(el.id);
 */
 
+pb_init(quizard.length, 1);
+//pb_run();
+
+}
+/**************************************************************************
+ *   
+ * ************************************************************************/
+function getProgressbarHTML(){
+return `<div id="pb_contenair" name="pb_contenair">
+  <div id="pb_text" width="80px">0 / 0</div>
+  <div id="pb_base">
+      <div id="pb_indicator"></div>
+  </div>
+</div>`;
 
 
 }
@@ -158,28 +175,45 @@ var questionNumber = clQuestion.question.questionNumber;
 
         statsTotal.scoreMaxi += clQuestion.scoreMaxi;
         statsTotal.scoreMini += clQuestion.scoreMini;
-       var comment1 = getMessage(clQuestion.question.comment1);
-       comment1 = comment1.replace("{scoreMaxi}", clQuestion.scoreMaxi).replace("{timer}", clQuestion.timer);
+        
+       var comment1 = '';  
+       if (clQuestion.question.comment1) {
+         comment1 = getMessage(clQuestion.question.comment1);
+         comment1 = comment1.replace("{scoreMaxi}", clQuestion.scoreMaxi).replace("{timer}", clQuestion.question.timer);
+         comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment1}</span>`;
+         
+//          comment1 = `<div class="quiz_slide_comment1"><hr class="quiz-style-two">
+//                     ${comment1}
+//                 </div>`;
+       }
 
 //        var comment2 =  getMessage(clQuestion.question.comment2);
 //        comment2 = comment2.replace("{points}", clQuestion.scoreMaxi);
 //        comment2 = comment2.replace("{timer}", clQuestion.timer);
        
-       var divChrono = "";
+       var divPoints = "";
        if(clQuestion.question.isQuestion == 1){
-         var divChrono = quiz_messages.forPoints.replace("{pointsMin}", clQuestion.scoreMini).replace("{pointsMax}", clQuestion.scoreMaxi);
+         var divPoints = quiz_messages.forPoints.replace("{pointsMin}", clQuestion.scoreMini).replace("{pointsMax}", clQuestion.scoreMaxi);
          if (quiz.useTimer == 1){
-              var exp =  `<label id="question${questionNumber}-chrono" class="quiz-timer">${clQuestion.timer}</label>`;
-              exp  = quiz_messages.forChrono.replace("{timer}", exp);
-              divChrono += " " + exp;
+              var divChrono =  `<label id="question${questionNumber}-slideTimer" class="quiz-timer">${clQuestion.question.timer}</label>`;
+              divChrono  = quiz_messages.forChrono.replace("{timer}", divChrono);
+              divPoints += " " + divChrono;
          }
-         divChrono += "<br>";
+         divPoints += "<br>";
 
+       }else if(clQuestion.question.timer > 0 && quiz.useTimer == 1){
+        //c'est une page info
+              var divChrono =  `<label id="question${questionNumber}-slideTimer" class="quiz-timer">${clQuestion.question.timer}</label>`;
+              divChrono  = quiz_messages.readerTimer.replace("{timer}", divChrono);
+              divPoints += " " + divChrono + "<br>";
        }
        
        //JJDai - type
        var sType = (quiz.showTypeQuestion) ? `<br><span style="color:white;">(${clQuestion.question.typeQuestion}/${clQuestion.question.typeForm} - questId = ${clQuestion.question.quizId}/${clQuestion.question.questId}) - ${clQuestion.question.timestamp}</span>`: '';
-       var title = `${questionNumber+1} : ${divChrono}${clQuestion.question.question}${sType}`;
+       //var title = `${questionNumber+1} : ${divPoints}${clQuestion.question.question}${sType}`;
+       var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${questionNumber+1} : ${clQuestion.question.question}${comment1}</div>${sType}`;
+
+
 
         // add this question and its answers to the output    
         var output = [];
@@ -187,10 +221,8 @@ var questionNumber = clQuestion.question.questionNumber;
         output.push(
           `<div id="slide[${questionNumber}]" name="slide${questionNumber}" class="quiz_slide_main" >
             <div class="quiz_slide_question_main  itemRound-no ${quiz.theme}-itemInfo">
-                <div class="quiz_slide_question">${title}<hr class="quiz-style-two"></div>
-                <div class="quiz_slide_comment1">
-                    ${comment1}
-                </div>
+                <div class="quiz_slide_question">${title}</div>
+                
             </div>
             
             <div class="quiz_slide_body itemRound-no ${quiz.theme}-itemBody">
@@ -400,6 +432,16 @@ statsTotal.repondu = results.repondu;
     //resultsContainer.innerHTML = `resultat(${chrono}) : ${numCorrect} out of ${myQuestions.length} | points = ${numPoints}`;
   }
 
+//----------------------------------------------------------
+  function showFinalResults (){
+    // gather answer containers from our quiz
+    var answerContainers = quizBoxAllSlides.querySelectorAll('.answers');
+
+    var results = getAllScores();
+statsTotal.score = results.score;
+statsTotal.repondu = results.repondu;
+    
+  }
 
 
 /* *********************************
@@ -461,98 +503,126 @@ function reloadQuestion() {
  
 /* ***********************************************
 *
+*   function showSlide (n) {
+    var isNewSlide = (currentSlide != n);
+    if (isNewSlide) {
+    slides[currentSlide].classList.remove('quiz_slide_main_active');
+    slides[n].classList.add('quiz_slide_main_active');
+    }
+    currentSlide = n;
+    pb_setValue(n+1);
+
 * */
 
   function showSlide (n) {
-    if (n < slides.length && n >= 0) {
+    showSlide_new (n - currentSlide);
+    return;
+    
+   }
+
+/* ***********************************************
+*
+*   function showSlide (offset)
+*   @ offset int : 0=current slide, >=1 next slide, <=1 previous slide
+*
+* */
+
+  function showSlide_new (offset=0) {
+    //affichage du popup des solutions si osset > 0 uniquement
+    if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_showResult(currentSlide);
+
+    var newSlide = currentSlide + offset;
+    if (newSlide >= slides.length) newSlide = slides.length-1;
+    if (newSlide < 0) newSlide = 0;
+  
     slides[currentSlide].classList.remove('quiz_slide_main_active');
-    slides[n].classList.add('quiz_slide_main_active');
-    var isNewSlide = (currentSlide != n);
-    currentSlide = n;
-    }
-    //----------------------------------------------
-//    if (isNewSlide) eventList_init();
+    slides[newSlide].classList.add('quiz_slide_main_active');
 
-
-
-        //alert("showSlide");
-    if (quiz.showReponsesBottom)
-      quizReponsesBottom.innerHTML = getAllReponses(quizard[currentSlide]);
-    //----------------------------------------------
-//     if (quizard[currentSlide].typeQuestion === "pageInfo" && quizard[currentSlide].typeForm == quiz_const.formResult){
-//         stopTimer();
-//     }
-//    alert("showSlide : " + quizard[currentSlide].typeQuestion + " / " + quizard[currentSlide].typeName);
-    if (quizard[currentSlide].typeQuestion === "pageInfo"){
-        quizard[currentSlide].reloadQuestion();
-        if (quizard[currentSlide].typeForm == quiz_const.formResult)
-            stopTimer();
-        
-    }
+    var isNewSlide = (currentSlide != newSlide);
+    currentSlide = newSlide;
+    //maj de la barre de progression
+    pb_setValue(currentSlide + 1);
     
-    //----------------------------------------------
-    if (idChrono == 0 && currentSlide == 1)
-        startTimer();
-    //----------------------------------------------
-       //alert ("idTimer = " + idTimer);
-       // clearInterval(idTimer);
        if (isNewSlide){
-         clearInterval(idTimer);
-         statsTotal.timer = 0;
-         idTimer=0;
+         clearInterval(idSlideTimer);
+           statsTotal.slideTimer = 0;
+         idSlideTimer=0;
        }
-
-
-        if (quizard[currentSlide].timer > 0 && idTimer == 0 && quiz.useTimer){
-     //alert("il y a un timer") ;
-       //var obTimer = document.getElementById("question" + currentSlide + "-timer");
-       statsTotal.timer = quizard[currentSlide].timer;
-
-       idTimer = setInterval(updateChrono, 1000);
-       //updateChrono();
-       //alert ("idTimer = " + idTimer);
+    //----------------------------------------------
+    // pour faciliter la lecture du code    
+    var firstSlide  = (currentSlide === 0);
+    var lastSlide   = (currentSlide === (slides.length-1));
+    var secondSlide = (currentSlide === 1); //en realité la premiere question normalement
+    var pageInfo    = (quizard[currentSlide].typeQuestion === "pageInfo");
+    
+    //est-que le quizTimer est activé et y-a-il un timer sur le slide;
+    if (quizard[currentSlide].question.timer > 0 && idSlideTimer == 0 && quiz.useTimer && !lastSlide){
+    //alert("start slide timer : |" + quizard[currentSlide].question.timer + "|");
+        statsTotal.slideTimer = quizard[currentSlide].question.timer;
+        idSlideTimer = setInterval(updateSlideTimer, 1000);
     }
     //----------------------------------------------
-    var bolOk = isInputOk() || !quizard[currentSlide].isQuestion();
-    var allowedGotoNextslide = (bolOk &&  quiz.answerBeforeNext) || !quiz.answerBeforeNext;
-
-    if(currentSlide === 0){
-      enableButton(previousButton, 0);
-      enableButton(nextButton, 1);
-      if (allowedGotoNextslide){
-      enableButton(nextButton, 1);
-      }else{
-      enableButton(nextButton, 0);
-      }
-      enableButton(submitButton, ((quiz.allowedSubmit)?1:0));
-    }else if(currentSlide === (slides.length-1) ){
-//    alert("fin");
-      enableButton(previousButton, ((quiz.allowedPrevious)?1:0));
-      enableButton(nextButton, 0);
-      enableButton(submitButton, 1);
+    if (quiz.showReponsesBottom)
+        quizReponsesBottom.innerHTML = getAllReponses(quizard[currentSlide]);
+      
+        var bolOk = isInputOk() || !quizard[currentSlide].isQuestion();
+        var allowedGotoNextslide = (bolOk &&  quiz.answerBeforeNext) || !quiz.answerBeforeNext;
+    //------------------------------------------
+    if(firstSlide){
+        // c'est le premier slide - présentation du quiz
+        enableButton(previousButton, 0);
+        enableButton(nextButton, 1);
+        
+        if (allowedGotoNextslide){
+        enableButton(nextButton, 1);
+        }else{
+        enableButton(nextButton, 0);
+        }
+        //enableButton(submitButton, ((quiz.allowedSubmit)?1:0));
+        enableButton(submitButton, 0);
+        
+        
+    }else if(lastSlide){
+        //c'est le dernier slide
+        showFinalResults();
+        quizard[currentSlide].reloadQuestion();
+        stopTimer();
+        
+        enableButton(previousButton, ((quiz.allowedPrevious && !quiz.useTimer)?1:0));
+        enableButton(nextButton, 0);
+        //enableButton(submitButton, 1);
+        enableButton(submitButton, ((quiz.allowedSubmit) ? 1 : 0));
+   
+        
     }else{
-      enableButton(previousButton, ((quiz.allowedPrevious)?1:0));
-
-      if (allowedGotoNextslide){
-          enableButton(nextButton, 1);
-      }else{
-          enableButton(nextButton, 0);
-      }
-
-      enableButton(submitButton, ((quiz.allowedSubmit) ? 1 : 0));
+        if(secondSlide){
+            //alert("premiser slide");
+          //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
+          //au cas ou le bouton précédent est ctivé evite de ralancer le chrono
+          if (idQuizTimer == 0 ) startTimer();
+        }
+        if (pageInfo){
+        //c'est une 'page_info' hors premier et dernier slide
+        quizard[currentSlide].reloadQuestion();
+//         if (quizard[currentSlide].typeForm == quiz_const.formResult)
+//             stopTimer();
+        }
+             
+        enableButton(previousButton, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
+        enableButton(nextButton, ((allowedGotoNextslide) ? 1 : 0));
+        enableButton(submitButton, 0);
     }
-    
- 
+   
+   //dans tous les cas - ce sont des action a activer dans l'admin pour le développement 
    enableButton(showGoodAnswersButton, ((quiz.showGoodAnswers) ? 1 : 3));
    enableButton(showBadAnswersButton,  ((quiz.showBadAnswers)  ? 1 : 3));
    enableButton(showReloadAnswersButton,  ((quiz.showReloadAnswers)  ? 1 : 3));
-        
 
-    if (quiz.showResultAllways) showResults();
-    
-    if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
-    
+  if (quiz.showResultAllways) showResults();
+  if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
+
    }
+
 //--------------------------------------------------------------------
   function showNextSlide () {
     if (currentSlide > 0 && quiz.showResultPopup) event_showResult(currentSlide);
@@ -567,31 +637,34 @@ function reloadQuestion() {
   /**************************************************************
    *       TIMER
    * ************************************************************/
-  function updateChrono (){
-     currentQuestion =  quizar[currentSlide];
-     if (currentQuestion.isQuestion == 0) return false;
+  function updateSlideTimer (){
+     currentQuestion =  quizard[currentSlide];
+     //if (currentQuestion.isQuestion == 0) return false;
 
-     var obChrono = document.getElementById("question" + currentSlide + "-chrono");
-     obChrono.innerHTML = statsTotal.timer;
+     var obSlideTimer = document.getElementById("question" + currentSlide + "-slideTimer");
+     //var obSlideTimer = document.getElementById("question" + currentQuestion.questionNumber + "-slideTimer");
+     if(!obSlideTimer) alert("obSlideTimer pas trouvé");
+     obSlideTimer.innerHTML = statsTotal.slideTimer;
 
-      if (statsTotal.timer == 0){
-         clearInterval(idTimer);
-         idTimer = 0;
+      if (statsTotal.slideTimer == 0){
+         clearInterval(idSlideTimer);
+         idSlideTimer = 0;
          showNextSlide();
       }
-      statsTotal.timer --;
+        statsTotal.slideTimer --;
+        //alert("slideTimer = " + statsTotal.slideTimer);
   }
 
 
   //----------------------------------------------------------------
-  function updateTimer (){
+  function updateQuizTimer (){
         horloge.innerHTML = formatChrono(statsTotal.counter ++);
   }
   function startTimer () {
-    idChrono = setInterval(updateTimer, 1000);
+    idQuizTimer = setInterval(updateQuizTimer, 1000);
   }
   function stopTimer () {
-    clearInterval(idChrono);
+    clearInterval(idQuizTimer);
   }
 
 
@@ -1008,8 +1081,8 @@ const tEvents = [];
   // Pagination
   //const quizBoxAllSlides = document.getElementById("quiz_box_all_slides");
   let currentSlide = 0;
-  let idTimer = 0;
-  let idChrono = 0;
+  let idSlideTimer = 0;
+  let idQuizTimer = 0;
   // Show the first slide
 
   // Event listeners

@@ -26,7 +26,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 2.0,
+	'version'             => 2.2,
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -38,7 +38,7 @@ $modversion = [
 	'help'                => 'page=help',
 	'release_info'        => 'release_info',
 	'release_file'        => XOOPS_URL . '/modules/quizmaker/docs/release_info file',
-	'release_date'        => '2020/08/27',
+	'release_date'        => '2022/03/16',
 	'manual'              => 'link to manual file',
 	'manual_file'         => XOOPS_URL . '/modules/quizmaker/docs/install.txt',
 	'min_php'             => '5.5',
@@ -153,6 +153,7 @@ if ($currdirname == $moduleDirName) {
 	];
 }
 // ------------------- Blocks ------------------- //
+/*
 // Quiz last
 $modversion['blocks'][] = [
 	'file'        => 'quiz.php',
@@ -256,16 +257,8 @@ $modversion['blocks'][] = [
 	'template'    => 'quizmaker_block_results.tpl',
 	'options'     => 'random|5|25|0',
 ];
+*/
 
-$modversion['blocks'][] = [
-    'file'        => 'menu_xbootstrap.php',
-    'name'        => _MI_QUIZMAKER_MENU_XBOOTSTRAP,
-    'description' => _MI_QUIZMAKER_MENU_XBOOTSTRAP_DSC,
-    'show_func'   => 'b_quizmaker_menu_xbootstrap_show',
-    'edit_func'   => 'b_quizmaker_menu_xbootstrap_edit',
-    'options'     => '',
-    'template'    => 'quizmaker_block_menu_xbootstrap.tpl',
-];
 
 // ------------------- Config ------------------- //
 // Editor Admin
@@ -354,7 +347,8 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_KEYWORDS_DESC',
 	'formtype'    => 'textbox',
 	'valuetype'   => 'text',
-	'default'     => 'quizmaker, quiz, questions, categories, type_question, answers, results, messages',
+	'default'     => _MI_QUIZMAKER_KEYWORDS_LIST,
+    
 ];
 // Admin pager
 $modversion['config'][] = [
@@ -467,7 +461,7 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_MAINTAINEDBY_DESC',
 	'formtype'    => 'textbox',
 	'valuetype'   => 'text',
-	'default'     => 'https://www.frxoops.org/modules/newbb/viewforum.php?forum=12',
+	'default'     => 'https://github.com/JJDai54/quizmaker',
 ];
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification'] = 1;

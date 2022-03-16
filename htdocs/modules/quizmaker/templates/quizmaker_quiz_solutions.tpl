@@ -3,6 +3,7 @@
 <{/if}>
 
 <{include file='db:quizmaker_header.tpl' }>
+
 <script>
 function qm_scrollWin(offsetV = -50){
 var intervalID = setTimeout(qm_scrollWin2, 80, offsetV);
@@ -28,6 +29,7 @@ window.scroll(0, window.scrollY + offsetV);
 .solutions td{
   border: solid 0px black;
 }
+
 </style>
     <div class="itemRound-top <{$quiz.theme_ok}>-itemHead"><center><{$quiz.name}></center></div>
     <div class="itemRound-none <{$quiz.theme_ok}>-itemInfo" style="padding:20px 50px 20px 50px;"><{$quiz.quiz_description}></div>
@@ -41,7 +43,7 @@ window.scroll(0, window.scrollY + offsetV);
     <a href='' name='slide-sommaire'></a>
     <div class="itemRound-none <{$quiz.theme_ok}>-itemBody" style="padding:0px 50px 0px 50px;">
     
-      <table>
+      <table class='quizTbl'>
         <{foreach item=question from=$questions name=quest}>
         
             <{if $question.type_question == 'pageInfo'}>

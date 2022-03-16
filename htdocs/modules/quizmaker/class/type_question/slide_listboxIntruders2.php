@@ -62,8 +62,8 @@ class slide_listboxIntruders2 extends XoopsModules\Quizmaker\Type_question
  	{    
       
       $input = new XoopsFormRadio($caption, $name, $value, '<br>');
-      $input->addOption("", "Répartion aléatoire sur la liste de gauche uniquement");            
-      $input->addOption("M", "Répartion aléatoire sur les deux listes");            
+      $input->addOption("", _AM_QUIZMAKER_REPARTITION_ALEATOIRE1);            
+      $input->addOption("M", _AM_QUIZMAKER_REPARTITION_ALEATOIRE2);            
       //$input->setDescription ('Oui');      
             
       return $input;
@@ -85,13 +85,26 @@ class slide_listboxIntruders2 extends XoopsModules\Quizmaker\Type_question
         //element definissant un objet ou un ensemble
         $i=0;
         if(isset($answers[$i])){
-          $tPropos = explode(",", $answers[$i]->getVar('answer_proposition'));
-          $tPoints = explode(",", $answers[$i]->getVar('answer_points'));
+          $tPropos   = explode(",", $answers[$i]->getVar('answer_proposition'));
+          $tPoints   = explode(",", $answers[$i]->getVar('answer_points'));
+          $tCaptions = explode("|", $answers[$i]->getVar('answer_caption'));
         }else{
-            $tPropos = array();
-            $tPoints = array();
+            $tPropos   = array();
+            $tPoints   = array();
+            $tCaptions = array();
         }
-   
+        //--------------------------------------------------- 
+                           
+        $trayCaption = new XoopsFormElementTray ('', $delimeter = '<br>');   
+        $inpCaption1 = new \XoopsFormText(_AM_QUIZMAKER_SLIDE_CAPTION1, $this->getName(0, 'caption'), $this->lgMot1, $this->lgMot2, isset($tCaptions[0])  ? $tCaptions[0] : 'Bonne réponses');
+        $inpCaption2 = new \XoopsFormText(_AM_QUIZMAKER_SLIDE_CAPTION2, $this->getName(1, 'caption'), $this->lgMot1, $this->lgMot2, isset($tCaptions[1])  ? $tCaptions[1] : 'Mauvaises réponses');
+        
+        $trayCaption->addElement($inpCaption1);
+        $trayCaption->addElement($inpCaption2);
+        $trayAllAns->addElement($trayCaption);
+        $trayAllAns->addElement(new \XoopsFormLabel('', '<hr>'));
+            
+        //---------------------------------------------------                    
         for ($h = 0; $h < $this->maxPropositions; $h++){
             $trayAns = new XoopsFormElementTray  ('', $delimeter = ' ');  
             
@@ -106,7 +119,8 @@ class slide_listboxIntruders2 extends XoopsModules\Quizmaker\Type_question
             $trayAns->addElement($inpPropos);
             
             $name = $this->getName($h, 'points');
-            $inpPoints = new \XoopsFormText(_AM_QUIZMAKER_SLIDE_POINTS, $name, $this->lgMot1, $this->lgMot2, $points);
+            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_SLIDE_POINTS,  $name, $this->lgPoints, $this->lgPoints, $points);
+            $inpPoints->setMinMax(-30, 30);
             $trayAns->addElement($inpPoints);
             
             $trayAllAns->addElement($trayAns);
@@ -126,12 +140,15 @@ class slide_listboxIntruders2 extends XoopsModules\Quizmaker\Type_question
         //$this->echoAns ($answers, $questId, $bExit = true);    
         $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
+//echoArray($answers);
         $propos = array();
         $points = array();
+        $captions = array();
         foreach ($answers as $key=>$value){
             if ($value['proposition'] != ''){
                 $propos[] = trim($value['proposition']);
                 $points[] = intval(trim($value['points']));
+                $captions[] = trim($value['caption']);
             }
         }
     
@@ -141,13 +158,13 @@ class slide_listboxIntruders2 extends XoopsModules\Quizmaker\Type_question
     	$ansObj->setVar('answer_points', implode(',', $points));
     	$ansObj->setVar('answer_weight', 10);
         
-    	$ansObj->setVar('answer_caption', '');
+    	$ansObj->setVar('answer_caption', implode('|', $captions));
+    	//$ansObj->setVar('answer_caption', $value['caption1'] . "|" . $value['caption2']);
     	$ansObj->setVar('answer_inputs', 0);
         
     	$ret = $answersHandler->insert($ansObj);
-        
+ //       exit;
         }
-
 
 /* ********************************************
 *
@@ -165,7 +182,7 @@ class slide_listboxIntruders2 extends XoopsModules\Quizmaker\Type_question
     $tp = $this->combineAndSorAnswer($ans);    
     
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
 //    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;

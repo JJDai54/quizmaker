@@ -155,7 +155,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
         
         foreach (array_keys($obs) as $i) {
             $key = $obs[$i]->getVar('cat_id');
-            $ret[$key] = $obs[$i]->getVar('cat_name') . ((QUIZMAKER_ADD_ID) ? " ({$key})" : "");;
+            $ret[$key] = $obs[$i]->getVar('cat_name') . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");;
         
         }
 

@@ -180,7 +180,7 @@ class slide_sortCombobox extends XoopsModules\Quizmaker\Type_question
     $points = intval($ans['points']);
     
     $html = array();
-    $html[] = "<table class='solutions'>";
+    $html[] = "<table class='quizTbl'>";
 //    echoArray($answersAll);
     $ret = array();
     $scoreMax = $points;

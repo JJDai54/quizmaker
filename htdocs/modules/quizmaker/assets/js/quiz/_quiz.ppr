@@ -17,7 +17,7 @@ Extensions=*.*
 [Project tree]
 _quiz
 	+quiz
-		-css
+		+css
 			css\index.html
 			css\quiz.css
 			css\quiz-tmp.css
@@ -103,8 +103,8 @@ _quiz
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		-js
-			-language
+		+js
+			+language
 				js\language\quiz-english.js
 				js\language\quiz-french.js
 			+tpl
@@ -136,34 +136,26 @@ _quiz
 		Nouveau1.js
 		quiz.html
 [Open project files]
-0=js\language\quiz-french.js
-1=js\tpl\slide_pageInfo.js
-2=js\quiz-main.js
-3=js\tpl\slide_radioLogical.js
-4=js\tpl\slide_radioSimple.js
-5=js\quiz-functions.js
-6=js\tpl\slide_multiTextbox.js
+0=js\quiz-main.js
+1=js\language\quiz-french.js
+2=js\language\quiz-english.js
+3=js\tpl\slide_pageInfo.js
+4=css\quiz.css
 [Selected Project Files]
 Main=
-Selected=js\quiz-main.js
+Selected=js\language\quiz-french.js
+[js\quiz-main.js]
+TopLine=573
+Caret=56,592
 [js\language\quiz-french.js]
-TopLine=1
-Caret=1,15
+TopLine=15
+Caret=1,33
+[js\language\quiz-english.js]
+TopLine=3
+Caret=16,31
 [js\tpl\slide_pageInfo.js]
 TopLine=1
-Caret=98,24
-[js\quiz-main.js]
-TopLine=150
-Caret=47,162
-[js\tpl\slide_radioLogical.js]
-TopLine=1
-Caret=41,19
-[js\tpl\slide_radioSimple.js]
-TopLine=1
-Caret=34,23
-[js\quiz-functions.js]
-TopLine=897
-Caret=36,898
-[js\tpl\slide_multiTextbox.js]
-TopLine=54
-Caret=22,74
+Caret=1,25
+[css\quiz.css]
+TopLine=340
+Caret=16,363

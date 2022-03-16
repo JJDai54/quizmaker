@@ -25,7 +25,7 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 define('_MA_QUIZMAKER_INDEX', "Accueil");
-define('_MA_QUIZMAKER_TITLE', "QuizMaker");
+define('_MA_QUIZMAKER_TITLE', "Quiz");
 define('_MA_QUIZMAKER_DESC', "Ce module permet de créer des quiz et des QCM");
 define('_MA_QUIZMAKER_INDEX_DESC', "Bienvenue sur la page d'accueil de votre nouveau module QuizMaker !<br>
 
@@ -165,8 +165,9 @@ define('_MA_QUIZMAKER_AVERAGE', "Moyenne");
 define('_MA_QUIZMAKER_CLOSED', "Fermé");
 define('_MA_QUIZMAKER_PARTICIPATION', "Participation");
 define('_MA_QUIZMAKER_SOLUTIONS', "Solutions");
-define('_MA_QUIZMAKER_HOW_TO_RUN_QUIZ', "Pour lancer un quiz, cliquez sur la flèche en regard.");
+define('_MA_QUIZMAKER_HOW_TO_RUN_QUIZ', "Pour lancer un quiz, cliquez sur la flèche.");
 define('_MA_QUIZMAKER_HOW_TO_SHOW_SOLUTIONS', "Pour voir les solutions cliquez sur les ampoules oranges.");
+define('_MA_QUIZMAKER_HOW_TO_SHOW_RESULTS', "Pour voir les résultats cliquez sur le symbole &#425;.");
 
 
 ?>

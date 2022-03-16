@@ -26,10 +26,9 @@ img{
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_THEME}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_DATEBEGIN}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_DATEEND}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_DATE_BEGIN_END}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PERIODE}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_EXECUTION}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_PUBLISH}></th>
                                 
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_OPTIONS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CONFIGS_OPTIONS}></th>
@@ -55,13 +54,10 @@ img{
 				<td class='left'>
                     <{$Quiz.theme_ok}>
                 </td>
-                
+               
 				<td class='center'>
                     <{$Quiz.dateBegin}>
-                    <img src="<{xoModuleIcons16}><{$Quiz.dateBeginOk}>.png" alt="quiz" />
-                </td>
-				
-				<td class='center'>
+                    <img src="<{xoModuleIcons16}><{$Quiz.dateBeginOk}>.png" alt="quiz" /><br>
                     <{$Quiz.dateEnd}>
                     <img src="<{xoModuleIcons16}><{$Quiz.dateEndOk}>.png" alt="quiz" />
                 </td>
@@ -69,15 +65,21 @@ img{
                     <img src="<{xoModuleIcons16}><{$Quiz.periodeOK}>.png" alt="OK" />
                 </td>
 				<td class='center'>
-                    <{$Quiz.execution_lib}>
-                </td>
-                
-				<td class='center'>
-                <{*
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_actif" >
                         <img src="<{xoModuleIcons16}><{$Quiz.actif}>.png" alt="quiz" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
                         </a>
-                *}>
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishResults&modulo=3" ><b>
+                        <img src="<{xoModuleIcons16}><{$Quiz.publishResults}>.png" alt="A" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' />
+                        </b></a>
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishAnswers&modulo=3" ><b>
+                        <img src="<{xoModuleIcons16}><{$Quiz.publishAnswers}>.png" alt="A" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ANSWERS}>' />
+                        </b></a>
+                        |
+                        <img src="<{xoModuleIcons16}><{$Quiz.publishResultsOk}>.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' />
+                        <img src="<{xoModuleIcons16}><{$Quiz.publishAnswersOk}>.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ANSWERS}>' />
+                </td>
+                
+				<td class='center'>
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_onClickSimple" >
                         <img src="<{xoModuleIcons16}><{$Quiz.onClickSimple}>.png" alt="quiz" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ONCLICK}>' />
