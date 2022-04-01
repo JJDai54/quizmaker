@@ -40,8 +40,21 @@ img{
 			<{foreach item=Quiz from=$quiz_list}>
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Quiz.id}></td>
+                <{* ========================================================== 
 				<td class='left'><{$cat[$Quiz.cat_id]}>
                 </td>
+                *}>
+                
+				<td class='left'>
+                    <a href="categories.php?op=edit&cat_id=<{$Quiz.cat_id}>" title="<{$smarty.const._EDIT}>">
+                    <{$cat[$Quiz.cat_id]}></a>
+                </td>
+                
+                
+                <{*
+
+                *}>
+                <{* ========================================================== *}>
 				
                 <td class='left'>
 					<a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">

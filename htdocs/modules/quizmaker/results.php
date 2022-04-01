@@ -98,7 +98,19 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
         $selector['inpQuiz'] = $inpQuiz->render();
   	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
         // ----- /Listes de selection pour filtrage -----   
-        
+
+/* ***************************************
+SELECT `result_quiz_id`,`result_uid`,`result_uname`,
+avg(`result_answers_achieved`) AS answers_achieved,
+avg(`result_answers_total`) AS answers_total,
+round(avg(`result_score_achieved`),2) AS score_achieved,
+round(max(`result_score_max`),2) AS score_max,
+avg(`result_note`) AS note
+
+FROM `x251_quizmaker_results` 
+ WHERE result_quiz_id=5
+ GROUP BY `result_quiz_id`,`result_uid`
+****************************************** */        
 //$stat = $resultsHandler->getStatistics();         
 //$stat = $quizHandler->getStatistics();         
         $criteria= new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId, '='));        

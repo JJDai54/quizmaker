@@ -591,6 +591,7 @@ function reloadQuestion() {
         enableButton(previousButton, ((quiz.allowedPrevious && !quiz.useTimer)?1:0));
         enableButton(nextButton, 0);
         //enableButton(submitButton, 1);
+        //alert("allowedSubmit = " + quiz.allowedSubmit);
         enableButton(submitButton, ((quiz.allowedSubmit) ? 1 : 0));
    
         

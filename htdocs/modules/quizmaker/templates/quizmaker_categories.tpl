@@ -53,7 +53,16 @@
           <{if $Quiz.quiz_html <> '' }>
           <tr>
             <td width="25%">
-                <{$Quiz.name}>  
+                  <{if $Quiz.publishQuiz == 1}>
+                      <a class='run_quiz' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>" >
+                        <{$Quiz.name}>
+                      </a>
+                  <{elseif $Quiz.publishQuiz == 2}>
+                      <a class='run_quiz' href='<{$Quiz.quiz_html}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                        <{$Quiz.name}>
+                      </a>
+                  <{else}>
+                  <{/if}>
             </td>
             <td class='center' width="20px">
                 <{$Quiz.stat.countQuestions}>  
@@ -78,19 +87,19 @@
             
             <td class='center' width="50px">
                 <{if $Quiz.periodeOK}>
-                <{if $Quiz.publishQuiz == 1}>
-                    <a class='run_quiz' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>" >
-                        <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
-                        <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
-
-                    </a>
-                <{elseif $Quiz.publishQuiz == 2}>
-                    <a class='run_quiz' href='<{$Quiz.quiz_html}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
-                        <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
-                        <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
-                    </a>
-                <{else}>
-                <{/if}>
+                  <{if $Quiz.publishQuiz == 1}>
+                      <a class='run_quiz' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>" >
+                          <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
+                          <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
+  
+                      </a>
+                  <{elseif $Quiz.publishQuiz == 2}>
+                      <a class='run_quiz' href='<{$Quiz.quiz_html}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                          <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
+                          <img src="<{$smarty.const.QUIZMAKER_IMAGE_URL}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
+                      </a>
+                  <{else}>
+                  <{/if}>
                 <{else}>
                     <{$smarty.const._MA_QUIZMAKER_CLOSED}>
                 <{/if}>

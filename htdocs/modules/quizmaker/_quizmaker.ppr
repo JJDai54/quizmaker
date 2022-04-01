@@ -12,11 +12,12 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
 	+quizmaker
-		-admin
+		+admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -163,8 +164,8 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
-				-quiz
+			+js
+				+quiz
 					-css
 						-progressbarr
 							assets\js\quiz\css\progressbarr\shaded-green.png
@@ -293,7 +294,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		-class
+		+class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -532,13 +533,13 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		-sql
+		+sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql - Copie.sql
 			sql\mysql.sql
-		-templates
-			-admin
+		+templates
+			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
@@ -612,10 +613,30 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=xoops_version.php
+0=templates\admin\quizmaker_admin_quiz.tpl
+1=class\CategoriesHandler.php
+2=templates\quizmaker_quiz_list.tpl
+3=templates\quizmaker_quiz_display.tpl
+4=templates\quizmaker_quiz.tpl
+5=templates\quizmaker_categories.tpl
 [Selected Project Files]
 Main=
-Selected=xoops_version.php
-[xoops_version.php]
-TopLine=9
-Caret=38,41
+Selected=templates\quizmaker_categories.tpl
+[templates\admin\quizmaker_admin_quiz.tpl]
+TopLine=35
+Caret=53,49
+[class\CategoriesHandler.php]
+TopLine=133
+Caret=35,148
+[templates\quizmaker_quiz_list.tpl]
+TopLine=1
+Caret=1,1
+[templates\quizmaker_quiz_display.tpl]
+TopLine=1
+Caret=1,1
+[templates\quizmaker_quiz.tpl]
+TopLine=1
+Caret=1,1
+[templates\quizmaker_categories.tpl]
+TopLine=48
+Caret=1,66

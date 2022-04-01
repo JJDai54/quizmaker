@@ -256,12 +256,12 @@ $quiId = $this->getVar('quiz_id');
         /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
         oui : ce bouton est activer sur tous les slides, ce qui n'est pas nécessaire
         non :  il s'affiche uniquement sur le slide des résultats, ce qui est suffisant  donc inutile
+        */
 		// Form Check Box quizAllowedSubmit
 		$quizAllowedSubmit = $this->isNew() ? 0 : $this->getVar('quiz_allowedSubmit');
 		$checkQuizAllowedSubmit = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT, 'quiz_allowedSubmit', $quizAllowedSubmit);
 		$checkQuizAllowedSubmit->setDescription(_AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT_DESC);
 		$form->addElement($checkQuizAllowedSubmit );
-        */
         
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_DEV . '</div></center>');

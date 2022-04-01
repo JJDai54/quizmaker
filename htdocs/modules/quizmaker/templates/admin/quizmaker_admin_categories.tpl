@@ -24,7 +24,8 @@
 				<td class='center'><{$cat.id}></td>
 				<td class='left'>
                     <a href="categories.php?op=edit&amp;cat_id=<{$cat.id}>" title="<{$smarty.const._EDIT}>">
-                    <{$cat.name}></a></td>
+                    <{$cat.name}></a>
+                </td>
 
 
                 <{* ---------------- Arrows Weight -------------------- *}>
