@@ -113,8 +113,15 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS];
 //---------------------------------------------------
 //  ajout du resultat du participant le cas échéant
 //----------------------------------------------------
-    $tResult = array();
-    $tResult['result_id'] = $resultId;
+    //$tResult['result_id'] = $resultId;
+    
+    if($resultId > 0){
+        $tResult = array();
+        $resultsObj = $resultsHandler->get($resultId);
+        $tResult = $resultsObj->getValuesResults();
+//echo "<hr>Result <pre>" . print_r($tResult, true) . "</pre><hr>";
+        
+    }else{$tResult = null;}
 	$xoopsTpl->assign('result', $tResult);        
 //echo "<hr>Result <pre>" . print_r($tResult, true) . "</pre><hr>";
 //exit;

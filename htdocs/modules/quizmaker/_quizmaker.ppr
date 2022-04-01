@@ -35,7 +35,7 @@ _quizmaker
 			admin\quiz.php
 			admin\results.php
 			admin\type_question.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -166,7 +166,7 @@ _quizmaker
 				assets\images\solution-03.png
 			+js
 				+quiz
-					-css
+					+css
 						-progressbarr
 							assets\js\quiz\css\progressbarr\shaded-green.png
 						assets\js\quiz\css\index.html
@@ -447,7 +447,7 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
+		+language
 			-english
 				-help
 					language\english\help\help.html
@@ -487,7 +487,7 @@ _quizmaker
 				language\english\index.html
 				language\english\main.php
 				language\english\modinfo.php
-			-french
+			+french
 				-help
 					language\french\help\help.html
 					language\french\help\index.html
@@ -616,15 +616,40 @@ _quizmaker
 0=solutions.php
 1=templates\quizmaker_quiz_solutions.tpl
 2=results_submit.php
+3=header.php
+4=admin\results.php
+5=class\Results.php
+6=language\french\main.php
+7=assets\js\quiz\css\style-item-design.css
+8=assets\js\quiz\css\style-item-color.css
 [Selected Project Files]
 Main=
 Selected=templates\quizmaker_quiz_solutions.tpl
 [solutions.php]
-TopLine=98
-Caret=3,119
+TopLine=102
+Caret=3,122
 [templates\quizmaker_quiz_solutions.tpl]
-TopLine=11
-Caret=60,37
+TopLine=88
+Caret=1,110
 [results_submit.php]
-TopLine=93
-Caret=1,1
+TopLine=96
+Caret=20,117
+[header.php]
+TopLine=1
+Caret=16,35
+[admin\results.php]
+TopLine=30
+Caret=1,82
+Mark1=1,82
+[class\Results.php]
+TopLine=115
+Caret=84,132
+[language\french\main.php]
+TopLine=153
+Caret=47,180
+[assets\js\quiz\css\style-item-design.css]
+TopLine=1
+Caret=1,8
+[assets\js\quiz\css\style-item-color.css]
+TopLine=710
+Caret=8,727

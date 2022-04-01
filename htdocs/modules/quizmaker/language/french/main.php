@@ -57,9 +57,9 @@ define('_MA_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS', "AfficherRésultatTous");
 define('_MA_QUIZMAKER_QUIZ_SHOWREPONSES', "Afficher les réponses");
 define('_MA_QUIZMAKER_QUIZ_SHOWLOG', "Afficher le journal");
 define('_MA_QUIZMAKER_QUIZ_LEGEND', "Légende");
-define('_MA_QUIZMAKER_QUIZ_DATEBEGINOK', "DateDébutOk");
-define('_MA_QUIZMAKER_QUIZ_DATEENDOK', "DateFinOk");
-define('_MA_QUIZMAKER_QUESTIONS', "Des questions");
+define('_MA_QUIZMAKER_QUIZ_DATEBEGINOK', "Date Début Ok");
+define('_MA_QUIZMAKER_QUIZ_DATEENDOK', "Date Fin Ok");
+define('_MA_QUIZMAKER_QUESTIONS', "Questions");
 define('_MA_QUIZMAKER_QUESTIONS_TITLE', "Titre des questions");
 define('_MA_QUIZMAKER_QUESTIONS_DESC', "Description des questions");
 define('_MA_QUIZMAKER_QUESTIONS_LIST', "Liste de questions");
@@ -169,5 +169,14 @@ define('_MA_QUIZMAKER_HOW_TO_RUN_QUIZ', "Pour lancer un quiz, cliquez sur la fl�
 define('_MA_QUIZMAKER_HOW_TO_SHOW_SOLUTIONS', "Pour voir les solutions cliquez sur les ampoules oranges.");
 define('_MA_QUIZMAKER_HOW_TO_SHOW_RESULTS', "Pour voir les résultats cliquez sur le symbole &#425;.");
 
+define('_MA_QUIZMAKER_RESULTS_FOR', "Résultats pour : ");
+define('_MA_QUIZMAKER_RESULTS_NOTE', "Note");
+define('_MA_QUIZMAKER_HOUR', "heure(s)");
+define('_MA_QUIZMAKER_MINUTES', "minute(s)");
+define('_MA_QUIZMAKER_SECONDS', "secondes");
+define('_MA_QUIZMAKER_ANSWERS_AT', "Répondu à");
+define('_MA_QUIZMAKER_OF_TOTAL', "Au total");
+define('_MA_QUIZMAKER_QUIZ_ANSWERS_AND_EXPLANATION', "Réponses et explications du Quiz");
+define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Merci pour votre participation");
 
 ?>

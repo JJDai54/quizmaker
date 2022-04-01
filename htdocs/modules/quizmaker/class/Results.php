@@ -129,6 +129,8 @@ class Results extends \XoopsObject
 		$ret['answers_total']    = $this->getVar('result_answers_total');
 		//$ret['duration']         = $this->getVar('result_duration'); date()
 		$ret['duration']         = $this->format_duration($this->getVar('result_duration'));     
+		$ret['duration2']        = $this->format_duration($this->getVar('result_duration'),_MA_QUIZMAKER_HOUR,_MA_QUIZMAKER_MINUTES,_MA_QUIZMAKER_SECONDS, ' ');     
+
 		$ret['note']             = $this->getVar('result_note');
 		$ret['color']            = str_pad(round($ret['score_achieved'] / $ret['score_max'] * 5 , 0), 3, '0', STR_PAD_LEFT) . '.png';
 		$ret['creation']         = \JJD\getDateSql2Str($this->getVar('result_creation'));
@@ -137,14 +139,14 @@ class Results extends \XoopsObject
 		return $ret;
 	}
     
-    function format_duration($time){
+    function format_duration($time, $hourlib='h', $minuteLib="m", $secondLib="s", $sep=''){
         $secondes   = floor ( ( ( $time % 86400 ) % 3600 ) % 60 ) ;
         $minutes    = floor ( ( ( $time % 86400 ) % 3600 ) / 60 ) ;
         $hours      = floor ( ( $time % 86400 ) / 3600 ) ;
         $days       = floor ( $time / 86400 ) ;
-        if($hours > 0) $ret = "{$hours}h {$minutes}m {$secondes}s";
-        elseif($minutes > 0) $ret = "{$minutes}m {$secondes}s";
-        else $ret = "{$secondes}s";
+        if($hours > 0) $ret = "{$hours}{$sep}{$hourlib} {$minutes}{$sep}{$minuteLib} {$secondes}{$sep}{$secondLib}";
+        elseif($minutes > 0) $ret = "{$minutes}{$sep}{$minuteLib} {$secondes}{$sep}{$secondLib}";
+        else $ret = "{$secondes}{$sep}{$secondLib}";
     
         return $ret;
     }
