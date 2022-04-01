@@ -95,15 +95,21 @@ switch($op) {
 //setlocale(LC_NUMERIC, 'fr_FR');
 		if ($resultsHandler->insert($resultsObj)) {
             //exit ('enregistrement ok');
-			redirect_header("results.php?op=list&quiz_id={$quizId}&sender={$sender}", 2, _MA_QUIZMAKER_FORM_OK);
+			//redirect_header("results.php?op=list&quiz_id={$quizId}&sender={$sender}", 2, _MA_QUIZMAKER_FORM_OK);
+			$newResultId = $resultsObj->getNewInsertedIdResults();
+            $url = "solutions.php?quiz_id={$quizId}&sender={$sender}&result_id={$newResultId}";
+            redirect_header($url, 2, _MA_QUIZMAKER_FORM_OK);
+            
 		}
 //    exit;
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $resultsObj->getHtmlErrors());
 		//$form = $questionsObj->getFormQuestions();
 		//$GLOBALS['xoopsTpl']->assign('form', $form->render());
-        exit;
-        redirect_header("results.php?op=list&quiz_id={$quizId}&sender={$sender}", 2, _MA_QUIZMAKER_FORM_OK);
+        //exit;
+        $url = "solutions.php?quiz_id={$quizId}&sender={$sender}";
+        redirect_header($url, 2, _MA_QUIZMAKER_FORM_OK);
+        //redirect_header("results.php?op=list&quiz_id={$quizId}&sender={$sender}", 2, _MA_QUIZMAKER_FORM_OK);
 //exit;
 
 	break;

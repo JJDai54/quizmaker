@@ -36,6 +36,8 @@ $limit = Request::getInt('limit', $helper->getConfig('userpager'));
 $quizId = Request::getInt('quiz_id', 0);
 $sender = Request::getString('sender', '');
 
+
+
 //  $pg = array_merge($_GET, $_POST);
 //  echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
 

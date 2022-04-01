@@ -30,7 +30,15 @@ window.scroll(0, window.scrollY + offsetV);
   border: solid 0px black;
 }
 
+
 </style>
+
+<{if $result.result_id > 0}>
+<hr>result_id = <{$result.result_id }> (affichage du score En cours de développement)<hr>
+<{else}>
+<hr>Pas de résultat à afficher pour <{$result.result_id }><hr>
+<{/if}>
+
     <div class="itemRound-top <{$quiz.theme_ok}>-itemHead"><center><{$quiz.name}></center></div>
     <div class="itemRound-none <{$quiz.theme_ok}>-itemInfo" style="padding:20px 50px 20px 50px;"><{$quiz.quiz_description}></div>
     <div class="itemRound-bottom <{$quiz.theme_ok}>-itemLegend"><center>...</center></div><br>

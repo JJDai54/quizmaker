@@ -32,6 +32,7 @@ $op     = Request::getCmd('op', 'list');
 $quizId = Request::getInt('quiz_id', 0);
 $start = 0; //Request::getInt('start', 0);
 $limit = 0; //Request::getInt('limit', $helper->getConfig('adminpager'));
+$resultId = Request::getInt('result_id', 0);
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
@@ -109,7 +110,15 @@ $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/ass
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS];
 
-
+//---------------------------------------------------
+//  ajout du resultat du participant le cas échéant
+//----------------------------------------------------
+    $tResult = array();
+    $tResult['result_id'] = $resultId;
+	$xoopsTpl->assign('result', $tResult);        
+//echo "<hr>Result <pre>" . print_r($tResult, true) . "</pre><hr>";
+//exit;
+//----------------------------------------------------
 
 
 
