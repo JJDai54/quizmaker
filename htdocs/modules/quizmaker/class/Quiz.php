@@ -142,13 +142,6 @@ $quiId = $this->getVar('quiz_id');
         $inpFileName->setDescription(_AM_QUIZMAKER_FILE_NAME_JS_DESC);
 		$fileNameTray->addElement($inpFileName, true);
         
-		// Form Editor DhtmlTextArea quizDescription
-//        $editDescription = \JJD\getformTextarea(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),_AM_QUIZMAKER_DESCRIPTION_DESC);
-        $editDescription = $quizUtility->getEditor(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $helper);
-            
-            
-		$form->addElement($editDescription, true);
-        
 		// Form number quiz_build
 		$build = $this->isNew() ? 0 : $this->getVar('quiz_build');
         $inpBuild = new \XoopsFormNumber(_AM_QUIZMAKER_QUIZ_BUILD, 'quiz_build', 5, 5, $build);
@@ -157,6 +150,14 @@ $quiId = $this->getVar('quiz_id');
         
 		$form->addElement($fileNameTray);
         //----------------------------------------------------------
+        
+		// Form Editor DhtmlTextArea quizDescription
+//        $editDescription = \JJD\getformTextarea(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),_AM_QUIZMAKER_DESCRIPTION_DESC);
+        $editDescription = $quizUtility->getEditor(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $helper);
+            
+            
+		$form->addElement($editDescription, true);
+        
 
 		// Form Check Box quizDateBegin
         $quizDateBegin = \JJD\xoopsformDateOkTray(_AM_QUIZMAKER_DATEBEGIN, 'quiz_dateBeginOk', $this->getVar('quiz_dateBeginOk'), 'quiz_dateBegin', $this->getVar('quiz_dateBegin'));

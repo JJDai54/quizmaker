@@ -172,10 +172,72 @@ if($quizId > 0 && $sender != 'cat_id'){
 		if ($quizHandler->insert($quizObj)) {
     		if ($quizId == 0) {
 			 $quizId = $quizObj->getNewInsertedIdQuiz();
-            }
+             $newQuiz = true;
+            }else{$newQuiz = false;}
             
 		// Set Vars
+        if($newQuiz){
+             //------------------------------------------------------------------
+             //ajout automatique des pages d'info et de résultat
+             //------------------------------------------------------------------
+             // page de présentation
+             $questionsObj = $questionsHandler->create();
+             $questionsObj->setVar('quest_quiz_id', $quizId);
+             $questionsObj->setVar('quest_type_question', 'pageInfo');
+             $questionsObj->setVar('quest_type_form', QUIZMAKER_TYPE_FORM_INTRO);
+             //$questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
+             $questionsObj->setVar('quest_weight', 0);
+             $questionsObj->setVar('quest_visible', 1);
+             $questionsObj->setVar('quest_actif', 1);
+             $questionsObj->setVar('quest_parent_id', 0);
+             $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_PRESENTATION);
+		     $questionsHandler->insert($questionsObj);      
+			 $questId = $questionsObj->getNewInsertedIdQuestions();
+             
+             $answerObj = $answersHandler->create();
+             $answerObj->setVar('answer_quest_id',$questId);
+             $answerObj->setVar('answer_proposition', _AM_QUIZMAKER_QUIZ_PRESENTATION);
+             $answerObj->setVar('answer_weight',0);
+		     $answersHandler->insert($answerObj);             
+             
+             //------------------------------------------------------------------
+             // page de résultats
+             //--------------------------             
+             $questionsObj = $questionsHandler->create();
+             $questionsObj->setVar('quest_quiz_id', $quizId);
+             $questionsObj->setVar('quest_type_question', 'pageInfo');
+             $questionsObj->setVar('quest_type_form',QUIZMAKER_TYPE_FORM_RESULT );
+             //$questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
+             $questionsObj->setVar('quest_weight', 9999);
+             $questionsObj->setVar('quest_visible', 1);
+             $questionsObj->setVar('quest_actif', 1);
+             $questionsObj->setVar('quest_parent_id', 0);
+             $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_RESULTATS);
+		     $questionsHandler->insert($questionsObj);      
+			 $questId = $questionsObj->getNewInsertedIdQuestions();
+             
+             $answerObj = $answersHandler->create();
+             $answerObj->setVar('answer_quest_id',$questId);
+             $answerObj->setVar('answer_proposition', _AM_QUIZMAKER_QUIZ_RESULTATS_DESC);
+             $answerObj->setVar('answer_weight',0);
+		     $answersHandler->insert($answerObj);             
+        }
         
+//             exit;       
+/* ==================================================================
+
+
+===================================================================== */        
+
+/*
+            $lanquage = $xoopsConfig['language'];
+            //$f = XOOPS_ROOT_PATH . "/modules/quizmaker/language/{$lanquage}/slide/slide_resultats.html";
+            $f = QUIZMAKER_PATH . "/language/{$lanquage}/slide/slide_resultats.html";
+            $slideresultats = $quizUtility->loadTextFile($f);
+echo "<hr>{$f}<hr>{$slideresultats}<hr>";    
+*/            
+        
+
             
         //echo "<hr>quiz : {$quizId}<br>newQuizId : {$newQuizId}<hr>";exit;
 			//$permId = isset($_REQUEST['quiz_id']) ? $quizId : $newQuizId;

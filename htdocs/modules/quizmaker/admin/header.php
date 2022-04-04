@@ -21,7 +21,9 @@
  */
 include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 include_once dirname(__DIR__) . '/include/common.php';
-
+//global $smarty;
+//$smarty->register_compiler_function("quizFlagAscii", "../smarty/function.quizFlagAscii.php", false);
+//$xoopsTpl->register_compiler_function("quizFlagAscii", "../smarty/function.quizFlagAscii.php", false);
 xoops_load('XoopsFormLoader');
 
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
@@ -84,3 +86,10 @@ include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
 xoops_loadLanguage('slide', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
+
+/*
+*/
+require_once("../smarty/function.quizFlagAscii.php");
+$xoopsTpl->register_function("quizFlagAscii", "smarty_function_quizFlagAscii", false);
+$xoopsTpl->register_function("quizFlagAlpha", "smarty_function_quizFlagAlpha", false);
+//$xoopsTpl->register_compiler_function("quizFlagAscii2", "quizFlagAscii2", false);

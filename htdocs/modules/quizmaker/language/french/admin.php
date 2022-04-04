@@ -343,4 +343,10 @@ define('_AM_QUIZMAKER_DATE_BEGIN_END', "Dates début/fin");
 define('_AM_QUIZMAKER_SLIDE_CAPTION1', "Titre de la liste 1");
 define('_AM_QUIZMAKER_SLIDE_CAPTION2', "Titre de la liste 2");
 
+define('_AM_QUIZMAKER_QUIZ_PRESENTATION', "Présentation du quiz");
+define('_AM_QUIZMAKER_QUIZ_RESULTATS', "Résultats");
+define('_AM_QUIZMAKER_QUIZ_RESULTATS_DESC', "<ul style='text-align: left;'><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Nombre de r&eacute;ponses faites : {repondu} / {totalQuestions}</span><br />
+<span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'><strong>Votre score est de {score} / {scoreMaxi}</strong><span style='color: #ff0000;'> (score minimum : {scoreMini})</span> </span><br />
+<span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Votre temps de r&eacute;ponse est de {duree}</span></li></ul>");
+
 ?>

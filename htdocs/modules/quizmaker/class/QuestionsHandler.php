@@ -213,8 +213,20 @@ __SQL__;
     //$sql = "update {$this->table} SET quest_flag = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";
     $sql = "update {$this->table} SET quest_weight = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";    
     $result = $this->db->queryf($sql);
-    return $result;
- }
+    //return $result;
+    
+    $sql = "update {$this->table} SET quest_weight = 0 WHERE quest_quiz_id='{$quiz_id}'"
+         . " AND quest_type_question='pageInfo'"
+         . " AND quest_type_form = " . QUIZMAKER_TYPE_FORM_INTRO . ";";    
+    $result = $this->db->queryf($sql);
+
+    $sql = "update {$this->table} SET quest_weight = 99999 WHERE quest_quiz_id='{$quiz_id}'"
+         . " AND quest_type_question='pageInfo'"
+         . " AND quest_type_form = " . QUIZMAKER_TYPE_FORM_RESULT . ";";    
+    $result = $this->db->queryf($sql);
+
+   
+}
  
 /* ******************************
  * Update weight

@@ -66,8 +66,14 @@ define('QUIZMAKER_POINTS_NULL', 'black');
 define('QUIZMAKER_POINTS_NEGATIF', 'red');
 
 define('QUIZMAKER_FORMAT_DATE_SQL', 'Y-m-d h:i:s');
-define('_AM_QUIZMAKER_FORMAT_DATE', 'd-m-Y h:i:s');
+define('QUIZMAKER_FORMAT_DATE', 'd-m-Y h:i:s');
 //define('XOBJ_DTYPE_DATETIME', 99); //XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
+
+define('QUIZMAKER_TYPE_FORM_NONE',   0);
+define('QUIZMAKER_TYPE_FORM_INTRO',  1);
+define('QUIZMAKER_TYPE_FORM_ENCART', 2);
+define('QUIZMAKER_TYPE_FORM_RESULT', 3);
+
 
 $localLogo = QUIZMAKER_IMAGE_URL . '/jean-jacquesdelalandre_logo.png';
 // Module Information

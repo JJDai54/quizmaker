@@ -181,6 +181,7 @@ class Questions extends \XoopsObject
         */
 
 		// Form Select questType_form
+        $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
         
 		// Form Select quest_parent_id
         if($clTypeQuestion->isQuestion()){
@@ -193,13 +194,16 @@ class Questions extends \XoopsObject
         }else{
             $typeForm = $this->getVar('quest_type_form');
             if ($typeForm == 0) $typeForm = 1;
-    		$tForms = array(1 => _CO_QUIZMAKER_FORM_INTRO,
-                            2 => _CO_QUIZMAKER_FORM_ENCART,
-                            3 => _CO_QUIZMAKER_FORM_RESULT);
+    		$tForms = array(QUIZMAKER_TYPE_FORM_INTRO => _CO_QUIZMAKER_FORM_INTRO,
+                            QUIZMAKER_TYPE_FORM_ENCART => _CO_QUIZMAKER_FORM_ENCART,
+                            QUIZMAKER_TYPE_FORM_RESULT => _CO_QUIZMAKER_FORM_RESULT);
+
             $inpTypeForm = new \XoopsFormSelect(_AM_QUIZMAKER_FORM_TYPE , 'quest_type_form', $typeForm);
     		$inpTypeForm->setDescription(_AM_QUIZMAKER_FORM_TYPE_DESC);
     		$inpTypeForm->addOptionArray($tForms);
             $form->addElement($inpTypeForm);
+            
+            $inpWeight->setExtra('disabled');
         }
         //----------------------------------------------------------
         // Form  quest_isQuestion
@@ -256,8 +260,9 @@ class Questions extends \XoopsObject
         
 	
 		// Form Text questWeight
-        //$questWeight = $this->isNew() ? '0' : $this->getVar('quest_weight');
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight')) );
+		$form->addElement($inpWeight);
+		//$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight')) );
+
 		
         // Form Text Select questTimer
         $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, 'quest_timer', 8, 8, $this->getVar('quest_timer'));
@@ -334,7 +339,7 @@ class Questions extends \XoopsObject
 		$ret['weight']         = $this->getVar('quest_weight');
 		$ret['timer']          = $this->getVar('quest_timer');
 		//$ret['isQuestion']     = $this->getVar('quest_isQuestion');
-		$ret['isQuestion']     = $clTypeQuestion->isQuestion();
+		$ret['isQuestion']     = ($clTypeQuestion) ? $clTypeQuestion->isQuestion() : 1;
 		$ret['visible']        = $this->getVar('quest_visible');
 		$ret['actif']        = $this->getVar('quest_actif');
 		return $ret;

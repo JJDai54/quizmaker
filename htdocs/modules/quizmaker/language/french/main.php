@@ -178,5 +178,9 @@ define('_MA_QUIZMAKER_ANSWERS_AT', "Répondu à");
 define('_MA_QUIZMAKER_OF_TOTAL', "Au total");
 define('_MA_QUIZMAKER_QUIZ_ANSWERS_AND_EXPLANATION', "Réponses et explications du Quiz");
 define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Merci pour votre participation");
+define('_MA_QUIZMAKER_ACTIONS', "Actions");
+define('_MA_QUIZMAKER_RUN', "Lancer le quiz");
+define('_MA_QUIZMAKER_SCORES', "Scores");
+
 
 ?>

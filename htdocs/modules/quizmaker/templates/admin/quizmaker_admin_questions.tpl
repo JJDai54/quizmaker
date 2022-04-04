@@ -137,16 +137,29 @@ return false;
 				<td class='center' <{$styleParent}> ><{$Questions.creation}></td>
                 
 				<td class="center  width5" <{$styleParent}> >
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" >
-        				<img src="<{xoModuleIcons16}><{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
+        				<{*  <img src="<{xoModuleIcons16}><{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' /> *}>
+                        <{quizFlagAscii flag=$Questions.actif exp="A"}>
                         </a>
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_visible" >
-        				<img src="<{xoModuleIcons16}><{$Questions.visible}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' />
+                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' >
+        				<{*  <img src="<{xoModuleIcons16}><{$Questions.visible}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' /> *}>
+                        <{quizFlagAscii flag=$Questions.visible exp="V"}>
                         </a>
                     <{if $Questions.isQuestion}>
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers" >
-        				<img src="<{xoModuleIcons16}><{$Questions.shuffleAnswers}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANS}>' />
+                    
+                    
+                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers"  title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANS}>' >
+        				<{*  <img src="<{xoModuleIcons16}><{$Questions.shuffleAnswers}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANS}>' /> *}>
+                        <{quizFlagAscii flag=$Questions.shuffleAnswers exp="M"}>
                         </a>
+                    
+                    
+                    
+                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers" >
+                        </a>
+                    
+                    
+                    
                     <{else}>
         				<img src="<{$modPathIcon16}>/grey.gif" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_NOT_QUESTION}>' />
                     <{/if}>

@@ -692,7 +692,7 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
 //  * ************************************************************/
 // public static function getDateSql2Str($dateSql)
 // {
-//     return date(_AM_QUIZMAKER_FORMAT_DATE, strtotime ($dateSql));
+//     return date(QUIZMAKER_FORMAT_DATE, strtotime ($dateSql));
 // }
 
 // /**************************************************************

@@ -237,3 +237,10 @@ function quizmaker_Filter($url, $type = '') {
     $url = ($url == '') ? $type : strtolower(trim($url, '-'));
     return $url;
 }
+
+/* ***************************************
+
+****************************************** */
+function format_caractere($car, $color, $size="11px"){
+    $ret = "<span style='font-family: Arial Rounded MT Bold; color: {$color};font-size:{$size}'>{$car}</span></font><br>";
+}

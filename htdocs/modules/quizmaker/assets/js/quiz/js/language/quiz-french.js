@@ -16,7 +16,7 @@ const quiz_messages = {
     resultOnSlide: "résultat : pour {reponses} réponses sur {questions} questions,<br>Votre score est de {points} points sur {totalPoints} points",
     btnNext: "Suivant",
     btnPrevious: "Précédent",
-    btnSubmit: "Soumettre",
+    btnSubmit: "Solutions",
     btnContinue: "Continuez",
     btnReload: "Recharger",
     btnAntiseche: "?",

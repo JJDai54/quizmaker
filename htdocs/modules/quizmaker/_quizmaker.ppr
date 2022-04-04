@@ -16,6 +16,7 @@ HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
+	-smarty
 	+quizmaker
 		+admin
 			admin\about.php
@@ -164,7 +165,7 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			+js
+			-js
 				+quiz
 					+css
 						-progressbarr
@@ -436,7 +437,7 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -613,43 +614,50 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=solutions.php
-1=templates\quizmaker_quiz_solutions.tpl
-2=results_submit.php
-3=header.php
-4=admin\results.php
-5=class\Results.php
-6=language\french\main.php
-7=assets\js\quiz\css\style-item-design.css
-8=assets\js\quiz\css\style-item-color.css
+0=class\QuizUtility.php
+1=class\Questions.php
+2=class\Quiz.php
+3=class\QuestionsHandler.php
+4=templates\quizmaker_categories.tpl
+5=include\functions.php
+6=templates\admin\quizmaker_admin_questions.tpl
+7=admin\header.php
+8=smarty\function.quizFlagAscii.php
+9=templates\admin\quizmaker_admin_quiz.tpl
+10=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=templates\quizmaker_quiz_solutions.tpl
-[solutions.php]
-TopLine=102
-Caret=3,122
-[templates\quizmaker_quiz_solutions.tpl]
-TopLine=88
+Selected=xoops_version.php
+[class\QuizUtility.php]
+TopLine=677
+Caret=20,695
+[class\Questions.php]
+TopLine=233
+Caret=5,264
+[class\Quiz.php]
+TopLine=369
+Caret=1,387
+[class\QuestionsHandler.php]
+TopLine=185
+Caret=5,208
+[templates\quizmaker_categories.tpl]
+TopLine=91
 Caret=1,110
-[results_submit.php]
-TopLine=96
-Caret=20,117
-[header.php]
+[include\functions.php]
+TopLine=219
+Caret=40,244
+[templates\admin\quizmaker_admin_questions.tpl]
+TopLine=137
+Caret=1,142
+[admin\header.php]
+TopLine=74
+Caret=31,94
+[smarty\function.quizFlagAscii.php]
+TopLine=46
+Caret=34,77
+[templates\admin\quizmaker_admin_quiz.tpl]
+TopLine=116
+Caret=30,135
+[xoops_version.php]
 TopLine=1
-Caret=16,35
-[admin\results.php]
-TopLine=30
-Caret=1,82
-Mark1=1,82
-[class\Results.php]
-TopLine=115
-Caret=84,132
-[language\french\main.php]
-TopLine=153
-Caret=47,180
-[assets\js\quiz\css\style-item-design.css]
-TopLine=1
-Caret=1,8
-[assets\js\quiz\css\style-item-color.css]
-TopLine=710
-Caret=8,727
+Caret=30,29

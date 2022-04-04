@@ -267,7 +267,7 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
 		$questionsObj->setVar('quest_comment1', Request::getText('quest_comment1', ''));
 		$questionsObj->setVar('quest_explanation', Request::getText('quest_explanation', ''));
 		$questionsObj->setVar('quest_type_question', $typeQuestion);
-		$questionsObj->setVar('quest_type_form', Request::getInt('quest_type_form', 0));
+		$questionsObj->setVar('quest_type_form', Request::getInt('quest_type_form', QUIZMAKER_TYPE_FORM_NONE));
 		$questionsObj->setVar('quest_minReponse', Request::getInt('quest_minReponse', 0));
 		$questionsObj->setVar('quest_numbering', Request::getInt('quest_numbering', 0));
 		$questionsObj->setVar('quest_shuffleAnswers', Request::getInt('quest_shuffleAnswers', 1));
@@ -277,7 +277,7 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
 		$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
 		$questionsObj->setVar('quest_actif', Request::getInt('quest_actif', 1));
 		$questionsObj->setVar('quest_update', \JJD\getSqlDate());
-        
+
 		// Insert Data
 		if ($questionsHandler->insert($questionsObj)) {
             $questId = $questionsObj->getVar(quest_id);
