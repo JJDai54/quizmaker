@@ -229,6 +229,8 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility;
         $tQuest['options']        = self::sanitise($values['quest_options']);
         $tQuest['comment1']       = self::sanitise($values['quest_comment1']);
         $tQuest['explanation']    = self::sanitise($values['quest_explanation']);
+        $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
+        $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['minReponse']     = $values['minReponse'];
         $tQuest['numbering']      = $values['numbering'];
         $tQuest['shuffleAnswers'] = $values['shuffleAnswers'];
@@ -723,7 +725,11 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
      * @param array|null         $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
-    public static function getEditor($caption, $name, $value, $description = "", $newOptions = null, $helper = null)
+//      Avertissement: Declaration of XoopsModules/Quizmaker/QuizUtility::
+//      getEditor($caption, $name, $value, $description = '', $newOptions = NULL, $helper = NULL) 
+//      should be compatible with XoopsModules/Quizmaker/Utility::getEditor($helper = NULL, $options = NULL)
+//       dans le fichier /modules/quizmaker/class/QuizUtility.php ligne 
+    public static function getEditor2($caption, $name, $value, $description = "", $newOptions = null, $helper = null)
     {
         if ($helper === null) $helper = \XoopsModules\Quizmaker\Helper::getInstance();
         $options           = [];

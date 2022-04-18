@@ -59,7 +59,7 @@
 				<td class='right'><{$Result.score_achieved}> / <{$Result.score_max}></td>
 				<td class='right'><{$Result.answers_achieved}> / <{$Result.answers_total}></td>
 				<td class='center'><{$Result.duration}></td>
-				<td class='center'><{$Result.note}></td>
+				<td class='center'><{$Result.note}> / 100</td>
 				<td class='center'><img src="<{$modPathIcon16}>/notes/<{$Result.color}>"></td>
 				<td class='center'><{$Result.creation}></td>
 			</tr>

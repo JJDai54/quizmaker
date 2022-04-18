@@ -359,7 +359,31 @@ __SQL__;
 /* ******************************
  * renvoie la valeur maxmum d'un champ pour un idParent 
  * *********************** */
-    public function changeEtat($questId, $field, $doItForGroup = false)
+    public function changeEtat($questId, $field, $modulo = 2, $doItForGroup = false)
+    {
+        $sql = "UPDATE " . $this->table . " SET {$field} = mod({$field}+1,{$modulo}) WHERE quest_id={$questId};";
+        $ret = $this->db->queryf($sql);
+        
+        if($doItForGroup){
+            $questObj = $this->get($questId);
+            if($questObj->getVar('quest_type_form') == 1){
+              // si c'est le slide d'introduction, change l'état de toutes les questions du quiz
+              $etat =  mod($questObj->getVar($field)+1, $modulo);
+              $quizId = $questObj->getVar('quest_quiz_id');
+              $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_quiz_id={$quizId};";            
+              $ret = $this->db->queryf($sql);
+            }else{
+              // si c'est un slide "encart" , change l'état de toutes les questions du groupe
+              $etat =  mod($questObj->getVar($field)+1, $modulo);
+              $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_parent_id={$questId};";            
+              $ret = $this->db->queryf($sql);
+            }
+        }
+        
+        return $ret;
+    }
+
+    public function changeEtat_old($questId, $field, $doItForGroup = false)
     {
         $sql = "UPDATE " . $this->table . " SET {$field} = not {$field} WHERE quest_id={$questId};";
         $ret = $this->db->queryf($sql);
@@ -368,7 +392,7 @@ __SQL__;
             $questObj = $this->get($questId);
             if($questObj->getVar('quest_type_form') == 1){
               // si c'est le slide d'introduction, change l'état de toutes les questions du quiz
-              $etat = $questObj->getVar($field);
+              $etat = $questObj->getVar($field);   
               $quizId = $questObj->getVar('quest_quiz_id');
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_quiz_id={$quizId};";            
               $ret = $this->db->queryf($sql);

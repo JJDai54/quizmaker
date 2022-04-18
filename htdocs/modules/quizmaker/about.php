@@ -1,5 +1,5 @@
 <?php
-namespace XoopsModules\Slider;
+namespace XoopsModules\Quizmaker;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -20,12 +20,12 @@ namespace XoopsModules\Slider;
  * @min_xoops      2.5.9
  * @author         JJDai - Email:<jjdelalandre@orange.fr> - Website:<http://jubile.fr>
  */
-use XoopsModules\Slider;
-use XoopsModules\Slider\Helper;
-use XoopsModules\Slider\Constants;
+use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker\Helper;
+use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
-$templateMain = 'slider_admin_about.tpl';
+$templateMain = 'quizmaker_admin_about.tpl';
 
 define('_AM_JJD_DESCRIPTION','zzzzz');
 define('_AM_JJD_ID','yyyyy');
@@ -92,7 +92,7 @@ function contribution(){
     $html = array();
     $html[] = "<div style=\"clear: both; height: 1em;\"></div>";
     
-    $html[] = "<div>" . _AM_SLIDER_WHY_DONATE . "</div><center>";
+    $html[] = "<div>" . _AM_QUIZMAKER_WHY_DONATE . "</div><center>";
     
     $html[] = '<form action="https://www.paypal.com/donate" method="post" target="_top">
 <input type="hidden" name="hosted_button_id" value="MUUZPTPGJSB9G" />
@@ -134,7 +134,7 @@ $module_dir = basename(dirname(dirname(__FILE__)));
     
     
     $html[] = "<div style=\"line-height: 16px; font-weight: bold;\">";
-    $html[] = _AM_SLIDER_BY . " ".  $helper->getModule()->getInfo('author');
+    $html[] = _AM_QUIZMAKER_BY . " ".  $helper->getModule()->getInfo('author');
     $html[] = "</div>";
     $html[] = "<div style=\"line-height: 16px;\">";
     $html[] = "<a href=\"$license_url\" target=\"_blank\" rel=\"external\">" . $helper->getModule()->getInfo('license') . "</a>";
@@ -151,33 +151,36 @@ $module_dir = basename(dirname(dirname(__FILE__)));
  * 
  * ****************************** */
 function moduleInfo(){
-global    $helper;
+//global    $helper;
+$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+$module_dir = basename(dirname(dirname(__FILE__)));
+$module = $helper->getModule();
     
   $lines = array();
   
   $lines[] = ['title' => 'Auteur',
-              'value' => $helper->getModule()->getInfo('author'),
+              'value' => $module->getInfo('author'),
               'color' => 'red',
               'bold'  => true];
     
   $lines[] = ['title' => 'author_mail',
-              'value' => $helper->getModule()->getInfo('author_mail'),
+              'value' => $module->getInfo('author_mail'),
               'color' => '',
               'bold'  => true];
      
   $lines[] = ['title' => 'author_website_url',
-              'value' => $helper->getModule()->getInfo('author_website_url'),
+              'value' => $module->getInfo('author_website_url'),
               'color' => '',
               'bold'  => true];
              
      
   $lines[] = ['title' => 'author_website_name',
-              'value' => $helper->getModule()->getInfo('author_website_name'),
+              'value' => $module->getInfo('author_website_name'),
               'color' => '',
               'bold'  => true];
 
  $lines[] = ['title' => 'module',
-              'value' => $helper->getModule()->getInfo('name'),
+              'value' => $module->getInfo('name'),
               'color' => 'red',
               'bold'  => true];
   
@@ -187,37 +190,37 @@ global    $helper;
               'bold'  => true];
     
   $lines[] = ['title' => 'version',
-              'value' => $helper->getModule()->getInfo('version'),
+              'value' => $module->getInfo('version'),
               'color' => '',
               'bold'  => true];
     
   $lines[] = ['title' => 'release_info',
-              'value' => $helper->getModule()->getInfo('release_info'),
+              'value' => $module->getInfo('release_info'),
               'color' => '',
               'bold'  => true];
     
   $lines[] = ['title' => 'release_file',
-              'value' => $helper->getModule()->getInfo('release_file'),
+              'value' => $module()->getInfo('release_file'),
               'color' => '',
               'bold'  => true];
     
   $lines[] = ['title' => 'release_date',
-              'value' => $helper->getModule()->getInfo('release_date'),
+              'value' => $module->getInfo('release_date'),
               'color' => '',
               'bold'  => true];
     
   $lines[] = ['title' => 'description',
-              'value' => $helper->getModule()->getInfo(''),
+              'value' => $module->getInfo(''),
               'color' => '',
               'bold'  => true];
     
   $lines[] = ['title' => 'license',
-              'value' => $helper->getModule()->getInfo('license'),
+              'value' => $module->getInfo('license'),
               'color' => '',
               'bold'  => true];
     
   $lines[] = ['title' => 'credits',
-              'value' => $helper->getModule()->getInfo('credits'),
+              'value' => $module->getInfo('credits'),
               'color' => '',
               'bold'  => true];
  return $lines;   
@@ -230,7 +233,7 @@ $box['module']['legend'] = _AM_MODULEADMIN_ABOUT_MODULEINFO;
 $box['module']['content'] = array2table(moduleInfo());
 
 /* ------------------------- Module -----------------------------*/
-$box['paypal']['legend'] = _AM_SLIDER_CONTRIBUTION;
+$box['paypal']['legend'] = _AM_QUIZMAKER_CONTRIBUTION;
 $box['paypal']['content'] = contribution();
 
 /* ------------------------- Header Info -----------------------------*/

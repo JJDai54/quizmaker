@@ -21,6 +21,8 @@
  */
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 include __DIR__ . '/include/common.php';
+include __DIR__ . '/include/quizFlagAscii.php';
+
 $moduleDirName = basename(__DIR__);
 // Breadcrumbs
 $xoBreadcrumbs = [];

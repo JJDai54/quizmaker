@@ -80,6 +80,8 @@ CREATE TABLE `quizmaker_questions` (
   `quest_type_question` varchar(30) NOT NULL DEFAULT '',
   `quest_type_form` tinyint(1) NOT NULL DEFAULT '0',
   `quest_explanation` text NOT NULL,
+  `quest_learn_more` varchar(255) NOT NULL DEFAULT '',
+  `quest_see_also` varchar(255) NOT NULL DEFAULT '',
   `quest_minReponse` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   `quest_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quest_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',

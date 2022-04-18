@@ -21,7 +21,32 @@
 <{if $categoriesCount > 1}>
     <{include file='db:quizmaker_categories_theme.tpl' }>
 <{/if}>
+<{* ************************************************ *}>
+<form name='quizmaker_select_filter' id='quizmaker_select_filter' action='categories.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
+<input type="hidden" name="op" value="list" />
+<input type="hidden" name="sender" value="" />
 
+    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
+    <div class="itemRound-none <{$catTheme}>-itemBody">
+    <table width='80%'>
+        <tr>
+            <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_CATEGORIES}> : </td>
+            <td class="left" style='padding:5px;'><{$selector.inpCategory}></td>
+        </tr>
+        <{*
+        <tr>
+            <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_QUIZ}> : </td>
+            <td class="left" style='padding:5px;'><{$selector.inpQuiz}></td>
+        </tr>
+        *}>
+    </table>
+      
+      
+    </div>
+    <div class="itemRound-bottom <{$catTheme}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br>
+</form>
+
+<{* ************************************************ *}>
   <{foreach item=cat from=$categories }>
     <{if $cat.quiz}>
       <div class="itemRound-top <{$cat.theme}>-itemHead"><center><{$cat.name}>

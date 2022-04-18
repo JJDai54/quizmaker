@@ -7,6 +7,7 @@
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_CODE}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_CONSTANT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_MESSAGE}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
 			</tr>
@@ -20,6 +21,7 @@
                     <a href="messages.php?op=edit&amp;msg_id=<{$Messages.id}>" title="<{$smarty.const._EDIT}>">
                     <{$Messages.code}></a></td>
 
+				<td class='left'><{$Messages.constant}></td>
 				<td class='left'><{$Messages.message}></td>
 				<td class="center  width5">
 					<a href="messages.php?op=edit&amp;msg_id=<{$Messages.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="messages" /></a>

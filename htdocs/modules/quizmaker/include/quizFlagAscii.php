@@ -58,18 +58,6 @@ function smarty_function_quizFlagAscii($args, &$smarty)
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
 
-function smarty_function_quizFlagAlpha_old($args, &$smarty)
-{
-    $exp = (isset($args['exp'])) ? $args['exp'] : 'ABCDEF';
-    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'blue');
-    
-    $car = substr($exp, $args['flag'],1);
-    $color = $tColors[$args['flag']];
-    $fontSize = '16px';
-    echo "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$car}</span>";
-}
-
-
 function smarty_function_quizFlagAlpha($args, &$smarty)
 {
     $tExp = (isset($args['exp'])) ? explode('|',$args['exp']) : array('Yes','No','Auto');
@@ -78,6 +66,29 @@ function smarty_function_quizFlagAlpha($args, &$smarty)
     $color = $tColors[$args['flag']];
     $fontSize = '16px';
     echo "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
+}
+
+/* **************************************************** */
+function quizFlagAscii($flag, $exp, $color = 'red|green|blue')
+{
+    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue');
+    //$exp = implode('|', $exp);
+    $color = $tColors[$flag];
+    $fontSize = '16px';
+    //echo "togodo";
+    return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
+    //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
+}
+
+function quizFlagAlpha($flag, $exps, $colors = 'red|green|blue')
+{
+    $tExp = (isset($exps)) ? explode('|',$exps) : array('Yes','No','Auto');
+    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue');
+
+    $exp = $tExp [$flag];
+    $color = $tColors[$flag];
+    $fontSize = '16px';
+    return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
 }
 
 

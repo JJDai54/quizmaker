@@ -29,81 +29,41 @@
  *
  * @return bool|null
  */
-function xoops_module_update_quizmaker(&$module, $prev_version = null)
+ function xoops_module_update_quizmaker(\XoopsModule $xoopsModule, $previousVersion = null)
 {
-    $ret = null;
-    if ($prev_version < 10) {
-        $ret = update_quizmaker_v10($module);
-    }
-
-    $ret = quizmaker_check_db($module);
-
-    //check upload directory
-	include_once __DIR__ . '/install.php';
-    $ret = xoops_module_install_quizmaker($module);
-
-    $errors = $module->getErrors();
-    if (!empty($errors)) {
-        print_r($errors);
-    }
-
-    return $ret;
-
-}
-
-// irmtfan bug fix: solve templates duplicate issue
-/**
- * @param $module
- *
- * @return bool
- */
-function update_quizmaker_v10($module)
-{
-    global $xoopsDB;
-    $result = $xoopsDB->query(
-        'SELECT t1.tpl_id FROM ' . $xoopsDB->prefix('tplfile') . ' t1, ' . $xoopsDB->prefix('tplfile') . ' t2 WHERE t1.tpl_refid = t2.tpl_refid AND t1.tpl_module = t2.tpl_module AND t1.tpl_tplset=t2.tpl_tplset AND t1.tpl_file = t2.tpl_file AND t1.tpl_type = t2.tpl_type AND t1.tpl_id > t2.tpl_id'
-    );
-    $tplids = [];
-    while (false !== (list($tplid) = $xoopsDB->fetchRow($result))) {
-        $tplids[] = $tplid;
-    }
-    if (count($tplids) > 0) {
-        $tplfileHandler  = xoops_getHandler('tplfile');
-        $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . implode(',', $tplids) . ')', 'IN'));
-
-        if (count($duplicate_files) > 0) {
-            foreach (array_keys($duplicate_files) as $i) {
-                $tplfileHandler->delete($duplicate_files[$i]);
-            }
-        }
-    }
-    $sql = 'SHOW INDEX FROM ' . $xoopsDB->prefix('tplfile') . " WHERE KEY_NAME = 'tpl_refid_module_set_file_type'";
-    if (!$result = $xoopsDB->queryF($sql)) {
-        xoops_error($xoopsDB->error() . '<br>' . $sql);
-
-        return false;
-    }
-    $ret = [];
-    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
-        $ret[] = $myrow;
-    }
-    if (!empty($ret)) {
-        $module->setErrors("'tpl_refid_module_set_file_type' unique index is exist. Note: check 'tplfile' table to be sure this index is UNIQUE because XOOPS CORE need it.");
-
+    $newVersion = $xoopsModule->getVar('version') * 100;
+    if ($newVersion == $previousVersion) {
         return true;
     }
-    $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tplfile') . ' ADD UNIQUE tpl_refid_module_set_file_type ( tpl_refid, tpl_module, tpl_tplset, tpl_file, tpl_type )';
-    if (!$result = $xoopsDB->queryF($sql)) {
-        xoops_error($xoopsDB->error() . '<br>' . $sql);
-        $module->setErrors("'tpl_refid_module_set_file_type' unique index is not added to 'tplfile' table. Warning: do not use XOOPS until you add this unique index.");
 
-        return false;
+    //------------------------------------------------------------
+
+    $fld = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/versions/';
+    $cls = 'Quizmaker_%1$s';
+
+    $version = [
+        '2_80' => 280,
+        '2_92' => 292,
+    ];
+
+    //    while (list($key, $val) = each($version)) {
+    foreach ($version as $key => $val) {
+        if ($previousVersion < $val) {
+            $name = sprintf($cls, $key);
+            $f    = $fld . $name . '.php';
+            //ext_echo ("<hr>{$f}<hr>");
+            if (is_readable($f)) {
+                echo "mise à jour version : {$key} = {$val}<br>";
+                require_once $f;
+                $cl = new $name($xoopsModule, ['previousVersion' => $previousVersion]);
+            }
+        }
     }
 
     return true;
 }
+///////////////////////////////////////////////////////////////////////////
 
-// irmtfan bug fix: solve templates duplicate issue
 
 /**
  * @param $module

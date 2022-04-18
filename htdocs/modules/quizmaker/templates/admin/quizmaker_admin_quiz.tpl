@@ -79,13 +79,13 @@ img{
                 </td>
 				<td class='center'>
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_actif"   title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ACTIF}>' >
-                        <{quizFlagAscii flag=$Quiz.actif exp="A"}>                                                
+                        <{$Quiz.flags.actif}>
                         </a>
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishResults&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' ><b>
-                        <{quizFlagAscii flag=$Quiz.publishResults exp="R"}>
+                        <{$Quiz.flags.publishResults}>
                         </b></a>
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishAnswers&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ANSWERS}>' ><b>
-                        <{quizFlagAscii flag=$Quiz.publishAnswers exp="S"}>
+                        <{$Quiz.flags.publishAnswers}>
                         </b></a>
                         |
                         <img src="<{xoModuleIcons16}><{$Quiz.publishResultsOk}>.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' />
@@ -95,43 +95,43 @@ img{
 				<td class='center'>
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_onClickSimple"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ONCLICK}>' >
-                        <{quizFlagAlpha flag=$Quiz.onClickSimple exp="Dk|Sk"}>                        
+                        <{$Quiz.flags.onClickSimple}>
                         </a>|
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_answerBeforeNext"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT}>' >
-                        <{quizFlagAlpha flag=$Quiz.answerBeforeNext exp="Ro|Ro"}>                        
+                        <{$Quiz.flags.answerBeforeNext}>
                         </a>|
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_allowedPrevious" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS}>'  >
-                        <{quizFlagAscii flag=$Quiz.allowedPrevious exp="Pr"}>                        
+                        <{$Quiz.flags.allowedPrevious}>                     
                         </a>|
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_shuffleQuestions" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION}>'  >
-                        <{quizFlagAscii flag=$Quiz.shuffleQuestions exp="M"}>                        
+                        <{$Quiz.flags.shuffleQuestions}>                     
                         </a>|
 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showGoodAnswers"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS}>'>
-                        <{quizFlagAscii flag=$Quiz.showGoodAnswers exp="Ga"}>                        
+                        <{$Quiz.flags.showGoodAnswers}>                     
                         </a>|
 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showBadAnswers" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS}>' >
-                        <{quizFlagAscii flag=$Quiz.showBadAnswers exp="Ba"}>                        
+                        <{$Quiz.flags.showBadAnswers}>                     
                         </a>|
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showReloadAnswers" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_RELOAD_ANSWERS}>' >
-                        <{quizFlagAscii flag=$Quiz.showReloadAnswers exp="Rl"}>                        
+                        <{$Quiz.flags.showReloadAnswers}>                     
                         </a>|
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_allowedSubmit" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT}>' >
-                        <{quizFlagAscii flag=$Quiz.allowedSubmit exp="Sb"}>                        
+                        <{$Quiz.flags.allowedSubmit}>                     
                         </a>|
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_useTimer" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_USE_TIMER}>' >
-                        <{quizFlagAscii flag=$Quiz.useTimer exp="T"}>                        
+                        <{$Quiz.flags.useTimer}>                     
                         </a>|
 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showResultPopup" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_RESULT_POPUP}>' >
-                        <{quizFlagAscii flag=$Quiz.showResultPopup exp="Popup"}>                        
+                        <{$Quiz.flags.showResultPopup}>                     
                         </a>|
                                                 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showResultAllways" >

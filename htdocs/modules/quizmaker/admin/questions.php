@@ -266,6 +266,8 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
 		$questionsObj->setVar('quest_options', Request::getString('quest_options', ''));
 		$questionsObj->setVar('quest_comment1', Request::getText('quest_comment1', ''));
 		$questionsObj->setVar('quest_explanation', Request::getText('quest_explanation', ''));
+		$questionsObj->setVar('quest_learn_more', Request::getString('quest_learn_more', ''));
+		$questionsObj->setVar('quest_see_also', Request::getString('quest_see_also', ''));
 		$questionsObj->setVar('quest_type_question', $typeQuestion);
 		$questionsObj->setVar('quest_type_form', Request::getInt('quest_type_form', QUIZMAKER_TYPE_FORM_NONE));
 		$questionsObj->setVar('quest_minReponse', Request::getInt('quest_minReponse', 0));
@@ -341,8 +343,9 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
         
 	case 'change_etat':
         $field = Request::getString('field');
+        $modulo = Request::getInt('modulo', 2);
         $doItForGroup = ($field == 'quest_actif') ? true : false;
-        $questionsHandler->changeEtat($questId, $field, $doItForGroup);
+        $questionsHandler->changeEtat($questId, $field, $modulo, $doItForGroup);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
 	break;
     //------------------------------------------------------

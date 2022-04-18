@@ -77,10 +77,15 @@ switch($op) {
         $ip = \Xmf\IPAddress::fromRequest()->asReadable();
 //echo "<hr>ip : {$ip}<hr>";            
         $resultsObj->setVar('result_ip', $ip);
-        
-        
+//echo "<hr>===>" . $GLOBALS['xoopsUser']->uid() . "<===<hr>";        
+
+if ($GLOBALS['xoopsUser']) {
         $resultsObj->setVar('result_uid', $GLOBALS['xoopsUser']->uid());
         $resultsObj->setVar('result_uname', $GLOBALS['xoopsUser']->getVar('uname'));
+}else{
+        $resultsObj->setVar('result_uid', 3);
+        $resultsObj->setVar('result_uname', "Anonyme");
+}       
         $resultsObj->setVar('result_answers_total', Request::getInt('answers_total', 0));
         $resultsObj->setVar('result_answers_achieved', Request::getInt('answers_achieved', 0));
         $resultsObj->setVar('result_score_min', Request::getInt('score_min', 0));

@@ -49,6 +49,8 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_options', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_comment1', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_explanation', XOBJ_DTYPE_OTHER);
+		$this->initVar('quest_learn_more', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_see_also', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_minReponse', XOBJ_DTYPE_INT);
 		$this->initVar('quest_numbering', XOBJ_DTYPE_INT);
 		$this->initVar('quest_shuffleAnswers', XOBJ_DTYPE_INT);
@@ -227,12 +229,21 @@ class Questions extends \XoopsObject
         $form->addElement($inpOptions, false);
         //--------------------------------------------------------------
 		// Form Editor DhtmlTextArea questComment1
-        $inpComment1  = $quizUtility->getEditor(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $helper);        
+        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $helper);        
 		$form->addElement($inpComment1);
         //--------------------------------------------------------------
 		// Form Editor DhtmlTextArea quest_explanation
-        $inpExplanation  = $quizUtility->getEditor(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $helper);        
+        $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $helper);        
 		$form->addElement($inpExplanation);
+        
+		// Form Text learn_more
+		$inpLearnMore = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_LEARN_MORE, 'quest_learn_more', 120, 255, $this->getVar('quest_learn_more') );
+        $inpLearnMore->setDescription(_AM_QUIZMAKER_QUESTIONS_LEARN_MORE_DESC);
+		$form->addElement($inpLearnMore);
+		// Form Text see_also
+		$inpSeeAlso = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_SEE_ALSO, 'quest_see_also', 120, 255, $this->getVar('quest_see_also') );
+        $inpSeeAlso->setDescription(_AM_QUIZMAKER_QUESTIONS_SEE_ALSO_DESC);
+		$form->addElement($inpSeeAlso);
         
         /* ***** Option uniquement pour les questions ***** */
         if($clTypeQuestion->isQuestion()){
@@ -271,7 +282,7 @@ class Questions extends \XoopsObject
 		$form->addElement($inpTimer);
 
         
-		$form->addElement($fileNameTray);
+		//$form->addElement($fileNameTray);
         
         
                 
@@ -330,6 +341,8 @@ class Questions extends \XoopsObject
 		$ret['comment1_short'] = $utility::truncateHtml($ret['comment1'], $editorMaxchar);
  		$ret['explanation']    = $this->getVar('quest_explanation', 'e');
  		$ret['explanation_short'] = $utility::truncateHtml($ret['explanation'], $editorMaxchar);
+ 		$ret['learn_more']     = $this->getVar('quest_learn_more', 'e');
+ 		$ret['see_also']       = $this->getVar('quest_see_also', 'e');
 		$ret['minReponse']     = $this->getVar('quest_minReponse');
 		$ret['numbering']      = $this->getVar('quest_numbering');
 		$ret['shuffleAnswers'] = $this->getVar('quest_shuffleAnswers');
@@ -342,8 +355,21 @@ class Questions extends \XoopsObject
 		$ret['isQuestion']     = ($clTypeQuestion) ? $clTypeQuestion->isQuestion() : 1;
 		$ret['visible']        = $this->getVar('quest_visible');
 		$ret['actif']        = $this->getVar('quest_actif');
+		$ret['flags']        = $this->getFlags($ret);
 		return $ret;
 	}
+
+    public function getFlags(&$ret){
+        $flags = array();
+        $flags['actif'] = quizFlagAscii($ret['actif'], "A");
+        $flags['visible'] = quizFlagAscii($ret['visible'], "V");
+        $flags['shuffleAnswers'] = quizFlagAscii($ret['shuffleAnswers'], "M");
+        
+        $flags['numbering'] = quizFlagAlpha($ret['numbering'], "123|ABC|abc","blue|blue|blue");
+                                           
+        return $flags;
+                                      
+    }
 
 	/**
 	 * Returns an array representation of the object

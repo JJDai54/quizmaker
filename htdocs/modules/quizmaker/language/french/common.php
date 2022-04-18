@@ -131,7 +131,7 @@ define('_CO_QUIZMAKER_TRUNCATE_LENGTH', "Nombre de caractères à tronquer dans 
 define('_CO_QUIZMAKER_TRUNCATE_LENGTH_DESC', "Définir le nombre maximum de caractères pour tronquer les champs de texte longs");
 define('_CO_QUIZMAKER_STATS_SUMMARY', "Statistiques du module");
 define('_CO_QUIZMAKER_TOTAL_CATEGORIES', "Catégories :");
-define('_CO_QUIZMAKER_TOTAL_ITEMS', "Articles");
+define('_CO_QUIZMAKER_TOTAL_ITEMS', "Quiz");
 define('_CO_QUIZMAKER_TOTAL_OFFLINE', "Hors ligne");
 define('_CO_QUIZMAKER_TOTAL_PUBLISHED', "Publié");
 define('_CO_QUIZMAKER_TOTAL_REJECTED', "Rejeté");

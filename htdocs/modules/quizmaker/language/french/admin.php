@@ -276,7 +276,7 @@ define('_AM_QUIZMAKER_MESSAGES_JS_FORPOINTSTIMER', "Pour {points} points en {tim
 define('_AM_QUIZMAKER_MESSAGES_JS_RESULTONSLIDE', "résultat : pour {reponses} réponses sur {questions} questions,<br>Votre score est de {points} points sur {totalPoints} points");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNNEXT', "Suivant");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNPREVIOUS', "Précédent");
-define('_AM_QUIZMAKER_MESSAGES_JS_BTNSUBMIT', "Soumettre");
+define('_AM_QUIZMAKER_MESSAGES_JS_BTNSUBMIT', "Solutions");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNCONTINUE', "Continuez");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNRELOAD', "Recharger");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNANTISECHE', "?");
@@ -342,11 +342,20 @@ define('_AM_QUIZMAKER_DATE_BEGIN_END', "Dates début/fin");
 
 define('_AM_QUIZMAKER_SLIDE_CAPTION1', "Titre de la liste 1");
 define('_AM_QUIZMAKER_SLIDE_CAPTION2', "Titre de la liste 2");
+define('_AM_QUIZMAKER_MESSAGES_CONSTANT', "Constante");
 
 define('_AM_QUIZMAKER_QUIZ_PRESENTATION', "Présentation du quiz");
 define('_AM_QUIZMAKER_QUIZ_RESULTATS', "Résultats");
 define('_AM_QUIZMAKER_QUIZ_RESULTATS_DESC', "<ul style='text-align: left;'><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Nombre de r&eacute;ponses faites : {repondu} / {totalQuestions}</span><br />
 <span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'><strong>Votre score est de {score} / {scoreMaxi}</strong><span style='color: #ff0000;'> (score minimum : {scoreMini})</span> </span><br />
 <span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Votre temps de r&eacute;ponse est de {duree}</span></li></ul>");
+
+define('_AM_QUIZMAKER_QUESTIONS_LEARN_MORE', "En savoir plus");
+define('_AM_QUIZMAKER_QUESTIONS_LEARN_MORE_DESC', "Défini un lien sur une page externe");
+define('_AM_QUIZMAKER_QUESTIONS_SEE_ALSO', "Voir aussi");
+define('_AM_QUIZMAKER_QUESTIONS_SEE_ALSO_DESC', "Défini un lien sur une page externe");
+define('_AM_QUIZMAKER_RAZ_RESULTS', "Effacer les résultats de ce quiz");
+define('_AM_QUIZMAKER_CONFIRM_RAS_RESULTS', "Confirmer la suppression des résultats du quiz <b>%s (#%s) ?</b>");
+define('_AM_QUIZMAKER_DELETE_RESULTS_OK', "Suppression des résultats ok");
 
 ?>

@@ -117,6 +117,7 @@ class Messages extends \XoopsObject
 		$ret['id']       = $this->getVar('msg_id');
 		$ret['code']     = $this->getVar('msg_code');
 		$ret['constant'] = $this->getVar('msg_constant');
+		$ret['message']  = str_replace("<","[",str_replace(">","]",constant("_AM_QUIZMAKER_" . $ret['constant']))); 
 		$ret['editable'] = $this->getVar('msg_editable');
 		return $ret;
 	}

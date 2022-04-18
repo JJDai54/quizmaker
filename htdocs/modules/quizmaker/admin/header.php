@@ -89,7 +89,10 @@ xoops_loadLanguage('common', $moduleDirName);
 
 /*
 */
-require_once("../smarty/function.quizFlagAscii.php");
+require_once("../include/quizFlagAscii.php");
+/* remplacer pa les fonction getflags dans les classes des tables
 $xoopsTpl->register_function("quizFlagAscii", "smarty_function_quizFlagAscii", false);
 $xoopsTpl->register_function("quizFlagAlpha", "smarty_function_quizFlagAlpha", false);
+*/
+
 //$xoopsTpl->register_compiler_function("quizFlagAscii2", "quizFlagAscii2", false);

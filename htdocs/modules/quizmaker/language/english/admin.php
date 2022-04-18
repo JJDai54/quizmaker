@@ -280,7 +280,7 @@ define('_AM_QUIZMAKER_MESSAGES_JS_FORPOINTSTIMER', "Pour {points} points en {tim
 define('_AM_QUIZMAKER_MESSAGES_JS_RESULTONSLIDE', "résultat : pour {reponses} réponses sur {questions} questions,<br>Votre score est de {points} points sur {totalPoints} points");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNNEXT', "Suivant");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNPREVIOUS', "Précédent");
-define('_AM_QUIZMAKER_MESSAGES_JS_BTNSUBMIT', "Soumettre");
+define('_AM_QUIZMAKER_MESSAGES_JS_BTNSUBMIT', "Solutions");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNCONTINUE', "Continuez");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNRELOAD', "Recharger");
 define('_AM_QUIZMAKER_MESSAGES_JS_BTNANTISECHE', "?");
@@ -334,7 +334,7 @@ define('_CO_QUIZMAKER_TYPE_MATCHITEMS_DESC', "Ce slide es composé d'une liste d
 define('_CO_QUIZMAKER_TYPE_MULTITEXTBOX', "Questions multiples à réponses multiples.");
 define('_CO_QUIZMAKER_TYPE_MULTITEXTBOX_DESC', "Ce slide est composé d'une ou plusieurs questions.<br>Chaque question peut avoir plusieurs réponses saisissables.");
 define('_CO_QUIZMAKER_TYPE_PAGEINFO', "Page d'infomation");
-define('_CO_QUIZMAKER_TYPE_PAGEINFO_DESC', "Ce silde a plusieurs fonctionalité: Page d'introduction, encart et résultats.<br>Le type de page est défini dans les options du slide.\"
+define('_CO_QUIZMAKER_TYPE_PAGEINFO_DESC', "Ce slide a plusieurs fonctionalité: Page d'introduction, encart et résultats.<br>Le type de page est défini dans les options du slide.\"
 
 . \"<br><b>Introduction</b> : à placer impérativement en premier, il permet de présenter le quiz.\"
 

@@ -82,10 +82,16 @@ class ResultsHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return int
 	 */
-	public function getCountResults($start = 0, $limit = 0, $sort = 'result_id ASC, result_quiz_id', $order = 'ASC')
+// 	public function getCountResults($start = 0, $limit = 0, $sort = 'result_id ASC, result_quiz_id', $order = 'ASC')
+// 	{
+// 		$crCountResults = new \CriteriaCompo();
+// 		$crCountResults = $this->getResultsCriteria($crCountResults, $start, $limit, $sort, $order);
+// 		return parent::getCount($crCountResults);
+// 	}
+	public function getCountResults($criteria=null, $start = 0, $limit = 0, $sort = 'result_id', $order = 'ASC')
 	{
-		$crCountResults = new \CriteriaCompo();
-		$crCountResults = $this->getResultsCriteria($crCountResults, $start, $limit, $sort, $order);
+		$newCriteria = ($criteria) ? $criteria: new \CriteriaCompo();
+		$crCountResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);
 		return parent::getCount($crCountResults);
 	}
 
@@ -97,12 +103,19 @@ class ResultsHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return array
 	 */
-	public function getAllResults($start = 0, $limit = 0, $sort = 'result_id ASC, result_quiz_id', $order = 'ASC')
+// 	public function getAllResults($start = 0, $limit = 0, $sort = 'result_id ASC, result_quiz_id', $order = 'ASC')
+// 	{
+// 		$crAllResults = new \CriteriaCompo();
+// 		$crAllResults = $this->getResultsCriteria($crAllResults, $start, $limit, $sort, $order);
+// 		return parent::getAll($crAllResults);
+// 	}
+	public function getAllResults($criteria=null, $start = 0, $limit = 0, $sort = 'result_id ASC', $order = 'ASC')
 	{
-		$crAllResults = new \CriteriaCompo();
-		$crAllResults = $this->getResultsCriteria($crAllResults, $start, $limit, $sort, $order);
+		$newCriteria = ($criteria) ? $criteria: new \CriteriaCompo();
+		$crAllResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);
 		return parent::getAll($crAllResults);
 	}
+
 
 	/**
 	 * Get Criteria Results

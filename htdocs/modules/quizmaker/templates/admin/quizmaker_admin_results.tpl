@@ -1,5 +1,29 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
+<form name='quizmaker_select_filter' id='quizmaker_select_filter' action='results.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
+<input type="hidden" name="op" value="list" />
+<input type="hidden" name="sender" value="0" />
+<input type="hidden" name="quest_parent_id" value="0" />
+
+<div class="floatleft">
+    <div class="xo-buttons">
+<{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
+<{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
+<{$btn.razResults}>        
+    </div>
+    </div>
+
+<div class="floatright">
+    <div class="xo-buttons">
+        <{$initWeight}>
+        <{$expQuiz}>
+        <{$btn.imgTest}>
+        
+    </div>
+</div>
+
+</form>
+<{* =================================================================== *}>
 
 <{if $results_list}>
 	<table class='table table-bordered'>
@@ -7,7 +31,7 @@
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_QUIZ_ID}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_UID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE_MAX}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE_MIN}></th>
@@ -24,7 +48,7 @@
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Results.id}></td>
 				<td class='center'><{$Results.quiz_id}></td>
-				<td class='center'><{$Results.uid}></td>
+				<td class='center'><{$Results.result_uname}> (#<{$Results.uid}>)</td>
 				<td class='center'><{$Results.score}></td>
 				<td class='center'><{$Results.sore_max}></td>
 				<td class='center'><{$Results.sore_min}></td>
@@ -33,8 +57,10 @@
 				<td class='center'><{$Results.note}></td>
 				<td class='center'><{$Results.creation}></td>
 				<td class="center  width5">
+                    <{*
 					<a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="results" /></a>
-					<a href="results.php?op=delete&amp;result_id=<{$Results.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="results" /></a>
+                    *}>
+					<a href="results.php?op=delete&amp;quiz_id=<{$Results.quiz_id}>&amp;result_id=<{$Results.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="results" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

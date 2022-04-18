@@ -181,6 +181,8 @@ define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Merci pour votre participation
 define('_MA_QUIZMAKER_ACTIONS', "Actions");
 define('_MA_QUIZMAKER_RUN', "Lancer le quiz");
 define('_MA_QUIZMAKER_SCORES', "Scores");
+define('_MA_QUIZMAKER_LEARN_MORE', "Pour en savoir plus");
+define('_MA_QUIZMAKER_SEE_ALSO', "Voir aussi");
 
 
 ?>

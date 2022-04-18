@@ -111,7 +111,8 @@ class Quiz extends \XoopsObject
 			$action = $_SERVER['REQUEST_URI'];
 		}
 		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
-$quiId = $this->getVar('quiz_id');
+        $quiId = $this->getVar('quiz_id');
+        
 		// Permissions for uploader
 		$grouppermHandler = xoops_getHandler('groupperm');
 		$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -152,11 +153,12 @@ $quiId = $this->getVar('quiz_id');
         //----------------------------------------------------------
         
 		// Form Editor DhtmlTextArea quizDescription
-//        $editDescription = \JJD\getformTextarea(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),_AM_QUIZMAKER_DESCRIPTION_DESC);
-        $editDescription = $quizUtility->getEditor(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $helper);
-            
-            
+        /* champ a supprimer fait double emploi avec les champs du premier slide "page_info/intro"
+        $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $helper);
 		$form->addElement($editDescription, true);
+        */
+            
+            
         
 
 		// Form Check Box quizDateBegin
@@ -192,6 +194,15 @@ $quiId = $this->getVar('quiz_id');
         $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
 		$form->addElement($inpPublishAnswers);
 
+        /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
+        oui : ce bouton est activer sur le dernier slide
+        non :  ce bouton esst désactiver sur le dernier slide (utilisation en dehors du site a verifier)
+        */
+		// Form Check Box quizAllowedSubmit
+		$quizAllowedSubmit = $this->isNew() ? 0 : $this->getVar('quiz_allowedSubmit');
+		$checkQuizAllowedSubmit = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT, 'quiz_allowedSubmit', $quizAllowedSubmit);
+		$checkQuizAllowedSubmit->setDescription(_AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT_DESC);
+		$form->addElement($checkQuizAllowedSubmit );
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_QUIZ . '</div></center>');
         //========================================================
@@ -254,15 +265,6 @@ $quiId = $this->getVar('quiz_id');
 		$form->addElement($inpMinusOnShowGoodAnswers);
         */
         
-        /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
-        oui : ce bouton est activer sur tous les slides, ce qui n'est pas nécessaire
-        non :  il s'affiche uniquement sur le slide des résultats, ce qui est suffisant  donc inutile
-        */
-		// Form Check Box quizAllowedSubmit
-		$quizAllowedSubmit = $this->isNew() ? 0 : $this->getVar('quiz_allowedSubmit');
-		$checkQuizAllowedSubmit = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT, 'quiz_allowedSubmit', $quizAllowedSubmit);
-		$checkQuizAllowedSubmit->setDescription(_AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT_DESC);
-		$form->addElement($checkQuizAllowedSubmit );
         
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_DEV . '</div></center>');
@@ -419,9 +421,30 @@ $quiId = $this->getVar('quiz_id');
         $quiz_tpl = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$ret['fileName']}.tpl"; 
         $ret['quiz_tpl'] = (file_exists($quiz_tpl)) ?  QUIZMAKER_UPLOAD_QUIZ_URL . "/{$ret['fileName']}.tpl" : '';
         $ret['quiz_tpl_path'] = (file_exists($quiz_tpl)) ?  $quiz_tpl : '';
+        $ret['flags'] = $this->getFlags($ret);
 		return $ret;
 	}
+	
+    public function getFlags(&$ret){
+        $flags = array();
+        $flags['actif'] = quizFlagAscii($ret['actif'], "A");
+        $flags['publishResults'] = quizFlagAscii($ret['actif'], "R");
+        $flags['publishAnswers'] = quizFlagAscii($ret['publishAnswers'], "S");
+        $flags['showResultPopup'] = quizFlagAscii($ret['showResultPopup'], "Popup");
+        $flags['useTimer'] = quizFlagAscii($ret['useTimer'], "T");        
+        $flags['allowedSubmit'] = quizFlagAscii($ret['allowedSubmit'], "Sb");                                
+        $flags['showReloadAnswers'] = quizFlagAscii($ret['showReloadAnswers'], "Rl");
+        $flags['allowedPrevious'] = quizFlagAscii($ret['allowedPrevious'], "Pr"); 
+        $flags['shuffleQuestions'] = quizFlagAscii($ret['shuffleQuestions'], "M"); 
+        $flags['showGoodAnswers'] = quizFlagAscii($ret['showGoodAnswers'], "Ga"); 
+        $flags['showBadAnswers'] = quizFlagAscii($ret['showBadAnswers'], "Ba"); 
+               
+        $flags['answerBeforeNext'] = quizFlagAlpha($ret['answerBeforeNext'], "Ro|Ro");
+        $flags['onClickSimple'] = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk");
 
+        return $flags;
+                                      
+    }
 	/**
 	 * Returns an array representation of the object
 	 *

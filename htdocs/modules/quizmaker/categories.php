@@ -63,6 +63,30 @@ $permEdit = $permissionsHandler->getPermGlobalView();
 $GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
 
+        // ----- Listes de selection pour filtrage -----  
+        //JJDai : a corriger pour n'afficher que les categorie visible par le groupe
+        $selector = array();
+        $style="style='width:80%;'";
+        $cat = $categoriesHandler->getListKeyName(null, false, false);
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory->addOptionArray($cat);
+        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+  	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
+        $selector['inpCategory'] = $inpCategory->render();
+        
+        $catObj = $categoriesHandler->get($catId);
+		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
+        //-------------------------------------
+        
+//         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
+//         $tQuiz = $quizHandler->getListKeyName($catId,null,null,'view');
+//         $inpQuiz->addOptionArray($tQuiz);
+//         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+//   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
+//         $selector['inpQuiz'] = $inpQuiz->render();
+  	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
+        // ----- /Listes de selection pour filtrage -----   
+
 
 
 // 	$crCategories = new \CriteriaCompo();

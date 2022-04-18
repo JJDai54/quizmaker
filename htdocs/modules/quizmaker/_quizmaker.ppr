@@ -308,7 +308,7 @@ _quizmaker
 				class\Common\Resizer.php
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
-			-type_question
+			+type_question
 				class\type_question\slide_checkbox.php
 				class\type_question\slide_checkboxLogical.php
 				class\type_question\slide_listboxIntruders1.php
@@ -352,7 +352,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\index.html
@@ -448,6 +448,7 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
+			include\quizFlagAscii.php
 		+language
 			-english
 				-help
@@ -614,50 +615,42 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=class\QuizUtility.php
-1=class\Questions.php
-2=class\Quiz.php
-3=class\QuestionsHandler.php
-4=templates\quizmaker_categories.tpl
-5=include\functions.php
-6=templates\admin\quizmaker_admin_questions.tpl
-7=admin\header.php
-8=smarty\function.quizFlagAscii.php
-9=templates\admin\quizmaker_admin_quiz.tpl
-10=xoops_version.php
+0=admin\questions.php
+1=admin\results.php
+2=templates\admin\quizmaker_admin_results.tpl
+3=templates\admin\quizmaker_admin_questions.tpl
+4=sql\mysql.sql
+5=class\ResultsHandler.php
+6=class\QuestionsHandler.php
+7=language\french\admin.php
+8=docs\changelog.txt
 [Selected Project Files]
 Main=
-Selected=xoops_version.php
-[class\QuizUtility.php]
-TopLine=677
-Caret=20,695
-[class\Questions.php]
-TopLine=233
-Caret=5,264
-[class\Quiz.php]
-TopLine=369
-Caret=1,387
-[class\QuestionsHandler.php]
-TopLine=185
-Caret=5,208
-[templates\quizmaker_categories.tpl]
-TopLine=91
-Caret=1,110
-[include\functions.php]
-TopLine=219
-Caret=40,244
+Selected=docs\changelog.txt
+[admin\questions.php]
+TopLine=109
+Caret=43,130
+[admin\results.php]
+TopLine=166
+Caret=71,202
+[templates\admin\quizmaker_admin_results.tpl]
+TopLine=27
+Caret=54,34
 [templates\admin\quizmaker_admin_questions.tpl]
-TopLine=137
-Caret=1,142
-[admin\header.php]
-TopLine=74
-Caret=31,94
-[smarty\function.quizFlagAscii.php]
-TopLine=46
-Caret=34,77
-[templates\admin\quizmaker_admin_quiz.tpl]
-TopLine=116
-Caret=30,135
-[xoops_version.php]
+TopLine=168
+Caret=90,180
+[sql\mysql.sql]
+TopLine=125
+Caret=16,148
+[class\ResultsHandler.php]
+TopLine=101
+Caret=1,114
+[class\QuestionsHandler.php]
+TopLine=66
+Caret=1,91
+[language\french\admin.php]
+TopLine=340
+Caret=40,359
+[docs\changelog.txt]
 TopLine=1
-Caret=30,29
+Caret=1,6

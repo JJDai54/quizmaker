@@ -226,6 +226,8 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility;
         $tQuest['options']        = self::sanitise($values['quest_options']);
         $tQuest['comment1']       = self::sanitise($values['quest_comment1']);
         $tQuest['explanation']    = self::sanitise($values['quest_explanation']);
+        $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
+        $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['minReponse']     = $values['minReponse'];
         $tQuest['numbering']      = $values['numbering'];
         $tQuest['shuffleAnswers'] = $values['shuffleAnswers'];

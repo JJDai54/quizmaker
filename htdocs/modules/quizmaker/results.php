@@ -114,8 +114,9 @@ FROM `x251_quizmaker_results`
  GROUP BY `result_quiz_id`,`result_uid`
 ****************************************** */        
 //$stat = $resultsHandler->getStatistics();         
-//$stat = $quizHandler->getStatistics();         
+//$stat = $quizHandler->getStatistics();   
         $criteria= new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId, '='));        
+        $criteria->add(new \Criteria('result_uid', 3, '<>'));     
         $resultsCount = $resultsHandler->getCount($criteria);
         
         $criteria->setSort('result_score_achieved DESC,result_uname');
