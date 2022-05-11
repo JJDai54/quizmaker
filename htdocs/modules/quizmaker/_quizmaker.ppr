@@ -36,7 +36,7 @@ _quizmaker
 			admin\quiz.php
 			admin\results.php
 			admin\type_question.php
-		+assets
+		-assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -295,7 +295,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -308,7 +308,7 @@ _quizmaker
 				class\Common\Resizer.php
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
-			+type_question
+			-type_question
 				class\type_question\slide_checkbox.php
 				class\type_question\slide_checkboxLogical.php
 				class\type_question\slide_listboxIntruders1.php
@@ -352,7 +352,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\index.html
@@ -437,7 +437,7 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -615,42 +615,18 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=admin\questions.php
-1=admin\results.php
-2=templates\admin\quizmaker_admin_results.tpl
-3=templates\admin\quizmaker_admin_questions.tpl
-4=sql\mysql.sql
-5=class\ResultsHandler.php
-6=class\QuestionsHandler.php
-7=language\french\admin.php
-8=docs\changelog.txt
+0=admin\export.php
+1=templates\quizmaker_quiz_solutions.tpl
+2=solutions.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
-[admin\questions.php]
-TopLine=109
-Caret=43,130
-[admin\results.php]
-TopLine=166
-Caret=71,202
-[templates\admin\quizmaker_admin_results.tpl]
-TopLine=27
-Caret=54,34
-[templates\admin\quizmaker_admin_questions.tpl]
-TopLine=168
-Caret=90,180
-[sql\mysql.sql]
-TopLine=125
-Caret=16,148
-[class\ResultsHandler.php]
-TopLine=101
-Caret=1,114
-[class\QuestionsHandler.php]
-TopLine=66
-Caret=1,91
-[language\french\admin.php]
-TopLine=340
-Caret=40,359
-[docs\changelog.txt]
-TopLine=1
-Caret=1,6
+Selected=templates\quizmaker_quiz_solutions.tpl
+[admin\export.php]
+TopLine=17
+Caret=133,53
+[templates\quizmaker_quiz_solutions.tpl]
+TopLine=69
+Caret=88,112
+[solutions.php]
+TopLine=13
+Caret=68,108

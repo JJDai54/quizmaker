@@ -50,7 +50,8 @@ switch($op) {
 	case 'export_ok':
         $quiz = $quizHandler->get($quizId);
         $folder = $quiz->getVar('quiz_fileName');    
-        $name = $quiz->getVar('quiz_name') . '_' . date("Y-m-d_H-m-s");    
+        //$name = $quiz->getVar('quiz_name') . '_' . date("Y-m-d_H-m-s"); //pas bon le nom contient des espaces et autres caracteres   
+        $name = $folder . '_' . date("Y-m-d_H-m-s");    
         $quizUtility::saveDataKeepId($quizId);
         $sourcePath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/export/";
         $outZipPath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/{$name}.zip";

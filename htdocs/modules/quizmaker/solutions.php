@@ -105,6 +105,7 @@ $GLOBALS['xoTheme']->addStylesheet( $style2, null );
 		$xoopsTpl->assign('questions', $questions);        
 		$xoopsTpl->assign('admin', true);        
 		$xoopsTpl->assign('modPathIcon16', $modPathIcon16);        
+		$xoopsTpl->assign('modPathArrows', $modPathIcon16 . "/arrows/blue");        
 
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));
 // Breadcrumbs
