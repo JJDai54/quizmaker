@@ -136,26 +136,24 @@ return false;
 				<td class='center' <{$styleParent}> ><{$Questions.quest_timer}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.creation}></td>
                 
-				<td class="center  width5" <{$styleParent}> >
+				<td class="center  width10" <{$styleParent}> >
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
         				<{*  <img src="<{xoModuleIcons16}><{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' /> *}>
                         <{$Questions.flags.actif}>
-                        </a>
+                        </a>|
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' >
         				<{*  <img src="<{xoModuleIcons16}><{$Questions.visible}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' /> *}>
                         <{$Questions.flags.visible}>
-                        </a>
+                        </a>|
                     <{if $Questions.isQuestion}>
-                    
-                    
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_numbering&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_NUMBERING}>' >
                         <{$Questions.flags.numbering}>
-                        </a>
+                        </a>|
                     
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers"  title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANS}>' >
         				<{*  <img src="<{xoModuleIcons16}><{$Questions.shuffleAnswers}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANS}>' /> *}>
                         <{$Questions.flags.shuffleAnswers}>
-                        </a>
+                        </a>|
                     
                     
                     
@@ -169,7 +167,7 @@ return false;
                     <{/if}>
 				</td>
                 
-				<td class="center  width5" <{$styleParent}> >
+				<td class="center width5" <{$styleParent}> >
                 
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16 edit.png}>" alt="questions" />

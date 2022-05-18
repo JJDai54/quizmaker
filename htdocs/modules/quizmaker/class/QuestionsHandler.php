@@ -429,7 +429,7 @@ public function getStatistics($QuizId = 0){
 /*
 */
     $sql = "SELECT quest_quiz_id AS quizId, count(quest_quiz_id) as countQuestions"
-         . " FROM ". $this->table . " GROUP BY quest_quiz_id";
+         . " FROM ". $this->table . " WHERE quest_type_question<>'pageInfo' GROUP BY quest_quiz_id";
     if ($QuizId > 0)
         $sql .= " WHERE quest_quiz_id = {$quizId}";
     $rst = $this->db->query($sql);

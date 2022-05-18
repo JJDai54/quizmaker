@@ -1,6 +1,8 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
+<{assign var="fldImg" value="blue"}>
+<{assign var="styleParent" value=""}>
 
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='quiz.php?op=list' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
@@ -24,6 +26,7 @@ img{
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORY}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_THEME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_DATE_BEGIN_END}></th>
@@ -37,7 +40,7 @@ img{
 		</thead>
 		<{if $quiz_count}>
 		<tbody>
-			<{foreach item=Quiz from=$quiz_list}>
+			<{foreach item=Quiz from=$quiz_list name=quizItem}>
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Quiz.id}></td>
                 <{* ========================================================== 
@@ -59,6 +62,42 @@ img{
                 <td class='left'>
 					<a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
                         <{$Quiz.name}></a></td>
+                        
+                <{* ---------------- Arrows Weight -------------------- *}>
+                <td class='center width10'>
+                  <{if $smarty.foreach.quizItem.first}>
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>"><img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                  <{else}>
+                    <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=first&&quiz_weight=<{$Quiz.weight}>">
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                    </a>
+                  
+                    <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=up&&quiz_weight=<{$Quiz.weight}>">
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                    </a>
+                  <{/if}>
+               
+                  <{* ----------------------------------- *}>
+                  <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                  <{$Quiz.weight}>
+                  <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                  <{* ----------------------------------- *}>
+               
+                  <{if $smarty.foreach.quizItem.last}>
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                  <{else}>
+                  
+                  <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=down&&quiz_weight=<{$Quiz.weight}>">
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                    </a>
+               
+                  <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=last&&quiz_weight=<{$Quiz.weight}>">
+                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                    </a>
+                  <{/if}>
+                </td>
+                <{* ---------------- /Arrows -------------------- *}>
                 
 				<td class='left'>
                     <{$Quiz.quiz_fileName}>

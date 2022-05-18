@@ -50,6 +50,9 @@ public static function build_quiz($quizId){
 global $quizHandler, $questionsHandler, $answersHandler;
 ///quiz-questions.js
     
+    //Au cas ou cela aurait été oublié
+    $questionsHandler->incrementeWeight($quizId);
+    
     // --- Dossier de destination
     $quiz = $quizHandler->get($quizId);
 //echo "<hr>quiz<pre>" . print_r($quiz, true) . "</pre><hr>";
@@ -107,7 +110,7 @@ global $utility, $xoopsConfig;
     //insertion du fichier de langue
     $language = $xoopsConfig['language'];
     $langFile = $rootApp . "/js/language/quiz-" . $language . ".js";
-    if (!file_exists($langFile)) {
+    if (!file_exists($langFile)) { //JJDai : peut-etre forcer overwrite
         self::buildJsLanguage($langFile);
         //$language = english;
     }
@@ -306,8 +309,9 @@ global $messagesHandler;
     
 	foreach(array_keys($messagesAll) as $i) {
 		$key = $messagesAll[$i]->getVar('msg_code');
-        $value = constant('_AM_QUIZMAKER_MESSAGES_JS_' . $messagesAll[$i]->getVar('msg_constant')) ;
-        $tDef[] = "{$key} : \"{constant}\"";      
+        $value = constant('_JS_QUIZMAKER_' . $messagesAll[$i]->getVar('msg_constant')) ;
+        //$value = $messagesAll[$i]->getVar('msg_constant') ;
+        $tDef[] = "{$key} : \"{$value}\"";      
 	}
     $tDef[] = "}";
     $content = implode(",\n", $tDef);

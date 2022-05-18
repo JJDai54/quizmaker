@@ -46,7 +46,7 @@ var textboxClass = "quiz-shadowbox-medium";
         var tAllWords = shuffleNewArray(this.data.allWords);
 
         var h=k*1+1;
-        var onclick = `onclick="quiz_textareaListbox_event('update','${id}','${name}',${questionNumber});"`;
+        var onclick = `onclick="quiz_textareaListbox_event('update','${id}','${name}',${questionNumber});" style="margin-bottom:2px"`;
         var obList = getHtmlCombobox(name, `${name}{${k}`, tAllWords, onclick, false);
         tHtml.push(`${k*1+1} : ${obList}`);        
     }
@@ -245,7 +245,7 @@ incremente_question(nbQuestions)
 *
 * **** */
 
- reloadQuestion(currentQuestion, quizBoxAllSlides)
+ reloadQuestion_old(currentQuestion, quizBoxAllSlides)
   {
     var currentQuestion = this.question;
     var id = this.getId(0);
@@ -295,7 +295,8 @@ incremente_question(nbQuestions)
     var tWordsA = this.data.words;
     for (var i in tWordsA) {
 
-        obs[i].value = this.toProperName(tWordsA[i]);
+        //obs[i].value = this.toProperName(tWordsA[i]);
+        obs[i].value = tWordsA[i];
     }
 
     var obText = document.getElementById(id);
@@ -313,7 +314,6 @@ incremente_question(nbQuestions)
     var id = this.getId(0);
     var name = this.getName();
     var word = "";
- 
     //var exp = currentQuestion.answers[0].proposition;
     //var nbRows = exp.split("\n").length;
     var obText = document.getElementById(id);
@@ -326,12 +326,10 @@ incremente_question(nbQuestions)
     obs.forEach( (obInput, index) => {
         var idx = getRandomIntInclusive(0, this.data.allWords.length-1);
         obInput.value = this.data.allWords[idx];
-        exp = exp.replaceAll("{"+(i*1+1)+"}", obs[index].value);
+        exp = exp.replaceAll("{"+(index*1+1)+"}", obs[index].value);
     });
 
-
     //-----------------------------------------------------
-
     obText.innerHTML = exp;
     return true;
   }

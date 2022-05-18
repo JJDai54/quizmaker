@@ -1,7 +1,7 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
-                  <{assign var="fldImg" value="blue"}>
-                  <{assign var="styleParent" value=""}>
+<{assign var="fldImg" value="blue"}>
+<{assign var="styleParent" value=""}>
 
 <{if $categories_list}>
 	<table class='table table-bordered'>
@@ -62,6 +62,7 @@
                       <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                       </a>
                     <{/if}>
+                </td>
                 <{* ---------------- /Arrows -------------------- *}>
 
 

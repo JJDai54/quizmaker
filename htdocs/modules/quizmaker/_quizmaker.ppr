@@ -16,7 +16,6 @@ HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
-	-smarty
 	+quizmaker
 		+admin
 			admin\about.php
@@ -51,8 +50,10 @@ _quizmaker
 							assets\icons\16\arrows\blue\down-1.png
 							assets\icons\16\arrows\blue\first-0.png
 							assets\icons\16\arrows\blue\first-1.png
+							assets\icons\16\arrows\blue\goto.png
 							assets\icons\16\arrows\blue\last-0.png
 							assets\icons\16\arrows\blue\last-1.png
+							assets\icons\16\arrows\blue\sommaire.png
 							assets\icons\16\arrows\blue\up-0.png
 							assets\icons\16\arrows\blue\up-1.png
 						-red
@@ -60,8 +61,10 @@ _quizmaker
 							assets\icons\16\arrows\red\down-1.png
 							assets\icons\16\arrows\red\first-0.png
 							assets\icons\16\arrows\red\first-1.png
+							assets\icons\16\arrows\red\goto.png
 							assets\icons\16\arrows\red\last-0.png
 							assets\icons\16\arrows\red\last-1.png
+							assets\icons\16\arrows\red\sommaire.png
 							assets\icons\16\arrows\red\up-0.png
 							assets\icons\16\arrows\red\up-1.png
 					-notes
@@ -82,6 +85,7 @@ _quizmaker
 					assets\icons\16\build.png
 					assets\icons\16\children.png
 					assets\icons\16\configuration_small.png
+					assets\icons\16\delete.png
 					assets\icons\16\download.png
 					assets\icons\16\generer.png
 					assets\icons\16\generer-1.png
@@ -100,7 +104,7 @@ _quizmaker
 					assets\icons\16\retour-1.png
 					assets\icons\16\retour-2.png
 					assets\icons\16\sigma-01.png
-					assets\icons\16\sommaire.png
+					assets\icons\16\sigma-02.png
 					assets\icons\16\status0.png
 					assets\icons\16\status1.png
 					assets\icons\16\status2.png
@@ -111,9 +115,9 @@ _quizmaker
 					assets\icons\16\verrou-open.gif
 					assets\icons\16\verrou-open.png
 				-32
+					assets\icons\32\.png
 					assets\icons\32\album.png
 					assets\icons\32\ampoule-00.png
-					assets\icons\32\ampoule-01.png
 					assets\icons\32\ampoule-05.jpg
 					assets\icons\32\block.png
 					assets\icons\32\broken.png
@@ -166,8 +170,8 @@ _quizmaker
 				assets\images\solution-02.png
 				assets\images\solution-03.png
 			-js
-				+quiz
-					+css
+				-quiz
+					-css
 						-progressbarr
 							assets\js\quiz\css\progressbarr\shaded-green.png
 						assets\js\quiz\css\index.html
@@ -295,7 +299,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		-class
+		+class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -437,20 +441,21 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
+			include\function.quizFlagAscii.php
 			include\functions.php
 			include\index.html
 			include\install.php
 			include\notification.inc.php
+			include\quizFlagAscii.php
 			include\search.inc.php
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-			include\quizFlagAscii.php
-		+language
-			-english
+		-language
+			+english
 				-help
 					language\english\help\help.html
 					language\english\help\index.html
@@ -489,7 +494,9 @@ _quizmaker
 				language\english\index.html
 				language\english\main.php
 				language\english\modinfo.php
-			+french
+				language\english\quiz_JS.php
+				language\english\type_questions.php
+			-french
 				-help
 					language\french\help\help.html
 					language\french\help\index.html
@@ -530,6 +537,8 @@ _quizmaker
 				language\french\index.html
 				language\french\main.php
 				language\french\modinfo.php
+				language\french\quiz_JS.php
+				language\french\type_questions.php
 			language\index.html
 		-preloads
 			preloads\autoloader.php
@@ -595,6 +604,10 @@ _quizmaker
 				testdata\images\index.html
 			testdata\index.html
 			testdata\index.php
+		+versions
+			versions\Quizmaker_2_80.php
+			versions\Quizmaker_2_92.php
+			versions\Quizmaker_2_94.php
 		_quizmaker.ppr
 		about.php
 		categories.php
@@ -615,18 +628,70 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=admin\export.php
-1=templates\quizmaker_quiz_solutions.tpl
-2=solutions.php
+0=class\QuizHandler.php
+1=class\Quiz.php
+2=categories.php
+3=templates\quizmaker_categories.tpl
+4=sql\mysql.sql
+5=include\update.php
+6=quiz.php
+7=admin\quiz.php
+8=admin\questions.php
+9=templates\admin\quizmaker_admin_categories.tpl
+10=admin\categories.php
+11=templates\admin\quizmaker_admin_answers.tpl
+12=class\CategoriesHandler.php
+13=class\Type_questionHandler.php
+14=class\Utility.php
+15=class\QuestionsHandler.php
 [Selected Project Files]
 Main=
-Selected=templates\quizmaker_quiz_solutions.tpl
-[admin\export.php]
+Selected=templates\quizmaker_categories.tpl
+[class\QuizHandler.php]
+TopLine=361
+Caret=1,379
+[class\Quiz.php]
+TopLine=133
+Caret=61,160
+[categories.php]
+TopLine=107
+Caret=68,116
+[templates\quizmaker_categories.tpl]
+TopLine=58
+Caret=159,76
+[sql\mysql.sql]
+TopLine=16
+Caret=15,38
+[include\update.php]
 TopLine=17
-Caret=133,53
-[templates\quizmaker_quiz_solutions.tpl]
-TopLine=69
-Caret=88,112
-[solutions.php]
-TopLine=13
-Caret=68,108
+Caret=83,48
+[quiz.php]
+TopLine=78
+Caret=63,100
+[admin\quiz.php]
+TopLine=35
+Caret=100,64
+[admin\questions.php]
+TopLine=85
+Caret=75,108
+[templates\admin\quizmaker_admin_categories.tpl]
+TopLine=31
+Caret=1,32
+[admin\categories.php]
+TopLine=146
+Caret=1,166
+[templates\admin\quizmaker_admin_answers.tpl]
+TopLine=27
+Caret=1,45
+[class\CategoriesHandler.php]
+TopLine=284
+Caret=1,227
+[class\Type_questionHandler.php]
+TopLine=1
+Caret=1,1
+[class\Utility.php]
+TopLine=1
+Caret=1,1
+[class\QuestionsHandler.php]
+TopLine=197
+Caret=1,230

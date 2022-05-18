@@ -86,6 +86,8 @@ include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
 xoops_loadLanguage('slide', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
+xoops_loadLanguage('quiz_JS', $moduleDirName);
+xoops_loadLanguage('type_questions', $moduleDirName);
 
 /*
 */

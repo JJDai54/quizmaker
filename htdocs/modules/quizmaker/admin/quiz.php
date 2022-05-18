@@ -60,13 +60,24 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$templateMain = 'quizmaker_admin_quiz.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('quiz.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, 'quiz.php?op=new', 'add');
+        
+		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, "quiz.php?op=init_weight&cat_id={$catId}", 'update');
+        
+        //update weight 
+//         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_ICONS_URL."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
+// 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
+        
+        
+        
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		$quizCount = $quizHandler->getCountQuiz();
         
         $criteria = new CriteriaCompo();
         if ($catId > 0)
         $criteria->add(new Criteria('quiz_cat_id',$catId));
-		$quizAll = $quizHandler->getAllQuiz($criteria, $start, $limit);
+		//$criteria->setSort('quiz_weight');        
+        //$criteria->setOrder('ASC');
+		$quizAll = $quizHandler->getAllQuiz($criteria, $start, $limit, 'quiz_cat_id, quiz_weight ASC,quiz_id');
 		$GLOBALS['xoopsTpl']->assign('quiz_count', $quizCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
@@ -109,6 +120,9 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Form Create
 		$quizObj = $quizHandler->create();
+        $quizObj->setVar('quiz_weight', $quizHandler->getMax("quiz_weight", $catId) + 10);
+        $quizObj->setVar('quiz_cat_id', $catId);
+
 		$form = $quizObj->getFormQuiz();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 	break;
@@ -127,8 +141,10 @@ if($quizId > 0 && $sender != 'cat_id'){
 		// Set Vars
 		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
 		$quizObj->setVar('quiz_name', Request::getString('quiz_name', ''));
+		$quizObj->setVar('quiz_author', Request::getString('quiz_author', ''));
 		$quizObj->setVar('quiz_fileName', Request::getString('quiz_fileName', ''));
 		$quizObj->setVar('quiz_description', Request::getText('quiz_description', ''));
+		$quizObj->setVar('quiz_weight', Request::getInt('quiz_weight', 0));
         
 		$QuizDateBeginArr = Request::getArray('quiz_dateBegin');
 		//$QuizDateBegin = strtotime($QuizDateBeginArr['date']) + (int)$QuizDateBeginArr['time'];
@@ -324,6 +340,23 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
         $quizHandler->config_options($quizId, $config);
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Options mise à jour");
 	break;
+
+    case 'init_weight':
+        $quizHandler->incrementeWeight($catId);
+        $url = "quiz.php?op=list&cat_id={$catId}";
+        //$url = "questions.php?op=list&" . getParams2list($quizId, $quest_type_question)."#question-{$questId}";
+        \redirect_header($url, 0, "");
+	break;
+
+    case 'weight':
+        $action = Request::getString('sens', "down") ;
+        $quizHandler->updateWeight($quizId, $action);
+        //$quizHandler->incrementeWeight($quizId);
+        $url = "quiz.php?op=list&quiz_id={$quizId}";            // ."#question-{$catId}";
+        //echo "<hr>{$url}<hr>";exit;
+        \redirect_header($url, 0, "");
+        break;
+
     
 }
 require __DIR__ . '/footer.php';

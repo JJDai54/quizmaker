@@ -42,8 +42,8 @@
 		</thead>
 		<{if $answers_count}>
 		<tbody>
-			<{foreach item=Answers from=$answers_list name=ans}>
             <{assign var="fldImg" value="blue"}>
+			<{foreach item=Answers from=$answers_list name=ans}>
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Answers.id}></td>
 				<td class='center'><{$Answers.quest_id}></td>

@@ -423,4 +423,146 @@ global $questionsHandler, $resultsHandler;
     return $statQuestions;
 }
 
+/* ******************************
+ * Update weight
+ * *********************** */
+ public function incrementeWeight($cat_id, $orderBy = 'ASC', $firstWeight = 10, $step = 10){
+
+    $firstWeight -= $step;
+    $sql = "SET @rank={$firstWeight};";
+    $result = $this->db->queryf($sql);
+
+    $sql = "update {$this->table} SET quiz_weight = (@rank:=@rank+{$step}) WHERE quiz_cat_id='{$cat_id}' ORDER BY quiz_weight {$orderBy};";    
+    $result = $this->db->queryf($sql);
+
+// 
+// 
+// 
+// //calcul d'un poids provisoire en tenant compte du regroupement par parent
+// $sql = <<<__SQL__
+// update {$this->table}  , {$this->table} tp
+// right join {$this->table} tq ON tq.quest_parent_id = tp.quest_id 
+// SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, (tp.quest_weight*1000)+tq.quest_weight)
+// WHERE tq.quest_quiz_id = {$quiz_id};
+// __SQL__;
+// 	
+//     $result = $this->db->queryf($sql);
+//     //--------------------------------
+//     $firstWeight -= $step;
+//     $sql = "SET @rank={$firstWeight};";
+//     $result = $this->db->queryf($sql);
+//     
+//     //affection du poids à partir du poids provisoir calculé précédemment
+//     //$sql = "update {$this->table} SET quest_flag = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";
+//     $sql = "update {$this->table} SET quest_weight = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";    
+//     $result = $this->db->queryf($sql);
+//     //return $result;
+//     
+//     $sql = "update {$this->table} SET quest_weight = 0 WHERE quest_quiz_id='{$quiz_id}'"
+//          . " AND quest_type_question='pageInfo'"
+//          . " AND quest_type_form = " . QUIZMAKER_TYPE_FORM_INTRO . ";";    
+//     $result = $this->db->queryf($sql);
+// 
+//     $sql = "update {$this->table} SET quest_weight = 99999 WHERE quest_quiz_id='{$quiz_id}'"
+//          . " AND quest_type_question='pageInfo'"
+//          . " AND quest_type_form = " . QUIZMAKER_TYPE_FORM_RESULT . ";";    
+//     $result = $this->db->queryf($sql);
+
+   
+}
+
+/* ******************************
+ * Update weight
+ * *********************** */
+ public function updateWeight($quiz_id, $action){
+          $currentEnr = $this->get($quiz_id); 
+          $quiz_weight = $currentEnr->getVar('quiz_weight');
+          $quiz_cat_id  = $currentEnr->getVar('quiz_cat_id');
+          
+//exit ("===>cat_id = {$cat_id}<br>Action = {$action}");          
+         switch ($action){
+            case 'up'; 
+              $sens =  '<';
+              $ordre = "DESC";
+              break;
+
+            case 'down'; 
+              $sens =  '>';
+              $ordre = "ASC";
+            break;
+
+            case 'first'; 
+              $sens =  '<=';
+              $ordre = "DESC";
+            break;
+
+            case 'last'; 
+              $sens =  '>=';
+              $ordre = "ASC";
+            break;
+            
+         }
+         
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('quiz_weight', $quiz_weight, $sens));
+        
+        // selection du parent ou du groupe des enfants
+        $selectParent = ($quiz_cat_id == 0) ? '=' : '>';
+        $criteria->add(new \Criteria('quiz_cat_id', 0, $selectParent));
+        
+        $criteria->setSort("quiz_weight");
+		$criteria->setOrder( $ordre );
+        $limit = 0;
+        $start = 0;
+        //$allObjects = $this->getAllQuestions($criteria, $start, $limit, "quiz_weight {$ordre}, quest_question {$ordre}, cat_id");
+        $allObjects = $this->getObjects($criteria, true);
+        if(count($allObjects) == 0  ){
+            return true;
+        }
+        
+
+         switch ($action){
+            case 'up'; 
+            case 'down'; 
+              $key = array_key_first($allObjects);
+              echo "===> count = " . count($allObjects) . "<br>key={$key}"; 
+              $enr2 = $allObjects[$key]->getValuesQuiz();
+              $quiz_id2 = $enr2['id'];
+              $quiz_weight2 = $enr2['weight'];
+        
+              $tbl = $this->table;
+              $sql = "UPDATE {$tbl} SET quiz_weight={$quiz_weight2} WHERE quiz_id={$quiz_id}";
+              $this->db->queryf($sql);
+              
+              $sql = "UPDATE {$tbl} SET quiz_weight={$quiz_weight} WHERE quiz_id={$quiz_id2}";
+              $this->db->queryf($sql);
+            break;
+
+            case 'first'; 
+            case 'last'; 
+              
+                $keys = array_keys($allObjects);
+              
+//echo "<hr>quiz_id = {$quiz_id}<br>quiz_weight = {$quiz_weight}<br>quiz_id = {$quiz_id}<br><pre>" . print_r($keys, true) . "</pre><hr>";              
+              
+              for ($h = 0; $h < count($keys); $h++){
+                if($h == 0){
+                    $key = array_key_last($allObjects);
+                    $newWeight = $allObjects[$key]->getVar('quiz_weight');
+                    $key2update = $keys[$h];
+                }else{
+                    $key = $keys[$h-1];
+                    $newWeight = $allObjects[$key]->getVar('quiz_weight');
+                    $key2update = $keys[$h];
+                }
+                $sql = "UPDATE {$this->table} SET quiz_weight = {$newWeight} WHERE quiz_id = {$key2update}" ;               
+                $this->db->queryf($sql);
+              }
+              
+            break;
+            
+         }
+         return true;
+ }
+
 } // Fin de la classe

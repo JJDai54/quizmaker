@@ -366,7 +366,8 @@ var textOk = '';
 
     ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
     exp = exp.replaceAll("\n","<br>"); //avec mise en formede crlf
-    var regex = /\{[\w+]*\}/gi;
+    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+    var regex = quiz_const.regexAllLetters;
     
     var tWordsA = exp.match(regex);
     tWordsA = [...new Set(tWordsA)];
@@ -408,7 +409,9 @@ function transformTextWithMask(exp, mask){
 var ret = {textOk:'', text:'', words:[], nbRows:0};
 var textOk = '';
 
-    var regex = /\{[\w+]*\}/gi;
+    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+    var regex = quiz_const.regexAllLetters;
+
     
     var tWordsA = exp.match(regex);
     //alert (tWordsA.join('|'));

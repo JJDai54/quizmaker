@@ -44,8 +44,10 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_flag', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_cat_id', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_name', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_author', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_fileName', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_description', XOBJ_DTYPE_OTHER);
+		$this->initVar('quiz_weight', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_creation', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('quiz_update', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('quiz_dateBegin', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
@@ -136,6 +138,9 @@ class Quiz extends \XoopsObject
         // Form Text quizName
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
         
+        // Form Text quiz_author
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_AUTHOR, 'quiz_author', 50, 255, $this->getVar('quiz_author') ), false);
+        
         //----------------------------------------------------------
         $fileNameTray = new \XoopsFormElementTray(_AM_QUIZMAKER_FILE_NAME_JS, ' ');        
 		// Form Text quiz_fileName
@@ -150,6 +155,9 @@ class Quiz extends \XoopsObject
 		$fileNameTray->addElement($inpBuild);
         
 		$form->addElement($fileNameTray);
+        
+        // Form Text quiz_weight
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quiz_weight', 50, 255, $this->getVar('quiz_weight') ), false);
         //----------------------------------------------------------
         
 		// Form Editor DhtmlTextArea quizDescription
@@ -367,8 +375,10 @@ class Quiz extends \XoopsObject
 		$ret['id']                = $this->getVar('quiz_id');
 		$ret['cat_id']            = $this->getVar('quiz_cat_id');
 		$ret['name']              = $this->getVar('quiz_name');
+		$ret['author']            = $this->getVar('quiz_author');
 		$ret['fileName']          = $this->getVar('quiz_fileName');
 		$ret['description']       = $this->getVar('quiz_description', 'e');
+		$ret['weight']            = $this->getVar('quiz_weight');
 		$editorMaxchar = $helper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['creation']          = \JJD\getDateSql2Str($this->getVar('quiz_creation'));

@@ -113,8 +113,8 @@ $stat = $quizHandler->getStatistics();
             }else{
                   $crQuiz->add( new \Criteria( 'quiz_cat_id', $i, "=") );
             }
-            $allQuiz = $quizHandler->getAllowed('view', $crQuiz);            
-            
+            $allQuiz = $quizHandler->getAllowed('view', $crQuiz, 'quiz_cat_id,quiz_weight,quiz_name', 'ASC');            
+            	//public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='quiz_name,quiz_id', $order="ASC")
             
 //             $crQuiz->setSort('quiz_name');
 //             $crQuiz->setOrder('ASC');

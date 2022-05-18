@@ -94,8 +94,10 @@ switch($op) {
 		}
 		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
 		$quizObj->setVar('quiz_name', Request::getString('quiz_name', ''));
+		$quizObj->setVar('quiz_author', Request::getString('quiz_author', ''));
 		$quizObj->setVar('quiz_fileName', Request::getString('quiz_fileName', ''));
 		$quizObj->setVar('quiz_description', Request::getText('quiz_description', ''));
+		$quizObj->setVar('quiz_weight', Request::getInt('quiz_weight', 0));
 		$QuizCreationArr = Request::getArray('quiz_creation');
 		$QuizCreation = strtotime($QuizCreationArr['date']) + (int)$QuizCreationArr['time'];
 		$quizObj->setVar('quiz_creation', $QuizCreation);

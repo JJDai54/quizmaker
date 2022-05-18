@@ -73,7 +73,7 @@
           <{if $Quiz.quiz_html <> '' }>
           
           <{if !$smarty.foreach.quizItem.first}>
-              <td class='center' width="100%" colspan='4'><hr class='<{$cat.theme}>-hr-style-one'></td>
+              <td class='center' width="100%" style='height:10px' colspan='4'><hr class='<{$cat.theme}>-hr-style-one' style='margin-top:0px;margin-bottom:0px;'></td>
           <{/if}>
     
           <tr>
@@ -88,6 +88,7 @@
                       </a>
                   <{else}>
                   <{/if}>
+                  <{if $Quiz.author <> ''}><br><{$smarty.const._MA_QUIZMAKER_QUIZ_PROPOSED_BY}> : <{$Quiz.author}><{/if}>
             </td>
             <td class='center' width="20px">
                 <{$Quiz.stat.countQuestions}>  

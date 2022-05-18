@@ -28,7 +28,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 2.92,
+	'version'             => 2.94,
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -40,7 +40,7 @@ $modversion = [
 	'help'                => 'page=help',
 	'release_info'        => 'release_info',
 	'release_file'        => XOOPS_URL . '/modules/quizmaker/docs/release_info file',
-	'release_date'        => '2022/03/16',
+	'release_date'        => '2022/05/14',
 	'manual'              => 'link to manual file',
 	'manual_file'         => XOOPS_URL . '/modules/quizmaker/docs/install.txt',
 	'min_php'             => '5.5',

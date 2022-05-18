@@ -44,11 +44,13 @@
     $version = [
         '2_80' => 280,
         '2_92' => 292,
+        '2_94' => 294,
+        '0_00' => 000, //pour forcer une modif sans modifier le systeme de version
     ];
 
     //    while (list($key, $val) = each($version)) {
     foreach ($version as $key => $val) {
-        if ($previousVersion < $val) {
+        if ($previousVersion < $val || $key=='0_00') {
             $name = sprintf($cls, $key);
             $f    = $fld . $name . '.php';
             //ext_echo ("<hr>{$f}<hr>");

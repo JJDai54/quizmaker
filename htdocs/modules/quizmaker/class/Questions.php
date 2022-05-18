@@ -309,7 +309,14 @@ class Questions extends \XoopsObject
 		// To Save
         $form->insertBreak("<div style='background:black;color:white;'><center>-----</center></div>");
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+//		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        
+        $btnTray = new \XoopsFormElementTray  ('', '&nbsp;');
+        $btnTray->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        $btnAddNew = new \XoopsFormButton('', 'submit_and_addnew', _AM_QUIZMAKER_SUBMIT_AND_ADDNEW,'submit');
+        $btnAddNew->setClass('btn btn-success');
+        $btnTray->addElement($btnAddNew);
+		$form->addElement($btnTray);
 		return $form;
 	}
 

@@ -28,6 +28,8 @@ require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request quest_id
+$addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
+//echo "<hr>addNew = " . (($addNew) ? ' ajout ok' : 'pas d ajout') . "-{$addNew}<hr>";
 
 $sender  = Request::getString('sender', '');
 $catId   = Request::getInt('cat_id', 0);
@@ -41,8 +43,8 @@ if ($sender == 'cat_id') {
 $questId = Request::getInt('quest_id', 0);
 $quest_type_question = Request::getString('quest_type_question', '');
 
-// $gp = array_merge($_GET, $_POST);
-// echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
+//  $gp = array_merge($_GET, $_POST);
+//  echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
 function getParams2list($quizId, $quest_type_question, $sender = ""){
 global $quizHandler;
@@ -244,6 +246,7 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
 	break;
     
 	case 'save':
+    //exit;
 //    echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";
 //echo "<hr>questId ===>zzz " . $questId . "<br>"; 
 		// Security Check
@@ -288,11 +291,13 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
             $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
             $cls->saveAnswers($questId, Request::getArray('answers', []));
 //echo "<hr>" .  getParams2list($quizId, $quest_type_question); exit;
-
-          if ($sender == 'type_question_list')
+          if ($addNew)
+			redirect_header('questions.php?op=new_question&' . getParams2list($quizId, $quest_type_question, ""), 2, _AM_QUIZMAKER_FORM_OK);
+          else if ($sender == 'type_question_list')
 			redirect_header('type_question.php?op=list&' . getParams2list($quizId, $quest_type_question, $sender), 2, _AM_QUIZMAKER_FORM_OK);
           else
 			redirect_header('questions.php?op=list&' . getParams2list($quizId, $quest_type_question, ""), 2, _AM_QUIZMAKER_FORM_OK);
+
             
 		}
 //    exit;

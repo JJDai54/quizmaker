@@ -19,6 +19,7 @@ const quiz_const = {
     formIntro   : 1,
     formEncart  : 2,
     formResult  : 3,
+    regexAllLetters : /\{[\w+\àéèêëîïôöûüù]*\}/gi
 }
 
 var quizard = [];
