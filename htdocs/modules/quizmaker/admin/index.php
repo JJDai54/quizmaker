@@ -65,7 +65,7 @@ $adminObject->addConfigBoxLine(Common\DirectoryChecker::getDirectoryStatus($fold
 // Render Index
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));
 // Test Data
-if ($helper->getConfig('displaySampleButton')) {
+if ($quizHelper->getConfig('displaySampleButton')) {
 	xoops_loadLanguage('admin/modulesadmin', 'system');
 	include_once dirname(__DIR__) . '/testdata/index.php';
 	$adminObject->addItemButton(constant('_CO_QUIZMAKER_ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');

@@ -75,7 +75,7 @@ class Messages extends \XoopsObject
 	 */
 	public function getFormMessages($action = false)
 	{
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}

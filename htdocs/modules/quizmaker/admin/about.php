@@ -28,10 +28,6 @@ use XoopsModules\Quizmaker\Constants;
 require_once 'header.php';
 $templateMain = 'quizmaker_admin_about.tpl';
 
-define('_AM_JJD_DESCRIPTION','zzzzz');
-define('_AM_JJD_ID','yyyyy');
-// include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/About.php";
-
 
 $box = array();
 
@@ -113,14 +109,14 @@ function contribution(){
  * 
  * ****************************** */
 function localHeaderInfo(){
-global    $helper;
+global    $quizHelper;
 $module_dir = basename(dirname(dirname(__FILE__)));
 
-$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 $module_dir = basename(dirname(dirname(__FILE__)));
-$module = $helper->getModule();
+$module = $quizHelper->getModule();
 
-    $license_url = $helper->getModule()->getInfo('license_url');
+    $license_url = $quizHelper->getModule()->getInfo('license_url');
     $license_url = preg_match('%^(https?:)?//%', $license_url) ? $license_url : 'http://' . $license_url;
 
 
@@ -158,10 +154,10 @@ $module = $helper->getModule();
  * 
  * ****************************** */
 function moduleInfo(){
-//global    $helper;
-$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+//global    $quizHelper;
+$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 $module_dir = basename(dirname(dirname(__FILE__)));
-$module = $helper->getModule();
+$module = $quizHelper->getModule();
 
     
   $lines = array();
@@ -218,7 +214,7 @@ $module = $helper->getModule();
               'bold'  => true];
     
   $lines[] = ['title' => 'description',
-              'value' => $module->getInfo(''),
+              'value' => $module->getInfo('description'),
               'color' => '',
               'bold'  => true];
     
@@ -257,11 +253,9 @@ $box['changelog']['content'] = changelog();
     
 
 /************************************************************************/
-$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
+$adminObject->displayNavigation('about.php');
 //$adminObject->setPaypal('jjdelalandre@orange.fr');
 //$GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout(true));
 $GLOBALS['xoopsTpl']->assign('box', $box);
 
-//renderAboutSlider();
-//$GLOBALS['xoopsTpl']->assign('about', $adminSlider->renderAbout(true));
 require __DIR__ . '/footer.php';

@@ -80,7 +80,7 @@ class Categories extends \XoopsObject
 	{
         global $quizUtility;
         
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -96,9 +96,9 @@ class Categories extends \XoopsObject
 		// Form Editor DhtmlTextArea catDescription
 		$editorConfigs = [];
 		if ($isAdmin) {
-			$editor = $helper->getConfig('editor_admin');
+			$editor = $quizHelper->getConfig('editor_admin');
 		} else {
-			$editor = $helper->getConfig('editor_user');
+			$editor = $quizHelper->getConfig('editor_user');
 		}
 		$editorConfigs['name'] = 'cat_description';
 		$editorConfigs['value'] = $this->getVar('cat_description', 'e');
@@ -110,7 +110,7 @@ class Categories extends \XoopsObject
 		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_CATEGORIES_DESCRIPTION, 'cat_description', $editorConfigs) );
 		
         // Categories Handler
-		$categoriesHandler = $helper->getHandler('Categories');
+		$categoriesHandler = $quizHelper->getHandler('Categories');
 		
         /* todo - champ à virer, pas utile de le garder
         */
@@ -186,8 +186,8 @@ class Categories extends \XoopsObject
         global $quizUtility, $quizHandler;
         $ret = $this->getValuesCategoriesLight($keys, $format, $maxDepth);
         if(!$quizHandler){
-    		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
-            $quizHandler = $helper->getHandler('Quiz');
+    		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
+            $quizHandler = $quizHelper->getHandler('Quiz');
         } 
             
         $criteria = new \Criteria("quiz_cat_id", $ret['id'], '=');
@@ -198,14 +198,14 @@ class Categories extends \XoopsObject
 	{
         global $quizUtility, $quizHandler;
         
-		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
 		$ret = $this->getValues($keys, $format, $maxDepth);
         
 		$ret['id']                = $this->getVar('cat_id');
 		$ret['name']              = $this->getVar('cat_name');
 		$ret['description']       = $this->getVar('cat_description', 'e');
-		$editorMaxchar = $helper->getConfig('editor_maxchar');
+		$editorMaxchar = $quizHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['theme']             = $this->getVar('cat_theme');
 		$ret['weight']            = $this->getVar('cat_weight');

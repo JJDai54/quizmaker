@@ -98,7 +98,7 @@ var $maxPropositions = 12; // valeur par default
 	 */
 	public function getValuesType_question()
 	{
-		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
         
         $ret = array();
@@ -125,7 +125,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 *
 * *********************************************************** */
 	public function getformTextarea($caption, $name, $value, $description = "", $rows = 5, $cols = 30) {
-    global $utility, $helper;
+    global $utility, $quizHelper;
         return \JJD\getformTextarea($caption, $name, $value, $description, $rows, $cols);
 }       
         
@@ -133,8 +133,8 @@ public function echoAns ($answers, $questId, $bExit = true) {
 *
 * *********************************************************** */
 	public function getformAdmin($caption, $name, $value, $description = "", $rows = 5, $cols = 30) {
-    global $utility, $helper;
-        return \JJD\getAdminEditor($helper, $caption, $name, $value);
+    global $utility, $quizHelper;
+        return \JJD\getAdminEditor($quizHelper, $caption, $name, $value);
 }       
         
 
@@ -201,7 +201,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 //      global $utility, $answersHandler;
 //         global $quizHandler, $utility, $type_questionHandler;
 //         //---------------------------------------------- 
-// 		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+// 		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}else{
@@ -231,7 +231,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 // 		// Questions Handler
 //         //----------------------------------------------------------
 // 		// Questions Handler
-// 		$questionsHandler = $helper->getHandler('Questions');
+// 		$questionsHandler = $quizHelper->getHandler('Questions');
 // 		// Form Select questQuiz_id
 // 		$questQuiz_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 // 		$questQuiz_idSelect->addOption('Empty');

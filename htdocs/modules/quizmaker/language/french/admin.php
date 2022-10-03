@@ -49,7 +49,7 @@ define('_AM_QUIZMAKER_PUBLISH_AUTO_DESC', "Automatique : quand le quiz est clotu
 define('_AM_QUIZMAKER_AUTO', "Automatique");
 define('_AM_QUIZMAKER_CATEGORY', "Catégorie");
 define('_AM_QUIZMAKER_CATEGORIES', "Catégories");
-define('_AM_QUIZMAKER_CAT_NOT_EMPTY', "La cétégorie n'est pas vide");
+define('_AM_QUIZMAKER_CAT_NOT_EMPTY', "La catégorie n'est pas vide");
 define('_AM_QUIZMAKER_SHUFFLE_ANS_DESC', "Change l'ordre des réponses à chaque fois que le quiz est lancé.<br>Les propositions seront donc numérotées différemment à chaque foir.<br>Attention certains types de questions peuvent ne pas changer l'ordre.");
 define('_AM_QUIZMAKER_TIMER', "Chronomètre");
 define('_AM_QUIZMAKER_FORM_DELETE', "Dégager");

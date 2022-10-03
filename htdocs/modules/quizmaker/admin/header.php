@@ -33,16 +33,16 @@ $modPathIcon16   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modic
 $modPathIcon32   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 
 // Get instance of module
-$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // $mid = $GLOBALS['xoopsModule']->getVar('mid');
 // echo "<hr>===>mid = {$mid}<hr>";
-$quizHandler = $helper->getHandler('Quiz');
-$questionsHandler = $helper->getHandler('Questions');
-$categoriesHandler = $helper->getHandler('Categories');
-$type_questionHandler = $helper->getHandler('Type_question');
-$answersHandler = $helper->getHandler('Answers');
-$resultsHandler = $helper->getHandler('Results');
-$messagesHandler = $helper->getHandler('Messages');
+$quizHandler = $quizHelper->getHandler('Quiz');
+$questionsHandler = $quizHelper->getHandler('Questions');
+$categoriesHandler = $quizHelper->getHandler('Categories');
+$type_questionHandler = $quizHelper->getHandler('Type_question');
+$answersHandler = $quizHelper->getHandler('Answers');
+$resultsHandler = $quizHelper->getHandler('Results');
+$messagesHandler = $quizHelper->getHandler('Messages');
 $myts = MyTextSanitizer::getInstance();
 // 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {

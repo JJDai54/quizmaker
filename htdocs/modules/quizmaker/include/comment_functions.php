@@ -30,8 +30,8 @@
 function quizmakerCommentsUpdate($itemId, $itemNumb)
 {
 	// Get instance of module
-	$helper = \XoopsModules\Quizmaker\Helper::getInstance();
-	$messagesHandler = $helper->getHandler('Messages');
+	$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+	$messagesHandler = $quizHelper->getHandler('Messages');
 	$msgId = (int)$itemId;
 	$messagesObj = $messagesHandler->get($msgId);
 	$messagesObj->setVar('msg_comments', (int)$itemNumb);
@@ -51,8 +51,8 @@ function quizmakerCommentsApprove(&$comment)
 {
 	// Notification event
 	// Get instance of module
-	$helper = \XoopsModules\Quizmaker\Helper::getInstance();
-	$messagesHandler = $helper->getHandler('Messages');
+	$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+	$messagesHandler = $quizHelper->getHandler('Messages');
 	$msgId = $comment->getVar('com_itemid');
 	$messagesObj = $messagesHandler->get($msgId);
 	$msgCode = $messagesObj->getVar('msg_code');

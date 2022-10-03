@@ -17,7 +17,7 @@ Extensions=*.*
 [Project tree]
 _quizmaker
 	+quizmaker
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -35,7 +35,7 @@ _quizmaker
 			admin\quiz.php
 			admin\results.php
 			admin\type_question.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -169,8 +169,8 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
-				-quiz
+			+js
+				+quiz
 					-css
 						-progressbarr
 							assets\js\quiz\css\progressbarr\shaded-green.png
@@ -259,7 +259,7 @@ _quizmaker
 							assets\js\quiz\images\magenta\Thumbs.db
 							assets\js\quiz\images\magenta\top.png
 							assets\js\quiz\images\magenta\up.png
-					-js
+					+js
 						-language
 							assets\js\quiz\js\language\quiz-english.js
 							assets\js\quiz\js\language\quiz-french.js
@@ -333,7 +333,6 @@ _quizmaker
 			class\Categories.php
 			class\CategoriesHandler.php
 			class\Constants.php
-			class\exe
 			class\Helper.php
 			class\index.html
 			class\Messages.php
@@ -356,7 +355,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\index.html
@@ -454,7 +453,7 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
+		+language
 			+english
 				-help
 					language\english\help\help.html
@@ -628,70 +627,22 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=class\QuizHandler.php
+0=class\QuizUtility.php
 1=class\Quiz.php
-2=categories.php
-3=templates\quizmaker_categories.tpl
-4=sql\mysql.sql
-5=include\update.php
-6=quiz.php
-7=admin\quiz.php
-8=admin\questions.php
-9=templates\admin\quizmaker_admin_categories.tpl
-10=admin\categories.php
-11=templates\admin\quizmaker_admin_answers.tpl
-12=class\CategoriesHandler.php
-13=class\Type_questionHandler.php
-14=class\Utility.php
-15=class\QuestionsHandler.php
+2=class\Questions.php
+3=language\french\admin.php
 [Selected Project Files]
 Main=
-Selected=templates\quizmaker_categories.tpl
-[class\QuizHandler.php]
-TopLine=361
-Caret=1,379
+Selected=language\french\admin.php
+[class\QuizUtility.php]
+TopLine=313
+Caret=85,335
 [class\Quiz.php]
-TopLine=133
-Caret=61,160
-[categories.php]
-TopLine=107
-Caret=68,116
-[templates\quizmaker_categories.tpl]
-TopLine=58
-Caret=159,76
-[sql\mysql.sql]
-TopLine=16
-Caret=15,38
-[include\update.php]
-TopLine=17
-Caret=83,48
-[quiz.php]
-TopLine=78
-Caret=63,100
-[admin\quiz.php]
-TopLine=35
-Caret=100,64
-[admin\questions.php]
-TopLine=85
-Caret=75,108
-[templates\admin\quizmaker_admin_categories.tpl]
-TopLine=31
-Caret=1,32
-[admin\categories.php]
-TopLine=146
-Caret=1,166
-[templates\admin\quizmaker_admin_answers.tpl]
-TopLine=27
-Caret=1,45
-[class\CategoriesHandler.php]
-TopLine=284
-Caret=1,227
-[class\Type_questionHandler.php]
-TopLine=1
-Caret=1,1
-[class\Utility.php]
-TopLine=1
-Caret=1,1
-[class\QuestionsHandler.php]
-TopLine=197
-Caret=1,230
+TopLine=103
+Caret=1,109
+[class\Questions.php]
+TopLine=184
+Caret=45,198
+[language\french\admin.php]
+TopLine=32
+Caret=45,52

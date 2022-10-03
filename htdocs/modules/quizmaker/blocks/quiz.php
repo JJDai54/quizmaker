@@ -40,8 +40,8 @@ function b_quizmaker_quiz_show($options)
 	$typeBlock   = $options[0];
 	$limit       = $options[1];
 	$lenghtTitle = $options[2];
-	$helper      = Helper::getInstance();
-	$quizHandler = $helper->getHandler('Quiz');
+	$quizHelper      = Helper::getInstance();
+	$quizHandler = $quizHelper->getHandler('Quiz');
 	$crQuiz = new \CriteriaCompo();
 	array_shift($options);
 	array_shift($options);
@@ -101,8 +101,8 @@ function b_quizmaker_quiz_show($options)
 function b_quizmaker_quiz_edit($options)
 {
 	include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/quiz.php';
-	$helper = Helper::getInstance();
-	$quizHandler = $helper->getHandler('Quiz');
+	$quizHelper = Helper::getInstance();
+	$quizHandler = $quizHelper->getHandler('Quiz');
 	$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
 	$form = _MB_QUIZMAKER_DISPLAY;
 	$form .= "<input type='hidden' name='options[0]' value='".$options[0]."' />";

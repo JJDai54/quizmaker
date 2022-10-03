@@ -35,9 +35,9 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $quizHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_categories.tpl';
-		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
+	$adminObject->displayNavigation('categories.php');
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_CATEGORIES, 'categories.php?op=new', 'add');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		$categoriesCount = $categoriesHandler->getCountCategories();

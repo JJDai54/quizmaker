@@ -80,7 +80,7 @@ class Answers extends \XoopsObject
 	public function getFormAnswers($action = false, $questId = 0)
 	{global $questionsHandler;
         //if ($questId > 0) $this->setVar('answer_quest_id', $questId);
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -96,7 +96,7 @@ class Answers extends \XoopsObject
 		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Answers Handler
-		$answersHandler = $helper->getHandler('Answers');
+		$answersHandler = $quizHelper->getHandler('Answers');
         
         $form->addElement(new \XoopsFormHidden('answer_id', $this->getVar('answer_id')));        
 		// Form Select answerQuestion_id
@@ -108,7 +108,7 @@ class Answers extends \XoopsObject
 		$answerQuestion_idSelect->addOptionArray($questionsHandler->getListKeyName());
 		$form->addElement($answerQuestion_idSelect, true);
 		// Answers Handler
-		$answersHandler = $helper->getHandler('Answers');
+		$answersHandler = $quizHelper->getHandler('Answers');
 
         
         
@@ -119,9 +119,9 @@ class Answers extends \XoopsObject
 		// Form Editor DhtmlTextArea answer_proposition
 		$editorConfigs = [];
 		if ($isAdmin) {
-			$editor = $helper->getConfig('editor_admin');
+			$editor = $quizHelper->getConfig('editor_admin');
 		} else {
-			$editor = $helper->getConfig('editor_user');
+			$editor = $quizHelper->getConfig('editor_user');
 		}
 		$editorConfigs['name'] = 'answer_proposition';
 		$editorConfigs['value'] = $this->getVar('answer_proposition', 'e');

@@ -28,15 +28,15 @@ $moduleDirName = basename(__DIR__);
 $xoBreadcrumbs = [];
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL . '/'];
 // Get instance of module
-$helper = \XoopsModules\Quizmaker\Helper::getInstance();
-$quizHandler = $helper->getHandler('Quiz');
-$questionsHandler = $helper->getHandler('Questions');
-$categoriesHandler = $helper->getHandler('Categories');
-$type_questionHandler = $helper->getHandler('Type_question');
-$answersHandler = $helper->getHandler('Answers');
-$resultsHandler = $helper->getHandler('Results');
-$messagesHandler = $helper->getHandler('Messages');
-$permissionsHandler = $helper->getHandler('Permissions');
+$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+$quizHandler = $quizHelper->getHandler('Quiz');
+$questionsHandler = $quizHelper->getHandler('Questions');
+$categoriesHandler = $quizHelper->getHandler('Categories');
+$type_questionHandler = $quizHelper->getHandler('Type_question');
+$answersHandler = $quizHelper->getHandler('Answers');
+$resultsHandler = $quizHelper->getHandler('Results');
+$messagesHandler = $quizHelper->getHandler('Messages');
+$permissionsHandler = $quizHelper->getHandler('Permissions');
 // 
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style

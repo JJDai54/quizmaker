@@ -36,11 +36,11 @@ use XoopsModules\Quizmaker;
 function quizmaker_search($queryarray, $andor, $limit, $offset, $userid)
 {
 	$ret = [];
-	$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+	$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 	// search in table quiz
 	// search keywords
 	$elementCount = 0;
-	$quizHandler = $helper->getHandler('Quiz');
+	$quizHandler = $quizHelper->getHandler('Quiz');
 	if (is_array($queryarray)) {
 		$elementCount = count($queryarray);
 	}
@@ -89,7 +89,7 @@ function quizmaker_search($queryarray, $andor, $limit, $offset, $userid)
 	// search in table categories
 	// search keywords
 	$elementCount = 0;
-	$categoriesHandler = $helper->getHandler('Categories');
+	$categoriesHandler = $quizHelper->getHandler('Categories');
 	if (is_array($queryarray)) {
 		$elementCount = count($queryarray);
 	}

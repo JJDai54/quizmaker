@@ -33,17 +33,6 @@ $catId  = Request::getInt('cat_id', -1);
 $quizId = Request::getInt('quiz_id');
 
 $utility = new \XoopsModules\Quizmaker\Utility();  
-//echo "<hr> = {$catId}<hr>";
-// echo "===>{$op}<br>";
-//$pg = array_merge($_GET, $_POST);
-//echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
-// echo "<hr><pre>" . print_r($_POST, true) . "</pre><hr>";
-// echo "<hr><pre>" . print_r($_GET, true) . "</pre><hr>";
-function getParams2list($quizId, $quest_type_question){
-global $quizHandler;
-    $catId = $quizHandler->getParentId($quizId);
-    return $params = "sender=&cat_id={$catId}&quiz_id={$quizId}&quest_type_question={$quest_type_question}";
-}
 
 ////////////////////////////////////////////////////////////////////////
 switch($op) {
@@ -53,60 +42,25 @@ switch($op) {
         //$name = $quiz->getVar('quiz_name') . '_' . date("Y-m-d_H-m-s"); //pas bon le nom contient des espaces et autres caracteres   
         $name = $folder . '_' . date("Y-m-d_H-m-s");    
         $quizUtility::saveDataKeepId($quizId);
+        
         $sourcePath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/export/";
         $outZipPath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/{$name}.zip";
         $outZipUrl = QUIZMAKER_UPLOAD_QUIZ_URL . "/{$folder}/{$name}.zip";
         
-\JJD\zipSimpleDir($sourcePath, $outZipPath);   
+        \JJD\zipSimpleDir($sourcePath, $outZipPath);   
 
-     
-// $zip = new ZipArchive();        
-// echo "<hr>{$outZipPath}<hr>";
-// $zipFilename = $outZipPath;
-// $zip->open($zipFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-// 
-// // Create recursive directory iterator
-// /** @var SplFileInfo[] $files */
-// $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($sourcePath), RecursiveIteratorIterator::LEAVES_ONLY);
-// $rootPath=$sourcePath;
-// 
-// foreach ($files as $name => $file)
-// {
-//     // Get real and relative path for current file
-//     $filePath = $file->getRealPath();
-//     $relativePath = substr($filePath, strlen($rootPath) + 1);
-// 
-//     if (!$file->isDir())
-//     {
-//         // Add current file to archive
-//         $zip->addFile($filePath, $relativePath);
-//     }else {
-//         if($relativePath !== false)
-//             $zip->addEmptyDir($relativePath);
-//     }
-// }
-// 
-// // Zip archive will be created only after closing object
-// $zip->close();
-
-
-
-//echo "<hr>{$outZipUrl}<hr>";        
 		$templateMain = 'quizmaker_admin_export.tpl';
 		$GLOBALS['xoopsTpl']->assign('download', 1);        
 		$GLOBALS['xoopsTpl']->assign('href', $outZipUrl);        
 		$GLOBALS['xoopsTpl']->assign('delai', 2000);        
 		$GLOBALS['xoopsTpl']->assign('name', $name);        
         
-// exit;        
-// 		redirect_header('export.php?op=list&' . getParams2list($quizId, $quest_type_question), 2, _AM_QUIZMAKER_EXPORT_OK);        
-    //break;
     
     case 'export':
     case 'list':
 	default:
 		$templateMain = 'quizmaker_admin_export.tpl';
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}

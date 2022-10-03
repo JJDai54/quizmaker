@@ -56,7 +56,7 @@ if($quizId > 0 && $sender != 'cat_id'){
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $quizHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_quiz.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('quiz.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, 'quiz.php?op=new', 'add');

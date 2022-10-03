@@ -26,9 +26,9 @@ $op = \Xmf\Request::getCmd('op', '');
 $moduleDirName = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-$helper = Quizmaker\Helper::getInstance();
+$quizHelper = Quizmaker\Helper::getInstance();
 // Load language files
-$helper->loadLanguage('common');
+$quizHelper->loadLanguage('common');
 
 switch ($op) {
     case 'load':

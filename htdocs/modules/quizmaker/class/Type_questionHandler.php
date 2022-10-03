@@ -170,7 +170,7 @@ public function getClassTypeQuestion($typeQuestion){
  	{
      global $utility, $categoriesHandler, $quizHandler, $type_questionHandler, $quizUtility;
         //---------------------------------------------- 
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}else{
@@ -200,7 +200,7 @@ public function getClassTypeQuestion($typeQuestion){
 		// Questions Handler
         //----------------------------------------------------------
 		// Questions Handler
-// 		$questionsHandler = $helper->getHandler('Questions');
+// 		$questionsHandler = $quizHelper->getHandler('Questions');
 // 		// Form Select questQuiz_id
 // 		$questQuiz_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 // 		$questQuiz_idSelect->addOption('Empty');

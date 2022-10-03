@@ -30,7 +30,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
 $quizId = Request::getInt('quiz_id', 0);
 $sender = 'quiz_id';
 

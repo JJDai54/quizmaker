@@ -33,24 +33,13 @@ $catId  = Request::getInt('cat_id', -1);
 $quizId = Request::getInt('quiz_id');
 
 $utility = new \XoopsModules\Quizmaker\Utility();  
-//echo "<hr> = {$catId}<hr>";
-// echo "===>{$op}<br>";
-$pg = array_merge($_GET, $_POST);
+//$pg = array_merge($_GET, $_POST);
 //echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
-// echo "<hr><pre>" . print_r($_POST, true) . "</pre><hr>";
-// echo "<hr><pre>" . print_r($_GET, true) . "</pre><hr>";
-function getParams2list($quizId, $quest_type_question){
-global $quizHandler;
-    $catId = $quizHandler->getParentId($quizId);
-    return $params = "sender=&cat_id={$catId}&quiz_id={$quizId}&quest_type_question={$quest_type_question}";
-}
 
 ////////////////////////////////////////////////////////////////////////
 switch($op) {
 	case 'import_ok':
 $pg = array_merge($_GET, $_POST);
-//echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
-
 
           include_once XOOPS_ROOT_PATH . '/class/uploader.php';
           $filename       = $_FILES['quizmaker_files']['name'];
@@ -69,7 +58,7 @@ $pg = array_merge($_GET, $_POST);
                   $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                   if (!$uploader->upload()) {
                       $uploaderErrors = $uploader->getErrors();
-//                      echo "<hr>Errors upload : {$uploaderErrors}<hr>";
+                      echo "<hr>Errors upload : {$uploaderErrors}<hr>";
                       exit;
                   } else {
                       $savedFilename = $uploader->getSavedFileName();
@@ -88,7 +77,7 @@ $pg = array_merge($_GET, $_POST);
     case 'list':
 	default:
 		$templateMain = 'quizmaker_admin_import.tpl';
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}
@@ -110,7 +99,7 @@ $pg = array_merge($_GET, $_POST);
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         
-        //$upload_size = $helper->getConfig('maxsize_image'); 
+        //$upload_size = $quizHelper->getConfig('maxsize_image'); 
         $upload_size = 50000;
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     
         $uploadTray->setDescription(_AM_QUIZMAKER_FILE_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE, $upload_size / 1024), '<br>');

@@ -34,7 +34,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
 $catId = Request::getInt('cat_id', 0);
 
 // Define Stylesheet
@@ -184,9 +184,9 @@ $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/ass
 			$pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 			$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 		}
-		$GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-		$GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-		$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
+		$GLOBALS['xoopsTpl']->assign('type', $quizHelper->getConfig('table_type'));
+		$GLOBALS['xoopsTpl']->assign('divideby', $quizHelper->getConfig('divideby'));
+		$GLOBALS['xoopsTpl']->assign('numb_col', $quizHelper->getConfig('numb_col'));
 	}
       
       

@@ -32,7 +32,7 @@ redirect_header('categories.php', 0, '');
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
 $catId = Request::getInt('cat_id', 0);
 
 // Define Stylesheet
@@ -93,9 +93,9 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 				$pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
-			$GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
+			$GLOBALS['xoopsTpl']->assign('type', $quizHelper->getConfig('table_type'));
+			$GLOBALS['xoopsTpl']->assign('divideby', $quizHelper->getConfig('divideby'));
+			$GLOBALS['xoopsTpl']->assign('numb_col', $quizHelper->getConfig('numb_col'));
 		}
 
 
@@ -103,7 +103,7 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES];
 
 // Keywords
-quizmakerMetaKeywords($helper->getConfig('keywords').', '. implode(',', $keywords));
+quizmakerMetaKeywords($quizHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description

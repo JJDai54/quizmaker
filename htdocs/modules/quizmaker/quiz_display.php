@@ -114,7 +114,7 @@ if (0 == $quizId) {
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Keywords
-quizmakerMetaKeywords($helper->getConfig('keywords').', '. implode(',', $keywords));
+quizmakerMetaKeywords($quizHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description

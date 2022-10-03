@@ -95,7 +95,7 @@ class Questions extends \XoopsObject
  	{
         global $quizHandler, $utility, $quizUtility, $type_questionHandler;
         //---------------------------------------------- 
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}else{
@@ -125,7 +125,7 @@ class Questions extends \XoopsObject
 		// Questions Handler
         //----------------------------------------------------------
 		// Questions Handler
-		$questionsHandler = $helper->getHandler('Questions');
+		$questionsHandler = $quizHelper->getHandler('Questions');
 		// Form Select questQuiz_id
 		$questQuiz_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 		$questQuiz_idSelect->addOption('Empty');
@@ -170,10 +170,10 @@ class Questions extends \XoopsObject
             <a href='{$url}' class='highslide' onclick='return hs.expand(this);' >
                 <img src="{$url}" alt="slides" style="max-width:40px" />
             </a>
-
         ___IMG___;
         $inpImg = new \XoopsFormLabel  ('', $img);  
         $inpImg->setExtra("class='highslide-gallery'");
+        
 \JJD\include_highslide(null,"quizmaker");       
         $trayParent->addElement($inpImg);
         //--------------------------------
@@ -195,7 +195,7 @@ class Questions extends \XoopsObject
             $form->addElement($inpParent);
         }else{
             $typeForm = $this->getVar('quest_type_form');
-            if ($typeForm == 0) $typeForm = 1;
+            if ($typeForm == 0) $typeForm = QUIZMAKER_TYPE_FORM_ENCART;
     		$tForms = array(QUIZMAKER_TYPE_FORM_INTRO => _CO_QUIZMAKER_FORM_INTRO,
                             QUIZMAKER_TYPE_FORM_ENCART => _CO_QUIZMAKER_FORM_ENCART,
                             QUIZMAKER_TYPE_FORM_RESULT => _CO_QUIZMAKER_FORM_RESULT);
@@ -229,11 +229,11 @@ class Questions extends \XoopsObject
         $form->addElement($inpOptions, false);
         //--------------------------------------------------------------
 		// Form Editor DhtmlTextArea questComment1
-        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $helper);        
+        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizHelper);        
 		$form->addElement($inpComment1);
         //--------------------------------------------------------------
 		// Form Editor DhtmlTextArea quest_explanation
-        $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $helper);        
+        $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $quizHelper);        
 		$form->addElement($inpExplanation);
         
 		// Form Text learn_more
@@ -332,7 +332,7 @@ class Questions extends \XoopsObject
         global $quizUtility;
         $clTypeQuestion = $this->getTypeQuestion();
         
-		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']             = $this->getVar('quest_id');
@@ -342,7 +342,7 @@ class Questions extends \XoopsObject
 		$ret['type_form']  = $this->getVar('quest_type_form');
 		$ret['type_form_lib']  = array(_CO_QUIZMAKER_FORM_QUESTION,_CO_QUIZMAKER_FORM_INTRO,_CO_QUIZMAKER_FORM_ENCART,_CO_QUIZMAKER_FORM_RESULT)[$this->getVar('quest_type_form')];
 		$ret['question']       = $this->getVar('quest_question');
-		$editorMaxchar = $helper->getConfig('editor_maxchar');
+		$editorMaxchar = $quizHelper->getConfig('editor_maxchar');
 		$ret['options']        = $this->getVar('quest_options');
 		$ret['comment1']       = $this->getVar('quest_comment1', 'e');
 		$ret['comment1_short'] = $utility::truncateHtml($ret['comment1'], $editorMaxchar);

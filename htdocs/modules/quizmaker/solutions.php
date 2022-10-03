@@ -31,7 +31,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 $op     = Request::getCmd('op', 'list');
 $quizId = Request::getInt('quiz_id', 0);
 $start = 0; //Request::getInt('start', 0);
-$limit = 0; //Request::getInt('limit', $helper->getConfig('adminpager'));
+$limit = 0; //Request::getInt('limit', $quizHelper->getConfig('adminpager'));
 $resultId = Request::getInt('result_id', 0);
 
 // Define Stylesheet

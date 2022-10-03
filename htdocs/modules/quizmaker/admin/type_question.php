@@ -62,7 +62,7 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $quizHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_type_question.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('type_question.php'));
         

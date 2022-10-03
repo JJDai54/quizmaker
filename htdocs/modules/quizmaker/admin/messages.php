@@ -35,7 +35,7 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $helper->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $quizHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_messages.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('messages.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_MESSAGES, 'messages.php?op=new', 'add');

@@ -193,8 +193,8 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
         $permtype = sprintf("quizmaker_%s_categories", $short_permtype);
         
         $tPerm = array();
-        $helper = Helper::getHelper('quizmaker');
-        $moduleHandler = $helper->getModule();
+        $quizHelper = Helper::getHelper('quizmaker');
+        $moduleHandler = $quizHelper->getModule();
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
         $tPerm = $gpermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));

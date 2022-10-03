@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 if (isset($templateMain)) {
-	$GLOBALS['xoopsTpl']->assign('maintainedby', $helper->getConfig('maintainedby'));
+	$GLOBALS['xoopsTpl']->assign('maintainedby', $quizHelper->getConfig('maintainedby'));
 	$GLOBALS['xoopsTpl']->display("db:{$templateMain}");
 }
 

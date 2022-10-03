@@ -30,7 +30,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $helper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
 $quizId = Request::getInt('quiz_id', 0);
 
 // Define Stylesheet
@@ -73,9 +73,9 @@ switch($op) {
 				$pagenav = new \XoopsPageNav($quizCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
-			$GLOBALS['xoopsTpl']->assign('type', $helper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $helper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $helper->getConfig('numb_col'));
+			$GLOBALS['xoopsTpl']->assign('type', $quizHelper->getConfig('table_type'));
+			$GLOBALS['xoopsTpl']->assign('divideby', $quizHelper->getConfig('divideby'));
+			$GLOBALS['xoopsTpl']->assign('numb_col', $quizHelper->getConfig('numb_col'));
 		}
 	break;
 	case 'save':
@@ -246,7 +246,7 @@ switch($op) {
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Keywords
-quizmakerMetaKeywords($helper->getConfig('keywords').', '. implode(',', $keywords));
+quizmakerMetaKeywords($quizHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description

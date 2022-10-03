@@ -108,7 +108,7 @@ class Quiz extends \XoopsObject
 	 */
 	public function getFormQuiz($action = false)
 	{global $utility, $categoriesHandler, $quizUtility;
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -126,7 +126,7 @@ class Quiz extends \XoopsObject
 		$form = new \XoopsThemeForm($title . " (#{$quiId})", 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Quiz Handler
-		$quizHandler = $helper->getHandler('Quiz');
+		$quizHandler = $quizHelper->getHandler('Quiz');
         $form->addElement(new \XoopsFormHidden('quiz_id', $quiId));
 		
         // Form Select quizCat_id
@@ -162,7 +162,7 @@ class Quiz extends \XoopsObject
         
 		// Form Editor DhtmlTextArea quizDescription
         /* champ a supprimer fait double emploi avec les champs du premier slide "page_info/intro"
-        $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $helper);
+        $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $quizHelper);
 		$form->addElement($editDescription, true);
         */
             
@@ -369,7 +369,7 @@ class Quiz extends \XoopsObject
 	public function getValuesQuiz($keys = null, $format = null, $maxDepth = null)
 	{
         global $quizUtility, $categoriesHandler;
-		$helper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']                = $this->getVar('quiz_id');
@@ -379,7 +379,7 @@ class Quiz extends \XoopsObject
 		$ret['fileName']          = $this->getVar('quiz_fileName');
 		$ret['description']       = $this->getVar('quiz_description', 'e');
 		$ret['weight']            = $this->getVar('quiz_weight');
-		$editorMaxchar = $helper->getConfig('editor_maxchar');
+		$editorMaxchar = $quizHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['creation']          = \JJD\getDateSql2Str($this->getVar('quiz_creation'));
 		$ret['update']            = \JJD\getDateSql2Str($this->getVar('quiz_update'));

@@ -60,17 +60,17 @@ global $xoopsDB;
 
     require dirname(__DIR__) . '/preloads/autoloader.php';
 
-    /** @var Quizmaker\Helper $helper */ 
+    /** @var Quizmaker\Helper $quizHelper */ 
     /** @var Quizmaker\Utility $utility */
     /** @var Common\Configurator $configurator */
-    $helper       = Quizmaker\Helper::getInstance();
+    $quizHelper       = Quizmaker\Helper::getInstance();
     $utility      = new Quizmaker\Utility();
     $configurator = new Common\Configurator();
 
     // Load language files
-    $helper->loadLanguage('admin');
-    $helper->loadLanguage('modinfo');
-    $helper->loadLanguage('common');
+    $quizHelper->loadLanguage('admin');
+    $quizHelper->loadLanguage('modinfo');
+    $quizHelper->loadLanguage('common');
 
     //  ---  CREATE FOLDERS ---------------
     if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {

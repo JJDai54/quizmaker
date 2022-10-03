@@ -86,7 +86,7 @@ class Results extends \XoopsObject
 	 */
 	public function getFormResults($action = false)
 	{
-		$helper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}

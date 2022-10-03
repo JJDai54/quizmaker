@@ -1,0 +1,689 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+DefaultDir=J:\Xoops\modules-JJD\quizmaker\projet\htdocs\modules\quizmaker
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+Extensions=*.*
+[Project tree]
+_quizmaker
+	+quizmaker
+		-admin
+			admin\about.php
+			admin\answers.php
+			admin\categories.php
+			admin\export.php
+			admin\feedback.php
+			admin\footer.php
+			admin\header.php
+			admin\import.php
+			admin\index.html
+			admin\index.php
+			admin\menu.php
+			admin\messages.php
+			admin\permissions.php
+			admin\questions.php
+			admin\quiz.php
+			admin\results.php
+			admin\type_question.php
+		-assets
+			-css
+				-admin
+					assets\css\admin\index.html
+					assets\css\admin\style.css
+				assets\css\index.html
+				assets\css\style.css
+			-icons
+				-16
+					-arrows
+						-blue
+							assets\icons\16\arrows\blue\down-0.png
+							assets\icons\16\arrows\blue\down-1.png
+							assets\icons\16\arrows\blue\first-0.png
+							assets\icons\16\arrows\blue\first-1.png
+							assets\icons\16\arrows\blue\goto.png
+							assets\icons\16\arrows\blue\last-0.png
+							assets\icons\16\arrows\blue\last-1.png
+							assets\icons\16\arrows\blue\sommaire.png
+							assets\icons\16\arrows\blue\up-0.png
+							assets\icons\16\arrows\blue\up-1.png
+						-red
+							assets\icons\16\arrows\red\down-0.png
+							assets\icons\16\arrows\red\down-1.png
+							assets\icons\16\arrows\red\first-0.png
+							assets\icons\16\arrows\red\first-1.png
+							assets\icons\16\arrows\red\goto.png
+							assets\icons\16\arrows\red\last-0.png
+							assets\icons\16\arrows\red\last-1.png
+							assets\icons\16\arrows\red\sommaire.png
+							assets\icons\16\arrows\red\up-0.png
+							assets\icons\16\arrows\red\up-1.png
+					-notes
+						assets\icons\16\notes\000.png
+						assets\icons\16\notes\001.png
+						assets\icons\16\notes\002.png
+						assets\icons\16\notes\003.png
+						assets\icons\16\notes\004.png
+						assets\icons\16\notes\005.png
+						assets\icons\16\notes\marron.png
+						assets\icons\16\notes\notes-points.svg
+					assets\icons\16\add.png
+					assets\icons\16\administration.png
+					assets\icons\16\blank.png
+					assets\icons\16\blank-08.png
+					assets\icons\16\blank-16.png
+					assets\icons\16\blue.gif
+					assets\icons\16\build.png
+					assets\icons\16\children.png
+					assets\icons\16\configuration_small.png
+					assets\icons\16\delete.png
+					assets\icons\16\download.png
+					assets\icons\16\generer.png
+					assets\icons\16\generer-1.png
+					assets\icons\16\generer-2.png
+					assets\icons\16\green.gif
+					assets\icons\16\grey.gif
+					assets\icons\16\index.html
+					assets\icons\16\periodicity-0.png
+					assets\icons\16\periodicity-1.png
+					assets\icons\16\periodicity-2.png
+					assets\icons\16\question.png
+					assets\icons\16\quiz-0.png
+					assets\icons\16\quiz-1.png
+					assets\icons\16\red.gif
+					assets\icons\16\retour.png
+					assets\icons\16\retour-1.png
+					assets\icons\16\retour-2.png
+					assets\icons\16\sigma-01.png
+					assets\icons\16\sigma-02.png
+					assets\icons\16\status0.png
+					assets\icons\16\status1.png
+					assets\icons\16\status2.png
+					assets\icons\16\status3.png
+					assets\icons\16\status4.png
+					assets\icons\16\verrou-close.gif
+					assets\icons\16\verrou-close.png
+					assets\icons\16\verrou-open.gif
+					assets\icons\16\verrou-open.png
+				-32
+					assets\icons\32\.png
+					assets\icons\32\album.png
+					assets\icons\32\ampoule-00.png
+					assets\icons\32\ampoule-05.jpg
+					assets\icons\32\block.png
+					assets\icons\32\broken.png
+					assets\icons\32\calculator.png
+					assets\icons\32\faq.png
+					assets\icons\32\index.html
+					assets\icons\32\index.png
+					assets\icons\32\quiz-0.png
+					assets\icons\32\quiz-1.png
+					assets\icons\32\translations.png
+					assets\icons\32\wizard.png
+				assets\icons\index.html
+			-images
+				-modeles
+					assets\images\modeles\ScreenShoot-PickPick - Raccourci.lnk
+					assets\images\modeles\slide_checkbox-00.jpg
+					assets\images\modeles\slide_checkbox-01.jpg
+					assets\images\modeles\slide_checkbox-02.jpg
+					assets\images\modeles\slide_checkboxLogical-00.jpg
+					assets\images\modeles\slide_listboxIntruders1-00.jpg
+					assets\images\modeles\slide_listboxIntruders2-00.jpg
+					assets\images\modeles\slide_listboxSortItems-00.jpg
+					assets\images\modeles\slide_matchItems-00.jpg
+					assets\images\modeles\slide_multiTextbox-00.jpg
+					assets\images\modeles\slide_pageInfo-00.jpg
+					assets\images\modeles\slide_pageInfo-01.jpg
+					assets\images\modeles\slide_pageInfo-02.jpg
+					assets\images\modeles\slide_pageInfo-03.jpg
+					assets\images\modeles\slide_radioLogical-00.jpg
+					assets\images\modeles\slide_radioMultiple2-00.jpg
+					assets\images\modeles\slide_radioSimple-00.jpg
+					assets\images\modeles\slide_sortCombobox-00.jpg
+					assets\images\modeles\slide_textarea-00.jpg
+					assets\images\modeles\slide_textareaInput-00.jpg
+					assets\images\modeles\slide_textareaListbox-00.jpg
+				assets\images\ampoule-05.jpg
+				assets\images\blank.gif
+				assets\images\blank.png
+				assets\images\index.html
+				assets\images\jean-jacquesdelalandre_logo.png
+				assets\images\logoModule.png
+				assets\images\run_quiz_00.png
+				assets\images\run_quiz_01.gif
+				assets\images\run_quiz_01.jpg
+				assets\images\run_quiz_01.png
+				assets\images\run_quiz_02.png
+				assets\images\solution-00.png
+				assets\images\solution-01 - Copie.png
+				assets\images\solution-01.png
+				assets\images\solution-02.png
+				assets\images\solution-03.png
+			-js
+				-quiz
+					-css
+						-progressbarr
+							assets\js\quiz\css\progressbarr\shaded-green.png
+						assets\js\quiz\css\index.html
+						assets\js\quiz\css\quiz.css
+						assets\js\quiz\css\quiz-tmp.css
+						assets\js\quiz\css\style-item-color.css
+						assets\js\quiz\css\style-item-design.css
+					-data
+						assets\js\quiz\data\quiz-options.js
+						assets\js\quiz\data\quiz-questions.js
+						assets\js\quiz\data\togodo.html
+					-images
+						-blue
+							assets\js\quiz\images\blue\add.png
+							assets\js\quiz\images\blue\add_all.png
+							assets\js\quiz\images\blue\bottom.png
+							assets\js\quiz\images\blue\down.png
+							assets\js\quiz\images\blue\empty.png
+							assets\js\quiz\images\blue\init.png
+							assets\js\quiz\images\blue\no.png
+							assets\js\quiz\images\blue\ok.png
+							assets\js\quiz\images\blue\remove.png
+							assets\js\quiz\images\blue\remove_all.png
+							assets\js\quiz\images\blue\show.png
+							assets\js\quiz\images\blue\Thumbs.db
+							assets\js\quiz\images\blue\top.png
+							assets\js\quiz\images\blue\up.png
+						-default
+							assets\js\quiz\images\default\add.png
+							assets\js\quiz\images\default\add_all.png
+							assets\js\quiz\images\default\bottom.png
+							assets\js\quiz\images\default\down.png
+							assets\js\quiz\images\default\empty.png
+							assets\js\quiz\images\default\init.png
+							assets\js\quiz\images\default\no.png
+							assets\js\quiz\images\default\ok.png
+							assets\js\quiz\images\default\remove.png
+							assets\js\quiz\images\default\remove_all.png
+							assets\js\quiz\images\default\show.png
+							assets\js\quiz\images\default\Thumbs.db
+							assets\js\quiz\images\default\top.png
+							assets\js\quiz\images\default\up.png
+						-green
+							assets\js\quiz\images\green\add.png
+							assets\js\quiz\images\green\add_all.png
+							assets\js\quiz\images\green\bottom.png
+							assets\js\quiz\images\green\down.png
+							assets\js\quiz\images\green\empty.png
+							assets\js\quiz\images\green\init.png
+							assets\js\quiz\images\green\no.png
+							assets\js\quiz\images\green\ok.png
+							assets\js\quiz\images\green\remove.png
+							assets\js\quiz\images\green\remove_all.png
+							assets\js\quiz\images\green\show.png
+							assets\js\quiz\images\green\Thumbs.db
+							assets\js\quiz\images\green\top.png
+							assets\js\quiz\images\green\up.png
+						-grey
+							assets\js\quiz\images\grey\add.png
+							assets\js\quiz\images\grey\add_all.png
+							assets\js\quiz\images\grey\bottom.png
+							assets\js\quiz\images\grey\down.png
+							assets\js\quiz\images\grey\empty.png
+							assets\js\quiz\images\grey\init.png
+							assets\js\quiz\images\grey\no.png
+							assets\js\quiz\images\grey\ok.png
+							assets\js\quiz\images\grey\remove.png
+							assets\js\quiz\images\grey\remove_all.png
+							assets\js\quiz\images\grey\show.png
+							assets\js\quiz\images\grey\Thumbs.db
+							assets\js\quiz\images\grey\top.png
+							assets\js\quiz\images\grey\up.png
+						-magenta
+							assets\js\quiz\images\magenta\add.png
+							assets\js\quiz\images\magenta\add_all.png
+							assets\js\quiz\images\magenta\bottom.png
+							assets\js\quiz\images\magenta\down.png
+							assets\js\quiz\images\magenta\empty.png
+							assets\js\quiz\images\magenta\init.png
+							assets\js\quiz\images\magenta\no.png
+							assets\js\quiz\images\magenta\ok.png
+							assets\js\quiz\images\magenta\remove.png
+							assets\js\quiz\images\magenta\remove_all.png
+							assets\js\quiz\images\magenta\show.png
+							assets\js\quiz\images\magenta\Thumbs.db
+							assets\js\quiz\images\magenta\top.png
+							assets\js\quiz\images\magenta\up.png
+					-js
+						-language
+							assets\js\quiz\js\language\quiz-english.js
+							assets\js\quiz\js\language\quiz-french.js
+						-tpl
+							assets\js\quiz\js\tpl\slide_checkbox.js
+							assets\js\quiz\js\tpl\slide_checkboxLogical.js
+							assets\js\quiz\js\tpl\slide_listboxIntruders1.js
+							assets\js\quiz\js\tpl\slide_listboxIntruders2.js
+							assets\js\quiz\js\tpl\slide_listboxSortItems.js
+							assets\js\quiz\js\tpl\slide_matchItems.js
+							assets\js\quiz\js\tpl\slide_multiTextbox.js
+							assets\js\quiz\js\tpl\slide_pageInfo.js
+							assets\js\quiz\js\tpl\slide_radioLogical.js
+							assets\js\quiz\js\tpl\slide_radioMultiple2.js
+							assets\js\quiz\js\tpl\slide_radioSimple.js
+							assets\js\quiz\js\tpl\slide_sortCombobox.js
+							assets\js\quiz\js\tpl\slide_textarea.js
+							assets\js\quiz\js\tpl\slide_textareaInput.js
+							assets\js\quiz\js\tpl\slide_textareaListbox.js
+						assets\js\quiz\js\quiz-events.js
+						assets\js\quiz\js\quiz-functions.js
+						assets\js\quiz\js\quiz-main.js
+						assets\js\quiz\js\quiz-options-dist.js
+						assets\js\quiz\js\slide__prototype.js
+					assets\js\quiz\_quiz.ppr
+					assets\js\quiz\exemple_02.html
+					assets\js\quiz\exemple_04.html.URL
+					assets\js\quiz\modif pour extends.js
+					assets\js\quiz\Nouveau document texte.txt
+					assets\js\quiz\Nouveau1.js
+					assets\js\quiz\quiz.html
+				assets\js\functions.js
+				assets\js\highslide.js
+				assets\js\index.html
+			assets\index.html
+		-blocks
+			blocks\categories.php
+			blocks\index.html
+			blocks\quiz.php
+		+class
+			-Common
+				class\Common\Breadcrumb.php
+				class\Common\Configurator.php
+				class\Common\DirectoryChecker.php
+				class\Common\FilesManagement.php
+				class\Common\index.html
+				class\Common\Migrate.php
+				class\Common\ModuleFeedback.php
+				class\Common\ModuleStats.php
+				class\Common\Resizer.php
+				class\Common\ServerStats.php
+				class\Common\VersionChecks.php
+			-type_question
+				class\type_question\slide_checkbox.php
+				class\type_question\slide_checkboxLogical.php
+				class\type_question\slide_listboxIntruders1.php
+				class\type_question\slide_listboxIntruders2.php
+				class\type_question\slide_listboxSortItems.php
+				class\type_question\slide_matchItems.php
+				class\type_question\slide_multiTextbox.php
+				class\type_question\slide_pageInfo.php
+				class\type_question\slide_radioLogical.php
+				class\type_question\slide_radioMultiple2.php
+				class\type_question\slide_radioSimple.php
+				class\type_question\slide_sortCombobox.php
+				class\type_question\slide_textarea.php
+				class\type_question\slide_textareaInput.php
+				class\type_question\slide_textareaListbox.php
+			class\Answers.php
+			class\AnswersHandler.php
+			class\Categories.php
+			class\CategoriesHandler.php
+			class\Constants.php
+			class\exe
+			class\Helper.php
+			class\index.html
+			class\Messages.php
+			class\MessagesHandler.php
+			class\Permissions.php
+			class\PermissionsHandler.php
+			class\Questions.php
+			class\QuestionsHandler.php
+			class\Quiz.php
+			class\QuizHandler.php
+			class\QuizUtility.php
+			class\Results.php
+			class\ResultsHandler.php
+			class\Type_question.php
+			class\Type_questionHandler.php
+			class\Utility.php
+		-config
+			config\admin.yml
+			config\config.php
+			config\icons.php
+			config\index.html
+			config\paths.php
+		+docs
+			docs\changelog.txt
+			docs\credits.txt
+			docs\index.html
+			docs\install.txt
+			docs\lang.diff
+			docs\license.txt
+			docs\readme.txt
+			docs\todo.txt
+		-images
+			-blue
+				images\blue\add.png
+				images\blue\add_all.png
+				images\blue\bottom.png
+				images\blue\down.png
+				images\blue\empty.png
+				images\blue\init.png
+				images\blue\no.png
+				images\blue\ok.png
+				images\blue\remove.png
+				images\blue\remove_all.png
+				images\blue\show.png
+				images\blue\Thumbs.db
+				images\blue\top.png
+				images\blue\up.png
+			-default
+				images\default\add.png
+				images\default\add_all.png
+				images\default\bottom.png
+				images\default\down.png
+				images\default\empty.png
+				images\default\init.png
+				images\default\no.png
+				images\default\ok.png
+				images\default\remove.png
+				images\default\remove_all.png
+				images\default\show.png
+				images\default\Thumbs.db
+				images\default\top.png
+				images\default\up.png
+			-green
+				images\green\add.png
+				images\green\add_all.png
+				images\green\bottom.png
+				images\green\down.png
+				images\green\empty.png
+				images\green\init.png
+				images\green\no.png
+				images\green\ok.png
+				images\green\remove.png
+				images\green\remove_all.png
+				images\green\show.png
+				images\green\Thumbs.db
+				images\green\top.png
+				images\green\up.png
+			-grey
+				images\grey\add.png
+				images\grey\add_all.png
+				images\grey\bottom.png
+				images\grey\down.png
+				images\grey\empty.png
+				images\grey\init.png
+				images\grey\no.png
+				images\grey\ok.png
+				images\grey\remove.png
+				images\grey\remove_all.png
+				images\grey\show.png
+				images\grey\Thumbs.db
+				images\grey\top.png
+				images\grey\up.png
+			-magenta
+				images\magenta\add.png
+				images\magenta\add_all.png
+				images\magenta\bottom.png
+				images\magenta\down.png
+				images\magenta\empty.png
+				images\magenta\init.png
+				images\magenta\no.png
+				images\magenta\ok.png
+				images\magenta\remove.png
+				images\magenta\remove_all.png
+				images\magenta\show.png
+				images\magenta\Thumbs.db
+				images\magenta\top.png
+				images\magenta\up.png
+		+include
+			include\comment_functions.php
+			include\common.php
+			include\function.quizFlagAscii.php
+			include\functions.php
+			include\index.html
+			include\install.php
+			include\notification.inc.php
+			include\quizFlagAscii.php
+			include\search.inc.php
+			include\uninstall.php
+			include\update.php
+			include\xoops_version.inc.php
+		+language
+			+english
+				-help
+					language\english\help\help.html
+					language\english\help\index.html
+				-mail_template
+					language\english\mail_template\Categories_approve_notify.tpl
+					language\english\mail_template\Categories_delete_notify.tpl
+					language\english\mail_template\Categories_modify_notify.tpl
+					language\english\mail_template\global_approve_notify.tpl
+					language\english\mail_template\global_comment_notify.tpl
+					language\english\mail_template\global_delete_notify.tpl
+					language\english\mail_template\global_modify_notify.tpl
+					language\english\mail_template\global_new_notify.tpl
+					language\english\mail_template\Quiz_approve_notify.tpl
+					language\english\mail_template\Quiz_comment_notify.tpl
+					language\english\mail_template\Quiz_delete_notify.tpl
+					language\english\mail_template\Quiz_modify_notify.tpl
+				-slide_help
+					language\english\slide_help\slide_checkbox.html
+					language\english\slide_help\slide_checkboxLogical.html
+					language\english\slide_help\slide_listboxIntruders1.html
+					language\english\slide_help\slide_listboxIntruders2.html
+					language\english\slide_help\slide_matchItems.html
+					language\english\slide_help\slide_multiTextbox.html
+					language\english\slide_help\slide_pageInfo.html
+					language\english\slide_help\slide_radioLogical.html
+					language\english\slide_help\slide_radioMultiple2.html
+					language\english\slide_help\slide_radioSimple.html
+					language\english\slide_help\slide_sortCombobox.html
+					language\english\slide_help\slide_textarea.html
+					language\english\slide_help\slide_textareaInput.html
+					language\english\slide_help\slide_textareaListbox.html
+				language\english\admin.php
+				language\english\blocks.php
+				language\english\common.php
+				language\english\feedback.php
+				language\english\index.html
+				language\english\main.php
+				language\english\modinfo.php
+				language\english\quiz_JS.php
+				language\english\type_questions.php
+			-french
+				-help
+					language\french\help\help.html
+					language\french\help\index.html
+				-mail_template
+					language\french\mail_template\Categories_approve_notify.tpl
+					language\french\mail_template\Categories_delete_notify.tpl
+					language\french\mail_template\Categories_modify_notify.tpl
+					language\french\mail_template\global_approve_notify.tpl
+					language\french\mail_template\global_comment_notify.tpl
+					language\french\mail_template\global_delete_notify.tpl
+					language\french\mail_template\global_modify_notify.tpl
+					language\french\mail_template\global_new_notify.tpl
+					language\french\mail_template\Quiz_approve_notify.tpl
+					language\french\mail_template\Quiz_comment_notify.tpl
+					language\french\mail_template\Quiz_delete_notify.tpl
+					language\french\mail_template\Quiz_modify_notify.tpl
+				-slide
+					language\french\slide\slide_resultats.html
+				-slide_help
+					language\french\slide_help\slide_checkbox.html
+					language\french\slide_help\slide_checkboxLogical.html
+					language\french\slide_help\slide_listboxIntruders1.html
+					language\french\slide_help\slide_listboxIntruders2.html
+					language\french\slide_help\slide_matchItems.html
+					language\french\slide_help\slide_multiTextbox.html
+					language\french\slide_help\slide_pageInfo.html
+					language\french\slide_help\slide_radioLogical.html
+					language\french\slide_help\slide_radioMultiple2.html
+					language\french\slide_help\slide_radioSimple.html
+					language\french\slide_help\slide_sortCombobox.html
+					language\french\slide_help\slide_textarea.html
+					language\french\slide_help\slide_textareaInput.html
+					language\french\slide_help\slide_textareaListbox.html
+				language\french\admin.php
+				language\french\blocks.php
+				language\french\common.php
+				language\french\feedback.php
+				language\french\index.html
+				language\french\main.php
+				language\french\modinfo.php
+				language\french\quiz_JS.php
+				language\french\type_questions.php
+			language\index.html
+		-preloads
+			preloads\autoloader.php
+			preloads\core.php
+			preloads\index.html
+		+sql
+			sql\datasql.sql
+			sql\index.html
+			sql\mysql - Copie.sql
+			sql\mysql.sql
+		+templates
+			+admin
+				templates\admin\index.html
+				templates\admin\quizmaker_admin_about.tpl
+				templates\admin\quizmaker_admin_answers.tpl
+				templates\admin\quizmaker_admin_categories.tpl
+				templates\admin\quizmaker_admin_export.tpl
+				templates\admin\quizmaker_admin_footer.tpl
+				templates\admin\quizmaker_admin_header.tpl
+				templates\admin\quizmaker_admin_import.tpl
+				templates\admin\quizmaker_admin_index.tpl
+				templates\admin\quizmaker_admin_messages.tpl
+				templates\admin\quizmaker_admin_permissions.tpl
+				templates\admin\quizmaker_admin_play_quiz.tpl
+				templates\admin\quizmaker_admin_questions.tpl
+				templates\admin\quizmaker_admin_quiz.tpl
+				templates\admin\quizmaker_admin_quiz_inline.tpl
+				templates\admin\quizmaker_admin_quiz_outline.tpl
+				templates\admin\quizmaker_admin_results.tpl
+				templates\admin\quizmaker_admin_type_new_question.tpl
+				templates\admin\quizmaker_admin_type_question.tpl
+			-blocks
+				templates\blocks\quizmaker_block_categories.tpl
+				templates\blocks\quizmaker_block_quiz.tpl
+			-quiz
+				templates\quiz\index.html
+				templates\quiz\quizmaker_admin_quiz_include.tpl
+				templates\quiz\quizmaker_admin_quiz_inline.tpl
+			templates\index.html
+			templates\quizmaker_breadcrumbs.tpl
+			templates\quizmaker_categories.tpl
+			templates\quizmaker_categories_cat.tpl
+			templates\quizmaker_categories_cat_list.tpl
+			templates\quizmaker_categories_item.tpl
+			templates\quizmaker_categories_list.tpl
+			templates\quizmaker_categories_theme.tpl
+			templates\quizmaker_footer.tpl
+			templates\quizmaker_header.tpl
+			templates\quizmaker_index.tpl
+			templates\quizmaker_quiz.tpl
+			templates\quizmaker_quiz_display.tpl
+			templates\quizmaker_quiz_item.tpl
+			templates\quizmaker_quiz_list.tpl
+			templates\quizmaker_quiz_solutions.tpl
+			templates\quizmaker_results_list.tpl
+		-testdata
+			-english
+				testdata\english\index.html
+			-french
+			-images
+				testdata\images\blank.gif
+				testdata\images\blank.png
+				testdata\images\index.html
+			testdata\index.html
+			testdata\index.php
+		+versions
+			versions\Quizmaker_2_80.php
+			versions\Quizmaker_2_92.php
+			versions\Quizmaker_2_94.php
+		_quizmaker.ppr
+		about.php
+		categories.php
+		comment_delete.php
+		comment_edit.php
+		comment_post.php
+		comment_reply.php
+		footer.php
+		header.php
+		index.php
+		list.tag.php
+		notification_update.php
+		quiz.php
+		quiz_display.php
+		results.php
+		results_submit.php
+		solutions.php
+		view.tag.php
+		xoops_version.php
+[Open project files]
+0=admin\export.php
+1=xoops_version.php
+2=class\QuizUtility.php
+3=admin\import.php
+4=language\french\admin.php
+5=language\english\admin.php
+6=class\QuizHandler.php
+7=templates\quizmaker_quiz_solutions.tpl
+8=class\Questions.php
+9=admin\questions.php
+10=admin\about.php
+11=templates\admin\quizmaker_admin_about.tpl
+12=class\Categories.php
+13=class\Quiz.php
+[Selected Project Files]
+Main=
+Selected=class\Quiz.php
+[admin\export.php]
+TopLine=55
+Caret=37,55
+[xoops_version.php]
+TopLine=75
+Caret=32,91
+[class\QuizUtility.php]
+TopLine=477
+Caret=51,477
+[admin\import.php]
+TopLine=59
+Caret=59,80
+[language\french\admin.php]
+TopLine=254
+Caret=1,274
+[language\english\admin.php]
+TopLine=254
+Caret=43,274
+[class\QuizHandler.php]
+TopLine=164
+Caret=1,199
+[templates\quizmaker_quiz_solutions.tpl]
+TopLine=114
+Caret=58,134
+[class\Questions.php]
+TopLine=278
+Caret=65,316
+[admin\questions.php]
+TopLine=274
+Caret=1,300
+[admin\about.php]
+TopLine=223
+Caret=1,262
+[templates\admin\quizmaker_admin_about.tpl]
+TopLine=1
+Caret=1,1
+[class\Categories.php]
+TopLine=1
+Caret=1,1
+[class\Quiz.php]
+TopLine=181
+Caret=134,215

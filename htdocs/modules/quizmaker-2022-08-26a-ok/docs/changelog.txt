@@ -1,0 +1,19 @@
+2022-04-06 - v 2.92 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout du champ see_also et read_more dans la table des solutions
+- Gestion de l'onglet "Résultats" : suppresion global et individuel par quiz 
+- Ajout du flag "numerotation" dans la liste de l'admin des questions
+
+2022-04-06 - v 2.6 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Corrections de bugs
+- modification de l'enchainement à la fin du quiz avec les slutions
+- Modifcation dans l'admin de la gestion des flag, les icones sont remplacer par des espresssions et de la couleur pour faciliter la lecture
+  exemple : N/Y en rouge et vert
+- correction du form about
+- Ajout de pages d'information->encart pour permettre des regrouppements de questions
+
+==============================================================
+Change Log for CreaQuiz - 2020/08/27 12:19:51 Version 1.0
+==============================================================
+ - Original release creaquiz (Jean-Jacques Delalandre)
