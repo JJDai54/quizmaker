@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -28,15 +28,15 @@ $moduleDirName = basename(__DIR__);
 $xoBreadcrumbs = [];
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL . '/'];
 // Get instance of module
-$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-$quizHandler = $quizHelper->getHandler('Quiz');
-$questionsHandler = $quizHelper->getHandler('Questions');
-$categoriesHandler = $quizHelper->getHandler('Categories');
-$type_questionHandler = $quizHelper->getHandler('Type_question');
-$answersHandler = $quizHelper->getHandler('Answers');
-$resultsHandler = $quizHelper->getHandler('Results');
-$messagesHandler = $quizHelper->getHandler('Messages');
-$permissionsHandler = $quizHelper->getHandler('Permissions');
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+$quizHandler = $quizmakerHelper->getHandler('Quiz');
+$questionsHandler = $quizmakerHelper->getHandler('Questions');
+$categoriesHandler = $quizmakerHelper->getHandler('Categories');
+$type_questionHandler = $quizmakerHelper->getHandler('Type_question');
+$answersHandler = $quizmakerHelper->getHandler('Answers');
+$resultsHandler = $quizmakerHelper->getHandler('Results');
+$messagesHandler = $quizmakerHelper->getHandler('Messages');
+$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
 // 
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
@@ -51,5 +51,6 @@ $modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
 xoops_loadLanguage('main', $moduleDirName);
 xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
+xoops_loadLanguage('type_questions', $moduleDirName);
 
 include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/front_office.php");

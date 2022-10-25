@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -32,7 +32,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
 $quizId = Request::getInt('quiz_id', 0);
 $sender = Request::getString('sender', '');
 
@@ -183,9 +183,9 @@ FROM `x251_quizmaker_results`
 			$pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 			$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 		}
-		$GLOBALS['xoopsTpl']->assign('type', $quizHelper->getConfig('table_type'));
-		$GLOBALS['xoopsTpl']->assign('divideby', $quizHelper->getConfig('divideby'));
-		$GLOBALS['xoopsTpl']->assign('numb_col', $quizHelper->getConfig('numb_col'));
+		$GLOBALS['xoopsTpl']->assign('type', $quizmakerHelper->getConfig('table_type'));
+		$GLOBALS['xoopsTpl']->assign('divideby', $quizmakerHelper->getConfig('divideby'));
+		$GLOBALS['xoopsTpl']->assign('numb_col', $quizmakerHelper->getConfig('numb_col'));
 	}
       
       

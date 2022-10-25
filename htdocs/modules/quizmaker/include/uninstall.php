@@ -34,14 +34,14 @@ function xoops_module_uninstall_quizmaker(\XoopsModule $module)
 
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-    /** @var Quizmaker\Helper $quizHelper */
-    $quizHelper = Quizmaker\Helper::getInstance();
+    /** @var Quizmaker\Helper $quizmakerHelper */
+    $quizmakerHelper = Quizmaker\Helper::getInstance();
 
     /** @var Quizmaker\Utility $utility */
     $utility = new Quizmaker\Utility();
 
     $success = true;
-    $quizHelper->loadLanguage('admin');
+    $quizmakerHelper->loadLanguage('admin');
 
     //------------------------------------------------------------------
     // Remove uploads folder (and all subfolders) if they exist

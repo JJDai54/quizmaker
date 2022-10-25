@@ -19,7 +19,8 @@ const quiz_const = {
     formIntro   : 1,
     formEncart  : 2,
     formResult  : 3,
-    regexAllLetters : /\{[\w+\àéèêëîïôöûüù]*\}/gi
+    regexAllLetters : /\{[\w+\0123456789 àéèêëîïôöûüù]*\}/gi,
+    regexAllLettersPP : /\{[\w+\0123456789 àéèêëîïôöûüù,\;\-\?\!\.\_\=\/]*\}/gi //PP pour plus ponctuation
 }
 
 var quizard = [];
@@ -131,7 +132,7 @@ if(currentQuestion){
       if (typeOk(currentQuestion.type)){
           currentQuestion.questionNumber = chrono;
           
-          //eviter de la faire individuellement dans chaque classe
+          //evite de le faire individuellement dans chaque classe
           for (var k=0; k < currentQuestion.answers.length; k++){
           currentQuestion.answers[k].proposition = decodeHTMLEntities(currentQuestion.answers[k].proposition);
           }
@@ -391,8 +392,7 @@ var answerContainer;
     currentQuestion = quizard[currentSlide];
     currentQuestion.submitAnswers();
 //alert ("showAntiSeche => lMinMax = " + evt.target.id);
-    //currentQuestion.showGoodAnswers(currentQuestion, quizBoxAllSlides);
-//       if(this.typeQuestion='pageInfo && this.typeForm=3'){    
+//currentQuestion.showGoodAnswers(currentQuestion, quizBoxAllSlides);
 //         alert('submitAnswers');
 //       }
   }
@@ -409,7 +409,7 @@ var answerContainer;
 
     var results = getAllScores();
     var currentQuestion = quizard[currentSlide];
-    if(currentQuestion.name == 'pageInfo'){
+    if(currentQuestion.isQuestion){
         scoreCurrentSlide = "";
     }else{
         var score = currentQuestion.getScore();
@@ -489,6 +489,9 @@ function reloadQuestion() {
     currentQuestion.reloadQuestion(quizBoxAllSlides);
     showSlide(currentSlide);
     //// console.log(myQuestions[currentSlide].question);
+//setTimeout(sleep, 3000);   
+    
+    currentQuestion.setFocus();
     return true;
 }
 
@@ -546,16 +549,17 @@ function reloadQuestion() {
     
        if (isNewSlide){
          clearInterval(idSlideTimer);
-           statsTotal.slideTimer = 0;
+         statsTotal.slideTimer = 0;
          idSlideTimer=0;
+         quizard[currentSlide].setFocus();
+
        }
     //----------------------------------------------
     // pour faciliter la lecture du code    
     var firstSlide  = (currentSlide === 0);
     var lastSlide   = (currentSlide === (slides.length-1));
     var secondSlide = (currentSlide === 1); //en realité la premiere question normalement
-    var pageInfo    = (quizard[currentSlide].typeQuestion === "pageInfo");
-    
+    var isQuestion  = (quizard[currentSlide].isQuestion);    
     //est-que le quizTimer est activé et y-a-il un timer sur le slide;
     if (quizard[currentSlide].question.timer > 0 && idSlideTimer == 0 && quiz.useTimer && !lastSlide){
     //alert("start slide timer : |" + quizard[currentSlide].question.timer + "|");
@@ -603,8 +607,9 @@ function reloadQuestion() {
           //au cas ou le bouton précédent est ctivé evite de ralancer le chrono
           if (idQuizTimer == 0 ) startTimer();
         }
-        if (pageInfo){
+        if (!isQuestion){
         //c'est une 'page_info' hors premier et dernier slide
+        //c'est une 'page_group hors premier et dernier slide
         quizard[currentSlide].reloadQuestion();
 //         if (quizard[currentSlide].typeForm == quiz_const.formResult)
 //             stopTimer();
@@ -1056,6 +1061,7 @@ const tEvents = [];
   const continueButton = document.getElementById('continue');
   const submitButton = document.getElementById('submitAnswers');
   const previousButton = document.getElementById("previous");
+  const startButton = document.getElementById("startQuiz");
   const nextButton = document.getElementById("next");
   const showGoodAnswersButton = document.getElementById("show-good-answers");
   const showBadAnswersButton = document.getElementById("show-bad-answers");
@@ -1069,6 +1075,7 @@ const tEvents = [];
 
   continueButton.addEventListener("click", event_hideResult);
   previousButton.addEventListener("click", showPreviousSlide);
+  startButton.addEventListener("click", showNextSlide);
   nextButton.addEventListener("click", showNextSlide);
   submitButton.addEventListener('click', submitAnswers);
   showGoodAnswersButton.addEventListener('click', showGoodAnswers);

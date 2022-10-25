@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -30,8 +30,8 @@
 function quizmakerCommentsUpdate($itemId, $itemNumb)
 {
 	// Get instance of module
-	$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-	$messagesHandler = $quizHelper->getHandler('Messages');
+	$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+	$messagesHandler = $quizmakerHelper->getHandler('Messages');
 	$msgId = (int)$itemId;
 	$messagesObj = $messagesHandler->get($msgId);
 	$messagesObj->setVar('msg_comments', (int)$itemNumb);
@@ -51,8 +51,8 @@ function quizmakerCommentsApprove(&$comment)
 {
 	// Notification event
 	// Get instance of module
-	$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-	$messagesHandler = $quizHelper->getHandler('Messages');
+	$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+	$messagesHandler = $quizmakerHelper->getHandler('Messages');
 	$msgId = $comment->getVar('com_itemid');
 	$messagesObj = $messagesHandler->get($msgId);
 	$msgCode = $messagesObj->getVar('msg_code');

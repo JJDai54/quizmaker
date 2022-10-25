@@ -109,14 +109,14 @@ function contribution(){
  * 
  * ****************************** */
 function localHeaderInfo(){
-global    $quizHelper;
+global    $quizmakerHelper;
 $module_dir = basename(dirname(dirname(__FILE__)));
 
-$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 $module_dir = basename(dirname(dirname(__FILE__)));
-$module = $quizHelper->getModule();
+$module = $quizmakerHelper->getModule();
 
-    $license_url = $quizHelper->getModule()->getInfo('license_url');
+    $license_url = $quizmakerHelper->getModule()->getInfo('license_url');
     $license_url = preg_match('%^(https?:)?//%', $license_url) ? $license_url : 'http://' . $license_url;
 
 
@@ -154,10 +154,10 @@ $module = $quizHelper->getModule();
  * 
  * ****************************** */
 function moduleInfo(){
-//global    $quizHelper;
-$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+//global    $quizmakerHelper;
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 $module_dir = basename(dirname(dirname(__FILE__)));
-$module = $quizHelper->getModule();
+$module = $quizmakerHelper->getModule();
 
     
   $lines = array();

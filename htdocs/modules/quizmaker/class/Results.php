@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -86,7 +86,7 @@ class Results extends \XoopsObject
 	 */
 	public function getFormResults($action = false)
 	{
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}

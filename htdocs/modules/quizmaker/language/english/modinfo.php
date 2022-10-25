@@ -103,7 +103,7 @@ define('_MI_QUIZMAKER_QUIZ_BLOCK_TOP_DESC', "Quiz block top description");
 define('_MI_QUIZMAKER_NOTIFY_QUIZ_DELETE', "Quiz deleted");
 define('_MI_QUIZMAKER_NOTIFY_QUIZ_MODIFY', "Quiz modification");
 define('_MI_QUIZMAKER_NOTIFY_QUIZ', "Quiz notification");
-define('_MI_QUIZMAKER_NAME', "QuizMaker");
+define('_MI_QUIZMAKER_NAME', "Quizmaker");
 define('_MI_QUIZMAKER_KEYWORDS_LIST', "quizmaker,quiz,qcm,question,answer,game,results,questionnaire,interrogation");
 define('_MI_QUIZMAKER_SMNAME14', "Résultats");
 define('_MI_QUIZMAKER_ADMENU8', "Results");
@@ -134,5 +134,9 @@ define('_MI_QUIZMAKER_ADMIN_GROUPS_DESC', "Which groups have access to tools and
 define('_MI_QUIZMAKER_UPLOAD_GROUPS_DESC', "Which groups have permissions to upload files");
 define('_MI_QUIZMAKER_DESC', "This module allows you to create quizzes and MCQs");
 define('_MI_QUIZMAKER_ADMENU9', "Permissions");
+
+define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Afficher le bouton d'exemple ?");
+define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "Si oui, le bouton \"Ajouter des données d'échantillon\" sera visible par l'administrateur. C'est Oui par défaut pour la première installation.");
+define('_MI_QUIZMAKER_ADMENU_CLONE', "Cloner");
 
 ?>

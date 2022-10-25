@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -69,7 +69,7 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $quizHelper->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_answers.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('answers.php'));
 		/*
@@ -101,13 +101,16 @@ switch($op) {
         $inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));
         $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE);
   	    $GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
-       // ----- /Listes de selection pour filtrage -----        
+        
+       // ----- /Listes de selection pour filtrage -----
+/*
         $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', QUIZMAKER_ICONS_URL."/16/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
 		$GLOBALS['xoopsTpl']->assign('btnNewAnswer', $btnNewAnswer);
         //---------------------------------------------        
         //update weight 
         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_ICONS_URL."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
+*/               
 
         //--------------------------------------------
         

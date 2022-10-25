@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -193,8 +193,8 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
         $permtype = sprintf("quizmaker_%s_categories", $short_permtype);
         
         $tPerm = array();
-        $quizHelper = Helper::getHelper('quizmaker');
-        $moduleHandler = $quizHelper->getModule();
+        $quizmakerHelper = Helper::getHelper('quizmaker');
+        $moduleHandler = $quizmakerHelper->getModule();
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
         $tPerm = $gpermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));

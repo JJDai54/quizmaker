@@ -37,7 +37,7 @@
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_POINTS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CAPTION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
-				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
+				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $answers_count}>

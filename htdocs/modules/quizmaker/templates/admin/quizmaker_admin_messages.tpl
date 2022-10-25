@@ -9,7 +9,7 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_CODE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_CONSTANT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_MESSAGE}></th>
-				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
+				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $messages_count}>

@@ -13,6 +13,8 @@ points = 0;
 reponseOk = 0;
 isAntiseche = false;
 data  = [];
+focusId = '';
+
 
 stats = {
       scoreMin:  0,
@@ -79,6 +81,15 @@ getId (index){
 * @ return: null
 * ********** */
 prepareData(){
+}
+
+/* *******************************************
+* * @ return: null
+* ********** */
+setFocus(){
+    //alert("setFocus");
+    if(this.focusId != '')
+        document.getElementById(this.focusId).focus({focusVisible:false});
 }
 
 /* *******************************************

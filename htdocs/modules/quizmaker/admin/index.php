@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -65,7 +65,7 @@ $adminObject->addConfigBoxLine(Common\DirectoryChecker::getDirectoryStatus($fold
 // Render Index
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('index.php'));
 // Test Data
-if ($quizHelper->getConfig('displaySampleButton')) {
+if ($quizmakerHelper->getConfig('displaySampleButton')) {
 	xoops_loadLanguage('admin/modulesadmin', 'system');
 	include_once dirname(__DIR__) . '/testdata/index.php';
 	$adminObject->addItemButton(constant('_CO_QUIZMAKER_ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');

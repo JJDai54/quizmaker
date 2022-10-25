@@ -40,6 +40,7 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_publishQuiz` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_publishResults` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_publishAnswers` tinyint(1) NOT NULL DEFAULT '0',
+  `quiz_viewAllSolutions` tinyint(1) NOT NULL DEFAULT '0',   
   `quiz_dateBegin` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_dateEnd` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_onClickSimple` tinyint(1) NOT NULL DEFAULT '1',
@@ -62,6 +63,7 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_showResultPopup` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_showTypeQuestion` tinyint(4) NOT NULL DEFAULT '0',
   `quiz_build` int(10) NOT NULL DEFAULT '0',
+  `quiz_execution` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
   `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
@@ -124,6 +126,7 @@ CREATE TABLE `quizmaker_type_question` (
   `type_name` varchar(255) NOT NULL DEFAULT '',
   `type_description` text NOT NULL,
   `type_shortdesc` varchar(255) NOT NULL DEFAULT '',
+  `type_weight` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB;
 
@@ -170,11 +173,11 @@ INSERT INTO quizmaker_categories( `cat_name`, `cat_description`,  `cat_theme`, `
 INSERT INTO quizmaker_messages( `msg_code`, `msg_constant`) VALUES 
 ('message01', 'MESSAGE01'),
 ('results', 'RESULTS'),
-('sortCombobox', 'SORTCOMBOBOX'),
+('comboboxSortList', 'COMBOBOXSORTLIST'),
 ('radio', 'RADIO'),
-('checkbox', 'CHECKBOX'),
-('textbox', 'TEXTBOX'),
-('multiTextbox', 'MULTITEXTBOX'),
+('checkboxSimple', 'CHECKBOXSIMPLE'),
+('textboxSimple', 'TEXTBOXSIMPLE'),
+('textboxMultiple', 'TEXTBOXMULTIPLE'),
 ('allType', 'ALLTYPE'),
 ('forPoints', 'FORPOINTS'),
 ('forChrono', 'FORCHRONO'),

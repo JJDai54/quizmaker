@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -29,14 +29,18 @@ require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request quiz_id
-$catId  = Request::getInt('cat_id', -1);
-$quizId = Request::getInt('quiz_id');
+$catId  = Request::getInt('cat_id', 0);
+$quizId = Request::getInt('quiz_id', 0);
 
 $utility = new \XoopsModules\Quizmaker\Utility();  
+$templateMain = 'quizmaker_admin_export.tpl';
 
 ////////////////////////////////////////////////////////////////////////
 switch($op) {
 	case 'export_ok':
+        if ($quizId > 0) $quizUtility::exportQuiz($quizId);
+        
+/*
         $quiz = $quizHandler->get($quizId);
         $folder = $quiz->getVar('quiz_fileName');    
         //$name = $quiz->getVar('quiz_name') . '_' . date("Y-m-d_H-m-s"); //pas bon le nom contient des espaces et autres caracteres   
@@ -49,21 +53,21 @@ switch($op) {
         
         \JJD\zipSimpleDir($sourcePath, $outZipPath);   
 
-		$templateMain = 'quizmaker_admin_export.tpl';
 		$GLOBALS['xoopsTpl']->assign('download', 1);        
 		$GLOBALS['xoopsTpl']->assign('href', $outZipUrl);        
 		$GLOBALS['xoopsTpl']->assign('delai', 2000);        
 		$GLOBALS['xoopsTpl']->assign('name', $name);        
+*/
         
     
     case 'export':
     case 'list':
 	default:
-		$templateMain = 'quizmaker_admin_export.tpl';
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-		if (false === $action) {
-			$action = $_SERVER['REQUEST_URI'];
-		}
+
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+// 		if (false === $action) {
+// 			$action = $_SERVER['REQUEST_URI'];
+// 		}
 		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 		// Permissions for uploader
 		$grouppermHandler = xoops_getHandler('groupperm');
@@ -72,7 +76,7 @@ switch($op) {
 		
         
         // Title
-		$title = _AM_QUIZMAKER_EXPORT;        
+		$title = _AM_QUIZMAKER_EXPORT_YML;        
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
 		$form = new \XoopsThemeForm($title, 'form_export', 'export.php', 'post', true);
@@ -82,13 +86,18 @@ switch($op) {
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
-        $cat = $categoriesHandler->getListKeyName(null, false, false);
+        $catArr = $categoriesHandler->getListKeyName(null, false, false);
+        if ($catId == 0) $catId = array_key_first($catArr);        
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
-        $inpCategory->addOptionArray($cat);
+        $inpCategory->addOptionArray($catArr);
         $inpCategory->setExtra("onchange=\"document.form_export.op.value='list';document.form_export.sender.value=this.name;document.form_export.submit();\"");
- //      "
   	    $form->addElement($inpCategory);
-        
+
+        $quizArr = $quizHandler->getListKeyName($catId);        
+        if ($quizId == 0 || !$quiz) {
+            $quizId = array_key_first($quizArr);
+            $quiz = $quizHandler->get($quizId);
+        }
         
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));

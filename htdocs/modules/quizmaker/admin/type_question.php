@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -62,7 +62,7 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $quizHelper->getConfig('adminpager'));
+		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_type_question.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('type_question.php'));
         
@@ -88,9 +88,10 @@ switch($op) {
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
         
        // ----- /Listes de selection pour filtrage -----        
-    
+/*
         $btnGoToQuestion = $quizUtility->getNewBtn(_AM_QUIZMAKER_STRANGER_EXP, 'list', QUIZMAKER_ICONS_URL."/16/question.png",  "");
 		$GLOBALS['xoopsTpl']->assign('btnGoToQuestion', $btnGoToQuestion);
+*/    
         
         
         
@@ -101,6 +102,7 @@ switch($op) {
 \JJD\include_highslide();
 	break;
 
+/*
     case 'add_new_question':
     
         // ----- Listes de selection pour filtrage -----  
@@ -127,6 +129,7 @@ switch($op) {
         $form = $type_questionHandler->getFormType_question($typeQuestion);
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
     break;
+*/
 
 
 }

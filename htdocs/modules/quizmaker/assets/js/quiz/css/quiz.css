@@ -250,7 +250,7 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ----  ----- */
-input.question-matchItems{
+input.question-comboboxMatchItems{
   font-size: 1.1em;
   margin-itemRound-bottom: 2px;
   margin-right: 10px;
@@ -259,9 +259,11 @@ input.question-matchItems{
   text-align:right;
 
   padding: 2px 10px 2px 10px;
-  width: 200px;
+  width: 280px;
 }
-
+input.question-inputMatchItems{
+  text-align:left;
+}
 .question-textareaListbox{
   font-size: 20px;
   margin-itemRound-bottom: 5px;
@@ -281,7 +283,7 @@ select.question-dblListbox{
   z-index:999;
   width:250px;
 }
-select.question-matchItems{
+select.question-comboboxMatchItems{
   font-size: 1.1em;
   margin-itemRound-bottom: 5px;
   z-index:999;
@@ -291,11 +293,11 @@ select.question-matchItems{
 
 span.slide-label{
   font-size: 1.1em;
-  margin-itemRound-bottom: 10px;
+  /*margin-itemRound-bottom: 10px;*/
   color: #0000FF;
   width: 50%;
   text-align:left;
-  margin: 0 auto;
+/*  margin: 0 auto;*/
   padding: 6px;
   width: 500px;
   line-height:30px;/**/
@@ -330,6 +332,7 @@ hr.quiz-style-two {
   background-image: linear-gradient(180deg, #fff, #ddd 40%, #ccc);
   margin: auto;
   margin-top:10px;
+  text-align:left;
 }
 .quiz-shadowbox-medium {
   font-size : 1.2em;

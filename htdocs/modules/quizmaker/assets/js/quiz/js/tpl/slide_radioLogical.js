@@ -23,12 +23,15 @@ build (){
     
     const answers = [];
 
-    var obListText = getHtmlSpan(name, this.data.words, -1, currentQuestion.numbering);
+    this.data.styleCSSTxt = getMarginStyle(this.data.words.length, 5, 15, 1); //line-height: 1;
+    var obListText = getHtmlSpan(name, this.data.words, currentQuestion.numbering, 0, this.data.styleCSSTxt);
     answers.push(`<table width="500px" class="question"><tr><td id="${name}-famille" style='text-align:left'>${obListText}`);
-    
-    var obListRadio = getHtmlRadio(name, this.data.reponses, -1, currentQuestion.numbering, this.data.words.length);
-    answers.push(`</td><td id="${name}-cartes" style='text-align:left'>${obListRadio}</td></tr></table>`);
 
+    this.data.styleCSSRadio = getMarginStyle( this.data.reponses.length);    
+    var obListRadio = getHtmlRadio(name, this.data.reponses, -1, currentQuestion.numbering, this.data.words.length, this.data.styleCSSRadio);
+    answers.push(`</td><td id="${name}-cartes" style='text-align:left'>${obListRadio}</td></tr></table>`);
+    
+    this.focusId = name + "-" + "0";
     return answers.join("\n");
 
 }

@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -32,7 +32,7 @@ redirect_header('categories.php', 0, '');
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
 $catId = Request::getInt('cat_id', 0);
 
 // Define Stylesheet
@@ -93,9 +93,9 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 				$pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
-			$GLOBALS['xoopsTpl']->assign('type', $quizHelper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $quizHelper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $quizHelper->getConfig('numb_col'));
+			$GLOBALS['xoopsTpl']->assign('type', $quizmakerHelper->getConfig('table_type'));
+			$GLOBALS['xoopsTpl']->assign('divideby', $quizmakerHelper->getConfig('divideby'));
+			$GLOBALS['xoopsTpl']->assign('numb_col', $quizmakerHelper->getConfig('numb_col'));
 		}
 
 
@@ -103,7 +103,7 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES];
 
 // Keywords
-quizmakerMetaKeywords($quizHelper->getConfig('keywords').', '. implode(',', $keywords));
+quizmakerMetaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description

@@ -2,16 +2,17 @@
 const quiz_messages = {
 
     message01: "attention à bien lire la consigne, et le sens de tri car seul l'ordre exacte donne des points.",
-    sortCombobox: "attention à l'ordre.",
+    comboboxSortList: "attention à l'ordre.",
     radio: "Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé",
-    checkbox: "Chaque réponse est associée à un nombre points selon la difficulté. Les réponses se cumulent",
-    textbox: "Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé",
-    multiTextbox: "",
+    checkboxSimple: "Chaque réponse est associée à un nombre points selon la difficulté. Les réponses se cumulent",
+    textboxSimple: "Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé",
+    textboxMultiple: "",
     allType: "Important : Dans certains questionnaires il peut y avoir des réponses avec un nombre de points négatifs.",
     forPoints: "Pour {pointsMin} à {pointsMax} points",     //    "Pour {points} points"
     forChrono: " en {timer} secondes",
     forPointsTimer: "Pour {points} points en {timer} secondes",
     resultOnSlide: "résultat : pour {reponses} réponses sur {questions} questions,<br>Votre score est de {points} points sur {totalPoints} points",
+    btnStartQuiz: "Lancez le quiz",
     btnNext: "Suivant",
     btnPrevious: "Précédent",
     btnSubmit: "Résultats",

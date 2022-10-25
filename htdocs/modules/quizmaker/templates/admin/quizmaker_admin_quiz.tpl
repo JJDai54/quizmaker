@@ -1,15 +1,15 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
+<{include file='db:quizmaker_admin_download.tpl' }>
+
 <{assign var="fldImg" value="blue"}>
 <{assign var="styleParent" value=""}>
 
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='quiz.php?op=list' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
-<input type="hidden" name="op" value="list" />
-
-<{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
-
+    <input type="hidden" name="op" value="list" />
+    <{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
 </form>
 
 <style>				
@@ -23,11 +23,12 @@ img{
 	<table id='quiz_quiz_list' name='quiz_quiz_list' class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_ID}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORY}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
+				<{if $allCategories}><th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORY}></th><{/if}>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}>/<{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th>
+				<{* <th class="center"><{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th> *}>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_THEME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_DATE_BEGIN_END}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PERIODE}></th>
@@ -35,7 +36,7 @@ img{
                                 
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_OPTIONS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CONFIGS_OPTIONS}></th>
-				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
+				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $quiz_count}>
@@ -47,11 +48,12 @@ img{
 				<td class='left'><{$cat[$Quiz.cat_id]}>
                 </td>
                 *}>
-                
+                <{if $allCategories}>
 				<td class='left'>
                     <a href="categories.php?op=edit&cat_id=<{$Quiz.cat_id}>" title="<{$smarty.const._EDIT}>">
                     <{$cat[$Quiz.cat_id]}></a>
                 </td>
+                <{/if}>
                 
                 
                 <{*
@@ -60,8 +62,9 @@ img{
                 <{* ========================================================== *}>
 				
                 <td class='left'>
-					<a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
-                        <{$Quiz.name}></a></td>
+					<b><a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
+                        <{$Quiz.name}></a></b><br><{$Quiz.quiz_fileName}>
+                </td>
                         
                 <{* ---------------- Arrows Weight -------------------- *}>
                 <td class='center width10'>
@@ -99,14 +102,14 @@ img{
                 </td>
                 <{* ---------------- /Arrows -------------------- *}>
                 
-				<td class='left'>
-                    <{$Quiz.quiz_fileName}>
+				<td class='center'>
+                    <{$Quiz.countQuestions}>
                 </td>
-                
+               
 				<td class='left'>
                     <{$Quiz.theme_ok}>
                 </td>
-               
+                
 				<td class='center'>
                     <{$Quiz.dateBegin}>
                     <img src="<{xoModuleIcons16}><{$Quiz.dateBeginOk}>.png" alt="quiz" /><br>
@@ -125,6 +128,9 @@ img{
                         </b></a>
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishAnswers&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ANSWERS}>' ><b>
                         <{$Quiz.flags.publishAnswers}>
+                        </b></a>
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_viewAllSolutions&modulo=2"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' ><b>
+                        <{$Quiz.flags.viewAllSolutions}>
                         </b></a>
                         |
                         <img src="<{xoModuleIcons16}><{$Quiz.publishResultsOk}>.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' />
@@ -208,6 +214,10 @@ img{
                         <img src="<{xoModuleIcons16 delete.png}>" alt="quiz" />
                         </a>
 					
+					<a href="quiz.php?op=export_quiz&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._AM_QUIZMAKER_EXPORT_QUIZ}>">
+                        <img src="<{xoModuleIcons16 download.png}>" alt="quiz" />
+                        </a>
+
                     <a href='<{$smarty.const.QUIZMAKER_URL}>/admin/questions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&sender='  title="<{$smarty.const._AM_QUIZMAKER_QUESTIONS}>">
                         <img src="<{xoModuleIcons16 inserttable.png}>" alt="" />
                         </a>
@@ -246,7 +256,7 @@ img{
 
 <script>
 tth_set_value('last_asc', true);
-tth_trierTableau('quiz_quiz_list', 2, "1,2,3,4,5,6");  
+tth_trierTableau('quiz_quiz_list', 3, "1,2,3,4,5,6");  
 </script>
 
 <!-- Footer -->

@@ -12,7 +12,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -33,8 +33,10 @@ class Type_question
 {
 var $questId = 0;
 var $type = '';
+var $typeQuestion = '';//idem type
 var $name = '';
 var $description = '';
+var $example = '';
 var $image_fullName = '';
 var $lgTitle = 80;
 var $lgProposition = 80;
@@ -42,22 +44,38 @@ var $lgProposition2 = 80;
 var $lgPoints = 5;
 var $lgMot1 = 20;
 var $lgMot2 = 50;
+var $lgMot3 = 80;
+var $lgMot4 = 250;
 
 var $trayGlobal; 
 var $maxPropositions = 12; // valeur par default
+var $isQuestion = 0; // valeur par default
+var $canDelete = 1; // valeur par default
+var $weight = 0; // valeur par default
 
 	/**
 	 * Constructor 
 	 *
 	 * @param null
 	 */
-	public function __construct($typeQuestion, $parentId = 0)
+	public function __construct($typeQuestion, $parentId = 0, $weight = 0)
 	{
-        $questId = $parentId;
-        $prefix = '_CO_QUIZMAKER_TYPE_';
         $this->type = $typeQuestion;
+        $this->typeQuestion = $typeQuestion;
+        $this->questId = $parentId;
+        
+        switch($typeQuestion){
+        case 'pageBegin' : $this->typeForm = QUIZMAKER_TYPE_FORM_BEGIN;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_INTRO;    break;
+        case 'pageGroup' : $this->typeForm = QUIZMAKER_TYPE_FORM_GROUP;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_GROUP;    break;
+        case 'pageEnd'   : $this->typeForm = QUIZMAKER_TYPE_FORM_END;        $this->isParent = false; $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_RESULT;   break;
+        default          : $this->typeForm = QUIZMAKER_TYPE_FORM_QUESTION;   $this->isParent = false; $this->isQuestion = 1; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_QUESTION; break;
+        }
+
+        $this->weight = $weight;
+        $prefix = '_CO_QUIZMAKER_TYPE_';
         $this->name = constant($prefix . strToUpper($typeQuestion));
         $this->description = constant($prefix . strToUpper($typeQuestion) . '_DESC');
+        $this->example = constant($prefix . strToUpper($typeQuestion) . '_EXAMPLE');
 	}
 
 	/**
@@ -98,17 +116,59 @@ var $maxPropositions = 12; // valeur par default
 	 */
 	public function getValuesType_question()
 	{
-		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
         
         $ret = array();
         $ret['type'] = $this->type;
         $ret['name'] = $this->name;
         $ret['description'] = $this->description;
+        $ret['isQuestion'] = $this->isQuestion;
+        $ret['canDelete'] = $this->canDelete;
+        $ret['weight'] = $this->weight;
         $ret['image_fullName'] = QUIZMAKER_MODELES_IMG . "/slide_" . $this->type . '-00.jpg';
-        
+        $ret['modeles'] = array();
+        for ($h = 0; $h < 3; $h++)
+        {
+            $f = QUIZMAKER_MODELES_IMG_PATH . "/slide_" . $this->type . "-0{$h}.jpg";
+            //$ret['modeles'][] = $f;
+            if(file_exists($f))
+                $ret['modeles'][] = QUIZMAKER_MODELES_IMG . "/slide_" . $this->type . "-0{$h}.jpg";
+        }        
+        //echo "<hr>Modeles : <pre>" . print_r($ret['modeles'], true) . "</pre><hr>";
+        $ret['modelesHtml'] =  $this->getHtmlImgModeles();
         return $ret;
 	}
+    
+	/**
+	 * Get Values
+	 * @param null $keys 
+	 * @param null $format 
+	 * @param null$maxDepth 
+	 * @return array
+	 */
+function getHtmlImgModeles($width = 80){
+        
+        $tImg = array();
+        $tImg[] = "<div id='modelesTypeQuestionId'  name='{$this->type}' class='highslide-gallery'>";
+        for ($h = 0; $h < 3; $h++)
+        {
+            $f = QUIZMAKER_MODELES_IMG_PATH . "/slide_" . $this->type . "-0{$h}.jpg";
+            //$ret['modeles'][] = $f;
+            if(file_exists($f)){
+                $url = QUIZMAKER_MODELES_IMG . "/slide_" . $this->type . "-0{$h}.jpg";
+                $img =  <<<___IMG___
+                <a href='{$url}' class='highslide' onclick='return hs.expand(this);' >
+                    <img src="{$url}" alt="slides" style="max-width:{$width}px" />
+                </a>
+                ___IMG___;
+                $tImg[] = $img;
+            }
+        }        
+        $tImg[] = "</div>";
+        //echo "<hr>Modeles : <pre>" . print_r($ret['modeles'], true) . "</pre><hr>";
+        return implode("\n", $tImg);
+}
     
 /* **********************************************************
 *
@@ -125,7 +185,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 *
 * *********************************************************** */
 	public function getformTextarea($caption, $name, $value, $description = "", $rows = 5, $cols = 30) {
-    global $utility, $quizHelper;
+    global $utility, $quizmakerHelper;
         return \JJD\getformTextarea($caption, $name, $value, $description, $rows, $cols);
 }       
         
@@ -133,8 +193,8 @@ public function echoAns ($answers, $questId, $bExit = true) {
 *
 * *********************************************************** */
 	public function getformAdmin($caption, $name, $value, $description = "", $rows = 5, $cols = 30) {
-    global $utility, $quizHelper;
-        return \JJD\getAdminEditor($quizHelper, $caption, $name, $value);
+    global $utility, $quizmakerHelper;
+        return \JJD\getAdminEditor($quizmakerHelper, $caption, $name, $value);
 }       
         
 
@@ -181,16 +241,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 * *********************************************************** */
  	public function isQuestion()
  	{
-    //echo ($this->type != "pageInfo") ? "<hr>c'est une question<hr>" : "<hr>Non pas une question<hr>" ;
-        return ($this->type != "pageInfo");
-    }
-    
-/* **********************************************************
-*
-* *********************************************************** */
- 	public function isParent()
- 	{
-        return false;
+        return ($this->isQuestion);
     }
     
 /* **********************************************************
@@ -201,7 +252,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 //      global $utility, $answersHandler;
 //         global $quizHandler, $utility, $type_questionHandler;
 //         //---------------------------------------------- 
-// 		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+// 		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}else{
@@ -231,7 +282,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 // 		// Questions Handler
 //         //----------------------------------------------------------
 // 		// Questions Handler
-// 		$questionsHandler = $quizHelper->getHandler('Questions');
+// 		$questionsHandler = $quizmakerHelper->getHandler('Questions');
 // 		// Form Select questQuiz_id
 // 		$questQuiz_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 // 		$questQuiz_idSelect->addOption('Empty');
@@ -344,7 +395,7 @@ public function echoAns ($answers, $questId, $bExit = true) {
 /* ********************************************
 *
 *********************************************** */
-  public function getSolutions($questId){
+  public function getSolutions($questId, $boolAllSolutions = true){
 
     $ret = array();
  

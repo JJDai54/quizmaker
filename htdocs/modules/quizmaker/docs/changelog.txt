@@ -1,3 +1,11 @@
+2022-10-25 - v 2.92 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout du champ quiz_viewAllSolutions dans la table quiz
+- Ajout de l'expot dans l'onglet quiz zt question pour plus de paticité
+- Séparation des "page_info" en "pageBegin", "pageEnd" et "pageGroup"
+- Ajout des modèles en image pour faciliter le choix du type de question
+
+
 2022-04-06 - v 2.92 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - Ajout du champ see_also et read_more dans la table des solutions
@@ -16,4 +24,4 @@
 ==============================================================
 Change Log for CreaQuiz - 2020/08/27 12:19:51 Version 1.0
 ==============================================================
- - Original release creaquiz (Jean-Jacques Delalandre)
+ - Original release quizmaker (Jean-Jacques Delalandre)

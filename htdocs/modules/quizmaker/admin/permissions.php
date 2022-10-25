@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -59,37 +59,37 @@ switch($op) {
 		$formTitle = _AM_QUIZMAKER_PERMISSIONS_APPROVE;
 		$permName = 'quizmaker_approve_quiz';
 		$permDesc = _AM_QUIZMAKER_PERMISSIONS_APPROVE_DESC . ' Quiz';
-		$handler = $quizHelper->getHandler('quiz');
+		$handler = $quizmakerHelper->getHandler('quiz');
 	break;
 	case 'submit_quiz':
 		$formTitle = _AM_QUIZMAKER_PERMISSIONS_SUBMIT;
 		$permName = 'quizmaker_submit_quiz';
 		$permDesc = _AM_QUIZMAKER_PERMISSIONS_SUBMIT_DESC . ' Quiz';
-		$handler = $quizHelper->getHandler('quiz');
+		$handler = $quizmakerHelper->getHandler('quiz');
 	break;
 	case 'view_quiz':
 		$formTitle = _AM_QUIZMAKER_PERMISSIONS_VIEW;
 		$permName = 'quizmaker_view_quiz';
 		$permDesc = _AM_QUIZMAKER_PERMISSIONS_VIEW_DESC . ' Quiz';
-		$handler = $quizHelper->getHandler('quiz');
+		$handler = $quizmakerHelper->getHandler('quiz');
 	break;
 	case 'approve_categories':
 		$formTitle = _AM_QUIZMAKER_PERMISSIONS_APPROVE;
 		$permName = 'quizmaker_approve_categories';
 		$permDesc = _AM_QUIZMAKER_PERMISSIONS_APPROVE_DESC . ' Categories';
-		$handler = $quizHelper->getHandler('categories');
+		$handler = $quizmakerHelper->getHandler('categories');
 	break;
 	case 'submit_categories':
 		$formTitle = _AM_QUIZMAKER_PERMISSIONS_SUBMIT;
 		$permName = 'quizmaker_submit_categories';
 		$permDesc = _AM_QUIZMAKER_PERMISSIONS_SUBMIT_DESC . ' Categories';
-		$handler = $quizHelper->getHandler('categories');
+		$handler = $quizmakerHelper->getHandler('categories');
 	break;
 	case 'view_categories':
 		$formTitle = _AM_QUIZMAKER_PERMISSIONS_VIEW;
 		$permName = 'quizmaker_view_categories';
 		$permDesc = _AM_QUIZMAKER_PERMISSIONS_VIEW_DESC . ' Categories';
-		$handler = $quizHelper->getHandler('categories');
+		$handler = $quizmakerHelper->getHandler('categories');
 	break;
 }
 $moduleId = $xoopsModule->getVar('mid');

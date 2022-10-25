@@ -112,34 +112,34 @@ function contribution(){
  * 
  * ****************************** */
 function localHeaderInfo(){
-global    $quizHelper;
+global    $quizmakerHelper;
 $module_dir = basename(dirname(dirname(__FILE__)));
 
-    $license_url = $quizHelper->getModule()->getInfo('license_url');
+    $license_url = $quizmakerHelper->getModule()->getInfo('license_url');
     $license_url = preg_match('%^(https?:)?//%', $license_url) ? $license_url : 'http://' . $license_url;
 
 
     $html = array();
     
     $html[] = "<table>\n<tr>\n<td style=\"width: 100px;\">";
-    $html[] = "<img src=\"" . XOOPS_URL . '/modules/' . $module_dir . '/' . $quizHelper->getModule()->getInfo('image') . "\" alt=\"" . $module_dir . "\" style=\"float: left; margin-right: 10px;\">";
+    $html[] = "<img src=\"" . XOOPS_URL . '/modules/' . $module_dir . '/' . $quizmakerHelper->getModule()->getInfo('image') . "\" alt=\"" . $module_dir . "\" style=\"float: left; margin-right: 10px;\">";
     $html[] = "</td><td>";
     $html[] = "<div style=\"margin-top: 1px; margin-itemRound-bottom: 4px; font-size: 18px; line-height: 18px; color: #2F5376; font-weight: bold;\">";
-    $html[] = $quizHelper->getModule()->getInfo('name');
+    $html[] = $quizmakerHelper->getModule()->getInfo('name');
     $html[] = " - ";
-    $html[] = $quizHelper->getModule()->getInfo('version');
+    $html[] = $quizmakerHelper->getModule()->getInfo('version');
     $html[] = " - ";
-    $html[] = $quizHelper->getModule()->getInfo('module_status');
+    $html[] = $quizmakerHelper->getModule()->getInfo('module_status');
     $html[] = "</div>";
     
     
     $html[] = "<div style=\"line-height: 16px; font-weight: bold;\">";
-    $html[] = _AM_QUIZMAKER_BY . " ".  $quizHelper->getModule()->getInfo('author');
+    $html[] = _AM_QUIZMAKER_BY . " ".  $quizmakerHelper->getModule()->getInfo('author');
     $html[] = "</div>";
     $html[] = "<div style=\"line-height: 16px;\">";
-    $html[] = "<a href=\"$license_url\" target=\"_blank\" rel=\"external\">" . $quizHelper->getModule()->getInfo('license') . "</a>";
+    $html[] = "<a href=\"$license_url\" target=\"_blank\" rel=\"external\">" . $quizmakerHelper->getModule()->getInfo('license') . "</a>";
     $html[] = "<br>";
-    $html[] = "<a href=\"" . $quizHelper->getModule()->getInfo('author_website_url') . "\" target=\"_blank\">" . $quizHelper->getModule()->getInfo('author_website_name') . "</a>";
+    $html[] = "<a href=\"" . $quizmakerHelper->getModule()->getInfo('author_website_url') . "\" target=\"_blank\">" . $quizmakerHelper->getModule()->getInfo('author_website_name') . "</a>";
     $html[] = "</div>";
 
     $html[] = "</td></tr></table>";
@@ -151,10 +151,10 @@ $module_dir = basename(dirname(dirname(__FILE__)));
  * 
  * ****************************** */
 function moduleInfo(){
-//global    $quizHelper;
-$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+//global    $quizmakerHelper;
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 $module_dir = basename(dirname(dirname(__FILE__)));
-$module = $quizHelper->getModule();
+$module = $quizmakerHelper->getModule();
     
   $lines = array();
   

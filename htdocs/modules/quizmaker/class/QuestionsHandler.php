@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -175,13 +175,15 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
     }
 
 /* ******************************
- * renvoie la valeu maxmum d'un champ pour un idParent 
+ * renvoie la valeur maxmum d'un champ pour un idParent 
+ * ne tient pas compte des begin et end
  * *********************** */
     public function getMax($field = "quest_weight", $quiz_id = 0)
 
     {
-        $sql = "SELECT max({$field}) AS valueMax FROM {$this->table}";
-        if($quiz_id > 0) $sql .= " WHERE quest_quiz_id = {$quiz_id}";
+        $sql = "SELECT max({$field}) AS valueMax FROM {$this->table}"
+        . " WHERE quest_type_question <> 'pageBegin' AND quest_type_question <> 'pageEnd'";
+        if($quiz_id > 0) $sql .= " AND quest_quiz_id = {$quiz_id}";
         
         $rst = $this->db->query($sql);
         
@@ -214,15 +216,13 @@ __SQL__;
     $sql = "update {$this->table} SET quest_weight = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";    
     $result = $this->db->queryf($sql);
     //return $result;
-    
-    $sql = "update {$this->table} SET quest_weight = 0 WHERE quest_quiz_id='{$quiz_id}'"
-         . " AND quest_type_question='pageInfo'"
-         . " AND quest_type_form = " . QUIZMAKER_TYPE_FORM_INTRO . ";";    
+
+    $sql = "update {$this->table} SET quest_weight = -99999 WHERE quest_quiz_id='{$quiz_id}'"
+         . " AND quest_type_question='pageBegin';";    
     $result = $this->db->queryf($sql);
 
     $sql = "update {$this->table} SET quest_weight = 99999 WHERE quest_quiz_id='{$quiz_id}'"
-         . " AND quest_type_question='pageInfo'"
-         . " AND quest_type_form = " . QUIZMAKER_TYPE_FORM_RESULT . ";";    
+         . " AND quest_type_question='pageEnd';";    
     $result = $this->db->queryf($sql);
 
    
@@ -366,70 +366,50 @@ __SQL__;
         
         if($doItForGroup){
             $questObj = $this->get($questId);
-            if($questObj->getVar('quest_type_form') == 1){
+            $etat =  $questObj->getVar($field); //$questObj->getVar($field)+1 % $modulo;
+
+            if($questObj->getVar('quest_type_question') == 'pageBegin'){
               // si c'est le slide d'introduction, change l'état de toutes les questions du quiz
-              $etat =  mod($questObj->getVar($field)+1, $modulo);
+              //$etat =  mod($questObj->getVar($field)+1, $modulo);
               $quizId = $questObj->getVar('quest_quiz_id');
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_quiz_id={$quizId};";            
               $ret = $this->db->queryf($sql);
-            }else{
-              // si c'est un slide "encart" , change l'état de toutes les questions du groupe
-              $etat =  mod($questObj->getVar($field)+1, $modulo);
+            }elseif($questObj->getVar('quest_type_question') == 'pageGroup'){
+              // si c'est un slide "pageGroup" , change l'état de toutes les questions du groupe
+              //$etat =  mod($questObj->getVar($field)+1, $modulo);
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_parent_id={$questId};";            
               $ret = $this->db->queryf($sql);
             }
         }
-        
         return $ret;
     }
 
-    public function changeEtat_old($questId, $field, $doItForGroup = false)
-    {
-        $sql = "UPDATE " . $this->table . " SET {$field} = not {$field} WHERE quest_id={$questId};";
-        $ret = $this->db->queryf($sql);
-        
-        if($doItForGroup){
-            $questObj = $this->get($questId);
-            if($questObj->getVar('quest_type_form') == 1){
-              // si c'est le slide d'introduction, change l'état de toutes les questions du quiz
-              $etat = $questObj->getVar($field);   
-              $quizId = $questObj->getVar('quest_quiz_id');
-              $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_quiz_id={$quizId};";            
-              $ret = $this->db->queryf($sql);
-            }else{
-              // si c'est un slide "encart" , change l'état de toutes les questions du groupe
-              $etat = $questObj->getVar($field);
-              $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_parent_id={$questId};";            
-              $ret = $this->db->queryf($sql);
-            }
-        }
-        
-        return $ret;
-    }
 /* ********************************
 *
 * ******************************* */
 public function getParents($quizId, $addNone = true){
     $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
     $criteria->add(new \Criteria('quest_parent_id', 0, '='));
-    $criteria->add(new \Criteria('quest_type_question', '("Encart","intro","pageInfo")', 'IN'));
+    $criteria->add(new \Criteria('quest_type_question', 'pageGroup', '='));    
     $criteria->setOrder('ASC');
     $criteria->setSort('quest_weight,quest_question');
     $rst = $this->getAll($criteria);
     
     $tParent = array();
-    if ($addNone) $tParent[0] = _AM_QUIZMAKER_NONE .  " (0)";
+    if ($addNone) $tParent[0] = _AM_QUIZMAKER_NONE;
     foreach($rst AS $i=>$question){
-        $tParent[$question->getVar('quest_id')] = $question->getVar('quest_question') .  " (" . $question->getVar('quest_id') . ")";
+        $tParent[$question->getVar('quest_id')] = $question->getVar('quest_question') .  " [" . $question->getVar('quest_id') . "]";
     }
     return $tParent;
 }
 
+/* ********************************
+*
+* ******************************* */
 public function getStatistics($QuizId = 0){
-/*
-*/
+
     $sql = "SELECT quest_quiz_id AS quizId, count(quest_quiz_id) as countQuestions"
-         . " FROM ". $this->table . " WHERE quest_type_question<>'pageInfo' GROUP BY quest_quiz_id";
+         . " FROM ". $this->table . " WHERE quest_isQuestion = 1 GROUP BY quest_quiz_id";
     if ($QuizId > 0)
         $sql .= " WHERE quest_quiz_id = {$quizId}";
     $rst = $this->db->query($sql);

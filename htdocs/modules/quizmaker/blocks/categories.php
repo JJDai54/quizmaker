@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -40,8 +40,8 @@ function b_quizmaker_categories_show($options)
 	$typeBlock   = $options[0];
 	$limit       = $options[1];
 	$lenghtTitle = $options[2];
-	$quizHelper      = Helper::getInstance();
-	$categoriesHandler = $quizHelper->getHandler('Categories');
+	$quizmakerHelper      = Helper::getInstance();
+	$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 	$crCategories = new \CriteriaCompo();
 	array_shift($options);
 	array_shift($options);
@@ -101,8 +101,8 @@ function b_quizmaker_categories_show($options)
 function b_quizmaker_categories_edit($options)
 {
 	include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/categories.php';
-	$quizHelper = Helper::getInstance();
-	$categoriesHandler = $quizHelper->getHandler('Categories');
+	$quizmakerHelper = Helper::getInstance();
+	$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 	$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
 	$form = _MB_QUIZMAKER_DISPLAY;
 	$form .= "<input type='hidden' name='options[0]' value='".$options[0]."' />";

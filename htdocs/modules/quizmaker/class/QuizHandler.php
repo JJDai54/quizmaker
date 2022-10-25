@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -101,7 +101,8 @@ class QuizHandler extends \XoopsPersistableObjectHandler
 	{
         $crAllQuiz  = ($criteria) ? $criteria: new \CriteriaCompo();
 		$crAllQuiz = $this->getQuizCriteria($crAllQuiz, $start, $limit, $sort, $order);
-		return parent::getAll($crAllQuiz);
+        $ret = parent::getAll($crAllQuiz);
+		return $ret;
 	}
 
 	/**
@@ -361,8 +362,8 @@ global $questionsHandler, $resultsHandler;
         
         global $xoopsUser;
         $tPerm = array();
-        $quizHelper = Helper::getHelper('quizmaker');
-        $moduleHandler = $quizHelper->getModule();
+        $quizmakerHelper = Helper::getHelper('quizmaker');
+        $moduleHandler = $quizmakerHelper->getModule();
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
         $tPerm = $gpermHandler->getItemIds($permtype, $groups, $moduleHandler->getVar('mid'));
@@ -441,14 +442,14 @@ $fldMasterId =  "quiz_cat_id";
  /* ******************************
  * Update weight
  * *********************** */
- public function updateWeight2($quiz_id, $action){
+ public function updateWeight($quiz_id, $action){
  $step = 10;
  $fldWeight = 'quiz_weight';
  $fldId = 'quiz_id';
  
     $currentEnr = $this->get($quiz_id); 
     $quiz_cat_id  = $currentEnr->getVar('quiz_cat_id');
-    $this->incrementeWeight($quiz_cat_id, $step);
+    $this->incrementeWeight($quiz_cat_id, 'ASC', $step);
  
     switch ($action){
       case 'up'; 
@@ -471,7 +472,8 @@ $fldMasterId =  "quiz_cat_id";
     $sql = "update {$this->table} SET {$newWeight} WHERE {$fldId} = {$quiz_id};";    
     $result = $this->db->queryf($sql);
  
-    $this->incrementeWeight($quiz_cat_id, $step);
+    $this->incrementeWeight($quiz_cat_id, 'ASC', $step);
+
     return true;
  }
 

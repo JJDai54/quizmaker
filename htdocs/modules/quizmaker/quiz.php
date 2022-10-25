@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -23,14 +23,14 @@
 use Xmf\Request;
 use XoopsModules\Quizmaker;
 use XoopsModules\Quizmaker\Constants;
-exit;
+
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'quizmaker_quiz.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
 $quizId = Request::getInt('quiz_id', 0);
 
 // Define Stylesheet
@@ -73,9 +73,9 @@ switch($op) {
 				$pagenav = new \XoopsPageNav($quizCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
-			$GLOBALS['xoopsTpl']->assign('type', $quizHelper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $quizHelper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $quizHelper->getConfig('numb_col'));
+			$GLOBALS['xoopsTpl']->assign('type', $quizmakerHelper->getConfig('table_type'));
+			$GLOBALS['xoopsTpl']->assign('divideby', $quizmakerHelper->getConfig('divideby'));
+			$GLOBALS['xoopsTpl']->assign('numb_col', $quizmakerHelper->getConfig('numb_col'));
 		}
 	break;
 	case 'save':
@@ -112,6 +112,7 @@ switch($op) {
 		$quizObj->setVar('quiz_dateEnd', $QuizDateEnd);
 		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
 		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
+		$quizObj->setVar('quiz_viewAllSolutions', Request::getInt('quiz_viewAllSolutions', 0));
 		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_onClickSimple', Request::getInt('quiz_onClickSimple', 0));
 		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'default'));
@@ -246,7 +247,7 @@ switch($op) {
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Keywords
-quizmakerMetaKeywords($quizHelper->getConfig('keywords').', '. implode(',', $keywords));
+quizmakerMetaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description

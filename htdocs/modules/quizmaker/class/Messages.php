@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -75,7 +75,7 @@ class Messages extends \XoopsObject
 	 */
 	public function getFormMessages($action = false)
 	{
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}

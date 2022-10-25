@@ -12,7 +12,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -39,7 +39,7 @@ class slide_radioMultiple2 extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("radioMultiple2");
+        parent::__construct("radioMultiple2", 0, 220);
     }
 
 	/**
@@ -58,12 +58,12 @@ class slide_radioMultiple2 extends XoopsModules\Quizmaker\Type_question
 /* **********************************************************
 *
 * *********************************************************** */
- 	public function getFormOptions($caption, $name, $value = "")
+ 	public function getFormOptions($caption, $name, $value = "H")
  	{    
-      
+      if (!$value) $value = "H";
       $input = new XoopsFormRadio($caption, $name, $value, '<br>');
-      $input->addOption("H", "Orientation horizontale des bonnes réponses");            
-      $input->addOption("V", "Orientation verticale des bonnes réponses");            
+      $input->addOption("H", _AM_QUIZMAKER_Orientation_HBR);            
+      $input->addOption("V", _AM_QUIZMAKER_Orientation_VBR);            
             
       //$input->setDescription ('Oui');      
             
@@ -99,7 +99,7 @@ class slide_radioMultiple2 extends XoopsModules\Quizmaker\Type_question
             for($k = 0; $k < $maxMots; $k++){        
                 $mot = (isset($mots[$k])) ? $mots[$k] : '';
                 $name = $this->getName($i, 'mots', $k);
-                $inpMot = new \XoopsFormText(" " . $k+1, $name, $this->lgMot1, $this->lgMot2, $mot);
+                $inpMot = new \XoopsFormText(" " . ($k+1), $name, $this->lgMot1, $this->lgMot2, $mot);
                 $trayWords->addElement($inpMot);
             }
             
@@ -175,7 +175,7 @@ class slide_radioMultiple2 extends XoopsModules\Quizmaker\Type_question
 /* ********************************************
 *
 *********************************************** */
-  public function getSolutions($questId){
+  public function getSolutions($questId, $boolAllSolutions = true){
   global $answersHandler;
 
     $tpl = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
@@ -200,13 +200,15 @@ class slide_radioMultiple2 extends XoopsModules\Quizmaker\Type_question
         if ($points > 0) {
             $scoreMax += $points;
             $color = QUIZMAKER_POINTS_POSITIF;
+            $html[] = sprintf($tpl, $exp, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }elseif ($points < 0) {
             $scoreMin += $points;
-          $color = QUIZMAKER_POINTS_NEGATIF;
-        }else{
-           $color = QUIZMAKER_POINTS_NULL;
+            $color = QUIZMAKER_POINTS_NEGATIF;
+            $html[] = sprintf($tpl, $exp, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
+        }elseif($boolAllSolutions){
+            $color = QUIZMAKER_POINTS_NULL;
+            $html[] = sprintf($tpl, $exp, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }
-        $html[] = sprintf($tpl, $exp, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
 
 	}
     $html[] = "</table>";

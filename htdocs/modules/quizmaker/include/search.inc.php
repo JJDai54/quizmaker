@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -36,11 +36,11 @@ use XoopsModules\Quizmaker;
 function quizmaker_search($queryarray, $andor, $limit, $offset, $userid)
 {
 	$ret = [];
-	$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+	$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 	// search in table quiz
 	// search keywords
 	$elementCount = 0;
-	$quizHandler = $quizHelper->getHandler('Quiz');
+	$quizHandler = $quizmakerHelper->getHandler('Quiz');
 	if (is_array($queryarray)) {
 		$elementCount = count($queryarray);
 	}
@@ -89,7 +89,7 @@ function quizmaker_search($queryarray, $andor, $limit, $offset, $userid)
 	// search in table categories
 	// search keywords
 	$elementCount = 0;
-	$categoriesHandler = $quizHelper->getHandler('Categories');
+	$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 	if (is_array($queryarray)) {
 		$elementCount = count($queryarray);
 	}

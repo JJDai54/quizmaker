@@ -1,10 +1,10 @@
 message01@attention à bien lire la consigne, et le sens de tri car seul l'ordre exacte donne des points.
 results@Résultats
-sortCombobox@attention à l'ordre.
+comboboxSortList@attention à l'ordre.
 radio@Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé
 checkbox@Chaque réponse est associée à un nombre points selon la difficulté. Les réponses se cumulent
 textbox@Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé
-multiTextbox@
+textboxMultiple@
 allType@Important : Dans certains questionnaires il peut y avoir des réponses avc un nombre de points négatifs.
 forPoints@Pour {pointsMin} à {pointsMax} points     
 forChrono@ en {timer} secondes

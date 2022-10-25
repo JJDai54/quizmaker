@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -89,6 +89,11 @@ $adminmenu[] = [
 ];
 /*
 */
+$adminmenu[] = [
+    'title' => _MI_QUIZMAKER_ADMENU_CLONE,
+    'link' => 'admin/clone.php',
+    'icon' => $sysPathIcon32.'/clone.png',
+];
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU10,

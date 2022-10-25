@@ -26,7 +26,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 define('_JS_QUIZMAKER_MESSAGE01', "Attention à bien lire la consigne, et le sens de tri car seul l'ordre exacte donne des points.");
 define('_JS_QUIZMAKER_RESULTS', "Résultats");
-define('_JS_QUIZMAKER_SORTCOMBOBOX', "Attention à l'ordre.");
+define('_JS_QUIZMAKER_COMBOBOXSORTLIST', "Attention à l'ordre.");
 define('_JS_QUIZMAKER_RADIO', "Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé");
 define('_JS_QUIZMAKER_CHECKBOX', "Chaque réponse est associée à un nombre points selon la difficulté. Les réponses se cumulent");
 define('_JS_QUIZMAKER_TEXTBOX', "Attention, plusieurs répponses sont possibles mais les points diffèrent selon la réponse. Les moins évidentes ont le nombre de points le plus élevé");
@@ -57,6 +57,6 @@ define('_JS_QUIZMAKER_TPLREPONSETABLE', "<table>{content}</table>");
 define('_JS_QUIZMAKER_TPLREPONSEDBLTABLE', "<table><tr>{content}</tr></table>");
 define('_JS_QUIZMAKER_TPLREPONSEDBLTD', "<td>{content}</td>");
 define('_JS_QUIZMAKER_TPLREPONSETD', "<tr><td>{word}</td><td>{sep}</td><td>{points}</td></tr>");
-define('_JS_QUIZMAKER_MULTITEXTBOX', "Textes multiples");
+define('_JS_QUIZMAKER_TEXTBOXMULTIPLE', "Textes multiples");
 
 ?>

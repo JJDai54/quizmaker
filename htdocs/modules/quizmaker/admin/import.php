@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -77,7 +77,7 @@ $pg = array_merge($_GET, $_POST);
     case 'list':
 	default:
 		$templateMain = 'quizmaker_admin_import.tpl';
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}
@@ -99,7 +99,7 @@ $pg = array_merge($_GET, $_POST);
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         
-        //$upload_size = $quizHelper->getConfig('maxsize_image'); 
+        //$upload_size = $quizmakerHelper->getConfig('maxsize_image'); 
         $upload_size = 50000;
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     
         $uploadTray->setDescription(_AM_QUIZMAKER_FILE_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE, $upload_size / 1024), '<br>');

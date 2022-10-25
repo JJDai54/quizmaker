@@ -24,12 +24,13 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 define('_AM_QUIZMAKER_MAINTAINEDBY', " is maintained by ");
-define('_AM_QUIZMAKER_ID', "#");
+define('_AM_QUIZMAKER_ID', "[#]");
 define('_AM_QUIZMAKER_ADD_NEW_QUESTION', "<== Ajouer une nouvelle question");
 define('_AM_QUIZMAKER_STRANGER_EXP', "<b>Expressions étrangères au texte</b>");
 define('_AM_QUIZMAKER_QUIZ_RESULTATS_DESC', "<ul style='text-align: left;'><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Number of answers made: {answered} / {totalQuestions}</span><br /><span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'><strong>Your score is {score} / {scoreMaxi}</strong><span style='color: #ff0000;'> (minimum score: {scoreMini })</span> </span><br /><span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Your response time is {duree}</span></li></ul>");
 define('_AM_QUIZMAKER_ACTIF', "Actif");
-define('_AM_QUIZMAKER_FORM_ACTION', "Action");
+define('_AM_QUIZMAKER_ACTION', "Action");
+define('_AM_QUIZMAKER_ACTIONS', "Actions");
 define('_AM_QUIZMAKER_ANSWERS_ADD', "Add Answers");
 define('_AM_QUIZMAKER_CATEGORIES_ADD', "Add Categories");
 define('_AM_QUIZMAKER_MESSAGES_ADD', "Add Messages");
@@ -85,10 +86,8 @@ define('_AM_QUIZMAKER_MESSAGES_EDIT', "Edit Messages");
 define('_AM_QUIZMAKER_QUESTIONS_EDIT', "Edit Questions");
 define('_AM_QUIZMAKER_QUIZ_EDIT', "Edit Quiz");
 define('_AM_QUIZMAKER_SLIDE_002', "Elements décrivant un objet");
-define('_CO_QUIZMAKER_FORM_ENCART', "Encart");
 define('_AM_QUIZMAKER_SLIDE_INPUTS', "Entrées");
 define('_AM_QUIZMAKER_ISQUESTION', "Est une question");
-define('_CO_QUIZMAKER_PUBLISH_QUIZ', "Exécution");
 define('_AM_QUIZMAKER_EXPLANATION', "Explanation");
 define('_AM_QUIZMAKER_EXPORT_YML', "Export YML");
 define('_AM_QUIZMAKER_EXPORT_QUIZ_YML', "Export YML du quiz");
@@ -116,7 +115,6 @@ define('_AM_QUIZMAKER_IMPORT', "Importation");
 define('_AM_QUIZMAKER_IMPORTER', "Importer");
 define('_AM_QUIZMAKER_TIMER_DESC', "Indiquer le temps d'affichage de la question avant de passer à la suivante.<br>Cette options n'est active que si le paramètre \"Utiliser un chronomètre\" du quiz est activé");
 define('_AM_QUIZMAKER_COMPUTE_WEIGHT', "Initialisation du poids");
-define('_CO_QUIZMAKER_FORM_INTRO', "Introduction");
 define('_AM_QUIZMAKER_DOWNLOAD_OK', "Le téléchargement va démarrer. Si il ne démarre pas cliquer sur le lien direct ici ===>");
 define('_AM_QUIZMAKER_QUESTIONS_LEARN_MORE', "Learn more");
 define('_AM_QUIZMAKER_LEGEND', "Légende");
@@ -164,7 +162,6 @@ define('_AM_QUIZMAKER_PUBLISH_ANSWERS', "Publish responses");
 define('_AM_QUIZMAKER_PUBLISH_RESULTS', "Publish the results");
 define('_AM_QUIZMAKER_QUESTIONS_QUESTION', "Question");
 define('_AM_QUIZMAKER_QUESTION', "Question");
-define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
 define('_AM_QUIZMAKER_ANSWERS_QUESTION_ID', "Question id");
 define('_AM_QUIZMAKER_QUESTIONS', "Questions");
 define('_AM_QUIZMAKER_QUIZ', "Quiz");
@@ -221,8 +218,6 @@ define('_AM_QUIZMAKER_CAPTION', "Titre");
 define('_AM_QUIZMAKER_SLIDE_TITLE', "Titre");
 define('_AM_QUIZMAKER_TYPE', "Type");
 define('_AM_QUIZMAKER_FORM_TYPE', "Type de formulaire");
-define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
-define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
 define('_AM_QUIZMAKER_QUESTIONS_TYPE_QUESTION', "Type question");
 define('_AM_QUIZMAKER_FILE_DESC', "Un nouveau quiz sera généré");
 define('_AM_QUIZMAKER_QUIZ_USE_TIMER', "Use a stopwatch");
@@ -275,4 +270,32 @@ define('_AM_QUIZMAKER_SELECT_CATEGORY_DESC', "Select a destination category for 
 define('_AM_QUIZMAKER_SUBMIT_AND_ADDNEW', "Submit and add new");
 define('_AM_QUIZMAKER_QUIZ_AUTHOR', "Auteur");
 
+// Clone feature
+\define('_AM_QUIZMAKER_CLONE', "Clone");
+\define('_AM_QUIZMAKER_CLONE_DSC', "Cloning a module has never been this easy! Just type in the name you want for it and hit submit button!");
+\define('_AM_QUIZMAKER_CLONE_TITLE', "Clone %s");
+\define('_AM_QUIZMAKER_CLONE_NAME', "Choose a name for the new module");
+\define('_AM_QUIZMAKER_CLONE_NAME_DSC', "Do not use special characters! <br>Do not choose an existing module dirname or database table name!");
+\define('_AM_QUIZMAKER_CLONE_INVALIDNAME', "ERROR: Invalid module name, please try another one!");
+\define('_AM_QUIZMAKER_CLONE_EXISTS', "ERROR: Module name already taken, please try another one!");
+\define('_AM_QUIZMAKER_CLONE_CONGRAT', "Congratulations! %s was sucessfully created!<br>You may want to make changes in language files.");
+\define('_AM_QUIZMAKER_CLONE_IMAGEFAIL', "Attention, we failed creating the new module logo. Please consider modifying assets/images/logo_module.png manually!");
+\define('_AM_QUIZMAKER_CLONE_FAIL', "Sorry, we failed in creating the new clone. Maybe you need to temporally set write permissions (CHMOD 777) to modules folder and try again.");
+
+\define('_AM_QUIZMAKER_ONLY_ORDER_NAT', "Only the order specified in the question");
+\define('_AM_QUIZMAKER_ALLOW_ALL_ORDER', "Allow reverse order");
+\define('_AM_QUIZMAKER_PARAMETRES', "Parameters");
+\define('_AM_QUIZMAKER_Orientation_H', "Horizontal orientation");
+\define('_AM_QUIZMAKER_Orientation_V', "Vertical orientation");
+\define('_AM_QUIZMAKER_COMPARISON)', "Comparison");
+\define('_AM_QUIZMAKER_COMPARAISON_0', "Strict comparison (Exact word with accents)");
+\define('_AM_QUIZMAKER_COMPARAISON_1', "Comparison with optional Accents (ex: \"serenade\" equivalent to \"serenade\" equivalent to \"serenade\")");
+\define('_AM_QUIZMAKER_COMPARAISON_2', "Flexible comparison (Word contained with or without accents (ex: \"the dog\ equivalent to \"dog\")");
+\define('_AM_QUIZMAKER_Orientation_HBR', "Horizontal orientation of correct answers");
+\define('_AM_QUIZMAKER_Orientation_VBR', "Vertical orientation of correct answers");
+\define('_AM_QUIZMAKER_THEME_DEFAULT_CAT', "Default theme for this category");
+
+\define('_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS', "Show all solutions");
+\define('_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS_DESC', "<b>Yes</b>: Displays solutions that do not earn points or have a negative rating<br><b>No</b>: Displays only solutions that have a positive rating");
+\define('_AM_QUIZMAKER_EXPORT_QUIZ', "Export of Quiz");
 ?>

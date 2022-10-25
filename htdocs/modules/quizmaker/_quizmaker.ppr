@@ -12,7 +12,6 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
-HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
@@ -21,6 +20,7 @@ _quizmaker
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
+			admin\clone.php
 			admin\export.php
 			admin\feedback.php
 			admin\footer.php
@@ -32,10 +32,21 @@ _quizmaker
 			admin\messages.php
 			admin\permissions.php
 			admin\questions.php
+			admin\questions-clone.php
+			admin\questions-delete.php
+			admin\questions-edit.php
+			admin\questions-list.php
+			admin\questions-new.php
+			admin\questions-save.php
 			admin\quiz.php
+			admin\quiz-delete.php
+			admin\quiz-edit.php
+			admin\quiz-list.php
+			admin\quiz-new.php
+			admin\quiz-save.php
 			admin\results.php
 			admin\type_question.php
-		+assets
+		-assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -87,6 +98,7 @@ _quizmaker
 					assets\icons\16\configuration_small.png
 					assets\icons\16\delete.png
 					assets\icons\16\download.png
+					assets\icons\16\film.png
 					assets\icons\16\generer.png
 					assets\icons\16\generer-1.png
 					assets\icons\16\generer-2.png
@@ -115,7 +127,6 @@ _quizmaker
 					assets\icons\16\verrou-open.gif
 					assets\icons\16\verrou-open.png
 				-32
-					assets\icons\32\.png
 					assets\icons\32\album.png
 					assets\icons\32\ampoule-00.png
 					assets\icons\32\ampoule-05.jpg
@@ -133,32 +144,55 @@ _quizmaker
 			-images
 				-modeles
 					assets\images\modeles\ScreenShoot-PickPick - Raccourci.lnk
-					assets\images\modeles\slide_checkbox-00.jpg
-					assets\images\modeles\slide_checkbox-01.jpg
-					assets\images\modeles\slide_checkbox-02.jpg
 					assets\images\modeles\slide_checkboxLogical-00.jpg
+					assets\images\modeles\slide_checkboxLogical-01.jpg
+					assets\images\modeles\slide_checkboxSimple-00.jpg
+					assets\images\modeles\slide_checkboxSimple-01.jpg
+					assets\images\modeles\slide_comboboxMatchItems-00.jpg
+					assets\images\modeles\slide_comboboxMatchItems-01.jpg
+					assets\images\modeles\slide_comboboxMatchItems-02.jpg
+					assets\images\modeles\slide_comboboxSortList-00.jpg
+					assets\images\modeles\slide_comboboxSortList-01.jpg
 					assets\images\modeles\slide_listboxIntruders1-00.jpg
+					assets\images\modeles\slide_listboxIntruders1-01.jpg
 					assets\images\modeles\slide_listboxIntruders2-00.jpg
+					assets\images\modeles\slide_listboxIntruders2-01.jpg
+					assets\images\modeles\slide_listboxIntruders2-02.jpg
 					assets\images\modeles\slide_listboxSortItems-00.jpg
-					assets\images\modeles\slide_matchItems-00.jpg
-					assets\images\modeles\slide_multiTextbox-00.jpg
-					assets\images\modeles\slide_pageInfo-00.jpg
-					assets\images\modeles\slide_pageInfo-01.jpg
-					assets\images\modeles\slide_pageInfo-02.jpg
-					assets\images\modeles\slide_pageInfo-03.jpg
+					assets\images\modeles\slide_listboxSortItems-01.jpg
+					assets\images\modeles\slide_pageBegin-00.jpg
+					assets\images\modeles\slide_pageEnd-00.jpg
+					assets\images\modeles\slide_pageGroup-00.jpg
 					assets\images\modeles\slide_radioLogical-00.jpg
+					assets\images\modeles\slide_radioLogical-01.jpg
 					assets\images\modeles\slide_radioMultiple2-00.jpg
+					assets\images\modeles\slide_radioMultiple2-01.jpg
+					assets\images\modeles\slide_radioMultiple2-02.jpg
 					assets\images\modeles\slide_radioSimple-00.jpg
-					assets\images\modeles\slide_sortCombobox-00.jpg
-					assets\images\modeles\slide_textarea-00.jpg
+					assets\images\modeles\slide_radioSimple-01.jpg
+					assets\images\modeles\slide_radioSimple-02.jpg
 					assets\images\modeles\slide_textareaInput-00.jpg
+					assets\images\modeles\slide_textareaInput-01.jpg
+					assets\images\modeles\slide_textareaInput-02.jpg
 					assets\images\modeles\slide_textareaListbox-00.jpg
+					assets\images\modeles\slide_textareaListbox-01.jpg
+					assets\images\modeles\slide_textareaSimple-00.jpg
+					assets\images\modeles\slide_textareaSimple-01.jpg
+					assets\images\modeles\slide_textareaSimple-02.jpg
+					assets\images\modeles\slide_textboxMatchItems-00.jpg
+					assets\images\modeles\slide_textboxMatchItems-01.jpg
+					assets\images\modeles\slide_textboxMatchItems-02.jpg
+					assets\images\modeles\slide_textboxMultiple-00.jpg
+					assets\images\modeles\slide_textboxMultiple-01.jpg
+					assets\images\modeles\slide_textboxMultiple-02.jpg
 				assets\images\ampoule-05.jpg
 				assets\images\blank.gif
 				assets\images\blank.png
 				assets\images\index.html
 				assets\images\jean-jacquesdelalandre_logo.png
+				assets\images\logoModule - Copie.png
 				assets\images\logoModule.png
+				assets\images\logoModuleVierge.png
 				assets\images\run_quiz_00.png
 				assets\images\run_quiz_01.gif
 				assets\images\run_quiz_01.jpg
@@ -169,8 +203,8 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			+js
-				+quiz
+			-js
+				-quiz
 					-css
 						-progressbarr
 							assets\js\quiz\css\progressbarr\shaded-green.png
@@ -259,26 +293,29 @@ _quizmaker
 							assets\js\quiz\images\magenta\Thumbs.db
 							assets\js\quiz\images\magenta\top.png
 							assets\js\quiz\images\magenta\up.png
-					+js
+					-js
 						-language
 							assets\js\quiz\js\language\quiz-english.js
 							assets\js\quiz\js\language\quiz-french.js
 						-tpl
-							assets\js\quiz\js\tpl\slide_checkbox.js
 							assets\js\quiz\js\tpl\slide_checkboxLogical.js
+							assets\js\quiz\js\tpl\slide_checkboxSimple.js
+							assets\js\quiz\js\tpl\slide_comboboxMatchItems.js
+							assets\js\quiz\js\tpl\slide_comboboxSortList.js
 							assets\js\quiz\js\tpl\slide_listboxIntruders1.js
 							assets\js\quiz\js\tpl\slide_listboxIntruders2.js
 							assets\js\quiz\js\tpl\slide_listboxSortItems.js
-							assets\js\quiz\js\tpl\slide_matchItems.js
-							assets\js\quiz\js\tpl\slide_multiTextbox.js
-							assets\js\quiz\js\tpl\slide_pageInfo.js
+							assets\js\quiz\js\tpl\slide_pageBegin.js
+							assets\js\quiz\js\tpl\slide_pageEnd.js
+							assets\js\quiz\js\tpl\slide_pageGroup.js
 							assets\js\quiz\js\tpl\slide_radioLogical.js
 							assets\js\quiz\js\tpl\slide_radioMultiple2.js
 							assets\js\quiz\js\tpl\slide_radioSimple.js
-							assets\js\quiz\js\tpl\slide_sortCombobox.js
-							assets\js\quiz\js\tpl\slide_textarea.js
 							assets\js\quiz\js\tpl\slide_textareaInput.js
 							assets\js\quiz\js\tpl\slide_textareaListbox.js
+							assets\js\quiz\js\tpl\slide_textareaSimple.js
+							assets\js\quiz\js\tpl\slide_textboxMatchItems.js
+							assets\js\quiz\js\tpl\slide_textboxMultiple.js
 						assets\js\quiz\js\quiz-events.js
 						assets\js\quiz\js\quiz-functions.js
 						assets\js\quiz\js\quiz-main.js
@@ -289,8 +326,8 @@ _quizmaker
 					assets\js\quiz\exemple_04.html.URL
 					assets\js\quiz\modif pour extends.js
 					assets\js\quiz\Nouveau document texte.txt
-					assets\js\quiz\Nouveau1.js
 					assets\js\quiz\quiz.html
+				assets\js\admin.js
 				assets\js\functions.js
 				assets\js\highslide.js
 				assets\js\index.html
@@ -299,7 +336,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -313,21 +350,24 @@ _quizmaker
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
 			-type_question
-				class\type_question\slide_checkbox.php
 				class\type_question\slide_checkboxLogical.php
+				class\type_question\slide_checkboxSimple.php
+				class\type_question\slide_comboboxMatchItems.php
+				class\type_question\slide_comboboxSortList.php
 				class\type_question\slide_listboxIntruders1.php
 				class\type_question\slide_listboxIntruders2.php
 				class\type_question\slide_listboxSortItems.php
-				class\type_question\slide_matchItems.php
-				class\type_question\slide_multiTextbox.php
-				class\type_question\slide_pageInfo.php
+				class\type_question\slide_pageBegin.php
+				class\type_question\slide_pageEnd.php
+				class\type_question\slide_pageGroup.php
 				class\type_question\slide_radioLogical.php
 				class\type_question\slide_radioMultiple2.php
 				class\type_question\slide_radioSimple.php
-				class\type_question\slide_sortCombobox.php
-				class\type_question\slide_textarea.php
 				class\type_question\slide_textareaInput.php
 				class\type_question\slide_textareaListbox.php
+				class\type_question\slide_textareaSimple.php
+				class\type_question\slide_textboxMatchItems.php
+				class\type_question\slide_textboxMultiple.php
 			class\Answers.php
 			class\AnswersHandler.php
 			class\Categories.php
@@ -440,7 +480,7 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\function.quizFlagAscii.php
@@ -453,8 +493,8 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
-			+english
+		-language
+			-english
 				-help
 					language\english\help\help.html
 					language\english\help\index.html
@@ -472,20 +512,22 @@ _quizmaker
 					language\english\mail_template\Quiz_delete_notify.tpl
 					language\english\mail_template\Quiz_modify_notify.tpl
 				-slide_help
-					language\english\slide_help\slide_checkbox.html
 					language\english\slide_help\slide_checkboxLogical.html
+					language\english\slide_help\slide_checkboxSimple.html
+					language\english\slide_help\slide_comboboxMatchItems.html
+					language\english\slide_help\slide_comboboxSortList.html
 					language\english\slide_help\slide_listboxIntruders1.html
 					language\english\slide_help\slide_listboxIntruders2.html
-					language\english\slide_help\slide_matchItems.html
-					language\english\slide_help\slide_multiTextbox.html
-					language\english\slide_help\slide_pageInfo.html
+					language\english\slide_help\slide_pageBegin.html
+					language\english\slide_help\slide_pageEnd.html
+					language\english\slide_help\slide_pageGroup.html
 					language\english\slide_help\slide_radioLogical.html
 					language\english\slide_help\slide_radioMultiple2.html
 					language\english\slide_help\slide_radioSimple.html
-					language\english\slide_help\slide_sortCombobox.html
-					language\english\slide_help\slide_textarea.html
 					language\english\slide_help\slide_textareaInput.html
 					language\english\slide_help\slide_textareaListbox.html
+					language\english\slide_help\slide_textareaSimple.html
+					language\english\slide_help\slide_textboxMultiple.html
 				language\english\admin.php
 				language\english\blocks.php
 				language\english\common.php
@@ -495,7 +537,7 @@ _quizmaker
 				language\english\modinfo.php
 				language\english\quiz_JS.php
 				language\english\type_questions.php
-			-french
+			+french
 				-help
 					language\french\help\help.html
 					language\french\help\index.html
@@ -515,20 +557,23 @@ _quizmaker
 				-slide
 					language\french\slide\slide_resultats.html
 				-slide_help
-					language\french\slide_help\slide_checkbox.html
 					language\french\slide_help\slide_checkboxLogical.html
+					language\french\slide_help\slide_checkboxSimple.html
+					language\french\slide_help\slide_comboboxMatchItems.html
+					language\french\slide_help\slide_comboboxSortList.html
 					language\french\slide_help\slide_listboxIntruders1.html
 					language\french\slide_help\slide_listboxIntruders2.html
-					language\french\slide_help\slide_matchItems.html
-					language\french\slide_help\slide_multiTextbox.html
-					language\french\slide_help\slide_pageInfo.html
+					language\french\slide_help\slide_pageBegin.html
+					language\french\slide_help\slide_pageEnd.html
+					language\french\slide_help\slide_pageGroup.html
 					language\french\slide_help\slide_radioLogical.html
 					language\french\slide_help\slide_radioMultiple2.html
 					language\french\slide_help\slide_radioSimple.html
-					language\french\slide_help\slide_sortCombobox.html
-					language\french\slide_help\slide_textarea.html
 					language\french\slide_help\slide_textareaInput.html
 					language\french\slide_help\slide_textareaListbox.html
+					language\french\slide_help\slide_textareaSimple.html
+					language\french\slide_help\slide_textboxMatchItems.html
+					language\french\slide_help\slide_textboxMultiple.html
 				language\french\admin.php
 				language\french\blocks.php
 				language\french\common.php
@@ -543,17 +588,17 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		+sql
+		-sql
 			sql\datasql.sql
 			sql\index.html
-			sql\mysql - Copie.sql
 			sql\mysql.sql
 		+templates
 			+admin
-				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
 				templates\admin\quizmaker_admin_categories.tpl
+				templates\admin\quizmaker_admin_clone.tpl
+				templates\admin\quizmaker_admin_download.tpl
 				templates\admin\quizmaker_admin_export.tpl
 				templates\admin\quizmaker_admin_footer.tpl
 				templates\admin\quizmaker_admin_header.tpl
@@ -569,14 +614,14 @@ _quizmaker
 				templates\admin\quizmaker_admin_results.tpl
 				templates\admin\quizmaker_admin_type_new_question.tpl
 				templates\admin\quizmaker_admin_type_question.tpl
+				templates\admin\index.html
 			-blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
 			-quiz
-				templates\quiz\index.html
 				templates\quiz\quizmaker_admin_quiz_include.tpl
 				templates\quiz\quizmaker_admin_quiz_inline.tpl
-			templates\index.html
+				templates\quiz\index.html
 			templates\quizmaker_breadcrumbs.tpl
 			templates\quizmaker_categories.tpl
 			templates\quizmaker_categories_cat.tpl
@@ -593,6 +638,7 @@ _quizmaker
 			templates\quizmaker_quiz_list.tpl
 			templates\quizmaker_quiz_solutions.tpl
 			templates\quizmaker_results_list.tpl
+			templates\index.html
 		-testdata
 			-english
 				testdata\english\index.html
@@ -603,11 +649,19 @@ _quizmaker
 				testdata\images\index.html
 			testdata\index.html
 			testdata\index.php
-		+versions
+		-versions
+			-docs
+				versions\docs\changelog.txt
+				versions\docs\credits.txt
+				versions\docs\index.html
+				versions\docs\install.txt
+				versions\docs\lang.diff
+				versions\docs\license.txt
+				versions\docs\readme.txt
+				versions\docs\todo.txt
 			versions\Quizmaker_2_80.php
 			versions\Quizmaker_2_92.php
 			versions\Quizmaker_2_94.php
-		_quizmaker.ppr
 		about.php
 		categories.php
 		comment_delete.php
@@ -627,22 +681,34 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=class\QuizUtility.php
-1=class\Quiz.php
-2=class\Questions.php
-3=language\french\admin.php
+0=templates\admin\quizmaker_admin_quiz.tpl
+1=templates\admin\quizmaker_admin_download.tpl
+2=assets\js\quiz\css\style-item-color.css
+3=assets\js\quiz\css\style-item-design.css
+4=docs\changelog.txt
+5=templates\admin\quizmaker_admin_questions.tpl
+6=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=language\french\admin.php
-[class\QuizUtility.php]
-TopLine=313
-Caret=85,335
-[class\Quiz.php]
-TopLine=103
-Caret=1,109
-[class\Questions.php]
-TopLine=184
-Caret=45,198
-[language\french\admin.php]
-TopLine=32
-Caret=45,52
+Selected=xoops_version.php
+[templates\admin\quizmaker_admin_quiz.tpl]
+TopLine=198
+Caret=94,213
+[templates\admin\quizmaker_admin_download.tpl]
+TopLine=1
+Caret=15,5
+[assets\js\quiz\css\style-item-color.css]
+TopLine=1
+Caret=1,8
+[assets\js\quiz\css\style-item-design.css]
+TopLine=29
+Caret=1,58
+[docs\changelog.txt]
+TopLine=1
+Caret=1,7
+[templates\admin\quizmaker_admin_questions.tpl]
+TopLine=95
+Caret=42,116
+[xoops_version.php]
+TopLine=7
+Caret=38,43

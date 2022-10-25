@@ -14,7 +14,7 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CREATION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_UPDATE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NB_QUIZ}></th>
-				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
+				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $categories_count}>

@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -136,10 +136,10 @@ function quizmakerMetaDescription($content)
 function quizmaker_RewriteUrl($module, $array, $type = 'content')
 {
     $comment = '';
-    $quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-    $resultsHandler = $quizHelper->getHandler('results');
-    $lenght_id = $quizHelper->getConfig('lenght_id');
-    $rewrite_url = $quizHelper->getConfig('rewrite_url');
+    $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+    $resultsHandler = $quizmakerHelper->getHandler('results');
+    $lenght_id = $quizmakerHelper->getConfig('lenght_id');
+    $rewrite_url = $quizmakerHelper->getConfig('rewrite_url');
 
     if ($lenght_id != 0) {
         $id = $array['content_id'];
@@ -224,9 +224,9 @@ function quizmaker_RewriteUrl($module, $array, $type = 'content')
 function quizmaker_Filter($url, $type = '') {
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-    $quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-    $resultsHandler = $quizHelper->getHandler('results');
-    $regular_expression = $quizHelper->getConfig('regular_expression');
+    $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+    $resultsHandler = $quizmakerHelper->getHandler('results');
+    $regular_expression = $quizmakerHelper->getConfig('regular_expression');
 
     $url = strip_tags($url);
     $url .= preg_replace("`\[.*\]`U", '', $url);

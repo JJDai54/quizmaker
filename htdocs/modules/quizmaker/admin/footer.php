@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 if (isset($templateMain)) {
-	$GLOBALS['xoopsTpl']->assign('maintainedby', $quizHelper->getConfig('maintainedby'));
+	$GLOBALS['xoopsTpl']->assign('maintainedby', $quizmakerHelper->getConfig('maintainedby'));
 	$GLOBALS['xoopsTpl']->display("db:{$templateMain}");
 }
 

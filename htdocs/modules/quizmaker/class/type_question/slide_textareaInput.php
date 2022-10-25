@@ -12,7 +12,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -39,7 +39,7 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("textareaInput");
+        parent::__construct("textareaInput", 0, 620);
     }
 
 	/**
@@ -58,12 +58,13 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
 /* **********************************************************
 *
 * *********************************************************** */
- 	public function getFormOptions($caption, $name, $value = "")
+ 	public function getFormOptions($caption, $name, $value = "V")
  	{    
-      
+        
+      if (!$value) $value = "V";
       $input = new XoopsFormRadio($caption, $name, $value, '<br>');
-      $input->addOption("H", "Orientation horizontale");            
-      $input->addOption("V", "Orientation verticale");            
+      $input->addOption("H", _AM_QUIZMAKER_Orientation_H);            
+      $input->addOption("V", _AM_QUIZMAKER_Orientation_V);            
             
       //$input->setDescription ('Oui');      
             
@@ -127,7 +128,7 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
 /* ********************************************
 *
 *********************************************** */
-  public function getSolutions($questId, &$obQuestion = null){
+  public function getSolutions($questId, $boolAllSolutions = true, &$obQuestion = null){
   global $answersHandler;
     $answersAll = $answersHandler->getListByParent($questId);
 //    echoArray($answersAll);

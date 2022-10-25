@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -31,7 +31,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 $op     = Request::getCmd('op', 'list');
 $quizId = Request::getInt('quiz_id', 0);
 $start = 0; //Request::getInt('start', 0);
-$limit = 0; //Request::getInt('limit', $quizHelper->getConfig('adminpager'));
+$limit = 0; //Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 $resultId = Request::getInt('result_id', 0);
 
 // Define Stylesheet
@@ -84,9 +84,9 @@ if (0 == $quizId) {
         $numQuestion = 0;
 		foreach(array_keys($questionsAll) as $i) {
 			$question = $questionsAll[$i]->getValuesQuestions();
-            $question['solutions'] = $questionsAll[$i]->getSolutions();
+            $question['solutions'] = $questionsAll[$i]->getSolutions($quiz['viewAllSolutions']);
             $question['solutions']['libScoreMax'] = sprintf(_CO_QUIZMAKER_POINTS_FOR_ANSWER2, $question['solutions']['scoreMin'], $question['solutions']['scoreMax']);
-            if($question['type_question'] !== 'pageInfo') 
+            if($question['isQuestion']) 
                 $question['numQuestion'] = ++$numQuestion;
             else
                 $question['numQuestion'] = 0;

@@ -30,8 +30,9 @@ build (currentQuestion, questionNumber){
     var obListInput = getHtmlCheckbox(name, this.shuffleArray(this.data.reponses), -1, currentQuestion.numbering, this.data.words.length);
     answers.push(`<td id="${name}-cartes" style="text-align:left;width:50%">${obListInput}</td></tr></table>`);
 
+    this.focusId = name + "-" + "0";
+    //alert (this.focusId);
     return answers.join("\n");
-
 }
 
 //---------------------------------------------------

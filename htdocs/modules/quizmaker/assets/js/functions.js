@@ -1,4 +1,3 @@
-<?php
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -10,7 +9,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -19,6 +18,7 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
+ 
 $(document).ready(function(){
     $( "button, input:button, input:submit, input:file, input:reset" ).css("color","inherit").button();
     $( ".check" ).css("color","#fff").button();
@@ -35,6 +35,7 @@ License:        Creative Commons Attribution-ShareAlike 2.0 License
 				http://creativecommons.org/licenses/by-sa/2.0/
 Note:           If you change or improve on this script, please let us know.
 ------------------------------------------------------------------------------*/
+
 if(Array.prototype.push === null) {
   Array.prototype.push = function(item) {
 	this[this.length] = item;

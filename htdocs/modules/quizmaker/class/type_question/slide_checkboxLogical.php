@@ -13,7 +13,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -38,7 +38,7 @@ class slide_checkboxLogical extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("checkboxLogical");
+        parent::__construct("checkboxLogical", 0, 110);
     }
 
 	/**
@@ -195,7 +195,7 @@ class slide_checkboxLogical extends XoopsModules\Quizmaker\Type_question
 /* ********************************************
 *
 *********************************************** */
-  public function getSolutions($questId){
+  public function getSolutions($questId, $boolAllSolutions = true){
   global $answersHandler;
 
     $tpl = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
@@ -218,16 +218,19 @@ class slide_checkboxLogical extends XoopsModules\Quizmaker\Type_question
 
 	foreach($tp as $key=>$tItem) {
         $points = intval($tItem['points']);
+
         if ($points > 0) {
             $scoreMax += $points;
             $color = QUIZMAKER_POINTS_POSITIF;
+            $html[] = sprintf($tpl, $tItem['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }elseif ($points < 0) {
             $scoreMin += $points;
             $color = QUIZMAKER_POINTS_NEGATIF;
-        }else{
-           $color = QUIZMAKER_POINTS_NULL;
+            $html[] = sprintf($tpl, $tItem['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
+        }elseif ($boolAllSolutions){
+            $color = QUIZMAKER_POINTS_NULL;
+            $html[] = sprintf($tpl, $tItem['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }
-        $html[] = sprintf($tpl, $tItem['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
 	}
     $html[] = "</table>";
  

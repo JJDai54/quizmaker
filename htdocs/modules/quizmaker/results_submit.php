@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -30,7 +30,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $quizHelper->getConfig('userpager'));
+$limit = Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
 $quizId = Request::getInt('quiz_id', 0);
 $sender = 'quiz_id';
 

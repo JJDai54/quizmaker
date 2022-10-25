@@ -44,7 +44,6 @@ define('_CO_QUIZMAKER_EXPORT_SCHEMA_SUCCESS', "Exporter le schéma de base de do
 define('_CO_QUIZMAKER_SAVE_SAMPLEDATA', "Exporter des tableaux vers YAML");
 define('_CO_QUIZMAKER_GDLIBSTATUS', "Prise en charge de la bibliothèque GD :");
 define('_CO_QUIZMAKER_GDLIBVERSION', "Version de la bibliothèque GD :");
-define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "Si oui, le bouton \"Ajouter des données d'échantillon\" sera visible par l'administrateur. C'est Oui par défaut pour la première installation.");
 define('_CO_QUIZMAKER_ADD_SAMPLEDATA', "Importer des exemples de données (supprimera TOUTES les données actuelles)");
 define('_CO_QUIZMAKER_LEGEND', "Légende");
 define('_CO_QUIZMAKER_MAXPOSTSIZE', "Taille maximale de publication autorisée (directive post_max_size dans php.ini) :");
@@ -61,7 +60,8 @@ define('_CO_QUIZMAKER_SERVERPATH', "Chemin du serveur vers la racine XOOPS :");
 define('_CO_QUIZMAKER_IMAGEINFO', "État du serveur");
 define('_CO_QUIZMAKER_SERVERUPLOADSTATUS', "État des téléchargements du serveur :");
 define('_CO_QUIZMAKER_DC_SETMPERM', "Définir l'autorisation");
-define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Afficher le bouton d'exemple ?");
+//define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Afficher le bouton d'exemple ?");
+//define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "Si oui, le bouton \"Ajouter des données d'échantillon\" sera visible par l'administrateur. C'est Oui par défaut pour la première installation.");
 define('_CO_QUIZMAKER_SOMMAIRE', "Sommaire des questions");
 define('_CO_QUIZMAKER_DC_DIRNOTCREATED', "Le répertoire ne peut pas être créé");
 define('_CO_QUIZMAKER_DC_DIRCREATED', "Le répertoire a été créé");
@@ -69,6 +69,13 @@ define('_CO_QUIZMAKER_DC_PERMNOTSET', "L'autorisation ne peut pas être définie
 define('_CO_QUIZMAKER_DC_PERMSET', "L'autorisation a été définie");
 define('_CO_QUIZMAKER_ERROR_BAD_PHP', "Ce module nécessite la version PHP %s+ (%s installé)");
 define('_CO_QUIZMAKER_ERROR_BAD_XOOPS', "Ce module nécessite XOOPS %s+ (%s installé)");
-define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', 'Cette question comptait pour un score minimum de %1\$s points et un score maximum de %2\$s points.');
+define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', "Cette question comptait pour un score minimum de %1\$s points et un score maximum de %2\$s points.");
+define('_CO_QUIZMAKER_FORM_GROUP', "Groupe");
+define('_CO_QUIZMAKER_PUBLISH_QUIZ', "Publication du quiz");
+define('_CO_QUIZMAKER_FORM_INTRO', "Introduction");
+define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
+define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
+define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir ressaisir les réponses.");
+define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
 
 ?>

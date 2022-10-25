@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -80,7 +80,7 @@ class Answers extends \XoopsObject
 	public function getFormAnswers($action = false, $questId = 0)
 	{global $questionsHandler;
         //if ($questId > 0) $this->setVar('answer_quest_id', $questId);
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -96,7 +96,7 @@ class Answers extends \XoopsObject
 		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Answers Handler
-		$answersHandler = $quizHelper->getHandler('Answers');
+		$answersHandler = $quizmakerHelper->getHandler('Answers');
         
         $form->addElement(new \XoopsFormHidden('answer_id', $this->getVar('answer_id')));        
 		// Form Select answerQuestion_id
@@ -108,7 +108,7 @@ class Answers extends \XoopsObject
 		$answerQuestion_idSelect->addOptionArray($questionsHandler->getListKeyName());
 		$form->addElement($answerQuestion_idSelect, true);
 		// Answers Handler
-		$answersHandler = $quizHelper->getHandler('Answers');
+		$answersHandler = $quizmakerHelper->getHandler('Answers');
 
         
         
@@ -119,9 +119,9 @@ class Answers extends \XoopsObject
 		// Form Editor DhtmlTextArea answer_proposition
 		$editorConfigs = [];
 		if ($isAdmin) {
-			$editor = $quizHelper->getConfig('editor_admin');
+			$editor = $quizmakerHelper->getConfig('editor_admin');
 		} else {
-			$editor = $quizHelper->getConfig('editor_user');
+			$editor = $quizmakerHelper->getConfig('editor_user');
 		}
 		$editorConfigs['name'] = 'answer_proposition';
 		$editorConfigs['value'] = $this->getVar('answer_proposition', 'e');

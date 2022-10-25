@@ -12,7 +12,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -39,7 +39,7 @@ class slide_radioSimple extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("radioSimple");
+        parent::__construct("radioSimple", 0, 200);
     }
 
 	/**
@@ -60,12 +60,8 @@ class slide_radioSimple extends XoopsModules\Quizmaker\Type_question
 * ************************************************** */
  	public function getForm($questId)
  	{
-         global $utility, $answersHandler;
-//         if  ($questId > 0){
-//             $answers = $answersHandler->getListByParent($questId);
-//         }else{
-//             $answers = array();
-//         }
+        global $utility, $answersHandler;
+
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
         //-------------------------------------------------
@@ -137,7 +133,7 @@ class slide_radioSimple extends XoopsModules\Quizmaker\Type_question
 /* ********************************************
 *
 *********************************************** */
-  public function getSolutions($questId){
+  public function getSolutions($questId, $boolAllSolutions = true){
   global $answersHandler;
   /*
 		$ret = $this->getValues($keys, $format, $maxDepth);
@@ -171,14 +167,16 @@ class slide_radioSimple extends XoopsModules\Quizmaker\Type_question
         if ($points > 0) {
             if ($scoreMax < $points) $scoreMax = $points;
             $color = QUIZMAKER_POINTS_POSITIF;
+            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }elseif ($points < 0) {
             if ($scoreMin > $points) $scoreMin = $points;
             $color = QUIZMAKER_POINTS_NEGATIF;
-        }else{
-           $color = QUIZMAKER_POINTS_NULL;
+            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
+        }elseif($boolAllSolutions){
+            $color = QUIZMAKER_POINTS_NULL;
+            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }
 
-        $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
 	}
     $html[] = "</table>";
  

@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -80,7 +80,7 @@ class Categories extends \XoopsObject
 	{
         global $quizUtility;
         
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -96,9 +96,9 @@ class Categories extends \XoopsObject
 		// Form Editor DhtmlTextArea catDescription
 		$editorConfigs = [];
 		if ($isAdmin) {
-			$editor = $quizHelper->getConfig('editor_admin');
+			$editor = $quizmakerHelper->getConfig('editor_admin');
 		} else {
-			$editor = $quizHelper->getConfig('editor_user');
+			$editor = $quizmakerHelper->getConfig('editor_user');
 		}
 		$editorConfigs['name'] = 'cat_description';
 		$editorConfigs['value'] = $this->getVar('cat_description', 'e');
@@ -110,12 +110,13 @@ class Categories extends \XoopsObject
 		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_CATEGORIES_DESCRIPTION, 'cat_description', $editorConfigs) );
 		
         // Categories Handler
-		$categoriesHandler = $quizHelper->getHandler('Categories');
+		$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 		
         /* todo - champ à virer, pas utile de le garder
         */
         // Form Select catTheme
 		$inpTheme = new \XoopsFormSelect( _AM_QUIZMAKER_THEME, 'cat_theme', $this->getVar('cat_theme'));
+        $inpTheme->setdescription(_AM_QUIZMAKER_THEME_DEFAULT_CAT);
         $inpTheme->addOptionArray($quizUtility::get_css_color());
 		$form->addElement($inpTheme );
 
@@ -186,8 +187,8 @@ class Categories extends \XoopsObject
         global $quizUtility, $quizHandler;
         $ret = $this->getValuesCategoriesLight($keys, $format, $maxDepth);
         if(!$quizHandler){
-    		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
-            $quizHandler = $quizHelper->getHandler('Quiz');
+    		$quizmakerHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
+            $quizHandler = $quizmakerHelper->getHandler('Quiz');
         } 
             
         $criteria = new \Criteria("quiz_cat_id", $ret['id'], '=');
@@ -198,14 +199,14 @@ class Categories extends \XoopsObject
 	{
         global $quizUtility, $quizHandler;
         
-		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
 		$ret = $this->getValues($keys, $format, $maxDepth);
         
 		$ret['id']                = $this->getVar('cat_id');
 		$ret['name']              = $this->getVar('cat_name');
 		$ret['description']       = $this->getVar('cat_description', 'e');
-		$editorMaxchar = $quizHelper->getConfig('editor_maxchar');
+		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['theme']             = $this->getVar('cat_theme');
 		$ret['weight']            = $this->getVar('cat_weight');

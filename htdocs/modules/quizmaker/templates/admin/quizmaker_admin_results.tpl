@@ -39,7 +39,7 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_DURATION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NOTE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_CREATION}></th>
-				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
+				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
 		</thead>
 		<{if $results_count}>

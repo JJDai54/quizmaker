@@ -17,7 +17,7 @@ renvois toutes les réponses valide d'un question/slide
 utilisé uniquement pour de le developpement et les faciliter les tests
 function getAllReponses_ (){
 }
-        case "textarea":
+        case "textareaSimple":
             break;
 
 */
@@ -44,8 +44,14 @@ const quiz_mode = {
     pro:           8+2,
     timer:         8
 };  
+
+function sleep(){
+    console.log("===> sleep");
+    //nothing
+}
+
  /*******************************************************************
-  *                     typeOk
+  *                     
   * *****************************************************************/
 function alertId(currentQuestion, msg = ""){
 alert(`${currentQuestion.quizId} / ${currentQuestion.questId}`  + " - " + msg);
@@ -59,35 +65,31 @@ function typeOk(sType){
 var bolOk = false;
 
     switch(sType){
-    case "pageInfo":
+    case "pageBegin":
+    case "pageEnd":
+    case "pageGroup":
     
-    
-    case "textarea":
+    case "textareaSimple":
     case "radioLogical":
     case "checkboxLogical":
     case "textareaInput":
-    case "matchItems":
+    case "comboboxMatchItems":
+    case "textboxMatchItems":
     case "textareaListbox":
-    case "sortCombobox":        
+    case "comboboxSortList":        
     case "radioSimple":
-    case "checkbox":
+    case "checkboxSimple":
     case "listboxIntruders1":
     case "listboxIntruders2":
     case "radioMultiple2":
-    case "multiTextbox":
+    case "textboxMultiple":
     case "listboxSortItems":
         bolOk = true;
         break;
-
-
-//-----------------------------------------
-    
-        
 //-----------------------------------------
     default: bolOk = false; 
         break;
     }
-    
     return bolOk;
 }
 
@@ -99,17 +101,20 @@ var bolOk = false;
   var obj;
 
     switch (className){
-    case "pageInfo":           obj = pageInfo;           break;
-    case "checkbox":           obj = checkbox;           break;    
+    case "pageBegin":          obj = pageBegin;          break;
+    case "pageEnd":            obj = pageEnd;            break;
+    case "pageGroup":          obj = pageGroup;          break;
+    case "checkboxSimple":     obj = checkboxSimple;     break;    
     case "radioSimple":        obj = radioSimple;        break;    
     case "radioMultiple1":     obj = radioMultiple1;     break;
     case "radioMultiple2":     obj = radioMultiple2;     break;
-    case "multiTextbox":       obj = multiTextbox;       break;
-    case "textarea":           obj = textarea;           break;
+    case "textboxMultiple":    obj = textboxMultiple;    break;
+    case "textareaSimple":     obj = textareaSimple;     break;
     case "textareaInput":      obj = textareaInput;      break;
     case "textareaListbox":    obj = textareaListbox;    break;
-    case "sortCombobox":       obj = sortCombobox;       break;
-    case "matchItems":         obj = matchItems;         break;
+    case "comboboxSortList":   obj = comboboxSortList;   break;
+    case "comboboxMatchItems": obj = comboboxMatchItems; break;
+    case "textboxMatchItems":  obj = textboxMatchItems;  break;
     case "radioLogical":       obj = radioLogical;       break;
     case "checkboxLogical":    obj = checkboxLogical;    break;
     case "listboxIntruders1":  obj = listboxIntruders1;  break;
@@ -138,27 +143,27 @@ const obj=new (mp.get(nomDeLaclasse))(/params si besoin ici .../);
 //    alert("getTplNewClass : " + currentQuestion.type);
 
     switch (currentQuestion.type){
-    case "pageInfo":        obj = new (pageInfo)(currentQuestion, chrono);          break;
-    case "multiTextbox":    obj = new (multiTextbox)(currentQuestion, chrono);      break;
-    case "checkbox":        obj = new (checkbox)(currentQuestion, chrono);          break;
-    case "radioSimple":     obj = new (radioSimple)(currentQuestion, chrono);       break;
-    case "radioMultiple1":  obj = new (radioMultiple1)(currentQuestion, chrono);    break;
-    case "radioMultiple2":  obj = new (radioMultiple2)(currentQuestion, chrono);    break;
-    case "textarea":        obj = new (textarea)(currentQuestion, chrono);          break;
-    case "textareaInput":   obj = new (textareaInput)(currentQuestion, chrono);     break;
-    case "textareaListbox": obj = new (textareaListbox)(currentQuestion, chrono);   break;
-    case "sortCombobox":    obj = new (sortCombobox)(currentQuestion, chrono);      break;
-    case "matchItems":      obj = new (matchItems)(currentQuestion, chrono);        break;
-    case "radioLogical":    obj = new (radioLogical)(currentQuestion, chrono);      break;
-    case "checkboxLogical": obj = new (checkboxLogical)(currentQuestion, chrono);   break;
+    case "pageBegin":           obj = new (pageBegin)(currentQuestion, chrono);         break;
+    case "pageEnd":             obj = new (pageEnd)(currentQuestion, chrono);           break;
+    case "pageGroup":           obj = new (pageGroup)(currentQuestion, chrono);         break;
+    
+    case "textboxMultiple":     obj = new (textboxMultiple)(currentQuestion, chrono);   break;
+    case "checkboxSimple":      obj = new (checkboxSimple)(currentQuestion, chrono);    break;
+    case "radioSimple":         obj = new (radioSimple)(currentQuestion, chrono);       break;
+    case "radioMultiple1":      obj = new (radioMultiple1)(currentQuestion, chrono);    break;
+    case "radioMultiple2":      obj = new (radioMultiple2)(currentQuestion, chrono);    break;
+    case "textareaSimple":      obj = new (textareaSimple)(currentQuestion, chrono);    break;
+    case "textareaInput":       obj = new (textareaInput)(currentQuestion, chrono);     break;
+    case "textareaListbox":     obj = new (textareaListbox)(currentQuestion, chrono);   break;
+    case "comboboxSortList":    obj = new (comboboxSortList)(currentQuestion, chrono);  break;
+    case "comboboxMatchItems":  obj = new (comboboxMatchItems)(currentQuestion, chrono);break;
+    case "textboxMatchItems":   obj = new (textboxMatchItems)(currentQuestion, chrono); break;
+    case "radioLogical":        obj = new (radioLogical)(currentQuestion, chrono);      break;
+    case "checkboxLogical":     obj = new (checkboxLogical)(currentQuestion, chrono);   break;
     
     case "listboxIntruders1":   obj = new (listboxIntruders1)(currentQuestion, chrono); break;
     case "listboxIntruders2":   obj = new (listboxIntruders2)(currentQuestion, chrono); break;
     case "listboxSortItems":    obj = new (listboxSortItems)(currentQuestion, chrono);  break;
-    
-/*
-
-*/    
 
     default: alert("getTplNewClass - Classe absente : " + currentQuestion.type); break;
     }
@@ -213,8 +218,9 @@ function duplicateArray (array) {
 
 }
 
-function shuffleArray (array) {
+function shuffleArray2 (array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
+   var newArray = duplicateArray (array);
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -224,12 +230,27 @@ function shuffleArray (array) {
     currentIndex -= 1;
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    temporaryValue = newArray[currentIndex];
+    newArray[currentIndex] = newArray[randomIndex];
+    newArray[randomIndex] = temporaryValue;
   }
 
-  return array;
+  return newArray;
+}
+function shuffleArray(array) {
+
+   var newArray = duplicateArray (array);
+   for (var i = newArray.length - 1; i > 0; i--) {
+   
+       // Generate random number
+       var j = Math.floor(Math.random() * (i + 1));
+                   
+       var temp = newArray[i];
+       newArray[i] = newArray[j];
+       newArray[j] = temp;
+   }
+       
+   return newArray;
 }
 
 function shuffleArrayFY(arr){
@@ -367,7 +388,7 @@ var textOk = '';
     ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
     exp = exp.replaceAll("\n","<br>"); //avec mise en formede crlf
     //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
-    var regex = quiz_const.regexAllLetters;
+    var regex = quiz_const.regexAllLettersPP;
     
     var tWordsA = exp.match(regex);
     tWordsA = [...new Set(tWordsA)];
@@ -410,7 +431,7 @@ var ret = {textOk:'', text:'', words:[], nbRows:0};
 var textOk = '';
 
     //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
-    var regex = quiz_const.regexAllLetters;
+    var regex = quiz_const.regexAllLettersPP;
 
     
     var tWordsA = exp.match(regex);
@@ -515,7 +536,8 @@ function  clearfillCollection(name, fillWithExp="")
 ///////////////////////////////////////////
 function getHtmlCombobox(name, id, tItems, extra="", addBlank=false){
     var tHtml = [];
-    tHtml.push(`<SELECT id="${id}" name="${name}" class="question-matchItems" ${extra}>`);
+    tHtml.push(`<SELECT id="${id}" name="${name}" class="question-comboboxMatchItems" ${extra}>`);
+                                                                  
 //         tHtml.push(`<SELECT id="${name}{${k}" name="${name}" class="question-textareaListbox" onclick="quiz_textareaListbox_event('update','${id}','${name}',${questionNumber})">`);        
     if (addBlank)  
         tHtml.push(`<OPTION VALUE="">`)
@@ -542,7 +564,7 @@ function fillListObject(obList, tItems, itemDefault = -1, addBlank=false){
     }
     obList.selectedIndex = itemDefault;
 }
-function getHtmlRadio(name, tItems, itemDefault = -1, numerotation, offset, extra=""){
+function getHtmlRadio(name, tItems, itemDefault = -1, numerotation, offset=0, extra=""){
     var tHtml = [];
     
     
@@ -565,7 +587,7 @@ function getHtmlCheckbox(name, tItems, itemDefault = -1, numerotation, offset, e
     for (var j=0; j < tItems.length; j++){
       var sel = (j == itemDefault) ? "checked" : "" ;  
       tHtml.push(`<label class="quiz" >
-                 <input type="checkbox" name="${name}" value="${j}" ${sel} ${extra} caption="${tItems[j]}">
+                 <input type="checkbox" id="${name}-${j}" name="${name}" value="${j}" ${sel} ${extra} caption="${tItems[j]}">
                  ${getNumAlpha(j*1,numerotation,offset)} : ${tItems[j]}
                  </label>${sep}`);
 
@@ -599,6 +621,20 @@ function getHtmlListbox(name, id, tItems, nbRows, itemDefault = -1, numerotation
 //   }
 
     return tHtml.join("\n");
+}
+function getHtmlTextbox(name, txtClass = "", numerotation, offset, extra=""){
+    var tHtml = [];
+    
+    
+    for (var j=0; j < tItems.length; j++){
+ 
+      tHtml.push(`<label>
+            ${getNumAlpha(j*1,numerotation,offset)} : <input type="text"  id="${name}-${j}" name="${name}" value="${tItems[j]}" class="${txtClass}" ${extra}>
+          </label>`);
+
+    }
+    return tHtml.join("\n");
+
 }
 
 function getHtmlTextbox1(name, tItems, txtClass = "", numerotation, offset, extra=""){
@@ -660,7 +696,7 @@ function getHtmlTextbox3(name, tItems, nbInput, txtClass = "", numerotation, off
 }
 /*
 
-function getHtmlSpan(name, tItems, numerotation=3, offset =0, spanClass = 'slide-label', extra="", sep="<br>"){  
+function getHtmlSpanZZZ(name, tItems, numerotation=3, offset =0, spanClass = 'slide-label', extra="", sep="<br>"){  
     var tHtml = [];
 
     for (var j=0; j < tItems.length; j++){
@@ -673,7 +709,7 @@ function getHtmlSpan(name, tItems, numerotation=3, offset =0, spanClass = 'slide
 
 }
 */
-function getHtmlSpan(name, tItems, numerotation=3, offset =0, spanClass = 'slide-label', extra="", sep="<br>"){  
+function getHtmlSpan(name, tItems, numerotation=3, offset =0, extra="", spanClass = 'slide-label', sep="<br>"){  
     var tHtml = [];
     
 
@@ -904,7 +940,9 @@ var car2rep;
 
     var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").replaceAll(" ","").toLowerCase();
     
-    var cars2del = new RegExp('[ \'\.\!\?\,\;]', 'gi');
+    var cars2del = new RegExp('[ \'\.\!\?\,\;-]', 'gi');
+  //var cars2del = new RegExp('[ \'\.\!\?\,\;\-\_\/]', 'gi');
+        
     reponse = reponse.replace(cars2del, "");
     
     regAccent = new RegExp('[àâä]', 'gi');
@@ -953,7 +991,7 @@ function replaceBalisesByValues(exp)
 /* ******************************************
 *
 * ******************************************** */
-function getHtmlRadioKeys(name, tItems, numerotation, offset, extra="", sep="<br>"){
+function getHtmlRadioKeys(name, tItems, numerotation, offset=0, extra="", sep="<br>"){
     
     var keys = Object.keys(tItems);
     var tHtml = [];
@@ -972,7 +1010,7 @@ function getHtmlRadioKeys(name, tItems, numerotation, offset, extra="", sep="<br
 /* ******************************************
 *
 * ******************************************** */
-function getHtmlCheckboxKeys(name, tItems, numerotation, offset, extra="", sep="<br>"){
+function getHtmlCheckboxKeys(name, tItems, numerotation, offset=0, extra="", sep="<br>"){
 
     var keys = Object.keys(tItems);
 //alert("getHtmlCheckboxKeys\n" + keys.join(" - "));  
@@ -983,7 +1021,7 @@ function getHtmlCheckboxKeys(name, tItems, numerotation, offset, extra="", sep="
         item = tItems[keys[j]];
     //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
       tHtml.push(`<label class="quiz" >
-                 <input type="checkbox" name="${name}" value="${j}" ${extra} caption="${item.key}">
+                 <input type="checkbox" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}">
                  ${getNumAlpha(j,numerotation,offset)} : ${item.word}
                  </label>${sep}`);
     
@@ -1001,7 +1039,19 @@ function getHtmlCheckboxKeys(name, tItems, numerotation, offset, extra="", sep="
 
 }
 
-/*    ----- progress Bar ----- */
+function getMarginStyle(nbItems, min=5, max=15, numStyle=0){
+    var margin = Math.trunc((270-10) / (nbItems * 2));
+    margin = Math.min(Math.max(parseInt(margin), min), max);
+    switch(numStyle){
+        case 1:  var strStyle =`style='line-height: ${margin*3}px;'`; break;
+        default: var strStyle =`style='margin:${margin}px 0px ${margin}px 0px;'`; break;
+    }
+    return strStyle;
+}
+
+/* ------------------------ */
+/* ----- progress Bar ----- */
+/* ------------------------ */
 var pb = {
     maxWidth : 0,
     maxValue : 250,   // total à atteindre

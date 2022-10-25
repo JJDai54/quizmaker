@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -56,6 +56,7 @@ define('QUIZMAKER_UPLOAD_QUIZ_URL',  QUIZMAKER_UPLOAD_URL. '/quiz-js');
 define('QUIZMAKER_ANSWERS_CLASS', QUIZMAKER_PATH . "/class/type_question");
 define('QUIZMAKER_MODELES_IMG', QUIZMAKER_URL . "/assets/images/modeles");
 define('QUIZMAKER_LANGUAGE', QUIZMAKER_PATH . "/language");
+define('QUIZMAKER_MODELES_IMG_PATH', QUIZMAKER_PATH . "/assets/images/modeles");
 
 
 define('QUIZMAKER_SELECT_ONCHANGE', 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
@@ -69,10 +70,10 @@ define('QUIZMAKER_FORMAT_DATE_SQL', 'Y-m-d h:i:s');
 define('QUIZMAKER_FORMAT_DATE', 'd-m-Y h:i:s');
 //define('XOBJ_DTYPE_DATETIME', 99); //XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 
-define('QUIZMAKER_TYPE_FORM_NONE',   0);
-define('QUIZMAKER_TYPE_FORM_INTRO',  1);
-define('QUIZMAKER_TYPE_FORM_ENCART', 2);
-define('QUIZMAKER_TYPE_FORM_RESULT', 3);
+define('QUIZMAKER_TYPE_FORM_QUESTION',   0);
+define('QUIZMAKER_TYPE_FORM_BEGIN',  1);
+define('QUIZMAKER_TYPE_FORM_GROUP', 2);
+define('QUIZMAKER_TYPE_FORM_END', 3);
 
 
 $localLogo = QUIZMAKER_IMAGE_URL . '/jean-jacquesdelalandre_logo.png';

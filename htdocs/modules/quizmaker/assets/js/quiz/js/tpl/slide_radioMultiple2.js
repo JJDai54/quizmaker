@@ -29,6 +29,8 @@ build (){
         }
     
       html.push(`</div>`);
+
+      this.focusId = name + "-" + "0";      
       return html.join("\n");
 
  }
@@ -38,42 +40,55 @@ build (){
   *                     build_multiRadioH
   * *****************************************************************/
 
- build_horizontal (answers, tblId){
+build_horizontal (answers, tblId, sens = 'X'){
     var currentQuestion = this.question;
     var id = this.getId(0);
     var name = this.getName();
-
+//alert('build_horizontal');
       const html = [];
+      html.push(`<style>`
+      + '.radio_H{'
+      + 'border-top: 1px red solid;'
+      + 'border-bottom: 1px red solid;'
+      + 'padding: 5px;'
+      + 'margin-bottom: 0px;'
+      + 'text-align:left;'
+      + '}'
+      + '</style>');
+
+//  background-color: lightgrey;
 
       html.push(`<table class="question">`);
+      //html.push(`<tr><td colspan='3'>-${sens}-build_horizontal</td></tr>`);
 
      for(var k in answers){
       html.push(`<tr>`);
 
         //var tWords = answers[k].proposition.split(",");
         //answers[k].words = duplicateArray(tWords);
-        var tWords = duplicateArray(answers[k].words);
-        
-        this.shuffleArray(tWords);
+        //var tWords = duplicateArray(answers[k].words);
+        //this.shuffleArray(tWords);
 
+        var tWords = this.shuffleArray(answers[k].words);
 
-        html.push(`<td>`);
+//alert(tWords);
+        //html.push(`<td>`);
 
         for (var i = 0; i < tWords.length; i++){
           html.push(
-            `<td style='text-align:left;'><label>
-              <input type="radio" name="${name}-${k}" value="${tWords[i]}" ${this.data.attributeSens}>
+            `<td class='radio_H'><label>
+              <input type="radio" id="${name}-${k}" name="${name}-${k}" value="${tWords[i]}" ${this.data.attributeSens}>
               ${tWords[i]}
             </label></td>`
           );
         }
        // html.push(`</td>`);
       html.push(`</tr>`);
+      //html.push(`<tr><td colspan='${tWords.length}'><hr></td></tr>`);
 
      }
 
       html.push(`</table>`);
-
 
 //alert(answers);
       return html.join("\n");
@@ -82,38 +97,49 @@ build (){
  /*******************************************************************
   *                     build_multiRadioV
   * *****************************************************************/
-build_vertical (answers, tblId){
+build_vertical (answers, tblId, sens='Y'){
     var currentQuestion = this.question;
     var id = this.getId(0);
     var name = this.getName();
 
       const html = [];
 
+      html.push(`<style>`
+      + '.radio_V{'
+      + 'border-left: 1px red solid;'
+      + 'border-right: 1px red solid;'
+      + 'padding: 5px;'
+      + 'margin-bottom: 0px;'
+      + 'text-align:left;'
+      + '}'
+      + '</style>');
+//  background-color: lightgrey;
+
+ 
+      const tAns = [];
+      for(var k in answers){
+//        var tWords = duplicateArray(answers[k].words);
+//        this.shuffleArray(tWords);
+        var tWords = this.shuffleArray(answers[k].words);
+        tAns.push(duplicateArray(tWords));
+    }
+      //----------------------------------------------------------  
       html.push(`<table class="question">`);
-
-     for(var k in answers){
-
-//         var tWords = answers[k].proposition.split(",");
-//         answers[k].words = duplicateArray(tWords);
-        var tWords = duplicateArray(answers[k].words);
-        this.shuffleArray(tWords);
-        
+      //html.push(`<tr><td colspan='3}'>-${sens}-build_vertical</td></tr>`);
+  
+      var nbWords = tAns[0].length;  
+      for (var i=0; i<nbWords; i++){
         html.push(`<tr>`);
-
-
-
-        for (var i = 0; i < tWords.length; i++){
+        
+        for(var k in tAns){
           html.push(
-            `<td style='text-align:left;'><label>
-              <input type="radio" name="${name}-${k}" value="${tWords[i]}" ${this.data.attributeSens}>
-              ${tWords[i]}
-            </label></td>`
-          );
-        }
+            `<td class='radio_V'><label>
+             <input type="radio" name="${name}-${k}" value="${tAns[k][i]}" ${this.data.attributeSens}>
+             ${tAns[k][i]}
+             </label></td>`);
+         }
         html.push(`</tr>`);
-
-     }
-
+      }
       html.push(`</table>`);
 
 
@@ -124,17 +150,20 @@ build_vertical (answers, tblId){
 prepareData(){
     var currentQuestion = this.question;
 
+    //on force l'option de mélange des options sinon aucun intéret
+    currentQuestion.shuffleAnswers = 1;
+
     var tOpt = currentQuestion.options.split(",");
-    this.data.sens = (tOpt[0].toUpperCase() == "H") ? "V" : "H";
+    this.data.sens = (tOpt[0].toUpperCase() == "H") ? "H" : "V";
     this.data.attributeSens = `${this.getName()}="${this.data.sens}"` ;
     
 
-    var currentQuestion = this.question;
-    this.transposeArray(currentQuestion);
+    //var currentQuestion = this.question;
+    this.transposeArray();
 }
 
 /* *************************************
-*
+* transposition des propositions pour permettre le mélange des options
 * ******** */
  transposeArray(){
     var currentQuestion = this.question;
@@ -312,17 +341,16 @@ var tReponses = [];
   reloadQuestion(answerContainer)
   {
     var currentQuestion = this.question;
-
-
     var obDiv = document.getElementById(this.getName());
+
         var newAns = shuffleArray(currentQuestion.ans2) ;    
       
         if (this.data.sens == "V"){
             obDiv.innerHTML = this.build_vertical (newAns, this.getName());
         }else{
-            obDiv.innerHtml = this.build_horizontal (newAns, this.getName());
+            obDiv.innerHTML = this.build_horizontal (newAns, this.getName());
         }
-    
+   
   }
  
  

@@ -19,13 +19,16 @@ build (){
     var name = this.getName();
     
     const answers = [];
-    answers.push(`<div id="${name}-famille" style="text-align:left;padding-left:30px;">`); 
-    answers.push(getHtmlRadioKeys(name, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering));
+    answers.push(`<div id="${name}-famille" style="text-align:left;padding-left:30px;margin-top:10px;">`); 
+    this.data.styleCSS = getMarginStyle(currentQuestion.answers.length);
+        
+    answers.push(getHtmlRadioKeys(name, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering,0, this.data.styleCSS));
     answers.push(`</div>`);
 
 //     answers.push(`<div id="${name}-famille" style="text-align:left;padding-left:30px;">`);
 //     answers.push(getHtmlRadio(name, this.shuffleArray(this.data.words), -1, currentQuestion.numbering));
 //     answers.push(`</div>`);
+    this.focusId = name + "-" + "0";
     return answers.join("\n");
  }
 
@@ -174,7 +177,7 @@ incremente_question(nbQuestions)
  reloadQuestion() {
     var name = this.getName();
     var obFamille = document.getElementById(`${name}-famille`)
-    obFamille.innerHTML = getHtmlRadioKeys(name, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering);
+    obFamille.innerHTML = getHtmlRadioKeys(name, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS);
     return true;
 }
 

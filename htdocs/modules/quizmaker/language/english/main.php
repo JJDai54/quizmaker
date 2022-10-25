@@ -59,7 +59,7 @@ define('_MA_QUIZMAKER_QUIZ', "Quiz");
 define('_MA_QUIZMAKER_QUIZ_ANSWERS_AND_EXPLANATION', "Quiz answers and explanations");
 define('_MA_QUIZMAKER_QUIZ_DESC', "Quiz description");
 define('_MA_QUIZMAKER_QUIZ_TITLE', "Quiz title");
-define('_MA_QUIZMAKER_TITLE', "QuizMaker");
+define('_MA_QUIZMAKER_TITLE', "Quizmaker");
 define('_MA_QUIZMAKER_RESULTS', "Results");
 define('_MA_QUIZMAKER_RESULTS_FOR', "Results for:");
 define('_MA_QUIZMAKER_RESULTS_SCORE', "Score");

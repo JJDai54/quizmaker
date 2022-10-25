@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -22,10 +22,10 @@
 if (count($xoBreadcrumbs) > 1) {
 	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
-$GLOBALS['xoopsTpl']->assign('adv', $quizHelper->getConfig('advertise'));
+$GLOBALS['xoopsTpl']->assign('adv', $quizmakerHelper->getConfig('advertise'));
 // 
-$GLOBALS['xoopsTpl']->assign('bookmarks', $quizHelper->getConfig('bookmarks'));
-$GLOBALS['xoopsTpl']->assign('fbcomments', $quizHelper->getConfig('fbcomments'));
+$GLOBALS['xoopsTpl']->assign('bookmarks', $quizmakerHelper->getConfig('bookmarks'));
+$GLOBALS['xoopsTpl']->assign('fbcomments', $quizmakerHelper->getConfig('fbcomments'));
 // 
 $GLOBALS['xoopsTpl']->assign('admin', QUIZMAKER_ADMIN);
 $GLOBALS['xoopsTpl']->assign('copyright', $copyright);

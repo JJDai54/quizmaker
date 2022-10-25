@@ -50,23 +50,19 @@ var tplButton = `<input type="button" class="quizBtn01" style="background:url('i
     var btn1 = tplButton.replaceAll('{moveTo}','up').replace('{id}',id); 
     var btn2 = tplButton.replaceAll('{moveTo}','down').replace('{id}',id); 
     var btn3 = tplButton.replaceAll('{moveTo}','bottom').replace('{id}',id); 
-
-//     var btn0 = `<input type="button" class="quizBtn01" style="background:url('images/blue/top.png');" onclick="quiz_MoveToTop('${id}',top');">`;
-//     var btn1 = `<input type="button" class="quizBtn01" style="background:url('images/blue/up.png');" onclick="quiz_MoveToTop('${id}','up');">`;
-//     var btn2 = `<input type="button" class="quizBtn01" style="background:url('images/blue/down.png');" onclick="quiz_MoveToTop('${id}','down');">`;
-//     var btn3 = `<input type="button" class="quizBtn01" style="background:url('images/blue/bottom.png');" onclick="quiz_MoveToTop('${id}','bottom');">`;
     
     var tblHtml = tpl.replace('{btn0}', btn0).replace('{btn1}', btn1).replace('{btn2}', btn2).replace('{btn3}', btn3);
      
     const answers = [];
     answers.push(tblHtml);
 //alert(tblHtml);    
-    var keys = this.shuffleArray(Object.keys(this.data.items));
+    var tItems = this.shuffleArray(this.data.words);
+    //alert(tItems);
     var click = (quiz.onClickSimple) ? "onclick" : "ondblclick";
-    var wordsList = keys.join(",");
+    //var wordsList = tItems.join(",");
     //-------------------------------------
-    var extra = `${click}="quiz_deleteValue('${id}');"`;
-    var listItems = getHtmlListbox(name, id, keys, keys.length, -1, currentQuestion.numbering, 0, extra);
+    var extra = ''; //`${click}="quiz_deleteValue('${id}');"`;
+    var listItems = getHtmlListbox(name, id, tItems, tItems.length, -1, currentQuestion.numbering, 0, extra);
     var html = tblHtml.replace('{listeItems}', listItems);
     return html;
  }
@@ -78,21 +74,13 @@ var tplButton = `<input type="button" class="quizBtn01" style="background:url('i
 prepareData(){
 var tItems = [];
     var currentQuestion = this.question;
-        
-     for (var k=0; k < 1; k++){
-       var tw = currentQuestion.answers[k].proposition.split(",");  
-       var tp = padStr2Array(currentQuestion.answers[k].points, tw.length);    
-       currentQuestion.answers[k].words = tw;  
-       
-       for (var h=0; h < tw.length; h++){
-           tItems[tw[h]] = tp[h]*1;
-       }
-     }
-     
-     this.data.items = tItems;
-     //this.shuffleArrayKeys();  
-     currentQuestion.answers[0].keys = Object.keys(tItems);  
     
+    //on force l'option de mélange des options sinon aucun intéret
+    currentQuestion.shuffleAnswers = 1;
+    
+    var k = 0;
+    //alert(currentQuestion.answers[k].proposition);
+    this.data.words = currentQuestion.answers[k].proposition.split(",");  
 } 
 
 /* *************************************
@@ -116,27 +104,45 @@ computeScoresMinMax(){
 * ******** */
 
 getScore ( answerContainer){
-var points = 0;
 var bolOk = true;
 
     var currentQuestion = this.question;
     var id = `${this.getName()}-1`;
     
     var listObj = document.getElementById(id);
-    var tItems = this.data.items;
-    var keys = Object.keys(tItems);
-//alert ('quiz_MoveToTop -> ' + listObj.name + ' -> '  + where);
+    var tItems = this.data.words;
 
-        console.log("====================================");
     var options = listObj.getElementsByTagName("OPTION");
-    for (var i = 0; i < options.length ; i++) {
-        console.log("===> getScore-listSortItems : " + options[i].text + " == " + keys[i] + " => " + tItems[keys[i]]);
-        if (options[i].text == keys[i]) 
-            points += tItems[keys[i]]*1;
-    }
-       
-      return points;
 
+    var tRep = [];
+    for (var i = 0; i < options.length ; i++) {
+        console.log("===> getScore-listSortItems : " + options[i].text + " == " + i + " => " + tItems[i]);
+        tRep.push(options[i].text) 
+    }
+    var strRep = tRep.join(',');
+    bolOk = strRep == currentQuestion.answers[0].proposition;
+    
+//        alert(currentQuestion.options.toUpperCase() );
+    if(!bolOk && currentQuestion.options.toUpperCase() == "R"){
+        tRep.reverse();
+        var strRep = tRep.join(',');
+        //alert("inver : " + strRep);
+        bolOk = (strRep == currentQuestion.answers[0].proposition);
+    }
+//     
+//     
+//     
+// //alert ('quiz_MoveToTop -> ' + listObj.name + ' -> '  + where);
+// 
+//     console.log("====================================");
+//     for (var i = 0; i < options.length ; i++) {
+//         console.log("===> getScore-listSortItems : " + options[i].text + " == " + i + " => " + tItems[i]);
+//         if (options[i].text != tItems[i]) bolOk = false; 
+//     }
+//     if(!bolOk && currentQuestion.options.toLowerCase() == "R"){
+//         var tItems = duplicateArray(this.data.words).reverse();
+//     }
+    return (bolOk) ? currentQuestion.answers[0].points : 0;
   }
 
   
@@ -148,6 +154,7 @@ isInputOk ( answerContainer){
 
 var bolOk = true;
 
+/*
     var id = `${this.getName()}-1`;
     var obList = getObjectById(id);
 
@@ -161,6 +168,7 @@ var bolOk = true;
          bolOk = (nbRep >= minReponse);
        }
 
+*/
 
 
       return bolOk;
@@ -173,23 +181,17 @@ var bolOk = true;
 * ******** */
 
 getAllReponses (flag = 0){
-    var currentQuestion = this.question;
-    
+      var  currentQuestion = this.question;
+
+
     var tReponses = [];
-    var tItems = this.data.items;
-    
-    
-    //tri desc sur le tableau
-    tItems = sortArrayKey(tItems,"d");
-    
-     
-    for(var key in tItems)
-    {
-        //tReponses.push (`${key} ===> ${tItems[key]} points`) ;       
-        tReponses.push ([key, tItems[key]]) ;       
+    var k = 0; 
+    var t = [];
+    for(var k in this.data.words){
+        t.push ([k*1+1, this.data.words[k]]);
     }
 
-    return formatArray0(sortArrayArray(tReponses, 1, "DESC"), "=>");
+    return formatArray0(t,"-","");
  }
 
   
@@ -238,16 +240,17 @@ reloadQuestion() {
     var ob = document.getElementById(id);
     ob.innerHTML = "";
 
-    var tItems = this.shuffleArrayKeys(this.data.items);
+    var tItems = this.shuffleArray(this.data.words);
     for(var key in tItems)
     {
         console.log(key + " = " +  tItems[key]);
         var option = document.createElement("option");
-        option.text = key;
-        option.value = key;
+        //alert(tItems[key]);
+        option.text = tItems[key];
+        option.value = tItems[key];
         ob.add(option);
     }
-
+    ob.selectedIndex = 0;
 }
  
 /* ************************************
@@ -262,17 +265,17 @@ showGoodAnswers()
     ob.innerHTML = "";
 
 
-    var tItems = this.shuffleArrayKeys(this.data.items);
+    var tItems = this.data.words;
     for(var key in tItems)
     {
     //alert(`showGoodAnswers - ${key} = ${tItems[key]}`);
         console.log(key + " = " +  tItems[key]);
-        if ((tItems[key]*1) <= 0) {
+
           var option = document.createElement("option");
-          option.text = key;
-          option.value = key;
+          option.text = tItems[key];
+          option.value = tItems[key];
           ob.add(option);
-        }
+
     }
 }
 
@@ -288,16 +291,16 @@ showBadAnswers()
     ob.innerHTML = "";
 
 
-    var tItems = this.shuffleArrayKeys(this.data.items);
+    var tItems = this.shuffleArray(this.data.words);
     for(var key in tItems)
     {
         console.log(key + " = " +  tItems[key]);
-        if ((tItems[key]*1) > 0) {
+
           var option = document.createElement("option");
-          option.text = key;
-          option.value = key;
+          option.text = tItems[key];
+          option.value = tItems[key];
           ob.add(option);
-        }
+
     }
 }
   

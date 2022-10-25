@@ -44,7 +44,6 @@ define('_CO_QUIZMAKER_EXPORT_SCHEMA_SUCCESS', "Export DB Schema to YAML was a su
 define('_CO_QUIZMAKER_SAVE_SAMPLEDATA', "Export Tables to YAML");
 define('_CO_QUIZMAKER_GDLIBSTATUS', "GD library support: ");
 define('_CO_QUIZMAKER_GDLIBVERSION', "GD Library version: ");
-define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "If yes, the \"Add Sample Data\" button will be visible to the Admin. It is Yes as a default for first installation.");
 define('_CO_QUIZMAKER_ADD_SAMPLEDATA', "Import Sample Data (will delete ALL current data)");
 define('_CO_QUIZMAKER_LEGEND', "Legend");
 define('_CO_QUIZMAKER_MAXPOSTSIZE', "Max post size permitted (post_max_size directive in php.ini): ");
@@ -61,7 +60,8 @@ define('_CO_QUIZMAKER_SERVERPATH', "Server path to XOOPS root: ");
 define('_CO_QUIZMAKER_IMAGEINFO', "Server status");
 define('_CO_QUIZMAKER_SERVERUPLOADSTATUS', "Server uploads status: ");
 define('_CO_QUIZMAKER_DC_SETMPERM', "Set the permission");
-define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Show Sample Button?");
+//define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Show Sample Button?");
+//define('_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "If yes, the \"Add Sample Data\" button will be visible to the Admin. It is Yes as a default for first installation.");
 define('_CO_QUIZMAKER_SOMMAIRE', "Summary of questions");
 define('_CO_QUIZMAKER_DC_DIRNOTCREATED', "The directory cannot be created");
 define('_CO_QUIZMAKER_DC_DIRCREATED', "The directory has been created");
@@ -69,6 +69,12 @@ define('_CO_QUIZMAKER_DC_PERMNOTSET', "The permission cannot be set");
 define('_CO_QUIZMAKER_DC_PERMSET', "The permission has been set");
 define('_CO_QUIZMAKER_ERROR_BAD_PHP', "This module requires PHP version %s+ (%s installed)");
 define('_CO_QUIZMAKER_ERROR_BAD_XOOPS', "This module requires XOOPS %s+ (%s installed)");
-define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', 'This question counted for a minimum score of %1\$s points and a maximum score of %2\$s points.');
+define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', "This question counted for a minimum score of %1\$s points and a maximum score of %2\$s points.");
+define('_CO_QUIZMAKER_FORM_GROUP', "Encart");
+define('_CO_QUIZMAKER_PUBLISH_QUIZ', "Exécution");
+define('_CO_QUIZMAKER_FORM_INTRO', "Introduction");
+define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
+define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
+define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
 
 ?>

@@ -227,9 +227,10 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility;
         $tQuest['questId']        = $values['quest_id'];
         $tQuest['type']           = $values['type_question'];
         $tQuest['typeQuestion']   = $values['type_question'];
-        $tQuest['typeForm']       = $values['quest_type_form'];
+        $tQuest['typeForm']       = $values['typeForm'];
         $tQuest['question']       = self::sanitise($values['quest_question']);
         $tQuest['options']        = self::sanitise($values['quest_options']);
+        //$tQuest['options']        = $values['quest_options'];
         $tQuest['comment1']       = self::sanitise($values['quest_comment1']);
         $tQuest['explanation']    = self::sanitise($values['quest_explanation']);
         $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
@@ -331,7 +332,7 @@ public static function sanitise($exp){
  *
  **********************************************/
 public static function  get_css_color($addEmpty = false){
-global $quizHelper;
+global $quizmakerHelper;
     return \JJD\get_css_color(QUIZMAKER_QUIZ_JS_PATH . "/css/style-item-color.css", $addEmpty);
     
 }
@@ -402,6 +403,27 @@ __HTML__;
 //     \Xmf\Database\TableLoad::saveTableToYamlFile($tbl, $path . $tbl . '.yml', $criteria, array('answer_id'));
 //     
 //}
+
+public static function exportQuiz($quizId){
+global $quizHandler;
+        $quiz = $quizHandler->get($quizId);
+        $folder = $quiz->getVar('quiz_fileName');    
+        $name = $folder . '_' . date("Y-m-d_H-m-s");    
+        self::saveDataKeepId($quizId);
+        
+        $sourcePath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/export/";
+        $outZipPath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/{$name}.zip";
+        $outZipUrl = QUIZMAKER_UPLOAD_QUIZ_URL . "/{$folder}/{$name}.zip";
+        
+        \JJD\zipSimpleDir($sourcePath, $outZipPath);   
+
+
+		$GLOBALS['xoopsTpl']->assign('download', 1);        
+		$GLOBALS['xoopsTpl']->assign('href', $outZipUrl);        
+		$GLOBALS['xoopsTpl']->assign('delai', 2000);        
+		$GLOBALS['xoopsTpl']->assign('name', $name);        
+//exit;
+}
 
 /**************************************************************
  * 
@@ -725,25 +747,25 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
 //}
 
     /**
-     * @param \Xmf\Module\Helper $quizHelper
+     * @param \Xmf\Module\Helper $quizmakerHelper
      * @param array|null         $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
 //      Avertissement: Declaration of XoopsModules/Quizmaker/QuizUtility::
-//      getEditor($caption, $name, $value, $description = '', $newOptions = NULL, $quizHelper = NULL) 
-//      should be compatible with XoopsModules/Quizmaker/Utility::getEditor($quizHelper = NULL, $options = NULL)
+//      getEditor($caption, $name, $value, $description = '', $newOptions = NULL, $quizmakerHelper = NULL) 
+//      should be compatible with XoopsModules/Quizmaker/Utility::getEditor($quizmakerHelper = NULL, $options = NULL)
 //       dans le fichier /modules/quizmaker/class/QuizUtility.php ligne 
-    public static function getEditor2($caption, $name, $value, $description = "", $newOptions = null, $quizHelper = null)
+    public static function getEditor2($caption, $name, $value, $description = "", $newOptions = null, $quizmakerHelper = null)
     {
-        if ($quizHelper === null) $quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+        if ($quizmakerHelper === null) $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
         $options           = [];
         $options['name']   = $name;
         $options['value']  = $value;
         $options['rows']   = 10;
         $options['cols']   = '100%';
         $options['width']  = '100%';
-        $options['height'] = '400px';
-        $options['editor'] = $quizHelper->getConfig('editor_admin');
+        $options['height'] = '300px';
+        $options['editor'] = $quizmakerHelper->getConfig('editor_admin');
         
         if($newOptions !== null){
           $keys = array('rows','cols','width','height');
@@ -753,7 +775,7 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
           }
         }
 
-        $isAdmin = $quizHelper->isUserAdmin();
+        $isAdmin = $quizmakerHelper->isUserAdmin();
 
         if (class_exists('XoopsFormEditor')) {
             if ($isAdmin) {
@@ -787,7 +809,7 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
 
 }
 
-//     public static function getEditor($caption, $name, $value, $description = "", $newOptions = null, $quizHelper = null)
+//     public static function getEditor($caption, $name, $value, $description = "", $newOptions = null, $quizmakerHelper = null)
 //     {
 //         $options           = [];
 //         $options['name']   = $name;
@@ -805,14 +827,14 @@ public static function getTypeQuestion($typeQuestion, $default='checkbox')
 //           }
 //         }
 // 
-//         if ($quizHelper === null) $quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-//         $isAdmin = $quizHelper->isUserAdmin();
+//         if ($quizmakerHelper === null) $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+//         $isAdmin = $quizmakerHelper->isUserAdmin();
 // 
 //         if (class_exists('XoopsFormEditor')) {
 //             if ($isAdmin) {
-//                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $quizHelper->getConfig('editor_admin'), $options, $nohtml = false, $onfailure = 'textarea');
+//                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $quizmakerHelper->getConfig('editor_admin'), $options, $nohtml = false, $onfailure = 'textarea');
 //             } else {
-//                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $quizHelper->getConfig('editor_user'), $options, $nohtml = false, $onfailure = 'textarea');
+//                 $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $quizmakerHelper->getConfig('editor_user'), $options, $nohtml = false, $onfailure = 'textarea');
 //             }
 //         } else {
 //             $descEditor = new \XoopsFormDhtmlTextArea(ucfirst($options['name']), $options['name'], $options['value'], '100%', '100%');

@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -117,9 +117,17 @@ class Type_questionHandler
 //             include_once($f);
 //             $obTQ = new $key();
         }
-//echo "<hr>type_questions<pre>" . print_r($ret, true) . "</pre><hr>";        
+//echo "<hr>type_questions<pre>" . print_r($ret, true) . "</pre><hr>";   
+
         return $ret;
 	}
+    
+private function build_sorter($key) {
+    return function ($a, $b) use ($key) {
+        if($a->weight == $b->weight) return 0;
+        return ($a[$key] > $b[$key]) ? 1 : -1;
+    };
+}
 
 /* ***********************
 
@@ -134,9 +142,10 @@ global $utility;
 /* ***********************
 
 ************************** */
-public function getListKeyName(){
+public function getListKeyName($boolCode = false){
         $listTQ = $this->getListTypeQuestion();
         $ret = array();
+        $weight = array();
         $utility = new \XoopsModules\Quizmaker\Utility();
         
         foreach ($listTQ as $key=>$v){
@@ -144,9 +153,13 @@ public function getListKeyName(){
             $f = QUIZMAKER_ANSWERS_CLASS . "/slide_" . $key . ".php";
             include_once($f);
             $cls = new $clsName; 
-            $ret[$cls->type] = $cls->name;  
+            $ret[$cls->type] = (($boolCode) ? $cls->type . ' : ' : '') . $cls->name;  
+            $weight[$cls->type] = $cls->weight;  
         }
-//echo "<hr>type_questions<pre>" . print_r($ret, true) . "</pre><hr>";        
+
+       //tri sur le poids poids le nom
+       array_multisort($weight, $ret);
+      
         return $ret;
 
 }
@@ -170,7 +183,7 @@ public function getClassTypeQuestion($typeQuestion){
  	{
      global $utility, $categoriesHandler, $quizHandler, $type_questionHandler, $quizUtility;
         //---------------------------------------------- 
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}else{
@@ -200,7 +213,7 @@ public function getClassTypeQuestion($typeQuestion){
 		// Questions Handler
         //----------------------------------------------------------
 		// Questions Handler
-// 		$questionsHandler = $quizHelper->getHandler('Questions');
+// 		$questionsHandler = $quizmakerHelper->getHandler('Questions');
 // 		// Form Select questQuiz_id
 // 		$questQuiz_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 // 		$questQuiz_idSelect->addOption('Empty');

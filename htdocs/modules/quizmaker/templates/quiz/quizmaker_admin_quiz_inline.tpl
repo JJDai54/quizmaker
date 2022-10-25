@@ -14,10 +14,13 @@
       <link rel="stylesheet" type="text/css" media="screen" href="css/style-item-color.css"/>
       
 <script src="js/tpl/slide__prototype.js"></script>
-<script src="js/tpl/slide_Intro.js"></script>
-<script src="js/tpl/slide_Result.js"></script>
-<script src="js/tpl/slide_Encart.js"></script>
-<script src="js/tpl/slide_pageInfo.js"></script>
+//<script src="js/tpl/slide_Intro.js"></script>
+//<script src="js/tpl/slide_Result.js"></script>
+//<script src="js/tpl/slide_Encart.js"></script>
+//<script src="js/tpl/slide_pageInfo.js"></script>
+<script src="js/tpl/slide_pageBegin.js"></script>
+<script src="js/tpl/slide_pageEnd.js"></script>
+<script src="js/tpl/slide_pageGroup.js"></script>
 
 
 <script src="js/tpl/slide_radioSimple.js"></script>
@@ -33,10 +36,10 @@
 
 
 
-<script src="js/tpl/slide_multiTextbox.js"></script>
+<script src="js/tpl/slide_textboxMultiple.js"></script>
 <script src="js/tpl/slide_checkbox.js"></script>
-<script src="js/tpl/slide_sortCombobox.js"></script>
-<script src="js/tpl/slide_matchItems.js"></script>
+<script src="js/tpl/slide_comboboxSortList.js"></script>
+<script src="js/tpl/slide_comboboxMatchItems.js"></script>
 <script src="js/tpl/slide_radioLogical.js"></script>
 <script src="js/tpl/slide_checkboxLogical.js"></script>
   </head>

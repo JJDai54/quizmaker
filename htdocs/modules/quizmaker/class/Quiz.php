@@ -13,7 +13,7 @@ namespace XoopsModules\Quizmaker;
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -55,6 +55,7 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_publishQuiz', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_publishResults', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_publishAnswers', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_viewAllSolutions', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_onClickSimple', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_theme', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_answerBeforeNext', XOBJ_DTYPE_INT);
@@ -108,7 +109,7 @@ class Quiz extends \XoopsObject
 	 */
 	public function getFormQuiz($action = false)
 	{global $utility, $categoriesHandler, $quizUtility;
-		$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
 		}
@@ -126,7 +127,7 @@ class Quiz extends \XoopsObject
 		$form = new \XoopsThemeForm($title . " (#{$quiId})", 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// Quiz Handler
-		$quizHandler = $quizHelper->getHandler('Quiz');
+		$quizHandler = $quizmakerHelper->getHandler('Quiz');
         $form->addElement(new \XoopsFormHidden('quiz_id', $quiId));
 		
         // Form Select quizCat_id
@@ -162,7 +163,7 @@ class Quiz extends \XoopsObject
         
 		// Form Editor DhtmlTextArea quizDescription
         /* champ a supprimer fait double emploi avec les champs du premier slide "page_info/intro"
-        $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $quizHelper);
+        $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $quizmakerHelper);
 		$form->addElement($editDescription, true);
         */
             
@@ -191,7 +192,7 @@ class Quiz extends \XoopsObject
 		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
 		$form->addElement($inpActif);
 
-        $publishArr = array(0=>_NO, 1=>_YES, 2=>_AM_QUIZMAKER_AUTO);
+        $publishArr = array(1=>_YES, 0=>_NO, 2=>_AM_QUIZMAKER_AUTO);
         $inpPublishResults = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_RESULTS , 'quiz_publishResults', $this->getVar('quiz_publishResults'));
         $inpPublishResults->addOptionArray($publishArr);
         $inpPublishResults->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
@@ -202,6 +203,11 @@ class Quiz extends \XoopsObject
         $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
 		$form->addElement($inpPublishAnswers);
 
+        $inpViewAllSolutions = new \XoopsFormRadioYN(_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS , 'quiz_viewAllSolutions', $this->getVar('quiz_viewAllSolutions'));
+        //$inpViewAllSolutions->addOptionArray($publishArr);
+        $inpViewAllSolutions->setDescription(_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS_DESC);
+		$form->addElement($inpViewAllSolutions);
+        
         /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
         oui : ce bouton est activer sur le dernier slide
         non :  ce bouton esst désactiver sur le dernier slide (utilisation en dehors du site a verifier)
@@ -369,7 +375,7 @@ class Quiz extends \XoopsObject
 	public function getValuesQuiz($keys = null, $format = null, $maxDepth = null)
 	{
         global $quizUtility, $categoriesHandler;
-		$quizHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
+		$quizmakerHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']                = $this->getVar('quiz_id');
@@ -379,7 +385,7 @@ class Quiz extends \XoopsObject
 		$ret['fileName']          = $this->getVar('quiz_fileName');
 		$ret['description']       = $this->getVar('quiz_description', 'e');
 		$ret['weight']            = $this->getVar('quiz_weight');
-		$editorMaxchar = $quizHelper->getConfig('editor_maxchar');
+		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['creation']          = \JJD\getDateSql2Str($this->getVar('quiz_creation'));
 		$ret['update']            = \JJD\getDateSql2Str($this->getVar('quiz_update'));
@@ -397,9 +403,12 @@ class Quiz extends \XoopsObject
         
         $ret['publishResults']      = $this->getVar('quiz_publishResults');
         $ret['publishResultsOk']    = (($ret['periodeOK']==0 && $ret['publishQuiz']>0 && $ret['publishResults']==2) || $ret['publishResults']==1) ? 1 : 0;
+
 		$ret['publishAnswers']      = $this->getVar('quiz_publishAnswers');
         $ret['publishAnswersOk']    = (($ret['periodeOK']==0 && $ret['publishQuiz']>0 && $ret['publishAnswers']==2) || $ret['publishAnswers']==1) ? 1 : 0;
 
+		$ret['viewAllSolutions']      = $this->getVar('quiz_viewAllSolutions');
+        
 		$ret['onClickSimple']     = $this->getVar('quiz_onClickSimple');
 		$ret['theme']             = $this->getVar('quiz_theme');
         $ret['theme_ok'] = ($ret['theme'] == '') ? $categoriesHandler->getValue($ret['cat_id'],'cat_theme','default') : $ret['theme'];
@@ -432,6 +441,9 @@ class Quiz extends \XoopsObject
         $ret['quiz_tpl'] = (file_exists($quiz_tpl)) ?  QUIZMAKER_UPLOAD_QUIZ_URL . "/{$ret['fileName']}.tpl" : '';
         $ret['quiz_tpl_path'] = (file_exists($quiz_tpl)) ?  $quiz_tpl : '';
         $ret['flags'] = $this->getFlags($ret);
+        
+        $ret['countQuestions'] = $this->countQuestions();
+        
 		return $ret;
 	}
 	
@@ -480,5 +492,35 @@ class Quiz extends \XoopsObject
         return $ob->GetVar('quest_quiz_id');
     }
     
+/* ******************************
+ * renvoie l'id parent pour l'idEnfant
+ * *********************** */
+    public function countQuestions()
+
+    {
+    global $questionsHandler;
     
+    $criteria = new \CriteriaCompo();
+    $criteria->add( new \Criteria("quest_quiz_id",  $this->getVar('quiz_id'), "="));
+    $criteria->add( new \Criteria("quest_type_question",  'pageBegin', "<>"));
+    $criteria->add( new \Criteria("quest_type_question",  'pageEnd', "<>"));
+    $criteria->add( new \Criteria("quest_type_question",  'pageGroup', "<>"));
+    $count = $questionsHandler->getCount($criteria);
+    return $count;
+    }
+    
+/* ******************************
+ * renvoie l'id parent pour l'idEnfant
+ * *********************** */
+    public function countGroups()
+
+    {
+    global $questionsHandler;
+    
+    $criteria = new \CriteriaCompo();
+    $criteria->add( new \Criteria("quest_quiz_id",  $this->getVar('quiz_id'), "="));
+    $criteria->add( new \Criteria("quest_type_question",  'pageGroup', "="));
+    $count = $questionsHandler->getCount($criteria);
+    return $count;
+    }
 }

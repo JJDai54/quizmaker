@@ -1,24 +1,57 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
+<script>
+function addNewChild(parentId){
+  //onclick="document.quizmaker_select_filter.op.value='new_question';document.quizmaker_select_filter.parent_id.value=<{$Questions.id}>;document.quizmaker_select_filter.submit();console.log(document.quizmaker_select_filter.op.value);">
+  document.quizmaker_select_filter.op.value='new';
+  document.quizmaker_select_filter.quest_parent_id.value=parentId;
+  document.quizmaker_select_filter.submit();
+  
+  //document.quizmaker_select_filter.op.value + " - " + document.quizmaker_select_filter.quest_parent_id.value)
+  //event.stopImmediatePropagation();
+  return false;
+}
+</script>
+
+<{include file='db:quizmaker_admin_download.tpl' }>
+
+<{if $questions_list}>
+
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='questions.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
 <input type="hidden" name="sender" value="0" />
 <input type="hidden" name="quest_parent_id" value="0" />
 
 <div class="floatleft">
-    <div class="xo-buttons">
-<{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
-<{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
-        <{$smarty.const._CO_QUIZMAKER_TYPE_QUESTION_2_ADD}> : <{$inpTypeQuest}> <{$btnNewQuestion}>
+    <div>
+      <{* ======================================================== *}> 
+      <table>
+        <tr>
+          <td class='right'><{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : </td>
+          <td><{$inpCategory}></td>
+          <td class='left'></td>
+          <td class='right'></td></tr>
+        </tr>
+        <tr>
+          <td class='right'><{$smarty.const._AM_QUIZMAKER_QUIZ}> : </td>
+          <td><{$inpQuiz}></td>
+          <td class='right'><{$smarty.const._CO_QUIZMAKER_TYPE_QUESTION}> : </td>
+          <td><{$inpTypeQuest}></td>
+          <td  class="xo-buttons"><{$btnNewQuestion}></td>
+          <td><{$imgModelesHtml}></td>
+        </tr>
+      </table>
     </div>
-    </div>
+</div>
+<{* ======================================================== *}> 
 
 <div class="floatright">
     <div class="xo-buttons">
-        <{$initWeight}>
-        <{$expQuiz}>
-        <{$btn.imgTest}>
+        <{$btnInitWeight}>
+        <{$btnExportQuiz}>
+        <{$btnBuildHtml}>
+        <{$imgTestHtml}>
         
 <{*
         <{$btn.exportQuiz}>
@@ -27,27 +60,9 @@
 *}>
     </div>
 </div>
-<{if $inpTypeQuest}>
-<{/if}>
 </form>
 
-<script>
-function addNewChild(parentId){
-//onclick="document.quizmaker_select_filter.op.value='new_question';document.quizmaker_select_filter.parent_id.value=<{$Questions.id}>;document.quizmaker_select_filter.submit();console.log(document.quizmaker_select_filter.op.value);">
-document.quizmaker_select_filter.op.value='new_question';
-document.quizmaker_select_filter.quest_parent_id.value=parentId;
-document.quizmaker_select_filter.submit();
 
-//document.quizmaker_select_filter.op.value + " - " + document.quizmaker_select_filter.quest_parent_id.value)
-//event.stopImmediatePropagation();
-
-return false;
-
-}
-
-</script>
-
-<{if $questions_list}>
 	<table id='quiz_question_list' name='quiz_question_list' class='table table-bordered'>
 		<thead>
 			<tr class='head'>
@@ -62,47 +77,45 @@ return false;
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CHRONO}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_CREATION}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_OPTIONS}></th>
-				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_FORM_ACTION}></th>
+				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTIONS}></th>
 			</tr>
 		</thead>
 		<{if $questions_count}>
 		<tbody>
-			<{foreach item=Questions from=$questions_list name=quest}>
-                <{if $Questions.parent_id==0}>
+			<{foreach item=Questions from=$questions_list name=quest  key=index}>
+                <{if $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>
                   <{assign var="fldImg" value="red"}>
-                  <{if $Questions.type_form == 2}>
-                    <{assign var="styleParent" value="style='background:lightblue;'"}>
-                  <{elseif $Questions.type_form == 3}>
-                    <{assign var="styleParent" value="style='background:mistyrose;'"}>
-                  <{else}>
-                    <{assign var="styleParent" value="style='background:navajowhite;'"}>
-                  <{/if}>
+                  <{assign var="styleParent" value="style='background:navajowhite;'"}>
+                  
+                <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
+                  <{assign var="fldImg" value="red"}>
+                  <{assign var="styleParent" value="style='background:lightblue;'"}>
+                  
+                <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_END}>
+                  <{assign var="fldImg" value="red"}>
+                  <{assign var="styleParent" value="style='background:mistyrose;'"}>
+                  
                 <{else}>
                   <{assign var="fldImg" value="blue"}>
                   <{assign var="styleParent" value=""}>
                 <{/if}>
-                
-                  
                 
   			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center' <{$styleParent}> ><a name='question-<{$Questions.id}>' /><{$Questions.id}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.quiz_id}></td>
 				<td class='left' <{$styleParent}> ><{$Questions.type_question}></td>
-				<td class='left' <{$styleParent}> ><{$Questions.type_form_lib}></td>
+				<td class='left' <{$styleParent}> ><{$Questions.typeForm_lib}></td>
                 
                 
                 <td class='left' <{$styleParent}> >
 					<a href="questions.php?op=edit&amp;quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>"  >
                     <{$Questions.question}></td></a>
                 
-				<{* <td class='center'><{$Questions.weight}></td> *}>
                 <{* ---------------- Arrows Weight -------------------- *}>
-                <td class='center' <{$styleParent}> >
-                    <{if $smarty.foreach.quest.first}>
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
-                    <{else}>
+                <td class='center width15' <{$styleParent}> >
+
+                <{if  $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP OR $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_QUESTION}>
                       <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=first&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
                       <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
                       </a>
@@ -110,25 +123,21 @@ return false;
                       <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=up&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
                       <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                       </a>
-                    <{/if}>
-                 
+                    
                     <img src="<{$modPathIcon16}>/blank-08.png" title="">
                     <{$Questions.weight}>
                     <img src="<{$modPathIcon16}>/blank-08.png" title="">
                  
-                    <{if $smarty.foreach.quest.last}>
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
-                    <{else}>
-                    
-                    <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=down&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
-                      </a>
-                 
-                    <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=last&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
-                      </a>
-                    <{/if}>
+                      <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=down&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
+                        <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                        </a>
+                   
+                      <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=last&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
+                        <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                        </a>
+                <{else}>                     
+                    <{$Questions.weight}>
+                <{/if}>
                 <{* ---------------- /Arrows -------------------- *}>
                 </td>
                 
@@ -168,18 +177,23 @@ return false;
 				</td>
                 
 				<td class="center width5" <{$styleParent}> >
-                
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16 edit.png}>" alt="questions" />
                         </a>
-					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
-                        <img src="<{xoModuleIcons16 editcopy.png}>" alt="Clone" />
-                        </a>
-					<a href="questions.php?op=delete&amp;quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
-                        <img src="<{xoModuleIcons16 delete.png}>" alt="questions" />
-                        </a>
-                    <{if $Questions.type_form == 2}>
-                    
+                        
+                    <{if $Questions.canDelete}>
+    					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
+                            <img src="<{xoModuleIcons16 editcopy.png}>" alt="Clone" />
+                            </a>
+    					<a href="questions.php?op=delete&amp;quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
+                            <img src="<{xoModuleIcons16 delete.png}>" alt="questions" />
+                            </a>
+                    <{else}>
+                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                    <{/if}>              
+
+                    <{if $Questions.type_question == 'pageGroup' || $Questions.type_question == 'pageBegin'}>
     					<a  title="<{$smarty.const._ADD}>" onclick="addNewChild(<{$Questions.id}>);" >
                           <img src="<{xoModuleIcons16 add.png}>" alt="_ADD" />
                           </a>

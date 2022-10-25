@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -33,16 +33,16 @@ $modPathIcon16   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modic
 $modPathIcon32   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 
 // Get instance of module
-$quizHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // $mid = $GLOBALS['xoopsModule']->getVar('mid');
 // echo "<hr>===>mid = {$mid}<hr>";
-$quizHandler = $quizHelper->getHandler('Quiz');
-$questionsHandler = $quizHelper->getHandler('Questions');
-$categoriesHandler = $quizHelper->getHandler('Categories');
-$type_questionHandler = $quizHelper->getHandler('Type_question');
-$answersHandler = $quizHelper->getHandler('Answers');
-$resultsHandler = $quizHelper->getHandler('Results');
-$messagesHandler = $quizHelper->getHandler('Messages');
+$quizHandler = $quizmakerHelper->getHandler('Quiz');
+$questionsHandler = $quizmakerHelper->getHandler('Questions');
+$categoriesHandler = $quizmakerHelper->getHandler('Categories');
+$type_questionHandler = $quizmakerHelper->getHandler('Type_question');
+$answersHandler = $quizmakerHelper->getHandler('Answers');
+$resultsHandler = $quizmakerHelper->getHandler('Results');
+$messagesHandler = $quizmakerHelper->getHandler('Messages');
 $myts = MyTextSanitizer::getInstance();
 // 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {

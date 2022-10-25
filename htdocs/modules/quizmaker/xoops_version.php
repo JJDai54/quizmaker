@@ -10,7 +10,7 @@
 */
 
 /**
- * QuizMaker module for xoops
+ * Quizmaker module for xoops
  *
  * @copyright     2020 XOOPS Project (https://xooops.org)
  * @license        GPL 2.0 or later
@@ -28,7 +28,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 2.94,
+	'version'             => 2.96,
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -40,7 +40,7 @@ $modversion = [
 	'help'                => 'page=help',
 	'release_info'        => 'release_info',
 	'release_file'        => XOOPS_URL . '/modules/quizmaker/docs/release_info file',
-	'release_date'        => '2022/05/14',
+	'release_date'        => '2022/10/25',
 	'manual'              => 'link to manual file',
 	'manual_file'         => XOOPS_URL . '/modules/quizmaker/docs/install.txt',
 	'min_php'             => '5.5',
@@ -92,6 +92,9 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_export.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_import.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_type_new_question.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_clone.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
+
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
 	['file' => 'quizmaker_index.tpl', 'description' => ''],
@@ -272,7 +275,7 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_EDITOR_ADMIN_DESC',
 	'formtype'    => 'select',
 	'valuetype'   => 'text',
-	'default'     => 'dhtml',
+	'default'     => 'TinyMCE', //dhtml
 	'options'     => array_flip($editorHandler->getList()),
 ];
 // Editor User
@@ -284,7 +287,7 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_EDITOR_USER_DESC',
 	'formtype'    => 'select',
 	'valuetype'   => 'text',
-	'default'     => 'dhtml',
+	'default'     => 'TinyMCE', //dhtml
 	'options'     => array_flip($editorHandler->getList()),
 ];
 // Editor : max characters admin area
@@ -359,7 +362,7 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_ADMIN_PAGER_DESC',
 	'formtype'    => 'textbox',
 	'valuetype'   => 'int',
-	'default'     => 10,
+	'default'     => 100,
 ];
 // User pager
 $modversion['config'][] = [
@@ -368,7 +371,7 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_USER_PAGER_DESC',
 	'formtype'    => 'textbox',
 	'valuetype'   => 'int',
-	'default'     => 10,
+	'default'     => 25,
 ];
 // Admin framework highslide
 $modversion['config'][] = [
@@ -450,8 +453,8 @@ $modversion['config'][] = [
 // Make Sample button visible?
 $modversion['config'][] = [
 	'name'        => 'displaySampleButton',
-	'title'       => '_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON',
-	'description' => '_CO_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC',
+	'title'       => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON',
+	'description' => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC',
 	'formtype'    => 'yesno',
 	'valuetype'   => 'int',
 	'default'     => 1,

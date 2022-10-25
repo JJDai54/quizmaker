@@ -104,6 +104,45 @@ var bolOk = true;
     var tKeyWords = this.data.keyWords;
       for(var key in tKeyWords)
       {
+        if (tSelected.indexOf(key) >= 0){
+            points += tKeyWords[key]*1;
+        }
+//         if (tSelected.indexOf(key) == -1){
+//             points += tKeyWords[key]*1;
+//         }
+        
+      }
+       
+      return points;
+
+  }
+
+getScore_old ( answerContainer){
+var points = 0;
+var bolOk = true;
+
+    var currentQuestion = this.question;
+
+    var id = `${this.getName()}-1`;
+    var obList = getObjectById(id);
+    
+    //recupe des items restants
+    var tOptions = obList.options;
+    var tSelected = [];
+    for(var i = 0; i < tOptions.length; i++) {
+        tSelected.push(tOptions[i].value);
+   }
+    
+    //tout a été sélectioné c'est comme si rien avit été sélectioné, renvois 0
+    if (tOptions.length === 0) return 0;
+    //si aucun element selectionné renvoi 0 point    
+    if (tOptions.length === currentQuestion.answers[0].keys.length) return 0;
+       //-----------------------------------
+
+    //recheche des élément absent de la list
+    var tKeyWords = this.data.keyWords;
+      for(var key in tKeyWords)
+      {
         if (tSelected.indexOf(key) == -1){
             points += tKeyWords[key]*1;
         }
@@ -242,7 +281,7 @@ showGoodAnswers()
     {
     //alert(`showGoodAnswers - ${key} = ${tKeyWords[key]}`);
         // console.log(key + " = " +  tKeyWords[key]);
-        if ((tKeyWords[key]*1) <= 0) {
+        if ((tKeyWords[key]*1) > 0) {
           var option = document.createElement("option");
           option.text = key;
           option.value = key;
@@ -267,7 +306,7 @@ showBadAnswers()
     for(var key in tKeyWords)
     {
         // console.log(key + " = " +  tKeyWords[key]);
-        if ((tKeyWords[key]*1) > 0) {
+        if ((tKeyWords[key]*1) <= 0) {
           var option = document.createElement("option");
           option.text = key;
           option.value = key;
