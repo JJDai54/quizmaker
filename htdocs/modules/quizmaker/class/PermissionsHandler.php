@@ -56,7 +56,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 				return true;
 			}
-			$currentuid = $xoopsUser->uid();
+            $currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;
 		}
 		$grouppermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
@@ -87,7 +87,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 				return true;
 			}
-			$currentuid = $xoopsUser->uid();
+            $currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;
 		}
 		$grouppermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();
@@ -122,7 +122,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 				return true;
 			}
-			$currentuid = $xoopsUser->uid();
+        $currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;
 		}
         */
 		$grouppermHandler = xoops_getHandler('groupperm');

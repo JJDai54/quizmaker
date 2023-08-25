@@ -40,9 +40,12 @@ switch($op) {
 	$adminObject->displayNavigation('categories.php');
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_CATEGORIES, 'categories.php?op=new', 'add');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+		$GLOBALS['xoopsTpl']->assign('form', '');
+		$GLOBALS['xoopsTpl']->assign('error', '');
+        
 		$categoriesCount = $categoriesHandler->getCountCategories();
 		$categoriesAll = $categoriesHandler->getAllCategories($start, $limit, 'cat_weight,cat_name');
-		$GLOBALS['xoopsTpl']->assign('categories_count', $categoriesCount);
+		$GLOBALS['xoopsTpl']->assign('categories_count', $categoriesCount);   
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
 		// Table view categories
@@ -64,11 +67,24 @@ switch($op) {
 	break;
 	case 'new':
 		$templateMain = 'quizmaker_admin_categories.tpl';
+		$GLOBALS['xoopsTpl']->assign('categories_list', '');
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_CATEGORIES_LIST, 'categories.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Form Create
 		$categoriesObj = $categoriesHandler->create();
+		$form = $categoriesObj->getFormCategories();
+		$GLOBALS['xoopsTpl']->assign('form', $form->render());
+	break;
+	case 'edit':
+		$GLOBALS['xoopsTpl']->assign('categories_list', '');
+		$templateMain = 'quizmaker_admin_categories.tpl';
+		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
+		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_CATEGORIES, 'categories.php?op=new', 'add');
+		$adminObject->addItemButton(_AM_QUIZMAKER_CATEGORIES_LIST, 'categories.php', 'list');
+		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+		// Get Form
+		$categoriesObj = $categoriesHandler->get($catId);
 		$form = $categoriesObj->getFormCategories();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 	break;
@@ -123,17 +139,6 @@ switch($op) {
 		}
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $categoriesObj->getHtmlErrors());
-		$form = $categoriesObj->getFormCategories();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-	break;
-	case 'edit':
-		$templateMain = 'quizmaker_admin_categories.tpl';
-		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('categories.php'));
-		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_CATEGORIES, 'categories.php?op=new', 'add');
-		$adminObject->addItemButton(_AM_QUIZMAKER_CATEGORIES_LIST, 'categories.php', 'list');
-		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-		// Get Form
-		$categoriesObj = $categoriesHandler->get($catId);
 		$form = $categoriesObj->getFormCategories();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
 	break;

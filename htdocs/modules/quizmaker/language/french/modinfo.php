@@ -29,7 +29,7 @@ define('_MI_QUIZMAKER_ADMIN_PAGER', "Nombre d'items par page côté adminstratio
 define('_MI_QUIZMAKER_ADMIN_PAGER_DESC', "Pagination des listes dans l'administration");
 define('_MI_QUIZMAKER_ADVERTISE', "Code d'annonce");
 define('_MI_QUIZMAKER_MAINTAINEDBY_DESC', "Autoriser l'URL du site d'assistance ou de la communauté");
-define('_MI_QUIZMAKER_ADMENU5', "Réponses");
+define('_MI_QUIZMAKER_ADMENU5', "Propositions");
 define('_MI_QUIZMAKER_NOTIFY_GLOBAL_COMMENT', "Tout commentaire");
 define('_MI_QUIZMAKER_NOTIFY_GLOBAL_DELETE', "Tout élément supprimé");
 define('_MI_QUIZMAKER_NOTIFY_GLOBAL_APPROVE', "Tout élément à approuver");
@@ -92,8 +92,8 @@ define('_MI_QUIZMAKER_NOTIFY_QUIZ_APPROVE', "Quiz approuver");
 define('_MI_QUIZMAKER_QUIZ_BLOCK', "Bloc de quiz");
 define('_MI_QUIZMAKER_QUIZ_BLOCK_HITS', "Coups de bloc de quiz");
 define('_MI_QUIZMAKER_QUIZ_BLOCK_HITS_DESC', "Description des résultats du bloc de quiz");
-define('_MI_QUIZMAKER_QUIZ_BLOCK_LAST', "Bloc de quiz en dernier");
-define('_MI_QUIZMAKER_QUIZ_BLOCK_LAST_DESC', "Dernière description du bloc de quiz");
+define('_MI_QUIZMAKER_QUIZ_BLOCK_LAST', "Derniers quiz");
+define('_MI_QUIZMAKER_QUIZ_BLOCK_LAST_DESC', "Bloc des derniers quiz");
 define('_MI_QUIZMAKER_QUIZ_BLOCK_NEW', "Bloc de quiz nouveau");
 define('_MI_QUIZMAKER_QUIZ_BLOCK_NEW_DESC', "Nouvelle description du bloc de quiz");
 define('_MI_QUIZMAKER_QUIZ_BLOCK_RANDOM', "Bloc de quiz aléatoire");
@@ -110,8 +110,8 @@ define('_MI_QUIZMAKER_ADMENU8', "Resultats");
 define('_MI_QUIZMAKER_RESULTS_BLOCK', "Bloc de résultats");
 define('_MI_QUIZMAKER_RESULTS_BLOCK_HITS', "Les résultats bloquent les résultats");
 define('_MI_QUIZMAKER_RESULTS_BLOCK_HITS_DESC', "Description des résultats du bloc de résultats");
-define('_MI_QUIZMAKER_RESULTS_BLOCK_LAST', "Bloc de résultats en dernier");
-define('_MI_QUIZMAKER_RESULTS_BLOCK_LAST_DESC', "Dernière description du bloc de résultats");
+define('_MI_QUIZMAKER_RESULTS_BLOCK_LAST', "Résultat derniers quiz");
+define('_MI_QUIZMAKER_RESULTS_BLOCK_LAST_DESC', "Bloc d'affichage des résultat des derniers quiz");
 define('_MI_QUIZMAKER_RESULTS_BLOCK_NEW', "Nouveau bloc de résultats");
 define('_MI_QUIZMAKER_RESULTS_BLOCK_NEW_DESC', "Nouvelle description du bloc de résultats");
 define('_MI_QUIZMAKER_RESULTS_BLOCK_RANDOM', "Bloc de résultats aléatoire");
@@ -138,4 +138,25 @@ define('_MI_QUIZMAKER_ADMENU9', "Permissions");
 define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Afficher le bouton d'exemple ?");
 define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "Si oui, le bouton \"Ajouter des données d'échantillon\" sera visible par l'administrateur. C'est Oui par défaut pour la première installation.");
 define('_MI_QUIZMAKER_ADMENU_CLONE', "Cloner");
+
+define('_MI_QUIZMAKER_MINIFY', "Minification");
+define('_MI_QUIZMAKER_USE_JS_MINIFIED', "Javascript minifié");
+define('_MI_QUIZMAKER_USE_JS_MINIFIED_DESC', "Utilse les fichiers javascript minifiés.<br>Laisser non pendant le developpement des la partie javascript.<br>Ne pas oublier de minifier les fichiers javascript quans les fichier d'origine on été modifier.");
+
+define('_MI_QUIZMAKER_SIZE_MB', 'MB');
+define('_MI_QUIZMAKER_MAXSIZE_IMAGE', 'Taille maximale de l\'image');
+define('_MI_QUIZMAKER_MAXSIZE_IMAGE_DESC', 'Définir la taille maximale pour le téléchargement des images');
+define('_MI_QUIZMAKER_MIMETYPES_IMAGE', 'Image des types Mime');
+define('_MI_QUIZMAKER_MIMETYPES_IMAGE_DESC', 'Définir les types mime autorisés pour le téléchargement des images');
+define('_MI_QUIZMAKER_MAXWIDTH_IMAGE', 'Image de largeur maximale');
+define('_MI_QUIZMAKER_MAXWIDTH_IMAGE_DESC', 'Définit la largeur maximale à laquelle les images téléchargées doivent être mises à l’échelle (en pixels) <br> 0 signifie que les images conservent la taille originale. <br> Si une image est inférieure à la valeur maximale, l’image ne sera pas agrandi, il sera sauvegardé dans la largeur originale. ');
+define('_MI_QUIZMAKER_MAXHEIGHT_IMAGE', 'Image de hauteur maximale');
+define('_MI_QUIZMAKER_MAXHEIGHT_IMAGE_DESC', 'Définit la hauteur maximale à laquelle les images téléchargées doivent être mises à l’échelle (en pixels) <br> 0 signifie que les images conservent la taille originale. <br> Si une image est plus petite que la valeur maximale, l’image ne sera pas agrandi, il sera sauvegardé à la hauteur d\'origine ');
+
+define('_MI_QUIZMAKER_SHOW_TPL_NAME', 'Afficher le nom des templates');
+define('_MI_QUIZMAKER_SHOW_TPL_NAME_DESC', 'Option à utiliser pour le développement, la désactiver en production');
+define('_MI_QUIZMAKER_CATEGORIES_BLOCK', "Bloc catégories");
+define('_MI_QUIZMAKER_CATEGORIES_BLOCK_DESC', "Description du bloc de catégories");
+define('_MI_QUIZMAKER_TOOLS', "Outils");
+
 ?>

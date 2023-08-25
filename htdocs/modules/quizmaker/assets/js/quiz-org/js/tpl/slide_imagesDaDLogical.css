@@ -1,0 +1,44 @@
+﻿/* Drag An Drop */
+.imagesDaDLogical {
+    margin-top:50px;
+}
+
+.imagesDaDLogical div{
+    width:auto;
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+
+    /*background-color:rgb(204,255,255);*/
+    background-color: transparent;
+
+    float:left;margin:5px;font-size:0.8em;text-align:center;
+    padding:2px;
+}
+.imagesDaDLogical div:hover{
+    border: 4px solid green;
+}
+
+.imagesDaDLogical img{
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    margin-bottom:5px;
+}
+
+.imagesDaDLogical_myimg1{
+    border: 4px solid transparent;
+}
+
+.imagesDaDLogical_myimg2{
+    border: 4px solid red;
+    /* border-style: groove;*/    
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+
+}    
+

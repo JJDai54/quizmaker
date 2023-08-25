@@ -11,17 +11,53 @@
     <title><{$quiz.name}></title>
 <{/if}>
 
+<{$highslide}>
+<script>const quiz_execution=<{$quiz_execution}> </script>
+    <script src="<{$quizUrl}>/js/quiz-consignes.js"></script>
+<script src="<{$quizUrl}>/js/<{$options}>.js"></script>
+<script  src="<{$quizUrl}>/js/<{$questions}>.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="<{$urlApp}>/css/infobulle/infobulle.css"/>
+
     <{foreach item=css from=$allCss name=cssName}>
         <link rel="stylesheet" type="text/css" media="screen" href="<{$urlApp}>/css/<{$css}>"/>
     <{/foreach}>
     
     <script src="<{$urlApp}>/js/<{$prototype}>"></script>
+    <!-- Insertion des classes des slides -->
     <{foreach item=tpljs from=$allTpljs name=tpljsName}>
         <script src="<{$urlApp}>/js/tpl/<{$tpljs}>"></script>
     <{/foreach}>
+
+    <{* ========================================== *}> 
+
+<script>
+
+/**************************************************************************
+ *   get instance de classe
+ * ************************************************************************/
+  function getTplNewClass (currentQuestion, chrono){
+
+  var obj;
+
+    switch (currentQuestion.type){
+    <{foreach item=tpljs from=$allTpljs name=tpljsName}>
+        <{assign var='className' value=$tpljs|substr:6:-3 }>
+        case "<{$className}>" : obj = new (<{$className}>)(currentQuestion, chrono); break;
+    <{/foreach}>
     
+    default: alert("getTplNewClass - Classe absente : " + currentQuestion.type); break;
+    }
+
+    blob("getTplNewClass - Classe : " + currentQuestion.type);
+    return obj;
+}
+</script>
+
+    
+    <{* ========================================== *}> 
 
 <script src="<{$urlApp}>/js/language/quiz-<{$language}>.js"></script>
+
 
 <{if $outline}>
     </head>
@@ -33,15 +69,13 @@
 <h1 class="quiz-main">Quiz en javascript pour le module "quizmaker" pour Xoops</h1>
 *}>
 <!-- *****************************************  -->
-<div id='quiz_box_main' name='quiz_box_main'>
+<div id='quiz_div_module_xoops' name='quiz_div_module_xoops'>
 </div>
 <!-- *****************************************  -->
 </center>
 
 <div id='quiz_questions_js' name='quiz_questions_js'>
-<script  src="<{$quizUrl}>/<{$questions}>.js"></script>
 </div>
-<script src="<{$quizUrl}>/<{$options}>.js"></script>
 
 
 <script src="<{$urlApp}>/js/<{$quiz_functions}>.js"></script>

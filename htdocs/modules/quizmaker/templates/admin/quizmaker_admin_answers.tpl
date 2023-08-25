@@ -1,6 +1,8 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
+<{if !$form}>
+
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='answers.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
 <input type="hidden" name="sender" value="0" />
@@ -12,30 +14,35 @@
 <{$smarty.const._AM_QUIZMAKER_QUESTION}> : <{$inpQuest}>
 </div>
 
+<{* 
 <div class="floatleft">
     <div class="xo-buttons">
         <{$btnNewAnswer}>
     </div>
 </div>
-
 <div class="floatright">
     <div class="xo-buttons">
         <{$initWeight}>
     </div>
 </div>
+*}> 
 
 </form>
 
 
-<{if $answers_list}>
+<{if $answersCount > 0}>
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_QUESTION_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_PROPOSITION}></th>
+				<th class="center"><{$smarty.const._CO_QUIZMAKER_GROUP}></th>
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_POINTS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CAPTION}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_IMAGE}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_COLOR}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_BACKGROUND}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
@@ -50,14 +57,24 @@
                 
 				<td class='left'>
 					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>">
-                    <{$Answers.proposition}></td></a>
+                    <{$Answers.proposition}></a></td>
                     
-				<td class='left'>
-                    <{$Answers.points}></td></a>
+				<td class='center'>
+                    <{$Answers.group}></td>
 				
-                <td class='left'>
-					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>">
-                    <{$Answers.caption}></td></a>
+				<td class='center'>
+                    <{$Answers.points}></td>
+                    
+                <td class='left'>    
+                    <{$Answers.caption}></td>
+                    
+                <td class='left'>    
+                    <{$Answers.image1}></td>
+                    
+                <td class='center width10'>
+                    <{$Answers.color}></td>
+                <td class='center width10'>
+                    <{$Answers.background}></td>
                 
                 <{* ---------------- Arrows -------------------- *}>
                 <td class='center'>
@@ -96,8 +113,8 @@
                 
                 
 				<td class="center  width5">
-					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="answers" /></a>
-					<a href="answers.php?op=delete&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="answers" /></a>
+					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 'edit.png'}>" alt="answers" /></a>
+					<a href="answers.php?op=delete&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 'delete.png'}>" alt="answers" /></a>
 				</td>
 			</tr>
 			<{/foreach}>
@@ -105,14 +122,20 @@
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
+	<{* <{if $pagenav}> 
 		<div class="xo-pagenav floatright"><{$pagenav}></div>
 		<div class="clear spacer"></div>
 	<{/if}>
+    *}>
 <{/if}>
+<{/if}>
+
+
 <{if $form}>
 	<{$form}>
 <{/if}>
+<{* 
+*}> 
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>

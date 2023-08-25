@@ -29,7 +29,7 @@ use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
 
-\JJD\loadAllXForms();
+//\JJD\loadAllXForms();
 
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
@@ -79,11 +79,11 @@ switch($op) {
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
 	break;
     
-	case 'config_options':
-        $config = Request::getInt('config', 0);
-        $quizHandler->config_options($quizId, $config);
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Options mise à jour");
-	break;
+// 	case 'config_options':
+//         $config = Request::getInt('config', 0);
+//         $quizHandler->config_options($quizId, $config);
+//         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Options mise à jour");
+// 	break;
 
     case 'init_weight':
         $quizHandler->incrementeWeight($catId);

@@ -36,8 +36,8 @@ window.scroll(0, window.scrollY + offsetV);
 <{if $result}>
 
     <{assign var="themeResult" value="red"}> <{* $quiz.theme_ok *}>
-    <div class="itemRound-top  <{$themeResult}>-itemHead"><center><b><{$smarty.const._MA_QUIZMAKER_RESULTS_FOR}><{$result.result_uname}></b></center></div>
-    <div class="itemRound-none <{$themeResult}>-itemBody" style="padding:20px 50px 20px 50px;">
+    <div class="item-round-top  <{$themeResult}>-item-head"><center><b><{$smarty.const._MA_QUIZMAKER_RESULTS_FOR}><{$result.result_uname}></b></center></div>
+    <div class="item-round-none <{$themeResult}>-item-body" style="padding:20px 50px 20px 50px;">
     
 
       <table class='quizTbl'>
@@ -63,7 +63,7 @@ window.scroll(0, window.scrollY + offsetV);
         </tr>
       </table>
     </div>
-    <div class="itemRound-bottom <{$themeResult}>-itemLegend"><center><b><{$smarty.const._MA_QUIZMAKER_THANKS_FOR_PARTICIPATION}></b></center></div><br>
+    <div class="item-round-bottom <{$themeResult}>-item-legend"><center><b><{$smarty.const._MA_QUIZMAKER_THANKS_FOR_PARTICIPATION}></b></center></div><br>
 
 
 
@@ -109,17 +109,17 @@ window.scroll(0, window.scrollY + offsetV);
   *}>
 <{/if}>
 
-    <div class="itemRound-top <{$quiz.theme_ok}>-itemHead"><center><b><{$quiz.name}></b><br><{$smarty.const._MA_QUIZMAKER_QUIZ_ANSWERS_AND_EXPLANATION}></center></div>
-    <div class="itemRound-none <{$quiz.theme_ok}>-itemInfo" style="padding:20px 50px 20px 50px;"><{$quiz.quiz_description}></div>
-    <div class="itemRound-bottom <{$quiz.theme_ok}>-itemLegend"><center>...</center></div><br>
+    <div class="item-round-top <{$quiz.theme_ok}>-item-head"><center><b><{$quiz.name}></b><br><{$smarty.const._MA_QUIZMAKER_QUIZ_ANSWERS_AND_EXPLANATION}></center></div>
+    <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:20px 50px 20px 50px;"><{$quiz.quiz_description}></div>
+    <div class="item-round-bottom <{$quiz.theme_ok}>-item-legend"><center>...</center></div><br>
  
  
 
  
     <{* ----- balayage des questions pour construire le sommaire ----- *}>
-    <div class="itemRound-top <{$quiz.theme_ok}>-itemHead"><center><{$smarty.const._CO_QUIZMAKER_SOMMAIRE}></center></div>
+    <div class="item-round-top <{$quiz.theme_ok}>-item-head"><center><{$smarty.const._CO_QUIZMAKER_SOMMAIRE}></center></div>
     <a href='' name='slide-sommaire'></a>
-    <div class="itemRound-none <{$quiz.theme_ok}>-itemBody" style="padding:0px 30px 0px 30px;">
+    <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:0px 30px 0px 30px;">
     
       <table class='quizTbl'>
         <{foreach item=question from=$questions name=quest}>
@@ -158,7 +158,7 @@ window.scroll(0, window.scrollY + offsetV);
         <{/foreach}>
       </table>
     </div>
-    <div class="itemRound-bottom <{$quiz.theme_ok}>-itemHead"><center>...</center></div>
+    <div class="item-round-bottom <{$quiz.theme_ok}>-item-head"><center>...</center></div>
     <br>
  
  
@@ -169,27 +169,27 @@ window.scroll(0, window.scrollY + offsetV);
         
         
         <{if $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_QUESTION}>        
-          <div class="itemRound-none <{$quiz.theme_ok}>-itemInfo" style="padding:0px 50px 0px 50px;">
+          <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">
               <b><{$question.numQuestion}><{if $admin}> - <{$question.question}> (#<{$question.id}> / <{$question.type_question}>)<{/if}>
               <a href='#slide-sommaire' class='sommaire' onclick='qm_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
 
           </div>
-          <div class="itemRound-none <{$quiz.theme_ok}>-itemInfo" style="padding:0px 50px 0px 50px;">
+          <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">
               <{$question.solutions.libScoreMax}>
           </div>
-          <div class="itemRound-none <{$quiz.theme_ok}>-itemBody" style="padding:10px 50px 5px 50px;">
+          <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:10px 50px 5px 50px;">
             <{$question.solutions.answers}>
           </div>
           
           <{if $question.explanation}>
-            <div class="itemRound-none <{$quiz.theme_ok}>-itemBody" style="padding:5px 50px 5px 50px;">
+            <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:5px 50px 5px 50px;">
               <hr class='default-hr-style-one'>
               <span style="color:blue;font-style:oblique;"><{$question.explanation}></span>
             </div>
           <{/if}>
           
           <{if $question.learn_more OR $question.see_also}>
-              <div class="itemRound-none <{$quiz.theme_ok}>-itemBody" style="padding:5px 50px 5px 50px;">
+              <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:5px 50px 5px 50px;">
               <{if $question.learn_more}>
                   <a href="<{$question.learn_more}>"  target="_blank"><{$smarty.const._MA_QUIZMAKER_LEARN_MORE}></a>
               <{/if}>
@@ -201,20 +201,20 @@ window.scroll(0, window.scrollY + offsetV);
           <{/if}>
         
         <{elseif $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>        
-            <div class="itemRound-top <{$quiz.theme_ok}>-itemHead" style='margin-top:0px;'><center>...</center><br></div>      
+            <div class="item-round-top <{$quiz.theme_ok}>-item-head" style='margin-top:0px;'><center>...</center><br></div>      
             <{*
-            <div class="itemRound-top <{$quiz.theme_ok}>-itemHead" style="padding:0px 50px 0px 50px;">
+            <div class="item-round-top <{$quiz.theme_ok}>-item-head" style="padding:0px 50px 0px 50px;">
                 <b><{$question.question}><{if $admin}> (#<{$question.id}> / <{$question.type_question}>)<{/if}>
                 <a href='#slide-sommaire' class='sommaire' onclick='qm_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
             </div>
             *}>
         
         <{elseif $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_END}>        
-<{*             <div class="itemRound-bottom <{$quiz.theme_ok}>-itemInfo" style="padding:0px 50px 0px 50px;">...</div> *}>
-            <div class="itemRound-bottom <{$quiz.theme_ok}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br>
+<{*             <div class="item-round-bottom <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">...</div> *}>
+            <div class="item-round-bottom <{$quiz.theme_ok}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
         
         <{elseif $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>        
-          <div class="itemRound-none <{$quiz.theme_ok}>-itemHead" style="padding:0px 50px 0px 50px;">
+          <div class="item-round-none <{$quiz.theme_ok}>-item-head" style="padding:0px 50px 0px 50px;">
               <center><b><{$question.question}></b></center>
           </div>
         <{/if}>
@@ -234,7 +234,7 @@ window.scroll(0, window.scrollY + offsetV);
     <{/foreach}>
     <{* ----- fin du balayage des questions ----- *}>
 
-    <{* <div class="itemRound-bottom <{$quiz.theme_ok}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br> *}>
+    <{* <div class="item-round-bottom <{$quiz.theme_ok}>-item-legend" style='margin-top:0px;'><center>...</center></div><br> *}>
 
 	<div class="clear">&nbsp;</div>
 <{*

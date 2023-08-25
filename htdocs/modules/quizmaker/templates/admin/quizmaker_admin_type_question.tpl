@@ -10,8 +10,9 @@
 
 <{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
 <{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
+<{$smarty.const._AM_QUIZMAKER_TYPE_QUESTION_CATEGORY}> : <{$inpCatTQ}>
 
-         <{$btnGoToQuestion}>
+         <{* <{$btnGoToQuestion}> *}>
     </div>
 
 
@@ -59,6 +60,7 @@ function addNewQuestion(typeQuestion){
                       </a>
                     <{/if}>
                 <td class='left'>
+<{* 
                     <div class='highslide-gallery'>
 			         <{foreach item=modele from=$TypeDeQuestion.modeles}>    
                         <a href='<{$modele}>' class='highslide' onclick='return hs.expand(this);' >
@@ -67,6 +69,8 @@ function addNewQuestion(typeQuestion){
                         <div class='highslide-heading'></div>
 			         <{/foreach}>
                     </div>
+*}>                 
+                    <{$TypeDeQuestion.modelesHtml}>
                                      
                 </td>
 
@@ -77,10 +81,7 @@ function addNewQuestion(typeQuestion){
 		<{/if}>
 	</table>
 	<div class="clear">&nbsp;</div>
-	<{if $pagenav}>
-		<div class="xo-pagenav floatright"><{$pagenav}></div>
-		<div class="clear spacer"></div>
-	<{/if}>
+
 <{/if}>
 
 <script>
@@ -88,12 +89,14 @@ tth_set_value('last_asc', true);
 tth_trierTableau('quiz_type_question_list', 5, "1,2,3,4,5");  
 </script>
 
+<{* 
 <{if $form}>
 	<{$form}>
 <{/if}>
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
+*}> 
 
 <!-- Footer -->
 <{include file='db:quizmaker_admin_footer.tpl' }>

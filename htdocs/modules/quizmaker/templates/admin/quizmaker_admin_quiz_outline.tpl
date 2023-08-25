@@ -25,13 +25,16 @@
 
 <script src="js/tpl/slide_radioSimple.js"></script>
 <script src="js/tpl/slide_radioMultiple2.js"></script>
-<script src="js/tpl/slide_listboxIntruders1.js"></script>
-<script src="js/tpl/slide_listboxIntruders2.js"></script>
+<script src="js/tpl/slide_listboxIntruders.js"></script>
 
 <script src="js/tpl/slide_textarea.js"></script>
 <script src="js/tpl/slide_textareaInput.js"></script>
 <script src="js/tpl/slide_textareaListbox.js"></script>
 
+<script src="js/tpl/slide_imagesLogical.js"></script>
+<script src="js/tpl/slide_imagesDaDLogical.js"></script>
+
+<script src="js/tpl/slide_ulSortList.js"></script>
 
 
 

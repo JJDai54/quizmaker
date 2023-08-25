@@ -53,6 +53,7 @@ define('_CO_QUIZMAKER_NEW_VERSION', "Nouvelle version:");
 define('_CO_QUIZMAKER_PUBLISH_NONE', "Pas d'exécution");
 define('_CO_QUIZMAKER_UPLOADPATHDSC', "Noter. Le chemin de téléchargement *DOIT* contenir le chemin complet du serveur de votre dossier de téléchargement.");
 define('_CO_QUIZMAKER_PUBLISH_OUTLINE', "exécution hors du site");
+define('_CO_QUIZMAKER_GROUP', "Groupe");
 define('_CO_QUIZMAKER_POINTS', "Points");
 define('_CO_QUIZMAKER_FORM_RESULT', "Resultats");
 define('_CO_QUIZMAKER_SAMPLEDATA_SUCCESS', "Exemple de date téléchargé avec succès");
@@ -77,5 +78,7 @@ define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
 define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
 define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir ressaisir les réponses.");
 define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
+define('_CO_QUIZMAKER_CATEGORIES', "Catégories");
+define('_CO_QUIZMAKER_SEE_ANSWER', "Voir les réponses");
 
 ?>

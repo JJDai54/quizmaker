@@ -42,11 +42,17 @@ class Answers extends \XoopsObject
 		$this->initVar('answer_id', XOBJ_DTYPE_INT);
 		$this->initVar('answer_flag', XOBJ_DTYPE_INT);
 		$this->initVar('answer_quest_id', XOBJ_DTYPE_INT);
-		$this->initVar('answer_caption', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('answer_proposition', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('answer_caption', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('answer_color', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('answer_background', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('answer_points', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('answer_weight', XOBJ_DTYPE_INT);
 		$this->initVar('answer_inputs', XOBJ_DTYPE_INT);
+		$this->initVar('answer_image', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('answer_image1', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('answer_image2', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('answer_group', XOBJ_DTYPE_INT);
 	}
 
 	/**
@@ -133,19 +139,52 @@ class Answers extends \XoopsObject
 		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_QUESTIONS_COMMENT1, 'answer_proposition', $editorConfigs) );
         //--------------------------------------------------------------
         
-        
-        
-        
-        
 		// Form Text answerCaption
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_CAPTION, 'answer_caption', 80, 255, $this->getVar('answer_caption') ), false);
         
+		// Form Text answer_color
+        $idChkIsColor = 'answer_isColor';   
+        $isColor = ($this->getVar('answer_color')) ? 1 : 0 ;
+        $inpColor = new \XoopsFormColorPicker('', 'answer_color', $this->getVar('answer_color') );
+        $inpColor->setExtra("onChange=\"document.getElementById('{$idChkIsColor}1').checked=1;\"");
+        //$inpColor->setExtra("onChange=\"alert('{$idChkIsColor}');document.getElementById('{$idChkIsColor}1').checked=1;alert('zzzzzzz');\"");
+        $inpIsBackround = new \XoopsFormCheckBox('', $idChkIsColor, array($isColor));                        
+        $inpIsBackround->addOption(1, ' ');
+        $trayColor = new \XoopsFormElementTray(_AM_QUIZMAKER_BACKGROUND, ' ');
+		$trayColor->addElement($inpIsBackround, false);
+		$trayColor->addElement($inpColor, false);
+		$form->addElement($trayColor, false);
+
+		
+		// Form Text answer_background
+        $idChkIsBackground = 'answer_isBackground';   
+        $isBackground = ($this->getVar('answer_background')) ? 1 : 0 ;
+        $inpBackground = new \XoopsFormColorPicker('', 'answer_background', $this->getVar('answer_background') );
+        $inpBackground->setExtra("onChange=\"document.getElementById('{$idChkIsBackground}1').checked=1;\"");
+        //$inpBackground->setExtra("onChange=\"alert('{$idChkIsBackground}');document.getElementById('{$idChkIsBackground}1').checked=1;alert('zzzzzzz');\"");
+        $inpIsBackround = new \XoopsFormCheckBox('', $idChkIsBackground, array($isBackground));                        
+        $inpIsBackround->addOption(1, ' ');
+        $trayBackground = new \XoopsFormElementTray(_AM_QUIZMAKER_BACKGROUND, ' ');
+		$trayBackground->addElement($inpIsBackround, false);
+		$trayBackground->addElement($inpBackground, false);
+		$form->addElement($trayBackground, false);
+        
+        
+       
+        // Form Text answerGroup
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_ANSWERS_GROUP, 'answer_group', 50, 255, $this->getVar('answer_group') ), false);
 		// Form Text answerPoints
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_ANSWERS_POINTS, 'answer_points', 50, 255, $this->getVar('answer_points') ), false);
 		// Form Text answerWeight
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'answer_weight', 50, 255, $this->getVar('answer_weight') ), true);
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'answer_weight', 50, 255, $this->getVar('answer_weight') ), false);
 		// Form Text answer_inputs
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_INPUTS, 'answer_inputs', 50, 255, $this->getVar('answer_inputs') ), true);
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_INPUTS, 'answer_inputs', 50, 255, $this->getVar('answer_inputs') ), false);
+		// Form Text answer_image
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_IMAGE, 'answer_image', 50, 255, $this->getVar('answer_image') ), false);
+		// Form Text answer_image1
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_IMAGE, 'answer_image1', 50, 255, $this->getVar('answer_image1') ), false);
+		// Form Text answer_image2
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_IMAGE, 'answer_image2', 50, 255, $this->getVar('answer_image2') ), false);
 		
         
         // To Save
@@ -166,11 +205,17 @@ class Answers extends \XoopsObject
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']          = $this->getVar('answer_id');
 		$ret['quest_id']    = $this->getVar('answer_quest_id');
-		$ret['caption']      = $this->getVar('answer_caption');
 		$ret['proposition'] = $this->getVar('answer_proposition');
+		$ret['caption']     = $this->getVar('answer_caption');
+		$ret['color']       = $this->getVar('answer_color');
+		$ret['background']  = $this->getVar('answer_background');
 		$ret['points']      = $this->getVar('answer_points');
 		$ret['weight']      = $this->getVar('answer_weight');
 		$ret['inputs']      = $this->getVar('answer_inputs');
+		$ret['image']       = $this->getVar('answer_image');
+		$ret['image1']      = $this->getVar('answer_image1');
+		$ret['image2']      = $this->getVar('answer_image2');
+		$ret['group']     = $this->getVar('answer_group');
 		return $ret;
 	}
 

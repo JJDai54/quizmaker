@@ -48,7 +48,7 @@ $GLOBALS['xoopsTpl']->assign('showItem', $quizId > 0);
  	
 switch($op) {
 	case 'submit_answers':
-// echoArray($_POST);
+//echoArray($_POST); //xit;
 // echo "Enregistrement des résultats";
         $ip = \Xmf\IPAddress::fromRequest()->asReadable();
         $criteria = new \CriteriaCompo(new \criteria('result_ip', $ip, "="));
@@ -84,7 +84,7 @@ if ($GLOBALS['xoopsUser']) {
         $resultsObj->setVar('result_uname', $GLOBALS['xoopsUser']->getVar('uname'));
 }else{
         $resultsObj->setVar('result_uid', 3);
-        $resultsObj->setVar('result_uname', "Anonyme");
+        $resultsObj->setVar('result_uname', Request::getString('pseudo'));
 }       
         $resultsObj->setVar('result_answers_total', Request::getInt('answers_total', 0));
         $resultsObj->setVar('result_answers_achieved', Request::getInt('answers_achieved', 0));
@@ -92,12 +92,13 @@ if ($GLOBALS['xoopsUser']) {
         $resultsObj->setVar('result_duration', Request::getInt('duration', 0));
 
         $res = str_replace(',', '.', (sprintf("%s",round($score_achieved / $score_max * 100, 2)) ));
-        echo "{$res}<br>";
+//        echo "{$res}<br>";
         $resultsObj->setVar('result_note',$res);
         //$resultsObj->setVar('result_note', 0);
         $resultsObj->setVar('result_creation', \JJD\getSqlDate());
         $resultsObj->setVar('result_update', \JJD\getSqlDate());
 //setlocale(LC_NUMERIC, 'fr_FR');
+//$bolOK = $resultsHandler->insert($resultsObj);exit;
 		if ($resultsHandler->insert($resultsObj)) {
             //exit ('enregistrement ok');
 			//redirect_header("results.php?op=list&quiz_id={$quizId}&sender={$sender}", 2, _MA_QUIZMAKER_FORM_OK);

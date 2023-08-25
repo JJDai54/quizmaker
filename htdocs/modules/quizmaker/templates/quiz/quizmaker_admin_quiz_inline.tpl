@@ -25,8 +25,7 @@
 
 <script src="js/tpl/slide_radioSimple.js"></script>
 <script src="js/tpl/slide_radioMultiple2.js"></script>
-<script src="js/tpl/slide_listboxIntruders1.js"></script>
-<script src="js/tpl/slide_listboxIntruders2.js"></script>
+<script src="js/tpl/slide_listboxIntruders.js"></script>
 
 <script src="js/tpl/slide_textarea.js"></script>
 <script src="js/tpl/slide_textareaInput.js"></script>
@@ -54,14 +53,8 @@
 
 <div class="zonedeDequiz">
 <center>
-
-
   <div id="quiz-container" class="quiz-container">
   </div>
-
-
-
-
 </center>
 </div>
 

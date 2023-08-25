@@ -70,6 +70,18 @@ $adminmenu[] = [
 	'link' => 'admin/import.php',
 	'icon' => $sysPathIcon32 . '/download.png',
 ];
+/*
+$adminmenu[] = [
+	'title' => _MI_QUIZMAKER_MINIFY,
+	'link' => 'admin/minify.php',
+	'icon' => $sysPathIcon32.'/discount.png',
+];
+*/
+$adminmenu[] = [
+	'title' => _MI_QUIZMAKER_TOOLS,
+	'link' => 'admin/tools.php',
+	'icon' => $sysPathIcon32.'/synchronized.png',
+];
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU8,
@@ -85,14 +97,14 @@ $adminmenu[] = [
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU11,
 	'link' => 'admin/messages.php',
-	'icon' => $sysPathIcon32.'/edit.png',
+	'icon' => $sysPathIcon32.'/translations.png',
 ];
 /*
 */
 $adminmenu[] = [
     'title' => _MI_QUIZMAKER_ADMENU_CLONE,
     'link' => 'admin/clone.php',
-    'icon' => $sysPathIcon32.'/clone.png',
+    'icon' => $sysPathIcon32.'/page_copy.png',
 ];
 
 $adminmenu[] = [

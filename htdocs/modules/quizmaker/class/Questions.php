@@ -46,12 +46,15 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_type_question', XOBJ_DTYPE_TXTBOX);
 //		$this->initVar('quest_type_form', XOBJ_DTYPE_INT);
 		$this->initVar('quest_question', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_identifiant', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_options', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_comment1', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_explanation', XOBJ_DTYPE_OTHER);
+		$this->initVar('quest_consigne', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_learn_more', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_see_also', XOBJ_DTYPE_TXTBOX);
-		$this->initVar('quest_minReponse', XOBJ_DTYPE_INT);
+		$this->initVar('quest_image', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_points', XOBJ_DTYPE_INT);
 		$this->initVar('quest_numbering', XOBJ_DTYPE_INT);
 		$this->initVar('quest_shuffleAnswers', XOBJ_DTYPE_INT);
 		$this->initVar('quest_creation', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
@@ -105,8 +108,7 @@ class Questions extends \XoopsObject
         //===========================================================        
 		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
         // recupe de la classe du type de question
-        $typeQuestion = $this->getVar('quest_type_question');
-        $clTypeQuestion = $this->getTypeQuestion();
+        $clTypeQuestion = $this->getTypeQuestion($typeQuestion);
 		$questionsHandler = $quizmakerHelper->getHandler('Questions'); // Questions Handler
         //=================================================
         
@@ -145,7 +147,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
           // Form Select questType_question
           $inpTypeQuestion = new \XoopsFormSelect( '', 'quest_type_question', $typeQuestion);
           $inpTypeQuestion->addOption('Empty');
-          $inpTypeQuestion->addOptionArray($type_questionHandler->getListKeyName(true));
+          $inpTypeQuestion->addOptionArray($type_questionHandler->getListKeyName(null, true));
           $inpTypeQuestion->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\");'");
           
         }else{
@@ -197,22 +199,27 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         $form->insertBreak("<div style='background:black;color:white;'><center>" . _AM_QUIZMAKER_PARAMETRES . "</center></div>");
         
 		// Form Text questQuestion
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_QUESTION, 'quest_question', 120, 255, $this->getVar('quest_question') ), true);
+        $inpQuestion = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_QUESTION, 'quest_question', 120, 255, $this->getVar('quest_question') );
+		$inpQuestion->setDescription(_AM_QUIZMAKER_QUESTIONS_QUESTION_DESC);
+        $form->addElement($inpQuestion, true);
         
-		// Form Text questWeight
-		$form->addElement($inpWeight);
+		// Form Text quest_identifiant
+        //$this->setVar('quest_identifiant', $this->getVar('quest_question') ); 
+        if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', 'slide_' . rand(10000,100000)); 
+        $inpIdentifiant = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', 120, 255, $this->getVar('quest_identifiant') );
+        $inpIdentifiant->setDescription(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
+		$form->addElement($inpIdentifiant, false);
 		
-        //$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_OPTIONS, 'quest_options', 50, 255, $this->getVar('quest_options') ), false);
-        if ($clTypeQuestion) $inpOptions = $clTypeQuestion->getformOptions(_AM_QUIZMAKER_OPTIONS,'quest_options',$this->getVar('quest_options'));
-        $form->addElement($inpOptions, false);
-        //--------------------------------------------------------------
-		// Form Editor DhtmlTextArea questComment1
-        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
-		$form->addElement($inpComment1);
-        //--------------------------------------------------------------
+        // Form Text questWeight
+		$form->addElement($inpWeight);
+
 		// Form Editor DhtmlTextArea quest_explanation
         $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $quizmakerHelper);        
 		$form->addElement($inpExplanation);
+		
+		// Form Editor DhtmlTextArea questComment1
+        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
+		$form->addElement($inpComment1);
         
 		// Form Text learn_more
 		$inpLearnMore = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_LEARN_MORE, 'quest_learn_more', 120, 255, $this->getVar('quest_learn_more') );
@@ -225,10 +232,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         
         /* ***** Options uniquement pour les questions ***** */
         if($clTypeQuestion->isQuestion()){
-          // Form Text questMinReponse
-          $questMinReponse = $this->isNew() ? '0' : $this->getVar('quest_minReponse');
-          $form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_MINREPONSE, 'quest_minReponse', 20, 150, $questMinReponse ) );
-          
+    
           // Form Text questNumbering
           //----------------------------------------------------------
           $tOptNumbering = array(_AM_QUIZMAKER_NUMERIQUE,_AM_QUIZMAKER_UPPERCASE,_AM_QUIZMAKER_LOWERCASE);
@@ -239,9 +243,11 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
           
           //----------------------------------------------------------
           // Form int quest_shuffleAnswers
+/* transféré dans les options spécifiques
           $inpShuffleAns = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS , 'quest_shuffleAnswers', $this->getVar('quest_shuffleAnswers'));        
           $inpShuffleAns->setDescription(_AM_QUIZMAKER_SHUFFLE_ANS_DESC);
           $form->addElement($inpShuffleAns);
+*/          
         }
 
         // Form Text Select questTimer
@@ -251,6 +257,10 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 		$form->addElement($inpTimer);
 
         
+
+		// Form Editor DhtmlTextArea quest_consigne
+        $inpConsigne  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_CONSIGNE, 'quest_consigne', $this->getVar('quest_consigne', 'e'), _AM_QUIZMAKER_QUESTIONS_CONSIGNE_DESC, null, $quizmakerHelper);        
+		$form->addElement($inpConsigne);
 		//$form->addElement($fileNameTray);
         
         // Form quest_visible
@@ -263,11 +273,59 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         $inpActif->setDescription(_AM_QUIZMAKER_ACTIF_DESC);
         $form->addElement($inpActif);
         
+        // ===================================================================
+        // cette partie insert l'aide, les options et les poropositions propres au type de question
+        // ===================================================================
+
+        //ajout de l'aide pour ce slide
+        $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SLIDE_CONSIGNE . "</center></div>");
+        $form->addElement($clTypeQuestion->getSlideHelper());
+
+        //====================================================================
+        //options globales pour les propositions (height, btnColor, ...)
+        $quiz = $quizHandler->get($this->getVar('quest_quiz_id'));
+        $folderJS = $quiz->getVar('quiz_folderJS');
+        //$idQuiz = $this->getVar('quest_quiz_id');
+        //echo "<hr>dossier du quiz : {$idQuiz}-{$folderJS}<hr>";        
+        $form->insertBreak("<div style='background:blue;color:white;'><center>" . _AM_QUIZMAKER_SLIDE_OPTIONS . "</center></div>");
+          //--------------------------------------------------------------  
+          // ce champ fait partie de la table question mais il est pus ergonomique de le metre ici
+          $inpPoints =   new \XoopsFormNumber('', 'quest_points', 8, 8, $this->getVar('quest_points'));
+          $inpPoints->setMinMax(0, 50);
+          if ($clTypeQuestion->multiPoints){
+            $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints, _AM_QUIZMAKER_QUESTIONS_POINTS_DESC));
+          }else{
+            $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints));
+          }
+          //--------------------------------------------------------------  
+        if ($clTypeQuestion){
+            $options =  html_entity_decode($this->getVar('quest_options'));
+            
+            //if($inpOptions || $clTypeQuestion->hasImageMain) 
+// Image
+            if($clTypeQuestion->hasImageMain){
+            $image = $this->getVar('quest_image');
+            $inpImage = $clTypeQuestion->getFormImage(_AM_QUIZMAKER_IMAGE, 'quest_image', $image, $folderJS);
+                $inpImage->setCaption(_AM_QUIZMAKER_IMAGE);
+                $form->addElement($inpImage, false);
+            }
+            
+            //ajout des options propres au type de question
+            $inpOptions = $clTypeQuestion->getFormOptions(_AM_QUIZMAKER_SPECIFIC_OPTIONS, 'quest_options',  $options, $folderJS);
+            if($inpOptions){
+                $form->addElement($inpOptions, false);
+            }
+            
+        } 
+       
+        //exit("options = " . $this->getVar('quest_options'));
+       
         //================================================
-        //ajout des options de réponnses
+        //ajout des propositions de réponses
         //$titleOptions = new \XoopsFormLabel(null,'Liste des options');
-        $form->insertBreak("<div style='background:black;color:white;'><center>" . _AM_QUIZMAKER_PROPOSITIONS_ANSWERS . "</center></div>");
-        if ($clTypeQuestion)  $form->addElement($clTypeQuestion->getForm($this->getVar('quest_id')));
+        $form->insertBreak("<div style='background:green;color:white;'><center>" . _AM_QUIZMAKER_PROPOSITIONS_ANSWERS . "</center></div>");
+        if ($clTypeQuestion)  $form->addElement($clTypeQuestion->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id')));
+        
         //================================================
 		// To Save
         $form->insertBreak("<div style='background:black;color:white;'><center>-----</center></div>");
@@ -285,6 +343,18 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 
      
 	/**
+	 * TrayMergeFormWithDesc : assemble un form avec une description pour l'avoir dessous et non dans la colonne de titre
+	 * @return form
+	 */
+function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
+    $tray = new \XoopsFormElementTray($caption, $sep);
+    $tray->addelement($form);
+    if($desc) $tray->addelement(new \XoopsFormLabel("",$desc));
+    return $tray;
+    
+}
+     
+	/**
 	 * Get Values
 	 * @param null $keys 
 	 * @param null $format 
@@ -294,7 +364,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 	public function getValuesQuestions($keys = null, $format = null, $maxDepth = null)
 	{
         global $quizUtility;
-        $clTypeQuestion = $this->getTypeQuestion();
+        $clTypeQuestion = $this->getTypeQuestion($typeQuestion);
         
 		$quizmakerHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
@@ -302,17 +372,26 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 		$ret['id']             = $this->getVar('quest_id');
 		$ret['parent_id']      = $this->getVar('quest_parent_id');
 		$ret['quiz_id']        = $this->getVar('quest_quiz_id');
-		$ret['type_question']  = $this->getVar('quest_type_question');
+		$ret['type_question']  = $typeQuestion; //$this->getVar('quest_type_question');
 		$ret['question']       = $this->getVar('quest_question');
+		$ret['identifiant']    = $this->getVar('quest_identifiant');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
-		$ret['options']        = $this->getVar('quest_options');
+        
+        //getVar genere une transformation facheuse 
+		$ret['options']        = html_entity_decode($this->getVar('quest_options')) ;
+        //pour palier aux transfert des options spécifiques sur des quiz plus anciens,
+        //on recupère les options par éfauts en attenaant de modifier et valider de nouveau la question
+        if(!$ret['options']) $ret['options'] = json_encode($clTypeQuestion->optionsDefaults);
+      
 		$ret['comment1']       = $this->getVar('quest_comment1', 'e');
 		$ret['comment1_short'] = $utility::truncateHtml($ret['comment1'], $editorMaxchar);
  		$ret['explanation']    = $this->getVar('quest_explanation', 'e');
  		$ret['explanation_short'] = $utility::truncateHtml($ret['explanation'], $editorMaxchar);
+ 		$ret['consigne']       = $this->getVar('quest_consigne', 'e');
  		$ret['learn_more']     = $this->getVar('quest_learn_more', 'e');
  		$ret['see_also']       = $this->getVar('quest_see_also', 'e');
-		$ret['minReponse']     = $this->getVar('quest_minReponse');
+ 		$ret['image']          = $this->getVar('quest_image', 'e');
+		$ret['points']         = $this->getVar('quest_points');
 		$ret['numbering']      = $this->getVar('quest_numbering');
 		$ret['shuffleAnswers'] = $this->getVar('quest_shuffleAnswers');
 		$ret['creation']       = \JJD\getDateSql2Str($this->getVar('quest_creation'));
@@ -321,9 +400,10 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 		$ret['weight']         = $this->getVar('quest_weight');
 		$ret['timer']          = $this->getVar('quest_timer');
 		$ret['visible']        = $this->getVar('quest_visible');
-		$ret['actif']        = $this->getVar('quest_actif');
-		$ret['flags']        = $this->getFlags($ret);
+		$ret['actif']          = $this->getVar('quest_actif');
+		$ret['flags']          = $this->getFlags($ret);
         
+		$ret['isQuestion']        = $clTypeQuestion->isQuestion;
         if($clTypeQuestion){
     		$ret['isParent']       = $clTypeQuestion->isParent;
     		$ret['isQuestion']     = $clTypeQuestion->isQuestion;
@@ -386,13 +466,13 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
  *  getTypeQuestion : renvoie la class du type de question
  * @return : classe héritée du type de question
  * *********************** */
-    public function getTypeQuestion($default='checkboxSimple')
+    public function getTypeQuestion(&$typeQuestion = null)
     {
     //echo "<hr>{$default}<hr>";
         global $quizUtility, $type_questionHandler;
         // recupe de la classe du type de question
         $typeQuestion = $this->getVar('quest_type_question');
-        if ($typeQuestion == '') $typeQuestion = $default;
+        //if ($typeQuestion == '') $typeQuestion = $default;
         return $type_questionHandler->getTypeQuestion($typeQuestion);
 /*
         $clsName = "slide_" . $typeQuestion;   
@@ -410,11 +490,11 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 *********************************************** */
   public function getSolutions($boolAllSolutions = true){
   //global $answersHandler;
-    $typeQuestion = $this->getTypeQuestion(null);
-    if (is_null($typeQuestion)) return "Problemo";
+    $tclTpeQuestion = $this->getTypeQuestion($typeQuestion);
+    if (is_null($tclTpeQuestion)) return "Problemo";
 
-    //return $typeQuestion->getSolutions($this->getVar('quest_id'), $this);
-    return $typeQuestion->getSolutions($this->getVar('quest_id'), $boolAllSolutions, $this);
+    //return $tclTpeQuestion->getSolutions($this->getVar('quest_id'), $this);
+    return $tclTpeQuestion->getSolutions($this->getVar('quest_id'), $boolAllSolutions, $this);
 
      }
     

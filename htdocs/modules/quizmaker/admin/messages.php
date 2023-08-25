@@ -36,12 +36,26 @@ switch($op) {
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
+        $language = Request::getString('language', $GLOBALS['xoopsConfig']['language']);
+            
 		$templateMain = 'quizmaker_admin_messages.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('messages.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_MESSAGES, 'messages.php?op=new', 'add');
+        
+		$adminObject->addItemButton(_AM_QUIZMAKER_LOAD_JS_LANGUAGES_FILES, 'messages.php?op=loadalljsmessages', 'download');
+		$adminObject->addItemButton(_AM_QUIZMAKER_SAVE_JS_LANGUAGES_FILES, 'messages.php?op=buildalljsmessages', 'export');
+
+        $inpLanguage = new \XoopsFormSelect(_AM_QUIZMAKER_LANGUAGE, 'language', $language);
+        $inpLanguage->addOptionArray($messagesHandler->getLanguages());
+        $inpLanguage->setExtra('onchange="document.quizmaker_select_filter.submit();"');
+  	    $GLOBALS['xoopsTpl']->assign('inpLanguage', $inpLanguage->render());
+
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-		$messagesCount = $messagesHandler->getCountMessages();
-		$messagesAll = $messagesHandler->getAllMessages($start, $limit);
+
+        $criteria = new \CriteriaCompo(new \Criteria('msg_language',$language,'='));
+        
+		$messagesCount = $messagesHandler->getCountMessages($criteria);
+		$messagesAll = $messagesHandler->getAllMessages($criteria, $start, $limit,'msg_code,msg_language');
 		$GLOBALS['xoopsTpl']->assign('messages_count', $messagesCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
@@ -84,7 +98,9 @@ switch($op) {
 		}
 		// Set Vars
 		$messagesObj->setVar('msg_code', Request::getString('msg_code', ''));
-		$messagesObj->setVar('msg_constant', Request::getString('msg_constant', ''));
+		$messagesObj->setVar('msg_language', Request::getString('msg_language', ''));
+		//$messagesObj->setVar('msg_message', htmlentities(Request::getString('msg_message', '')));
+		$messagesObj->setVar('msg_message', Request::getText('msg_message', ''));
 		//$messagesObj->setVar('msg_editable', Request::getString('msg_editable', 1));
 		// Insert Data
 		if ($messagesHandler->insert($messagesObj)) {
@@ -121,6 +137,16 @@ switch($op) {
 		} else {
 			xoops_confirm(['ok' => 1, 'msg_id' => $msgId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $messagesObj->getVar('msg_code')));
 		}
+	break;
+    //-------------------------------------------------------
+	case 'loadalljsmessages':
+        $messagesHandler->loadAllLanguagesMessagesJS();
+		redirect_header('messages.php', 3, _AM_QUIZMAKER_MESSAGES_LOADED);
+	break;
+    
+	case 'buildalljsmessages':
+        $messagesHandler->buildAllJsLanguage();
+		redirect_header('messages.php', 3, _AM_QUIZMAKER_MESSAGES_SAVED);
 	break;
 }
 require __DIR__ . '/footer.php';

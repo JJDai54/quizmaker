@@ -38,10 +38,7 @@ $limit = Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
 $catId = Request::getInt('cat_id', 0);
 
 // Define Stylesheet
-$style1 =  QUIZMAKER_QUIZ_JS_URL . "/css/style-item-color.css";
-$style2 =  QUIZMAKER_QUIZ_JS_URL . "/css/style-item-design.css";
-$GLOBALS['xoTheme']->addStylesheet( $style1, null );
-$GLOBALS['xoTheme']->addStylesheet( $style2, null );
+\JJD\load_css('', false);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
@@ -62,13 +59,12 @@ $permEdit = $permissionsHandler->getPermGlobalView();
 //echoArray($permEdit);
 $GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
-
         // ----- Listes de selection pour filtrage -----  
         //JJDai : a corriger pour n'afficher que les categorie visible par le groupe
         $selector = array();
         $style="style='width:80%;'";
         $cat = $categoriesHandler->getListKeyName(null, false, false);
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($cat);
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
@@ -86,7 +82,6 @@ $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
 //         $selector['inpQuiz'] = $inpQuiz->render();
   	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
         // ----- /Listes de selection pour filtrage -----   
-
 
 
 // 	$crCategories = new \CriteriaCompo();
@@ -148,11 +143,11 @@ $stat = $quizHandler->getStatistics();
             
 		}
     }
-    
     //recherche des quiz de la catégorie
+    $GLOBALS['xoopsTpl']->assign('paramsForQuiz', getParamsForQuiz(1));
     
-		$GLOBALS['xoopsTpl']->assign('categories', $categories);
-$GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));        
+	$GLOBALS['xoopsTpl']->assign('categories', $categories);
+    $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));        
 //echoArray($categories);    
 		unset($categories);
 ////////////////////////////////////////////////////////////

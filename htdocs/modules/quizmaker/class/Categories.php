@@ -117,7 +117,8 @@ class Categories extends \XoopsObject
         // Form Select catTheme
 		$inpTheme = new \XoopsFormSelect( _AM_QUIZMAKER_THEME, 'cat_theme', $this->getVar('cat_theme'));
         $inpTheme->setdescription(_AM_QUIZMAKER_THEME_DEFAULT_CAT);
-        $inpTheme->addOptionArray($quizUtility::get_css_color());
+        //$inpTheme->addOptionArray($quizUtility::get_css_color());
+        $inpTheme->addOptionArray( \JJD\get_css_color());
 		$form->addElement($inpTheme );
 
 		// Form Text cat_weight

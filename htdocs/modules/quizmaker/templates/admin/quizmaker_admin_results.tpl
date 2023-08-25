@@ -58,9 +58,9 @@
 				<td class='center'><{$Results.creation}></td>
 				<td class="center  width5">
                     <{*
-					<a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 edit.png}>" alt="results" /></a>
+					<a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 'edit.png'}>" alt="results" /></a>
                     *}>
-					<a href="results.php?op=delete&amp;quiz_id=<{$Results.quiz_id}>&amp;result_id=<{$Results.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 delete.png}>" alt="results" /></a>
+					<a href="results.php?op=delete&amp;quiz_id=<{$Results.quiz_id}>&amp;result_id=<{$Results.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 'delete.png'}>" alt="results" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

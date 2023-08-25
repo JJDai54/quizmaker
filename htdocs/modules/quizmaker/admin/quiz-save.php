@@ -42,7 +42,9 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
 		$quizObj->setVar('quiz_name', Request::getString('quiz_name', ''));
 		$quizObj->setVar('quiz_author', Request::getString('quiz_author', ''));
-		$quizObj->setVar('quiz_fileName', Request::getString('quiz_fileName', ''));
+        $oldFolder = $quizObj->getVar('quiz_folderJS');
+        $newFolder = Request::getString('quiz_folderJS', '');
+		$quizObj->setVar('quiz_folderJS',  $newFolder);
 		$quizObj->setVar('quiz_description', Request::getText('quiz_description', ''));
 		$quizObj->setVar('quiz_weight', Request::getInt('quiz_weight', 0));
         
@@ -58,31 +60,33 @@ use XoopsModules\Quizmaker\Utility;
 		//$quizObj->setVar('quiz_dateEnd', \JJD\getSqlDate($QuizDateEnd));
 		$quizObj->setVar('quiz_dateEnd', \JJD\getSqlDate($QuizDateEndArr));
                 
-		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
-		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
-		$quizObj->setVar('quiz_viewAllSolutions', Request::getInt('quiz_viewAllSolutions', 0));
-		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
-		$quizObj->setVar('quiz_onClickSimple', Request::getInt('quiz_onClickSimple', 0));
-		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'defaut'));
-		$quizObj->setVar('quiz_answerBeforeNext', Request::getInt('quiz_answerBeforeNext', 0));
-		$quizObj->setVar('quiz_allowedPrevious', Request::getInt('quiz_allowedPrevious', 0));
-		$quizObj->setVar('quiz_allowedSubmit', Request::getInt('quiz_allowedSubmit', 0));
-		$quizObj->setVar('quiz_shuffleQuestions', Request::getInt('quiz_shuffleQuestions', 0));
-		$quizObj->setVar('quiz_showGoodAnswers', Request::getInt('quiz_showGoodAnswers', 0));
-		$quizObj->setVar('quiz_showBadAnswers', Request::getInt('quiz_showBadAnswers', 0));
+		$quizObj->setVar('quiz_publishResults',    Request::getInt('quiz_publishResults', 0));
+		$quizObj->setVar('quiz_publishAnswers',    Request::getInt('quiz_publishAnswers', 0));
+		$quizObj->setVar('quiz_showAllSolutions',  Request::getInt('quiz_showAllSolutions', 0));
+		$quizObj->setVar('quiz_publishQuiz',       Request::getInt('quiz_publishQuiz', 0));
+		$quizObj->setVar('quiz_theme',             Request::getString('quiz_theme', 'defaut'));
+		$quizObj->setVar('quiz_answerBeforeNext',  Request::getInt('quiz_answerBeforeNext', 0));
+		$quizObj->setVar('quiz_allowedPrevious',   Request::getInt('quiz_allowedPrevious', 0));
+		$quizObj->setVar('quiz_allowedSubmit',     Request::getInt('quiz_allowedSubmit', 0));
+		$quizObj->setVar('quiz_showScoreMinMax',   Request::getInt('quiz_showScoreMinMax', 0));
+		$quizObj->setVar('quiz_shuffleQuestions',  Request::getInt('quiz_shuffleQuestions', 0));
+		$quizObj->setVar('quiz_showGoodAnswers',   Request::getInt('quiz_showGoodAnswers', 0));
+		$quizObj->setVar('quiz_showBadAnswers',    Request::getInt('quiz_showBadAnswers', 0));
 		$quizObj->setVar('quiz_showReloadAnswers', Request::getInt('quiz_showReloadAnswers', 0));
+		$quizObj->setVar('quiz_showGoToSlide',     Request::getInt('quiz_showGoToSlide', 0));
 		$quizObj->setVar('quiz_minusOnShowGoodAnswers', Request::getInt('quiz_minusOnShowGoodAnswers', 0));
-		$quizObj->setVar('quiz_useTimer', Request::getInt('quiz_useTimer', 0));
-		$quizObj->setVar('quiz_showResultPopup', Request::getInt('quiz_showResultPopup', 0));
-		$quizObj->setVar('quiz_showTypeQuestion', Request::getInt('quiz_showTypeQuestion', 0));
+		$quizObj->setVar('quiz_useTimer',          Request::getInt('quiz_useTimer', 0));
+		$quizObj->setVar('quiz_showResultPopup',   Request::getInt('quiz_showResultPopup', 0));
+		$quizObj->setVar('quiz_showTypeQuestion',  Request::getInt('quiz_showTypeQuestion', 0));
 		$quizObj->setVar('quiz_showResultAllways', Request::getInt('quiz_showResultAllways', 0));
 		$quizObj->setVar('quiz_showReponsesBottom', Request::getInt('quiz_showReponsesBottom', 0));
-		$quizObj->setVar('quiz_showLog', Request::getInt('quiz_showLog', 0));
-		$quizObj->setVar('quiz_legend', Request::getText('quiz_legend', ''));
-		$quizObj->setVar('quiz_dateBeginOk', Request::getInt('quiz_dateBeginOk', 0));
-		$quizObj->setVar('quiz_dateEndOk', Request::getInt('quiz_dateEndOk', 0));
-		$quizObj->setVar('quiz_build', Request::getInt('quiz_build', 0));
-		$quizObj->setVar('quiz_actif', Request::getInt('quiz_actif', 1));
+		$quizObj->setVar('quiz_showLog',           Request::getInt('quiz_showLog', 0));
+		$quizObj->setVar('quiz_legend',            Request::getText('quiz_legend', ''));
+		$quizObj->setVar('quiz_dateBeginOk',       Request::getInt('quiz_dateBeginOk', 0));
+		$quizObj->setVar('quiz_dateEndOk',         Request::getInt('quiz_dateEndOk', 0));
+		$quizObj->setVar('quiz_build',             Request::getInt('quiz_build', 0));
+		$quizObj->setVar('quiz_actif',             Request::getInt('quiz_actif', 1));
+		$quizObj->setVar('quiz_showConsigne',        Request::getInt('quiz_showConsigne', 0)) ;
         //exit;
         
 		// Insert Data
@@ -107,6 +111,7 @@ use XoopsModules\Quizmaker\Utility;
              $questionsObj->setVar('quest_actif', 1);
              $questionsObj->setVar('quest_parent_id', 0);
              $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_PRESENTATION);
+             $questionsObj->setVar('quest_identifiant', 'slide_' . rand(10000,100000));
 		     $questionsHandler->insert($questionsObj);      
 			 $questId = $questionsObj->getNewInsertedIdQuestions();
              
@@ -128,6 +133,7 @@ use XoopsModules\Quizmaker\Utility;
              $questionsObj->setVar('quest_actif', 1);
              $questionsObj->setVar('quest_parent_id', 0);
              $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_RESULTATS);
+             $questionsObj->setVar('quest_identifiant', 'slide_' . rand(10000,100000));
 		     $questionsHandler->insert($questionsObj);      
 			 $questId = $questionsObj->getNewInsertedIdQuestions();
              
@@ -135,8 +141,13 @@ use XoopsModules\Quizmaker\Utility;
              $answerObj->setVar('answer_quest_id',$questId);
              $answerObj->setVar('answer_proposition', _AM_QUIZMAKER_QUIZ_RESULTATS_DESC);
              $answerObj->setVar('answer_weight',0);
-		     $answersHandler->insert($answerObj);             
+		     $answersHandler->insert($answerObj);  
+                        
+        }else if ($oldFolder !== $newFolder){
+            //Le quiz a changé de dossier qu'il faut renomer
+            rename(QUIZMAKER_UPLOAD_QUIZ_PATH . '/' . $oldFolder, QUIZMAKER_UPLOAD_QUIZ_PATH . '/' . $newFolder);
         }
+
         
 //             exit;       
 /* ==================================================================

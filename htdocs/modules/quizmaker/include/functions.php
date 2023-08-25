@@ -245,3 +245,34 @@ function format_caractere($car, $color, $size="11px"){
     $ret = "<span style='font-family: Arial Rounded MT Bold; color: {$color};font-size:{$size}'>{$car}</span></font><br>";
 }
 
+/**********************************************************************
+ * getParamsForQuiz : renvoi une chaine de parametre pour personaliser le quiz
+ * Tout n'est pas utile uname et name sont probablement suffisant, a voir
+ **********************************************************************/
+function getParamsForQuiz ($asString = false){
+global $xoopsUser;
+        xoops_load('XoopsUserUtility');
+    if(is_object($xoopsUser)){
+        //$currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;        
+        $allParams = array('uid'  => $xoopsUser->uid(),
+        'uname' => $xoopsUser->getVar('uname', 'e'),
+        'name' => $xoopsUser->getVar('name', 'e'),
+        'email' => $xoopsUser->getVar('email', 'e'),
+        'ip'   => XoopsUserUtility::getIP(true));
+    }else{
+        $currentuid = 2;        
+        $allParams = array('uid'  => 2,
+        'uname' => 'Anonymous',
+        'name' => 'Anonymous',
+        'email' => 'anonymous@orange.fr',
+        'ip'   => XoopsUserUtility::getIP(true));
+    }        
+    if($asString){
+        $t = [];
+        foreach($allParams AS $key=>$value)
+            $t[] = $key . '='  . $value;
+        return implode("&", $t);
+    }else{
+        return $allParams;
+    }
+}

@@ -1,9 +1,42 @@
+2023-03-08 - v 3.08 veta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Restructuration de l'arborescence sous forme de plugins..
+Centralisation des fichiers de chaque type de question dans un dossier par type
+le tout dans un même dossier:
+    - plugins_questions
+        - checkboxLogical
+            - img
+                - snapshoot-000.jpg
+                - snapshoot-001.jpg
+                - snapshoot-002.jpg
+            - language
+                - english
+                    - constants.php
+                    - help.html
+                - french
+                    - constants.php
+                    - help.html
+            - slide_checkboxLogical.js                         
+            - slide_checkboxLogical.php
+            
+        - comboboxMatchItems  ...
+                          
+2023-02-05 - v 3.01 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout ndes block 'last' et 'random'
+
+2022-12-12 - v 2.94 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout des type de question avec images à cliquer
+- Ajout des type de question avec images et Drag and Drop
+
 2022-10-25 - v 2.92 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-- Ajout du champ quiz_viewAllSolutions dans la table quiz
+- Ajout du champ quiz_showAllSolutions dans la table quiz
 - Ajout de l'expot dans l'onglet quiz zt question pour plus de paticité
 - Séparation des "page_info" en "pageBegin", "pageEnd" et "pageGroup"
 - Ajout des modèles en image pour faciliter le choix du type de question
+- Ajout de la categorie d'origine lors de l'import (crée ou recherche une categorie de même nom)
 
 
 2022-04-06 - v 2.92 - JJDai - jjdelalandre@orange.fr

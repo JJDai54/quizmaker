@@ -1,3 +1,140 @@
+
+quest_minReponse
+quiz_binOptions
+quiz_onClickSimple
+
+ALTER TABLE `x2511_quizmaker_answers` ADD `answer_image1` VARCHAR(255) NOT NULL AFTER `answer_image`, ADD `answer_image2` VARCHAR(255) NOT NULL AFTER `answer_image1`; 
+//---------------------------------------------------------------
+
+ALTER TABLE `x2511_quizmaker_questions` CHANGE `quest_options` `quest_options` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL; 
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_identifiant` VARCHAR(50) NOT NULL AFTER `quest_question`; 
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_showConsigne` TINYINT(1) NOT NULL DEFAULT '1' AFTER `quiz_shuffleQuestions`; 
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_consigne` TEXT NOT NULL AFTER `quest_type_form`; 
+ALTER TABLE `x251_quizmaker_answers` ADD `answer_color` VARCHAR(30) NOT NULL AFTER `answer_caption`, ADD `answer_background` VARCHAR(30) NOT NULL AFTER `answer_color`; 
+
+ 
+tableau des chemin d'un quiz
+Array
+(
+    [name] => checkboxLogical
+    [path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical
+    [url] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical
+    [php_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/slide_checkboxLogical.php
+    [js_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/slide_checkboxLogical.js
+    [constants_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/language/french/constants.php
+    [help_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/language/french/help.html
+    [img_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/img
+    [js_url] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/checkboxLogical.js
+    [img_url] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/img
+    [snapshoot_path] => Array
+        (
+            [snapshoot-000.jpg] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-000.jpg
+            [snapshoot-001.jpg] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-001.jpg
+        )
+
+    [snapshoot_url] => Array
+        (
+            [snapshoot-000.jpg] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-000.jpg
+            [snapshoot-001.jpg] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-001.jpg
+        )
+
+)
+
+<p><a href="#" onclick="gotoSlideByName('checkboxLogical');">checkboxLogical : Question de logique à réponses multiples</a>
+<p><a href="#" onclick="gotoSlideByName('checkboxSimple');">checkboxSimple : Question à réponses multiples</a>
+<p><a href="#" onclick="gotoSlideByName('comboboxMatchItems');">comboboxMatchItems : Associer les éléments deux à deux</a>
+<p><a href="#" onclick="gotoSlideByName('comboboxSortList');">comboboxSortList : Trier une liste multiple</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDBasket');">imagesDaDBasket : Distribuer les images</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDGroups');">imagesDaDGroups : Regrouper les images</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDLogical');">imagesDaDLogical : Trouver les images manquantes</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDMatchItems');">imagesDaDMatchItems : Replacer les images à leure place</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDSortItems');">imagesDaDSortItems : Ordonner les images</a>
+<p><a href="#" onclick="gotoSlideByName('imagesLogical');">imagesLogical : Trouver l'image manquante</a>
+<p><a href="#" onclick="gotoSlideByName('imagesSimple');">imagesSimple : Trouver les images de la même famille</a>
+<p><a href="#" onclick="gotoSlideByName('listboxIntruders1');">listboxIntruders1 : Chasser les intrus</a>
+<p><a href="#" onclick="gotoSlideByName('listboxIntruders2');">listboxIntruders2 : Déplacer les intrus (double liste)</a>
+<p><a href="#" onclick="gotoSlideByName('listboxSortItems');">listboxSortItems : Trier une listbox</a>
+<p><a href="#" onclick="gotoSlideByName('radioLogical');">radioLogical : Question de logique à réponse unique</a>
+<p><a href="#" onclick="gotoSlideByName('radioMultiple2');">radioMultiple2 : Retrouver les termes qui vont ensemble</a>
+<p><a href="#" onclick="gotoSlideByName('radioSimple');">radioSimple : Question à réponse unique</a>
+<p><a href="#" onclick="gotoSlideByName('textareaInput');">textareaInput : Saisir les mots manquants</a>
+<p><a href="#" onclick="gotoSlideByName('textareaListbox');">textareaListbox : Retrouver les mots manquants</a>
+<p><a href="#" onclick="gotoSlideByName('textareaSimple');">textareaSimple : Corriger le texte</a>
+<p><a href="#" onclick="gotoSlideByName('textboxMatchItems');">textboxMatchItems : Associer les éléments deux à deux</a>
+<p><a href="#" onclick="gotoSlideByName('textboxMultiple');">textboxMultiple : Questions multiples à réponses multiples.</a>
+<p><a href="#" onclick="gotoSlideByName('ulDaDGroups');">ulDaDGroups : Répartir les propositions dans les groupes</a>
+<p><a href="#" onclick="gotoSlideByName('ulSortList');">ulSortList : Trier une liste de termes   </a>
+
+//////////////////////////////////////////////////////////////////////////   
+  <p><a href="#" onclick="gotoSlideByName('Togodo');">Identifiant</a>
+  
+checkboxLogical:Question de logique à réponses multiples
+checkboxSimple:Question à réponses multiples
+comboboxMatchItems:Associer les éléments deux à deux
+comboboxSortList:Trier une liste multiple
+imagesDaDBasket:Distribuer les images
+imagesDaDGroups:Regrouper les images
+imagesDaDLogical:Trouver les images manquantes
+imagesDaDMatchItems:Replacer les images à leure place
+imagesDaDSortItems:Ordonner les images
+imagesLogical:Trouver l'image manquante
+imagesSimple:Trouver les images de la même famille
+listboxIntruders1:Chasser les intrus
+listboxIntruders2:Déplacer les intrus (double liste)
+listboxSortItems:Trier une listbox
+radioLogical:Question de logique à réponse unique
+radioMultiple2:Retrouver les termes qui vont ensemble
+radioSimple:Question à réponse unique
+textareaInput:Saisir les mots manquants
+textareaListbox:Retrouver les mots manquants
+textareaSimple:Corriger le texte
+textboxMatchItems:Associer les éléments deux à deux
+textboxMultiple:Questions multiples à réponses multiples.
+ulDaDGroups:Répartir les propositions dans les groupes
+ulSortList:Trier une liste de termes   
+  
+  
+[>checkbox] => checkbox : Cases à cocher
+    [checkboxLogical] => --- checkboxLogical : Question de logique à réponses multiples
+    [checkboxSimple] => --- checkboxSimple : Question à réponses multiples
+    [>combobox] => combobox : Listes déroulantes
+    [comboboxMatchItems] => --- comboboxMatchItems : Associer les éléments deux à deux
+    [comboboxSortList] => --- comboboxSortList : Trier une liste multiple
+    [>imagesDaD] => imagesDaD : Images Drag and Drop
+    [imagesDaDBasket] => --- imagesDaDBasket : Distribuer les images
+    [imagesDaDGroups] => --- imagesDaDGroups : Regrouper les images
+    [imagesDaDLogical] => --- imagesDaDLogical : Trouver les images manquantes
+    [imagesDaDMatchItems] => --- imagesDaDMatchItems : Replacer les images à leure place
+    [imagesDaDSortItems] => --- imagesDaDSortItems : Ordonner les images
+    [>images] => images : Images
+    [imagesLogical] => --- imagesLogical : Trouver l'image manquante
+    [imagesSimple] => --- imagesSimple : Trouver les images de la même famille
+    [>listbox] => listbox : Listes multi lignes
+    [listboxIntruders1] => --- listboxIntruders1 : Chasser les intrus
+    [listboxIntruders2] => --- listboxIntruders2 : Déplacer les intrus (double liste)
+    [listboxSortItems] => --- listboxSortItems : Trier une listbox
+    [>page] => page : Pages de début, de fin et de regroupement
+    [pageBegin] => --- pageBegin : Page de présentation du quiz
+    [pageEnd] => --- pageEnd : Page de résultat du quiz
+    [pageGroup] => --- pageGroup : Page de regroupement de questions
+    [>radio] => radio : Boutons radios
+    [radioLogical] => --- radioLogical : Question de logique à réponse unique
+    [radioMultiple2] => --- radioMultiple2 : Retrouver les termes qui vont ensemble
+    [radioSimple] => --- radioSimple : Question à réponse unique
+    [>textarea] => textarea : Textes à comppléter
+    [textareaInput] => --- textareaInput : Saisir les mots manquants
+    [textareaListbox] => --- textareaListbox : Retrouver les mots manquants
+    [textareaSimple] => --- textareaSimple : Corriger le texte
+    [>textbox] => textbox : Zones de saisie
+    [textboxMatchItems] => --- textboxMatchItems : Associer les éléments deux à deux
+    [textboxMultiple] => --- textboxMultiple : Questions multiples à réponses multiples.
+    [>ul] => ul : Liste de libellés
+    [ulDaDGroups] => --- ulDaDGroups : Répartir les propositions dans les groupes
+    [ulSortList] => --- ulSortList : Trier une liste de termes   
+//////////////////////////////////////////////////////////////////////////        
+
+supprimer le champ msg_constant : inutile de multiplier les constantes.
+
 textboxMultiple
 
 
@@ -49,8 +186,8 @@ AND tChild.quest_quiz_id=14 AND tChild.quest_parent_id > 0
 
 -------------------------------------------------
 Nombre de réponses : {repondu} / {totalQuestions}
-score : {score} /  {scoreMaxi}
-score minimum : {scoreMini}
+score : {score} /  {scoreMaxiQQ}
+score minimum : {scoreMiniQQ}
 temps de réponse : {duree}
 -------------------------------------------------
 

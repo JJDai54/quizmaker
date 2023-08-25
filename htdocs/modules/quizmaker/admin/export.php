@@ -32,38 +32,28 @@ $op = Request::getCmd('op', 'list');
 $catId  = Request::getInt('cat_id', 0);
 $quizId = Request::getInt('quiz_id', 0);
 
+$objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
 $templateMain = 'quizmaker_admin_export.tpl';
 
 ////////////////////////////////////////////////////////////////////////
+list_on_errors:        
 switch($op) {
 	case 'export_ok':
         if ($quizId > 0) $quizUtility::exportQuiz($quizId);
         
-/*
-        $quiz = $quizHandler->get($quizId);
-        $folder = $quiz->getVar('quiz_fileName');    
-        //$name = $quiz->getVar('quiz_name') . '_' . date("Y-m-d_H-m-s"); //pas bon le nom contient des espaces et autres caracteres   
-        $name = $folder . '_' . date("Y-m-d_H-m-s");    
-        $quizUtility::saveDataKeepId($quizId);
-        
-        $sourcePath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/export/";
-        $outZipPath = QUIZMAKER_UPLOAD_QUIZ_PATH . "/{$folder}/{$name}.zip";
-        $outZipUrl = QUIZMAKER_UPLOAD_QUIZ_URL . "/{$folder}/{$name}.zip";
-        
-        \JJD\zipSimpleDir($sourcePath, $outZipPath);   
-
-		$GLOBALS['xoopsTpl']->assign('download', 1);        
-		$GLOBALS['xoopsTpl']->assign('href', $outZipUrl);        
-		$GLOBALS['xoopsTpl']->assign('delai', 2000);        
-		$GLOBALS['xoopsTpl']->assign('name', $name);        
-*/
-        
-    
     case 'export':
     case 'list':
 	default:
-
+        if($objError->getErrors())
+            $errors = $objError->getHtmlErrors();
+        else
+            $errors = '';
+        
+      $GLOBALS['xoopsTpl']->assign('error', $errors);
+      $objError = new \XoopsObject();     
+      //----------------------------------------------------
+        $GLOBALS['xoopsTpl']->assign('buttons', '');
 		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
@@ -86,7 +76,7 @@ switch($op) {
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
-        $catArr = $categoriesHandler->getListKeyName(null, false, false);
+        $catArr = $categoriesHandler->getListKeyName(null, false, false, null);
         if ($catId == 0) $catId = array_key_first($catArr);        
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
@@ -117,4 +107,10 @@ switch($op) {
     
 
 }
+/////////////////////////////////////////   
+if($objError->getErrors()){
+    $actionArr = array('list'=>array('list'=>'list'));     
+    goto list_on_errors;
+}
+
 require __DIR__ . '/footer.php';

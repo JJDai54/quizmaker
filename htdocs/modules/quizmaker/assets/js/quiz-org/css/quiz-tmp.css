@@ -1,0 +1,148 @@
+/* --- style divers --- */
+
+table.showResult{
+ border-width:1px; 
+ border-style:solid; 
+ border-color:black;
+ border-collapse:collapse;
+ padding:50px;
+}
+table.showResult td{
+ padding:5px;
+}
+
+label.quiz{
+margin: -10px 0px 0px 0px;
+padding: 0px 0px 0px 0px;
+/*
+background: #FF0000;
+color: #0000FF;
+*/
+}
+
+/* *********************************** */
+
+
+/* ********** objets des slides ************************* */
+textarea.slide-proposition{
+  font-size: 16px;
+  margin-itemRound-bottom: 10px;
+  color: #0000FF;
+  /* width: 50%; */
+  text-align:left;
+  margin: 0 auto;
+  padding: 12px;
+  width: 550px;
+  resize : none;
+  }
+textarea.slide-propositionV{
+  width: 550px;
+  }
+textarea.slide-propositionH{
+  width: 350px;
+  }
+
+
+input.slide-proposition3{
+  font-size: 12px;
+  margin-itemRound-bottom: 10px;
+  color: #0000FF;
+  width: 50%;
+  text-align:left;
+  margin: 0 auto;
+  padding: 6px;
+  width: 150px;
+  /*height:300px;*/
+  }
+  
+.slide-label{
+  font-size: 1.2px;
+  margin-itemRound-bottom: 10px;
+  color: #0000FF;
+  width: 50%;
+  text-align:left;
+  margin: 0 auto;
+  padding: 6px;
+  width: 500px;
+  line-height:30px;/**/
+  }
+
+
+
+
+
+h1.quiz-main{
+  font-weight: 300;
+  margin: 0px;
+  padding: 10px;
+  font-size: 20px;
+  background-color: #202020;
+  color: white;
+}
+.question-reponsesOk{
+  font-size: 14px;
+  color: #0000FF;
+  width: 50%;
+  text-align:left;
+  margin: 0 auto;
+  margin-top:10px;
+}
+/******************************************************/
+/*
+button{
+  font-family: 'Work Sans', sans-serif;
+	font-size: 22px;
+	background-color: #227799;
+	color: #fff;
+	border: 0px;
+	border-radius: 3px;
+	padding: 20px;
+	cursor: pointer;
+	margin-itemRound-bottom: 20px;
+}
+button2{
+  font-family: 'Work Sans', sans-serif;
+	font-size: 22px;
+	background-color: #999999;
+	color: #fff;
+	border: 0px;
+	border-radius: 3px;
+	padding: 20px;
+	cursor: no-allowed;
+	margin-itemRound-bottom: 20px;
+}
+button:hover{
+	background-color: #38a;
+}
+*/
+
+
+}
+
+
+/******************************************************/
+.quiz-div-text-riche{
+background : #F0F0F0;
+Width : 350px;
+
+}
+/******************************************************/
+
+
+
+
+/*voir zoneDeQuiz :     width: 800px;
+quiz*-slide height : 480px
+*/
+
+/****************************************************************************/
+/*
+#helpAllQuiz{
+  font-size: 14px;
+  font-style: italic;
+  padding-top:10px;
+  padding-itemRound-bottom:10px;
+  /*color: blue;*/
+}
+*/
+

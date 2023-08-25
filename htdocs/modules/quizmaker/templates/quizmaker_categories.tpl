@@ -26,8 +26,8 @@
 <input type="hidden" name="op" value="list" />
 <input type="hidden" name="sender" value="" />
 
-    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
-    <div class="itemRound-none <{$catTheme}>-itemBody">
+    <div class="item-round-top <{$catTheme}>-item-head"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
+    <div class="item-round-none <{$catTheme}>-item-body">
     <table width='80%'>
         <tr>
             <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_CATEGORIES}> : </td>
@@ -43,15 +43,15 @@
       
       
     </div>
-    <div class="itemRound-bottom <{$catTheme}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br>
+    <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
 </form>
 
 <{* ************************************************ *}>
   <{foreach item=cat from=$categories }>
     <{if $cat.quiz}>
-      <div class="itemRound-top <{$cat.theme}>-itemHead"><center><{$cat.name}>
+      <div class="item-round-top <{$cat.theme}>-item-head"><center><{$cat.name}>
       </center></div>
-      <div class="itemRound-none <{$cat.theme}>-itemInfo" style="padding:10px 10px 10px 10px;">
+      <div class="item-round-none <{$cat.theme}>-item-info" style="padding:10px 10px 10px 10px;">
         <{$smarty.const._MA_QUIZMAKER_HOW_TO_RUN_QUIZ}><br>
         <{$smarty.const._MA_QUIZMAKER_HOW_TO_SHOW_RESULTS}><br>
         <{$smarty.const._MA_QUIZMAKER_HOW_TO_SHOW_SOLUTIONS}>
@@ -59,7 +59,7 @@
 
       
 
-      <div class="itemRound-none <{$cat.theme}>-itemBody">
+      <div class="item-round-none <{$cat.theme}>-item-body">
       <table class='quizTbl'>
 		<thead>
 			<tr class='head'>
@@ -83,7 +83,7 @@
                         <{$Quiz.name}>
                       </a>
                   <{elseif $Quiz.publishQuiz == 2}>
-                      <a class='run_quiz' href='<{$Quiz.quiz_html}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                      <a class='run_quiz' href='<{$Quiz.quiz_html}>?<{$getForQuiz}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
                         <{$Quiz.name}>
                       </a>
                   <{else}>
@@ -157,7 +157,7 @@
       <{/foreach}>
       </table>
       </div>
-      <div class="itemRound-bottom <{$cat.theme}>-itemLegend"><center>...</center></div><br>
+      <div class="item-round-bottom <{$cat.theme}>-item-legend"><center>...</center></div><br>
     <{/if}>
   <{/foreach}>
   

@@ -21,22 +21,42 @@
  */
 
 
-function reloadImgModeles(divId, imgWidth=80){
+function reloadImgModeles(divId, imgHeight=80){
     //alert('reloadImgModeles : ' + divId);
     var obDivImg = document.getElementById(divId);
     var obInpTypeQuestion = document.getElementById('quest_type_question');
     var tOptions = obInpTypeQuestion.options;
     //alert(tOptions + '===>' + tOptions.length);
+    
     var typeQuestion = obInpTypeQuestion.options[obInpTypeQuestion.selectedIndex].value;
-    obDivImg.innerHTML = "";
+    var btnAddQuestion = document.getElementById('btnAddQuestion');
+
+    if(typeQuestion[0] == '>'){
+        btnAddQuestion.style.display = 'none';
+        obDivImg.innerHTML = `<div style="height:${imgHeight}px"></div>`;    
+    }else{
+        btnAddQuestion.style.display = 'block';
+        var tImg = [];
+        for(var i=0; i<3; i++){
+            var url = `../assets/images/modeles/slide_${typeQuestion}-0${i}.jpg`;
+            tImg.push(`<a href='${url}' class='highslide' onclick='return hs.expand(this);' >
+                      <img src="${url}" alt="" style="max-height:${imgHeight}px" />
+                   </a>`)
+        }
+        obDivImg.innerHTML = tImg.join("\n");
+    }
+    
+    
+
     //alert('reloadImgModeles : ' + divId + " / " + typeQuestion); //obInpTypeQuestion.value
     
-    var tImg = [];
-    for(var i=0; i<3; i++){
-        var url = `../assets/images/modeles/slide_${typeQuestion}-0${i}.jpg`;
-        tImg.push(`<a href='${url}' class='highslide' onclick='return hs.expand(this);' >
-                  <img src="${url}" alt="" style="max-width:${imgWidth}px" />
-               </a>`)
-    }
-    obDivImg.innerHTML = tImg.join("\n");
-}
+function imageExists(image_url){
+
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', image_url, false);
+    http.send();
+
+    return http.status != 404;
+
+}}

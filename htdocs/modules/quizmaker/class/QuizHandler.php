@@ -138,6 +138,7 @@ class QuizHandler extends \XoopsPersistableObjectHandler
         if($quiz_cat_id > 0){
             $criteria = new \CriteriaCompo(new \Criteria('quiz_cat_id' , $quiz_cat_id, '='));
         }
+        $criteria->setOrder('answer_id');
         
         if($short_permtype != '')
             $allAllowed = $this->getAllowed($short_permtype, $criteria);
@@ -147,7 +148,8 @@ class QuizHandler extends \XoopsPersistableObjectHandler
                 
         foreach (array_keys($allAllowed) as $i) {
             $key = $allAllowed[$i]->getVar('quiz_id');
-            $ret[$key] = $allAllowed[$i]->getVar('quiz_name') . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");;
+            $ret[$key] = $allAllowed[$i]->getVar('quiz_name') . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
+            //$ret[$key] =  ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "") . $allAllowed[$i]->getVar('quiz_name');            
         
         }
 
@@ -307,39 +309,45 @@ global $questionsHandler, $resultsHandler;
     {
         switch ($config){
         case 1:
-        $tField = array('quiz_onClickSimple        = 1',
-                        'quiz_answerBeforeNext     = 1',
-                        'quiz_allowedPrevious      = 1',
-                        'quiz_allowedSubmit        = 0',
-                        'quiz_shuffleQuestions     = 0',
-                        'quiz_showGoodAnswers      = 1',
-                        'quiz_showBadAnswers       = 1',
-                        'quiz_showReloadAnswers    = 1',
-                        'quiz_useTimer             = 0',
-                        'quiz_showResultAllways    = 1',
-                        'quiz_showReponsesBottom   = 1',
-                        'quiz_showResultPopup      = 0',
-                        'quiz_showTypeQuestion     = 1',
-                        'quiz_showLog              = 1',
-                        'quiz_actif                = 0');
+        $tField = array('quiz_answerBeforeNext'     => '1',
+                        'quiz_allowedPrevious'      => '1',
+                        'quiz_allowedSubmit'        => '0',
+                        'quiz_showScoreMinMax'      => '0',
+                        'quiz_shuffleQuestions'     => '0',
+                        'quiz_showGoodAnswers'      => '1',
+                        'quiz_showBadAnswers'       => '1',
+                        'quiz_showReloadAnswers'    => '1',
+                        'quiz_showGoToSlide'        => '1',
+                        'quiz_useTimer'             => '0',
+                        'quiz_showAllSolutions'     => '1',
+                        'quiz_showResultAllways'    => '1',
+                        'quiz_showReponsesBottom'   => '1',
+                        'quiz_showResultPopup'      => '0',
+                        'quiz_showTypeQuestion'     => '1',
+                        'quiz_showLog'              => '1',
+                        'quiz_showConsigne'         => '1',
+                        'quiz_actif'                => '0');
             break;
             
         default :
-        $tField = array('quiz_onClickSimple        = 1',
-                        'quiz_answerBeforeNext     = 1',
-                        'quiz_allowedPrevious      = 0',
-                        'quiz_allowedSubmit        = 0',
-                        'quiz_shuffleQuestions     = 0',
-                        'quiz_showGoodAnswers      = 0',
-                        'quiz_showBadAnswers       = 0',
-                        'quiz_showReloadAnswers    = 0',
-                        'quiz_useTimer             = 0',
-                        'quiz_showResultAllways    = 0',
-                        'quiz_showReponsesBottom   = 0',
-                        'quiz_showResultPopup      = 1',
-                        'quiz_showTypeQuestion     = 0',
-                        'quiz_showLog              = 0',
-                        'quiz_actif                = 1');
+        $tField = array('quiz_answerBeforeNext'     => '1',
+                        'quiz_allowedPrevious'      => '0',
+                        'quiz_allowedSubmit'        => '0',
+                        'quiz_showScoreMinMax'      => '0',
+                        'quiz_shuffleQuestions'     => '0',
+                        'quiz_showGoodAnswers'      => '0',
+                        'quiz_showBadAnswers'       => '0',
+                        'quiz_showReloadAnswers'    => '0',
+                        'quiz_showGoToSlide'        => '0',
+                        'quiz_useTimer'             => '0',
+                        'quiz_showAllSolutions'     => '0',
+                        'quiz_showResultAllways'    => '0',
+                        'quiz_showReponsesBottom'   => '0',
+                        'quiz_showResultPopup'      => '1',
+                        'quiz_showTypeQuestion'     => '0',
+                        'quiz_showLog'              => '0',
+                        'quiz_showConsigne'         => '1',
+                        'quiz_actif'                => '1');
             break;
         }
         
@@ -358,9 +366,11 @@ global $questionsHandler, $resultsHandler;
      */
 	public function getPermissions($short_permtype = 'view')
     {
+        global $xoopsUser, $quizmakerHelper;
+//exit("===>getPermissions : {$short_permtype}");        
+        
         $permtype = sprintf("quizmaker_%s_quiz", $short_permtype);
         
-        global $xoopsUser;
         $tPerm = array();
         $quizmakerHelper = Helper::getHelper('quizmaker');
         $moduleHandler = $quizmakerHelper->getModule();
@@ -377,23 +387,39 @@ global $questionsHandler, $resultsHandler;
      * @param string   $permtype	Type de permission
      * @return array   $cat		    Liste des catégorie qui correspondent à la permission
      */
-	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='quiz_name,quiz_id', $order="ASC")
+	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC")
     {
-        global $categoriesHandler;
-        
+        global $categoriesHandler, $quizmakerHelper;
         $tPerm = $this->getPermissions($short_permtype);
+//exit("===>getAllowed");        
         $idsQuiz = join(',', $tPerm);
         //---------------------------------------------------------------
+        if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
+
         $idsCat = join(',', $categoriesHandler->getPermissions($short_permtype));
         //echo "<hr>===>getAllowed quiz :<br>idsQuiz : {$idsQuiz}<br>idsCat : {$idsCat}<hr>";
         //------------------------------------------------
         if (is_null($criteria)) $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('quiz_id',"({$idsQuiz})",'IN'));
         $criteria->add(new \Criteria('quiz_cat_id',"({$idsCat})",'IN'), 'AND');
+        
+            
+       $now = \JJD\getSqlDate();
+       $crtDatBegin = new \CriteriaCompo();   
+       $crtDatBegin->add(new \Criteria('quiz_dateBegin', $now, "<="));
+       $crtDatBegin->add(new \Criteria('quiz_dateBeginOk', 0, "="),'OR');
+       $criteria->add($crtDatBegin,'AND');   
+       
+       $crtDatEnd = new \CriteriaCompo();   
+       $crtDatEnd->add(new \Criteria('quiz_dateEnd', $now, ">="));
+       $crtDatEnd->add(new \Criteria('quiz_dateEndOk', 0, "="),'OR');
+       $criteria->add($crtDatEnd,'AND');   
+   
         if ($sorted != '') $criteria->setSort($sorted);
         if ($order  != '') $criteria->setOrder($order);
        
         $allEnrAllowed = parent::getAll($criteria);
+
         return $allEnrAllowed;
     }
     
@@ -477,4 +503,31 @@ $fldMasterId =  "quiz_cat_id";
     return true;
  }
 
+ /* ******************************
+ * Update weight
+ * *********************** */
+ public function purgerImages($quiz_id){
+ global $questionsHandler, $answersHandler;
+ $nbImgDeleted = 0;
+    $quiz = $this->get($quiz_id);
+// echo "<hr><pre>quiz : " . print_r($quiz, true) . "</pre><hr>";    
+    $folder = $quiz->getVar('quiz_folderJS');
+    $imgPath = QUIZMAKER_UPLOAD_QUIZ_PATH . '/' . $folder . '/images';
+    //$imgList = XoopsLists::getDirListAsArray(QUIZMAKER_UPLOAD_QUIZ_PATH . '/' . $folder . '/images');
+    $imgList = \XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'));    
+//echo "<hr><pre>images : " . print_r($imgList, true) . "</pre><hr>";    
+    foreach($imgList as $key=>$file){
+        //echo "<br>image : {$key} | {$file}";
+        $criteria = new \CriteriaCompo(new \Criteria("answer_proposition",$key,'='));
+        $criteria->add(new \Criteria("answer_image",$key,'='), 'OR');
+        $ans = $answersHandler->getAll($criteria);
+        if (count($ans) == 0){
+            $fullName = $imgPath . '/' . $key;
+            unlink($fullName);
+            $nbImgDeleted++;
+        }
+        
+    }
+    return $nbImgDeleted;
+ }
 } // Fin de la classe

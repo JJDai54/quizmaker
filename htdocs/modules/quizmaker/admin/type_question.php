@@ -35,6 +35,7 @@ $typeId = Request::getInt('type_id');
 
 $sender  = Request::getString('sender', '');
 $catId   = Request::getInt('cat_id', 0);
+$catTypeQuestion   = Request::getString('catTypeQuestion', QUIZMAKER_ALL);
 
 $catArray = $categoriesHandler->getListKeyName();  
 if ($sender == 'cat_id'){
@@ -43,6 +44,8 @@ if ($sender == 'cat_id'){
     $quizId  = Request::getInt('quiz_id', 0);
 }
 
+//   $gp = array_merge($_GET, $_POST);
+//   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
 // if ($quizId > 0) {
 //     $quizObj = $quizHandler->get($quizId);
@@ -59,24 +62,35 @@ if ($sender == 'cat_id'){
 switch($op) {
 	case 'list':
 	default:
-		// Define Stylesheet
+        $GLOBALS['xoopsTpl']->assign('buttons', '');
+        // Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_type_question.tpl';
-		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('type_question.php'));
+		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('type_question.php'));    
         
-		$type_questionAll = $type_questionHandler->getAll($start, $limit);
+		$type_questionAll = $type_questionHandler->getAll($catTypeQuestion);
 		$type_questionCount = count($type_questionAll);
 //echo "<hr>type_questions<pre>" . print_r($type_questionAll, true) . "</pre><hr>";        
 		$GLOBALS['xoopsTpl']->assign('type_question_count', $type_questionCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
         
-        // ----- Listes de selection pour filtrage -----  
+        // ----- Listes de selection pour filtrage des type de questions par categorie-----  
         //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
         //$cat = $categoriesHandler->getListKeyName(null, false, false);
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCatTQ = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'catTypeQuestion', $catTypeQuestion);
+        $inpCatTQ->addOptionArray($type_questionHandler->getCategories(true));
+        $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+  	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
+        // ----- Listes de selection pour filtrage -----  
+/*
+*/        
+        //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
+        //$cat = $categoriesHandler->getListKeyName(null, false, false);
+        $catArray = $categoriesHandler->getListKeyName(null, false, false,null);        
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_QUESTION_CATEGORY, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArray);
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
@@ -102,34 +116,6 @@ switch($op) {
 \JJD\include_highslide();
 	break;
 
-/*
-    case 'add_new_question':
-    
-        // ----- Listes de selection pour filtrage -----  
-        if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
-        $cat = $categoriesHandler->getListKeyName(null, false, false);
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
-        $inpCategory->addOptionArray($cat);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
-  	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-        
-        
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-        $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
-  	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
-        
-       // ----- /Listes de selection pour filtrage -----        
-    
-    
-    
-        $typeQuestion = Request::getString('type_question');
-        $templateMain = 'quizmaker_admin_type_new_question.tpl';
-        echo "<hr>add_new_question : {$typeQuestion}<hr>";
-        $form = $type_questionHandler->getFormType_question($typeQuestion);
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
-    break;
-*/
 
 
 }

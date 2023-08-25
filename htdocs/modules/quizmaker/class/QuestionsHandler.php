@@ -141,7 +141,8 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
         $obs = $this->getObjects($criteria, true);
         foreach (array_keys($obs) as $i) {
             $key = $obs[$i]->getVar('quest_id');
-            $ret[$key] = $obs[$i]->getVar($fieldsName) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
+            $ret[$key] = ((QUIZMAKER_ADD_ID) ? " (#{$key}) - " : "") . $obs[$i]->getVar($fieldsName) ;
+            //$ret[$key] = $obs[$i]->getVar($fieldsName) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
         
         }
 
@@ -332,15 +333,48 @@ __SQL__;
     {
         global $answersHandler;
         
-        $questId = $object->getVar("quest_id");
-        //-----------------------------------------------------
-        $criteria = new \CriteriaCompo(new \Criteria("answer_quest_id", $questId, '='));
-        $ret = $answersHandler->deleteAll($criteria);
-        
+//         $questId = $object->getVar("quest_id");
+//         //-----------------------------------------------------
+//         $criteria = new \CriteriaCompo(new \Criteria("answer_quest_id", $questId, '='));
+//         $ret = $answersHandler->deleteAll($criteria);
+//         
         $ret = parent::delete($object, $force);
         
         return $ret;
     }
+/* ******************************
+ * supprime la question, ses enfants si c'est un groupe les réponses et les images si besoin
+ * *********************** */
+    public function deleteCascade( $object, $force = false)
+    {
+        global $answersHandler, $quizHandler;
+        
+        
+        $questId = $object->getVar("quest_id");
+        $typeQuestion =  $object->getVar("quest_type_question");   
+        $criteria = new \CriteriaCompo(new \Criteria("quest_id", $questId, '='));
+        //ajout des enfants si c'est une page de groupe
+        if($typeQuestion == 'pageGroup'){
+//echo "<hr>type question : {$typeQuestion}";
+            $criteria->add(new \Criteria("quest_Parent_id", $questId, '='),'OR');
+        }    
+        $rstQuestions = $this->getAll($criteria,null,true);
+        
+        $count = count($rstQuestions);
+//echo "<hr>nb question = {$count}";
+
+        
+        //supression des reponses (answers)
+		foreach(array_keys($rstQuestions) as $i) {
+            $questId = $rstQuestions[$i]->getVar('quest_id');
+//echo "<br>===>questId : {$questId}";
+            $answersHandler->deleteAnswersByQuestId($questId);
+            $this->delete($rstQuestions[$i]);
+        }
+        $quizHandler->purgerImages($object->getVar("quest_quiz_id"));
+        return true;
+    }
+    
 // /* **********************************************************
 // *   deleteQuestions
 // *   @questId integer : identifiant du quiz
@@ -361,7 +395,13 @@ __SQL__;
  * *********************** */
     public function changeEtat($questId, $field, $modulo = 2, $doItForGroup = false)
     {
-        $sql = "UPDATE " . $this->table . " SET {$field} = mod({$field}+1,{$modulo}) WHERE quest_id={$questId};";
+        $increment = 1;
+        if($modulo < 0){
+            $modulo = abs($modulo);
+            $increment = $modulo-1;
+        }
+        
+        $sql = "UPDATE " . $this->table . " SET {$field} = mod({$field}+{$increment},{$modulo}) WHERE quest_id={$questId};";
         $ret = $this->db->queryf($sql);
         
         if($doItForGroup){

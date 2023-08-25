@@ -34,7 +34,7 @@ class Type_questionHandler
     var $dirname = QUIZMAKER_PATH . "/quiz/quiz-php/class";
     var $name = '';
     var $description= '';
-    
+    var $allPlugins = null;
         
 	/**
 	 * Constructor 
@@ -43,7 +43,8 @@ class Type_questionHandler
 	 */
 	public function __construct()
 	{
-
+      $this->allPlugins = $this->getAllPluginsPath();    
+      //echoArray($this->allPlugins );
 	}
 
 
@@ -87,52 +88,21 @@ class Type_questionHandler
 		return count($this->getListKeyName());
 	}
 
-	/**
-	 * Get All Type_question in the database
-	 * @param int    $start 
-	 * @param int    $limit 
-	 * @param string $sort 
-	 * @param string $order 
-	 * @return array
-	 */
-	public function getAll()
-	{
-//$utility = new \XoopsModules\Quizmaker\Utility();
-        $listTQ = $this->getListTypeQuestion();
-        $ret = array();
-        $utility = new \XoopsModules\Quizmaker\Utility();
-        
-        foreach ($listTQ as $key=>$v){
-        $clsName = "slide_" . $key;        
-            $tq = array();
-            
-            $f = QUIZMAKER_ANSWERS_CLASS . "/slide_" . $key . ".php";
-            include_once($f);
-            $cls = new $clsName; 
-//             $tq['type'] = $key;
-//             $tq['name'] = $cls->name;
-//             $tq['description'] = $cls->description;
- 
-            $ret[] = $cls->getValuesType_question();  
-//             include_once($f);
-//             $obTQ = new $key();
-        }
-//echo "<hr>type_questions<pre>" . print_r($ret, true) . "</pre><hr>";   
 
-        return $ret;
-	}
-    
-private function build_sorter($key) {
-    return function ($a, $b) use ($key) {
-        if($a->weight == $b->weight) return 0;
-        return ($a[$key] > $b[$key]) ? 1 : -1;
-    };
-}
+// /* *****************************************
+// 
+// ******************************************** */    
+// private function build_sorter($key) {
+//     return function ($a, $b) use ($key) {
+//         if($a->weight == $b->weight) return 0;
+//         return ($a[$key] > $b[$key]) ? 1 : -1;
+//     };
+// }
 
 /* ***********************
 
 ************************** */
-public function getListTypeQuestion(){
+public function getFileListTypeQuestion(){
 global $utility;
     $dirname = QUIZMAKER_ANSWERS_CLASS; 
     $extensions = array("php");
@@ -142,157 +112,229 @@ global $utility;
 /* ***********************
 
 ************************** */
-public function getListKeyName($boolCode = false){
-        $listTQ = $this->getListTypeQuestion();
+public function getListKeyName($category = null, $boolCode = false){
+        $listTQ = $this->getAll($category);
         $ret = array();
-        $weight = array();
-        $utility = new \XoopsModules\Quizmaker\Utility();
+
         
-        foreach ($listTQ as $key=>$v){
-        $clsName = "slide_" . $key;        
-            $f = QUIZMAKER_ANSWERS_CLASS . "/slide_" . $key . ".php";
-            include_once($f);
-            $cls = new $clsName; 
-            $ret[$cls->type] = (($boolCode) ? $cls->type . ' : ' : '') . $cls->name;  
-            $weight[$cls->type] = $cls->weight;  
+        foreach ($listTQ as $key=>$arr){
+
+              $ret[$arr['type']] = (($boolCode) ? $arr['type'] . ' : ' : '') . $arr['name'];  
+  
+        
         }
 
-       //tri sur le poids poids le nom
-       array_multisort($weight, $ret);
-      
-        return $ret;
+       //tri sur le poids poids 
+       ksort ($ret);
+       return $ret;
 
 }
+
+/* ************************
+
+************************** */
+public function getListByGroup($boolCode = false){
+    $allTQ = $this->getAll(null, true);
+    $weight = array();
+    $cat = array();
+    foreach($allTQ as $key => $arr) {
+        $wheight[$key] = $arr['type'];
+        $cat[$key]     = $arr['category'];
+    }
+    //sort($wheight);
+    //sort($cat);
+    //array_multisort($allTQ, $cat, $weight);
+    
+    $cat="";
+    $ret = array();
+    $prefix = '--- ';
+    foreach($allTQ as $key => $arr) {
+       if($arr['obsolette']) continue;
+       if ($cat != $arr['category']){
+            $ret['>' . $arr['category']] = $arr['category'] . ' : ' . $arr['categoryLib'];
+
+       }
+       $ret[$key] = $prefix . (($boolCode) ? $arr['type'] . ' : ' : '') . $arr['name'];
+       $cat = $arr['category'];
+    }
+    //echoArray($ret);
+    return $ret;    
+}
+/* ***********************
+
+************************** */
+public function getCategories($addAll = false){
+    $allTQ = $this->getAll(null, true);
+    $cat = array();    
+    if($addAll) $cat[QUIZMAKER_ALL] = '(*)';
+    foreach($allTQ as $key => $arr) {
+        if(!array_key_exists($arr['category'], $cat))
+            $cat[$arr['category']] = $arr['category'];
+    }
+    return $cat;    
+}
+
 /****************************************************************************
  * 
  ****************************************************************************/
 
 public function getClassTypeQuestion($typeQuestion){
     $clsName = "slide_" . $typeQuestion;   
-    $f = QUIZMAKER_ANSWERS_CLASS . "/slide_" . $typeQuestion . ".php";  
+    $f = QUIZMAKER_PLUGINS_PATH . "/{$typeQuestion}/slide_" . $typeQuestion . ".php";  
+//    echo "<hr>getClassTypeQuestion : {$f}<hr>";
     include_once($f);    
     $cls = new $clsName; 
     return $cls;
 
 }
 
-/* **********************************************************
-*
-* *********************************************************** */
- 	public function getFormType_question($typeQuestion, $quizId = 0)
- 	{
-     global $utility, $categoriesHandler, $quizHandler, $type_questionHandler, $quizUtility;
-        //---------------------------------------------- 
-		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-		if (false === $action) {
-			$action = $_SERVER['REQUEST_URI'];
-		}else{
-            $h = strpos( $_SERVER['REQUEST_URI'], "?");
-			$action = substr($_SERVER['REQUEST_URI'], 0, $h);
-			//$action = "questions.php";
-			//$action = "modules/quizmaker/admin/questions.php";
-        }
-//         echo "<br>Action : {$action}<br>";
-// 		exit;
-        $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
-		// Permissions for uploader
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-		$permissionUpload = $grouppermHandler->checkRight('upload_groups', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
-        //=================================================
-        // recupe de la classe du type de question
-        $clTypeQuestion = $quizUtility->getTypeQuestion($typeQuestion);
-        
-        //===========================================================        
-		// Title
-		$title = sprintf(_AM_QUIZMAKER_QUESTIONS_ADD, $clTypeQuestion->description);
-		// Get Theme Form
-		xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
-		$form->setExtra('enctype="multipart/form-data"');
-		// Questions Handler
-        //----------------------------------------------------------
-		// Questions Handler
-// 		$questionsHandler = $quizmakerHelper->getHandler('Questions');
-// 		// Form Select questQuiz_id
-// 		$questQuiz_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
-// 		$questQuiz_idSelect->addOption('Empty');
-// 		$questQuiz_idSelect->addOptionArray($quizHandler->getListKeyName());
-//         $typeQuestion = $this->getVar('quest_type_question');
-        //----------------------------------------------------------
-        $catArray = $categoriesHandler->getListKeyName();
-        //public function (CriteriaElement $criteria = null, $addAll=false, $addNull=false, $short_permtype = 'view')
-        
-        if ($quizId > 0){
-            $quizObj = $quizHandler->get($quizId);
-            $catId = $quizObj->getVar('quiz_cat_id');
-            //$criteria = new CriteriaCompo(new \Criteria('quiz_cat_id', $catId,""));
-            $quizArray = $quizHandler->getListKeyName($catId);
-        }else{
-            $keys = array_keys ($catArray);
-            $catId = $keys[0];
-            $quizArray = $quizHandler->getListKeyName($catId);
-            $keys = array_keys ($catArray);
-            $quizId = $keys[0];
-        }
 
-		
-        // Form Select quizCat_id
-		$inpCat = new \XoopsFormSelect( _AM_QUIZMAKER_CATEGORY, 'cat_id', $catId);
-		$inpCat->addOptionArray($catArray);
-		$form->addElement($inpCat, true);
-        
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-  	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
-		$form->addElement($inpQuiz, true);
-        $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
-        
-        /*
-		  $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_PARENT, 'cat_id', $quizId);
-		// Form Select quest_parent_id
-		//$inpParent->addOption('Empty');
-		$inpParent->addOptionArray($questionsHandler->getParents());
-        $form->addElement($inpParent);
-        */
-        //----------------------------------------------------------
-		// Form Select questType_question
-// 		$questType_questionSelect = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_TYPE_QUESTION, 'quest_type_question', $typeQuestion);
-// 		$questType_questionSelect->addOption('Empty');
-// 		//$questType_questionSelect->addOptionArray($questionsHandler->getListKeyName());
-// 		$questType_questionSelect->addOptionArray($type_questionHandler->getListKeyName());
-        
-        //================================================
-		// To Save
-        $form->insertBreak("<div style='background:black;color:white;'><center>-----</center></div>");
-		$form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
-		return $form;
-     
-
-	}
-/* ******************************
- *  getTypeQuestion : renvoie la class du type de question
- * @return : classe héritée du type de question
- * *********************** */
-public function getTypeQuestion($typeQuestion, $default=null)
+public function getTypeQuestion(&$typeQuestion)
   {
-      // recupe de la classe du type de question
+    //transfert de classes obsolettes
+    // pour permettre une correction sans aceder à la base apres un changement de nom
+    // A virer dès que les noms seront stabilisés
+    // $typeQuestion est passé par référence pour remonter le transfert
+    switch($typeQuestion){
+        case 'listboxIntruders1' : 
+        case 'listboxIntruders2' : 
+            $typeQuestion = 'listboxIntruders';
+            break;
+        case 'imagesSortItems' :
+            $typeQuestion = 'imagesDaDSortItems'; 
+            break;
+        case 'ulSortList' :
+            $typeQuestion = 'ulDaDSortList'; 
+        case 'imagesDaDBasket' :
+            $typeQuestion = 'imagesDaDGroups'; 
+            break;
+            
+    }
+      //------------------------------------------------------
 
-      if ($typeQuestion == '') return $default;
+      //if(!isset($typeQuestion[$typeQuestion])) echo "<hr>===> {$typeQuestion}<br>";
+      if(isset($this->allPlugins))
+        $f = $this->allPlugins[$typeQuestion]['php_path'];  
+      else
+        $f = QUIZMAKER_PLUGINS_PATH . "/{$typeQuestion}/slide_" . $typeQuestion . ".php";  
       
       $clsName = "slide_" . $typeQuestion;   
-      $f = QUIZMAKER_ANSWERS_CLASS . "/slide_" . $typeQuestion . ".php";  
-      if (file_exists($f)){
+// echo "<hr>{$f}<br>{$typeQuestion}<br>{$clsName}<hr>";
+      //----------------------------------------------
+      if (class_exists($clsName) ){
+          $cls = new $clsName; 
+          return $cls;
+      }else if (file_exists($f) && !class_exists($clsName) ){
           include_once($f);    
           $cls = new $clsName; 
-        return $cls;
+          return $cls;
       }
       else{
         return null;
       }
   }
-        
+
+/* ////////////////////////////////////////////////////////////////////// */
+
+/* ****************************************************
+
+******************************************************* */
+public function getAllPluginsName(){
+    return XoopsLists::getDirListAsArray(QUIZMAKER_PLUGINS_PATH);     
+}
+/* ****************************************************
+
+******************************************************* */
+public function getAllPlugins($category=null, $bolKeyType = false){
+    if (!$category)  $category = QUIZMAKER_ALL;
+    $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PLUGINS_PATH);
+//echoArray($allPluginsName, QUIZMAKER_PLUGINS_PATH);    
+    $ret = array();    
+    foreach($allPluginsName as $key=>$typeQuestion){    
+        if(substr($typeQuestion,0,strlen($category)) == $category || $category == QUIZMAKER_ALL) {
+//           $f = QUIZMAKER_PLUGINS_PATH . "/{$key}/slide_" . $key . ".php";  
+//           include_once($f);
+//           $clsName = "slide_" . $key;    
+//           $cls = new $clsName; 
+          
+          
+          $cls = $this->getTypeQuestion($typeQuestion);
+          if($bolKeyType)
+            $ret[$cls->type] = $cls->getValuesType_question();
+          else
+            $ret[] = $cls->getValuesType_question();
+        }
+    }
+//echoArray($ret, 'getPluginPath');   
+    return $ret;     
+}
+
+    
+	/**
+	 * Get All Type_question in the database
+	 * @param int    $start 
+	 * @param int    $limit 
+	 * @param string $sort 
+	 * @param string $order 
+	 * @return array
+	 */
+	public function getAll($category=null, $bolKeyType = false)
+	{
+        return  $this->getAllPlugins($category, $bolKeyType);
+	}
+
+/* ****************************************************
+
+******************************************************* */
+public function getAllPluginsPath(){
+
+    $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PLUGINS_PATH);
+    $ret = array();    
+    
+    foreach($allPluginsName as $key=>$typeQuestion){   
+        $ret[$typeQuestion] = $this->getPluginPath($typeQuestion); 
+    }
+//echoArray($ret, 'getPluginPath');   
+    return $ret;     
+}
+/* ****************************************************
+
+******************************************************* */
+public function getPluginPath($typeQuestion, $includefiles = false )
+  {  
+    $language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+                      
+    $all = array();
+    $all['name'] = $typeQuestion;
+    $all['path'] = QUIZMAKER_PLUGINS_PATH . '/' . $typeQuestion;
+    $all['url']  = QUIZMAKER_PLUGINS_URL  . '/' . $typeQuestion;
+    
+    $all['php_path'] = $all['path'] . "/slide_{$typeQuestion}.php";    
+    $all['js_path']  = $all['path'] . "/slide_{$typeQuestion}.js";
+    $all['constants_path'] = $all['path'] . "/language/{$language}/constants.php";    
+    $all['help_path'] = $all['path'] . "/language/{$language}/help.html";    
+    $all['consigne_path'] = $all['path'] . "/language/{$language}/consigne.html";    
+    $all['img_path'] = $all['path'] . '/img';    
+    
+    
+    
+    $all['js_url']  = $all['url'] . "/{$typeQuestion}.js";
+    $all['img_url'] = $all['url'] . '/img';    
+    
+//--------------------------------------------------------------------
+    $filesList =  \XoopsLists::getFileListByExtension($all['img_path'], array('jpg'));    
+    $all['snapshoot_path'] = array();    
+    $all['snapshoot_url']  = array();    
+    
+    foreach($filesList AS $key=>$f){
+        $all['snapshoot_path'][$key] = $all['path'] . '/img/' . $f;    
+        $all['snapshoot_url'][$key]  = $all['url']  . "/img/" . $f;    
+    }  
+        include_once( $all['constants_path']);
+    include_once( $all['php_path']);
+
+    return $all;  
+  }
     
 
 

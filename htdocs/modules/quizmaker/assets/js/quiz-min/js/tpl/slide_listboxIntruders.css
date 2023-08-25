@@ -1,0 +1,25 @@
+﻿.quiz_slide_listboxIntruders_main{
+  margin: 0 auto;
+  margin-left: auto;
+  padding: 0px;
+  width:90%;
+}
+
+.quiz_slide_listboxIntruders_main div{
+  float:left;
+  margin: 0px 5px 0px 5px;
+  margin-itemRound-bottom: 5px;
+}
+.quiz_slide_listboxIntruders_main span{
+    font-size: 1.4em;
+    font-weight:bold;
+}
+.quiz_slide_listboxIntruders_main select{
+    height:280px;
+    width:100%;
+    font-size: 1.2em;
+    margin-itemRound-bottom: 5px;
+    z-index:999;  
+    text-align-last:center;
+}
+ 

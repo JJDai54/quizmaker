@@ -82,7 +82,7 @@ class MessagesHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return int
 	 */
-	public function getCountMessages($start = 0, $limit = 0, $sort = 'msg_id ASC, msg_code', $order = 'ASC')
+	public function getCountMessages($crAllMessages=null, $start = 0, $limit = 0, $sort = 'msg_id ASC, msg_code', $order = 'ASC')
 	{
 		$crCountMessages = new \CriteriaCompo();
 		$crCountMessages = $this->getMessagesCriteria($crCountMessages, $start, $limit, $sort, $order);
@@ -97,9 +97,9 @@ class MessagesHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return array
 	 */
-	public function getAllMessages($start = 0, $limit = 0, $sort = 'msg_id ASC, msg_code', $order = 'ASC')
+	public function getAllMessages($crAllMessages=null, $start = 0, $limit = 0, $sort = 'msg_id ASC, msg_code', $order = 'ASC')
 	{
-		$crAllMessages = new \CriteriaCompo();
+		if (!$crAllMessages) $crAllMessages = new \CriteriaCompo();
 		$crAllMessages = $this->getMessagesCriteria($crAllMessages, $start, $limit, $sort, $order);
 		return parent::getAll($crAllMessages);
 	}
@@ -131,12 +131,133 @@ class MessagesHandler extends \XoopsPersistableObjectHandler
 //         if ($addNull) $inpList->addOption('_NULL_', _AM_CARTOUCHES_NULL);
         $obs = $this->getObjects($criteria, true);
         foreach (array_keys($obs) as $i) {
-                $ret[$obs[$i]->getVar('msg_id')] = $obs[$i]->getVar('msg_code' . " | " . $obs[$i]->getVar('msg_constant'));
+                $ret[$obs[$i]->getVar('msg_id')] = $obs[$i]->getVar('msg_code' );
         
         }
 
         return $ret;
     }
+    
+    
+/* ******************************
+ * renvoie la liste des langues du JS
+ * *********************** */
+    public function getLanguages(){
+        $tLang = array();
+        //dossier des fichiers
+        $folder = QUIZMAKER_QUIZ_JS_ORG . "/js/language";
+        
+        //liste des fichiers langue pour la partie javascript
+        $jsFiles = \XoopsLists::getFileListByExtension($folder,  array('js'));
+        foreach($jsFiles as $key=>$f){
+          //recheche de la langue
+          $h=strrpos($f,"-")+1;
+          $j=strrpos($f,".");
+          $language = substr($f, $h, $j-$h);
+          $tLang[$language] = $language;
 
+        }
+        return $tLang;
+    }
+
+/* ******************************
+ * charge les fichiers de langue javascript
+ * *********************** */
+    public function loadAllLanguagesMessagesJS(){
+        //vidagage de la table
+        $this->deleteAll();
+        
+        //dossier des fichiers
+        $folder = QUIZMAKER_QUIZ_JS_ORG . "/js/language";
+        
+        //liste des fichiers langue pour la partie javascript
+        $jsFiles = \XoopsLists::getFileListByExtension($folder,  array('js'));
+            
+        foreach($jsFiles as $key=>$file){
+          //echo "<br>image : {$key} | {$file}";
+          $fullName = $folder . '/' . $key;
+          //chargement du fichier.
+          $this->loadMessagesJS($fullName);
+        }
+    }
+/* ******************************
+ * charge les fichiers de langue javascript
+ * *********************** */
+    public function loadMessagesJS($f){
+    global $quizUtility;
+    
+    //recheche de la langue
+    $h=strrpos($f,"-")+1;
+    $j=strrpos($f,".");
+    $language = substr($f, $h, $j-$h);
+    
+    
+    
+    
+        $content = $quizUtility->loadTextFile($f); 
+        $h = strpos($content, '{')+1;
+        $j = strrpos($content, '}')-1;
+        $exp = substr($content,$h,$j-$h+1);
+        $arr = explode("\n", $exp);
+//        echo "<h>|{$exp}|<hr>";
+//echo "<hr>js language<pre>" . print_r($arr, true) . "</pre><hr>";
+
+        foreach($arr as $key=>$value){
+            $h = strpos($value, ':');
+            if($h !==false){
+                $code = trim(substr($value,0,$h));                              //exrtraction du code
+                $exp = trim(substr($value,$h+1));                               //extraction du message brute
+                if (substr($exp,-1,1)  == ',') $exp = trim(substr($exp,0,-1));  //suppresion de la virgule de fin de ligne
+                $exp = substr($exp,1,-1);                                       //suppression des quotes de debut et de fin
+//echo "<pre><code>===>{$code}=>{$exp}</code></pre>";
+                $messagesObj = $this->create();
+                $messagesObj->setVar('msg_code', $code);
+                $messagesObj->setVar('msg_language', $language);
+                $messagesObj->setVar('msg_message', $exp);
+                $messagesObj->setVar('msg_editable', 1);
+
+                $ok = $this->insert($messagesObj);
+            }
+        }
+//exit;    
+    }
+/* ************************************************
+*
+* ************************************************* */
+public function buildAllJsLanguage(){
+
+    $tLang = $this->getLanguages();
+    foreach($tLang as $key=>$language){
+        $this->buildJsLanguage($language);
+    }
+}
+
+/* ************************************************
+*
+* ************************************************* */
+public function buildJsLanguage($language){
+    
+    $criteria = new \criteriaCompo(new \Criteria("msg_language", $language, "="));
+    $rst = $this->getAllMessages($criteria, $start = 0, $limit = 0, $sort = 'msg_code', $order = 'ASC');
+    
+    $tDef = array();
+    
+	foreach(array_keys($rst) as $i) {
+		$key = $rst[$i]->getVar('msg_code');
+        //$value = constant('_JS_QUIZMAKER_' . $rst[$i]->getVar('msg_constant')) ;
+		$value = $rst[$i]->getVar('msg_message');
+
+        //$value = strreplace("\"", , $value) ;
+        $tDef[] = "{$key} : \"{$value}\"";      
+	}
+    
+    $content = "const quiz_messages = {\n" . implode(",\n", $tDef) . "\n};\n";
+    $content = html_entity_decode($content);
+    $fileName = QUIZMAKER_QUIZ_JS_ORG . "/js/language/quiz-{$language}.js";
+    \JJD\FSO\saveTexte2File($fileName, $content);
+
+}
+
+    
     
 }

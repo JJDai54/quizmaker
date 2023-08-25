@@ -80,7 +80,7 @@ if (0 == $quizId) {
         $criteria = new \CriteriaCompo(new \criteria('result_quiz_id', $quizId, "="));
         $criteria->add(new \criteria('result_ip', $ip, "="));        
         $ipCount = $resultsHandler->getCount($criteria);
-        
+      
         //---------------------------------------------------------
         switch ($uid){
         case 1:
@@ -97,8 +97,18 @@ if (0 == $quizId) {
         if (!$ok)
 			redirect_header("categories.php?op=list&cat_id={$catId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
         
-		
 
+
+		
+// $paramsForQuiz = array('uid'  => $xoopsUser->uid(),
+//                    'uname' => $xoopsUser->getVar('uname', 'e'),
+//                    'name' => $xoopsUser->getVar('name', 'e'),
+//                    'email' => $xoopsUser->getVar('email', 'e'),
+//                    'ip'   => XoopsUserUtility::getIP(true));
+    //$GLOBALS['xoopsTpl']->assign('allParams', $allParams);    
+    $GLOBALS['xoopsTpl']->assign('paramsForQuiz', getParamsForQuiz(0));
+    
+//echo "<hr>XoopsUserUtility<pre>" . print_r( XoopsUserUtility::getUnameFromIds(2), true) . "</pre><hr>";    
 ///////////////////////////////////////////////////
 		// Get Form
 
@@ -114,8 +124,10 @@ if (0 == $quizId) {
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Keywords
+/*
 quizmakerMetaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
+*/
 
 // Description
 quizmakerMetaDescription(_MA_QUIZMAKER_QUIZ_DESC);

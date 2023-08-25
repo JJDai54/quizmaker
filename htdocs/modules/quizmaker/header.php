@@ -20,15 +20,16 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 include dirname(dirname(__DIR__)) . '/mainfile.php';
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include __DIR__ . '/include/common.php';
 include __DIR__ . '/include/quizFlagAscii.php';
+include_once __DIR__ . '/include/functions.php';
 
 $moduleDirName = basename(__DIR__);
 // Breadcrumbs
 $xoBreadcrumbs = [];
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL . '/'];
 // Get instance of module
-$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 $quizHandler = $quizmakerHelper->getHandler('Quiz');
 $questionsHandler = $quizmakerHelper->getHandler('Questions');
 $categoriesHandler = $quizmakerHelper->getHandler('Categories');
@@ -53,4 +54,4 @@ xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
 xoops_loadLanguage('type_questions', $moduleDirName);
 
-include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/front_office.php");
+include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");

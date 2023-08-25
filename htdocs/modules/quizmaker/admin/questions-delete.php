@@ -24,17 +24,18 @@ use Xmf\Request;
 use XoopsModules\Quizmaker;
 use XoopsModules\Quizmaker\Constants;
 
-		$questionsObj = $questionsHandler->get($questId);
-		$questQuiz_id = $questionsObj->getVar('quest_quiz_id');
-		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
-			if (!$GLOBALS['xoopsSecurity']->check()) {
-				redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_type_question), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-			}
-			if ($questionsHandler->delete($questionsObj)) {
-				redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_type_question), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
-			} else {
-				$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());
-			}
-		} else {
-			xoops_confirm(['ok' => 1, 'quest_id' => $questId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $questionsObj->getVar('quest_quiz_id')));
-		}
+  $questionsObj = $questionsHandler->get($questId);
+  $questQuiz_id = $questionsObj->getVar('quest_quiz_id');
+  
+  if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+  	if (!$GLOBALS['xoopsSecurity']->check()) {
+  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_type_question), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+  	}
+  	if ($questionsHandler->deleteCascade($questionsObj)) {
+  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_type_question), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
+  	} else {
+  		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());
+  	}
+  } else {
+  	xoops_confirm(['ok' => 1, 'quest_id' => $questId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $questionsObj->getVar('quest_quiz_id')));
+  }

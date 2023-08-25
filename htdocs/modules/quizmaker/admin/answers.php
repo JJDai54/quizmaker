@@ -66,6 +66,7 @@ global $quizHandler, $questionsHandler;
 switch($op) {
 	case 'list':
 	default:
+        $GLOBALS['xoopsTpl']->assign('buttons', '');    
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
@@ -86,7 +87,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
 
         // ----- Listes de selection pour filtrage -----  
-        $cat = $categoriesHandler->getListKeyName(null, false, false);
+        $cat = $categoriesHandler->getListKeyName(null, false, false,null);
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($cat);
         $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE);
@@ -113,8 +114,15 @@ switch($op) {
 */               
 
         //--------------------------------------------
+        //options de la question - tableau json
+        if($questId > 0){
+            $obQuest = $questionsHandler->get($questId);
+            echo "<hr>" . $obQuest->getVar('quest_options') . "<hr>";
+        }
+        //--------------------------------------------
         
 		// Table view answers
+		$GLOBALS['xoopsTpl']->assign('answersCount', $answersCount);
 		if ($answersCount > 0) {
 			foreach(array_keys($answersAll) as $i) {
 				$Answers = $answersAll[$i]->getValuesAnswers();
@@ -127,6 +135,7 @@ switch($op) {
 				$pagenav = new \XoopsPageNav($answersCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
 				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
 			}
+			$GLOBALS['xoopsTpl']->assign('error', '');
 		} else {
 			$GLOBALS['xoopsTpl']->assign('error', _AM_QUIZMAKER_THEREARENT_ANSWERS);
 		}
@@ -164,15 +173,28 @@ switch($op) {
 		// Set Vars
 		$questId = Request::getInt('answer_quest_id', 0);
 		$answersObj->setVar('answer_quest_id', Request::getInt('answer_quest_id', 0));
-		$answersObj->setVar('answer_caption', Request::getString('answer_caption', ''));
 		$answersObj->setVar('answer_proposition', Request::getString('answer_proposition', ''));
+		$answersObj->setVar('answer_caption', Request::getString('answer_caption', ''));
+        
+        $color = (Request::getInt('answer_isColor', 0)) ? Request::getString('answer_color', '') : '';
+		$answersObj->setVar('answer_color', $color);
+        $background = (Request::getInt('answer_isBackground', 0)) ? Request::getString('answer_background', '') : '';
+		$answersObj->setVar('answer_background', $background);
+        
+		$answersObj->setVar('answer_background', Request::getString('answer_background', ''));
 		$answersObj->setVar('answer_points', Request::getString('answer_points', ''));
 		$answersObj->setVar('answer_weight', Request::getInt('answer_weight', 0));
 		$answersObj->setVar('answer_inputs', Request::getInt('answer_inputs', 1));
+		$answersObj->setVar('answer_group',  Request::getInt('answer_group', 1));
+		$answersObj->setVar('answer_image',  Request::getString('answer_image', ''));
+		$answersObj->setVar('answer_image1', Request::getString('answer_image1', ''));
+		$answersObj->setVar('answer_image2', Request::getString('answer_image2', ''));
+        
 		// Insert Data
 		if ($answersHandler->insert($answersObj)) {
 			redirect_header('answers.php?op=list' . getParams2list($questId), 2, _AM_QUIZMAKER_FORM_OK);
 		}
+        exit;
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $answersObj->getHtmlErrors());
 		$form = $answersObj->getFormAnswers();
@@ -202,7 +224,7 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $answersObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(['ok' => 1, 'answer_id' => $answerId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $answersObj->getVar('answer_quest_id')));
+			xoops_confirm(['ok' => 1, 'answer_id' => $answerId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, "[{$answerId}]-" . $answersObj->getVar('answer_proposition')));
 		}
 	break;
 

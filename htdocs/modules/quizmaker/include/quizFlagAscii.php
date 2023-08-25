@@ -69,9 +69,10 @@ function smarty_function_quizFlagAlpha($args, &$smarty)
 }
 
 /* **************************************************** */
-function quizFlagAscii($flag, $exp, $color = 'red|green|blue')
-{
-    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue');
+function quizFlagAscii($flag, $exp, $color = 'red|green|blue|black')
+{    
+    //if (!$flag) $flag=3;
+    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue', 'black');
     //$exp = implode('|', $exp);
     $color = $tColors[$flag];
     $fontSize = '16px';

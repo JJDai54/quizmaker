@@ -84,7 +84,7 @@ if (0 == $quizId) {
         $numQuestion = 0;
 		foreach(array_keys($questionsAll) as $i) {
 			$question = $questionsAll[$i]->getValuesQuestions();
-            $question['solutions'] = $questionsAll[$i]->getSolutions($quiz['viewAllSolutions']);
+            $question['solutions'] = $questionsAll[$i]->getSolutions($quiz['showAllSolutions']);
             $question['solutions']['libScoreMax'] = sprintf(_CO_QUIZMAKER_POINTS_FOR_ANSWER2, $question['solutions']['scoreMin'], $question['solutions']['scoreMax']);
             if($question['isQuestion']) 
                 $question['numQuestion'] = ++$numQuestion;
@@ -97,10 +97,8 @@ if (0 == $quizId) {
         
 		//	$GLOBALS['xoopsTpl']->assign('error', _AM_QUIZMAKER_THEREARENT_QUESTIONS);        
 // Define Stylesheet
-$style1 =  QUIZMAKER_QUIZ_JS_URL . "/css/style-item-color.css";
-$style2 =  QUIZMAKER_QUIZ_JS_URL . "/css/style-item-design.css";
-$GLOBALS['xoTheme']->addStylesheet( $style1, null );
-$GLOBALS['xoTheme']->addStylesheet( $style2, null );
+\JJD\load_css('', false);
+
 		$xoopsTpl->assign('quiz', $quiz);        
 		$xoopsTpl->assign('questions', $questions);        
 		$xoopsTpl->assign('admin', true);        

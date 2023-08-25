@@ -1,6 +1,7 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
+<{assign var='download' value=0}>
 <{include file='db:quizmaker_admin_download.tpl' }>
 
 <{assign var="fldImg" value="blue"}>
@@ -25,9 +26,9 @@ img{
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<{if $allCategories}><th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORY}></th><{/if}>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}>/<{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}>/<{$smarty.const._AM_QUIZMAKER_FOLDER_JS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
-				<{* <th class="center"><{$smarty.const._AM_QUIZMAKER_FILE_NAME}></th> *}>
+				<{* <th class="center"><{$smarty.const._AM_QUIZMAKER_FOLDER_JS}></th> *}>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_THEME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_DATE_BEGIN_END}></th>
@@ -63,7 +64,7 @@ img{
 				
                 <td class='left'>
 					<b><a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
-                        <{$Quiz.name}></a></b><br><{$Quiz.quiz_fileName}>
+                        <{$Quiz.name}></a></b><br><{$Quiz.quiz_folderJS}>
                 </td>
                         
                 <{* ---------------- Arrows Weight -------------------- *}>
@@ -129,19 +130,15 @@ img{
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishAnswers&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ANSWERS}>' ><b>
                         <{$Quiz.flags.publishAnswers}>
                         </b></a>
-                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_viewAllSolutions&modulo=2"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' ><b>
-                        <{$Quiz.flags.viewAllSolutions}>
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showAllSolutions&modulo=2"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' ><b>
+                        <{$Quiz.flags.showAllSolutions}>
                         </b></a>
                         |
                         <img src="<{xoModuleIcons16}><{$Quiz.publishResultsOk}>.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' />
                         <img src="<{xoModuleIcons16}><{$Quiz.publishAnswersOk}>.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_ANSWERS}>' />
                 </td>
                 
-				<td class='center'>
-                        
-                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_onClickSimple"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ONCLICK}>' >
-                        <{$Quiz.flags.onClickSimple}>
-                        </a>|
+				<td class='center' >
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_answerBeforeNext"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT}>' >
                         <{$Quiz.flags.answerBeforeNext}>
@@ -153,6 +150,10 @@ img{
                         
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_shuffleQuestions" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION}>'  >
                         <{$Quiz.flags.shuffleQuestions}>                     
+                        </a>|
+                        
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showConsigne" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_CONSIGNE}>'  >
+                        <{$Quiz.flags.showConsigne}>                     
                         </a>|
 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showGoodAnswers"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS}>'>
@@ -167,6 +168,12 @@ img{
                         <{$Quiz.flags.showReloadAnswers}>                     
                         </a>|
                         
+<{*
+*}> 
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showGoToSlide" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOTO_SLIDE}>' >
+                        <{$Quiz.flags.showGoToSlide}>                     
+                        </a>|
+                        
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_allowedSubmit" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT}>' >
                         <{$Quiz.flags.allowedSubmit}>                     
                         </a>|
@@ -177,7 +184,7 @@ img{
 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showResultPopup" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_RESULT_POPUP}>' >
                         <{$Quiz.flags.showResultPopup}>                     
-                        </a>|
+                        </a><br>
                                                 
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_showResultAllways" >
         				<img src="<{xoModuleIcons16}><{$Quiz.showResultAllways}>.png" alt="quiz" title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS}>' />
@@ -207,23 +214,23 @@ img{
                 
 				<td class="center  width10">
 					<a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
-                        <img src="<{xoModuleIcons16 edit.png}>" alt="quiz" />
+                        <img src="<{xoModuleIcons16 'edit.png'}>" alt="quiz" />
                         </a>
                         
 					<a href="quiz.php?op=delete&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._DELETE}>">
-                        <img src="<{xoModuleIcons16 delete.png}>" alt="quiz" />
+                        <img src="<{xoModuleIcons16 'delete.png'}>" alt="quiz" />
                         </a>
 					
 					<a href="quiz.php?op=export_quiz&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._AM_QUIZMAKER_EXPORT_QUIZ}>">
-                        <img src="<{xoModuleIcons16 download.png}>" alt="quiz" />
+                        <img src="<{xoModuleIcons16 'download.png'}>" alt="quiz" />
                         </a>
 
                     <a href='<{$smarty.const.QUIZMAKER_URL}>/admin/questions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&sender='  title="<{$smarty.const._AM_QUIZMAKER_QUESTIONS}>">
-                        <img src="<{xoModuleIcons16 inserttable.png}>" alt="" />
+                        <img src="<{xoModuleIcons16 'inserttable.png'}>" alt="" />
                         </a>
                         
                     <a href="quiz.php?op=export_json&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>"  title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>">
-                        <img src="<{xoModuleIcons16 spinner.gif}>" alt="" />
+                        <img src="<{xoModuleIcons16 'spinner.gif'}>" alt="" />
                         </a>
 
                     <{if $Quiz.quiz_html <> ''}>
@@ -250,9 +257,12 @@ img{
 <{if $form}>
 	<{$form}>
 <{/if}>
+
+<{*
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
+*}> 
 
 <script>
 tth_set_value('last_asc', true);

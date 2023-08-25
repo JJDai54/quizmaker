@@ -64,7 +64,8 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
 
       // ----- Listes de selection pour filtrage -----  
-      $cat = $categoriesHandler->getListKeyName(null, true, false);
+      //$cat = $categoriesHandler->getListKeyName(null, true, false);
+      $cat = $categoriesHandler->getList();
       $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
       $inpCategory->addOptionArray($cat);
       $inpCategory->setExtra('onchange="document.quizmaker_select_filter.submit()"');

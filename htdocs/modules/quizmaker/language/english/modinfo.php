@@ -29,7 +29,7 @@ define('_MI_QUIZMAKER_ADMIN_PAGER', "Admin pager");
 define('_MI_QUIZMAKER_ADMIN_PAGER_DESC', "Admin per page list");
 define('_MI_QUIZMAKER_ADVERTISE', "Advertisement Code");
 define('_MI_QUIZMAKER_MAINTAINEDBY_DESC', "Allow url of support site or community");
-define('_MI_QUIZMAKER_ADMENU5', "Answers");
+define('_MI_QUIZMAKER_ADMENU5', "Propositions");
 define('_MI_QUIZMAKER_NOTIFY_GLOBAL_COMMENT', "Any comments");
 define('_MI_QUIZMAKER_NOTIFY_GLOBAL_DELETE', "Any deleted item");
 define('_MI_QUIZMAKER_NOTIFY_GLOBAL_APPROVE', "Any item to approve");
@@ -138,5 +138,15 @@ define('_MI_QUIZMAKER_ADMENU9', "Permissions");
 define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON', "Afficher le bouton d'exemple ?");
 define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "Si oui, le bouton \"Ajouter des données d'échantillon\" sera visible par l'administrateur. C'est Oui par défaut pour la première installation.");
 define('_MI_QUIZMAKER_ADMENU_CLONE', "Cloner");
+
+define('_MI_QUIZMAKER_SIZE_MB', 'MB');
+define('_MI_QUIZMAKER_MAXSIZE_IMAGE', 'Max size image');
+define('_MI_QUIZMAKER_MAXSIZE_IMAGE_DESC', 'Define the max size for uploading images');
+define('_MI_QUIZMAKER_MIMETYPES_IMAGE', 'Mime types image');
+define('_MI_QUIZMAKER_MIMETYPES_IMAGE_DESC', 'Define the allowed mime types for uploading images');
+define('_MI_QUIZMAKER_MAXWIDTH_IMAGE', 'Max width image');
+define('_MI_QUIZMAKER_MAXWIDTH_IMAGE_DESC', 'Set the max width to which uploaded images should be scaled (in pixel)<br>0 means, that images keeps the original size. <br>If an image is smaller than maximum value then the image will be not enlarge, it will be save in original width.');
+define('_MI_QUIZMAKER_MAXHEIGHT_IMAGE', 'Max height image');
+define('_MI_QUIZMAKER_MAXHEIGHT_IMAGE_DESC', 'Set the max height to which uploaded images should be scaled (in pixel)<br>0 means, that images keeps the original size. <br>If an image is smaller than maximum value then the image will be not enlarge, it will be save in original height');
 
 ?>

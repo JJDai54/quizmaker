@@ -20,6 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include_once dirname(__DIR__) . '/include/common.php';
 //global $smarty;
 //$smarty->register_compiler_function("quizFlagAscii", "../smarty/function.quizFlagAscii.php", false);
@@ -32,18 +33,6 @@ $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 $modPathIcon16   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
 $modPathIcon32   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 
-// Get instance of module
-$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-// $mid = $GLOBALS['xoopsModule']->getVar('mid');
-// echo "<hr>===>mid = {$mid}<hr>";
-$quizHandler = $quizmakerHelper->getHandler('Quiz');
-$questionsHandler = $quizmakerHelper->getHandler('Questions');
-$categoriesHandler = $quizmakerHelper->getHandler('Categories');
-$type_questionHandler = $quizmakerHelper->getHandler('Type_question');
-$answersHandler = $quizmakerHelper->getHandler('Answers');
-$resultsHandler = $quizmakerHelper->getHandler('Results');
-$messagesHandler = $quizmakerHelper->getHandler('Messages');
-$myts = MyTextSanitizer::getInstance();
 // 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
 	include_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -76,18 +65,31 @@ xoops_load('XoopsLists', 'core');
 $utility = new \XoopsModules\Quizmaker\Utility();
 $quizUtility = new \XoopsModules\Quizmaker\QuizUtility();
 
-$xoTheme->addScript(XOOPS_URL . '/Frameworks/trierTableauHTML/trierTableau.js');
 include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
-
-
+\jjd\loadAllXForms();   
+\jjd\load_trierTableauHTML();
+//include_once(JJD_PATH_XFORMS . '/formtabletray.php');        
 // include_once dirname(__DIR__) . '/class/xoopsform/formnumber.php';
 // include_once dirname(__DIR__) . '/class/xoopsform/formimg.php';
-
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
+//$moduleDirName      = 'quizmaker';
 xoops_loadLanguage('slide', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
 xoops_loadLanguage('quiz_JS', $moduleDirName);
 xoops_loadLanguage('type_questions', $moduleDirName);
+
+// Get instance of module
+// $mid = $GLOBALS['xoopsModule']->getVar('mid');
+// echo "<hr>===>mid = {$mid}<hr>";
+$quizHandler = $quizmakerHelper->getHandler('Quiz');
+$questionsHandler = $quizmakerHelper->getHandler('Questions');
+$categoriesHandler = $quizmakerHelper->getHandler('Categories');
+$type_questionHandler = $quizmakerHelper->getHandler('Type_question');
+$answersHandler = $quizmakerHelper->getHandler('Answers');
+$resultsHandler = $quizmakerHelper->getHandler('Results');
+$messagesHandler = $quizmakerHelper->getHandler('Messages');
+$myts = MyTextSanitizer::getInstance();
+
 
 /*
 */

@@ -3,7 +3,7 @@
 *}>
 
 <!-- Header -->
-<{include file='db:glossaire_admin_header.tpl' }>
+<{include file='db:quizmaker_admin_header.tpl' }>
 
 <{if $form}>
 	<{$form}>
@@ -14,5 +14,5 @@
 <{/if}>
 
 <!-- Footer -->
-<{include file='db:glossaire_admin_footer.tpl' }>
+<{include file='db:quizmaker_admin_footer.tpl' }>
 

@@ -41,7 +41,8 @@ class Messages extends \XoopsObject
 	{
 		$this->initVar('msg_id', XOBJ_DTYPE_INT);
 		$this->initVar('msg_code', XOBJ_DTYPE_TXTBOX);
-		$this->initVar('msg_constant', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('msg_language', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('msg_message', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('msg_editable', XOBJ_DTYPE_INT);
 	}
 
@@ -92,13 +93,15 @@ class Messages extends \XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
         
 		// Form Text msgCode
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGES_CODE, 'msg_code', 50, 255, $this->getVar('msg_code') ), true);
-		// Form Text msgMessage
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGES_CODE, 'msg_code', 100, 80, $this->getVar('msg_code') ), true);
 		
-        $form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGES_MESSAGE, 'msg_constant', 50, 255, $this->getVar('msg_constant') ) );
-		// To Save
-		
+        // Form Text msgMessage
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGE, 'msg_message', 100, 255, $this->getVar('msg_message') ), true);
         
+        // Form Text msgLanguage
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_LANGUAGE, 'msg_language', 100, 50, $this->getVar('msg_language') ), true);
+		
+		// To Save
         $form->addElement(new \XoopsFormHidden('op', 'save'));
 		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 		return $form;
@@ -117,7 +120,8 @@ class Messages extends \XoopsObject
 		$ret['id']       = $this->getVar('msg_id');
 		$ret['code']     = $this->getVar('msg_code');
 		$ret['constant'] = $this->getVar('msg_constant');
-		$ret['message']  = str_replace("<","[",str_replace(">","]",constant("_JS_QUIZMAKER_" . $ret['constant']))); 
+		$ret['message']  = $this->getVar('msg_message');
+		$ret['language'] = $this->getVar('msg_language');
 		$ret['editable'] = $this->getVar('msg_editable');
 		return $ret;
 	}

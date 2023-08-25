@@ -246,6 +246,12 @@ global $answersHandler;
      return $this->deleteAll($criteria);
 }
 
+public function deleteId ($id) {
+//global $answersHandler;    
+    $obj = $this->get($id);
+    $this->delete($obj);
+}
+
 /* ******************************
  * Update weight
  * *********************** */
@@ -337,7 +343,22 @@ global $answersHandler;
             
          }
          return true;
+         
  }   
+    /**
+     * delete all objects matching the conditions
+     *
+     * @param  CriteriaElement $criteria {@link CriteriaElement} with conditions to meet
+     * @param  bool            $force    force to delete
+     * @param  bool            $asObject delete in object way: instantiate all objects and delete one by one
+     * @return bool
+     */
+//     public function deleteAll(CriteriaElement $criteria = null, $force = true, $asObject = false)
+//     {
+//         $handler = $this->loadHandler('write');
+// 
+//         return $handler->deleteAll($criteria, $force, $asObject);
+//     }
 } // Fin de la classe
    
 

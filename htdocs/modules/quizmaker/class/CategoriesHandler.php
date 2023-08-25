@@ -147,11 +147,12 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
  * *********************** */
     public function getListKeyName(CriteriaElement $criteria = null, $addAll=false, $addNull=false, $short_permtype = 'view')
     {
+        if (!$short_permtype) return $this->getList($criteria);
+        //-------------------------------------------------------------
         $ret     = array();
         if ($addAll) $ret[0] = "(*)";
-//         if ($addNull) $inpList->addOption('_NULL_', _AM_CARTOUCHES_NULL);
-        //$obs = $this->getObjects($criteria, true);
-        $obs = $this->getAllowed($short_permtype, $criteria = null, $sorted='cat_name,cat_id', $order="ASC");
+
+         $obs = $this->getAllowed($short_permtype, $criteria = null, $sorted='cat_name,cat_id', $order="ASC");
         
         foreach (array_keys($obs) as $i) {
             $key = $obs[$i]->getVar('cat_id');
@@ -221,6 +222,18 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
         $allEnrAllowed = parent::getAll($criteria);
         return $allEnrAllowed;
     }
+    
+	public function getAllowedArr($short_permtype = 'view', $criteria = null, $sorted='cat_weight,cat_name,cat_id', $order="ASC")
+    {
+        $categoriesAll = $this->getAllowed($short_permtype,$criteria,$sorted,$order);
+        $catArr = array();
+        foreach (\array_keys($categoriesAll) as $i) {
+            $catArr[$categoriesAll[$i]->getVar('cat_id')] = $categoriesAll[$i]->getValuesCategories();
+        }
+
+        return $catArr;
+        
+    }
 
     //////////////////////////////////
 
@@ -278,7 +291,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
             case 'up'; 
             case 'down'; 
               $key = array_key_first($allObjects);
-              echo "===> count = " . count($allObjects) . "<br>key={$key}"; 
+//              echo "===> count = " . count($allObjects) . "<br>key={$key}"; 
               $enr2 = $allObjects[$key]->getValuesCategories();
               $cat_id2 = $enr2['id'];
               $cat_weight2 = $enr2['weight'];
@@ -319,6 +332,19 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
          return true;
  }
 
+/* ******************************
+ * renvoie la valeur maximum d'un champ 
+ * *********************** */
+    public function getMax($field = "cat_id")
+
+    {
+        $sql = "SELECT max({$field}) AS valueMax FROM {$this->table}";
+        
+        $rst = $this->db->query($sql);
+        $arr = $this->db->fetchArray($rst);
+//        echo print_r($arr,true);
+        return $arr['valueMax'];
+    }
 
 
 // function getFirst(){

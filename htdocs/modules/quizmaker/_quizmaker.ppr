@@ -5,13 +5,15 @@ Compilator.CompileOnBackground=0
 Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
 Compilator.LogType=0
-DefaultDir=J:\Xoops\modules-JJD\quizmaker\projet\htdocs\modules\quizmaker
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\www\modules\quizmaker
 DefaultCP=0
 LogtoEnd=1
 DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
@@ -30,6 +32,7 @@ _quizmaker
 			admin\index.php
 			admin\menu.php
 			admin\messages.php
+			admin\minify.php
 			admin\permissions.php
 			admin\questions.php
 			admin\questions-clone.php
@@ -45,8 +48,9 @@ _quizmaker
 			admin\quiz-new.php
 			admin\quiz-save.php
 			admin\results.php
+			admin\tools.php
 			admin\type_question.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -64,6 +68,8 @@ _quizmaker
 							assets\icons\16\arrows\blue\goto.png
 							assets\icons\16\arrows\blue\last-0.png
 							assets\icons\16\arrows\blue\last-1.png
+							assets\icons\16\arrows\blue\minus.png
+							assets\icons\16\arrows\blue\plus.png
 							assets\icons\16\arrows\blue\sommaire.png
 							assets\icons\16\arrows\blue\up-0.png
 							assets\icons\16\arrows\blue\up-1.png
@@ -75,6 +81,8 @@ _quizmaker
 							assets\icons\16\arrows\red\goto.png
 							assets\icons\16\arrows\red\last-0.png
 							assets\icons\16\arrows\red\last-1.png
+							assets\icons\16\arrows\red\minus.png
+							assets\icons\16\arrows\red\plus.png
 							assets\icons\16\arrows\red\sommaire.png
 							assets\icons\16\arrows\red\up-0.png
 							assets\icons\16\arrows\red\up-1.png
@@ -142,55 +150,21 @@ _quizmaker
 					assets\icons\32\wizard.png
 				assets\icons\index.html
 			-images
-				-modeles
-					assets\images\modeles\ScreenShoot-PickPick - Raccourci.lnk
-					assets\images\modeles\slide_checkboxLogical-00.jpg
-					assets\images\modeles\slide_checkboxLogical-01.jpg
-					assets\images\modeles\slide_checkboxSimple-00.jpg
-					assets\images\modeles\slide_checkboxSimple-01.jpg
-					assets\images\modeles\slide_comboboxMatchItems-00.jpg
-					assets\images\modeles\slide_comboboxMatchItems-01.jpg
-					assets\images\modeles\slide_comboboxMatchItems-02.jpg
-					assets\images\modeles\slide_comboboxSortList-00.jpg
-					assets\images\modeles\slide_comboboxSortList-01.jpg
-					assets\images\modeles\slide_listboxIntruders1-00.jpg
-					assets\images\modeles\slide_listboxIntruders1-01.jpg
-					assets\images\modeles\slide_listboxIntruders2-00.jpg
-					assets\images\modeles\slide_listboxIntruders2-01.jpg
-					assets\images\modeles\slide_listboxIntruders2-02.jpg
-					assets\images\modeles\slide_listboxSortItems-00.jpg
-					assets\images\modeles\slide_listboxSortItems-01.jpg
-					assets\images\modeles\slide_pageBegin-00.jpg
-					assets\images\modeles\slide_pageEnd-00.jpg
-					assets\images\modeles\slide_pageGroup-00.jpg
-					assets\images\modeles\slide_radioLogical-00.jpg
-					assets\images\modeles\slide_radioLogical-01.jpg
-					assets\images\modeles\slide_radioMultiple2-00.jpg
-					assets\images\modeles\slide_radioMultiple2-01.jpg
-					assets\images\modeles\slide_radioMultiple2-02.jpg
-					assets\images\modeles\slide_radioSimple-00.jpg
-					assets\images\modeles\slide_radioSimple-01.jpg
-					assets\images\modeles\slide_radioSimple-02.jpg
-					assets\images\modeles\slide_textareaInput-00.jpg
-					assets\images\modeles\slide_textareaInput-01.jpg
-					assets\images\modeles\slide_textareaInput-02.jpg
-					assets\images\modeles\slide_textareaListbox-00.jpg
-					assets\images\modeles\slide_textareaListbox-01.jpg
-					assets\images\modeles\slide_textareaSimple-00.jpg
-					assets\images\modeles\slide_textareaSimple-01.jpg
-					assets\images\modeles\slide_textareaSimple-02.jpg
-					assets\images\modeles\slide_textboxMatchItems-00.jpg
-					assets\images\modeles\slide_textboxMatchItems-01.jpg
-					assets\images\modeles\slide_textboxMatchItems-02.jpg
-					assets\images\modeles\slide_textboxMultiple-00.jpg
-					assets\images\modeles\slide_textboxMultiple-01.jpg
-					assets\images\modeles\slide_textboxMultiple-02.jpg
+				-disposition
+					assets\images\disposition\disposition-02.png
+					assets\images\disposition\disposition-03.png
+					assets\images\disposition\disposition-12.png
+					assets\images\disposition\disposition-13.png
+					assets\images\disposition\disposition-20.png
+					assets\images\disposition\disposition-21.png
+					assets\images\disposition\disposition-22.png
+					assets\images\disposition\disposition-30.png
+					assets\images\disposition\disposition-31.png
 				assets\images\ampoule-05.jpg
 				assets\images\blank.gif
 				assets\images\blank.png
 				assets\images\index.html
 				assets\images\jean-jacquesdelalandre_logo.png
-				assets\images\logoModule - Copie.png
 				assets\images\logoModule.png
 				assets\images\logoModuleVierge.png
 				assets\images\run_quiz_00.png
@@ -199,134 +173,229 @@ _quizmaker
 				assets\images\run_quiz_01.png
 				assets\images\run_quiz_02.png
 				assets\images\solution-00.png
-				assets\images\solution-01 - Copie.png
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
 			-js
-				-quiz
-					-css
+				-quiz-min
+				+quiz-org
+					+css
+						-infobulle
+							-images
+								assets\js\quiz-org\css\infobulle\images\Award.png
+								assets\js\quiz-org\css\infobulle\images\Bow tie.png
+								assets\js\quiz-org\css\infobulle\images\Cinema.png
+								assets\js\quiz-org\css\infobulle\images\Coffee.png
+								assets\js\quiz-org\css\infobulle\images\Critical.png
+								assets\js\quiz-org\css\infobulle\images\Dating.png
+								assets\js\quiz-org\css\infobulle\images\Dollar.png
+								assets\js\quiz-org\css\infobulle\images\Game_strategy.png
+								assets\js\quiz-org\css\infobulle\images\Hamburger.png
+								assets\js\quiz-org\css\infobulle\images\Help.png
+								assets\js\quiz-org\css\infobulle\images\Hint.png
+								assets\js\quiz-org\css\infobulle\images\Home.png
+								assets\js\quiz-org\css\infobulle\images\index.html
+								assets\js\quiz-org\css\infobulle\images\Info.png
+								assets\js\quiz-org\css\infobulle\images\Kids.png
+								assets\js\quiz-org\css\infobulle\images\Music.png
+								assets\js\quiz-org\css\infobulle\images\View.png
+								assets\js\quiz-org\css\infobulle\images\Warning.png
+							assets\js\quiz-org\css\infobulle\exemple-01.html
+							assets\js\quiz-org\css\infobulle\index.html
+							assets\js\quiz-org\css\infobulle\infobulle.css
 						-progressbarr
-							assets\js\quiz\css\progressbarr\shaded-green.png
-						assets\js\quiz\css\index.html
-						assets\js\quiz\css\quiz.css
-						assets\js\quiz\css\quiz-tmp.css
-						assets\js\quiz\css\style-item-color.css
-						assets\js\quiz\css\style-item-design.css
+							assets\js\quiz-org\css\progressbarr\shaded-green.png
+						assets\js\quiz-org\css\index.html
+						assets\js\quiz-org\css\quiz.css
+						assets\js\quiz-org\css\quiz-tmp.css
+						assets\js\quiz-org\css\style-item-color.css
+						assets\js\quiz-org\css\style-item-color-old.css
+						assets\js\quiz-org\css\style-item-design.css
+						assets\js\quiz-org\css\style-item-design-old.css
 					-data
-						assets\js\quiz\data\quiz-options.js
-						assets\js\quiz\data\quiz-questions.js
-						assets\js\quiz\data\togodo.html
+						assets\js\quiz-org\data\quiz-options.js
+						assets\js\quiz-org\data\quiz-questions.js
+						assets\js\quiz-org\data\togodo.html
 					-images
-						-blue
-							assets\js\quiz\images\blue\add.png
-							assets\js\quiz\images\blue\add_all.png
-							assets\js\quiz\images\blue\bottom.png
-							assets\js\quiz\images\blue\down.png
-							assets\js\quiz\images\blue\empty.png
-							assets\js\quiz\images\blue\init.png
-							assets\js\quiz\images\blue\no.png
-							assets\js\quiz\images\blue\ok.png
-							assets\js\quiz\images\blue\remove.png
-							assets\js\quiz\images\blue\remove_all.png
-							assets\js\quiz\images\blue\show.png
-							assets\js\quiz\images\blue\Thumbs.db
-							assets\js\quiz\images\blue\top.png
-							assets\js\quiz\images\blue\up.png
-						-default
-							assets\js\quiz\images\default\add.png
-							assets\js\quiz\images\default\add_all.png
-							assets\js\quiz\images\default\bottom.png
-							assets\js\quiz\images\default\down.png
-							assets\js\quiz\images\default\empty.png
-							assets\js\quiz\images\default\init.png
-							assets\js\quiz\images\default\no.png
-							assets\js\quiz\images\default\ok.png
-							assets\js\quiz\images\default\remove.png
-							assets\js\quiz\images\default\remove_all.png
-							assets\js\quiz\images\default\show.png
-							assets\js\quiz\images\default\Thumbs.db
-							assets\js\quiz\images\default\top.png
-							assets\js\quiz\images\default\up.png
-						-green
-							assets\js\quiz\images\green\add.png
-							assets\js\quiz\images\green\add_all.png
-							assets\js\quiz\images\green\bottom.png
-							assets\js\quiz\images\green\down.png
-							assets\js\quiz\images\green\empty.png
-							assets\js\quiz\images\green\init.png
-							assets\js\quiz\images\green\no.png
-							assets\js\quiz\images\green\ok.png
-							assets\js\quiz\images\green\remove.png
-							assets\js\quiz\images\green\remove_all.png
-							assets\js\quiz\images\green\show.png
-							assets\js\quiz\images\green\Thumbs.db
-							assets\js\quiz\images\green\top.png
-							assets\js\quiz\images\green\up.png
-						-grey
-							assets\js\quiz\images\grey\add.png
-							assets\js\quiz\images\grey\add_all.png
-							assets\js\quiz\images\grey\bottom.png
-							assets\js\quiz\images\grey\down.png
-							assets\js\quiz\images\grey\empty.png
-							assets\js\quiz\images\grey\init.png
-							assets\js\quiz\images\grey\no.png
-							assets\js\quiz\images\grey\ok.png
-							assets\js\quiz\images\grey\remove.png
-							assets\js\quiz\images\grey\remove_all.png
-							assets\js\quiz\images\grey\show.png
-							assets\js\quiz\images\grey\Thumbs.db
-							assets\js\quiz\images\grey\top.png
-							assets\js\quiz\images\grey\up.png
-						-magenta
-							assets\js\quiz\images\magenta\add.png
-							assets\js\quiz\images\magenta\add_all.png
-							assets\js\quiz\images\magenta\bottom.png
-							assets\js\quiz\images\magenta\down.png
-							assets\js\quiz\images\magenta\empty.png
-							assets\js\quiz\images\magenta\init.png
-							assets\js\quiz\images\magenta\no.png
-							assets\js\quiz\images\magenta\ok.png
-							assets\js\quiz\images\magenta\remove.png
-							assets\js\quiz\images\magenta\remove_all.png
-							assets\js\quiz\images\magenta\show.png
-							assets\js\quiz\images\magenta\Thumbs.db
-							assets\js\quiz\images\magenta\top.png
-							assets\js\quiz\images\magenta\up.png
-					-js
+						-_temp
+							-_modeles
+								assets\js\quiz-org\images\_temp\_modeles\btn_bottom.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_cancel-01.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_cancel-02.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_down.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_empty.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_first.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_last.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_next.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_ok.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_previous.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_top.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_up.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_view-01.png
+								assets\js\quiz-org\images\_temp\_modeles\btn_view-02.png
+							assets\js\quiz-org\images\_temp\Boutons - Copie.svg
+							assets\js\quiz-org\images\_temp\Boutons.png
+							assets\js\quiz-org\images\_temp\Boutons.svg
+						-buttons
+							-blue
+								assets\js\quiz-org\images\buttons\blue\btn_bottom.png
+								assets\js\quiz-org\images\buttons\blue\btn_cancel-01.png
+								assets\js\quiz-org\images\buttons\blue\btn_cancel-02.png
+								assets\js\quiz-org\images\buttons\blue\btn_down.png
+								assets\js\quiz-org\images\buttons\blue\btn_empty.png
+								assets\js\quiz-org\images\buttons\blue\btn_first.png
+								assets\js\quiz-org\images\buttons\blue\btn_last.png
+								assets\js\quiz-org\images\buttons\blue\btn_next.png
+								assets\js\quiz-org\images\buttons\blue\btn_ok.png
+								assets\js\quiz-org\images\buttons\blue\btn_previous.png
+								assets\js\quiz-org\images\buttons\blue\btn_top.png
+								assets\js\quiz-org\images\buttons\blue\btn_up.png
+								assets\js\quiz-org\images\buttons\blue\btn_view-01.png
+								assets\js\quiz-org\images\buttons\blue\btn_view-02.png
+							-default
+								assets\js\quiz-org\images\buttons\default\btn_bottom.png
+								assets\js\quiz-org\images\buttons\default\btn_cancel-01.png
+								assets\js\quiz-org\images\buttons\default\btn_cancel-02.png
+								assets\js\quiz-org\images\buttons\default\btn_down.png
+								assets\js\quiz-org\images\buttons\default\btn_empty.png
+								assets\js\quiz-org\images\buttons\default\btn_first.png
+								assets\js\quiz-org\images\buttons\default\btn_last.png
+								assets\js\quiz-org\images\buttons\default\btn_next.png
+								assets\js\quiz-org\images\buttons\default\btn_ok.png
+								assets\js\quiz-org\images\buttons\default\btn_previous.png
+								assets\js\quiz-org\images\buttons\default\btn_top.png
+								assets\js\quiz-org\images\buttons\default\btn_up.png
+								assets\js\quiz-org\images\buttons\default\btn_view-01.png
+								assets\js\quiz-org\images\buttons\default\btn_view-02.png
+							-green
+								assets\js\quiz-org\images\buttons\green\btn_bottom.png
+								assets\js\quiz-org\images\buttons\green\btn_cancel-01.png
+								assets\js\quiz-org\images\buttons\green\btn_cancel-02.png
+								assets\js\quiz-org\images\buttons\green\btn_down.png
+								assets\js\quiz-org\images\buttons\green\btn_empty.png
+								assets\js\quiz-org\images\buttons\green\btn_first.png
+								assets\js\quiz-org\images\buttons\green\btn_last.png
+								assets\js\quiz-org\images\buttons\green\btn_next.png
+								assets\js\quiz-org\images\buttons\green\btn_ok.png
+								assets\js\quiz-org\images\buttons\green\btn_previous.png
+								assets\js\quiz-org\images\buttons\green\btn_top.png
+								assets\js\quiz-org\images\buttons\green\btn_up.png
+								assets\js\quiz-org\images\buttons\green\btn_view-01.png
+								assets\js\quiz-org\images\buttons\green\btn_view-02.png
+							-magenta
+								assets\js\quiz-org\images\buttons\magenta\btn_bottom.png
+								assets\js\quiz-org\images\buttons\magenta\btn_cancel-01.png
+								assets\js\quiz-org\images\buttons\magenta\btn_cancel-02.png
+								assets\js\quiz-org\images\buttons\magenta\btn_down.png
+								assets\js\quiz-org\images\buttons\magenta\btn_empty.png
+								assets\js\quiz-org\images\buttons\magenta\btn_first.png
+								assets\js\quiz-org\images\buttons\magenta\btn_last.png
+								assets\js\quiz-org\images\buttons\magenta\btn_next.png
+								assets\js\quiz-org\images\buttons\magenta\btn_ok.png
+								assets\js\quiz-org\images\buttons\magenta\btn_previous.png
+								assets\js\quiz-org\images\buttons\magenta\btn_top.png
+								assets\js\quiz-org\images\buttons\magenta\btn_up.png
+								assets\js\quiz-org\images\buttons\magenta\btn_view-01.png
+								assets\js\quiz-org\images\buttons\magenta\btn_view-02.png
+							-yellow
+								assets\js\quiz-org\images\buttons\yellow\btn_bottom.png
+								assets\js\quiz-org\images\buttons\yellow\btn_cancel-01.png
+								assets\js\quiz-org\images\buttons\yellow\btn_cancel-02.png
+								assets\js\quiz-org\images\buttons\yellow\btn_down.png
+								assets\js\quiz-org\images\buttons\yellow\btn_empty.png
+								assets\js\quiz-org\images\buttons\yellow\btn_first.png
+								assets\js\quiz-org\images\buttons\yellow\btn_last.png
+								assets\js\quiz-org\images\buttons\yellow\btn_next.png
+								assets\js\quiz-org\images\buttons\yellow\btn_ok.png
+								assets\js\quiz-org\images\buttons\yellow\btn_previous.png
+								assets\js\quiz-org\images\buttons\yellow\btn_top.png
+								assets\js\quiz-org\images\buttons\yellow\btn_up.png
+								assets\js\quiz-org\images\buttons\yellow\btn_view-01.png
+								assets\js\quiz-org\images\buttons\yellow\btn_view-02.png
+							assets\js\quiz-org\images\buttons\index.html
+						-substitut
+							assets\js\quiz-org\images\substitut\blank-jaune.jpg
+							assets\js\quiz-org\images\substitut\blank-org.jpg
+							assets\js\quiz-org\images\substitut\blank-rouge.jpg
+							assets\js\quiz-org\images\substitut\blank-vert.jpg
+							assets\js\quiz-org\images\substitut\blank-violet.jpg
+							assets\js\quiz-org\images\substitut\index.html
+							assets\js\quiz-org\images\substitut\interrogation-01.jpg
+							assets\js\quiz-org\images\substitut\interrogation-02-gris.png
+							assets\js\quiz-org\images\substitut\interrogation-02-jaune.png
+							assets\js\quiz-org\images\substitut\interrogation-02-rouge.jpg
+							assets\js\quiz-org\images\substitut\interrogation-02-vert.png
+							assets\js\quiz-org\images\substitut\interrogation-02-violet.png
+							assets\js\quiz-org\images\substitut\interrogation-03-jaune.png
+							assets\js\quiz-org\images\substitut\interrogation-03-noir.png
+							assets\js\quiz-org\images\substitut\interrogation-03-rouge.png
+							assets\js\quiz-org\images\substitut\interrogation-03-vert.png
+							assets\js\quiz-org\images\substitut\interrogation-03-violet.png
+							assets\js\quiz-org\images\substitut\interrogation-04-jaune.png
+							assets\js\quiz-org\images\substitut\interrogation-04-org.png
+							assets\js\quiz-org\images\substitut\interrogation-04-rouge.png
+							assets\js\quiz-org\images\substitut\interrogation-04-vert.png
+							assets\js\quiz-org\images\substitut\interrogation-04-violet.png
+							assets\js\quiz-org\images\substitut\interrogation-05-bleu.png
+							assets\js\quiz-org\images\substitut\interrogation-05-gris.png
+							assets\js\quiz-org\images\substitut\interrogation-05-jaune.png
+							assets\js\quiz-org\images\substitut\interrogation-05-rouge.png
+							assets\js\quiz-org\images\substitut\interrogation-05-vert.png
+							assets\js\quiz-org\images\substitut\interrogation-05-violet.png
+						assets\js\quiz-org\images\2points-gris.png
+						assets\js\quiz-org\images\arrow-right.png
+						assets\js\quiz-org\images\feu-rouge.png
+						assets\js\quiz-org\images\feu-vert.png
+						assets\js\quiz-org\images\Help.png
+						assets\js\quiz-org\images\Hint.png
+						assets\js\quiz-org\images\index.html
+					+js
 						-language
-							assets\js\quiz\js\language\quiz-english.js
-							assets\js\quiz\js\language\quiz-french.js
-						-tpl
-							assets\js\quiz\js\tpl\slide_checkboxLogical.js
-							assets\js\quiz\js\tpl\slide_checkboxSimple.js
-							assets\js\quiz\js\tpl\slide_comboboxMatchItems.js
-							assets\js\quiz\js\tpl\slide_comboboxSortList.js
-							assets\js\quiz\js\tpl\slide_listboxIntruders1.js
-							assets\js\quiz\js\tpl\slide_listboxIntruders2.js
-							assets\js\quiz\js\tpl\slide_listboxSortItems.js
-							assets\js\quiz\js\tpl\slide_pageBegin.js
-							assets\js\quiz\js\tpl\slide_pageEnd.js
-							assets\js\quiz\js\tpl\slide_pageGroup.js
-							assets\js\quiz\js\tpl\slide_radioLogical.js
-							assets\js\quiz\js\tpl\slide_radioMultiple2.js
-							assets\js\quiz\js\tpl\slide_radioSimple.js
-							assets\js\quiz\js\tpl\slide_textareaInput.js
-							assets\js\quiz\js\tpl\slide_textareaListbox.js
-							assets\js\quiz\js\tpl\slide_textareaSimple.js
-							assets\js\quiz\js\tpl\slide_textboxMatchItems.js
-							assets\js\quiz\js\tpl\slide_textboxMultiple.js
-						assets\js\quiz\js\quiz-events.js
-						assets\js\quiz\js\quiz-functions.js
-						assets\js\quiz\js\quiz-main.js
-						assets\js\quiz\js\quiz-options-dist.js
-						assets\js\quiz\js\slide__prototype.js
-					assets\js\quiz\_quiz.ppr
-					assets\js\quiz\exemple_02.html
-					assets\js\quiz\exemple_04.html.URL
-					assets\js\quiz\modif pour extends.js
-					assets\js\quiz\Nouveau document texte.txt
-					assets\js\quiz\quiz.html
+							assets\js\quiz-org\js\language\quiz-english.js
+							assets\js\quiz-org\js\language\quiz-french.js
+						+tpl
+							assets\js\quiz-org\js\tpl\slide_checkboxLogical.js
+							assets\js\quiz-org\js\tpl\slide_checkboxSimple.js
+							assets\js\quiz-org\js\tpl\slide_comboboxMatchItems.js
+							assets\js\quiz-org\js\tpl\slide_comboboxSortList.js
+							assets\js\quiz-org\js\tpl\slide_imagesDaDGroups.css
+							assets\js\quiz-org\js\tpl\slide_imagesDaDGroups.js
+							assets\js\quiz-org\js\tpl\slide_imagesDaDLogical.js
+							assets\js\quiz-org\js\tpl\slide_imagesDaDMatchItems.js
+							assets\js\quiz-org\js\tpl\slide_imagesDaDSortItems.js
+							assets\js\quiz-org\js\tpl\slide_imagesLogical.js
+							assets\js\quiz-org\js\tpl\slide_imagesSimple.js
+							assets\js\quiz-org\js\tpl\slide_listboxIntruders.css
+							assets\js\quiz-org\js\tpl\slide_listboxIntruders.js
+							assets\js\quiz-org\js\tpl\slide_listboxSortItems.js
+							assets\js\quiz-org\js\tpl\slide_pageBegin.js
+							assets\js\quiz-org\js\tpl\slide_pageEnd.js
+							assets\js\quiz-org\js\tpl\slide_pageGroup.js
+							assets\js\quiz-org\js\tpl\slide_radioLogical.js
+							assets\js\quiz-org\js\tpl\slide_radioMultiple2.js
+							assets\js\quiz-org\js\tpl\slide_radioSimple.js
+							assets\js\quiz-org\js\tpl\slide_textareaInput.js
+							assets\js\quiz-org\js\tpl\slide_textareaListbox.js
+							assets\js\quiz-org\js\tpl\slide_textareaSimple.js
+							assets\js\quiz-org\js\tpl\slide_textboxMatchItems.js
+							assets\js\quiz-org\js\tpl\slide_textboxMultiple.js
+							assets\js\quiz-org\js\tpl\slide_ulDaDGroups.css
+							assets\js\quiz-org\js\tpl\slide_ulDaDGroups.js
+							assets\js\quiz-org\js\tpl\slide_ulDaDSortList.css
+							assets\js\quiz-org\js\tpl\slide_ulDaDSortList.js
+							assets\js\quiz-org\js\tpl\slide_imagesDaDSortItems.css
+							assets\js\quiz-org\js\tpl\slide_imagesDaDMatchItems.css
+							assets\js\quiz-org\js\tpl\slide_imagesDaDLogical.css
+						assets\js\quiz-org\js\quiz-events.js
+						assets\js\quiz-org\js\quiz-functions.js
+						assets\js\quiz-org\js\quiz-main.js
+						assets\js\quiz-org\js\quiz-options-dist.js
+						assets\js\quiz-org\js\slide__prototype.js
+					assets\js\quiz-org\_quiz-org.ppr
+					assets\js\quiz-org\exemple_02.html
+					assets\js\quiz-org\exemple_04.html.URL
+					assets\js\quiz-org\modif pour extends.js
+					assets\js\quiz-org\quiz.html
 				assets\js\admin.js
 				assets\js\functions.js
 				assets\js\highslide.js
@@ -349,25 +418,6 @@ _quizmaker
 				class\Common\Resizer.php
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
-			-type_question
-				class\type_question\slide_checkboxLogical.php
-				class\type_question\slide_checkboxSimple.php
-				class\type_question\slide_comboboxMatchItems.php
-				class\type_question\slide_comboboxSortList.php
-				class\type_question\slide_listboxIntruders1.php
-				class\type_question\slide_listboxIntruders2.php
-				class\type_question\slide_listboxSortItems.php
-				class\type_question\slide_pageBegin.php
-				class\type_question\slide_pageEnd.php
-				class\type_question\slide_pageGroup.php
-				class\type_question\slide_radioLogical.php
-				class\type_question\slide_radioMultiple2.php
-				class\type_question\slide_radioSimple.php
-				class\type_question\slide_textareaInput.php
-				class\type_question\slide_textareaListbox.php
-				class\type_question\slide_textareaSimple.php
-				class\type_question\slide_textboxMatchItems.php
-				class\type_question\slide_textboxMultiple.php
 			class\Answers.php
 			class\AnswersHandler.php
 			class\Categories.php
@@ -377,6 +427,7 @@ _quizmaker
 			class\index.html
 			class\Messages.php
 			class\MessagesHandler.php
+			class\Minifier.php
 			class\Permissions.php
 			class\PermissionsHandler.php
 			class\Questions.php
@@ -398,11 +449,21 @@ _quizmaker
 		+docs
 			docs\changelog.txt
 			docs\credits.txt
+			docs\Image 076.jpg
+			docs\Image 077.jpg
+			docs\Image 078.jpg
+			docs\Image 079.jpg
+			docs\Image 080.jpg
 			docs\index.html
 			docs\install.txt
 			docs\lang.diff
+			docs\Les concepts de base pour flexbox - CSS Feuilles de style en cascade MDN.URL
 			docs\license.txt
 			docs\readme.txt
+			docs\structures_div.svg
+			docs\test_div_scroll.html
+			docs\test_div_scroll-00 - Copie.html
+			docs\test_div_scroll-00.html
 			docs\todo.txt
 		-images
 			-blue
@@ -480,7 +541,7 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\function.quizFlagAscii.php
@@ -511,23 +572,6 @@ _quizmaker
 					language\english\mail_template\Quiz_comment_notify.tpl
 					language\english\mail_template\Quiz_delete_notify.tpl
 					language\english\mail_template\Quiz_modify_notify.tpl
-				-slide_help
-					language\english\slide_help\slide_checkboxLogical.html
-					language\english\slide_help\slide_checkboxSimple.html
-					language\english\slide_help\slide_comboboxMatchItems.html
-					language\english\slide_help\slide_comboboxSortList.html
-					language\english\slide_help\slide_listboxIntruders1.html
-					language\english\slide_help\slide_listboxIntruders2.html
-					language\english\slide_help\slide_pageBegin.html
-					language\english\slide_help\slide_pageEnd.html
-					language\english\slide_help\slide_pageGroup.html
-					language\english\slide_help\slide_radioLogical.html
-					language\english\slide_help\slide_radioMultiple2.html
-					language\english\slide_help\slide_radioSimple.html
-					language\english\slide_help\slide_textareaInput.html
-					language\english\slide_help\slide_textareaListbox.html
-					language\english\slide_help\slide_textareaSimple.html
-					language\english\slide_help\slide_textboxMultiple.html
 				language\english\admin.php
 				language\english\blocks.php
 				language\english\common.php
@@ -535,7 +579,6 @@ _quizmaker
 				language\english\index.html
 				language\english\main.php
 				language\english\modinfo.php
-				language\english\quiz_JS.php
 				language\english\type_questions.php
 			+french
 				-help
@@ -554,26 +597,6 @@ _quizmaker
 					language\french\mail_template\Quiz_comment_notify.tpl
 					language\french\mail_template\Quiz_delete_notify.tpl
 					language\french\mail_template\Quiz_modify_notify.tpl
-				-slide
-					language\french\slide\slide_resultats.html
-				-slide_help
-					language\french\slide_help\slide_checkboxLogical.html
-					language\french\slide_help\slide_checkboxSimple.html
-					language\french\slide_help\slide_comboboxMatchItems.html
-					language\french\slide_help\slide_comboboxSortList.html
-					language\french\slide_help\slide_listboxIntruders1.html
-					language\french\slide_help\slide_listboxIntruders2.html
-					language\french\slide_help\slide_pageBegin.html
-					language\french\slide_help\slide_pageEnd.html
-					language\french\slide_help\slide_pageGroup.html
-					language\french\slide_help\slide_radioLogical.html
-					language\french\slide_help\slide_radioMultiple2.html
-					language\french\slide_help\slide_radioSimple.html
-					language\french\slide_help\slide_textareaInput.html
-					language\french\slide_help\slide_textareaListbox.html
-					language\french\slide_help\slide_textareaSimple.html
-					language\french\slide_help\slide_textboxMatchItems.html
-					language\french\slide_help\slide_textboxMultiple.html
 				language\french\admin.php
 				language\french\blocks.php
 				language\french\common.php
@@ -581,14 +604,479 @@ _quizmaker
 				language\french\index.html
 				language\french\main.php
 				language\french\modinfo.php
-				language\french\quiz_JS.php
 				language\french\type_questions.php
 			language\index.html
+		-plugins
+			-checkboxLogical
+				-img
+					plugins\checkboxLogical\img\index.html
+					plugins\checkboxLogical\img\snapshoot-000.jpg
+					plugins\checkboxLogical\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\checkboxLogical\language\english\constants.php
+						plugins\checkboxLogical\language\english\help.html
+						plugins\checkboxLogical\language\english\index.html
+					-french
+						plugins\checkboxLogical\language\french\constants.php
+						plugins\checkboxLogical\language\french\help.html
+						plugins\checkboxLogical\language\french\index.html
+					plugins\checkboxLogical\language\index.html
+				plugins\checkboxLogical\index.html
+				plugins\checkboxLogical\slide_checkboxLogical.php
+			-checkboxSimple
+				-img
+					plugins\checkboxSimple\img\index.html
+					plugins\checkboxSimple\img\snapshoot-000.jpg
+					plugins\checkboxSimple\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\checkboxSimple\language\english\constants.php
+						plugins\checkboxSimple\language\english\help.html
+						plugins\checkboxSimple\language\english\index.html
+					-french
+						plugins\checkboxSimple\language\french\constants.php
+						plugins\checkboxSimple\language\french\help.html
+						plugins\checkboxSimple\language\french\index.html
+					plugins\checkboxSimple\language\index.html
+				plugins\checkboxSimple\index.html
+				plugins\checkboxSimple\slide_checkboxSimple.php
+			-comboboxMatchItems
+				-img
+					plugins\comboboxMatchItems\img\index.html
+					plugins\comboboxMatchItems\img\snapshoot-000.jpg
+					plugins\comboboxMatchItems\img\snapshoot-001.jpg
+					plugins\comboboxMatchItems\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\comboboxMatchItems\language\english\constants.php
+						plugins\comboboxMatchItems\language\english\help.html
+						plugins\comboboxMatchItems\language\english\index.html
+					-french
+						plugins\comboboxMatchItems\language\french\constants.php
+						plugins\comboboxMatchItems\language\french\help.html
+						plugins\comboboxMatchItems\language\french\index.html
+					plugins\comboboxMatchItems\language\index.html
+				plugins\comboboxMatchItems\index.html
+				plugins\comboboxMatchItems\slide_comboboxMatchItems.php
+			-comboboxSortList
+				-img
+					plugins\comboboxSortList\img\index.html
+					plugins\comboboxSortList\img\snapshoot-000.jpg
+					plugins\comboboxSortList\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\comboboxSortList\language\english\constants.php
+						plugins\comboboxSortList\language\english\help.html
+						plugins\comboboxSortList\language\english\index.html
+					-french
+						plugins\comboboxSortList\language\french\constants.php
+						plugins\comboboxSortList\language\french\help.html
+						plugins\comboboxSortList\language\french\index.html
+					plugins\comboboxSortList\language\index.html
+				plugins\comboboxSortList\index.html
+				plugins\comboboxSortList\slide_comboboxSortList.php
+			-imagesDaDGroups
+				-img
+					plugins\imagesDaDGroups\img\index.html
+					plugins\imagesDaDGroups\img\snapshoot-000.jpg
+					plugins\imagesDaDGroups\img\snapshoot-001.jpg
+					plugins\imagesDaDGroups\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\imagesDaDGroups\language\english\constants.php
+						plugins\imagesDaDGroups\language\english\help.html
+						plugins\imagesDaDGroups\language\english\index.html
+					-french
+						plugins\imagesDaDGroups\language\french\constants.php
+						plugins\imagesDaDGroups\language\french\help.html
+						plugins\imagesDaDGroups\language\french\index.html
+					plugins\imagesDaDGroups\language\index.html
+				plugins\imagesDaDGroups\index.html
+				plugins\imagesDaDGroups\slide_imagesDaDGroups.php
+			+imagesDaDLogical
+				-img
+					plugins\imagesDaDLogical\img\index.html
+					plugins\imagesDaDLogical\img\snapshoot-000.jpg
+					plugins\imagesDaDLogical\img\snapshoot-001.jpg
+					plugins\imagesDaDLogical\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\imagesDaDLogical\language\english\constants.php
+						plugins\imagesDaDLogical\language\english\help.html
+						plugins\imagesDaDLogical\language\english\index.html
+					-french
+						plugins\imagesDaDLogical\language\french\constants.php
+						plugins\imagesDaDLogical\language\french\help.html
+						plugins\imagesDaDLogical\language\french\index.html
+					plugins\imagesDaDLogical\language\index.html
+				plugins\imagesDaDLogical\index.html
+				plugins\imagesDaDLogical\slide_imagesDaDLogical.php
+			-imagesDaDMatchItems
+				-img
+					plugins\imagesDaDMatchItems\img\index.html
+					plugins\imagesDaDMatchItems\img\snapshoot-000.jpg
+					plugins\imagesDaDMatchItems\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\imagesDaDMatchItems\language\english\constants.php
+						plugins\imagesDaDMatchItems\language\english\help.html
+						plugins\imagesDaDMatchItems\language\english\index.html
+					-french
+						plugins\imagesDaDMatchItems\language\french\constants.php
+						plugins\imagesDaDMatchItems\language\french\help.html
+						plugins\imagesDaDMatchItems\language\french\index.html
+					plugins\imagesDaDMatchItems\language\index.html
+				plugins\imagesDaDMatchItems\index.html
+				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.php
+			-imagesDaDSortItems
+				-imagesDaDGroups
+					-img
+						plugins\imagesDaDSortItems\imagesDaDGroups\img\index.html
+						plugins\imagesDaDSortItems\imagesDaDGroups\img\snapshoot-000.jpg
+						plugins\imagesDaDSortItems\imagesDaDGroups\img\snapshoot-001.jpg
+						plugins\imagesDaDSortItems\imagesDaDGroups\img\snapshoot-002.jpg
+					-language
+						-english
+							plugins\imagesDaDSortItems\imagesDaDGroups\language\english\constants.php
+							plugins\imagesDaDSortItems\imagesDaDGroups\language\english\help.html
+							plugins\imagesDaDSortItems\imagesDaDGroups\language\english\index.html
+						-french
+							plugins\imagesDaDSortItems\imagesDaDGroups\language\french\constants.php
+							plugins\imagesDaDSortItems\imagesDaDGroups\language\french\help.html
+							plugins\imagesDaDSortItems\imagesDaDGroups\language\french\index.html
+						plugins\imagesDaDSortItems\imagesDaDGroups\language\index.html
+					plugins\imagesDaDSortItems\imagesDaDGroups\index.html
+					plugins\imagesDaDSortItems\imagesDaDGroups\slide_imagesDaDGroups.php
+				-img
+					plugins\imagesDaDSortItems\img\index.html
+					plugins\imagesDaDSortItems\img\snapshoot-000.jpg
+					plugins\imagesDaDSortItems\img\snapshoot-001.jpg
+					plugins\imagesDaDSortItems\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\imagesDaDSortItems\language\english\constants.php
+						plugins\imagesDaDSortItems\language\english\help.html
+						plugins\imagesDaDSortItems\language\english\index.html
+					-french
+						plugins\imagesDaDSortItems\language\french\constants.php
+						plugins\imagesDaDSortItems\language\french\help.html
+						plugins\imagesDaDSortItems\language\french\index.html
+					plugins\imagesDaDSortItems\language\index.html
+				plugins\imagesDaDSortItems\index.html
+				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.php
+			+imagesLogical
+				-img
+					plugins\imagesLogical\img\index.html
+					plugins\imagesLogical\img\snapshoot-000.jpg
+					plugins\imagesLogical\img\snapshoot-001.jpg
+					plugins\imagesLogical\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\imagesLogical\language\english\constants.php
+						plugins\imagesLogical\language\english\help.html
+						plugins\imagesLogical\language\english\index.html
+					-french
+						plugins\imagesLogical\language\french\constants.php
+						plugins\imagesLogical\language\french\help.html
+						plugins\imagesLogical\language\french\index.html
+					plugins\imagesLogical\language\index.html
+				plugins\imagesLogical\index.html
+				plugins\imagesLogical\slide_imagesLogical.php
+			-imagesSimple
+				-img
+					plugins\imagesSimple\img\index.html
+					plugins\imagesSimple\img\snapshoot-000.jpg
+					plugins\imagesSimple\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\imagesSimple\language\english\constants.php
+						plugins\imagesSimple\language\english\help.html
+						plugins\imagesSimple\language\english\index.html
+					-french
+						plugins\imagesSimple\language\french\constants.php
+						plugins\imagesSimple\language\french\help.html
+						plugins\imagesSimple\language\french\index.html
+					plugins\imagesSimple\language\index.html
+				plugins\imagesSimple\index.html
+				plugins\imagesSimple\slide_imagesSimple.php
+			-listboxIntruders
+				-img
+					plugins\listboxIntruders\img\index.html
+					plugins\listboxIntruders\img\snapshoot-000.jpg
+					plugins\listboxIntruders\img\snapshoot-001.jpg
+					plugins\listboxIntruders\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\listboxIntruders\language\english\consigne.html
+						plugins\listboxIntruders\language\english\constants.php
+						plugins\listboxIntruders\language\english\help.html
+						plugins\listboxIntruders\language\english\index.html
+					-french
+						plugins\listboxIntruders\language\french\consigne.html
+						plugins\listboxIntruders\language\french\constants.php
+						plugins\listboxIntruders\language\french\help.html
+						plugins\listboxIntruders\language\french\index.html
+					plugins\listboxIntruders\language\index.html
+				plugins\listboxIntruders\index.html
+				plugins\listboxIntruders\slide_listboxIntruders.php
+			+listboxSortItems
+				-img
+					plugins\listboxSortItems\img\index.html
+					plugins\listboxSortItems\img\snapshoot-000.jpg
+					plugins\listboxSortItems\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\listboxSortItems\language\english\constants.php
+						plugins\listboxSortItems\language\english\help.html
+						plugins\listboxSortItems\language\english\index.html
+					-french
+						plugins\listboxSortItems\language\french\constants.php
+						plugins\listboxSortItems\language\french\help.html
+						plugins\listboxSortItems\language\french\index.html
+					plugins\listboxSortItems\language\index.html
+				plugins\listboxSortItems\index.html
+				plugins\listboxSortItems\slide_listboxSortItems.php
+			-pageBegin
+				-img
+					plugins\pageBegin\img\index.html
+					plugins\pageBegin\img\snapshoot-000.jpg
+				-language
+					-english
+						plugins\pageBegin\language\english\constants.php
+						plugins\pageBegin\language\english\help.html
+						plugins\pageBegin\language\english\index.html
+					-french
+						plugins\pageBegin\language\french\constants.php
+						plugins\pageBegin\language\french\help.html
+						plugins\pageBegin\language\french\index.html
+					plugins\pageBegin\language\help.html
+					plugins\pageBegin\language\index.html
+				plugins\pageBegin\index.html
+				plugins\pageBegin\slide_pageBegin.php
+			-pageEnd
+				-img
+					plugins\pageEnd\img\index.html
+					plugins\pageEnd\img\snapshoot-000.jpg
+				-language
+					-english
+						plugins\pageEnd\language\english\constants.php
+						plugins\pageEnd\language\english\help.html
+						plugins\pageEnd\language\english\index.html
+					-french
+						plugins\pageEnd\language\french\constants.php
+						plugins\pageEnd\language\french\help.html
+						plugins\pageEnd\language\french\index.html
+					plugins\pageEnd\language\index.html
+				plugins\pageEnd\index.html
+				plugins\pageEnd\slide_pageEnd.php
+			-pageGroup
+				-img
+					plugins\pageGroup\img\index.html
+					plugins\pageGroup\img\slide_pageGroup-00.jpg
+				-language
+					-english
+						plugins\pageGroup\language\english\constants.php
+						plugins\pageGroup\language\english\help.html
+						plugins\pageGroup\language\english\index.html
+					-french
+						plugins\pageGroup\language\french\constants.php
+						plugins\pageGroup\language\french\help.html
+						plugins\pageGroup\language\french\index.html
+					plugins\pageGroup\language\index.html
+				plugins\pageGroup\index.html
+				plugins\pageGroup\slide_pageGroup.php
+			+radioLogical
+				-img
+					plugins\radioLogical\img\index.html
+					plugins\radioLogical\img\snapshoot-000.jpg
+					plugins\radioLogical\img\snapshoot-001.jpg
+				-language
+					-english
+						plugins\radioLogical\language\english\constants.php
+						plugins\radioLogical\language\english\help.html
+						plugins\radioLogical\language\english\index.html
+					-french
+						plugins\radioLogical\language\french\constants.php
+						plugins\radioLogical\language\french\help.html
+						plugins\radioLogical\language\french\index.html
+					plugins\radioLogical\language\index.html
+				plugins\radioLogical\index.html
+				plugins\radioLogical\slide_radioLogical.php
+			-radioMultiple2
+				-img
+					plugins\radioMultiple2\img\index.html
+					plugins\radioMultiple2\img\snapshoot-000.jpg
+					plugins\radioMultiple2\img\snapshoot-001.jpg
+					plugins\radioMultiple2\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\radioMultiple2\language\english\constants.php
+						plugins\radioMultiple2\language\english\help.html
+						plugins\radioMultiple2\language\english\index.html
+					-french
+						plugins\radioMultiple2\language\french\constants.php
+						plugins\radioMultiple2\language\french\help.html
+						plugins\radioMultiple2\language\french\index.html
+					plugins\radioMultiple2\language\index.html
+				plugins\radioMultiple2\index.html
+				plugins\radioMultiple2\slide_radioMultiple2.php
+			+radioSimple
+				-img
+					plugins\radioSimple\img\index.html
+					plugins\radioSimple\img\snapshoot-000.jpg
+					plugins\radioSimple\img\snapshoot-001.jpg
+					plugins\radioSimple\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\radioSimple\language\english\constants.php
+						plugins\radioSimple\language\english\help.html
+						plugins\radioSimple\language\english\index.html
+					-french
+						plugins\radioSimple\language\french\constants.php
+						plugins\radioSimple\language\french\help.html
+						plugins\radioSimple\language\french\index.html
+					plugins\radioSimple\language\index.html
+				plugins\radioSimple\index.html
+				plugins\radioSimple\slide_radioSimple.php
+			-textareaInput
+				-img
+					plugins\textareaInput\img\index.html
+					plugins\textareaInput\img\snapshoot-000.jpg
+					plugins\textareaInput\img\snapshoot-001.jpg
+					plugins\textareaInput\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\textareaInput\language\english\constants.php
+						plugins\textareaInput\language\english\help.html
+						plugins\textareaInput\language\english\index.html
+					-french
+						plugins\textareaInput\language\french\constants.php
+						plugins\textareaInput\language\french\help.html
+						plugins\textareaInput\language\french\index.html
+					plugins\textareaInput\language\help.html
+					plugins\textareaInput\language\index.html
+				plugins\textareaInput\index.html
+				plugins\textareaInput\slide_textareaInput.php
+			-textareaListbox
+				-img
+					plugins\textareaListbox\img\index.html
+					plugins\textareaListbox\img\snapshoot-000.jpg
+					plugins\textareaListbox\img\snapshoot-001.jpg
+					plugins\textareaListbox\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\textareaListbox\language\english\constants.php
+						plugins\textareaListbox\language\english\help.html
+						plugins\textareaListbox\language\english\index.html
+					-french
+						plugins\textareaListbox\language\french\constants.php
+						plugins\textareaListbox\language\french\help.html
+						plugins\textareaListbox\language\french\index.html
+					plugins\textareaListbox\language\index.html
+				plugins\textareaListbox\index.html
+				plugins\textareaListbox\slide_textareaListbox.php
+			-textareaSimple
+				-img
+					plugins\textareaSimple\img\index.html
+					plugins\textareaSimple\img\snapshoot-000.jpg
+					plugins\textareaSimple\img\snapshoot-001.jpg
+					plugins\textareaSimple\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\textareaSimple\language\english\constants.php
+						plugins\textareaSimple\language\english\help.html
+						plugins\textareaSimple\language\english\index.html
+					-french
+						plugins\textareaSimple\language\french\constants.php
+						plugins\textareaSimple\language\french\help.html
+						plugins\textareaSimple\language\french\index.html
+					plugins\textareaSimple\language\index.html
+				plugins\textareaSimple\index.html
+				plugins\textareaSimple\slide_textareaSimple.php
+			-textboxMatchItems
+				-img
+					plugins\textboxMatchItems\img\index.html
+					plugins\textboxMatchItems\img\snapshoot-000.jpg
+					plugins\textboxMatchItems\img\snapshoot-001.jpg
+					plugins\textboxMatchItems\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\textboxMatchItems\language\english\constants.php
+						plugins\textboxMatchItems\language\english\help.html
+						plugins\textboxMatchItems\language\english\index.html
+					-french
+						plugins\textboxMatchItems\language\french\constants.php
+						plugins\textboxMatchItems\language\french\help.html
+						plugins\textboxMatchItems\language\french\index.html
+					plugins\textboxMatchItems\language\index.html
+				plugins\textboxMatchItems\index.html
+				plugins\textboxMatchItems\slide_textboxMatchItems.php
+			-textboxMultiple
+				-img
+					plugins\textboxMultiple\img\index.html
+					plugins\textboxMultiple\img\snapshoot-000.jpg
+					plugins\textboxMultiple\img\snapshoot-001.jpg
+					plugins\textboxMultiple\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\textboxMultiple\language\english\constants.php
+						plugins\textboxMultiple\language\english\help.html
+						plugins\textboxMultiple\language\english\index.html
+					-french
+						plugins\textboxMultiple\language\french\constants.php
+						plugins\textboxMultiple\language\french\help.html
+						plugins\textboxMultiple\language\french\index.html
+					plugins\textboxMultiple\language\index.html
+				plugins\textboxMultiple\index.html
+				plugins\textboxMultiple\slide_textboxMultiple.php
+			+ulDaDGroups
+				-img
+					plugins\ulDaDGroups\img\index.html
+					plugins\ulDaDGroups\img\snapshoot-000.jpg
+					plugins\ulDaDGroups\img\snapshoot-001.jpg
+					plugins\ulDaDGroups\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\ulDaDGroups\language\english\constants.php
+						plugins\ulDaDGroups\language\english\help.html
+						plugins\ulDaDGroups\language\english\index.html
+					-french
+						plugins\ulDaDGroups\language\french\constants.php
+						plugins\ulDaDGroups\language\french\help.html
+						plugins\ulDaDGroups\language\french\index.html
+					plugins\ulDaDGroups\language\help.html
+					plugins\ulDaDGroups\language\index.html
+				plugins\ulDaDGroups\index.html
+				plugins\ulDaDGroups\slide_ulDaDGroups.php
+			-ulDaDSortList
+				-img
+					plugins\ulDaDSortList\img\index.html
+					plugins\ulDaDSortList\img\snapshoot-000.jpg
+					plugins\ulDaDSortList\img\snapshoot-001.jpg
+					plugins\ulDaDSortList\img\snapshoot-002.jpg
+				-language
+					-english
+						plugins\ulDaDSortList\language\english\constants.php
+						plugins\ulDaDSortList\language\english\help.html
+						plugins\ulDaDSortList\language\english\index.html
+					-french
+						plugins\ulDaDSortList\language\french\constants.php
+						plugins\ulDaDSortList\language\french\help.html
+						plugins\ulDaDSortList\language\french\index.html
+					plugins\ulDaDSortList\language\index.html
+				plugins\ulDaDSortList\index.html
+				plugins\ulDaDSortList\slide_ulDaDSortList.php
+			plugins\_modeles.lnk
+			plugins\_ScreenShoot-PickPick - Raccourci.lnk
+			plugins\_slide_help.lnk
+			plugins\_tpl-JavaScript.lnk
+			plugins\index.html
 		-preloads
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		-sql
+		+sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
@@ -605,6 +1093,7 @@ _quizmaker
 				templates\admin\quizmaker_admin_import.tpl
 				templates\admin\quizmaker_admin_index.tpl
 				templates\admin\quizmaker_admin_messages.tpl
+				templates\admin\quizmaker_admin_minify.tpl
 				templates\admin\quizmaker_admin_permissions.tpl
 				templates\admin\quizmaker_admin_play_quiz.tpl
 				templates\admin\quizmaker_admin_questions.tpl
@@ -612,12 +1101,14 @@ _quizmaker
 				templates\admin\quizmaker_admin_quiz_inline.tpl
 				templates\admin\quizmaker_admin_quiz_outline.tpl
 				templates\admin\quizmaker_admin_results.tpl
+				templates\admin\quizmaker_admin_tools.tpl
 				templates\admin\quizmaker_admin_type_new_question.tpl
 				templates\admin\quizmaker_admin_type_question.tpl
 				templates\admin\index.html
 			-blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
+				templates\blocks\quizmaker_block_quiz-02.tpl
 			-quiz
 				templates\quiz\quizmaker_admin_quiz_include.tpl
 				templates\quiz\quizmaker_admin_quiz_inline.tpl
@@ -649,19 +1140,9 @@ _quizmaker
 				testdata\images\index.html
 			testdata\index.html
 			testdata\index.php
-		-versions
-			-docs
-				versions\docs\changelog.txt
-				versions\docs\credits.txt
-				versions\docs\index.html
-				versions\docs\install.txt
-				versions\docs\lang.diff
-				versions\docs\license.txt
-				versions\docs\readme.txt
-				versions\docs\todo.txt
-			versions\Quizmaker_2_80.php
-			versions\Quizmaker_2_92.php
-			versions\Quizmaker_2_94.php
+		+versions
+			versions\index.html
+		_quizmaker.ppr
 		about.php
 		categories.php
 		comment_delete.php
@@ -681,34 +1162,26 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=templates\admin\quizmaker_admin_quiz.tpl
-1=templates\admin\quizmaker_admin_download.tpl
-2=assets\js\quiz\css\style-item-color.css
-3=assets\js\quiz\css\style-item-design.css
-4=docs\changelog.txt
-5=templates\admin\quizmaker_admin_questions.tpl
-6=xoops_version.php
+0=admin\import.php
+1=xoops_version.php
+2=sql\mysql.sql
+3=docs\todo.txt
+4=class\QuizUtility.php
 [Selected Project Files]
 Main=
-Selected=xoops_version.php
-[templates\admin\quizmaker_admin_quiz.tpl]
-TopLine=198
-Caret=94,213
-[templates\admin\quizmaker_admin_download.tpl]
-TopLine=1
-Caret=15,5
-[assets\js\quiz\css\style-item-color.css]
-TopLine=1
-Caret=1,8
-[assets\js\quiz\css\style-item-design.css]
-TopLine=29
-Caret=1,58
-[docs\changelog.txt]
-TopLine=1
-Caret=1,7
-[templates\admin\quizmaker_admin_questions.tpl]
-TopLine=95
-Caret=42,116
+Selected=class\QuizUtility.php
+[admin\import.php]
+TopLine=73
+Caret=27,44
 [xoops_version.php]
-TopLine=7
-Caret=38,43
+TopLine=100
+Caret=40,129
+[sql\mysql.sql]
+TopLine=23
+Caret=1,1
+[docs\todo.txt]
+TopLine=1
+Caret=1,2
+[class\QuizUtility.php]
+TopLine=731
+Caret=98,746

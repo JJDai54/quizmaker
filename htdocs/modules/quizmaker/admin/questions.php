@@ -106,6 +106,14 @@ switch($op) {
         //redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Export effectué");
 	break;
     
+	case 'purger_images':
+        $nbImg = $quizHandler->purgerImages($quizId);
+        $op = 'list';
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_IMAGES_DELETED, $nbImg);
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, $msg);
+
+	break;
+    
 	case 'restor_quiz':
         //$quizUtility->loadData($quizId);
         $quizUtility->loadData($quizId);
@@ -115,11 +123,27 @@ switch($op) {
     
 	case 'import_quiz':
         //$quizUtility->loadData($quizId);
-        $quizUtility->loadAsNewData($quizId);
+        $quizUtility->import_quiz($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
 	break;
 
+	case 'update_list':
+  $gp = array_merge($_GET, $_POST);
+    $list = Request::getArray('quest_list');
+  //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
+//  echo "<hr>quest_timer<pre>" . print_r($list, true) . "</pre><hr>";
+    foreach($list AS $id => $arr){
+        $criteria = new Criteria('quest_id', $id, "=");
+        $questionsHandler->updateAll('quest_timer', $arr['timer'], $criteria, $force = false);
+        $questionsHandler->updateAll('quest_points', $arr['points'], $criteria, $force = false);
+    }
+//       exit('update_list');
+        //$quizUtility->loadData($quizId);
+
+//         $quizHandler->changeEtat($quizId, $field);
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
+	break;
     } // fin du switch maitre
     
 require __DIR__ . '/footer.php';

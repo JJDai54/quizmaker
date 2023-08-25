@@ -1,0 +1,74 @@
+<h3>PageEnd - Dernière page pour affichage des résultats<br></h3>
+
+<p class="MsoNormal">Ce slide permet de définir la page finale des résultats du questionnaire.<br>
+Il est constitué de deux zones de texte qui peuvent être utilisées ensemble ou
+indépendamment.<br>
+L'éditeur utilisé est celui paramétré dans les options du module.<br>
+Le texte peut contenir les balises suivantes qui seront remplacées lors de son
+affichage par les valeurs obtenues:<o:p></o:p></p>
+
+<br>
+<table style="text-align: left; width: 100%; background-color: rgb(204, 255, 255);" border="1" cellpadding="5" cellspacing="0">
+  <tbody>
+    <tr><td style="vertical-align: top; background-color: rgb(255, 204, 204); text-align: center;">Balise<br></td><td style="vertical-align: top; background-color: rgb(255, 204, 204); text-align: center;">Description<br></td></tr><tr>
+      <td style="vertical-align: top;">{repondu}<br>
+      </td>
+      <td style="vertical-align: top;">
+
+<p class="MsoNormal">Nombre de réponses données. Les questions sans réponses ne
+sont pas comptabilisées, cependant certaines sont automatiquement&nbsp; prises
+en compte.<o:p></o:p></p>
+
+
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{totalQuestions} </td>
+      <td style="vertical-align: top;">Nombre total de questions du quiz<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{score} </td>
+      <td style="vertical-align: top;">Score total&nbsp; obtenu. Ce
+score peut être négatif selon les points donnés à chaque proposition
+des questions.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{scoreMaxiQQ}</td>
+      <td style="vertical-align: top;">Score maximum possible<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{scoreMiniQQ}</td>
+      <td style="vertical-align: top;">Score minimum possible. Ce score
+peut être négatif selon les points donnés à chaque proposition des
+questions.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{duree}</td>
+      <td style="vertical-align: top;">
+
+<p class="MsoNormal">Temps d'exécution du quiz depuis la première question jusquà
+l'affichage du résultat.<o:p></o:p></p>
+
+
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<span style="font-weight: bold;">Important</span> :&nbsp; chaque balise
+est entourée d'accolades et doit être en minuscules.<br>
+<br>
+Exemple :<br>
+<table style="text-align: left; width: 100%; background-color: rgb(255, 204, 204);" border="1" cellpadding="5" cellspacing="0">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">
+      <pre>- Nombre de réponses faites : {repondu} / {totalQuestions}<br>- Votre score est de {score} / {scoreMaxiQQ} (score minimum : {scoreMiniQQ}) <br>- Votre temps de réponse est de {duree}<br></pre>
+      </td>
+    </tr>
+  </tbody>
+</table><br>
+<table style="text-align: left; width: 100%; background-color: rgb(255, 204, 204);" border="1" cellpadding="5" cellspacing="0"><tbody><tr><td style="vertical-align: top;">Le score peut être négatif selon les points accordés aux propositions de chaque question.</td></tr></tbody></table><br>

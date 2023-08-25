@@ -28,7 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 2.96,
+	'version'             => 4.00,
+	'module_status'       => 'Beta 1',
+	'release_date'        => '2023/04/01',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -40,7 +42,6 @@ $modversion = [
 	'help'                => 'page=help',
 	'release_info'        => 'release_info',
 	'release_file'        => XOOPS_URL . '/modules/quizmaker/docs/release_info file',
-	'release_date'        => '2022/10/25',
 	'manual'              => 'link to manual file',
 	'manual_file'         => XOOPS_URL . '/modules/quizmaker/docs/install.txt',
 	'min_php'             => '5.5',
@@ -61,7 +62,6 @@ $modversion = [
 	'module_website_url'  => 'www.xoops.org',
 	'module_website_name' => 'XOOPS Project',
 	'release'             => '21-08-2020',
-	'module_status'       => 'Beta 1',
 	'system_menu'         => 1,
 	'hasAdmin'            => 1,
 	'hasMain'             => 1,
@@ -94,6 +94,8 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_type_new_question.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_clone.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_tools.tpl', 'description' => '', 'type' => 'admin'],
 
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
@@ -157,8 +159,16 @@ if ($currdirname == $moduleDirName) {
 		'url'  => 'results.php',
 	];
 }
-// ------------------- Blocks ------------------- //
-/*
+// Entries last
+$modversion['blocks'][] = [
+    'file'        => 'categories.php',
+    'name'        => '//' . \_MI_QUIZMAKER_CATEGORIES_BLOCK,
+    'description' => \_MI_QUIZMAKER_CATEGORIES_BLOCK_DESC,
+    'show_func'   => 'b_quizmaker_categories_show',
+    'edit_func'   => 'b_quizmaker_categories_edit',
+    'template'    => 'quizmaker_block_categories.tpl',
+    'options'     => '5|80|0|Title', //nbItem|ldTitle|cats(0=all)|title
+];
 // Quiz last
 $modversion['blocks'][] = [
 	'file'        => 'quiz.php',
@@ -169,6 +179,20 @@ $modversion['blocks'][] = [
 	'template'    => 'quizmaker_block_quiz.tpl',
 	'options'     => 'last|5|25|0',
 ];
+// Quiz random
+$modversion['blocks'][] = [
+	'file'        => 'quiz.php',
+	'name'        => _MI_QUIZMAKER_QUIZ_BLOCK_RANDOM,
+	'description' => _MI_QUIZMAKER_QUIZ_BLOCK_RANDOM_DESC,
+	'show_func'   => 'b_quizmaker_quiz_show',
+	'edit_func'   => 'b_quizmaker_quiz_edit',
+	'template'    => 'quizmaker_block_quiz.tpl',
+	'options'     => 'random|5|25|0',
+];
+// Quiz random
+
+// ------------------- Blocks ------------------- //
+/*
 // Quiz new
 $modversion['blocks'][] = [
 	'file'        => 'quiz.php',
@@ -199,29 +223,9 @@ $modversion['blocks'][] = [
 	'template'    => 'quizmaker_block_quiz.tpl',
 	'options'     => 'top|5|25|0',
 ];
-// Quiz random
-$modversion['blocks'][] = [
-	'file'        => 'quiz.php',
-	'name'        => _MI_QUIZMAKER_QUIZ_BLOCK_RANDOM,
-	'description' => _MI_QUIZMAKER_QUIZ_BLOCK_RANDOM_DESC,
-	'show_func'   => 'b_quizmaker_quiz_show',
-	'edit_func'   => 'b_quizmaker_quiz_edit',
-	'template'    => 'quizmaker_block_quiz.tpl',
-	'options'     => 'random|5|25|0',
-];
 
 
 
-// Results last
-$modversion['blocks'][] = [
-	'file'        => 'results.php',
-	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_LAST,
-	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_LAST_DESC,
-	'show_func'   => 'b_quizmaker_results_show',
-	'edit_func'   => 'b_quizmaker_results_edit',
-	'template'    => 'quizmaker_block_results.tpl',
-	'options'     => 'last|5|25|0',
-];
 // Results new
 $modversion['blocks'][] = [
 	'file'        => 'results.php',
@@ -261,6 +265,16 @@ $modversion['blocks'][] = [
 	'edit_func'   => 'b_quizmaker_results_edit',
 	'template'    => 'quizmaker_block_results.tpl',
 	'options'     => 'random|5|25|0',
+];
+// Results last
+$modversion['blocks'][] = [
+	'file'        => 'results.php',
+	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_LAST,
+	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_LAST_DESC,
+	'show_func'   => 'b_quizmaker_results_show',
+	'edit_func'   => 'b_quizmaker_results_edit',
+	'template'    => 'quizmaker_block_results.tpl',
+	'options'     => 'last|5|25|0',
 ];
 */
 
@@ -373,6 +387,82 @@ $modversion['config'][] = [
 	'valuetype'   => 'int',
 	'default'     => 25,
 ];
+///////////////////////////////////////////////////////
+// create increment steps for file size
+include_once __DIR__ . '/include/xoops_version.inc.php';
+$iniPostMaxSize       = quizmakerReturnBytes(\ini_get('post_max_size'));
+$iniUploadMaxFileSize = quizmakerReturnBytes(\ini_get('upload_max_filesize'));
+$maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
+if ($maxSize > 10000 * 1048576) {
+    $increment = 500;
+}
+if ($maxSize <= 10000 * 1048576) {
+    $increment = 200;
+}
+if ($maxSize <= 5000 * 1048576) {
+    $increment = 100;
+}
+if ($maxSize <= 2500 * 1048576) {
+    $increment = 50;
+}
+if ($maxSize <= 1000 * 1048576) {
+    $increment = 10;
+}
+if ($maxSize <= 500 * 1048576) {
+    $increment = 5;
+}
+if ($maxSize <= 100 * 1048576) {
+    $increment = 2;
+}
+if ($maxSize <= 50 * 1048576) {
+    $increment = 1;
+}
+if ($maxSize <= 25 * 1048576) {
+    $increment = 0.5;
+}
+$optionMaxsize = [];
+$i = $increment;
+while ($i * 1048576 <= $maxSize) {
+    $optionMaxsize[$i . ' ' . _MI_QUIZMAKER_SIZE_MB] = $i * 1048576;
+    $i += $increment;
+}
+// Uploads : maxsize of image
+$modversion['config'][] = [
+    'name'        => 'maxsize_image',
+    'title'       => '_MI_QUIZMAKER_MAXSIZE_IMAGE',
+    'description' => '_MI_QUIZMAKER_MAXSIZE_IMAGE_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 15728640,
+    'options'     => $optionMaxsize,
+];
+// Uploads : mimetypes of image
+$modversion['config'][] = [
+    'name'        => 'mimetypes_image',
+    'title'       => '_MI_QUIZMAKER_MIMETYPES_IMAGE',
+    'description' => '_MI_QUIZMAKER_MIMETYPES_IMAGE_DESC',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'],
+    'options'     => ['bmp' => 'image/bmp','gif' => 'image/gif','pjpeg' => 'image/pjpeg', 'jpeg' => 'image/jpeg','jpg' => 'image/jpg','jpe' => 'image/jpe', 'png' => 'image/png'],
+];
+$modversion['config'][] = [
+    'name'        => 'maxwidth_image',
+    'title'       => '_MI_QUIZMAKER_MAXWIDTH_IMAGE',
+    'description' => '_MI_QUIZMAKER_MAXWIDTH_IMAGE_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 300,
+];
+$modversion['config'][] = [
+    'name'        => 'maxheight_image',
+    'title'       => '_MI_QUIZMAKER_MAXHEIGHT_IMAGE',
+    'description' => '_MI_QUIZMAKER_MAXHEIGHT_IMAGE_DESC',
+    'formtype'    => 'textbox',
+    'valuetype'   => 'int',
+    'default'     => 300,
+];
+//////////////////////////////////////////////////////
 // Admin framework highslide
 $modversion['config'][] = [
     'name'        => 'highslide',
@@ -392,6 +482,7 @@ $modversion['config'][] = [
 	'valuetype'   => 'int',
 	'default'     => 0,
 ];
+/*
 // Number column
 $modversion['config'][] = [
 	'name'        => 'numb_col',
@@ -412,6 +503,7 @@ $modversion['config'][] = [
 	'default'     => 1,
 	'options'     => [1 => '1', 2 => '2', 3 => '3', 4 => '4'],
 ];
+*/
 // Table type
 $modversion['config'][] = [
 	'name'        => 'table_type',
@@ -468,6 +560,24 @@ $modversion['config'][] = [
 	'valuetype'   => 'text',
 	'default'     => 'https://github.com/JJDai54/quizmaker',
 ];
+// Jacascript is minified
+$modversion['config'][] = [
+	'name'        => 'use_js_minified',
+	'title'       => '_MI_QUIZMAKER_USE_JS_MINIFIED',
+	'description' => '_MI_QUIZMAKER_USE_JS_MINIFIED_DESC',
+	'formtype'    => 'yesno',
+	'valuetype'   => 'int',
+	'default'     => 1,
+];
+
+
+$modversion['config'][] = [
+    'name' => 'displayTemplateName',
+    'title'       => '_MI_QUIZMAKER_SHOW_TPL_NAME',
+    'description' => '_MI_QUIZMAKER_SHOW_TPL_NAME_DESC',
+    'formtype'    => 'yesno',
+    'valuetype'   => 'int',
+    'default'     => 0];
 // ------------------- Notifications ------------------- //
 $modversion['hasNotification'] = 1;
 $modversion['notification'] = [

@@ -52,10 +52,7 @@ if($quizId > 0 && $sender =='quiz_id'){
 $quiz = $quizObj->getValuesQuiz();
 
 // Define Stylesheet
-$style1 =  QUIZMAKER_QUIZ_JS_URL . "/css/style-item-color.css";
-$style2 =  QUIZMAKER_QUIZ_JS_URL . "/css/style-item-design.css";
-$GLOBALS['xoTheme']->addStylesheet( $style1, null );
-$GLOBALS['xoTheme']->addStylesheet( $style2, null );
+\JJD\load_css('', false);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
@@ -115,8 +112,8 @@ FROM `x251_quizmaker_results`
 ****************************************** */        
 //$stat = $resultsHandler->getStatistics();         
 //$stat = $quizHandler->getStatistics();   
-        $criteria= new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId, '='));        
-        $criteria->add(new \Criteria('result_uid', 3, '<>'));     
+        $criteria= new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId, '=')); 
+//        $criteria->add(new \Criteria('result_uid', 3, '<>'));     
         $resultsCount = $resultsHandler->getCount($criteria);
         
         $criteria->setSort('result_score_achieved DESC,result_uname');
@@ -147,8 +144,8 @@ FROM `x251_quizmaker_results`
           	$pagenav = new \XoopsPageNav($resultsCount, $limit, $start, 'start', "op=list&quiz_id={$quizId}&sender=quiz_id&limit={$limit}");
           	$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
           }
-        }
-    
+
+      }
     //recherche des quiz de la catégorie
     
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -10,122 +13,133 @@
 */
 
 /**
- * Quizmaker module for xoops
+ * Creaaquiz module for xoops
  *
- * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @copyright      2021 XOOPS Project (https://xoops.org)
  * @license        GPL 2.0 or later
- * @package        quizmaker
+ * @package        Quizmaker
  * @since          1.0
- * @min_xoops      2.5.9
- * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
+ * @min_xoops      2.5.10
+ * @author         XOOPS Development Team - Email:<jjdelalandre@orange.fr> - Website:<jubile.fr>
  */
 
 use XoopsModules\Quizmaker;
 use XoopsModules\Quizmaker\Helper;
 use XoopsModules\Quizmaker\Constants;
 
-include_once XOOPS_ROOT_PATH . '/modules/quizmaker/include/common.php';
+require_once \XOOPS_ROOT_PATH . '/modules/quizmaker/include/common.php';
+include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
 
 /**
  * Function show block
- * @param  $options 
+ * @param  $options
  * @return array
  */
 function b_quizmaker_categories_show($options)
 {
-	include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/categories.php';
+//echo "<hr>===>options : <pre>". print_r($options, true) ."</pre><hr>";
 	$myts = MyTextSanitizer::getInstance();
-	$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
-	$block       = [];
-	$typeBlock   = $options[0];
-	$limit       = $options[1];
-	$lenghtTitle = $options[2];
-	$quizmakerHelper      = Helper::getInstance();
-	$categoriesHandler = $quizmakerHelper->getHandler('Categories');
-	$crCategories = new \CriteriaCompo();
+    $dirname = "quizmaker";
+    $GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', \QUIZMAKER_UPLOAD_URL);
+    $GLOBALS['xoopsTpl']->assign('quizmaker_url', \QUIZMAKER_URL);
+    $block       = [];
+    $h=0;
+	$limit       = $options[$h++];
+	$lenghtTitle = $options[$h++];
+	$catsIds = $options[$h++];
+    $tCats = explode(',', $catsIds);
+    if($tCats[0] == 0){
+        $nbCats = 0;
+    }else{
+        $nbCats = count($tCats);
+    }
+	$caption = $options[$h++];
+	//$desc = $options[5];
+    
 	array_shift($options);
 	array_shift($options);
 	array_shift($options);
+	array_shift($options);
+	//array_shift($options);
+//------------------------------------------------------------------
+	$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+    $categoriesHandler = $quizmakerHelper->getHandler('Categories');
 
-	switch($typeBlock) {
-		case 'last':
-		default:
-			// For the block: categories last
-			$crCategories->setSort( 'cat_date' );
-			$crCategories->setOrder( 'DESC' );
-		break;
-		case 'new':
-			// For the block: categories new
-			$crCategories->add( new \Criteria( 'cat_date', strtotime(date(_SHORTDATESTRING)), '>=' ) );
-			$crCategories->add( new \Criteria( 'cat_date', strtotime(date(_SHORTDATESTRING))+86400, '<=' ) );
-			$crCategories->setSort( 'cat_date' );
-			$crCategories->setOrder( 'ASC' );
-		break;
-		case 'hits':
-			// For the block: categories hits
-			$crCategories->setSort( 'cat_hits' );
-			$crCategories->setOrder( 'DESC' );
-		break;
-		case 'top':
-			// For the block: categories top
-			$crCategories->add( new \Criteria( 'cat_date', strtotime(date(_SHORTDATESTRING))+86400, '<=' ) );
-			$crCategories->setSort( 'cat_top' );
-			$crCategories->setOrder( 'ASC' );
-		break;
-		case 'random':
-			// For the block: categories random
-			$crCategories->add( new \Criteria( 'cat_date', strtotime(date(_SHORTDATESTRING))+86400, '<=' ) );
-			$crCategories->setSort( 'RAND()' );
-		break;
-	}
+    if(in_array(0, $tCats) || count($tCats) == 0){
+      $cats = $categoriesHandler->getAllowedArr('view', null, 0, 0, $sort='cat_weight,cat_name,cat_id', $order="ASC");   
+    }else{
+      $crCat = new \CriteriaCompo();
+      $crCat->add(new Criteria('cat_id', "({$catsIds})", 'IN'));
+      $cats = $categoriesHandler->getAllowedArr('view', $crCat, 0, 0, $sort='cat_weight,cat_name,cat_id', $order="ASC");   
+    }
+    
+    $block['options']['title'] = $caption;            
+    //$block['options']['desc'] = str_replace("\n", "<br>",$desc);            
+    $block['options']['theme'] = 'blue';            
 
-	$crCategories->setLimit( $limit );
-	$categoriesAll = $categoriesHandler->getAll($crCategories);
-	unset($crCategories);
-	if (count($categoriesAll) > 0) {
-		foreach(array_keys($categoriesAll) as $i) {
-			$block[$i]['name'] = $myts->htmlSpecialChars($categoriesAll[$i]->getVar('cat_name'));
-			$block[$i]['update'] = $categoriesAll[$i]->getVar('cat_update');
+    
+	if (count($cats) > 0) {
+		foreach(array_keys($cats) as $i) {
+            $catId = $cats[$i]['cat_id'];
+			$block['data'][$catId]['id'] = $catId;            
+			$block['data'][$catId]['name'] = $cats[$catId]['cat_name'];            
+			$block['data'][$catId]['theme'] = $cats[$catId]['cat_theme'];            
+//             $catId = $cats[$i]->getVar('cat_id');
+// 			$block['data'][$catId]['cat']['id'] = $catId;            
+// 			$block['data'][$catId]['cat']['name'] = $cats[$catId]['cat_name'];            
+// 			$block['data'][$catId]['cat']['theme'] = $cats[$catId]['cat_colors_set'];            
 		}
 	}
 
-	return $block;
+//echo "<hr>===>block : <pre>". print_r($block, true) ."</pre><hr>";
+
+\JJD\load_css('', false);	
+    return $block;
 
 }
 
 /**
  * Function edit block
- * @param  $options 
+ * @param  $options
  * @return string
  */
 function b_quizmaker_categories_edit($options)
 {
-	include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/categories.php';
-	$quizmakerHelper = Helper::getInstance();
-	$categoriesHandler = $quizmakerHelper->getHandler('Categories');
-	$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
-	$form = _MB_QUIZMAKER_DISPLAY;
-	$form .= "<input type='hidden' name='options[0]' value='".$options[0]."' />";
-	$form .= "<input type='text' name='options[1]' size='5' maxlength='255' value='" . $options[1] . "' />&nbsp;<br>";
-	$form .= _MB_QUIZMAKER_TITLE_LENGTH . " : <input type='text' name='options[2]' size='5' maxlength='255' value='" . $options[2] . "' /><br><br>";
-	array_shift($options);
-	array_shift($options);
-	array_shift($options);
+    $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();    
+    $form = new \XoopsThemeForm("quizmaker_block", 'form', $action, 'post', true);
+	$form->setExtra('enctype="multipart/form-data"');
 
-	$crCategories = new \CriteriaCompo();
-	$crCategories->add( new \Criteria( 'cat_id', 0, '!=' ) );
-	$crCategories->setSort( 'cat_id' );
-	$crCategories->setOrder( 'ASC' );
-	$categoriesAll = $categoriesHandler->getAll($crCategories);
-	unset($crCategories);
-	$form .= _MB_QUIZMAKER_CATEGORIES_TO_DISPLAY . "<br><select name='options[]' multiple='multiple' size='5'>";
-	$form .= "<option value='0' " . (in_array(0, $options) == false ? '' : "selected='selected'") . '>' . _MB_QUIZMAKER_ALL_CATEGORIES . '</option>';
-	foreach(array_keys($categoriesAll) as $i) {
-		$cat_id = $categoriesAll[$i]->getVar('cat_id');
-		$form .= "<option value='" . $cat_id . "' " . (in_array($cat_id, $options) == false ? '' : "selected='selected'") . '>' . $categoriesAll[$i]->getVar('cat_name') . '</option>';
+
+            
+    //--------------------------------------------
+    $index=0 ; 
+    $inpNbItems = new \XoopsFormNumber(_CO_JJD_NB_QUIZ_2_list, "options[{$index}]", 5, 5, $options[$index]);
+    $inpNbItems->setMinMax(3, 25);
+    $form->addElement($inpNbItems);
+    //--------------------------------------------
+    $index++;    
+    $inpLgItems = new \XoopsFormNumber(_CO_JJD_NAME_LENGTH, "options[{$index}]", 5, 5, $options[$index]);
+    $inpLgItems->setMinMax(25, 120);
+    $form->addElement($inpLgItems);
+
+    $index++;   
+    $tCat = explode(',', $options[$index]); 
+    $categoriesHandler = $quizmakerHelper->getHandler('Categories');
+    $catAll = $categoriesHandler->getAllCategories();
+
+    $inpCat = new \XoopsFormSelect(_CO_JJD_CATEGORIES, "options[{$index}]", $tCat, $size = 5, true);
+    $inpCat->addOption(0, _CO_JJD_ALL_CAT);
+	foreach(array_keys($catAll) as $i) {
+        $inpCat->addOption($catAll[$i]->getVar('cat_id'), $catAll[$i]->getVar('cat_name'));
 	}
-	$form .= '</select>';
+    $form->addElement($inpCat);
+    
+    $index++;    
+    $inpCaption = new \XoopsFormText(_CO_JJD_BLOCK_TITLE ,  "options[{$index}]", 120, 120, $options[$index]);
+    $form->addElement($inpCaption);
 
-	return $form;
+    return $form->render();
 
 }
+
+

@@ -1,14 +1,15 @@
 <{if $smarty.const.QUIZMAKER_SHOW_TPL_NAME==1}>
 <div style="text-align: center; background-color: black;"><span style="color: yellow;">Template : <{$smarty.template}></span></div>
 <{/if}>
+
 <{include file='db:quizmaker_header.tpl' }>
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='results.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
 <input type="hidden" name="sender" value="" />
 
-    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
-    <div class="itemRound-none <{$catTheme}>-itemBody">
+    <div class="item-round-top <{$catTheme}>-item-head"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
+    <div class="item-round-none <{$catTheme}>-item-body">
     <table width='80%'>
         <tr>
             <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_CATEGORIES}> : </td>
@@ -22,7 +23,7 @@
       
       
     </div>
-    <div class="itemRound-bottom <{$catTheme}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br>
+    <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
 </form>
 
 <{if $resultsCount > 0}>
@@ -32,9 +33,9 @@
 		<div class="clear spacer"></div>
 	<{/if}>
 
-    <div class="itemRound-top <{$quiz.theme_ok}>-itemHead"><center><{$quiz.name}></center></div>
-    <div class="itemRound-none <{$quiz.theme_ok}>-itemInfo" style="padding:20px 50px 20px 50px;"><{$quiz.quiz_description}></div>
-    <div class="itemRound-none <{$quiz.theme_ok}>-itemBody">
+    <div class="item-round-top <{$quiz.theme_ok}>-item-head"><center><{$quiz.name}></center></div>
+    <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:20px 50px 20px 50px;"><{$quiz.quiz_description}></div>
+    <div class="item-round-none <{$quiz.theme_ok}>-item-body">
 
 	<table id='quiz_question_list' name='quiz_question_list' class='table table-bordered' style='margin-bottom=0px;'>
 		<thead>
@@ -69,7 +70,7 @@
 	</table>
     <br>
     </div>
-    <div class="itemRound-bottom <{$quiz.theme_ok}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br>
+    <div class="item-round-bottom <{$quiz.theme_ok}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
 
 	<div class="clear">&nbsp;</div>
 	<{if $pagenav}>
@@ -100,8 +101,8 @@ tth_trierTableau('quiz_question_list', 7);
 }
 
 </style>
-    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._CO_QUIZMAKER_LEGEND}></center></div>
-    <div class="itemRound-none <{$catTheme}>-itemBody">
+    <div class="item-round-top <{$catTheme}>-item-head"><center><{$smarty.const._CO_QUIZMAKER_LEGEND}></center></div>
+    <div class="item-round-none <{$catTheme}>-item-body">
     <center>
 <table class='quizTbl'>
     <tr>
@@ -131,17 +132,17 @@ tth_trierTableau('quiz_question_list', 7);
 </table>
     </center>
     </div>
-    <div class="itemRound-bottom <{$catTheme}>-itemLegend" style='margin:0px 0px 0px 0px;'><center>...</center></div><br>
+    <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin:0px 0px 0px 0px;'><center>...</center></div><br>
 
 
 
 <{else}>
 
-    <div class="itemRound-top <{$catTheme}>-itemHead"><center><{$smarty.const._MA_QUIZMAKER_RESULTS}></center></div>
-    <div class="itemRound-none <{$catTheme}>-itemBody">
+    <div class="item-round-top <{$catTheme}>-item-head"><center><{$smarty.const._MA_QUIZMAKER_RESULTS}></center></div>
+    <div class="item-round-none <{$catTheme}>-item-body">
         <center><{$smarty.const._MA_QUIZMAKER_NO_RESULTS}></center> 
     </div>
-    <div class="itemRound-bottom <{$catTheme}>-itemLegend" style='margin-top:0px;'><center>...</center></div><br>
+    <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
  
 <{/if}>
 
