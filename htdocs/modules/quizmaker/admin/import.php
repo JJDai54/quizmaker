@@ -26,22 +26,26 @@ use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 require __DIR__ . '/header.php';
 //use JJD;
+$pg = array_merge($_GET, $_POST);
+//echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
+if(count($_GET)>0) echo "<hr>GET : <pre>" . print_r($_GET, true) . "</pre><hr>";
+if(count($_POST)>0) echo "<hr>POST : <pre>" . print_r($_POST, true) . "</pre><hr>";
+if(count($_FILES)>0) echo "<hr>FILES : <pre>" . print_r($_FILES, true) . "</pre><hr>";
 
 $templateMain = 'quizmaker_admin_import.tpl';
 
 // It recovered the value of argument op in URL$
-$op = Request::getCmd('op', 'list');
+$op = Request::getCmd('op', 'zzz');
 // Request quiz_id
 $catId  = Request::getInt('cat_id', -1);
 $quizId = Request::getInt('quiz_id');
 
 $objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
-//$pg = array_merge($_GET, $_POST);
-//echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
 
 $upload_size = $quizmakerHelper->getConfig('maxsize_image'); 
-$upload_size = 9000000; //maxsize_image
+$upload_size = 12000000; //maxsize_image
+
 
 $newFldImport = "/files_new_quiz" ; //. rand(1,1000);
 $pathImport = QUIZMAKER_UPLOAD_IMPORT_PATH . $newFldImport;
@@ -51,7 +55,8 @@ if (!is_dir($pathImport)) mkdir($pathImport);
 list_on_errors:        
 switch($op) {
 	case 'import_ok':
-        $pg = array_merge($_GET, $_POST);
+
+//exit('case = import_ok');                      
 
 \JJD\FSO\isFolder(QUIZMAKER_UPLOAD_IMPORT_PATH, true);
 //\JJD\FSO\isFolder(QUIZMAKER_UPLOAD_IMPORT_PATH . "/files_new_quiz", true);
@@ -90,7 +95,6 @@ switch($op) {
                       chmod($pathImport, 0777);
                       \JJD\unZipFile($fullName, $pathImport);
                       \JJD\FSO\setChmodRecursif(QUIZMAKER_UPLOAD_IMPORT_PATH, 0777);
-                      
                       $newQuizId = $quizUtility::import_quiz($pathImport, $catId);
                   }
                 } 
@@ -100,7 +104,6 @@ switch($op) {
     
     case 'import':
     case 'list':
-	default:
         if($objError->getErrors())
             $errors = $objError->getHtmlErrors();
         else
@@ -150,7 +153,7 @@ switch($op) {
 
         
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     
-        $uploadTray->setDescription(_AM_QUIZMAKER_FILE_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE, $upload_size / 1024), '<br>');
+        $uploadTray->setDescription(_AM_QUIZMAKER_FILE_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE . " ($upload_size)", intval($upload_size / 1024)), '<br>');
         $form->addElement($uploadTray, true);
 
         // ----- Listes de selection pour filtrage -----  
@@ -170,11 +173,11 @@ switch($op) {
 
 //echo $form->render()  ;      
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
-        
-   
-
-
     
+    break;
+    
+	default:
+        exit('case = default');
     break;
     
 

@@ -67,7 +67,7 @@ $adminmenu[] = [
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_IMPORT,
-	'link' => 'admin/import.php',
+	'link' => 'admin/import.php?op=list',
 	'icon' => $sysPathIcon32 . '/download.png',
 ];
 /*

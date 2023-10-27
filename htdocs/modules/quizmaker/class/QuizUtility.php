@@ -597,7 +597,7 @@ public static function saveDataKeepId($quizId)
 public static function import_quiz($pathSource, $catId = 1)
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
-    
+//exit;    
     //--------------------------------------------------------
     //Recherche de la catégorie par son nom ou création si $catId == 0
     //--------------------------------------------------------
@@ -776,7 +776,7 @@ public static function import_quiz($pathSource, $catId = 1)
     //pour finir on supprime les images non référencées dans les réponses 
     // au cas ou la purge n'aurait pas été faite à l'export
     $quizHandler->purgerImages($quiz_id);
-exit;
+//exit;
     return $newQuizId;
 /*
 */    

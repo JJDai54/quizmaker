@@ -176,10 +176,10 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
+			+js
 				-quiz-min
 				+quiz-org
-					+css
+					-css
 						-infobulle
 							-images
 								assets\js\quiz-org\css\infobulle\images\Award.png
@@ -406,7 +406,7 @@ _quizmaker
 			blocks\index.html
 			blocks\quiz.php
 		-class
-			-Common
+			+Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
 				class\Common\DirectoryChecker.php
@@ -446,7 +446,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 076.jpg
@@ -541,7 +541,7 @@ _quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\function.quizFlagAscii.php
@@ -606,7 +606,7 @@ _quizmaker
 				language\french\modinfo.php
 				language\french\type_questions.php
 			language\index.html
-		-plugins
+		+plugins
 			-checkboxLogical
 				-img
 					plugins\checkboxLogical\img\index.html
@@ -624,7 +624,7 @@ _quizmaker
 					plugins\checkboxLogical\language\index.html
 				plugins\checkboxLogical\index.html
 				plugins\checkboxLogical\slide_checkboxLogical.php
-			-checkboxSimple
+			+checkboxSimple
 				-img
 					plugins\checkboxSimple\img\index.html
 					plugins\checkboxSimple\img\snapshoot-000.jpg
@@ -694,7 +694,7 @@ _quizmaker
 					plugins\imagesDaDGroups\language\index.html
 				plugins\imagesDaDGroups\index.html
 				plugins\imagesDaDGroups\slide_imagesDaDGroups.php
-			+imagesDaDLogical
+			-imagesDaDLogical
 				-img
 					plugins\imagesDaDLogical\img\index.html
 					plugins\imagesDaDLogical\img\snapshoot-000.jpg
@@ -765,7 +765,7 @@ _quizmaker
 					plugins\imagesDaDSortItems\language\index.html
 				plugins\imagesDaDSortItems\index.html
 				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.php
-			+imagesLogical
+			-imagesLogical
 				-img
 					plugins\imagesLogical\img\index.html
 					plugins\imagesLogical\img\snapshoot-000.jpg
@@ -1167,15 +1167,24 @@ _quizmaker
 2=sql\mysql.sql
 3=docs\todo.txt
 4=class\QuizUtility.php
+5=admin\menu.php
+6=templates\admin\quizmaker_admin_import.tpl
+7=class\Common\ServerStats.php
+8=templates\quizmaker_breadcrumbs.tpl
+9=J:\Xoops\modules-JJD\glossaire\projet\htdocs\modules\glossaire\templates\glossaire_breadcrumbs.tpl
+10=assets\js\quiz-org\js\tpl\slide_checkboxSimple.js
+11=assets\js\quiz-org\js\quiz-main.js
+12=assets\js\quiz-org\css\quiz.css
+13=assets\js\quiz-org\js\quiz-events.js
 [Selected Project Files]
 Main=
-Selected=class\QuizUtility.php
+Selected=assets\js\quiz-org\js\quiz-events.js
 [admin\import.php]
-TopLine=73
-Caret=27,44
+TopLine=46
+Caret=19,57
 [xoops_version.php]
-TopLine=100
-Caret=40,129
+TopLine=389
+Caret=69,393
 [sql\mysql.sql]
 TopLine=23
 Caret=1,1
@@ -1183,5 +1192,32 @@ Caret=1,1
 TopLine=1
 Caret=1,2
 [class\QuizUtility.php]
-TopLine=731
-Caret=98,746
+TopLine=761
+Caret=3,779
+[admin\menu.php]
+TopLine=33
+Caret=37,70
+[templates\admin\quizmaker_admin_import.tpl]
+TopLine=1
+Caret=13,8
+[class\Common\ServerStats.php]
+TopLine=35
+Caret=115,65
+[templates\quizmaker_breadcrumbs.tpl]
+TopLine=1
+Caret=48,5
+[J:\Xoops\modules-JJD\glossaire\projet\htdocs\modules\glossaire\templates\glossaire_breadcrumbs.tpl]
+TopLine=1
+Caret=1,1
+[assets\js\quiz-org\js\tpl\slide_checkboxSimple.js]
+TopLine=88
+Caret=21,120
+[assets\js\quiz-org\js\quiz-main.js]
+TopLine=128
+Caret=123,147
+[assets\js\quiz-org\css\quiz.css]
+TopLine=183
+Caret=2,202
+[assets\js\quiz-org\js\quiz-events.js]
+TopLine=348
+Caret=10,374

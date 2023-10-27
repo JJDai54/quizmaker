@@ -370,3 +370,17 @@ function testOnClick(e){
         }
 
 }
+
+function event_hide_popup_result() {
+///zzz.event_hide_popup_result();
+//alert(zzz);
+//alert("event_hide_popup_result");
+     var quizPopupResults = document.getElementById('quiz_div_popup_results');
+     quizPopupResults.innerHTML = "";
+
+     var divDisabledAll = document.getElementById('quiz_div_disabled_all');
+    //alert (divDisabledAll.id);
+     divDisabledAll.style.visibility = "hidden";
+     //divDisabledAll.style.display = "none";
+    return true;
+}

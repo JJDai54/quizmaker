@@ -109,17 +109,21 @@ computeScoresMinMaxByProposition(){
 //---------------------------------------------------
 getScore ( answerContainer){
 var points = 0;
-
+var bolOk = 1;
+//alert("answerContainer");
     var tItems = this.data.items;
     var obs = getObjectsByName(this.getName(), "input", "checkbox", "checked");
 
     obs.forEach((obInput, index) => {
-        points += tItems[obInput.getAttribute('caption')].points*1;
+        var p = tItems[obInput.getAttribute('caption')].points*1;
+    
+        if (p == 0) bolOk = 0;
+        points += p;
     });
     //alert('getScore = ' + points);
     
-    this.points = points;    
-    return points;
+    this.points = points * bolOk;    
+    return this.points;
   }
 ///////////////////////////////
 //---------------------------------------------------

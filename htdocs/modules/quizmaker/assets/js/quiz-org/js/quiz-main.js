@@ -61,7 +61,7 @@ var quizard = [];
 // ------------------- the Quiz ----------------------------
 // ----------------------------------------------------------
 
-var zzz = (function theQuiz(){
+const zzzz = (function theQuiz(){
 
 function togodo() {
     alert ("togodo");
@@ -144,7 +144,7 @@ function getHtmlPopup(){
     return `<div id="quiz_div_disabled_all"    name="quiz_div_disabled_all">
               <div id="quiz_div_popup_main"    name="quiz_div_popup_main" class="${quiz_css.log}">
               <div id="quiz_div_popup_results" name="quiz_div_popup_results" class="${quiz_css.log}">?????</div>
-              <center><button id="btnContinue" name="btnContinue" class="${quiz.buttons}" >${quiz_messages.btnContinue}</button></center>
+              <center><button id="btnContinue" name="btnContinue" class="${quiz.buttons}" onclick="event_hide_popup_result();">${quiz_messages.btnContinue}</button></center>
               </div>
             </div>`;
     
@@ -649,7 +649,7 @@ function reloadQuestion() {
    }
 
   function showNextSlide () {
-    if (currentSlide > 0 && quiz.showResultPopup) event_showResult(currentSlide);
+    if (currentSlide > 0 && quiz.showResultPopup) event_show_popup_result(currentSlide);
     showSlide_new(+1);
   }
 
@@ -657,21 +657,6 @@ function reloadQuestion() {
     showSlide_new(-1);
   }
 //--------------------------------------------------------------------
-/*
-  function showCurrentSlide  () {
-        showSlide(currentSlide);
-        //alert("showCurrentSlide");
-        return true;
-  }
-  function showNextSlide () {
-    if (currentSlide > 0 && quiz.showResultPopup) event_showResult(currentSlide);
-    showSlide(currentSlide + 1);
-  }
-
-  function showPreviousSlide () {
-    showSlide(currentSlide - 1);
-  }
-*/
 
 /* ***********************************************
 *
@@ -682,7 +667,7 @@ function reloadQuestion() {
 
   function showSlide_new (offset=0) {
     //affichage du popup des solutions si osset > 0 uniquement
-    if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_showResult(currentSlide);
+    if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
 
     var newSlide = currentSlide + offset;
     if (newSlide >= objAllSlides.length) newSlide = objAllSlides.length-1;
@@ -921,15 +906,14 @@ if(obHelp) obHelp.innerHTML = consigne;
 *
 * */
 
-function event_showResult(currentSlide) {
+function event_show_popup_result(currentSlide) {
      var currentQuestion = quizard[currentSlide];
-
+//alert("event_show_popup_result");
      var divDisabledAll = document.getElementById('quiz_div_disabled_all');
      divDisabledAll.style.visibility = "visible";
      //divDisabledAll.style.display = "block";
     //alert (divDisabledAll.id + " - currentSlide  = " + currentSlide);
 
-     var quizPopupResults = document.getElementById('quiz_div_popup_results');
      //exp.push();
      scoreMinMax = getScoreMinMax(currentQuestion);
      var results = getAllScores();
@@ -956,11 +940,13 @@ function event_showResult(currentSlide) {
      exp.push(getAllReponses(currentQuestion));
 */
 
+     var quizPopupResults = document.getElementById('quiz_div_popup_results');
      quizPopupResults.innerHTML = exp.join("\n");
     return true;
 }
 
-function event_hideResult() {
+function event_hide_popup_result() {
+alert("event_hide_popup_result");
      var quizPopupResults = document.getElementById('quiz_div_popup_results');
      quizPopupResults.innerHTML = "";
 
@@ -1205,7 +1191,7 @@ const tEvents = [];
   const btnShowConsigne = document.getElementById('quiz_btn_showConsigne');
 
 
-//  btnContinue.addEventListener("click", event_hideResult);
+//  btnContinue.addEventListener("click", event_hide_popup_result);
   btnSubmit.addEventListener('click', submitAnswers);
   btnPreviousSlide.addEventListener("click", showPreviousSlide);
   btnNextSlide.addEventListener("click", showNextSlide);
@@ -1251,4 +1237,4 @@ const tEvents = [];
   showSlide(currentSlide);
   //startTimer();
 })();
-
+const zzz = new theQuiz();

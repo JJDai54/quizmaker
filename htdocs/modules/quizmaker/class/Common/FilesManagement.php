@@ -301,8 +301,13 @@ trait FilesManagement
 
     while ( $files = readdir( $dir ) ) {
 
-    if ( $files != "index.php" ) // exception avec l'index.php
-        unlink( "$dir_name/$files" );  // supprime chaque fichier du répertoire
+        if ( $files != "index.php" 
+          && $files != "index.html" 
+          && $files != '..' 
+          && is_file ("$dir_name/$files" )){ // exception avec l'index.php
+            //echo  "$dir_name/$files<br>";
+            unlink( "$dir_name/$files" );  // supprime chaque fichier du répertoire
+        }
     }
     closedir( $dir );
     }
