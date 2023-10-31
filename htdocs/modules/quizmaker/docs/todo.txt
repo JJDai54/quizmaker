@@ -1,4 +1,12 @@
 
+<{xoModuleIcons16 'edit.png'}>
+<{xoModuleIcons16 'delete.png'}>
+<{xoModuleIcons16 'download.png'}>
+<{xoModuleIcons16 'inserttable.png'}>
+<{xoModuleIcons16 'spinner.gif'}>
+<{xoModuleIcons16 'editcopy.png'}>
+<{xoModuleIcons16 'add.png'}>
+
 quest_minReponse
 quiz_binOptions
 quiz_onClickSimple

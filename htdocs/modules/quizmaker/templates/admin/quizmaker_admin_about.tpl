@@ -1,5 +1,5 @@
 <!-- Header -->
-<{includeq file='db:quizmaker_admin_header.tpl' }>
+<{include file='db:quizmaker_admin_header.tpl' }>
 
 <!-- About Page -->
 
@@ -26,4 +26,4 @@
 </table>
 
 <!-- Footer -->
-<{includeq file='db:quizmaker_admin_footer.tpl' }>
+<{include file='db:quizmaker_admin_footer.tpl' }>

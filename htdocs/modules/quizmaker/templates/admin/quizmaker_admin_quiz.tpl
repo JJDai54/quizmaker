@@ -214,23 +214,23 @@ img{
                 
 				<td class="center  width10">
 					<a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
-                        <img src="<{xoModuleIcons16 'edit.png'}>" alt="quiz" />
+                        <img src="<{xoModuleIcons16}>/edit.png" alt="quiz" />
                         </a>
                         
 					<a href="quiz.php?op=delete&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._DELETE}>">
-                        <img src="<{xoModuleIcons16 'delete.png'}>" alt="quiz" />
+                        <img src="<{xoModuleIcons16}>/delete.png" alt="quiz" />
                         </a>
 					
 					<a href="quiz.php?op=export_quiz&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._AM_QUIZMAKER_EXPORT_QUIZ}>">
-                        <img src="<{xoModuleIcons16 'download.png'}>" alt="quiz" />
+                        <img src="<{xoModuleIcons16}>/download.png" alt="quiz" />
                         </a>
 
                     <a href='<{$smarty.const.QUIZMAKER_URL}>/admin/questions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&sender='  title="<{$smarty.const._AM_QUIZMAKER_QUESTIONS}>">
-                        <img src="<{xoModuleIcons16 'inserttable.png'}>" alt="" />
+                        <img src="<{xoModuleIcons16}>/inserttable.png" alt="" />
                         </a>
                         
                     <a href="quiz.php?op=export_json&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>"  title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>">
-                        <img src="<{xoModuleIcons16 'spinner.gif'}>" alt="" />
+                        <img src="<{xoModuleIcons16}>/spinner.gif" alt="" />
                         </a>
 
                     <{if $Quiz.quiz_html <> ''}>

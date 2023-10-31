@@ -29,8 +29,8 @@
 				<td class='left'><{$Messages.language}></td>
 				<td class='left'><{$Messages.message}></td>
 				<td class="center  width5">
-					<a href="messages.php?op=edit&amp;msg_id=<{$Messages.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 'edit.png'}>" alt="messages" /></a>
-					<a href="messages.php?op=delete&amp;msg_id=<{$Messages.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 'delete.png'}>" alt="messages" /></a>
+					<a href="messages.php?op=edit&amp;msg_id=<{$Messages.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16}>/edit.png" alt="messages" /></a>
+					<a href="messages.php?op=delete&amp;msg_id=<{$Messages.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16}>/delete.png" alt="messages" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

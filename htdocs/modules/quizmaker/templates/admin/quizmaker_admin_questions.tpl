@@ -202,15 +202,15 @@ function addNewChild(parentId){
                 
 				<td class="center width5" <{$styleParent}> >
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
-                        <img src="<{xoModuleIcons16 'edit.png'}>" alt="questions" />
+                        <img src="<{xoModuleIcons16}>/edit.png" alt="questions" />
                         </a>
                         
                     <{if $Questions.canDelete}>
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
-                            <img src="<{xoModuleIcons16 'editcopy.png'}>" alt="Clone" />
+                            <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
                             </a>
     					<a href="questions.php?op=delete&amp;quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
-                            <img src="<{xoModuleIcons16 'delete.png'}>" alt="questions" />
+                            <img src="<{xoModuleIcons16}>/delete.png" alt="questions" />
                             </a>
                     <{else}>
                           <img src="<{$modPathIcon16}>/blank.png" alt="" />
@@ -219,7 +219,7 @@ function addNewChild(parentId){
 
                     <{if $Questions.type_question == 'pageGroup' || $Questions.type_question == 'pageBegin'}>
     					<a  title="<{$smarty.const._ADD}>" onclick="addNewChild(<{$Questions.id}>);" >
-                          <img src="<{xoModuleIcons16 'add.png'}>" alt="_ADD" />
+                          <img src="<{xoModuleIcons16}>/add.png" alt="_ADD" />
                           </a>
                     <{else}>
                           <img src="<{$modPathIcon16}>/blank.png" alt="" />

@@ -73,18 +73,18 @@
                 <{* ----- Actions ----- *}>
 				<td class="center  width5">
 					<a href="categories.php?op=edit&amp;cat_id=<{$cat.id}>" title="<{$smarty.const._EDIT}>">
-                        <img src="<{xoModuleIcons16 'edit.png'}>" alt="categories" />
+                        <img src="<{xoModuleIcons16}>/edit.png" alt="categories" />
                         </a>
                     <{if $cat.nbQuiz == 0}>
 					<a href="categories.php?op=delete&amp;cat_id=<{$cat.id}>" title="<{$smarty.const._DELETE}>">
-                        <img src="<{xoModuleIcons16 'delete.png'}>" alt="categories" />
+                        <img src="<{xoModuleIcons16}>/delete.png" alt="categories" />
                         </a>
                     <{else}>
                         <img src="<{xoModuleIcons16 'warning.png'}>" alt="categories" title="<{$smarty.const._AM_QUIZMAKER_CAT_NOT_EMPTY}>"/>
                     <{/if}>
 					<img src="<{$modPathIcon16}>/blank-16.png" alt="" />
 					<a href="quiz.php?op=list&cat_id=<{$cat.id}>&sender='cat_id'" title="<{$smarty.const._AM_QUIZMAKER_QUIZ}>">
-                        <img src="<{xoModuleIcons16 'inserttable.png'}>" alt="Quiz" />
+                        <img src="<{xoModuleIcons16}>/inserttable.png" alt="Quiz" />
                         </a>
 				</td>
 			</tr>

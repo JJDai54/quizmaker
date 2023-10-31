@@ -176,7 +176,7 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			+js
+			-js
 				-quiz-min
 				+quiz-org
 					-css
@@ -446,7 +446,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 076.jpg
@@ -606,7 +606,7 @@ _quizmaker
 				language\french\modinfo.php
 				language\french\type_questions.php
 			language\index.html
-		+plugins
+		-plugins
 			-checkboxLogical
 				-img
 					plugins\checkboxLogical\img\index.html
@@ -1076,7 +1076,7 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		+sql
+		-sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
@@ -1169,28 +1169,29 @@ _quizmaker
 4=class\QuizUtility.php
 5=admin\menu.php
 6=templates\admin\quizmaker_admin_import.tpl
-7=class\Common\ServerStats.php
-8=templates\quizmaker_breadcrumbs.tpl
-9=J:\Xoops\modules-JJD\glossaire\projet\htdocs\modules\glossaire\templates\glossaire_breadcrumbs.tpl
-10=assets\js\quiz-org\js\tpl\slide_checkboxSimple.js
-11=assets\js\quiz-org\js\quiz-main.js
-12=assets\js\quiz-org\css\quiz.css
-13=assets\js\quiz-org\js\quiz-events.js
+7=templates\quizmaker_breadcrumbs.tpl
+8=J:\Xoops\modules-JJD\glossaire\projet\htdocs\modules\glossaire\templates\glossaire_breadcrumbs.tpl
+9=assets\js\quiz-org\js\tpl\slide_checkboxSimple.js
+10=assets\js\quiz-org\js\quiz-main.js
+11=templates\admin\quizmaker_admin_results.tpl
+12=templates\admin\quizmaker_admin_quiz.tpl
+13=templates\admin\quizmaker_admin_questions.tpl
+14=C:\Users\jjdel\AppData\Local\Temp\fz3temp-2\Slider_Cds_modules.php
 [Selected Project Files]
 Main=
-Selected=assets\js\quiz-org\js\quiz-events.js
+Selected=C:\Users\jjdel\AppData\Local\Temp\fz3temp-2\Slider_Cds_modules.php
 [admin\import.php]
 TopLine=46
 Caret=19,57
 [xoops_version.php]
-TopLine=389
-Caret=69,393
+TopLine=402
+Caret=32,425
 [sql\mysql.sql]
 TopLine=23
 Caret=1,1
 [docs\todo.txt]
 TopLine=1
-Caret=1,2
+Caret=30,8
 [class\QuizUtility.php]
 TopLine=761
 Caret=3,779
@@ -1200,9 +1201,6 @@ Caret=37,70
 [templates\admin\quizmaker_admin_import.tpl]
 TopLine=1
 Caret=13,8
-[class\Common\ServerStats.php]
-TopLine=35
-Caret=115,65
 [templates\quizmaker_breadcrumbs.tpl]
 TopLine=1
 Caret=48,5
@@ -1210,14 +1208,20 @@ Caret=48,5
 TopLine=1
 Caret=1,1
 [assets\js\quiz-org\js\tpl\slide_checkboxSimple.js]
-TopLine=88
-Caret=21,120
+TopLine=110
+Caret=28,133
 [assets\js\quiz-org\js\quiz-main.js]
-TopLine=128
-Caret=123,147
-[assets\js\quiz-org\css\quiz.css]
-TopLine=183
-Caret=2,202
-[assets\js\quiz-org\js\quiz-events.js]
-TopLine=348
-Caret=10,374
+TopLine=400
+Caret=54,404
+[templates\admin\quizmaker_admin_results.tpl]
+TopLine=45
+Caret=145,63
+[templates\admin\quizmaker_admin_quiz.tpl]
+TopLine=215
+Caret=35,233
+[templates\admin\quizmaker_admin_questions.tpl]
+TopLine=192
+Caret=37,222
+[C:\Users\jjdel\AppData\Local\Temp\fz3temp-2\Slider_Cds_modules.php]
+TopLine=13
+Caret=1,1

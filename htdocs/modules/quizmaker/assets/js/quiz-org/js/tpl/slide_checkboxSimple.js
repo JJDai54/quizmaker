@@ -125,6 +125,24 @@ var bolOk = 1;
     this.points = points * bolOk;    
     return this.points;
   }
+//---------------------------------------------------
+getPopupResults (flag = 0){
+    var  currentQuestion = this.question;
+    var tReponses = [];
+    
+    //parcours toutes les réponses
+    for(var i in currentQuestion.answers){
+        var rep = currentQuestion.answers[i];
+        if(rep.points > 0 || flag == 0)
+            //tReponses.push ({'reponse':rep.proposition, 'points':rep.points});    
+            tReponses.push ([[rep.proposition], [rep.points]]);    
+    }
+    tReponses = sortArrayObject(tReponses, 1, "DESC");
+    return formatArray0(tReponses, "=>");
+
+
+ }
+
 ///////////////////////////////
 //---------------------------------------------------
   isInputOk (answerContainer){

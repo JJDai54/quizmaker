@@ -113,8 +113,8 @@
                 
                 
 				<td class="center  width5">
-					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16 'edit.png'}>" alt="answers" /></a>
-					<a href="answers.php?op=delete&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16 'delete.png'}>" alt="answers" /></a>
+					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16}>/edit.png" alt="answers" /></a>
+					<a href="answers.php?op=delete&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16}>/delete.png" alt="answers" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

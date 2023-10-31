@@ -143,7 +143,9 @@ function getHtmlMessage(){
 function getHtmlPopup(){
     return `<div id="quiz_div_disabled_all"    name="quiz_div_disabled_all">
               <div id="quiz_div_popup_main"    name="quiz_div_popup_main" class="${quiz_css.log}">
-              <div id="quiz_div_popup_results" name="quiz_div_popup_results" class="${quiz_css.log}">?????</div>
+              <div id="quiz_div_popup_results_answers" name="quiz_div_popup_results_answers" class="${quiz_css.log}">?????</div>
+              <div id="quiz_div_popup_results_quest"   name="quiz_div_popup_results_quest"   class="${quiz_css.log}">?????</div>
+              <div id="quiz_div_popup_results_total"   name="quiz_div_popup_results_total"   class="${quiz_css.log}">?????</div>
               <center><button id="btnContinue" name="btnContinue" class="${quiz.buttons}" onclick="event_hide_popup_result();">${quiz_messages.btnContinue}</button></center>
               </div>
             </div>`;
@@ -398,13 +400,9 @@ var answerContainer;
 
  function getGoodReponses (currentQuestion){
 //alert("isInputOk");
-      let reponseOk = "";
 
-        //-------------------------------------------------------
-
-            reponseOk = currentQuestion.getGoodReponses();
-        //-------------------------------------------------------
-        //------------------------------------------
+      let reponseOk = currentQuestion.getGoodReponses();
+      
 //alert("getGoodReponses : " + reponseOk);
 
 //        var obRep = document.getElementById(qdic.divLog);
@@ -940,22 +938,11 @@ function event_show_popup_result(currentSlide) {
      exp.push(getAllReponses(currentQuestion));
 */
 
-     var quizPopupResults = document.getElementById('quiz_div_popup_results');
+     var quizPopupResults = document.getElementById('quiz_div_popup_results_answers');
      quizPopupResults.innerHTML = exp.join("\n");
     return true;
 }
 
-function event_hide_popup_result() {
-alert("event_hide_popup_result");
-     var quizPopupResults = document.getElementById('quiz_div_popup_results');
-     quizPopupResults.innerHTML = "";
-
-     var divDisabledAll = document.getElementById('quiz_div_disabled_all');
-    //alert (divDisabledAll.id);
-     divDisabledAll.style.visibility = "hidden";
-     //divDisabledAll.style.display = "none";
-    return true;
-}
 
   /**************************************************************
    *       FONCTIONS GENERALES
