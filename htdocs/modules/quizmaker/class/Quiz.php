@@ -359,35 +359,38 @@ class Quiz extends \XoopsObject
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_PERMISSIONS . '</div></center>');
         //========================================================
         
-		// Permissions
-		$memberHandler = xoops_getHandler('member');
-		$groupList = $memberHandler->getGroupList();
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$fullList[] = array_keys($groupList);
-		if (!$this->isNew()) {
-			$groupsIdsApprove = $grouppermHandler->getGroupIds('quizmaker_approve_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsApprove[] = array_values($groupsIdsApprove);
-			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_quiz[]', $groupsIdsApprove);
-			$groupsIdsSubmit = $grouppermHandler->getGroupIds('quizmaker_submit_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
-			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_quiz[]', $groupsIdsSubmit);
-			$groupsIdsView = $grouppermHandler->getGroupIds('quizmaker_view_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsView[] = array_values($groupsIdsView);
-			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_quiz[]', $groupsIdsView);
-		} else {
-			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_quiz[]', $fullList);
-			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_quiz[]', $fullList);
-			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_quiz[]', $fullList);
-		}
-		// To Approve
-		$groupsCanApproveCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanApproveCheckbox);
-		// To Submit
-		$groupsCanSubmitCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanSubmitCheckbox);
-		// To View
-		$groupsCanViewCheckbox->addOptionArray($groupList);
-		$form->addElement($groupsCanViewCheckbox);
+		// Permissions si  'perm_by_quiz') est défini sur oui
+        if ($quizmakerHelper->getConfig('perm_by_quiz')){
+    		$memberHandler = xoops_getHandler('member');
+    		$groupList = $memberHandler->getGroupList();
+    		$grouppermHandler = xoops_getHandler('groupperm');
+    		$fullList[] = array_keys($groupList);
+    		if (!$this->isNew()) {
+    			$groupsIdsApprove = $grouppermHandler->getGroupIds('quizmaker_approve_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+    			$groupsIdsApprove[] = array_values($groupsIdsApprove);
+    			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_quiz[]', $groupsIdsApprove);
+    			$groupsIdsSubmit = $grouppermHandler->getGroupIds('quizmaker_submit_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+    			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
+    			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_quiz[]', $groupsIdsSubmit);
+    			$groupsIdsView = $grouppermHandler->getGroupIds('quizmaker_view_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
+    			$groupsIdsView[] = array_values($groupsIdsView);
+    			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_quiz[]', $groupsIdsView);
+    		} else {
+    			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_quiz[]', $fullList);
+    			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_quiz[]', $fullList);
+    			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_quiz[]', $fullList);
+    		}
+    		// To Approve
+    		$groupsCanApproveCheckbox->addOptionArray($groupList);
+    		$form->addElement($groupsCanApproveCheckbox);
+    		// To Submit
+    		$groupsCanSubmitCheckbox->addOptionArray($groupList);
+    		$form->addElement($groupsCanSubmitCheckbox);
+    		// To View
+    		$groupsCanViewCheckbox->addOptionArray($groupList);
+    		$form->addElement($groupsCanViewCheckbox);
+        }     
+                      
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
 		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));

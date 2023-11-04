@@ -107,7 +107,7 @@ computeScoresMinMaxByProposition(){
  }
 
 //---------------------------------------------------
-getScore ( answerContainer){
+getScoreByProposition ( answerContainer){
 var points = 0;
 var bolOk = 1;
 //alert("answerContainer");

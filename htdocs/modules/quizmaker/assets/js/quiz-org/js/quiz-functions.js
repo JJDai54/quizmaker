@@ -22,14 +22,35 @@ function getAllReponses_ (){
 var boolDog = true; 
 
 const statsTotal = {
-      nbQuestions:  0,
-      scoreMaxiQQ:    0,
-      scoreMiniQQ:    0,
-      repondu:      0,
-      score:        0,
-      counter:      0,
-      timer:        0
+      quiz_score_max:   0,
+      quiz_score_min:   0,
+      quiz_questions:   0,
+      cumul_questions:  0,
+      cumul_max:        0,
+      cumul_min:        0,
+      cumul_score:      0,
+      cumul_timer:      0,
+      question_number:  0,
+      question_max:     0,
+      question_min:     0,
+      question_points:  0
   };
+  /*
+const statsTotal = {
+      .quiz_score_max:   0,
+      .quiz_score_min:   0,
+      .quiz_questions:   0;
+      .cumul_questions:  0;
+      .cumul_max:        0,
+      .cumul_min:        0,
+      .cumul_score:      0,
+      .cumul_timer:      0,
+      .question_number:   0,
+      .question_max:     0,
+      .question_min:     0,
+      .question_points:  0
+  };
+  */
   
 /*
 const quiz_bit = {
@@ -644,18 +665,23 @@ function formatReponseTD(arr, sep='===>', unite=''){
     if(arr[k] == '<hr>'){
         return `<td colspan="${arr.length+2}">${arr[k]}</td>`;    
     }
+    var styleGoodAns = "color:blue;";
+    var styleBadAns  = "color:red;background-color:#FFCCCC;";
     //-----------------------------------------
     var tHtml = [];
+    var styleAns = (arr[1]*1 > 0) ? styleGoodAns : styleBadAns;
+   // var tdClass = (arr[1]*1 > 0) ? 'quiz_div_popup_good_answer' : 'quiz_div_popup_bad_answer';
     for (var k = 0; k < arr.length; k++){
     
-        var td = `<td>${arr[k]}</td>`;
-        if (k < arr.length-1) td += `<td>${sep}</td>`;
-        if (unite !== '' && k == arr.length-1) td += `<td>${unite}</td>`;
+        var td = `<td style='${styleAns}'>${arr[k]}</td>`;
+        //var td = `<td class='${tdClass}'>${arr[k]}</td>`;
+        if (k < arr.length-1) td += `<td style='${styleAns}'>${sep}</td>`;
+        if (unite !== '' && k == arr.length-1) td += `<td style='${styleAns}'>${unite}</td>`;
         tHtml.push(td);
     }
     
-    var tr = tHtml.join("\n");
-    return `<tr>${tr}</tr>`;
+    var tdArr = tHtml.join("\n");
+    return `<tr style="background-color:yellow;">${tdArr}</tr>`;
 
 }
 //-----------------------------------------------------------------------
@@ -939,14 +965,14 @@ function requestGetPost(){
 * *********************************************** */
 function replaceBalisesByValues(exp)
 {
-    var newExp = exp.replace("{repondu}", statsTotal.repondu);
-    newExp = newExp.replace("{totalQuestions}", statsTotal.nbQuestions);
-    newExp = newExp.replace("{score}", statsTotal.score);
-    newExp = newExp.replace("{scoreMaxiQQ}", statsTotal.scoreMaxiQQ);
-    newExp = newExp.replace("{scoreMiniQQ}", statsTotal.scoreMiniQQ);
-    newExp = newExp.replace("{scoreMaxi}", statsTotal.scoreMaxiQQ);
-    newExp = newExp.replace("{scoreMini}", statsTotal.scoreMiniQQ);
-    newExp = newExp.replace("{duree}",  formatChrono(statsTotal.counter, "{minutes} minutes et {secondes} secondes"));
+    var newExp = exp.replace("{repondu}", statsTotal.cumul_questions);
+    newExp = newExp.replace("{totalQuestions}", statsTotal.quiz_questions);
+    newExp = newExp.replace("{score}", statsTotal.cumul_score);
+    newExp = newExp.replace("{scoreMaxiQQ}", statsTotal.quiz_score_max);
+    newExp = newExp.replace("{scoreMiniQQ}", statsTotal.quiz_score_min);
+    newExp = newExp.replace("{scoreMaxi}", statsTotal.quiz_score_max);
+    newExp = newExp.replace("{scoreMini}", statsTotal.quiz_score_min);
+    newExp = newExp.replace("{duree}",  formatChrono(statsTotal.cumul_timer, "{minutes} minutes et {secondes} secondes"));
     
     quiz_request_keys.forEach((key) => {
         //alert(key + " = " + quiz_rgp[key]);

@@ -5,7 +5,8 @@ Compilator.CompileOnBackground=0
 Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
 Compilator.LogType=0
-DefaultDir=J:\Xoops\modules-JJD\quizmaker\projet\htdocs\modules\quizmaker\assets\js\quiz-org
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\www\modules\quizmaker\assets\js\quiz-org
 DefaultCP=0
 LogtoEnd=1
 DontOpen=0
@@ -18,13 +19,38 @@ Extensions=*.*
 _quiz-org
 	+quiz-org
 		+css
+			-infobulle
+				-images
+					css\infobulle\images\Award.png
+					css\infobulle\images\Bow tie.png
+					css\infobulle\images\Cinema.png
+					css\infobulle\images\Coffee.png
+					css\infobulle\images\Critical.png
+					css\infobulle\images\Dating.png
+					css\infobulle\images\Dollar.png
+					css\infobulle\images\Game_strategy.png
+					css\infobulle\images\Hamburger.png
+					css\infobulle\images\Help.png
+					css\infobulle\images\Hint.png
+					css\infobulle\images\Home.png
+					css\infobulle\images\index.html
+					css\infobulle\images\Info.png
+					css\infobulle\images\Kids.png
+					css\infobulle\images\Music.png
+					css\infobulle\images\View.png
+					css\infobulle\images\Warning.png
+				css\infobulle\exemple-01.html
+				css\infobulle\index.html
+				css\infobulle\infobulle.css
 			-progressbarr
 				css\progressbarr\shaded-green.png
 			css\index.html
 			css\quiz.css
 			css\quiz-tmp.css
 			css\style-item-color.css
+			css\style-item-color-old.css
 			css\style-item-design.css
+			css\style-item-design-old.css
 		-data
 			data\quiz-options.js
 			data\quiz-questions.js
@@ -126,6 +152,10 @@ _quiz-org
 					images\buttons\yellow\btn_view-01.png
 					images\buttons\yellow\btn_view-02.png
 				images\buttons\index.html
+			-emoji
+				images\emoji\emoji-lost-01.jpg
+				images\emoji\emoji-middle-01.jpg
+				images\emoji\emoji-win-01.jpg
 			-substitut
 				images\substitut\blank-jaune.jpg
 				images\substitut\blank-org.jpg
@@ -159,6 +189,8 @@ _quiz-org
 			images\arrow-right.png
 			images\feu-rouge.png
 			images\feu-vert.png
+			images\Help.png
+			images\Hint.png
 			images\index.html
 		+js
 			+language
@@ -169,15 +201,18 @@ _quiz-org
 				js\tpl\slide_checkboxSimple.js
 				js\tpl\slide_comboboxMatchItems.js
 				js\tpl\slide_comboboxSortList.js
-				js\tpl\slide_imagesDaDBasket.js
+				js\tpl\slide_imagesDaDGroups.css
 				js\tpl\slide_imagesDaDGroups.js
+				js\tpl\slide_imagesDaDLogical.css
 				js\tpl\slide_imagesDaDLogical.js
+				js\tpl\slide_imagesDaDMatchItems.css
 				js\tpl\slide_imagesDaDMatchItems.js
+				js\tpl\slide_imagesDaDSortItems.css
 				js\tpl\slide_imagesDaDSortItems.js
 				js\tpl\slide_imagesLogical.js
 				js\tpl\slide_imagesSimple.js
-				js\tpl\slide_listboxIntruders1.js
-				js\tpl\slide_listboxIntruders2.js
+				js\tpl\slide_listboxIntruders.css
+				js\tpl\slide_listboxIntruders.js
 				js\tpl\slide_listboxSortItems.js
 				js\tpl\slide_pageBegin.js
 				js\tpl\slide_pageEnd.js
@@ -190,61 +225,74 @@ _quiz-org
 				js\tpl\slide_textareaSimple.js
 				js\tpl\slide_textboxMatchItems.js
 				js\tpl\slide_textboxMultiple.js
-				js\tpl\slide_ulSortList.js
+				js\tpl\slide_ulDaDGroups.css
+				js\tpl\slide_ulDaDGroups.js
+				js\tpl\slide_ulDaDSortList.css
+				js\tpl\slide_ulDaDSortList.js
 			js\quiz-events.js
 			js\quiz-functions.js
 			js\quiz-main.js
 			js\quiz-options-dist.js
 			js\slide__prototype.js
+		_quiz-org.ppr
 		exemple_02.html
 		exemple_04.html.URL
 		modif pour extends.js
 		quiz.html
 [Open project files]
 0=js\slide__prototype.js
-1=js\tpl\slide_listboxSortItems.js
-2=js\tpl\slide_ulSortList.js
-3=js\quiz-functions.js
-4=js\tpl\slide_imagesDaDGroups.js
-5=js\quiz-events.js
-6=js\tpl\slide_imagesDaDSortItems.js
-7=js\tpl\slide_imagesDaDBasket.js
-8=js\quiz-main.js
-9=css\quiz-tmp.css
-10=css\quiz.css
+1=js\quiz-main.js
+2=js\quiz-functions.js
+3=js\language\quiz-french.js
+4=js\language\quiz-english.js
+5=js\tpl\slide_imagesDaDMatchItems.js
+6=js\tpl\slide_pageBegin.js
+7=js\tpl\slide_checkboxLogical.js
+8=js\tpl\slide_checkboxSimple.js
+9=css\quiz.css
+10=js\quiz-events.js
+11=js\tpl\slide_radioSimple.js
+12=js\tpl\slide_pageEnd.js
 [Selected Project Files]
 Main=
-Selected=js\tpl\slide_listboxSortItems.js
+Selected=js\quiz-main.js
 [js\slide__prototype.js]
-TopLine=239
-Caret=7,267
-[js\tpl\slide_listboxSortItems.js]
-TopLine=40
-Caret=1,72
-[js\tpl\slide_ulSortList.js]
-TopLine=22
-Caret=1,43
-[js\quiz-functions.js]
-TopLine=1227
-Caret=30,1249
-[js\tpl\slide_imagesDaDGroups.js]
-TopLine=507
-Caret=28,528
-[js\quiz-events.js]
-TopLine=1
-Caret=1,10
-[js\tpl\slide_imagesDaDSortItems.js]
-TopLine=285
-Caret=28,305
-[js\tpl\slide_imagesDaDBasket.js]
-TopLine=477
-Caret=28,497
+TopLine=247
+Caret=23,266
 [js\quiz-main.js]
-TopLine=209
-Caret=1,229
-[css\quiz-tmp.css]
-TopLine=102
-Caret=1,146
+TopLine=945
+Caret=1,963
+Mark1=9,959
+[js\quiz-functions.js]
+TopLine=1236
+Caret=8,1254
+[js\language\quiz-french.js]
+TopLine=2
+Caret=101,42
+[js\language\quiz-english.js]
+TopLine=1
+Caret=1,3
+[js\tpl\slide_imagesDaDMatchItems.js]
+TopLine=44
+Caret=61,63
+[js\tpl\slide_pageBegin.js]
+TopLine=52
+Caret=1,70
+[js\tpl\slide_checkboxLogical.js]
+TopLine=1
+Caret=25,13
+[js\tpl\slide_checkboxSimple.js]
+TopLine=54
+Caret=22,110
 [css\quiz.css]
-TopLine=643
-Caret=13,651
+TopLine=245
+Caret=2,264
+[js\quiz-events.js]
+TopLine=331
+Caret=1,381
+[js\tpl\slide_radioSimple.js]
+TopLine=73
+Caret=26,109
+[js\tpl\slide_pageEnd.js]
+TopLine=61
+Caret=1,79

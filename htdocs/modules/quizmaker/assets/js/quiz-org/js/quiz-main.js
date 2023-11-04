@@ -6,7 +6,7 @@
 //     alert ("ok : " + currentQuestion.question);
 // });
 
-
+ // a traiter showResultAllways
 
 
 // permet de récupérer les variables $_GET ou $_POST utililser pour des messages personnalisés
@@ -16,9 +16,9 @@ var quiz_rgp = requestGetPost();
 
 const quiz_config = {
     name : 'Quizmaker',
-    version : "4.20",
+    version : "5.01",
     date_creation : "25-01-2019",
-    date_release : "12-11-2022",
+    date_release : "30-11-2023",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
@@ -135,7 +135,8 @@ function getHtmlFooter(){
  *   
  * ************************************************************************/
 function getHtmlMessage(){
-    return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.score}</div>`;
+    //return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.score}</div>`;
+    return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>`;
 }
 /**************************************************************************
  *   
@@ -143,10 +144,18 @@ function getHtmlMessage(){
 function getHtmlPopup(){
     return `<div id="quiz_div_disabled_all"    name="quiz_div_disabled_all">
               <div id="quiz_div_popup_main"    name="quiz_div_popup_main" class="${quiz_css.log}">
-              <div id="quiz_div_popup_results_answers" name="quiz_div_popup_results_answers" class="${quiz_css.log}">?????</div>
-              <div id="quiz_div_popup_results_quest"   name="quiz_div_popup_results_quest"   class="${quiz_css.log}">?????</div>
-              <div id="quiz_div_popup_results_total"   name="quiz_div_popup_results_total"   class="${quiz_css.log}">?????</div>
-              <center><button id="btnContinue" name="btnContinue" class="${quiz.buttons}" onclick="event_hide_popup_result();">${quiz_messages.btnContinue}</button></center>
+                <div id="quiz_div_popup_emoji" name="quiz_div_popup_emoji"     class="${quiz_css.log}">
+                    <img  id="quiz_popup_emoji_icon" name="quiz_popup_emoji_icon" src="__EMOJI__" style="width:80px;margin-top:5px;"><br>
+                    <span id="quiz_popup_emoji_text" name="quiz_popup_emoji_text">__EMOJI_TEXT__</span>
+                </div>
+                <hr class="quiz-style-two">
+                <div id="quiz_div_popup_quest" name="quiz_div_popup_quest" class="${quiz_css.log}">__QUESTION__</div>
+                <center><div id="quiz_div_popup_answers" name="quiz_div_popup_answers" class="${quiz_css.log}">__ANSWERS__</div></center>
+                <div id="quiz_div_popup_points"   name="quiz_div_popup_points"   class="${quiz_css.log}">__POINTS__</div>
+                <hr class="quiz-style-two">
+                <div id="quiz_div_popup_score"    name="quiz_div_popup_score"    class="${quiz_css.log}">__SCORE__</div>
+
+                <br><button id="btnPopContinue" class="${quiz_css.buttons}" onclick="event_hide_popup_result();">${quiz_messages.btnContinue}</button>
               </div>
             </div>`;
     
@@ -156,7 +165,7 @@ function getHtmlPopup(){
  * ************************************************************************/
 function getHtmlLog(){
       return `<br>
-             <div id="quiz_div_log" name="quiz_div_log" style="display: block;overflow-y: scroll;overflow: hidden;" class="${quiz_css.log}">${quiz_messages.showReponses}
+             <div id="quiz_div_log" name="quiz_div_log" style="display: none;overflow-y: scroll;overflow: hidden;" class="${quiz_css.log}">${quiz_messages.showReponses}
              <span class="question-reponsesOk">
              <div id="quiz_div_answers_bottom" ></div>
              </span></div>`;
@@ -248,10 +257,11 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
         const answers = [];  
         //-------------------------------------------------------
         var questionNumber = clQuestion.question.questionNumber;
-        statsTotal.nbQuestions = clQuestion.incremente_question(statsTotal.nbQuestions);
+        var slideNumber = clQuestion.slideNumber;
+        statsTotal.quiz_questions = clQuestion.incremente_question(statsTotal.quiz_questions);
 
-        statsTotal.scoreMaxiQQ += clQuestion.scoreMaxiQQ;
-        statsTotal.scoreMiniQQ += clQuestion.scoreMiniQQ;
+        statsTotal.quiz_score_max += clQuestion.scoreMaxiQQ;
+        statsTotal.quiz_score_min += clQuestion.scoreMiniQQ;
         
        var comment1 = '';  
        if (clQuestion.question.comment1) {
@@ -269,7 +279,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
          //var divPoints = quiz_messages.forPoints.replace("{pointsMin}", clQuestion.scoreMiniQQ).replace("{pointsMax}", clQuestion.scoreMaxiQQ);
          //Ajout du timer si il est utilisé (quiz_timer)
          if (quiz.useTimer == 1){
-              var divChrono =  `<label id="question${questionNumber}-slideTimer" class="quiz-timer">${clQuestion.question.timer}</label>`;
+              var divChrono =  `<label id="question${slideNumber}-slideTimer" class="quiz-timer">${clQuestion.question.timer}</label>`;
               divChrono  = quiz_messages.forChrono.replace("{timer}", divChrono);
               divPoints += " " + divChrono;
          }
@@ -277,7 +287,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
 
        }else if(clQuestion.question.timer > 0 && quiz.useTimer == 1 && quiz.showScoreMinMax == 1){
         //c'est une page begin, end ou group
-              var divChrono =  `<label id="question${questionNumber}-slideTimer" class="quiz-timer">${clQuestion.question.timer}</label>`;
+              var divChrono =  `<label id="question${slideNumber}-slideTimer" class="quiz-timer">${clQuestion.question.timer}</label>`;
               divChrono  = quiz_messages.readerTimer.replace("{timer}", divChrono);
               divPoints += " " + divChrono + "<br>";
        }
@@ -286,7 +296,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
        //var sTypeQuestion = (quiz.showTypeQuestion) ? `<br><span style="color:white;">(${clQuestion.question.typeQuestion}/${clQuestion.question.typeForm} - questId = ${clQuestion.question.quizId}/${clQuestion.question.questId}) - ${clQuestion.question.timestamp}</span>`: '';
 
        var question = clQuestion.question.question.replace('/','<br>') 
-       var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${questionNumber}${quiz_messages.twoPoints}${question}${comment1}</div>`;
+       var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${slideNumber}${quiz_messages.twoPoints}${question}${comment1}</div>`;
 
 
 
@@ -318,6 +328,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
 function filtrerQuestions(){
 var newQuestions = [];
 var chrono = 0; //index dans la table quizard
+var slideNumber = 0; //n° du slide y compris les pageBegin, pageEnd et pageGroup
 var questionNumber = 0; // numero de slide hors page_begin, page_end et page_group,
 //alert ("zz : " + myQuestions.length);
 // alert ("zz : " + myQuestions[0].question);
@@ -329,8 +340,9 @@ var questionNumber = 0; // numero de slide hors page_begin, page_end et page_gro
             // debut du type de slide a traiter
             var newTplClass = getTplNewClass (currentQuestion, chrono);
             if(newTplClass){
-                newTplClass.question.questionNumber = (newTplClass.isQuestion) ? questionNumber++ : 0;
-                chrono++;
+                newTplClass.slideNumber = ++slideNumber;
+                newTplClass.question.questionNumber = (newTplClass.isQuestion()) ? ++questionNumber : 0;
+                //chrono++;
                 //currentQuestion.questionNumber = chrono;
                 quizard.push(newTplClass);
                 
@@ -407,7 +419,7 @@ var answerContainer;
 
 //        var obRep = document.getElementById(qdic.divLog);
 //        obRep.style.display = "block";
-       showDiv('quiz_div_log', 1);
+       showDiv('quiz_div_log', quiz.showLog);    
 
        return reponseOk;
 
@@ -425,8 +437,7 @@ var answerContainer;
     //-------------------------------------------------------
     reponseOk = currentQuestion.getAllReponses();
     //-------------------------------------------------------
-    showDiv('quiz_div_log', 1);
-    
+    showDiv('quiz_div_log', quiz.showLog);
     return reponseOk;
 
  }
@@ -470,6 +481,7 @@ var answerContainer;
 
     // for each question...
     quizard.forEach((clQuestion, index) => {
+    //alert(index);
         //result.repondu +=  clQuestion.getScore(answerContainers[index]);// ((points>0) ? points : 0;
         result.repondu  += (clQuestion.isInputOk( answerContainers[index]) ? 1 : 0);  
         //result.score  += clQuestion.points*1;  
@@ -484,6 +496,45 @@ var answerContainer;
     });
     return result;
   }
+  
+ /************************************************************************
+  *    CALCUL DES RESULTATS
+  * ***********************************************************************/
+  function getStatistiques (currentQuestion = null){
+/*
+const statsTotal = {
+      nbQuestions:  0,
+      scoreMaxiQQ:    0,
+      scoreMiniQQ:    0,
+      repondu:      0,
+      score:        0,
+      counter:      0,
+      timer:        0,
+      quiz_score_max:   0,
+      quiz_score_min:   0,
+      quiz_questions:   0;
+      cumul_questions:  0;
+      cumul_max:        0,
+      cumul_min:        0,
+      cumul_score:      0,
+      cumul_timer:      0,
+      question_max:     0,
+      question_min:     0,
+      question_points:  0
+  };
+*/    
+                        
+    //Ajout de la question courante
+    if(currentQuestion) {
+        statsTotal.question_number = currentQuestion.question.questionNumber;
+        statsTotal.question_min = currentQuestion.scoreMiniBP;
+        statsTotal.question_max = currentQuestion.scoreMaxiBP; 
+        statsTotal.question_points = currentQuestion.getScoreByProposition(0); 
+        }
+    
+    return statsTotal;
+}
+
 //----------------------------------------------------------
   function submitAnswers(){
     currentQuestion = quizard[currentSlide];
@@ -514,14 +565,14 @@ var answerContainer;
     }
     //alert (scoreCurrentSlide);
 
-statsTotal.score = results.score;
-statsTotal.repondu = results.repondu;
+    statsTotal.cumul_score = results.score;
+    statsTotal.cumul_questions = results.repondu;
 
     var exp = quiz_messages.resultOnSlide;
     exp = exp.replace("{reponses}", results.repondu);  //countInputOk()    numCorrect
-    exp = exp.replace("{questions}", statsTotal.nbQuestions);
+    exp = exp.replace("{questions}", statsTotal.quiz_questions);
     exp = exp.replace("{points}", results.score);
-    exp = exp.replace("{totalPoints}", statsTotal.scoreMaxiQQ);
+    exp = exp.replace("{totalPoints}", statsTotal.quiz_score_max);
     //exp = exp.replace("{horloge}", horloge);
    // exp = exp.replace("{rnd}", rnd);
 
@@ -544,8 +595,8 @@ statsTotal.repondu = results.repondu;
     var answerContainers = quizDivAllSlides.querySelectorAll('.answers');
 
     var results = getAllScores();
-statsTotal.score = results.score;
-statsTotal.repondu = results.repondu;
+    statsTotal.cumul_score = results.score;
+    statsTotal.cumul_questions = results.repondu;
     
   }
 
@@ -596,7 +647,8 @@ statsTotal.repondu = results.repondu;
     
     numSlide = parseInt(exp);
     if (Number.isInteger(numSlide)){
-        showSlide(numSlide*1);
+    //alert("numSlide : " + numSlide);
+        showSlide(numSlide - 1);
     }else{
       var bolOk = false;
       for (var h=0; h<quizard.length; h++){
@@ -647,7 +699,7 @@ function reloadQuestion() {
    }
 
   function showNextSlide () {
-    if (currentSlide > 0 && quiz.showResultPopup) event_show_popup_result(currentSlide);
+    //if (currentSlide > 0 && quiz.showResultPopup) event_show_popup_result(currentSlide);
     showSlide_new(+1);
   }
 
@@ -854,7 +906,7 @@ if(obHelp) obHelp.innerHTML = consigne;
 
   //----------------------------------------------------------------
   function updateQuizTimer (){
-        quizDivHorloge.innerHTML = formatChrono(statsTotal.counter ++);
+        quizDivHorloge.innerHTML = formatChrono(statsTotal.cumul_timer ++);
   }
   function startTimer () {
     idQuizTimer = setInterval(updateQuizTimer, 1000);
@@ -905,42 +957,60 @@ if(obHelp) obHelp.innerHTML = consigne;
 * */
 
 function event_show_popup_result(currentSlide) {
-     var currentQuestion = quizard[currentSlide];
 //alert("event_show_popup_result");
-     var divDisabledAll = document.getElementById('quiz_div_disabled_all');
-     divDisabledAll.style.visibility = "visible";
-     //divDisabledAll.style.display = "block";
-    //alert (divDisabledAll.id + " - currentSlide  = " + currentSlide);
+    
+     var currentQuestion = quizard[currentSlide];
 
-     //exp.push();
-     scoreMinMax = getScoreMinMax(currentQuestion);
-     var results = getAllScores();
-     if (results.score == scoreMinMax.max){
-        msg1 = quiz_messages.resultBravo1;
-     }else if(results.score == scoreMinMax.min){
-        msg1 = quiz_messages.resultBravo3;
-     }else{
-        msg1 = quiz_messages.resultBravo2;
-     }
-
-     msg2 = quiz_messages.resultScore.replace("{points}", results.score);
-     msg2 = msg2.replace("{totalPoints}", scoreMinMax.max);
-
-
-     exp = [];
-     exp.push(`${quiz_messages.resultBravo0}<br>`);
-     exp.push(`${msg1}<br>`);
-     //exp.push(`Score : ${} / ${}<hr>`);
-     exp.push(`${msg2}<hr>`);
-     exp.push(getGoodReponses(currentQuestion)); //JJDai
+    if (!currentQuestion.isQuestion()) {
+        return false;
+    } 
+    
+     var divDisabledAll = document.getElementById('quiz_div_disabled_all');     
+    getStatistiques(currentQuestion);
 /*
-     exp.push(`<hr>`);
-     exp.push(getAllReponses(currentQuestion));
-*/
+    'min':this.scoreMiniBP, 
+    'max': this.scoreMaxiBP, 
+    'nbGnswers' : 0,
+    'nbGoodAnswers' : 0,
+    'points': this.getScoreByProposition(0),
+*/     
 
-     var quizPopupResults = document.getElementById('quiz_div_popup_results_answers');
-     quizPopupResults.innerHTML = exp.join("\n");
-    return true;
+    if (statsTotal.question_points == statsTotal.question_max){
+        var emoji = 'emoji_icon_01.png';
+        var message = quiz_messages.emoji_text_01;
+    }else if (statsTotal.question_points == statsTotal.question_min){
+        var emoji = 'emoji_icon_00.png';
+        var message = quiz_messages.emoji_text_00;
+    } else{
+        var emoji = 'emoji_icon_02.png';
+        var message = quiz_messages.emoji_text_02;
+    }
+    document.getElementById('quiz_popup_emoji_icon').src= `${quiz.url}/images/emoji/${emoji}`;
+    document.getElementById('quiz_popup_emoji_text').innerHTML = message;
+     //quiz_div_popup_results_emoji
+     
+    document.getElementById('quiz_div_popup_quest').innerHTML = currentQuestion.question.question;     
+
+     
+
+
+     msg2 = quiz_messages.popupScore.replace("{points}", statsTotal.question_points);
+     msg2 = msg2.replace("{max}", statsTotal.question_max);
+    document.getElementById('quiz_div_popup_points').innerHTML = msg2;
+
+   
+     msgScore =  quiz_messages.popupScoreCumule.replace("{nbReponses}", statsTotal.question_number);
+     msgScore =  msgScore.replace("{nbQuestions}", statsTotal.quiz_questions);    
+     msgScore =  msgScore.replace("{score}", statsTotal.cumul_score);    
+     msgScore =  msgScore.replace("{total}", statsTotal.quiz_score_max);    
+     document.getElementById('quiz_div_popup_score').innerHTML = msgScore;
+    
+    //var ans = getAllReponses(currentQuestion); //JJDai
+    var ans = currentQuestion.getAllReponses();
+    document.getElementById('quiz_div_popup_answers').innerHTML = ans;
+     
+     divDisabledAll.style.visibility = "visible";    
+     return true;
 }
 
 
@@ -1224,4 +1294,4 @@ const tEvents = [];
   showSlide(currentSlide);
   //startTimer();
 })();
-const zzz = new theQuiz();
+//const zzz = new theQuiz();

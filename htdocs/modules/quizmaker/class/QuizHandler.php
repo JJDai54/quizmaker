@@ -390,17 +390,23 @@ global $questionsHandler, $resultsHandler;
 	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC")
     {
         global $categoriesHandler, $quizmakerHelper;
+        
+        if (is_null($criteria)) $criteria = new \CriteriaCompo();
         $tPerm = $this->getPermissions($short_permtype);
-//exit("===>getAllowed");        
-        $idsQuiz = join(',', $tPerm);
+//exit("===>getAllowed"); 
+     
+        if ($quizmakerHelper->getConfig('perm_by_quiz')){
+            $idsQuiz = (count($tPerm) > 0 ) ? join(',', $tPerm) : '0';
+            //$idsQuiz = join(',', $tPerm);
+            $criteria->add(new \Criteria('quiz_id',"({$idsQuiz})",'IN'));
+        }
+        
         //---------------------------------------------------------------
         if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
 
         $idsCat = join(',', $categoriesHandler->getPermissions($short_permtype));
         //echo "<hr>===>getAllowed quiz :<br>idsQuiz : {$idsQuiz}<br>idsCat : {$idsCat}<hr>";
         //------------------------------------------------
-        if (is_null($criteria)) $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('quiz_id',"({$idsQuiz})",'IN'));
         $criteria->add(new \Criteria('quiz_cat_id',"({$idsCat})",'IN'), 'AND');
         
             
@@ -417,12 +423,17 @@ global $questionsHandler, $resultsHandler;
    
         if ($sorted != '') $criteria->setSort($sorted);
         if ($order  != '') $criteria->setOrder($order);
-       
+//exit ("<hr>===>getAllowed<hr>" . $criteria->renderWhere() ."<hr>");       
         $allEnrAllowed = parent::getAll($criteria);
 
         return $allEnrAllowed;
     }
     
+	/**
+     * Fonction qui liste les catégories qui respectent la permission demandée
+     * @param int $QuizId  id du quiz
+     * @return array   
+     */
 public function getStatistics($QuizId = 0){
 global $questionsHandler, $resultsHandler;
     

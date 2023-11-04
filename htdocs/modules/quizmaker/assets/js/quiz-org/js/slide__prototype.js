@@ -6,6 +6,7 @@ name = "quizPrototype";
 question = Object;
 typeName = '';
 chrono = 0;    
+slideNumber = 0;
 timer = 0;
 scoreMiniBP = 0;
 scoreMaxiBP = 0;
@@ -218,18 +219,14 @@ var points = 0;
     }else{return score;}
 }
 
-getScore2 (answerContainer){
-var points = 0;
-
-    var currentQuestion = this.question;
-    var score = this.getScoreByProposition(answerContainer);
-    
-    this.blob(`getScore - ${this.getName()} : ${score} - ${this.scoreMaxiQQ}`);
-    if(currentQuestion.points > 0 && score == this.scoreMaxiQQ){
-        return currentQuestion.points
-    }else if(currentQuestion.points > 0 && score != 0){ 
-        return 0;
-    }else{return score;}
+getScoreInfos (){
+    return {'question_min': this.scoreMiniBP, 
+            'question_max': this.scoreMaxiBP, 
+            'question_points': this.this.getScoreByProposition(0), 
+            'quiz_nb_answers' : 0,
+            'quiz_nb_questions' : 0,
+            'quiz_score': 0,
+             };
 }
 
 /* *******************************************

@@ -60,13 +60,13 @@ submitAnswers(){
     //alert('submitAnswers in pageinfo - typeForm = ' + this.typeForm);
     document.form_submit_quizmaker.quiz_id.value = quiz.quizId;
     document.form_submit_quizmaker.uid.value = 0;// quiz.uid;
-    document.form_submit_quizmaker.answers_total.value = statsTotal.nbQuestions;
+    document.form_submit_quizmaker.answers_total.value = statsTotal.quiz_questions;
     
-    document.form_submit_quizmaker.answers_achieved.value = statsTotal.repondu;
-    document.form_submit_quizmaker.score_achieved.value = statsTotal.score;
-    document.form_submit_quizmaker.score_max.value = statsTotal.scoreMaxiQQ;
-    document.form_submit_quizmaker.score_min.value = statsTotal.scoreMiniQQ;
-    document.form_submit_quizmaker.duration.value = statsTotal.counter;
+    document.form_submit_quizmaker.answers_achieved.value = statsTotal.cumul_questions;
+    document.form_submit_quizmaker.score_achieved.value = statsTotal.cumul_score;
+    document.form_submit_quizmaker.score_max.value = statsTotal.quiz_score_max;
+    document.form_submit_quizmaker.score_min.value = statsTotal.quiz_score_min;
+    document.form_submit_quizmaker.duration.value = statsTotal.cumul_timer;
     
     document.form_submit_quizmaker.isAnonymous.value = quiz_rgp.isAnonymous;
     document.form_submit_quizmaker.pseudo.value = quiz_rgp.uname;

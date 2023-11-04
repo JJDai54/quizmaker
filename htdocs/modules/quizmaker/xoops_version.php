@@ -28,9 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.00,
+	'version'             => 4.02,
 	'module_status'       => 'Beta 1',
-	'release_date'        => '2023/04/01',
+	'release_date'        => '2023/11/03',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -568,6 +568,16 @@ $modversion['config'][] = [
 	'formtype'    => 'yesno',
 	'valuetype'   => 'int',
 	'default'     => 1,
+];
+
+// Use tag
+$modversion['config'][] = [
+	'name'        => 'perm_by_quiz',
+	'title'       => '_MI_QUIZMAKER_APLY_PERM_CAT',
+	'description' => '_MI_QUIZMAKER_APLY_PERM_CAT_DESC',
+	'formtype'    => 'yesno',
+	'valuetype'   => 'int',
+	'default'     => 0,
 ];
 
 

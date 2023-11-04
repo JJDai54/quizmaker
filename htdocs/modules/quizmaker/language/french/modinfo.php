@@ -159,4 +159,7 @@ define('_MI_QUIZMAKER_CATEGORIES_BLOCK', "Bloc catégories");
 define('_MI_QUIZMAKER_CATEGORIES_BLOCK_DESC', "Description du bloc de catégories");
 define('_MI_QUIZMAKER_TOOLS', "Outils");
 
+define('_MI_QUIZMAKER_APLY_PERM_CAT', "Permissions pour chaque quiz");
+define('_MI_QUIZMAKER_APLY_PERM_CAT_DESC', "Non : Les permissions de la cétégorie sont appliquée.<br>Oui : il faut gérer les permissions pour chaque quiz en plus de la catétorie.");
+
 ?>

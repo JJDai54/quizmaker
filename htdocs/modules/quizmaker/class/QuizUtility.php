@@ -309,6 +309,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['url']                      = QUIZMAKER_UPLOAD_QUIZ_URL;
     $optionsArr['urlMain']                  = QUIZMAKER_QUIZ_JS_URL;
     $optionsArr['execution']                = $quizValues['actif'];
+    $optionsArr['showResultAllways']        = $quizValues['showResultAllways'];
           
     //Utiliser pour le dev pas utile de mettre ces infos en base
     $optionsArr['showTypeQuestion']         = $quizValues['showTypeQuestion'];

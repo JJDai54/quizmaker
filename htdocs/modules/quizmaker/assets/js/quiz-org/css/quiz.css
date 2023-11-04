@@ -202,8 +202,8 @@ label{
 #quiz_div_disabled_all{
     position: absolute;
     top: 10px; 
-    left: 10px;
-    width: 800px;
+    left: 0px;
+    width: 700px;
     height: 700px;
     background-color: rgba(92, 92, 92, 0.5);
     z-index:100;
@@ -215,21 +215,29 @@ label{
 
 #quiz_div_popup_main{
     position: relative;
-    top: 80px;
+    top: 20px;
+    left: 0px;
     width: 600px;
-    height: 400px;
+    height: 600px;
     padding: 0px;
     margin: auto;
+  font-size: 1.5em;
 /* background-color: rgba(0, 255, 0, 1);       */
     z-index:110;
 }
-#quiz_div_popup_results_answers{
+#quiz_div_popup_answers{
     /* width: 100%; */
     //height: 300px;
     padding: 20px;
     margin: 0px;
   /* background-color: rgba(0, 255, 0, 1); */
     z-index:110;
+}
+.quiz_div_popup_good_answer{
+    color: blue;
+}
+.quiz_div_popup_bad_answer{
+    color: red;
 }
 
 

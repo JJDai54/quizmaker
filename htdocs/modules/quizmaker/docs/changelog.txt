@@ -1,4 +1,10 @@
-2023-03-08 - v 3.08 veta 1 - JJDai - jjdelalandre@orange.fr
+2023-11-03a v 4.02 beta 1 - JJDai - jjdelalandre@orange.fr
+- Gestion du popup entre les question pour afficher le résultat au fure et à mesure
+- Correction du numero de question et numero de slide.
+  le numero de question ne prend pas en compte les slide pageBegin, pageEnd et pageGroup
+
+
+2023-03-08 - v 3.08 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Restructuration de l'arborescence sous forme de plugins..
 Centralisation des fichiers de chaque type de question dans un dossier par type

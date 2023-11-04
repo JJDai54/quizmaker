@@ -87,6 +87,7 @@
                         <{$Quiz.name}>
                       </a>
                   <{else}>
+                        <{$Quiz.name}>
                   <{/if}>
                   <{if $Quiz.author <> ''}><br><{$smarty.const._MA_QUIZMAKER_QUIZ_PROPOSED_BY}> : <{$Quiz.author}><{/if}>
             </td>
