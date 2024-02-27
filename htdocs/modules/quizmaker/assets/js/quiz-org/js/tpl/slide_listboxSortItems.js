@@ -111,7 +111,7 @@ computeScoresMinMaxByProposition(){
 *
 * ******** */
 
-getScore ( answerContainer){
+getScoreByProposition ( answerContainer){
 var bolOk = true;
 
     var currentQuestion = this.question;
@@ -149,7 +149,7 @@ getAllReponses (flag = 0){
         t.push ([k*1+1, this.data.words[k]]);
     }
 
-    return formatArray0(t,"-","");
+    return formatArray0(t," - ", false);
  }
 
 /* *************************************

@@ -119,14 +119,15 @@ var $maxGroups = 4;
         $groupeName = ($tValues['group' . $h]) ? $tValues['group' . $h] : 'group' . $h;
         $inputGroupDefault->addOption($h, $groupeName);            
       }
-      $trayOptions ->addElement($inputGroupDefault);     
+      $trayOptions->addElement($inputGroupDefault);     
 
       $name = 'disposition'; 
-      $path = XOOPS_ROOT_PATH . "/modules/quizmaker/assets/images/disposition"; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      $trayOptions ->addElement($inputDisposition);     
+      //$inputDisposition->setHorizontalIconNumber(9);
+      $trayOptions->addElement($inputDisposition);     
    
-      $trayOptions ->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+      $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
 
       return $trayOptions;
     }

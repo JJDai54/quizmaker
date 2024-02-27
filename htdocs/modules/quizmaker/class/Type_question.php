@@ -56,6 +56,10 @@ var $isQuestion = 0; // valeur par default
 var $canDelete = 1; // valeur par default
 var $category = ''; // valeur par default
 var $categoryLib = ''; // valeur par default
+var $typeForm = ''; // Type de slide : page intro, page groupe ou question
+var $typeForm_lib = ''; // libelle du type de slide
+var $isParent = false;  
+var $consigne  = ''; // Consigne qui apparait dans l'icone du point d'iterogation de chaque slide
 
 var $renameImage = false; // Permet de garder le nom originale d'une image, a utiliser en dev uniquement
 var $optionsDefaults = array('test'=>'JJD');
@@ -73,6 +77,10 @@ var $prefix = '_CO_QUIZMAKER_TYPE_';
 	 * @param null
 	 */
 	public function __construct($typeQuestion, $parentId = 0, $cat="")
+	{
+        $this->__init($typeQuestion, $parentId, $cat);
+	}
+	public function __init($typeQuestion, $parentId = 0, $cat="")
 	{
         $this->type = $typeQuestion;
         $this->typeQuestion = $typeQuestion;
@@ -342,7 +350,8 @@ global $xoopDB;
  	{
         //conteneur pour l'aide et les images
         if(file_exists($this->pathArr['consigne_path'])){
-          $consigne = utf8_encode(\JJD\FSO\loadtextFile($this->pathArr['consigne_path']));
+          $consigne = quizmaker_utf8_encode(\JJD\FSO\loadtextFile($this->pathArr['consigne_path']));
+          
           //echo "<hr>{$this->pathArr['consigne_path']}<{$consigne}><hr>";
         }else{
           $consigne = constant($this->prefix . strToUpper($this->typeQuestion) . '_CONSIGNE');
@@ -361,7 +370,7 @@ global $xoopDB;
         //-------------------------------------------
            
         $help = \JJD\FSO\loadtextFile($this->pathArr['help_path']);
-        $help = utf8_encode($help);
+        $help = quizmaker_utf8_encode($help);
         $inpHelp = new \XoopsFormLabel  ('', $help);
         //ajout du texte dans le conteneur
         $trayHelp->addElement($inpHelp);
@@ -473,7 +482,7 @@ global $xoopDB;
         }
         
         //affichage de l'image actuelle
-        $img = new \XoopsFormLabel('', "<img src='{$urlImg}'  name='{$formName}' id='{$formName}' alt='' style='max-width:{$maxWidth}px' title={$imgName}>");
+        $img = new \XoopsFormLabel('', "<img src='{$urlImg}'  name='{$formName}' id='{$formName}' alt='' style='max-width:{$maxWidth}px' title='{$imgName}'>");
         //$hiddenImg = nw \XoopsFormHidden());
 
         //creation du groupe 'traiImg)'

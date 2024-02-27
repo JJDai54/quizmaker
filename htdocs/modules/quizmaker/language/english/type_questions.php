@@ -24,6 +24,7 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //noms des catégories de questions par objets utilisés
+define('_CO_QUIZMAKER_TYPE_CAT_ALPHA', "Alpha-Numérique");
 define('_CO_QUIZMAKER_TYPE_CAT_CHECKBOX', "Cases à cocher");
 define('_CO_QUIZMAKER_TYPE_CAT_COMBOBOX', "Listes déroulantes");
 define('_CO_QUIZMAKER_TYPE_CAT_IMAGESDAD', "Images Drag and Drop");

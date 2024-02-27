@@ -6,7 +6,7 @@ Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
 Compilator.LogType=0
 Compilator.LogEncoding=0
-DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\www\modules\quizmaker\assets\js\quiz-org
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org
 DefaultCP=0
 LogtoEnd=1
 DontOpen=0
@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
-		+css
+		-css
 			-infobulle
 				-images
 					css\infobulle\images\Award.png
@@ -153,9 +153,9 @@ _quiz-org
 					images\buttons\yellow\btn_view-02.png
 				images\buttons\index.html
 			-emoji
-				images\emoji\emoji-lost-01.jpg
-				images\emoji\emoji-middle-01.jpg
-				images\emoji\emoji-win-01.jpg
+				images\emoji\emoji_icon_00.png
+				images\emoji\emoji_icon_01.png
+				images\emoji\emoji_icon_02.png
 			-substitut
 				images\substitut\blank-jaune.jpg
 				images\substitut\blank-org.jpg
@@ -193,14 +193,15 @@ _quiz-org
 			images\Hint.png
 			images\index.html
 		+js
-			+language
+			-language
 				js\language\quiz-english.js
 				js\language\quiz-french.js
 			+tpl
-				js\tpl\slide_checkboxLogical.js
+				js\tpl\slide_alphaSimple.css
+				js\tpl\slide_alphaSimple.js
 				js\tpl\slide_checkboxSimple.js
 				js\tpl\slide_comboboxMatchItems.js
-				js\tpl\slide_comboboxSortList.js
+				js\tpl\slide_comboboxSortItems.js
 				js\tpl\slide_imagesDaDGroups.css
 				js\tpl\slide_imagesDaDGroups.js
 				js\tpl\slide_imagesDaDLogical.css
@@ -211,13 +212,12 @@ _quiz-org
 				js\tpl\slide_imagesDaDSortItems.js
 				js\tpl\slide_imagesLogical.js
 				js\tpl\slide_imagesSimple.js
-				js\tpl\slide_listboxIntruders.css
-				js\tpl\slide_listboxIntruders.js
+				js\tpl\slide_listboxClassItems.css
+				js\tpl\slide_listboxClassItems.js
 				js\tpl\slide_listboxSortItems.js
 				js\tpl\slide_pageBegin.js
 				js\tpl\slide_pageEnd.js
 				js\tpl\slide_pageGroup.js
-				js\tpl\slide_radioLogical.js
 				js\tpl\slide_radioMultiple2.js
 				js\tpl\slide_radioSimple.js
 				js\tpl\slide_textareaInput.js
@@ -240,59 +240,38 @@ _quiz-org
 		modif pour extends.js
 		quiz.html
 [Open project files]
-0=js\slide__prototype.js
-1=js\quiz-main.js
-2=js\quiz-functions.js
-3=js\language\quiz-french.js
-4=js\language\quiz-english.js
-5=js\tpl\slide_imagesDaDMatchItems.js
-6=js\tpl\slide_pageBegin.js
-7=js\tpl\slide_checkboxLogical.js
-8=js\tpl\slide_checkboxSimple.js
-9=css\quiz.css
-10=js\quiz-events.js
-11=js\tpl\slide_radioSimple.js
-12=js\tpl\slide_pageEnd.js
+0=js\tpl\slide_alphaSimple.css
+1=js\tpl\slide_alphaSimple.js
+2=js\quiz-main.js
+3=js\quiz-functions.js
+4=js\slide__prototype.js
+5=js\tpl\slide_checkboxSimple.js
+6=js\tpl\slide_imagesDaDGroups.css
+7=css\style-item-design.css
 [Selected Project Files]
 Main=
-Selected=js\quiz-main.js
-[js\slide__prototype.js]
-TopLine=247
-Caret=23,266
+Selected=js\tpl\slide_alphaSimple.js
+[js\tpl\slide_alphaSimple.css]
+TopLine=1
+Caret=32,46
+[js\tpl\slide_alphaSimple.js]
+TopLine=1
+Caret=80,91
 [js\quiz-main.js]
-TopLine=945
-Caret=1,963
-Mark1=9,959
+TopLine=300
+Caret=1,322
 [js\quiz-functions.js]
-TopLine=1236
-Caret=8,1254
-[js\language\quiz-french.js]
-TopLine=2
-Caret=101,42
-[js\language\quiz-english.js]
-TopLine=1
-Caret=1,3
-[js\tpl\slide_imagesDaDMatchItems.js]
-TopLine=44
-Caret=61,63
-[js\tpl\slide_pageBegin.js]
-TopLine=52
-Caret=1,70
-[js\tpl\slide_checkboxLogical.js]
-TopLine=1
-Caret=25,13
+TopLine=376
+Caret=7,392
+[js\slide__prototype.js]
+TopLine=246
+Caret=29,278
 [js\tpl\slide_checkboxSimple.js]
-TopLine=54
-Caret=22,110
-[css\quiz.css]
-TopLine=245
-Caret=2,264
-[js\quiz-events.js]
-TopLine=331
-Caret=1,381
-[js\tpl\slide_radioSimple.js]
-TopLine=73
-Caret=26,109
-[js\tpl\slide_pageEnd.js]
-TopLine=61
-Caret=1,79
+TopLine=191
+Caret=54,33
+[js\tpl\slide_imagesDaDGroups.css]
+TopLine=1
+Caret=1,1
+[css\style-item-design.css]
+TopLine=1
+Caret=1,19

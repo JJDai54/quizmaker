@@ -129,7 +129,7 @@ class Results extends \XoopsObject
 		$ret['answers_total']    = $this->getVar('result_answers_total');
 		//$ret['duration']         = $this->getVar('result_duration'); date()
 		$ret['duration']         = $this->format_duration($this->getVar('result_duration'));     
-		$ret['duration2']        = $this->format_duration($this->getVar('result_duration'),_MA_QUIZMAKER_HOUR,_MA_QUIZMAKER_MINUTES,_MA_QUIZMAKER_SECONDS, ' ');     
+		$ret['duration2']        = $this->format_duration($this->getVar('result_duration'),_CO_QUIZMAKER_HOUR,_CO_QUIZMAKER_MINUTES,_CO_QUIZMAKER_SECONDS, ' ');     
 
 		$ret['note']             = $this->getVar('result_note');
 		$ret['color']            = str_pad(round($ret['score_achieved'] / $ret['score_max'] * 5 , 0), 3, '0', STR_PAD_LEFT) . '.png';

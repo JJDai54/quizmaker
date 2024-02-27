@@ -80,5 +80,10 @@ define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "Vos pouvez changer le type de questi
 define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
 define('_CO_QUIZMAKER_CATEGORIES', "Catégories");
 define('_CO_QUIZMAKER_SEE_ANSWER', "Voir les réponses");
+define('_CO_QUIZMAKER_TIME', "Date/Heure");
+define('_CO_QUIZMAKER_HOUR', "heure(s)");
+define('_CO_QUIZMAKER_MINUTES', "minute(s)");
+define('_CO_QUIZMAKER_SECONDS', "secondes");
+
 
 ?>

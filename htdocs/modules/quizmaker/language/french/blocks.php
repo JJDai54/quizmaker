@@ -38,7 +38,7 @@ define('_MB_QUIZMAKER_CAT_UPDATE', "Mettre à jour");
 define('_MB_QUIZMAKER_NAME', "name");
 define('_MB_QUIZMAKER_NB_QUESTIONS', "Questions");
 define('_MB_QUIZMAKER_SCORES', "Scores");
-define('_MB_QUIZMAKER_RUN_QUIZ', "Lancer le quiz");
+define('_MB_QUIZMAKER_RUN_QUIZ', "Lancer");
 define('_MB_QUIZMAKER_TITLE_LAST', "Testez nos derniers quiz");
 define('_MB_QUIZMAKER_TITLE_LAST_DESC', "Nous élaborons régulièrement des quiz pour vous permettre de tester vos connaissances.<br>Aucune données personnelles n'est enregirstrée.<br>Si vous trouvez des anomalies n'hésitez pas à nous en faire part.");
 define('_MB_QUIZMAKER_NB_QUIZ_2_list', "Nombre de quiz à lister");

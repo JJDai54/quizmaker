@@ -19,6 +19,22 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
+ 
+ 
+/**
+ * function add selected cats to block
+ *
+ * @param  $cats 
+ * @return string
+ */
+function quizmaker_utf8_encode($exp)
+ {
+// utf8_encode is deprecated
+//$consigne = utf8_encode(\JJD\FSO\loadtextFile($this->pathArr['consigne_path']));
+    return mb_convert_encoding($exp, 'UTF-8', mb_list_encodings());
+ }
+ 
+ 
 
 /**
  * function add selected cats to block

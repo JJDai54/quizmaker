@@ -76,7 +76,7 @@ if($quizId > 0 && $sender != 'cat_id'){
       $GLOBALS['xoopsTpl']->assign('cat', $cat);
 
       $GLOBALS['xoopsTpl']->assign('allCategories', $catId == 0);
-        
+//exit('ici - ' . $quizCount) ;       
         // Table view quiz
 		if ($quizCount > 0) {
 			foreach(array_keys($quizAll) as $i) {

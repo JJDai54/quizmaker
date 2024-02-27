@@ -124,7 +124,12 @@ reloadQuestion()
 
 function quiz_input_pseudo_event(ev, id) {
 //alert("quiz_input_pseudo_event : " + id + "\n" + ev.currentTarget.id + "\n" + ev.currentTarget.value);
-    var pseudo = ev.currentTarget.value;
+    ///var pseudo = ev.currentTarget.value;
+//     pseudo = pseudo.replace('-','');
+//     pseudo = pseudo.replace('_','z');
+    var pseudo = ev.currentTarget.value.replace(/#|_/g, '').replace(/[^\w\s]/gi, '');
+    ev.currentTarget.value = pseudo;
+    
     var btn = document.getElementById('quiz_btn_startQuiz');
     
     if (pseudo == 'Anonymous' || pseudo.length < 5){    

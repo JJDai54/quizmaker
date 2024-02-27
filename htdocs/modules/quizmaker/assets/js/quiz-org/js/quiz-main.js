@@ -143,6 +143,28 @@ function getHtmlMessage(){
  * ************************************************************************/
 function getHtmlPopup(){
     return `<div id="quiz_div_disabled_all"    name="quiz_div_disabled_all">
+              <div id="quiz_div_popup_main"    name="quiz_div_popup_main" class="${quiz_css.popup}">
+                <div id="quiz_div_popup_emoji" name="quiz_div_popup_emoji"     class="${quiz_css.popup}">
+                    <img  id="quiz_popup_emoji_icon" name="quiz_popup_emoji_icon" src="__EMOJI__" style="width:80px;margin:5px;float:left;"><br>
+                    <span id="quiz_popup_emoji_text" name="quiz_popup_emoji_text">__EMOJI_TEXT__</span>
+                </div>
+                <hr class="quiz-style-two">
+                <div id="quiz_div_popup_quest" name="quiz_div_popup_quest" class="${quiz_css.popup}">__QUESTION__</div>
+                <center><div id="quiz_div_popup_answers" name="quiz_div_popup_answers" class="${quiz_css.popup}" style="clear:both;">__ANSWERS__</div></center>
+                <div id="quiz_div_popup_points"   name="quiz_div_popup_points"   class="${quiz_css.popup}">__POINTS__</div>
+                <hr class="quiz-style-two">
+                <div id="quiz_div_popup_score"    name="quiz_div_popup_score"    class="${quiz_css.popup}">__SCORE__</div>
+
+                <br><button id="btnPopContinue" class="${quiz_css.buttons}" onclick="event_hide_popup_result();">${quiz_messages.btnContinue}</button>
+              </div>
+            </div>`;
+    
+}
+/**************************************************************************
+ *   
+ * ************************************************************************/
+function getHtmlPopup2(){
+    return `<div id="quiz_div_disabled_all"    name="quiz_div_disabled_all">
               <div id="quiz_div_popup_main"    name="quiz_div_popup_main" class="${quiz_css.log}">
                 <div id="quiz_div_popup_emoji" name="quiz_div_popup_emoji"     class="${quiz_css.log}">
                     <img  id="quiz_popup_emoji_icon" name="quiz_popup_emoji_icon" src="__EMOJI__" style="width:80px;margin-top:5px;"><br>
@@ -265,8 +287,8 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
         
        var comment1 = '';  
        if (clQuestion.question.comment1) {
-         comment1 = getMessage(clQuestion.question.comment1);
-         comment1 = comment1.replace("{scoreMaxiQQ}", clQuestion.scoreMaxiQQ).replace("{timer}", clQuestion.question.timer);
+         comment1 = clQuestion.balises2Values(getMessage(clQuestion.question.comment1));
+         //comment1 = comment1.replace("{scoreMaxiQQ}", clQuestion.scoreMaxiQQ).replace("{timer}", clQuestion.question.timer);
          comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment1}</span>`;
          
        }
@@ -295,7 +317,14 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
        //JJDai - type - deplacer dans showResults
        //var sTypeQuestion = (quiz.showTypeQuestion) ? `<br><span style="color:white;">(${clQuestion.question.typeQuestion}/${clQuestion.question.typeForm} - questId = ${clQuestion.question.quizId}/${clQuestion.question.questId}) - ${clQuestion.question.timestamp}</span>`: '';
 
-       var question = clQuestion.question.question.replace('/','<br>') 
+      // var question = clQuestion.question.question.replace('/','<br>') 
+       var question =  clQuestion.balises2Values(clQuestion.question.question, true);
+       //alert(question) ;
+         
+         
+         
+         
+         
        var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${slideNumber}${quiz_messages.twoPoints}${question}${comment1}</div>`;
 
 
@@ -340,10 +369,10 @@ var questionNumber = 0; // numero de slide hors page_begin, page_end et page_gro
             // debut du type de slide a traiter
             var newTplClass = getTplNewClass (currentQuestion, chrono);
             if(newTplClass){
-                newTplClass.slideNumber = ++slideNumber;
+                newTplClass.slideNumber = slideNumber++;
                 newTplClass.question.questionNumber = (newTplClass.isQuestion()) ? ++questionNumber : 0;
-                //chrono++;
-                //currentQuestion.questionNumber = chrono;
+                chrono++;
+                currentQuestion.questionNumber = chrono;
                 quizard.push(newTplClass);
                 
                 //evite de le faire individuellement dans chaque classe
@@ -470,8 +499,10 @@ var answerContainer;
  }
  /************************************************************************
   *    CALCUL DES RESULTATS
+  *    allSlide = true : calcul le score pour tous les slides
+  *    allSlide = false ; calcul le score jusqu'au slide courant (utile en cas de retour arrière)
   * ***********************************************************************/
-  function getAllScores (){
+  function getAllScores (allSlide = false){
     // gather answer containers from our quiz
     const answerContainers = quizDivAllSlides.querySelectorAll('.answers');
 
@@ -481,17 +512,19 @@ var answerContainer;
 
     // for each question...
     quizard.forEach((clQuestion, index) => {
-    //alert(index);
-        //result.repondu +=  clQuestion.getScore(answerContainers[index]);// ((points>0) ? points : 0;
-        result.repondu  += (clQuestion.isInputOk( answerContainers[index]) ? 1 : 0);  
-        //result.score  += clQuestion.points*1;  
-        result.score  += clQuestion.getScore()*1;  
-        //clQuestion.getScore()*1;  
-        //result.score  += clQuestion.points*1;
-        if (clQuestion.isAntiseche && quiz.minusOnShowGoodAnswers != 0) {
-            result.repondu  = 0;  
-            result.score  -= quiz.minusOnShowGoodAnswers;  
-        }
+        if(index <= currentSlide) {
+          //alert ('getAllScores ===> ' +  index + " / " + currentSlide);
+          //result.repondu +=  clQuestion.getScore(answerContainers[index]);// ((points>0) ? points : 0;
+          result.repondu  += (clQuestion.isInputOk( answerContainers[index]) ? 1 : 0);  
+          //result.score  += clQuestion.points*1;  
+          result.score  += clQuestion.getScore()*1;  
+          //clQuestion.getScore()*1;  
+          //result.score  += clQuestion.points*1;
+          if (clQuestion.isAntiseche && quiz.minusOnShowGoodAnswers != 0) {
+              result.repondu  = 0;  
+              result.score  -= quiz.minusOnShowGoodAnswers;  
+          }
+        };
           
     });
     return result;
@@ -648,7 +681,7 @@ const statsTotal = {
     numSlide = parseInt(exp);
     if (Number.isInteger(numSlide)){
     //alert("numSlide : " + numSlide);
-        showSlide(numSlide - 1);
+        showSlide(numSlide);
     }else{
       var bolOk = false;
       for (var h=0; h<quizard.length; h++){

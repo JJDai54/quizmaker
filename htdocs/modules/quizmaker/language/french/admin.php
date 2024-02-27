@@ -150,7 +150,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_LAST', "Enoyer à la fin");
 \define('_AM_QUIZMAKER_LEGEND', "Légende");
 \define('_AM_QUIZMAKER_LEGEND_DESC', "Texte affiché sur la page d'introduction du quiz");
-\define('_AM_QUIZMAKER_LOWERCASE', "Minuscule");
+\define('_AM_QUIZMAKER_NUM_LOWERCASE', "Minuscule");
 \define('_AM_QUIZMAKER_MAINTAINEDBY', "  est maintenu par");
 \define('_AM_QUIZMAKER_MESSAGES_ADD', "Ajouter des messages");
 \define('_AM_QUIZMAKER_MESSAGES_CODE', "Code");
@@ -167,7 +167,8 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_NONEE', "Aucune");            
 \define('_AM_QUIZMAKER_NOT_QUESTION', "Ce n'est pas une question");
 \define('_AM_QUIZMAKER_NUMBERING', "Numérotation");
-\define('_AM_QUIZMAKER_NUMERIQUE', "Numérique");
+\define('_AM_QUIZMAKER_NUM_NUMERIQUE', "Numérique");
+\define('_AM_QUIZMAKER_NUM_NONE', "Sans");
 \define('_AM_QUIZMAKER_OPTIONS', "Options");
 \define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Options spécifiques");
 \define('_AM_QUIZMAKER_OPTIONS_FOR_DEV', "Options pour le développement - Laiser  \"Non\" ces options en production");
@@ -214,7 +215,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_QUESTIONS_MINREPONSE2', "Min rép.");
 \define('_AM_QUIZMAKER_QUESTIONS_NB_POINTS', "Nombre de points");            
 \define('_AM_QUIZMAKER_QUESTIONS_POINTS', "Points");            
-\define('_AM_QUIZMAKER_QUESTIONS_POINTS_DESC', "<b>Important :</b><br>Si <b>points == 0</b> alors c'est le nombre de points affectés aux bonnes et mauvaises réponses qui seront comptées<br>Si <b>points > 0</b>, c'est cette valeur qui sera utilisée pour le score.<br><b>Dans tous les cas</b> il faut affecter un nombre de points aux bonnes répponses pour les identifier et calculer le bon score.");            
+\define('_AM_QUIZMAKER_QUESTIONS_POINTS_DESC', "<b>Important :</b><br>Si <b>points == 0</b> alors c'est le nombre de points affectés aux bonnes et mauvaises réponses qui seront comptées<br>Si <b>points > 0</b>, c'est cette valeur qui sera utilisée pour le score.<br><b>Dans tous les cas</b> il faut affecter un nombre de points aux bonnes réponses pour les identifier et calculer le bon score.");            
 \define('_AM_QUIZMAKER_QUESTIONS_QUESTION', "Question");
 \define('_AM_QUIZMAKER_QUESTIONS_QUESTION_DESC', "Utilisez le caractère \"/\" pour insérer un retour à la ligne dans la question si nécéssaire.");
 \define('_AM_QUIZMAKER_QUESTIONS_QUIZ_ID', "Quiz id");
@@ -337,7 +338,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_TYPE_QUESTION_CATEGORY', "Types de questions");            
 \define('_AM_QUIZMAKER_UP', "Remonter");
 \define('_AM_QUIZMAKER_UPDATE', "Mise à jour");
-\define('_AM_QUIZMAKER_UPPERCASE', "Majuscule");
+\define('_AM_QUIZMAKER_NUM_UPPERCASE', "Majuscule");
 \define('_AM_QUIZMAKER_VISIBLE', "Visible");
 \define('_AM_QUIZMAKER_VISIBLE_DESC', "La question ne sera pas générée dans le quiz.");
 \define('_AM_QUIZMAKER_WEIGHT', "Poids");
@@ -403,5 +404,7 @@ define('_AM_QUIZMAKER_DISPOSITION_DESC', "<b>Important</b> : Sélectionnez une d
 define('_AM_QUIZMAKER_COLOR', "Couleur du texte");
 define('_AM_QUIZMAKER_BACKGROUND', "Couleur du fond");
 
-
+define('_AM_QUIZMAKER_FAMILY_WORDS', "Famille de mots");
+define('_AM_QUIZMAKER_FAMILY_WORDS_DESC', "Cette liste de mots séparée par une virgule  permet d'orienter les réponses.<br>exemple trouver les termes ayant un point commun avec cette liste.<br>Elle sera affichée à côté de la liste d'options.");
+           
 ?>

@@ -25,7 +25,7 @@
 
 <script src="js/tpl/slide_radioSimple.js"></script>
 <script src="js/tpl/slide_radioMultiple2.js"></script>
-<script src="js/tpl/slide_listboxIntruders.js"></script>
+<script src="js/tpl/slide_listboxClassItems.js"></script>
 
 <script src="js/tpl/slide_textarea.js"></script>
 <script src="js/tpl/slide_textareaInput.js"></script>
@@ -41,7 +41,7 @@
 
 <script src="js/tpl/slide_textboxMultiple.js"></script>
 <script src="js/tpl/slide_checkbox.js"></script>
-<script src="js/tpl/slide_comboboxSortList.js"></script>
+<script src="js/tpl/slide_comboboxSortItems.js"></script>
 <script src="js/tpl/slide_comboboxMatchItems.js"></script>
 <script src="js/tpl/slide_radioLogical.js"></script>
 <script src="js/tpl/slide_checkboxLogical.js"></script>

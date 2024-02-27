@@ -196,9 +196,18 @@ public function getTypeQuestion(&$typeQuestion)
     // A virer dès que les noms seront stabilisés
     // $typeQuestion est passé par référence pour remonter le transfert
     switch($typeQuestion){
+        case 'checkboxLogical' :
+            $typeQuestion = 'checkboxSimple'; 
+        case 'radioLogical' :
+            $typeQuestion = 'radioSimple'; 
+            break;
         case 'listboxIntruders1' : 
         case 'listboxIntruders2' : 
-            $typeQuestion = 'listboxIntruders';
+        case 'listboxIntruders' : 
+            $typeQuestion = 'listboxClassItems';   
+            break;
+        case 'comboboxSortList' :
+            $typeQuestion = 'comboboxSortItems'; 
             break;
         case 'imagesSortItems' :
             $typeQuestion = 'imagesDaDSortItems'; 
@@ -207,7 +216,6 @@ public function getTypeQuestion(&$typeQuestion)
             $typeQuestion = 'ulDaDSortList'; 
         case 'imagesDaDBasket' :
             $typeQuestion = 'imagesDaDGroups'; 
-            break;
             
     }
       //------------------------------------------------------
@@ -304,36 +312,42 @@ public function getPluginPath($typeQuestion, $includefiles = false )
   {  
     $language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
                       
-    $all = array();
-    $all['name'] = $typeQuestion;
-    $all['path'] = QUIZMAKER_PLUGINS_PATH . '/' . $typeQuestion;
-    $all['url']  = QUIZMAKER_PLUGINS_URL  . '/' . $typeQuestion;
+    $pArr = array();
+    $pArr['name'] = $typeQuestion;
+    $pArr['path'] = QUIZMAKER_PLUGINS_PATH . '/' . $typeQuestion;
+    $pArr['url']  = QUIZMAKER_PLUGINS_URL  . '/' . $typeQuestion;
     
-    $all['php_path'] = $all['path'] . "/slide_{$typeQuestion}.php";    
-    $all['js_path']  = $all['path'] . "/slide_{$typeQuestion}.js";
-    $all['constants_path'] = $all['path'] . "/language/{$language}/constants.php";    
-    $all['help_path'] = $all['path'] . "/language/{$language}/help.html";    
-    $all['consigne_path'] = $all['path'] . "/language/{$language}/consigne.html";    
-    $all['img_path'] = $all['path'] . '/img';    
+    $pArr['php_path'] = $pArr['path'] . "/slide_{$typeQuestion}.php";    
+    $pArr['js_path']  = $pArr['path'] . "/slide_{$typeQuestion}.js";
+    $pArr['constants_path'] = $pArr['path'] . "/language/{$language}/constants.php";    
+    $pArr['help_path'] = $pArr['path'] . "/language/{$language}/help.html";    
+    $pArr['consigne_path'] = $pArr['path'] . "/language/{$language}/consigne.html";    
+    $pArr['img'] = $pArr['path'] . '/img';    
     
+    $fldSnapShoot = '/snapshoot';    
+    //=====================================================================    
+    //remplacer les path par un tableau
+
+    //=====================================================================    
     
-    
-    $all['js_url']  = $all['url'] . "/{$typeQuestion}.js";
-    $all['img_url'] = $all['url'] . '/img';    
+    $pArr['js_url']  = $pArr['url'] . "/{$typeQuestion}.js";
+    $pArr['img_url'] = $pArr['url'] . '/img';    
+   
     
 //--------------------------------------------------------------------
-    $filesList =  \XoopsLists::getFileListByExtension($all['img_path'], array('jpg'));    
-    $all['snapshoot_path'] = array();    
-    $all['snapshoot_url']  = array();    
-    
+    $filesList =  \XoopsLists::getFileListByExtension($pArr['path'].$fldSnapShoot, array('jpg'));    
+    $pArr['snapshoot_path'] = array();    
+    $pArr['snapshoot_url']  = array();    
+//echo "<hr>{$pArr['zpath']['snapshoot']}<hr>";    
+//echoArray($filesList);
     foreach($filesList AS $key=>$f){
-        $all['snapshoot_path'][$key] = $all['path'] . '/img/' . $f;    
-        $all['snapshoot_url'][$key]  = $all['url']  . "/img/" . $f;    
+        $pArr['snapshoot_path'][$key] = $pArr['path'] . $fldSnapShoot .'/' . $f;    
+        $pArr['snapshoot_url'][$key]  = $pArr['url']  . $fldSnapShoot .'/' . $f;    
     }  
-        include_once( $all['constants_path']);
-    include_once( $all['php_path']);
+    include_once( $pArr['constants_path']);
+    include_once( $pArr['php_path']);
 
-    return $all;  
+    return $pArr;  
   }
     
 

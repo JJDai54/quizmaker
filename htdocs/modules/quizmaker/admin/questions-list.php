@@ -187,7 +187,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
                 }
                 
                 $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, "quest_list[{$Questions['quest_id']}][timer]", 6, 6, $Questions['quest_timer']);
-                $inpTimer->setMinMax(0, 20);
+                $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX);
                 $Questions['inpTimer'] = $inpTimer->render();
                 
 				$GLOBALS['xoopsTpl']->append('questions_list', $Questions);

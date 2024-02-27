@@ -28,9 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.02,
+	'version'             => 4.04,
 	'module_status'       => 'Beta 1',
-	'release_date'        => '2023/11/03',
+	'release_date'        => '2024/02/25',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -390,9 +390,12 @@ $modversion['config'][] = [
 ///////////////////////////////////////////////////////
 // create increment steps for file size
 include_once __DIR__ . '/include/xoops_version.inc.php';
+
 $iniPostMaxSize       = quizmakerReturnBytes(\ini_get('post_max_size'));
 $iniUploadMaxFileSize = quizmakerReturnBytes(\ini_get('upload_max_filesize'));
 $maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
+//echo quizmakerReturnBytes(\ini_get('post_max_size')) . "---" . quizmakerReturnBytes(\ini_get('upload_max_filesize')) . "---" . $maxSize;
+
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
 }
@@ -567,7 +570,7 @@ $modversion['config'][] = [
 	'description' => '_MI_QUIZMAKER_USE_JS_MINIFIED_DESC',
 	'formtype'    => 'yesno',
 	'valuetype'   => 'int',
-	'default'     => 1,
+	'default'     => 0,
 ];
 
 // Use tag
@@ -588,8 +591,9 @@ $modversion['config'][] = [
     'formtype'    => 'yesno',
     'valuetype'   => 'int',
     'default'     => 0];
+    
 // ------------------- Notifications ------------------- //
-$modversion['hasNotification'] = 1;
+$modversion['hasNotification'] = 0;
 $modversion['notification'] = [
 	'lookup_file' => 'include/notification.inc.php',
 	'lookup_func' => 'quizmaker_notify_iteminfo',

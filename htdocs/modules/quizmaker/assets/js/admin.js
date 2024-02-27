@@ -60,3 +60,10 @@ function imageExists(image_url){
     return http.status != 404;
 
 }}
+
+function setValue2Input(id, exp) {
+//alert (id);
+    document.getElementById(id).value=exp;
+  return true;
+}
+

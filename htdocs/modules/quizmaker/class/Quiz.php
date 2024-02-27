@@ -500,7 +500,7 @@ class Quiz extends \XoopsObject
         $flags['showAllSolutions']  = quizFlagAscii($ret['showAllSolutions'], "Vas"); 
                
         $flags['answerBeforeNext']  = quizFlagAlpha($ret['answerBeforeNext'], "Ro|Ro");
-        $flags['onClickSimple']     = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk");
+        //$flags['onClickSimple']     = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk"); //basculé dans les options du slide
 
         return $flags;
 }                                      

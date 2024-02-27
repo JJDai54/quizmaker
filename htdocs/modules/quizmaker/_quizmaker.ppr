@@ -6,7 +6,7 @@ Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
 Compilator.LogType=0
 Compilator.LogEncoding=0
-DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\www\modules\quizmaker
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker
 DefaultCP=0
 LogtoEnd=1
 DontOpen=0
@@ -16,8 +16,11 @@ ProjectFilesOnly=0
 HTServer=localhost
 Extensions=*.*
 [Project tree]
-quizmaker
+_quizmaker
 	+quizmaker
+		+jjd
+			..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\formiconselect.php
+			..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\lib\iconselect.js
 		-admin
 			admin\about.php
 			admin\answers.php
@@ -50,7 +53,7 @@ quizmaker
 			admin\results.php
 			admin\tools.php
 			admin\type_question.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -160,6 +163,18 @@ quizmaker
 					assets\images\disposition\disposition-22.png
 					assets\images\disposition\disposition-30.png
 					assets\images\disposition\disposition-31.png
+					assets\images\disposition\index.html
+				-disposition-old
+					assets\images\disposition-old\disposition-02.png
+					assets\images\disposition-old\disposition-03.png
+					assets\images\disposition-old\disposition-12.png
+					assets\images\disposition-old\disposition-13.png
+					assets\images\disposition-old\disposition-20.png
+					assets\images\disposition-old\disposition-21.png
+					assets\images\disposition-old\disposition-22.png
+					assets\images\disposition-old\disposition-30.png
+					assets\images\disposition-old\disposition-31.png
+					assets\images\disposition-old\index.html
 				assets\images\ampoule-05.jpg
 				assets\images\blank.gif
 				assets\images\blank.png
@@ -176,7 +191,7 @@ quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
+			+js
 				-quiz-min
 					-css
 						-infobulle
@@ -570,15 +585,16 @@ quizmaker
 						assets\js\quiz-org\images\Help.png
 						assets\js\quiz-org\images\Hint.png
 						assets\js\quiz-org\images\index.html
-					-js
+					+js
 						-language
 							assets\js\quiz-org\js\language\quiz-english.js
 							assets\js\quiz-org\js\language\quiz-french.js
-						-tpl
-							assets\js\quiz-org\js\tpl\slide_checkboxLogical.js
+						+tpl
+							assets\js\quiz-org\js\tpl\slide_alphaSimple.css
+							assets\js\quiz-org\js\tpl\slide_alphaSimple.js
 							assets\js\quiz-org\js\tpl\slide_checkboxSimple.js
 							assets\js\quiz-org\js\tpl\slide_comboboxMatchItems.js
-							assets\js\quiz-org\js\tpl\slide_comboboxSortList.js
+							assets\js\quiz-org\js\tpl\slide_comboboxSortItems.js
 							assets\js\quiz-org\js\tpl\slide_imagesDaDGroups.css
 							assets\js\quiz-org\js\tpl\slide_imagesDaDGroups.js
 							assets\js\quiz-org\js\tpl\slide_imagesDaDLogical.css
@@ -589,13 +605,12 @@ quizmaker
 							assets\js\quiz-org\js\tpl\slide_imagesDaDSortItems.js
 							assets\js\quiz-org\js\tpl\slide_imagesLogical.js
 							assets\js\quiz-org\js\tpl\slide_imagesSimple.js
-							assets\js\quiz-org\js\tpl\slide_listboxIntruders.css
-							assets\js\quiz-org\js\tpl\slide_listboxIntruders.js
+							assets\js\quiz-org\js\tpl\slide_listboxClassItems.css
+							assets\js\quiz-org\js\tpl\slide_listboxClassItems.js
 							assets\js\quiz-org\js\tpl\slide_listboxSortItems.js
 							assets\js\quiz-org\js\tpl\slide_pageBegin.js
 							assets\js\quiz-org\js\tpl\slide_pageEnd.js
 							assets\js\quiz-org\js\tpl\slide_pageGroup.js
-							assets\js\quiz-org\js\tpl\slide_radioLogical.js
 							assets\js\quiz-org\js\tpl\slide_radioMultiple2.js
 							assets\js\quiz-org\js\tpl\slide_radioSimple.js
 							assets\js\quiz-org\js\tpl\slide_textareaInput.js
@@ -626,7 +641,7 @@ quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		-class
+		+class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -667,7 +682,7 @@ quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 076.jpg
@@ -762,7 +777,7 @@ quizmaker
 				images\magenta\Thumbs.db
 				images\magenta\top.png
 				images\magenta\up.png
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\function.quizFlagAscii.php
@@ -827,35 +842,39 @@ quizmaker
 				language\french\modinfo.php
 				language\french\type_questions.php
 			language\index.html
-		-plugins
-			-checkboxLogical
+		+plugins
+			-alphaSimple
 				-img
-					plugins\checkboxLogical\img\index.html
-					plugins\checkboxLogical\img\snapshoot-000.jpg
-					plugins\checkboxLogical\img\snapshoot-001.jpg
-				-language
-					-english
-						plugins\checkboxLogical\language\english\constants.php
-						plugins\checkboxLogical\language\english\help.html
-						plugins\checkboxLogical\language\english\index.html
-					-french
-						plugins\checkboxLogical\language\french\constants.php
-						plugins\checkboxLogical\language\french\help.html
-						plugins\checkboxLogical\language\french\index.html
-					plugins\checkboxLogical\language\index.html
-				plugins\checkboxLogical\index.html
-				plugins\checkboxLogical\slide_checkboxLogical.php
-			-checkboxSimple
+					plugins\alphaSimple\img\index.html
+					plugins\alphaSimple\img\snapshoot-000.jpg
+					plugins\alphaSimple\img\snapshoot-001.jpg
+				+language
+					+english
+						plugins\alphaSimple\language\english\constants.php
+						plugins\alphaSimple\language\english\help.html
+						plugins\alphaSimple\language\english\index.html
+					+french
+						plugins\alphaSimple\language\french\constants.php
+						plugins\alphaSimple\language\french\help.html
+						plugins\alphaSimple\language\french\index.html
+					plugins\alphaSimple\language\index.html
+				-lib
+					plugins\alphaSimple\lib\alphaSimple.css
+					plugins\alphaSimple\lib\alphaSimple.js
+					plugins\alphaSimple\lib\index.html
+				plugins\alphaSimple\index.html
+				plugins\alphaSimple\slide_alphaSimple.php
+			+checkboxSimple
 				-img
 					plugins\checkboxSimple\img\index.html
 					plugins\checkboxSimple\img\snapshoot-000.jpg
 					plugins\checkboxSimple\img\snapshoot-001.jpg
-				-language
+				+language
 					-english
 						plugins\checkboxSimple\language\english\constants.php
 						plugins\checkboxSimple\language\english\help.html
 						plugins\checkboxSimple\language\english\index.html
-					-french
+					+french
 						plugins\checkboxSimple\language\french\constants.php
 						plugins\checkboxSimple\language\french\help.html
 						plugins\checkboxSimple\language\french\index.html
@@ -880,24 +899,24 @@ quizmaker
 					plugins\comboboxMatchItems\language\index.html
 				plugins\comboboxMatchItems\index.html
 				plugins\comboboxMatchItems\slide_comboboxMatchItems.php
-			-comboboxSortList
+			-comboboxSortItems
 				-img
-					plugins\comboboxSortList\img\index.html
-					plugins\comboboxSortList\img\snapshoot-000.jpg
-					plugins\comboboxSortList\img\snapshoot-001.jpg
+					plugins\comboboxSortItems\img\index.html
+					plugins\comboboxSortItems\img\snapshoot-000.jpg
+					plugins\comboboxSortItems\img\snapshoot-001.jpg
 				-language
 					-english
-						plugins\comboboxSortList\language\english\constants.php
-						plugins\comboboxSortList\language\english\help.html
-						plugins\comboboxSortList\language\english\index.html
+						plugins\comboboxSortItems\language\english\constants.php
+						plugins\comboboxSortItems\language\english\help.html
+						plugins\comboboxSortItems\language\english\index.html
 					-french
-						plugins\comboboxSortList\language\french\constants.php
-						plugins\comboboxSortList\language\french\help.html
-						plugins\comboboxSortList\language\french\index.html
-					plugins\comboboxSortList\language\index.html
-				plugins\comboboxSortList\index.html
-				plugins\comboboxSortList\slide_comboboxSortList.php
-			-imagesDaDGroups
+						plugins\comboboxSortItems\language\french\constants.php
+						plugins\comboboxSortItems\language\french\help.html
+						plugins\comboboxSortItems\language\french\index.html
+					plugins\comboboxSortItems\language\index.html
+				plugins\comboboxSortItems\index.html
+				plugins\comboboxSortItems\slide_comboboxSortItems.php
+			+imagesDaDGroups
 				-img
 					plugins\imagesDaDGroups\img\index.html
 					plugins\imagesDaDGroups\img\snapshoot-000.jpg
@@ -1021,26 +1040,26 @@ quizmaker
 					plugins\imagesSimple\language\index.html
 				plugins\imagesSimple\index.html
 				plugins\imagesSimple\slide_imagesSimple.php
-			-listboxIntruders
+			-listboxClassItems
 				-img
-					plugins\listboxIntruders\img\index.html
-					plugins\listboxIntruders\img\snapshoot-000.jpg
-					plugins\listboxIntruders\img\snapshoot-001.jpg
-					plugins\listboxIntruders\img\snapshoot-002.jpg
+					plugins\listboxClassItems\img\index.html
+					plugins\listboxClassItems\img\snapshoot-000.jpg
+					plugins\listboxClassItems\img\snapshoot-001.jpg
+					plugins\listboxClassItems\img\snapshoot-002.jpg
 				-language
 					-english
-						plugins\listboxIntruders\language\english\consigne.html
-						plugins\listboxIntruders\language\english\constants.php
-						plugins\listboxIntruders\language\english\help.html
-						plugins\listboxIntruders\language\english\index.html
+						plugins\listboxClassItems\language\english\consigne.html
+						plugins\listboxClassItems\language\english\constants.php
+						plugins\listboxClassItems\language\english\help.html
+						plugins\listboxClassItems\language\english\index.html
 					-french
-						plugins\listboxIntruders\language\french\consigne.html
-						plugins\listboxIntruders\language\french\constants.php
-						plugins\listboxIntruders\language\french\help.html
-						plugins\listboxIntruders\language\french\index.html
-					plugins\listboxIntruders\language\index.html
-				plugins\listboxIntruders\index.html
-				plugins\listboxIntruders\slide_listboxIntruders.php
+						plugins\listboxClassItems\language\french\consigne.html
+						plugins\listboxClassItems\language\french\constants.php
+						plugins\listboxClassItems\language\french\help.html
+						plugins\listboxClassItems\language\french\index.html
+					plugins\listboxClassItems\language\index.html
+				plugins\listboxClassItems\index.html
+				plugins\listboxClassItems\slide_listboxClassItems.php
 			-listboxSortItems
 				-img
 					plugins\listboxSortItems\img\index.html
@@ -1107,23 +1126,6 @@ quizmaker
 					plugins\pageGroup\language\index.html
 				plugins\pageGroup\index.html
 				plugins\pageGroup\slide_pageGroup.php
-			-radioLogical
-				-img
-					plugins\radioLogical\img\index.html
-					plugins\radioLogical\img\snapshoot-000.jpg
-					plugins\radioLogical\img\snapshoot-001.jpg
-				-language
-					-english
-						plugins\radioLogical\language\english\constants.php
-						plugins\radioLogical\language\english\help.html
-						plugins\radioLogical\language\english\index.html
-					-french
-						plugins\radioLogical\language\french\constants.php
-						plugins\radioLogical\language\french\help.html
-						plugins\radioLogical\language\french\index.html
-					plugins\radioLogical\language\index.html
-				plugins\radioLogical\index.html
-				plugins\radioLogical\slide_radioLogical.php
 			-radioMultiple2
 				-img
 					plugins\radioMultiple2\img\index.html
@@ -1301,8 +1303,8 @@ quizmaker
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
-			-admin
+		+templates
+			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
@@ -1359,6 +1361,7 @@ quizmaker
 				testdata\images\blank.gif
 				testdata\images\blank.png
 				testdata\images\index.html
+			testdata\images pour quiz.lnk
 			testdata\index.html
 			testdata\index.php
 		-versions
@@ -1385,18 +1388,62 @@ quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=Nouveau1.txt
-1=xoops_version.php
-2=docs\changelog.txt
+0=plugins\alphaSimple\slide_alphaSimple.php
+1=class\Questions.php
+2=admin\questions-list.php
+3=admin\questions.php
+4=include\common.php
+5=plugins\imagesDaDGroups\slide_imagesDaDGroups.php
+6=..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\formiconselect.php
+7=..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\lib\iconselect.js
+8=plugins\checkboxSimple\slide_checkboxSimple.php
+9=assets\js\functions.js
+10=assets\js\admin.js
+11=class\Type_question.php
+12=class\Type_questionHandler.php
+13=..\..\..\..\..\Ressources\iconselect.js-master\iconselect.js-master\icon-select-example4.html
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
-[Nouveau1.txt]
-TopLine=1
-Caret=1,1
-[xoops_version.php]
+Selected=..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\formiconselect.php
+[plugins\alphaSimple\slide_alphaSimple.php]
+TopLine=99
+Caret=9,125
+[class\Questions.php]
+TopLine=148
+Caret=1,173
+[admin\questions-list.php]
+TopLine=157
+Caret=60,190
+[admin\questions.php]
+TopLine=82
+Caret=3,132
+[include\common.php]
+TopLine=72
+Caret=9,92
+[plugins\imagesDaDGroups\slide_imagesDaDGroups.php]
+TopLine=117
+Caret=9,127
+[..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\formiconselect.php]
+TopLine=181
+Caret=32,207
+[..\..\Frameworks\JJD-Framework\class\xoopsform\iconselect\lib\iconselect.js]
+TopLine=242
+Caret=55,255
+[plugins\checkboxSimple\slide_checkboxSimple.php]
+TopLine=61
+Caret=50,89
+[assets\js\functions.js]
 TopLine=43
-Caret=38,33
-[docs\changelog.txt]
+Caret=1,93
+[assets\js\admin.js]
+TopLine=19
+Caret=43,66
+[class\Type_question.php]
+TopLine=857
+Caret=17,875
+[class\Type_questionHandler.php]
 TopLine=1
-Caret=1,5
+Caret=17,350
+[..\..\..\..\..\Ressources\iconselect.js-master\iconselect.js-master\icon-select-example4.html]
+TopLine=4
+Caret=36,25

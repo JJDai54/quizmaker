@@ -328,9 +328,9 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $exp = str_replace('\r\n', $br, $exp);
     $exp = str_replace('\n', $br, $exp);
     $exp = str_replace('\r', $br, $exp);
-    $exp = utf8_encode($exp);
+    $exp = quizmaker_utf8_encode($exp);
     
-    $exp = utf8_encode($exp);
+    $exp = quizmaker_utf8_encode($exp);
     $fileName = $path . "/js/quiz-options.js";
     
 //    echo "Export ===>{$path}<br>";
@@ -412,7 +412,7 @@ exit;
     $exp = str_replace('\n', $br, $exp);
     $exp = str_replace('\r', $br, $exp);
     
-    $exp = utf8_encode($exp);
+    $exp = quizmaker_utf8_encode($exp);
     //$exp ="var myQuestions = JSON.parse('" .  json_encode($questionsArr) . "');";
     //$path = QUIZMAKER_UPLOAD_PATH . "/quiz-questions-01.js";
     //$path = QUIZMAKER_QUIZ_JS_PATH . "/quiz-js/data/quiz-questions-01.js";
@@ -480,9 +480,9 @@ global $type_questionHandler;
     $exp = str_replace('\r\n', $br, $exp);
     $exp = str_replace('\n', $br, $exp);
     $exp = str_replace('\r', $br, $exp);
-    $exp = utf8_encode($exp);
+    $exp = quizmaker_utf8_encode($exp);
       
-    $exp = utf8_encode($exp);
+    $exp = quizmaker_utf8_encode($exp);
     $fileName = $path . "/js/quiz-consignes.js";
     \JJD\FSO\saveTexte2File($fileName, $exp);
    

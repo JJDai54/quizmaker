@@ -202,6 +202,10 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         $inpQuestion = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_QUESTION, 'quest_question', 120, 255, $this->getVar('quest_question') );
 		$inpQuestion->setDescription(_AM_QUIZMAKER_QUESTIONS_QUESTION_DESC);
         $form->addElement($inpQuestion, true);
+		
+		// Form Editor DhtmlTextArea questComment1
+        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
+		$form->addElement($inpComment1);
         
 		// Form Text quest_identifiant
         //$this->setVar('quest_identifiant', $this->getVar('quest_question') ); 
@@ -216,10 +220,6 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 		// Form Editor DhtmlTextArea quest_explanation
         $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $quizmakerHelper);        
 		$form->addElement($inpExplanation);
-		
-		// Form Editor DhtmlTextArea questComment1
-        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
-		$form->addElement($inpComment1);
         
 		// Form Text learn_more
 		$inpLearnMore = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_LEARN_MORE, 'quest_learn_more', 120, 255, $this->getVar('quest_learn_more') );
@@ -235,7 +235,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
     
           // Form Text questNumbering
           //----------------------------------------------------------
-          $tOptNumbering = array(_AM_QUIZMAKER_NUMERIQUE,_AM_QUIZMAKER_UPPERCASE,_AM_QUIZMAKER_LOWERCASE);
+          $tOptNumbering = array(_AM_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE);
           $inpNumbering = new \XoopsFormSelect(_AM_QUIZMAKER_NUMBERING , 'quest_numbering', $this->getVar('quest_numbering'));
           $inpNumbering->addOptionArray($tOptNumbering);
           $form->addElement($inpNumbering);
@@ -252,7 +252,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
 
         // Form Text Select questTimer
         $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, 'quest_timer', 8, 8, $this->getVar('quest_timer'));
-        $inpTimer->setMinMax(0, 30);
+        $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX);
         $inpTimer->setDescription(_AM_QUIZMAKER_TIMER_DESC);
 		$form->addElement($inpTimer);
 
@@ -429,7 +429,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         $flags['visible'] = quizFlagAscii($ret['visible'], "V");
         $flags['shuffleAnswers'] = quizFlagAscii($ret['shuffleAnswers'], "M");
         
-        $flags['numbering'] = quizFlagAlpha($ret['numbering'], "123|ABC|abc","blue|blue|blue");
+        $flags['numbering'] = quizFlagAlpha($ret['numbering'], _AM_QUIZMAKER_NUM_NONE . "|123|ABC|abc","red|green|blue|blue");
                                            
         return $flags;
                                       

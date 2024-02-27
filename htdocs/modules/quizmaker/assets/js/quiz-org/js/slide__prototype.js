@@ -269,6 +269,19 @@ static  update(nameId, chrono) {
         return nbQuestions;
     }
   } 
+//---------------------------------------------------
+balises2Values(exp, bReplaceSlash = false)
+{
+    var newExp = exp.replace("{scoreMaxiQQ}", this.scoreMaxiQQ);
+        newExp = newExp.replace("{timer}", this.question.timer);
+        
+    newExp = newExp.replace('{', '');
+    newExp = newExp.replace('}', '');
+    if (bReplaceSlash) {newExp = newExp.replace('/', '<br>');}
+
+    return newExp;
+    
+  } 
   
 /* ************************************
 *

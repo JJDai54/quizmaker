@@ -40,7 +40,7 @@ class slide_checkboxSimple extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("checkboxSimple", 0, "checkbox");
-        $this->optionsDefaults = ['shuffleAnswers'=>1, 'imgHeight'=>'80'];
+        $this->optionsDefaults = ['shuffleAnswers'=>1, 'imgHeight'=>'80', 'familyWords'=>''];
         $this->hasImageMain = true;
         $this->multiPoints = true;
     }
@@ -80,8 +80,17 @@ class slide_checkboxSimple extends XoopsModules\Quizmaker\Type_question
       $name = 'shuffleAnswers';  
       $inputShuffleAnswers = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions ->addElement($inputShuffleAnswers);     
+      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));      
       
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));   
+      $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
+      
+      $name = 'familyWords';  
+      $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $trayOptions ->addElement($inputFamilyWords);     
+      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_FAMILY_WORDS_DESC));      
+      
+      
+   
     
 /*
       $name = 'image';  

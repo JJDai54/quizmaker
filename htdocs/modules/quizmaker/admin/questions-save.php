@@ -67,7 +67,7 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
 		$questionsObj->setVar('quest_learn_more', Request::getString('quest_learn_more', ''));
 		$questionsObj->setVar('quest_see_also', Request::getString('quest_see_also', ''));
 		$questionsObj->setVar('quest_points', Request::getInt('quest_points', 0));
-		$questionsObj->setVar('quest_numbering', Request::getInt('quest_numbering', 0));
+		$questionsObj->setVar('quest_numbering', Request::getInt('quest_numbering', 2));
 		$questionsObj->setVar('quest_shuffleAnswers', Request::getInt('quest_shuffleAnswers', 1));
 		$questionsObj->setVar('quest_weight', Request::getInt('quest_weight', 0));
 		$questionsObj->setVar('quest_timer', Request::getInt('quest_timer', 0));
@@ -105,7 +105,7 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
         
        
 //echo "<hr>" .  getParams2list($quizId, $quest_type_question); exit;
-
+         $questionsHandler->incrementeWeight($quizId);
 //=============================================================================
           if ($addNew)
 			redirect_header('questions.php?op=new&' . getParams2list($quizId, $quest_type_question, "", $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);

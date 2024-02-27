@@ -111,6 +111,7 @@ define('QUIZMAKER_TYPE_FORM_GROUP', 2);
 define('QUIZMAKER_TYPE_FORM_END', 3);
 
 define('QUIZMAKER_ALL', '__ALL__');
+define('QUIZMAKER_TIMER_MAX', 120);
 
 $localLogo = QUIZMAKER_IMAGE_URL . '/jean-jacquesdelalandre_logo.png';
 // Module Information

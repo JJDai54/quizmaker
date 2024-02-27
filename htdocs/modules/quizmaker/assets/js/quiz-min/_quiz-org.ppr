@@ -168,7 +168,7 @@ _quiz-org
 				js\tpl\slide_checkboxLogical.js
 				js\tpl\slide_checkboxSimple.js
 				js\tpl\slide_comboboxMatchItems.js
-				js\tpl\slide_comboboxSortList.js
+				js\tpl\slide_comboboxSortItems.js
 				js\tpl\slide_imagesDaDBasket.js
 				js\tpl\slide_imagesDaDGroups.js
 				js\tpl\slide_imagesDaDLogical.js
@@ -176,8 +176,8 @@ _quiz-org
 				js\tpl\slide_imagesDaDSortItems.js
 				js\tpl\slide_imagesLogical.js
 				js\tpl\slide_imagesSimple.js
-				js\tpl\slide_listboxIntruders1.js
-				js\tpl\slide_listboxIntruders2.js
+				js\tpl\slide_listboxClassItems1.js
+				js\tpl\slide_listboxClassItems2.js
 				js\tpl\slide_listboxSortItems.js
 				js\tpl\slide_pageBegin.js
 				js\tpl\slide_pageEnd.js

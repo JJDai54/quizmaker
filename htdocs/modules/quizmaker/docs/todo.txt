@@ -51,7 +51,7 @@ Array
 <p><a href="#" onclick="gotoSlideByName('checkboxLogical');">checkboxLogical : Question de logique à réponses multiples</a>
 <p><a href="#" onclick="gotoSlideByName('checkboxSimple');">checkboxSimple : Question à réponses multiples</a>
 <p><a href="#" onclick="gotoSlideByName('comboboxMatchItems');">comboboxMatchItems : Associer les éléments deux à deux</a>
-<p><a href="#" onclick="gotoSlideByName('comboboxSortList');">comboboxSortList : Trier une liste multiple</a>
+<p><a href="#" onclick="gotoSlideByName('comboboxSortItems');">comboboxSortItems : Trier une liste multiple</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDBasket');">imagesDaDBasket : Distribuer les images</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDGroups');">imagesDaDGroups : Regrouper les images</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDLogical');">imagesDaDLogical : Trouver les images manquantes</a>
@@ -59,8 +59,8 @@ Array
 <p><a href="#" onclick="gotoSlideByName('imagesDaDSortItems');">imagesDaDSortItems : Ordonner les images</a>
 <p><a href="#" onclick="gotoSlideByName('imagesLogical');">imagesLogical : Trouver l'image manquante</a>
 <p><a href="#" onclick="gotoSlideByName('imagesSimple');">imagesSimple : Trouver les images de la même famille</a>
-<p><a href="#" onclick="gotoSlideByName('listboxIntruders1');">listboxIntruders1 : Chasser les intrus</a>
-<p><a href="#" onclick="gotoSlideByName('listboxIntruders2');">listboxIntruders2 : Déplacer les intrus (double liste)</a>
+<p><a href="#" onclick="gotoSlideByName('listboxClassItems1');">listboxClassItems1 : Chasser les intrus</a>
+<p><a href="#" onclick="gotoSlideByName('listboxClassItems2');">listboxClassItems2 : Déplacer les intrus (double liste)</a>
 <p><a href="#" onclick="gotoSlideByName('listboxSortItems');">listboxSortItems : Trier une listbox</a>
 <p><a href="#" onclick="gotoSlideByName('radioLogical');">radioLogical : Question de logique à réponse unique</a>
 <p><a href="#" onclick="gotoSlideByName('radioMultiple2');">radioMultiple2 : Retrouver les termes qui vont ensemble</a>
@@ -79,7 +79,7 @@ Array
 checkboxLogical:Question de logique à réponses multiples
 checkboxSimple:Question à réponses multiples
 comboboxMatchItems:Associer les éléments deux à deux
-comboboxSortList:Trier une liste multiple
+comboboxSortItems:Trier une liste multiple
 imagesDaDBasket:Distribuer les images
 imagesDaDGroups:Regrouper les images
 imagesDaDLogical:Trouver les images manquantes
@@ -87,8 +87,8 @@ imagesDaDMatchItems:Replacer les images à leure place
 imagesDaDSortItems:Ordonner les images
 imagesLogical:Trouver l'image manquante
 imagesSimple:Trouver les images de la même famille
-listboxIntruders1:Chasser les intrus
-listboxIntruders2:Déplacer les intrus (double liste)
+listboxClassItems1:Chasser les intrus
+listboxClassItems2:Déplacer les intrus (double liste)
 listboxSortItems:Trier une listbox
 radioLogical:Question de logique à réponse unique
 radioMultiple2:Retrouver les termes qui vont ensemble
@@ -107,7 +107,7 @@ ulSortList:Trier une liste de termes
     [checkboxSimple] => --- checkboxSimple : Question à réponses multiples
     [>combobox] => combobox : Listes déroulantes
     [comboboxMatchItems] => --- comboboxMatchItems : Associer les éléments deux à deux
-    [comboboxSortList] => --- comboboxSortList : Trier une liste multiple
+    [comboboxSortItems] => --- comboboxSortItems : Trier une liste multiple
     [>imagesDaD] => imagesDaD : Images Drag and Drop
     [imagesDaDBasket] => --- imagesDaDBasket : Distribuer les images
     [imagesDaDGroups] => --- imagesDaDGroups : Regrouper les images
@@ -118,8 +118,8 @@ ulSortList:Trier une liste de termes
     [imagesLogical] => --- imagesLogical : Trouver l'image manquante
     [imagesSimple] => --- imagesSimple : Trouver les images de la même famille
     [>listbox] => listbox : Listes multi lignes
-    [listboxIntruders1] => --- listboxIntruders1 : Chasser les intrus
-    [listboxIntruders2] => --- listboxIntruders2 : Déplacer les intrus (double liste)
+    [listboxClassItems1] => --- listboxClassItems1 : Chasser les intrus
+    [listboxClassItems2] => --- listboxClassItems2 : Déplacer les intrus (double liste)
     [listboxSortItems] => --- listboxSortItems : Trier une listbox
     [>page] => page : Pages de début, de fin et de regroupement
     [pageBegin] => --- pageBegin : Page de présentation du quiz

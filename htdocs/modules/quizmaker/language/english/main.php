@@ -44,7 +44,6 @@ define('_MA_QUIZMAKER_RUN', "Launch the quiz");
 define('_MA_QUIZMAKER_QUESTIONS_LIST', "List of Questions");
 define('_MA_QUIZMAKER_QUIZ_LIST', "List of Quiz");
 define('_MA_QUIZMAKER_AVERAGE', "Mean");
-define('_MA_QUIZMAKER_MINUTES', "minutes)");
 define('_MA_QUIZMAKER_NAME', "name");
 define('_MA_QUIZMAKER_NO', "No");
 define('_MA_QUIZMAKER_RESULTS_NOTE', "Note");
@@ -65,14 +64,13 @@ define('_MA_QUIZMAKER_RESULTS_FOR', "Results for:");
 define('_MA_QUIZMAKER_RESULTS_SCORE', "Score");
 define('_MA_QUIZMAKER_SCORE', "Score");
 define('_MA_QUIZMAKER_SCORES', "scores");
-define('_MA_QUIZMAKER_SECONDS', "seconds");
 define('_MA_QUIZMAKER_SEE_ALSO', "See as well");
 define('_MA_QUIZMAKER_DETAILS', "Show details");
 define('_MA_QUIZMAKER_SOLUTIONS', "Solutions");
 define('_MA_QUIZMAKER_FORM_DELETE_OK', "Successfully deleted");
 define('_MA_QUIZMAKER_FORM_OK', "Successfully saved");
 define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Thank you for your participation");
-define('_MA_QUIZMAKER_HOUR', "time)");
+define('_CO_QUIZMAKER_HOUR', "time)");
 define('_MA_QUIZMAKER_LEARN_MORE', "To know more");
 define('_MA_QUIZMAKER_HOW_TO_RUN_QUIZ', "To launch a quiz, click on the arrow.");
 define('_MA_QUIZMAKER_HOW_TO_SHOW_RESULTS', "To see the results click on the symbol &#425;.");
@@ -85,5 +83,7 @@ define('_MA_QUIZMAKER_RESULT_1', "can do better");
 define('_MA_QUIZMAKER_RESULT_3', "Some progress to be made");
 define('_MA_QUIZMAKER_SELECTION', "Selection");
 define('_MA_QUIZMAKER_QUIZ_PROPOSED_BY', "Quiz proposed by");
+
+
 
 ?>

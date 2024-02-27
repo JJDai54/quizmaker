@@ -118,15 +118,17 @@ function decodeHTMLEntities(text) {
 function getNumAlpha(index, mode=0, offset=0){
 //alert ("mode = " + mode + " - offset = " + offset);
     switch (mode){
-    case 1:         //renvoi la numerotation en lettre majuscule "A B C ..."
-        return String.fromCharCode((index*1)+65+offset); 
+    case 1:         // renvoi l'index tel que
+        return (index*1)+1+offset + quiz_messages.twoPoints;
+    case 2:         //renvoi la numerotation en lettre majuscule "A B C ..."
+        return String.fromCharCode((index*1)+65+offset) + quiz_messages.twoPoints; 
         break;
-    case 2:         //renvoi la numerotation en lettre minuscule "a b c ..."
-        return String.fromCharCode((index*1)+65+offset).toLowerCase(); 
+    case 3:         //renvoi la numerotation en lettre minuscule "a b c ..."
+        return String.fromCharCode((index*1)+65+offset).toLowerCase() + quiz_messages.twoPoints; 
         break;
-    case 0:         //retourne l'index+1 pour numeroter à partir de 1
-    default:        // renvoi l'index tel que
-        return (index*1)+1+offset;
+    case 0:         //pas de numérotation, a utiliser de préférence avec ldes images par exemple
+    default:         
+        return "";
         break;
  
     }
@@ -373,6 +375,23 @@ var textOk = '';
 //-------------------------------------------------
 
 }  
+/* *******************************
+*
+* *** */
+function getExpInAccolades(exp){
+var ret = {textOk:'', text:'', words:[], nbRows:0};
+
+    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+    var regex = quiz_config.regexAllLettersPP;
+    var tWordsA = exp.match(regex);
+    tWordsA = [...new Set(tWordsA)]; // elimine les doublons
+    
+    for (var i in tWordsA) {
+        tWordsA[i] = tWordsA[i].replace("{","").replace("}","");
+    }
+    //alert(tWordsA.join('|'));
+    return tWordsA;
+}  
 
 /* *******************************
 *
@@ -523,7 +542,7 @@ function getHtmlRadio(name, tItems, itemDefault = -1, numerotation, offset=0, ex
       var sel = (j == itemDefault) ? "checked" : "" ;  
       tHtml.push(`<label>
                  <input type="radio" name="${name}" id="${name}-${j}" value="${j}" ${sel} ${extra} caption="${tItems[j]}">
-                 ${getNumAlpha(j*1,numerotation, offset)} : ${tItems[j]}
+                 ${getNumAlpha(j*1,numerotation, offset)}${tItems[j]}
                  </label><br>`);
 
     }
@@ -539,7 +558,7 @@ function getHtmlCheckbox(name, tItems, itemDefault = -1, numerotation, offset, e
       var sel = (j == itemDefault) ? "checked" : "" ;  
       tHtml.push(`<label class="quiz" >
                  <input type="checkbox" id="${name}-${j}" name="${name}" value="${j}" ${sel} ${extra} caption="${tItems[j]}">
-                 ${getNumAlpha(j*1,numerotation,offset)}${quiz_messages.twoPoints}${tItems[j]}
+                 ${getNumAlpha(j*1,numerotation,offset)}${tItems[j]}
                  </label>${sep}`);
 
     }
@@ -567,7 +586,7 @@ function getHtmlTextbox(name, txtClass = "", numerotation, offset, extra=""){
     for (var j=0; j < tItems.length; j++){
  
       tHtml.push(`<label>
-            ${getNumAlpha(j*1,numerotation,offset)}${quiz_messages.twoPoints}<input type="text"  id="${name}-${j}" name="${name}" value="${tItems[j]}" class="${txtClass}" ${extra}>
+            ${getNumAlpha(j*1,numerotation,offset)}<input type="text"  id="${name}-${j}" name="${name}" value="${tItems[j]}" class="${txtClass}" ${extra}>
           </label>`);
 
     }
@@ -582,7 +601,7 @@ function getHtmlTextbox1(name, tItems, txtClass = "", numerotation, offset, extr
     for (var j=0; j < tItems.length; j++){
  
       tHtml.push(`<label>
-            ${getNumAlpha(j*1,numerotation,offset)}${quiz_messages.twoPoints}<input type="text"  id="${name}-${j}" name="${name}" value="${tItems[j]}" class="${txtClass}" ${extra}>
+            ${getNumAlpha(j*1,numerotation,offset)}<input type="text"  id="${name}-${j}" name="${name}" value="${tItems[j]}" class="${txtClass}" ${extra}>
           </label>`);
 
     }
@@ -597,7 +616,7 @@ function getHtmlTextbox2(name, alength, txtClass = "", numerotation, offset, ext
     for (var j=0; j < alength; j++){
  
       tHtml.push(`<label>
-            ${getNumAlpha(j*1,numerotation,offset)}${quiz_messages.twoPoints}<input type="text"  id="${name}-${j}" name="${name}" value="" class="${txtClass}" ${extra}>
+            ${getNumAlpha(j*1,numerotation,offset)}<input type="text"  id="${name}-${j}" name="${name}" value="" class="${txtClass}" ${extra}>
           </label>`);
 
     }
@@ -622,7 +641,7 @@ function getHtmlTextbox3(name, tItems, nbInput, txtClass = "", numerotation, off
     
     
     for (var i=0; i < tItems.length; i++){
-        tHtml.push(`<label>${getNumAlpha(i*1,numerotation,offset)}${quiz_messages.twoPoints}${tItems[i].caption}<br>`);
+        tHtml.push(`<label>${getNumAlpha(i*1,numerotation,offset)}${tItems[i].caption}<br>`);
         for (var j=0; j < nbInput; j++){
             tHtml.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" class="${txtClass}" ${extra}>`);
 
@@ -660,16 +679,24 @@ function getHtmlSpan(name, tItems, numerotation=3, offset =0, extra="", spanClas
 }
 
 
-function formatReponseTD(arr, sep='===>', unite=''){
+function formatReponseTD(arr, sep='===>', showUnite = false, colonneFalse=-1){
     var k = 0;
     if(arr[k] == '<hr>'){
         return `<td colspan="${arr.length+2}">${arr[k]}</td>`;    
     }
+    var unite = (showUnite) ? 'points' : '';
     var styleGoodAns = "color:blue;";
-    var styleBadAns  = "color:red;background-color:#FFCCCC;";
+    if(colonneFalse >= 0){
+        var styleBadAns  = "color:red;background-color:#FFCCCC;";
+        var styleAns = (arr[colonneFalse]*1 > 0) ? styleGoodAns : styleBadAns;    
+    }else{
+        var styleAns = styleGoodAns;
+    }
+    
+    
     //-----------------------------------------
     var tHtml = [];
-    var styleAns = (arr[1]*1 > 0) ? styleGoodAns : styleBadAns;
+
    // var tdClass = (arr[1]*1 > 0) ? 'quiz_div_popup_good_answer' : 'quiz_div_popup_bad_answer';
     for (var k = 0; k < arr.length; k++){
     
@@ -685,7 +712,7 @@ function formatReponseTD(arr, sep='===>', unite=''){
 
 }
 //-----------------------------------------------------------------------
-function formatArray0(tReponses, sep='===>', unite="points"){
+function formatArray0(tReponses, sep='===>', showUnite = false, colonneFalse=-1){
     var tplTable = "<table class='showResult'>{content}</table>";
     
     var tHtml = [];
@@ -693,7 +720,7 @@ function formatArray0(tReponses, sep='===>', unite="points"){
         //tHtml.push(tplTD.replace("{word}",tReponses[k][0]).replace("{sep}",sep).replace("{points}",tReponses[k][1]).replace("{unite}", unite));
         
         //tHtml.push(formatReponseTD (tReponses[k][0], tReponses[k][1], unite, sep));
-        tHtml.push(formatReponseTD (tReponses[k], sep, unite));
+        tHtml.push(formatReponseTD (tReponses[k], sep, showUnite, colonneFalse));
     }
     return tplTable.replace("{content}", tHtml.join("\n"));;
 }
@@ -996,7 +1023,7 @@ function getHtmlRadioKeys(name, tItems, numerotation, offset=0, extra="", sep="<
     //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
       tHtml.push(`<label class="quiz" >
                  <input type="radio" name="${name}"  id="${name}-${j}" value="${j}" ${extra} caption="${item.key}">
-                 ${getNumAlpha(j,numerotation,offset)}${quiz_messages.twoPoints}${item.word}
+                 ${getNumAlpha(j,numerotation,offset)}${item.word}
                  </label>${sep}`);
     }
     return tHtml.join("\n");
@@ -1017,7 +1044,7 @@ function getHtmlCheckboxKeys(name, tItems, numerotation, offset=0, extra="", sep
     //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
       tHtml.push(`<label class="quiz" >
                  <input type="checkbox" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}">
-                 ${getNumAlpha(j,numerotation,offset)}${quiz_messages.twoPoints}${item.word}
+                 ${getNumAlpha(j,numerotation,offset)}${item.word}
                  </label>${sep}`);
     
     

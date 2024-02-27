@@ -76,5 +76,9 @@ define('_CO_QUIZMAKER_FORM_INTRO', "Introduction");
 define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
 define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
 define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
+define('_CO_QUIZMAKER_TIME', "Date/Heure");
+define('_CO_QUIZMAKER_HOUR', "time)");
+define('_CO_QUIZMAKER_MINUTES', "minutes)");
+define('_CO_QUIZMAKER_SECONDS', "seconds");
 
 ?>

@@ -56,8 +56,9 @@ onDragLeave="dad_leave(event);"
 //------------------------------------------------------
     //definition du template selon le nombre de groupes 2 ou 3 en tenant compte du groupe 0
     var nbGroups = this.data.groupsLib.length;
-
+//alert("getInnerHTML - disposition : " + currentQuestion.options.disposition)
 var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGroups');
+//var tpl = this.getDisposition('disposition-20', 'imagesDaDGroups');
     //----------------------------------------------------------------------------------------
 
     var groups = [];
@@ -173,8 +174,11 @@ initSlide(){
         groupIndex = (currentQuestion.options.groupDefault < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
         //alert ('groupIndex : ' + groupIndex);
         obGroup = obGroups[groupIndex];
-        //alert(ans.id);
-        obGroup.appendChild(document.getElementById(ans.id + "-div")); 
+        //alert(ans.id + "-img");
+        var obChild = document.getElementById(ans.id + "-div"); 
+        if(obGroup && obChild){
+        obGroup.appendChild(obChild); 
+        }
 
     }
 
@@ -358,7 +362,7 @@ onDragStart="dad_start(event);"
 onDragOver="return dad_over(event);" 
 onDrop="return imagesDaDGroups_drop(event,${quiz_config.dad_move_img});"
 onDragLeave="dad_leave(event);"`;
-
+//alert("tpl + " + disposition);
   var tdStyle = 'width:100%;';
   var tpl = '';
   var groupes = [];

@@ -30,12 +30,12 @@ function addNewChild(parentId){
         <tr>
           <td class='right'><{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : </td>
           <td><{$inpCategory}></td>
-          <td class='left'></td>
-          <td class='right'></td>
-        </tr>
-        <tr>
           <td class='right'><{$smarty.const._AM_QUIZMAKER_QUIZ}> : </td>
           <td><{$inpQuiz}></td>
+        </tr>
+      </table>
+      <table>
+        <tr>
           <td class='right'><{$smarty.const._CO_QUIZMAKER_TYPE_QUESTION}> : </td>
           <td><{$inpTypeQuest}></td>
           <td><div id='btnAddQuestion' class="xo-buttons"><{$btnNewQuestion}></div></td>
@@ -184,7 +184,7 @@ function addNewChild(parentId){
                         </a>
                         
                     <{if $Questions.isQuestion}>
-                        |<a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_numbering&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_NUMBERING}>' >
+                        |<a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_numbering&modulo=4"  title='<{$smarty.const._AM_QUIZMAKER_NUMBERING}>' >
                             <{$Questions.flags.numbering}>
                             </a>
 <{* 

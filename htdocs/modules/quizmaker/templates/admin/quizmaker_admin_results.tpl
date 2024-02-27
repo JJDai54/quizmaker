@@ -38,7 +38,7 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NBANSWERS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_DURATION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NOTE}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_CREATION}></th>
+				<th class="center"><{$smarty.const._CO_QUIZMAKER_TIME}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
 		</thead>
@@ -48,10 +48,10 @@
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Results.id}></td>
 				<td class='center'><{$Results.quiz_id}></td>
-				<td class='center'><{$Results.result_uname}> (#<{$Results.uid}>)</td>
-				<td class='center'><{$Results.score}></td>
-				<td class='center'><{$Results.sore_max}></td>
-				<td class='center'><{$Results.sore_min}></td>
+				<td class='left'><{$Results.result_uname}> (#<{$Results.uid}>)</td>
+				<td class='right'><{$Results.score_achieved}></td>
+				<td class='center'><{$Results.score_max}></td>
+				<td class='center'><{$Results.score_min}></td>
 				<td class='center'><{$Results.answers_achieved}></td>
 				<td class='center'><{$Results.duration}></td>
 				<td class='center'><{$Results.note}></td>
