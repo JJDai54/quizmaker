@@ -56,7 +56,7 @@ onDragLeave="dad_leave(event);"
 //------------------------------------------------------
     //definition du template selon le nombre de groupes 2 ou 3 en tenant compte du groupe 0
     var nbGroups = this.data.groupsLib.length;
-//alert("getInnerHTML - disposition : " + currentQuestion.options.disposition)
+//alert("dads - getInnerHTML - disposition : " + currentQuestion.options.disposition)
 var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGroups');
 //var tpl = this.getDisposition('disposition-20', 'imagesDaDGroups');
     //----------------------------------------------------------------------------------------

@@ -6,6 +6,7 @@ class alphaSimple extends quizPrototype{
 name = 'alphaSimple';
 typeInput = 'alpha';  
 idDivReponse = '';
+sep = "-"; //separateurs pour les réponses
 /* ***************************************
 *
 * *** */
@@ -32,18 +33,32 @@ build (){
 getInnerHTML(){
 var currentQuestion = this.question;
 var name = this.getName();
+var varByRef = { sep: " - " }; //modifie par getDisposition et utiliser pour aligner les mots h ou v
 
-    var tpl = `<div class='alphaSimple_global'><center>${this.get_htmlWords()}<br><div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>?</div><br>${this.get_htmlLetters()}</center></div>`;
-    if(currentQuestion.image){
-        tpl = this.get_img() + tpl;
-    }
+//alert(currentQuestion.options.join("\n"));
+//alert("getInnerHTML - disposition : " + currentQuestion.options.disposition);
+    var tpl = this.getDisposition(currentQuestion.options.disposition, this.getId('tbl'), varByRef);
+    var html = tpl.replace("{img}", this.get_img()).replace("{words}", this.get_htmlWords(varByRef)).replace("{answer}", "?".repeat(this.data.soluces)).replace("{alphanum}", this.get_htmlLetters());
+
+
     
-    return tpl;
+
+//     var tpl = `<div class='alphaSimple_global'><center>${this.get_htmlWords()}<br><div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>?</div><br>${this.get_htmlLetters()}</center></div>`;
+//     if(currentQuestion.image){
+//         tpl = this.get_img() + tpl;
+//     }
+    
+    return html;
 }
 /* ***************************************
 *
 * *** */
-get_htmlWords(){
+get_htmlWords(varByRef){
+var html = '<table class="alphaSimple_words"><tr>';
+    return this.data.tWords.join(varByRef.sep);
+}
+
+get_htmlWords_old(){
 var html = '<table class="alphaSimple_words"><tr>';
     
     for(var k in this.data.tWords){
@@ -65,38 +80,16 @@ var sep = '|';
 
 var letters = this.question.options.propositions.replaceAll('/',sep).replaceAll(',',sep).replaceAll('-',sep).replaceAll('_',sep);
 var tLetters = letters.split(sep)
-//alert(letters);    
+// alert("get_htmlLetters - " + this.question.options.propositions);    
+// alert("get_htmlLetters - " + this.question.options.disposition);    
     for(var k = 0; k < tLetters.length; k++){
         if (tLetters[k] == ''){
             html += '<br>'; 
         }else{
-            var onclick = `document.getElementById('${this.idDivReponse}').innerHTML='${tLetters[k]}';`;
+            //var onclick = `document.getElementById('${this.idDivReponse}').innerHTML='${tLetters[k]}';`;
+            var onclick = `eventOnClickAlpha('${this.idDivReponse}','${tLetters[k]}','${this.sep}');`;
             //alert('|' + onclick + '|');
             html += `<a onclick="${onclick}">${tLetters[k]}</a>`; 
-        }
-    
-    }
- 
-    html += '</div>';
-    return html;
-}
-/* ***************************************
-*
-* *** */
-get_htmlLetters_old(){
-var html = '<div class="alphaSimple_letters">';
-var sep = '|';
-//alert('|' + this.idDivReponse + '|');
-
-var letters = this.question.options.propositions.replaceAll('/',sep).replaceAll(',',sep).replaceAll('-',sep).replaceAll('_',sep);
-//alert(letters);    
-    for(var k =0; k<letters.length; k++){
-        if (letters[k] == sep){
-            html += '<br>'; 
-        }else{
-            var onclick = `document.getElementById('${this.idDivReponse}').innerHTML='${letters[k]}';`;
-            //alert('|' + onclick + '|');
-            html += `<a onclick="${onclick}">${letters[k]}</a>`; 
         }
     
     }
@@ -112,6 +105,7 @@ get_img(){
     var name = this.getName();
     var currentQuestion = this.question;
     return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.options.imgHeight}px"></center>`;
+//alert("get_img - disposition : " + currentQuestion.options.disposition);
 }
 
 /* **********************************************************
@@ -119,7 +113,8 @@ get_img(){
 ************************************************************* */
  prepareData(){
     var currentQuestion = this.question;
-
+    var nbSoluces = 0;
+    
     this.data.tWords = getExpInAccolades(this.question.question);;    
     
     var tItems = new Object;
@@ -133,6 +128,7 @@ get_img(){
                    'word': currentQuestion.answers[k].proposition, 
                    'points' : currentQuestion.answers[k].points*1};
         tItems[key] = tWP;
+        if ((currentQuestion.answers[k].points*1) > 0 ) nbSoluces += 1;
 // alert("prepareData : " + tItems[key].word + ' = ' + tItems[key]. points);
 
     }
@@ -141,6 +137,7 @@ get_img(){
 //  alert("prepareData : " + keys.join(' - '));
 
     this.data.items = tItems;
+    this.data.soluces = nbSoluces;
     
 }
 
@@ -165,7 +162,7 @@ var bolOk = 1;
 
 
     var  currentQuestion = this.question;
-    var tReponses = document.getElementById(this.idDivReponse).innerHTML.split("-");
+    var tReponses = document.getElementById(this.idDivReponse).innerHTML.split(this.sep);
     for(var k in currentQuestion.answers){
         var rep = currentQuestion.answers[k];
         if(rep.points > 0) {
@@ -244,7 +241,7 @@ getAllReponses (flag = 0){
             tReponses.push(rep.proposition);    
         }
     }
-    var reponses = tReponses.join("-");
+    var reponses = tReponses.join(this.sep);
     document.getElementById(this.idDivReponse).innerHTML = reponses;
     return true;
   
@@ -259,5 +256,152 @@ getAllReponses (flag = 0){
     return true;
   } 
  
+  /* *********************************************
+  
+  ************************************************ */
+getDisposition(disposition, tableId, varByRef){
+var currentQuestion = this.question;
+var tpl = "";
+
+//alert(disposition);
+//     var tpl = `<div class='alphaSimple_global'><center>${this.get_htmlWords()}<br><div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>?</div><br>${this.get_htmlLetters()}</center></div>`;
+//     var tpl = `<div class='alphaSimple_global'><center>${this.get_htmlWords()}<br><div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>?</div><br>${this.get_htmlLetters()}</center></div>`;
+var divAnswer = `<div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>{answer}</div>`
+    switch(disposition)     {
+    
+    default:
+    case 'disposition-01':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+              <tr><td>${divAnswer}</td></tr>
+              <tr><td><hr></td></tr>
+              <tr><td>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-02':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+              <tr><td class='alphaSimple_words'>{words}</td></tr>
+              <tr><td>${divAnswer}</td></tr>
+              <tr><td><hr></td></tr>
+              <tr><td>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-03':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+              <tr><td>${divAnswer}</td></tr>
+              <tr><td class='alphaSimple_words'>{words}</td></tr>
+              <tr><td><hr></td></tr>
+              <tr><td>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-04':
+        varByRef.sep = "<br>";
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+              <tr><td>${divAnswer}</td></tr>
+                  <td class='alphaSimple_words'>{words}</td>
+              <tr><td colspan='2'><hr></td></tr>
+              <tr><td colspan='2'>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-11':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr><td>{img}</td></tr>
+                <tr><td>${divAnswer}</td></tr>
+                <tr><td><hr></td></tr>
+                <tr><td>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-12':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr><td>${divAnswer}</td></tr>
+                <tr><td>{img}</td></tr>
+                <tr><td><hr></td></tr>
+                <tr><td>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-13':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr>
+                    <td style='width:25%'>{img}</td>
+                    <td style='width:75%'>${divAnswer}</td>
+                </tr>
+                <tr><td colspan='2'><hr></td></tr>
+                <tr><td colspan='2'>{alphanum}</td></tr>
+              </tbody></table>`;
+        break;
+    case 'disposition-13':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr>
+                    <td style='width:75%'>${divAnswer}</td>
+                    <td style='width:25%'>{img}</td>
+                </tr>
+                <tr><td colspan='2'><hr></td></tr>
+                <tr><td colspan='2'>{alphanum}</td></tr>
+              </tbody></table>`;
+        break;
+    case 'disposition-21':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr><td>{img}</td>
+                <td class='alphaSimple_words'>{words}</td>
+                <tr><td>${divAnswer}</td></tr>
+                <tr><td colspan='2'><hr></td></tr>
+                <tr><td>{alphanum}</td></tr>
+            </tbody></table>`;
+        break;
+    case 'disposition-22':
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr>
+                    <td style='width:25%'>{img}</td>
+                    <td style='width:75%'>${divAnswer}</td>
+                </tr>
+                <tr><td colspan='2' class='alphaSimple_words'>{words}</td></tr>
+                <tr><td colspan='2'><hr></td></tr>
+                <tr><td colspan='2'>{alphanum}</td></tr>
+              </tbody></table>`;
+        break;
+    case 'disposition-23':
+        varByRef.sep = "<br>";
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr>
+                    <td style='width:25%' class='alphaSimple_words'>{words}</td>
+                    <td style='width:75%'>{img}</td>
+                </tr>
+                <tr><td colspan='2'></td>${divAnswer}</tr>
+                <tr><td colspan='2'><hr></td></tr>
+                <tr><td colspan='2'>{alphanum}</td></tr>
+              </tbody></table>`;
+        break;
+    case 'disposition-24':
+        varByRef.sep = "<br>";
+        tpl = `<table  name='${tableId}' id='${tableId}' class='alphaSimple'><tbody>
+                <tr>
+                    <td style='width:75%'>{img}</td>
+                    <td style='width:25%' class='alphaSimple_words'>{words}</td>
+                </tr>
+                <tr><td colspan='2'></td>${divAnswer}</tr>
+                <tr><td colspan='2'><hr></td></tr>
+                <tr><td colspan='2'>{alphanum}</td></tr>
+              </tbody></table>`;
+        break;
+    }
+    return tpl;
+}
+
+
 
 } // ----- fin de la classe ------
+
+//-------------------------------
+//----- Evenements du slide -----
+//-------------------------------
+function eventOnClickAlpha(idReponse, newValue, sep){
+//alert("eventOnClickAlpha - "  + " - "  + idReponse + newValue);
+
+    var obRep = document.getElementById(idReponse);
+    var tRep = obRep.innerHTML.split(sep);
+    
+    if (tRep.length == 0){
+      obRep.innerHTML = newValue;
+    }else{
+      obRep.innerHTML = tRep[tRep.length-1] + sep + newValue;
+    } 
+}

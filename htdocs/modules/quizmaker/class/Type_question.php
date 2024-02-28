@@ -315,8 +315,8 @@ global $xoopDB;
             }
        }else if($optionsDefaults){
             $tValues = $optionsDefaults;
-       }else{
-            $tValues = $this->optionsDefaults;
+//        }else{
+//             $tValues = $this->optionsDefaults;
        }
 
        return $tValues;
@@ -839,7 +839,7 @@ $select = $inpImg->render();
      }
      
 /* *************************************************
-* Le nombre d'items est limié, si il y en a plus il y a eu un problème de sauvegarde.
+* Le nombre d'items est limité, si il y en a plus il y a eu un problème de sauvegarde.
 * Il faut supprimer les enregistrements en trop
 * utilisé en dev pour remettre de l'ordre
 * ************************************************** */

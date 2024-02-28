@@ -248,15 +248,16 @@ _quiz-org
 5=js\tpl\slide_checkboxSimple.js
 6=js\tpl\slide_imagesDaDGroups.css
 7=css\style-item-design.css
+8=js\tpl\slide_imagesDaDGroups.js
 [Selected Project Files]
 Main=
 Selected=js\tpl\slide_alphaSimple.js
 [js\tpl\slide_alphaSimple.css]
 TopLine=1
-Caret=32,46
+Caret=20,14
 [js\tpl\slide_alphaSimple.js]
-TopLine=1
-Caret=80,91
+TopLine=66
+Caret=97,90
 [js\quiz-main.js]
 TopLine=300
 Caret=1,322
@@ -267,7 +268,7 @@ Caret=7,392
 TopLine=246
 Caret=29,278
 [js\tpl\slide_checkboxSimple.js]
-TopLine=191
+TopLine=33
 Caret=54,33
 [js\tpl\slide_imagesDaDGroups.css]
 TopLine=1
@@ -275,3 +276,6 @@ Caret=1,1
 [css\style-item-design.css]
 TopLine=1
 Caret=1,19
+[js\tpl\slide_imagesDaDGroups.js]
+TopLine=29
+Caret=1,63

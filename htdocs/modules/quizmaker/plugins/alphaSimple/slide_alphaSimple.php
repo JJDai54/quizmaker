@@ -40,7 +40,7 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("alphaSimple", 0, "alpha");
-        $this->optionsDefaults = ['shuffleAnswers'=>1, 'imgHeight'=>'80', 'familyWords'=>'', 'propositions'=>''];
+        $this->optionsDefaults = ['shuffleAnswers'=>1, 'imgHeight'=>'80', 'familyWords'=>'', 'propositions'=>'', 'disposition'=>''];
         $this->hasImageMain = true;
         $this->multiPoints = true;
     }
@@ -84,10 +84,10 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
       
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
-      $name = 'familyWords';  
-      $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
-      $trayOptions ->addElement($inputFamilyWords);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_FAMILY_WORDS_DESC));      
+//       $name = 'familyWords';  
+//       $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+//       $trayOptions ->addElement($inputFamilyWords);     
+//       $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_FAMILY_WORDS_DESC));      
       
       
 define('_AM_QUIZMAKER_LETTERS', "Lettres");      
@@ -117,18 +117,19 @@ define('_AM_QUIZMAKER_LETTERS', "Lettres");
       $inpButtonNum = new \XoopsFormButton('', "", "@#");
       $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$num}--{$alphabet}')\"");
       $trayPropositions->addElement($inpButtonNum);
+      $trayOptions ->addElement($trayPropositions);      
       
       
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(3);
+      //$inputDisposition->setHorizontalIconNumber(4);
+      $inputDisposition->setGridIconNumber(4,3);
       $trayOptions->addElement($inputDisposition);     
    
       $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
 
       
-      $trayOptions ->addElement($trayPropositions);      
       
    
     
