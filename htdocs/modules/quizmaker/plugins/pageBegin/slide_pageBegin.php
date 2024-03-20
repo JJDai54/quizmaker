@@ -40,7 +40,7 @@ class slide_pageBegin extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("pageBegin", 0, "page");
-        $this->optionsDefaults = ['imgHeight'=>80];
+        $this->optionsDefaults = [];
         $this->hasImageMain = true;
     }
 
@@ -73,17 +73,10 @@ class slide_pageBegin extends XoopsModules\Quizmaker\Type_question
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
-      $name = 'imgHeight';  
-      $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 300);
-      $trayHeight1 = new \XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT1, $delimeter = ' ');  
-      $trayHeight1->addElement($inpHeight1);
-      $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions->addElement($trayHeight1);     
       
       //--------------------------------------------------------------------           
       
-      return $trayOptions;
+      return null;
     }
 
 /* ************************************************

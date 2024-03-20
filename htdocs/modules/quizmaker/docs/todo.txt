@@ -1,3 +1,5 @@
+ 
+
 
 <{xoModuleIcons16 'edit.png'}>
 <{xoModuleIcons16 'delete.png'}>
@@ -63,7 +65,7 @@ Array
 <p><a href="#" onclick="gotoSlideByName('listboxClassItems2');">listboxClassItems2 : Déplacer les intrus (double liste)</a>
 <p><a href="#" onclick="gotoSlideByName('listboxSortItems');">listboxSortItems : Trier une listbox</a>
 <p><a href="#" onclick="gotoSlideByName('radioLogical');">radioLogical : Question de logique à réponse unique</a>
-<p><a href="#" onclick="gotoSlideByName('radioMultiple2');">radioMultiple2 : Retrouver les termes qui vont ensemble</a>
+<p><a href="#" onclick="gotoSlideByName('radioMultiple');">radioMultiple : Retrouver les termes qui vont ensemble</a>
 <p><a href="#" onclick="gotoSlideByName('radioSimple');">radioSimple : Question à réponse unique</a>
 <p><a href="#" onclick="gotoSlideByName('textareaInput');">textareaInput : Saisir les mots manquants</a>
 <p><a href="#" onclick="gotoSlideByName('textareaListbox');">textareaListbox : Retrouver les mots manquants</a>
@@ -91,7 +93,7 @@ listboxClassItems1:Chasser les intrus
 listboxClassItems2:Déplacer les intrus (double liste)
 listboxSortItems:Trier une listbox
 radioLogical:Question de logique à réponse unique
-radioMultiple2:Retrouver les termes qui vont ensemble
+radioMultiple:Retrouver les termes qui vont ensemble
 radioSimple:Question à réponse unique
 textareaInput:Saisir les mots manquants
 textareaListbox:Retrouver les mots manquants
@@ -127,7 +129,7 @@ ulSortList:Trier une liste de termes
     [pageGroup] => --- pageGroup : Page de regroupement de questions
     [>radio] => radio : Boutons radios
     [radioLogical] => --- radioLogical : Question de logique à réponse unique
-    [radioMultiple2] => --- radioMultiple2 : Retrouver les termes qui vont ensemble
+    [radioMultiple] => --- radioMultiple : Retrouver les termes qui vont ensemble
     [radioSimple] => --- radioSimple : Question à réponse unique
     [>textarea] => textarea : Textes à comppléter
     [textareaInput] => --- textareaInput : Saisir les mots manquants

@@ -54,6 +54,7 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_learn_more', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_see_also', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_image', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_height', XOBJ_DTYPE_INT);
 		$this->initVar('quest_points', XOBJ_DTYPE_INT);
 		$this->initVar('quest_numbering', XOBJ_DTYPE_INT);
 		$this->initVar('quest_shuffleAnswers', XOBJ_DTYPE_INT);
@@ -141,35 +142,26 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         }        
 		$form->addElement($inpQuizId);
        //----------------------------------------------------------
+        $trayTypeQuestion = new \XoopsFormElementTray  ("", $delimeter = '<br>');  //_AM_QUIZMAKER_QUESTIONS_TYPE_QUESTION
 
         
         if ($clTypeQuestion->isQuestion){
-          // Form Select questType_question
-          $inpTypeQuestion = new \XoopsFormSelect( '', 'quest_type_question', $typeQuestion);
-          $inpTypeQuestion->addOption('Empty');
-          $inpTypeQuestion->addOptionArray($type_questionHandler->getListKeyName(null, true));
-          $inpTypeQuestion->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\");'");
+            // Form Select questType_question
+            $inpTypeQuestion = new \XoopsFormSelect( '', 'quest_type_question', $typeQuestion);
+            $inpTypeQuestion->addOption('Empty');
+            $inpTypeQuestion->addOptionArray($type_questionHandler->getListKeyName(null, true));
+            $inpTypeQuestion->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\");'");
+            $trayTypeQuestion->addElement($inpTypeQuestion);
+            
+            $trayTypeQuestion->addElement(new \XoopsFormLabel('',_CO_QUIZMAKER_TYPE_QUESTION_DESC));
           
         }else{
             $form->addElement(new \XoopsFormHidden('quest_type_question', $typeQuestion));
             $inpTypeQuestion = new \XoopsFormLabel('', $typeQuestion);
+            $trayTypeQuestion->addElement($inpTypeQuestion);
         }		
         
         //----------------------------------------------------------
-        $trayTypeQuestion = new \XoopsFormElementTray  (_CO_QUIZMAKER_TYPE_QUESTION, $delimeter = '');  //_AM_QUIZMAKER_QUESTIONS_TYPE_QUESTION
-        $trayTypeQuestion->setDescription(_CO_QUIZMAKER_TYPE_QUESTION_DESC);
-        $trayTypeQuestion->addElement($inpTypeQuestion);
-/*
-        $url =  QUIZMAKER_MODELES_IMG . "/slide_" . $typeQuestion . '-00.jpg';
-        $img =  <<<___IMG___
-            <div id='modelesTypeQuestionId'>
-            <a href='{$url}' class='highslide' onclick='return hs.expand(this);' >
-                <img src="{$url}" alt="slides" style="max-width:40px" />
-            </a>
-            </div>
-        ___IMG___;
-        //$inpImg = new \XoopsFormLabel  ('', $img);  
-*/        
         $imgModelesHtml = new \XoopsFormLabel('', $clTypeQuestion->getHtmlImgModeles());  
         //$imgModelesHtml->setExtra("class='highslide-gallery'");
         $trayTypeQuestion->addElement($imgModelesHtml);
@@ -232,23 +224,14 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         
         /* ***** Options uniquement pour les questions ***** */
         if($clTypeQuestion->isQuestion()){
-    
-          // Form Text questNumbering
-          //----------------------------------------------------------
-          $tOptNumbering = array(_AM_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE);
-          $inpNumbering = new \XoopsFormSelect(_AM_QUIZMAKER_NUMBERING , 'quest_numbering', $this->getVar('quest_numbering'));
-          $inpNumbering->addOptionArray($tOptNumbering);
-          $form->addElement($inpNumbering);
-          
-          
-          //----------------------------------------------------------
-          // Form int quest_shuffleAnswers
-/* transféré dans les options spécifiques
-          $inpShuffleAns = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS , 'quest_shuffleAnswers', $this->getVar('quest_shuffleAnswers'));        
-          $inpShuffleAns->setDescription(_AM_QUIZMAKER_SHUFFLE_ANS_DESC);
-          $form->addElement($inpShuffleAns);
-*/          
+            // Form Text questNumbering
+            $tOptNumbering = array(_AM_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE);
+            $inpNumbering = new \XoopsFormSelect(_AM_QUIZMAKER_NUMBERING , 'quest_numbering', $this->getVar('quest_numbering'));
+            $inpNumbering->addOptionArray($tOptNumbering);
+        }else{
+            $inpParent = new \XoopsFormHidden('quest_numbering', 0);        
         }
+        $form->addElement($inpNumbering);
 
         // Form Text Select questTimer
         $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, 'quest_timer', 8, 8, $this->getVar('quest_timer'));
@@ -274,7 +257,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         $form->addElement($inpActif);
         
         // ===================================================================
-        // cette partie insert l'aide, les options et les poropositions propres au type de question
+        // cette partie insert l'aide, les options et les poropositions propres au type de question, mais pas que (image)
         // ===================================================================
 
         //ajout de l'aide pour ce slide
@@ -289,14 +272,19 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         //echo "<hr>dossier du quiz : {$idQuiz}-{$folderJS}<hr>";        
         $form->insertBreak("<div style='background:blue;color:white;'><center>" . _AM_QUIZMAKER_SLIDE_OPTIONS . "</center></div>");
           //--------------------------------------------------------------  
-          // ce champ fait partie de la table question mais il est pus ergonomique de le metre ici
-          $inpPoints =   new \XoopsFormNumber('', 'quest_points', 8, 8, $this->getVar('quest_points'));
-          $inpPoints->setMinMax(0, 50);
-          if ($clTypeQuestion->multiPoints){
-            $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints, _AM_QUIZMAKER_QUESTIONS_POINTS_DESC));
-          }else{
-            $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints));
-          }
+        if($clTypeQuestion->isQuestion()){
+            // Form Text quest_points
+            // ce champ fait partie de la table question mais il est plus ergonomique de le metre ici
+            $inpPoints =   new \XoopsFormNumber('', 'quest_points', 8, 8, $this->getVar('quest_points'));
+            $inpPoints->setMinMax(0, 50);
+            if ($clTypeQuestion->multiPoints){
+              $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints, _AM_QUIZMAKER_QUESTIONS_POINTS_DESC));
+            }else{
+              $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints));
+            }
+        }else{
+            $form->addElement(new \XoopsFormHidden('quest_points', 0));
+        }
           //--------------------------------------------------------------  
         if ($clTypeQuestion){
             $options =  html_entity_decode($this->getVar('quest_options'));
@@ -304,11 +292,21 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
             //if($inpOptions || $clTypeQuestion->hasImageMain) 
 // Image
             if($clTypeQuestion->hasImageMain){
-            $image = $this->getVar('quest_image');
-            $inpImage = $clTypeQuestion->getFormImage(_AM_QUIZMAKER_IMAGE, 'quest_image', $image, $folderJS);
-                $inpImage->setCaption(_AM_QUIZMAKER_IMAGE);
-                $form->addElement($inpImage, false);
-            }
+              $image = $this->getVar('quest_image');
+              $inpImage = $clTypeQuestion->getFormImage(_AM_QUIZMAKER_IMAGE, 'quest_image', $image, $folderJS);
+                  $inpImage->setCaption(_AM_QUIZMAKER_IMAGE);
+                  $form->addElement($inpImage, false);
+
+                  $name = 'imgHeight';  
+                  $height = ( $this->getVar('quest_height')) ?  $this->getVar('quest_height') : 32;
+                  $inpHeight1 = new \XoopsFormNumber('',  "quest_height", 5, 3, $height);
+                  $inpHeight1->setMinMax(32, 300);
+                  $trayHeight1 = new \XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT1, ' ');  
+                  $trayHeight1->addElement($inpHeight1);
+                  $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
+                  $form->addElement($trayHeight1);     
+                  
+              }
             
             //ajout des options propres au type de question
             $inpOptions = $clTypeQuestion->getFormOptions(_AM_QUIZMAKER_SPECIFIC_OPTIONS, 'quest_options',  $options, $folderJS);
@@ -391,6 +389,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
  		$ret['learn_more']     = $this->getVar('quest_learn_more', 'e');
  		$ret['see_also']       = $this->getVar('quest_see_also', 'e');
  		$ret['image']          = $this->getVar('quest_image', 'e');
+ 		$ret['height']         = $this->getVar('quest_height');
 		$ret['points']         = $this->getVar('quest_points');
 		$ret['numbering']      = $this->getVar('quest_numbering');
 		$ret['shuffleAnswers'] = $this->getVar('quest_shuffleAnswers');

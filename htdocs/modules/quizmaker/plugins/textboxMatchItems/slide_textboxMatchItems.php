@@ -40,7 +40,8 @@ class slide_textboxMatchItems extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("textboxMatchItems", 0, "textbox");
-        $this->optionsDefaults = ['comparaison'=>0, 'minReponses'=>0];
+        $this->optionsDefaults = ['comparaison'=>0, 
+                                  'disposition'=>'disposition-01'];
     }
 
 	/**
@@ -65,21 +66,28 @@ class slide_textboxMatchItems extends XoopsModules\Quizmaker\Type_question
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
 
-      $labComparaison = new xoopsFormLabel('', _AM_QUIZMAKER_COMPARAISON);
+      $labComparaison = new xoopsFormLabel('', _CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON);
       $trayOptions->addElement($labComparaison);     
       
       $name = 'comparaison';  
       $inputComparaison = new XoopsFormRadio('', "{$optionName}[{$name}]", $tValues[$name], '<br>');
-      $inputComparaison->addOption("0", _AM_QUIZMAKER_COMPARAISON_0);            
-      $inputComparaison->addOption("1", _AM_QUIZMAKER_COMPARAISON_1);            
-      $inputComparaison->addOption("2", _AM_QUIZMAKER_COMPARAISON_2);            
+      $inputComparaison->addOption("0", _CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON_0);            
+      $inputComparaison->addOption("1", _CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON_1);            
+      $inputComparaison->addOption("2", _CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON_2);            
       $trayOptions->addElement($inputComparaison);     
-      
-      $name = 'minReponses';  
-      $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMinReponses->setMinMax(0, 12);
-      $trayOptions->addElement($inpMinReponses);     
 
+//       $name = 'minReponses';  
+//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpMinReponses->setMinMax(0, 12);
+//       $trayOptions->addElement($inpMinReponses);     
+
+
+      $name = 'disposition'; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
+      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputDisposition->setGridIconNumber(2,1);
+      $trayOptions->addElement($inputDisposition);     
+      
       return $trayOptions;
     }
 
@@ -96,48 +104,51 @@ class slide_textboxMatchItems extends XoopsModules\Quizmaker\Type_question
         
         $this->initFormForQuestion();
         //-------------------------------------------------
-        $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');
-        for($h = 0; $h < $this->maxPropositions; $h++){
+        //element definissat un objet ou un ensemble
+        $weight = 0;
+        $tbl = $this->getNewXoopsTableXtray();
+        $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
+        $tbl->addTdStyle(1, 'text-align:left;width:50px;');
         
-            if (isset($answers[$h])) {
-            echo $answers[$h]->getVar('answer_proposition') . "-{$h}<br>";
-                $tExp = explode('|', $answers[$h]->getVar('answer_proposition'));
+        for($k = 0; $k < $this->maxPropositions; $k++){
+        
+            if (isset($answers[$k])) {
+                $tExp = explode(',', $answers[$k]->getVar('answer_proposition'));
                 $mot1 = trim($tExp[0]); 
                 $mot2 = trim($tExp[1]); 
-                $points = intval(trim($answers[$h]->getVar('answer_points')));
-                $weight = intval(trim($answers[$h]->getVar('answer_weight')));
+                $points = intval(trim($answers[$k]->getVar('answer_points')));
+                $weight = intval(trim($answers[$k]->getVar('answer_weight')));
             }else{
                 $mot1 = ""; 
                 $mot2 = ""; 
-                $points = 0;
-                $weight = $h * 10;
+                $points = 1;
+                $weight = $k * 10;
             }
             
-            $trayPropo = new XoopsFormElementTray  ('', $delimeter = ' ');  
-            $inpLab  = new XoopsFormLabel("", $h+1 . " : ");
-            $trayPropo->addElement($inpLab);
             
-            $name = $this->getName($h, 'mot1');
-            $inpMot1 = new XoopsFormText(_AM_QUIZMAKER_SLIDE_MOT . " 1", $name, $this->lgMot1, $this->lgMot2, $mot1);
-            $trayPropo->addElement($inpMot1);
+            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");
+            $name = $this->getName($k, 'mot1');
+            $inpMot1 = new XoopsFormText(_AM_QUIZMAKER_SLIDE_MOT . " 1", $name, $this->lgMot1, $this->lgMot2, $mot1);            
+            $name = $this->getName($k, 'mot2');
+            $inpMot2 = new XoopsFormText(_AM_QUIZMAKER_SLIDE_MOT . " 2", $name, $this->lgMot1, $this->lgMot2, $mot2);
             
-            $name = $this->getName($h, 'mot2');
-            $inpMot2 = new XoopsFormText(_AM_QUIZMAKER_SLIDE_MOT . " 2", $name, $this->lgMot3, $this->lgMot4, $mot2);
-            $trayPropo->addElement($inpMot2);
-            
-            $name = $this->getName($h, 'points');
+            $name = $this->getName($k, 'points');
             $inpPoints = new XoopsFormNumber(_AM_QUIZMAKER_SLIDE_POINTS, $name, $this->lgPoints, $this->lgPoints, $points);
-            $inpPoints->setMinMax(-30, 30);
-            $trayPropo->addElement($inpPoints);
+            $inpPoints->setMinMax(1, 30);
             
-            $name = $this->getName($h, 'weight');
+            $name = $this->getName($k, 'weight');
             $inpWeight = new XoopsFormNumber(_AM_QUIZMAKER_SLIDE_WEIGHT, $name, $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 1000);
-            $trayPropo->addElement($inpWeight);
             
-            $trayAllAns->addElement($trayPropo);
+            $col=0;
+            $tbl->addElement($inpLab, $col++, $k);
+            $tbl->addElement($inpMot1, $col++, $k);
+            $tbl->addElement($inpMot2, $col++, $k);
+            $tbl->addElement($inpPoints, $col++, $k);
+            $tbl->addElement($inpWeight, $col++, $k);
+
         }
-        $this->trayGlobal->addElement($trayAllAns);
+        $this->trayGlobal->addElement($tbl);
 
         //----------------------------------------------------------
 		return $this->trayGlobal;
@@ -158,7 +169,7 @@ class slide_textboxMatchItems extends XoopsModules\Quizmaker\Type_question
           	$ansObj = $answersHandler->create();
           	$ansObj->setVar('answer_quest_id', $questId);
               
-            $propo = trim($value['mot1']) . "|" . trim($value['mot2']); 
+              $propo = trim($value['mot1']) . "," . trim($value['mot2']); 
           	$ansObj->setVar('answer_proposition', $propo);
           	$ansObj->setVar('answer_points', intval($value['points']));
           	$ansObj->setVar('answer_weight', intval($value['weight']));

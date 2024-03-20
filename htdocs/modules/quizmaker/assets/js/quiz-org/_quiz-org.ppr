@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
-		-css
+		+css
 			-infobulle
 				-images
 					css\infobulle\images\Award.png
@@ -196,39 +196,55 @@ _quiz-org
 			-language
 				js\language\quiz-english.js
 				js\language\quiz-french.js
-			+tpl
-				js\tpl\slide_alphaSimple.css
-				js\tpl\slide_alphaSimple.js
-				js\tpl\slide_checkboxSimple.js
-				js\tpl\slide_comboboxMatchItems.js
-				js\tpl\slide_comboboxSortItems.js
-				js\tpl\slide_imagesDaDGroups.css
-				js\tpl\slide_imagesDaDGroups.js
-				js\tpl\slide_imagesDaDLogical.css
-				js\tpl\slide_imagesDaDLogical.js
-				js\tpl\slide_imagesDaDMatchItems.css
-				js\tpl\slide_imagesDaDMatchItems.js
-				js\tpl\slide_imagesDaDSortItems.css
-				js\tpl\slide_imagesDaDSortItems.js
-				js\tpl\slide_imagesLogical.js
-				js\tpl\slide_imagesSimple.js
-				js\tpl\slide_listboxClassItems.css
-				js\tpl\slide_listboxClassItems.js
-				js\tpl\slide_listboxSortItems.js
-				js\tpl\slide_pageBegin.js
-				js\tpl\slide_pageEnd.js
-				js\tpl\slide_pageGroup.js
-				js\tpl\slide_radioMultiple2.js
-				js\tpl\slide_radioSimple.js
-				js\tpl\slide_textareaInput.js
-				js\tpl\slide_textareaListbox.js
-				js\tpl\slide_textareaSimple.js
-				js\tpl\slide_textboxMatchItems.js
-				js\tpl\slide_textboxMultiple.js
-				js\tpl\slide_ulDaDGroups.css
-				js\tpl\slide_ulDaDGroups.js
-				js\tpl\slide_ulDaDSortList.css
-				js\tpl\slide_ulDaDSortList.js
+			+plugins
+				js\plugins\slide_alphaSimple.css
+				js\plugins\slide_alphaSimple.js
+				js\plugins\slide_checkboxSimple.css
+				js\plugins\slide_checkboxSimple.js
+				js\plugins\slide_comboboxMatchItems.css
+				js\plugins\slide_comboboxMatchItems.js
+				js\plugins\slide_comboboxSortItems.css
+				js\plugins\slide_comboboxSortItems.js
+				js\plugins\slide_imagesDaDGroups.css
+				js\plugins\slide_imagesDaDGroups.js
+				js\plugins\slide_imagesDaDLogical.css
+				js\plugins\slide_imagesDaDLogical.js
+				js\plugins\slide_imagesDaDMatchItems.css
+				js\plugins\slide_imagesDaDMatchItems.js
+				js\plugins\slide_imagesDaDSortItems.css
+				js\plugins\slide_imagesDaDSortItems.js
+				js\plugins\slide_imagesLogical.css
+				js\plugins\slide_imagesLogical.js
+				js\plugins\slide_imagesSimple.css
+				js\plugins\slide_imagesSimple.js
+				js\plugins\slide_listboxClassItems.css
+				js\plugins\slide_listboxClassItems.js
+				js\plugins\slide_listboxSortItems.css
+				js\plugins\slide_listboxSortItems.js
+				js\plugins\slide_pageBegin.css
+				js\plugins\slide_pageBegin.js
+				js\plugins\slide_pageEnd.css
+				js\plugins\slide_pageEnd.js
+				js\plugins\slide_pageGroup.css
+				js\plugins\slide_pageGroup.js
+				js\plugins\slide_radioMultiple.css
+				js\plugins\slide_radioMultiple.js
+				js\plugins\slide_radioSimple.css
+				js\plugins\slide_radioSimple.js
+				js\plugins\slide_textareaInput.css
+				js\plugins\slide_textareaInput.js
+				js\plugins\slide_textareaListbox.css
+				js\plugins\slide_textareaListbox.js
+				js\plugins\slide_textareaSimple.css
+				js\plugins\slide_textareaSimple.js
+				js\plugins\slide_textboxMatchItems.css
+				js\plugins\slide_textboxMatchItems.js
+				js\plugins\slide_textboxMultiple.css
+				js\plugins\slide_textboxMultiple.js
+				js\plugins\slide_ulDaDGroups.css
+				js\plugins\slide_ulDaDGroups.js
+				js\plugins\slide_ulDaDSortList.css
+				js\plugins\slide_ulDaDSortList.js
 			js\quiz-events.js
 			js\quiz-functions.js
 			js\quiz-main.js
@@ -240,42 +256,54 @@ _quiz-org
 		modif pour extends.js
 		quiz.html
 [Open project files]
-0=js\tpl\slide_alphaSimple.css
-1=js\tpl\slide_alphaSimple.js
-2=js\quiz-main.js
-3=js\quiz-functions.js
-4=js\slide__prototype.js
-5=js\tpl\slide_checkboxSimple.js
-6=js\tpl\slide_imagesDaDGroups.css
-7=css\style-item-design.css
-8=js\tpl\slide_imagesDaDGroups.js
+0=css\quiz.css
+1=js\slide__prototype.js
+2=js\plugins\slide_comboboxMatchItems.css
+3=js\plugins\slide_textboxMultiple.js
+4=js\plugins\slide_textboxMultiple.css
+5=js\plugins\slide_checkboxSimple.js
+6=js\plugins\slide_alphaSimple.js
+7=js\quiz-functions.js
+8=js\plugins\slide_checkboxSimple.css
+9=js\plugins\slide_comboboxSortItems.css
+10=js\plugins\slide_radioSimple.css
+11=js\plugins\slide_radioSimple.js
 [Selected Project Files]
 Main=
-Selected=js\tpl\slide_alphaSimple.js
-[js\tpl\slide_alphaSimple.css]
-TopLine=1
-Caret=20,14
-[js\tpl\slide_alphaSimple.js]
-TopLine=66
-Caret=97,90
-[js\quiz-main.js]
-TopLine=300
-Caret=1,322
-[js\quiz-functions.js]
-TopLine=376
-Caret=7,392
+Selected=js\plugins\slide_checkboxSimple.css
+[css\quiz.css]
+TopLine=5
+Caret=18,9
 [js\slide__prototype.js]
-TopLine=246
-Caret=29,278
-[js\tpl\slide_checkboxSimple.js]
-TopLine=33
-Caret=54,33
-[js\tpl\slide_imagesDaDGroups.css]
+TopLine=151
+Caret=19,176
+[js\plugins\slide_comboboxMatchItems.css]
 TopLine=1
-Caret=1,1
-[css\style-item-design.css]
+Caret=21,34
+[js\plugins\slide_textboxMultiple.js]
+TopLine=143
+Caret=10,161
+[js\plugins\slide_textboxMultiple.css]
 TopLine=1
-Caret=1,19
-[js\tpl\slide_imagesDaDGroups.js]
-TopLine=29
-Caret=1,63
+Caret=14,12
+[js\plugins\slide_checkboxSimple.js]
+TopLine=19
+Caret=37,42
+[js\plugins\slide_alphaSimple.js]
+TopLine=1
+Caret=1,22
+[js\quiz-functions.js]
+TopLine=1146
+Caret=10,1154
+[js\plugins\slide_checkboxSimple.css]
+TopLine=1
+Caret=37,20
+[js\plugins\slide_comboboxSortItems.css]
+TopLine=1
+Caret=1,7
+[js\plugins\slide_radioSimple.css]
+TopLine=1
+Caret=37,21
+[js\plugins\slide_radioSimple.js]
+TopLine=1
+Caret=34,19

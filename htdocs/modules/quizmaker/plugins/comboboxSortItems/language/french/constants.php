@@ -27,5 +27,6 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS', "Trier une liste multiple");
 define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_DESC', "Ce slide est composé de plusieurs liste constitué des même termes.<br>Il faut indiquer l'ordre précicé dans la question<br>L'ordre peut être inverse si l'option a été définie.");
 define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_CONSIGNE', "Consigne à complèter");
+define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_SORT', "Tri");
 
 ?>

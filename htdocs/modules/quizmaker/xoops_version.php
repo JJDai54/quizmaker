@@ -28,7 +28,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.04,
+	'version'             => 4.06,
 	'module_status'       => 'Beta 1',
 	'release_date'        => '2024/02/25',
 	'description'         => _MI_QUIZMAKER_DESC,

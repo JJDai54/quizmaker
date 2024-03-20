@@ -25,7 +25,7 @@
     <script src="<{$urlApp}>/js/<{$prototype}>"></script>
     <!-- Insertion des classes des slides -->
     <{foreach item=tpljs from=$allTpljs name=tpljsName}>
-        <script src="<{$urlApp}>/js/tpl/<{$tpljs}>"></script>
+        <script src="<{$urlApp}>/js/plugins/<{$tpljs}>"></script>
     <{/foreach}>
 
     <{* ========================================== *}> 

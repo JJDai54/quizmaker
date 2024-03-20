@@ -20,6 +20,7 @@ function getAllReponses_ (){
 
 */
 var boolDog = true; 
+var quizIsStarted = false;
 
 const statsTotal = {
       quiz_score_max:   0,
@@ -333,10 +334,9 @@ function completeArrWithwordList(words, lstWordsToAdd = "", sep = ","){
 /* *******************************
 *
 * *** */
-function transformTextWithToken(exp, lstWordToadd = "", sep=","){
+function transformTextWithToken(exp, tokenColor = '#0000FF'){
 var ret = {textOk:'', text:'', words:[], nbRows:0};
 var textOk = '';
-
 
     ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
     exp = exp.replaceAll("\n","<br>"); //avec mise en formede crlf
@@ -346,12 +346,14 @@ var textOk = '';
     var tWordsA = exp.match(regex);
     tWordsA = [...new Set(tWordsA)];
 
-
-    //remplacement des mot entre accolade par des chifres entre accolade
+    var tpl = "<span style='color:{tokenColor};'>{word}</span>";
+    //remplacement des mots entre accolades par des chifres entre accolade
     var exp2 = exp;
     for (var i in tWordsA) {
         var token = "{" + (i*1+1) + "}";
-        var word =  quiz_messages.tplWord.replace("{word}", token);
+       // var word =  quiz_messages.tplWord.replace("{word}", token);
+        var word =  tpl.replace("{word}", token)
+                       .replace("{tokenColor}", tokenColor) 
 // blob("token = " + token +  "-" + tWordsA[i]);
         
         exp2 = exp2.replaceAll(tWordsA[i], word);
@@ -442,7 +444,7 @@ var textOk = '';
 /*********************************************
  * extra a utiiser avec checked par exemple  
  * **** */
-function getObjectsByName(name, balise, typeObj = "", extra="", extra2 = "")
+function getObjectsByName(balise, name, typeObj = "", extra="", extra2 = "")
 { 
     var selector = `${balise}`;
     if (name != '') selector += `[name=${name}]`;;    
@@ -506,7 +508,7 @@ function  clearfillCollection(name, fillWithExp="")
 ///////////////////////////////////////////
 function getHtmlCombobox(name, id, tItems, extra="", addBlank=false){
     var tHtml = [];
-    tHtml.push(`<SELECT id="${id}" name="${name}" class="question-comboboxMatchItems" ${extra}>`);
+    tHtml.push(`<SELECT id="${id}" name="${name}" ${extra}>`);
                                                                   
 //         tHtml.push(`<SELECT id="${name}{${k}" name="${name}" class="question-textareaListbox" onclick="quiz_textareaListbox_event('update','${id}','${name}',${questionNumber})">`);        
     if (addBlank)  
@@ -623,18 +625,6 @@ function getHtmlTextbox2(name, alength, txtClass = "", numerotation, offset, ext
     return tHtml.join("\n");
 
 }
-function getHtmlTextbox2b(name, alength, sep="", txtClass = "", extra = ""){
-    var tHtml = [];
-    
-    
-    for (var j=0; j < alength; j++){
- 
-      tHtml.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" class="${txtClass}" ${extra}>`);
-
-    }
-    return tHtml.join(sep + "\n");
-
-}
 
 function getHtmlTextbox3(name, tItems, nbInput, txtClass = "", numerotation, offset, extra=""){
     var tHtml = [];
@@ -672,6 +662,17 @@ function getHtmlSpan(name, tItems, numerotation=3, offset =0, extra="", spanClas
 
     for (var j=0; j < tItems.length; j++){
       tHtml.push(`<span class="${spanClass}" ${extra}>${getNumAlpha(j*1,numerotation,offset)} - ${tItems[j]}</span>`);
+    }
+
+    return tHtml.join(sep + "\n");
+
+}
+function getHtmlSpan2(name, selecteur, tItems, numerotation=3, offset = 0, extra="", sep="<br>"){  
+    var tHtml = [];
+    
+
+    for (var j=0; j < tItems.length; j++){
+      tHtml.push(`<div  ${extra}>${getNumAlpha(j*1,numerotation,offset)} - ${tItems[j]}</div>`);
     }
 
     return tHtml.join(sep + "\n");
@@ -908,13 +909,15 @@ function getRandomIntInclusive(min, max) {
 * - supprime les caractères de poncuation
 * - remplace les caractères accetués
 * *********************************************** */
-function sanityseTextForComparaison(exp){
+function sanityseTextForComparaison(exp, bolToLower = true){
 var regAccent;
 var car2rep;
 
-    var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").replaceAll(" ","").toLowerCase();
+    if (bolToLower){exp = exp.toLowerCase();}
+    var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").trim(); //.replaceAll(" ","")
     
-    var cars2del = new RegExp('[ \'\.\!\?\,\;-]', 'gi');
+    var cars2del = new RegExp('[\'\.\!\?\,\;-]', 'gi');
+    //var cars2del = new RegExp('[ \'\.\!\?\,\;-]', 'gi');
   //var cars2del = new RegExp('[ \'\.\!\?\,\;\-\_\/]', 'gi');
         
     reponse = reponse.replace(cars2del, "");
@@ -990,7 +993,7 @@ function requestGetPost(){
 * - supprime les caractères de poncuation
 * - remplace les caractères accetués
 * *********************************************** */
-function replaceBalisesByValues(exp)
+function replaceBalisesByValues(exp, questId = 0)
 {
     var newExp = exp.replace("{repondu}", statsTotal.cumul_questions);
     newExp = newExp.replace("{totalQuestions}", statsTotal.quiz_questions);
@@ -1005,10 +1008,126 @@ function replaceBalisesByValues(exp)
         //alert(key + " = " + quiz_rgp[key]);
         newExp = newExp.replace(`{${key}}`, quiz_rgp[key]);
     });
-
+    if (newExp.search('{sommaire}') >= 0) {newExp = newExp.replace("{sommaire}", get_sommaire(0));}
+    if (newExp.search('{groups}') >= 0) {newExp = newExp.replace("{groups}", get_sommaire(1));}
+    if (newExp.search('{allquestions}') >= 0) {newExp = newExp.replace("{allquestions}", get_sommaire(2,0));}
+    if (newExp.search('{questions}') >= 0) {newExp = newExp.replace("{questions}", get_sommaire(2, questId));}
+   
     return newExp;
     
   } 
+/* ******************************************
+*
+* ******************************************** */
+function get_sommaire(selection = 0, questId = 0){
+var isGroup = false;
+//var numSlide = 0;
+var bolOk = true;
+var tRet = [];
+    quizard.forEach((clQuestion, numSlide) => {
+        switch (selection){
+        default :
+        case 0: //sommaire détaillée on prend tout
+            bolOk = true;
+            break;
+        case 1: // liste des groupes uniquement
+            bolOk = (!clQuestion.question.isQuestion); 
+            break;
+        case 2: // liste des questions sans les groupes filtrer eventuellement par parentId
+            bolOk = (clQuestion.question.isQuestion && (clQuestion.question.parentId == questId || questId == 0)  ); 
+//console.log(`=>get_sommaire ${selection} - questId = ${questId}`);
+            break;
+        }
+        if (bolOk){
+            console.log ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
+            var onClick = `onClick="gotoSlideNum(${numSlide});"`;
+            var exp = `${numSlide}-${clQuestion.question.typeQuestion }-${clQuestion.sanityse_question()}`;
+            
+            if( clQuestion.question.isQuestion){
+                var link =`<h2 ${onClick}>${exp}</h2>` 
+            }else{
+                var link =`<h1 ${onClick}>${exp}</h1>` 
+            } 
+            tRet.push(link);
+         }
+    
+        //numSlide++;
+        //clQuestion.initSlide ();
+      });
+
+    console.log(tRet.join("<br>\n"));
+    return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
+}
+/* ******************************************
+*
+* ******************************************** */
+function get_sommaire2(groupOnly = true, questId = 0){
+var isGroup = false;
+//var numSlide = 0;
+var bolOk = true;
+var tRet = [];
+
+    quizard.forEach((clQuestion, numSlide) => {
+        isGroup = (clQuestion.question.typeQuestion == 'pageBegin')
+               || (clQuestion.question.typeQuestion == 'pageEnd')
+               || (clQuestion.question.typeQuestion == 'pageGroup');
+        
+        console.log ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
+        bolOk = ((groupOnly && isGroup) || !groupOnly);
+        if ((isGroup || !groupOnly) || !groupOnly){
+            var onClick = `onClick="gotoSlideNum(${numSlide});"`;
+            var exp = `${numSlide}-${clQuestion.question.typeQuestion }-${clQuestion.sanityse_question()}`;
+            
+            if(isGroup){
+                var link =`<h1 ${onClick}>${exp}</h1>` 
+            }else{
+                var link =`<h2 ${onClick}>${exp}</h2>` 
+            } 
+            tRet.push(link);
+         }
+    
+        //numSlide++;
+        //clQuestion.initSlide ();
+      });
+
+    console.log(tRet.join("<br>\n"));
+    return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
+}
+/* ******************************************
+*
+* ******************************************** */
+function get_sommaire_old(groupOnly = true){
+var isGroup = false;
+//var numSlide = 0;
+var bolOk = true;
+var tRet = [];
+
+    quizard.forEach((clQuestion, numSlide) => {
+        isGroup = (clQuestion.question.typeQuestion == 'pageBegin')
+               || (clQuestion.question.typeQuestion == 'pageEnd')
+               || (clQuestion.question.typeQuestion == 'pageGroup');
+        
+        console.log ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
+        bolOk = ((groupOnly && isGroup) || !groupOnly);
+        if ((isGroup || !groupOnly) || !groupOnly){
+            var onClick = `onClick="gotoSlideNum(${numSlide});"`;
+            var exp = `${numSlide}-${clQuestion.question.typeQuestion }-${clQuestion.sanityse_question()}`;
+            
+            if(isGroup){
+                var link =`<div class='quiz_sommaire_group' ${onClick}>${exp}</div>` 
+            }else{
+                var link =`<div class='quiz_sommaire_question' ${onClick}>${exp}</div>` 
+            } 
+            tRet.push(link);
+         }
+    
+        //numSlide++;
+        //clQuestion.initSlide ();
+      });
+
+    console.log(tRet.join("<br>\n"));
+    return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
+}
 
 /* ******************************************
 *
@@ -1021,7 +1140,7 @@ function getHtmlRadioKeys(name, tItems, numerotation, offset=0, extra="", sep="<
     for(var j=0; j < keys.length; j++){
         item = tItems[keys[j]];
     //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
-      tHtml.push(`<label class="quiz" >
+      tHtml.push(`<label>
                  <input type="radio" name="${name}"  id="${name}-${j}" value="${j}" ${extra} caption="${item.key}">
                  ${getNumAlpha(j,numerotation,offset)}${item.word}
                  </label>${sep}`);
@@ -1042,7 +1161,7 @@ function getHtmlCheckboxKeys(name, tItems, numerotation, offset=0, extra="", sep
     for(var j=0; j < keys.length; j++){
         item = tItems[keys[j]];
     //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
-      tHtml.push(`<label class="quiz" >
+      tHtml.push(`<label>
                  <input type="checkbox" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}">
                  ${getNumAlpha(j,numerotation,offset)}${item.word}
                  </label>${sep}`);
@@ -1062,13 +1181,15 @@ function getHtmlCheckboxKeys(name, tItems, numerotation, offset=0, extra="", sep
 }
 
 //function getMarginStyle(nbItems, min=5, max=12, numStyle=0, extra=''){
-function getMarginStyle(nbItems, numStyle=0, extra='', min=5, max=10){
-    var margin = Math.trunc((250-10) / (nbItems * 2));
+function getMarginStyle(nbItems, numStyle=0, extra='', min=2, max=8){
+    var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
+    
+    //var margin = Math.trunc((250-10) / (nbItems * 2));
     margin = Math.min(Math.max(parseInt(margin), min), max);
     switch(numStyle){
-        case 1:  var strStyle =`style='line-height: ${margin*3}px;' ${extra}`; break;
+        case 1:  var strStyle =`style='line-height: ${margin*3}px;${extra}' `; break;
         case 2:  var strStyle =`style='padding: ${margin}px;${extra}'`; break;
-        default: var strStyle =`style='margin:${margin}px 10px ${margin}px 0px;' ${extra}`; break;
+        default: var strStyle =`style='margin:${margin}px 10px ${margin}px 0px;${extra}' `; break;
     }
     return strStyle;
 }
@@ -1160,7 +1281,7 @@ function pb_showProgression()
 *
 * *** */
 function blob(message)
-  { 
+  { return true;
     if(!boolDog) return;
     if(Array.isArray(message)){
         console.log(`......................`);
@@ -1275,10 +1396,13 @@ function quiz_init_slist (target) {
 /* *********************************
 *
 * */
-  function gotoSlide (exp) {
-    const btnGotoSlide = document.getElementById('quiz_btn_goto_slide');
-    btnGotoSlide.innerHTML = exp;
-    btnGotoSlide.click();
+  function gotoSlideNum (exp) {
+    console.log("gotoSlideNum => " + exp);
+
+    document.getElementById("quiz_goto_slide").value = exp;
+    document.getElementById('quiz_btn_goto_slide').click();
+    //alert("gotoSlideNum => " + exp);
+    //evt.stopPropagation();
     return true;
   }
 /* *********************************
@@ -1314,7 +1438,8 @@ function load_css(cssId){
     //var cssId = 'myCss';  // you could encode the css path itself to generate id..
     if (document.getElementById(cssId))  return true;
     
-    var urlCSS = quiz.urlMain + '/js/tpl/slide_' + cssId + '.css';
+    var urlCSS = quiz.urlMain + '/js/plugins/slide_' + cssId + '.css';
+    //alert(cssId + "===>" + urlCSS);
 
     let xhr = new XMLHttpRequest();
     xhr.open('GET', urlCSS, false);
@@ -1338,5 +1463,60 @@ function load_css(cssId){
     head.appendChild(link);
     return true;    
 }
-
+/* *********************************
+*
+* */
+  function setAllSepByNewSep(exp, newSep = "|") {
+  //alert(exp + "===>" + newSep);
+    //return exp.replaceAll(/\;\,\_\|/gi, newSep); // a revoir
+    return exp.trim().replaceAll(';',newSep)
+                     .replaceAll('-',newSep)
+                     .replaceAll(',',newSep)
+                     .replaceAll('|',newSep)
+                     .replaceAll('/',newSep);
+  }
+/* *********************************
+*
+* */
+  function splitAllSep(exp, newSep = "|") {
+    return setAllSepByNewSep(exp, newSep).split(newSep);
+  }
+/* *********************************
+*
+* */
+  function set_param(exp, numParam = 0) {
+    document.getElementById('quiz_data' + numParam).value = exp;
+    return true;
+  }
+/* *********************************
+*
+* */
+  function get_param(numParam = 0) {
+    return document.getElementById('quiz_data' + numParam).value ;
+  }
+  
+/* *********************************
+*
+* */
+function strToArrayNum(strExp, sep=","){
+    var strArr = strExp.split(sep);
+    var intArr = new Int8Array(strArr.length);
+    
+    for (var i = 0; i < strArr.length; i++) {
+      intArr[i] = strArr[i]*1;
+     //console.log(`computeScoresMinMaxByProposition - inputs = ${currentQuestion.answers[k].inputs} - ${this.question.answers[k].proposition} -(${tPoints[i]}`))
+    }
+    return intArr;
+}
+/* *********************************
+*
+* */
+function arrayToArrayNum(strArr){
+    var intArr = new Int8Array(strArr.length);
+    for (var i = 0; i < strArr.length; i++) {
+      intArr[i] = strArr[i]*1 ;
+     //console.log(`computeScoresMinMaxByProposition - inputs = ${currentQuestion.answers[k].inputs} - ${this.question.answers[k].proposition} -(${tPoints[i]}`))
+    }
+    return intArr;
+}
 

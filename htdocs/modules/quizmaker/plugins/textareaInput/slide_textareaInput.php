@@ -40,7 +40,9 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("textareaInput", 0, "textarea");
-        $this->optionsDefaults = ['orientation'=>'V', 'scoreByWord'=>5, 'minReponses'=>0];
+        $this->optionsDefaults = ['orientation'=>'V', 
+                                  'scoreByWord'=>5, 
+                                  'tokenColor'=>'#FF0000'];
     }
 
 	/**
@@ -79,10 +81,15 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
       $inpScore->setMinMax(1, 20);
       $trayOptions->addElement($inpScore);     
       
-      $name = 'minReponses';  
-      $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMinReponses->setMinMax(0, 12);
-      $trayOptions->addElement($inpMinReponses);     
+//       $name = 'minReponses';  
+//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpMinReponses->setMinMax(0, 12);
+//       $trayOptions->addElement($inpMinReponses);     
+
+
+      $name = 'tokenColor';  
+      $inpTokenColor = new XoopsFormColorPicker('Couleur des balises', "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions->addElement($inpTokenColor);     
 
       return $trayOptions;
     }

@@ -40,7 +40,11 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("alphaSimple", 0, "alpha");
-        $this->optionsDefaults = ['shuffleAnswers'=>1, 'imgHeight'=>'80', 'familyWords'=>'', 'propositions'=>'', 'disposition'=>''];
+        $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
+                                  'imgHeight'      => '80', 
+                                  'directive'      => '', 
+                                  'propositions'   => '', 
+                                  'disposition'    => ''];
         $this->hasImageMain = true;
         $this->multiPoints = true;
     }
@@ -84,38 +88,36 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
       
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
-//       $name = 'familyWords';  
-//       $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
-//       $trayOptions ->addElement($inputFamilyWords);     
-//       $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_FAMILY_WORDS_DESC));      
+      $name = 'directive';  
+      if (!$tValues[$name]) $tValues[$name] = _AM_QUIZMAKER_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $trayOptions ->addElement($inpDirective);     
+      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_DIRECTIVE_DESC));      
       
-      
-define('_AM_QUIZMAKER_LETTERS', "Lettres");      
+      $alphabet = _AM_QUIZMAKER_ALPHABET;
+      $number   = _AM_QUIZMAKER_NUMBER;
+ 
       $trayPropositions = new \XoopsFormElementTray(_AM_QUIZMAKER_PROPOSITIONS, $delimeter = ' ');  
-      $name = 'propositions';  
+      $name = 'propositions'; 
+      if(!$tValues[$name] ) $tValues[$name] = $alphabet; 
       $inputPropositions = new \XoopsFormText(_AM_QUIZMAKER_LETTERS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayPropositions->addElement($inputPropositions);
       $id = "{$optionName}[{$name}]";
         
       $inpButtonClear = new \XoopsFormButton('', "", "X");
-      $alphabet = "";
-      $inpButtonClear->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$alphabet}')\"");
+      $inpButtonClear->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','')\"");
       $trayPropositions->addElement($inpButtonClear);
       
       $inpButtonAlphabet = new \XoopsFormButton('', "", "@");
-      $alphabet = "A|B|C|D|R|F|G|H|I|J|K|L|M||N|O|P|Q|R|S|T|U|V|W|X|Y|Z";
-      $alphabet = "A-B-C-D-R-F-G-H-I-J-K-L-M--N-O-P-Q-R-S-T-U-V-W-X-Y-Z";
       $inpButtonAlphabet->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$alphabet}')\"");
       $trayPropositions->addElement($inpButtonAlphabet);
       
       $inpButtonNum = new \XoopsFormButton('', "", "#");
-      $num = "0|1|2|3|4|5|6|7|8|9";
-      $num = "0-1-2-3-4-5-6-7-8-9";
-      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$num}')\"");
+      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$number}')\"");
       $trayPropositions->addElement($inpButtonNum);
       
       $inpButtonNum = new \XoopsFormButton('', "", "@#");
-      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$num}--{$alphabet}')\"");
+      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$number}--{$alphabet}')\"");
       $trayPropositions->addElement($inpButtonNum);
       $trayOptions ->addElement($trayPropositions);      
       
@@ -185,7 +187,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
                 $points = $arr[$k]->getVar('answer_points');
             }else{
                 $proposition = '';
-                $points = 0;
+                $points = 1;
             }
       
             

@@ -40,7 +40,10 @@ class slide_comboboxMatchItems extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("comboboxMatchItems", 0, "combobox");
-        $this->optionsDefaults = ['shuffleAnswers'=>1, 'minReponses'=>0];
+        $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
+                                  'minReponses'    => 0,
+                                  'disposition'    => 'disposition-01',
+                                  'intrus' => ''];
     }
 
 	/**
@@ -70,11 +73,26 @@ class slide_comboboxMatchItems extends XoopsModules\Quizmaker\Type_question
       
       $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));     
       
-      $name = 'minReponses';  
-      $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMinReponses->setMinMax(0, 12);
-      $trayOptions->addElement($inpMinReponses);     
+//       $name = 'minReponses';  
+//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpMinReponses->setMinMax(0, 12);
+//       $trayOptions->addElement($inpMinReponses);     
 
+      
+ 
+      $name = 'intrus'; 
+      $inputPropositions = new \XoopsFormText(_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $inputPropositions->setDescription(_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_INTRUS_DESC);
+      $trayOptions->addElement($inputPropositions);
+      $trayOptions->addElement(new \xoopsFormLabel('',_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_INTRUS_DESC));
+     
+
+      $name = 'disposition'; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
+      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputDisposition->setGridIconNumber(2,1);
+      $trayOptions->addElement($inputDisposition);  
+         
       return $trayOptions;
     }
 
@@ -83,6 +101,65 @@ class slide_comboboxMatchItems extends XoopsModules\Quizmaker\Type_question
 *
 * ************************************************** */
  	public function getForm($questId, $quizId)
+ 	{
+        global $utility, $answersHandler;
+
+        $answers = $answersHandler->getListByParent($questId);
+        $this->initFormForQuestion();
+        //-------------------------------------------------
+        //element definissat un objet ou un ensemble
+        $weight = 0;
+        $tbl = $this->getNewXoopsTableXtray();
+        $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
+        $tbl->addTdStyle(1, 'text-align:left;width:50px;');
+        
+        for($k = 0; $k < $this->maxPropositions; $k++){
+        
+            if (isset($answers[$k])) {
+                $tExp = explode(',', $answers[$k]->getVar('answer_proposition'));
+                $mot1 = trim($tExp[0]); 
+                $mot2 = trim($tExp[1]); 
+                $points = intval(trim($answers[$k]->getVar('answer_points')));
+                $weight = intval(trim($answers[$k]->getVar('answer_weight')));
+            }else{
+                $mot1 = ""; 
+                $mot2 = ""; 
+                $points = 1;
+                $weight = $k * 10;
+            }
+            
+            
+            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");
+            $name = $this->getName($k, 'mot1');
+            $inpMot1 = new XoopsFormText(_AM_QUIZMAKER_SLIDE_MOT . " 1", $name, $this->lgMot1, $this->lgMot2, $mot1);            
+            $name = $this->getName($k, 'mot2');
+            $inpMot2 = new XoopsFormText(_AM_QUIZMAKER_SLIDE_MOT . " 2", $name, $this->lgMot1, $this->lgMot2, $mot2);
+            
+            $name = $this->getName($k, 'points');
+            $inpPoints = new XoopsFormNumber(_AM_QUIZMAKER_SLIDE_POINTS, $name, $this->lgPoints, $this->lgPoints, $points);
+            $inpPoints->setMinMax(1, 30);
+            
+            $name = $this->getName($k, 'weight');
+            $inpWeight = new XoopsFormNumber(_AM_QUIZMAKER_SLIDE_WEIGHT, $name, $this->lgPoints, $this->lgPoints, $weight);
+            $inpWeight->setMinMax(0, 1000);
+            
+            $col=0;
+            $tbl->addElement($inpLab, $col++, $k);
+            $tbl->addElement($inpMot1, $col++, $k);
+            $tbl->addElement($inpMot2, $col++, $k);
+            $tbl->addElement($inpPoints, $col++, $k);
+            $tbl->addElement($inpWeight, $col++, $k);
+
+        }
+        $this->trayGlobal->addElement($tbl);
+
+        //----------------------------------------------------------
+		return $this->trayGlobal;
+	}
+/* *************************************************
+*
+* ************************************************** */
+ 	public function getForm_old($questId, $quizId)
  	{
         global $utility, $answersHandler;
 

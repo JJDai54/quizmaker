@@ -93,6 +93,9 @@ var content = `
       </div>
       ${getHtmlMessage()}
       ${getHtmlFooter()}
+      <input type='hidden' name='quiz_data' id = 'quiz_data0' value=''>
+      <input type='hidden' name='quiz_data' id = 'quiz_data1' value=''>
+      <input type='hidden' name='quiz_data' id = 'quiz_data2' value=''>
     </div>
     <br>${getHtmlLog()}`; 
 
@@ -206,6 +209,8 @@ function getHtmlButtons(){                       //   style='background:blue;'
             <button id="quiz_btn_show_good_answers" class="${quiz_css.buttons}">${quiz_messages.btnAntiseche}</button>
             <button id="quiz_btn_show_bad_answers"  class="${quiz_css.buttons}" style="transform: rotate(0.5turn);">${quiz_messages.btnAntiseche}</button>
             <button id="quiz_btn_goto_slide"        class="${quiz_css.buttons}" >${quiz_messages.btnGotoSlide}</button>
+            <button id="quiz_btn_goto_slide_begin"  class="${quiz_css.buttons}" >${quiz_messages.btnGotoSlideBegin}</button>
+            <input  type="hidden" id="quiz_goto_slide" value="">
             ${getHtmlConsignesButtons()}
             </div>`;
 
@@ -341,7 +346,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
             </div>
             
             <div class="quiz_slide_propositions ${quiz_css.proposition}">
-                <div style='margin:auto;width:90%;'>${clQuestion.build()}</div>
+                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:90%;'>${clQuestion.build()}</div>
             </div>
           </div>`
         );       
@@ -670,20 +675,25 @@ const statsTotal = {
   }
   
 /* *********************************
-*
+* evenment onClick du bouton btnGotoSlide
 * */
   function gotoSlide (evt) {
-    var exp = btnGotoSlide.innerHTML;
-    if(exp == quiz_messages.btnGotoSlide) exp= null;
-    if(!exp) exp = prompt(quiz_messages.numSlideToGo);
-    btnGotoSlide.innerHTML = quiz_messages.btnGotoSlide;
+      var bolOk = false;
+    var obGotoSlide = document.getElementById("quiz_goto_slide");
+    var exp = obGotoSlide.value;
+    obGotoSlide.value = ""; // raz : c'est juste un transfert de valeur
     
-    numSlide = parseInt(exp);
+    if(!exp) {exp = prompt(quiz_messages.numSlideToGo);}    
+    if(!exp) {return;}
+    
+    var numSlide = parseInt(exp);    
+    
     if (Number.isInteger(numSlide)){
     //alert("numSlide : " + numSlide);
         showSlide(numSlide);
+        bolOk = true;
+      //alert("quiz-main => gotoSlide");
     }else{
-      var bolOk = false;
       for (var h=0; h<quizard.length; h++){
           currentQuestion = quizard[h].question;
           if(currentQuestion.identifiant == exp){
@@ -692,12 +702,20 @@ const statsTotal = {
               break;
           }
       }
-      if(!bolOk) alert (`Identifiant "${exp}" non trouvé`);
     }
-
-    return true;
+    if (!bolOk) {showSlide(0);}
+    //alert("gotoSlide : " + numSlide);
+    //evt.stopPropagation();
+    return false;
   }
-
+/* *********************************
+* evenment onClick du bouton btnGotoSlide
+* */
+  function gotoSlideBegin (evt) {
+    showSlide(0);   
+    //evt.stopPropagation();
+    return false;
+  }
 
 /* *********************************
 *
@@ -719,31 +737,34 @@ function reloadQuestion() {
 *
 * */
   function showCurrentSlide  () {
-        showSlide_new(0);
         //alert("showCurrentSlide");
+        showSlide_new();
         return true;
   }
  
 
   function showSlide (n) {
+    //alert("showSlide : " + n);
     showSlide_new (n - currentSlide);
-    return;
+    return true;
     
    }
 
   function showNextSlide () {
+    //alert("showNextSlide");
     //if (currentSlide > 0 && quiz.showResultPopup) event_show_popup_result(currentSlide);
     showSlide_new(+1);
   }
 
   function showPreviousSlide () {
+    //alert("showPreviousSlide");
     showSlide_new(-1);
   }
 //--------------------------------------------------------------------
 
 /* ***********************************************
 *
-*   function showSlide (offset)
+*   function showSlide_new  (offset)
 *   @ offset int : 0=current slide, >=1 next slide, <=1 previous slide
 *
 * */
@@ -751,6 +772,7 @@ function reloadQuestion() {
   function showSlide_new (offset=0) {
     //affichage du popup des solutions si osset > 0 uniquement
     if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
+    //alert("showSlide_new : " + offset);
 
     var newSlide = currentSlide + offset;
     if (newSlide >= objAllSlides.length) newSlide = objAllSlides.length-1;
@@ -806,11 +828,12 @@ if(obHelp) obHelp.innerHTML = consigne;
     }else if(lastSlide){
         showSlide_last(newSlide);   
     }else if(!isQuestion){                   
-        showSlide_group(newSlide,secondSlide,allowedGotoNextslide);   
+        showSlide_group(newSlide,firstSlide,allowedGotoNextslide);   
     }else{
         showSlide_question(newSlide,secondSlide,allowedGotoNextslide);   
     }
    
+  //alert("showSlide_new : " + offset);
   if (quiz.showResultAllways) showResults();
   if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
 
@@ -852,12 +875,15 @@ if(obHelp) obHelp.innerHTML = consigne;
         enableButton(btnSubmit, ((quiz.allowedSubmit) ? 1 : 3));
         showDiv('quiz_div_navigation', false);       
   }
-  function showSlide_group(newSlide,secondSlide,allowedGotoNextslide) {
+/* ******************************************
+
+********************************************* */   
+  function showSlide_group(newSlide,firstSlide,allowedGotoNextslide) {
 
         objAllSlides[newSlide].classList.add('quiz_div_slide_question');
 
-        if(secondSlide){
             showDiv('quiz_div_navigation', true);       
+        if(!firstSlide){
 
             //alert("premiser slide");
             //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
@@ -880,7 +906,6 @@ if(obHelp) obHelp.innerHTML = consigne;
   }
   function showSlide_question(newSlide,secondSlide,allowedGotoNextslide) {
         objAllSlides[newSlide].classList.add('quiz_div_slide_question');
-        
         //au cas ou l'appel aurait été fait pa l'appel de gotoSlide externe à l'objet
         showDiv('quiz_div_navigation', true);       
 
@@ -888,7 +913,7 @@ if(obHelp) obHelp.innerHTML = consigne;
  
             //alert("premiser slide");
             //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
-            //au cas ou le bouton précédent est ctivé evite de ralancer le chrono
+            //au cas ou le bouton précédent est activé evite de ralancer le chrono
             if (idQuizTimer == 0 ) startTimer();
         }
              
@@ -901,6 +926,7 @@ if(obHelp) obHelp.innerHTML = consigne;
         enableButton(btnShowBadAnswers, (quiz.showBadAnswers  ? 1 : 3));        
         enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
         
+//alert("showSlide_question : " + newSlide);        
   }
 
   /**************************************************************
@@ -1088,6 +1114,17 @@ function event_show_popup_result(currentSlide) {
        obRep.style.display = (etat == 1) ? "block" : "none";
 
  }
+/* ***********************************************
+*
+* */
+ function showDivByName (name, etat=0){
+// this.blob(id); //JJDai
+    var obs = document.getElementsByName(name);
+    obs.forEach((obDiv, index) => { 
+    //alert(obDiv.getAttribute("name") +"-"+ index);
+       obDiv.style.display = (etat == 1) ? "block" : "none";
+    })
+ }
 
 /* ***********************************************
 *
@@ -1273,6 +1310,7 @@ const tEvents = [];
   const btnShowGoodAnswers = document.getElementById('quiz_btn_show_good_answers');
   const btnShowBadAnswers = document.getElementById('quiz_btn_show_bad_answers');
   const btnGotoSlide = document.getElementById('quiz_btn_goto_slide');
+  const btnGotoSlideBegin = document.getElementById('quiz_btn_goto_slide_begin');
   const quizDivHorloge = document.getElementById('quiz_div_horloge');
   
   //const resultsContainer = document.getElementById('results');
@@ -1291,6 +1329,7 @@ const tEvents = [];
   btnShowGoodAnswers.addEventListener('click', showGoodAnswers);
   btnShowBadAnswers.addEventListener('click', showBadAnswers);
   btnGotoSlide.addEventListener('click', gotoSlide);
+  btnGotoSlideBegin.addEventListener('click', gotoSlideBegin);
   
   quizDivAllSlides.addEventListener("click", showCurrentSlide);
   quizDivAllSlides.addEventListener("input", showCurrentSlide);
@@ -1324,7 +1363,11 @@ const tEvents = [];
 /**********************************************************************
  *     AFFICHAGE DU PREMIER SLIDE ET LANCEMENT DU CHRONO
  * ********************************************************************/
-  showSlide(currentSlide);
+ //alert('start');
+    if (!quizIsStarted){
+        showSlide(currentSlide);
+        quizIsStarted = true;
+    }
   //startTimer();
 })();
 //const zzz = new theQuiz();

@@ -14,37 +14,37 @@
 <link rel="stylesheet" type="text/css" media="screen" href="css/style-item-design.css"/>
 <link rel="stylesheet" type="text/css" media="screen" href="css/style-item-color.css"/>
       
-<script src="js/tpl/slide__prototype.js"></script>
-//<script src="js/tpl/slide_Intro.js"></script>
-//<script src="js/tpl/slide_Result.js"></script>
-//<script src="js/tpl/slide_Encart.js"></script>
-//<script src="js/tpl/slide_pageInfo.js"></script>
-<script src="js/tpl/slide_pageBegin.js"></script>
-<script src="js/tpl/slide_pageEnd.js"></script>
-<script src="js/tpl/slide_pageGroup.js"></script>
+<script src="js/plugins/slide__prototype.js"></script>
+//<script src="js/plugins/slide_Intro.js"></script>
+//<script src="js/plugins/slide_Result.js"></script>
+//<script src="js/plugins/slide_Encart.js"></script>
+//<script src="js/plugins/slide_pageInfo.js"></script>
+<script src="js/plugins/slide_pageBegin.js"></script>
+<script src="js/plugins/slide_pageEnd.js"></script>
+<script src="js/plugins/slide_pageGroup.js"></script>
 
-<script src="js/tpl/slide_radioSimple.js"></script>
-<script src="js/tpl/slide_radioMultiple2.js"></script>
-<script src="js/tpl/slide_listboxClassItems.js"></script>
+<script src="js/plugins/slide_radioSimple.js"></script>
+<script src="js/plugins/slide_radioMultiple.js"></script>
+<script src="js/plugins/slide_listboxClassItems.js"></script>
 
-<script src="js/tpl/slide_textarea.js"></script>
-<script src="js/tpl/slide_textareaInput.js"></script>
-<script src="js/tpl/slide_textareaListbox.js"></script>
+<script src="js/plugins/slide_textarea.js"></script>
+<script src="js/plugins/slide_textareaInput.js"></script>
+<script src="js/plugins/slide_textareaListbox.js"></script>
 
-<script src="js/tpl/slide_imagesLogical.js"></script>
-<script src="js/tpl/slide_imagesDaDLogical.js"></script>
+<script src="js/plugins/slide_imagesLogical.js"></script>
+<script src="js/plugins/slide_imagesDaDLogical.js"></script>
 
-<script src="js/tpl/slide_ulSortList.js"></script>
-
-
+<script src="js/plugins/slide_ulSortList.js"></script>
 
 
-<script src="js/tpl/slide_textboxMultiple.js"></script>
-<script src="js/tpl/slide_checkbox.js"></script>
-<script src="js/tpl/slide_comboboxSortItems.js"></script>
-<script src="js/tpl/slide_comboboxMatchItems.js"></script>
-<script src="js/tpl/slide_radioLogical.js"></script>
-<script src="js/tpl/slide_checkboxLogical.js"></script>
+
+
+<script src="js/plugins/slide_textboxMultiple.js"></script>
+<script src="js/plugins/slide_checkbox.js"></script>
+<script src="js/plugins/slide_comboboxSortItems.js"></script>
+<script src="js/plugins/slide_comboboxMatchItems.js"></script>
+<script src="js/plugins/slide_radioLogical.js"></script>
+<script src="js/plugins/slide_checkboxLogical.js"></script>
   </head>
   <body>
 
@@ -82,7 +82,7 @@
 <script src="js/quiz-functions.js"></script>
 
 
-<script src="js/tpl/slide__test.js"></script>
+<script src="js/plugins/slide__test.js"></script>
 
 <script src="js/quiz-events.js"></script>
 <script src="js/quiz-main.js"></script>

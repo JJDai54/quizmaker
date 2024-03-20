@@ -40,7 +40,11 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("textareaListbox", 0, "textarea");
-        $this->optionsDefaults = ['orientation'=>'V', 'scoreByGoodWord'=>2, 'scoreByBadWord'=>0, 'minReponses'=>0];
+        $this->optionsDefaults = ['orientation'=>'V', 
+                                  'scoreByGoodWord'=>2, 
+                                  'scoreByBadWord'=>0, 
+                                  'tokenColor'=>'#FF0000',
+                                  'text'=>''];
     }
 
 	/**
@@ -85,10 +89,19 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
       $inpScoreByBadWord->setMinMax(-10, 0);
       $trayOptions->addElement($inpScoreByBadWord);     
       
-      $name = 'minReponses';  
-      $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE . _AM_QUIZMAKER_PP,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMinReponses->setMinMax(0, 12);
-      $trayOptions->addElement($inpMinReponses);     
+//       $name = 'minReponses';  
+//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE . _AM_QUIZMAKER_PP,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpMinReponses->setMinMax(0, 12);
+//       $trayOptions->addElement($inpMinReponses);     
+
+
+      $name = 'tokenColor';  
+      $inpTokenColor = new XoopsFormColorPicker('Couleur des balises', "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions->addElement($inpTokenColor);     
+
+      $name = 'text';  
+      $inpPropo = $this->getformTextarea("Texte à corriger" ,  "{$optionName}[{$name}]", $tValues[$name],'',8);
+      $trayOptions->addElement($inpPropo);   
 
       return $trayOptions;
     }
@@ -104,6 +117,7 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
         $this->initFormForQuestion();
         //-------------------------------------------------
         
+/*
         $i=0; //texte à retrouver
         if (isset($answers[$i])) {
             $proposition = $answers[$i]->getVar('answer_proposition', 'e');
@@ -114,42 +128,33 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
         }
         $inpPropo = $this->getformTextarea(_AM_QUIZMAKER_QUESTIONS_COMMENT2, $this->getName('proposition'), $proposition,'',8);
         $this->trayGlobal->addElement($inpPropo);   
+*/        
 /*
          $inpPoints = new XoopsFormNumber(_AM_QUIZMAKER_SLIDE_001, $this->getName('points'), $this->lgPoints, $this->lgPoints, $points);
          $inpPoints->setMinMax(-30, 30); 
          $this->trayGlobal->addElement($inpPoints);     
 */          
          
-        //------------------------------------------------------------        
-        $i=1; //liste de propositions fausses
-        if (isset($answers[$i])) {
-            $tMots = explode(',', $answers[$i]->getVar('answer_proposition'));
-            $tPoints = explode(',', $answers[$i]->getVar('answer_points'));
-        }else{
-            $tMots = array();
-            $tPoints = array();
-        }
-        
+        //------------------------------------------------------------       
         $trayAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
-        $trayAns->addElement(new xoopsFormLabel('', _AM_QUIZMAKER_STRANGER_EXP . ''));
-        for($k = 0; $k < $this->maxPropositions ; $k++){
-            $trayMots = new XoopsFormElementTray  ('', $delimeter = ' ');     
+
+        for ($i = 0; $i < $this->maxPropositions; $i++){
+            if(isset($answers[$i])){
+                $mot = $answers[$i]->getVar('answer_proposition');
+            }else{
+                $mot = "";
+            }
             
-            $mot = (isset($tMots[$k])) ? $tMots[$k] : ''; 
-            $name = $this->getName('mots', $k, 'mot');
-            $inpMot = new XoopsFormText($k+1 ."-". _AM_QUIZMAKER_SLIDE_MOT . ' : ', $name, $this->lgMot1, $this->lgMot2, $mot);
+            $trayMots = new XoopsFormElementTray  ('', $delimeter = ' ');  
+            $name = $this->getName('mots', $i, 'mot');
+            $inpMot = new XoopsFormText($i+1 ."-". _AM_QUIZMAKER_SLIDE_MOT . ' : ', $name, $this->lgMot1, $this->lgMot2, $mot);
             $trayMots->addElement($inpMot);
             
-/*
-            $points = (isset($tPoints[$k])) ? $tPoints[$k] : 0; 
-            $name = $this->getName('mots', $k, 'points');
-            $inpPoints = new XoopsFormNumber(_AM_QUIZMAKER_SLIDE_POINTS, $name, $this->lgPoints, $this->lgPoints, $points);
-            $inpPoints->setMinMax(-30, 30); 
-            $trayMots->addElement($inpPoints);
-*/
-            
             $trayAns->addElement($trayMots);
-        }        
+        } 
+        
+            
+        
         
              
         $this->trayGlobal->addElement($trayAns);      
@@ -168,16 +173,16 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
         //$this->echoAns ($answers, $questId, $bExit = true);    
         $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
-		$ansObj = $answersHandler->create();
-  		$ansObj->setVar('answer_quest_id', $questId);
-  		$ansObj->setVar('answer_weight', 10);
-  		$ansObj->setVar('answer_caption', '');
-  		$ansObj->setVar('answer_points', $answers['points']);
-  		$ansObj->setVar('answer_proposition', $answers['proposition']);
-  		$ansObj->setVar('answer_inputs', 1);
-
-        $ret = $answersHandler->insert($ansObj);
-       
+// 		$ansObj = $answersHandler->create();
+//   		$ansObj->setVar('answer_quest_id', $questId);
+//   		$ansObj->setVar('answer_weight', 10);
+//   		$ansObj->setVar('answer_caption', '');
+//   		//$ansObj->setVar('answer_points', $answers['points']);
+//   		//$ansObj->setVar('answer_proposition', $answers['proposition']);
+//   		$ansObj->setVar('answer_inputs', 1);
+// 
+//         $ret = $answersHandler->insert($ansObj);
+//        
        
        //-----------------------------------------
        //recupe de la liste des mots indésirables
@@ -185,22 +190,22 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
        $tPoints = array();
        
        foreach ($answers['mots'] as $keyMot => $value){
-            if(trim($value['mot']) === '' ) continue;
-            $tMots[]   = trim($value['mot']);
-            $tPoints[] = (intval(trim($value['points'])));
+            $mots = trim($value['mot']);
+            if($mots === '' ) continue;
+  	        
+            $ansObj = $answersHandler->create();
+    		$ansObj->setVar('answer_quest_id', $questId);
+    		$ansObj->setVar('answer_weight', 20);
+    		$ansObj->setVar('answer_caption', '');
+    		$ansObj->setVar('answer_proposition', $mots );
+    		$ansObj->setVar('answer_points', 0);
+    		$ansObj->setVar('answer_inputs', 1);
+            $ret = $answersHandler->insert($ansObj);
         }
         
-	    $ansObj = $answersHandler->create();
-  		$ansObj->setVar('answer_quest_id', $questId);
-  		$ansObj->setVar('answer_weight', 20);
-  		$ansObj->setVar('answer_caption', '');
-  		$ansObj->setVar('answer_proposition', implode(',', $tMots));
-  		$ansObj->setVar('answer_points', implode(',', $tPoints));
-  		$ansObj->setVar('answer_inputs', 1);
         
-        $ret = $answersHandler->insert($ansObj);
          
-//     exit ("<hr>===>saveAnswers<hr>");
+    //exit ("<hr>===>saveAnswers<hr>");
     }
 /* ********************************************
 *

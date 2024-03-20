@@ -26,5 +26,6 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS', "Sort multiple list");
 define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_DESC', "This slide is made up of several lists made up of the same terms.<br>You must indicate the specific order in the question<br>The order can be reversed if the option has been defined." );
 define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_CONSIGNE', "Consigne à complèter");
+define('_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_SORT', "Tri");
 
 ?>

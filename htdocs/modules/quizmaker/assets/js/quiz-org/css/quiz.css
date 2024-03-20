@@ -1,5 +1,10 @@
-/* ---structure principale */
+
 /* ----- structure principale -----*/
+.quiz_table {
+  border: 0px solid red;
+
+}
+
 #quiz_div_main{             /* ensemble du quiz interface utilisateur */
     width : 700px;
     /*  background:rgb(0,204,0) ;*/
@@ -403,17 +408,6 @@ font-family: Arial, Helvetica, sans-serif;
 }
 
 /* ----  ----- */
-input.question-comboboxMatchItems{
-  font-size: 1.1em;
-  margin-itemRound-bottom: 2px;
-  margin-right: 10px;
-  color: #0000FF;
-  /* width: 50%; */
-  text-align:right;
-
-  padding: 2px 10px 2px 10px;
-  width: 280px;
-}
 input.question-inputMatchItems{
   text-align:left;
 }
@@ -435,13 +429,6 @@ select.question-dblListbox{
   margin-itemRound-bottom: 5px;
   z-index:999;
   width:250px;
-}
-select.question-comboboxMatchItems{
-  font-size: 1.1em;
-  margin-itemRound-bottom: 5px;
-  z-index:999;
-  width:200px;
-  cursor: pointer;
 }
 
 span.slide-label{
@@ -604,6 +591,7 @@ input.slide-proposition2{
     -webkit-border-radius: 12px 12px 12px 12px;
     -khtml-border-radius: 12px 12px 12px 12px;
     border-radius: 12px 12px 12px 12px;
+    border: 0px solid transparent;
      
     
     /*background-color:rgb(204,255,255);*/
@@ -620,16 +608,28 @@ input.slide-proposition2{
     border: 3px solid red;
 }    
 
+.quiz_dad0 div {
+    /*border: 3px solid white;*/
+    border: 3px solid transparent;
+}
+
+.quiz_dad1 {
+    /*border: 3px solid white;*/
+    border: 3px solid transparent;
+}
 .quiz_dad1 div {
     /*border: 3px solid white;*/
     border: 3px solid transparent;
-
 }
+
 .quiz_dad1  span{
     /*border: 3px solid white;*/
     border: 3px solid transparent;
 
 }
+.quiz_dad2 {
+    border: 3px solid blue;
+}    
 .quiz_dad2 div{
     border: 3px solid blue;
 }    
@@ -675,4 +675,32 @@ input.slide-proposition2{
     font-size:0.8em;
 }
 
+.quiz_sommaire_group{
+    color:red;
+    cursor:pointer;
+}
+.quiz_sommaire_question{
+    color:blue;
+    cursor:pointer;
+}
 
+
+.quiz_sommaire h1{
+    color:blue;
+    cursor:pointer;
+    font-size:1.0em;
+    margin:0px;
+    padding:0px;
+    font-weight:bold;
+    line-height: 0.5em;
+}
+
+.quiz_sommaire h2{
+    color:black;
+    cursor:pointer;
+    font-size:0.8em;
+    margin:0px 0px 0px 12px;
+    padding:0px;
+    font-weight:normal;
+    line-height: 0.5em;
+}

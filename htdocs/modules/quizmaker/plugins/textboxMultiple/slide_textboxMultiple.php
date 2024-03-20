@@ -40,7 +40,9 @@ class slide_textboxMultiple extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("textboxMultiple", 0, "textbox");
-        $this->optionsDefaults = ['minReponses' => 0];
+
+        $this->hasImageMain = true;
+        $this->optionsDefaults = ['disposition' => 'disposition-01'];
     }
 
 	/**
@@ -65,10 +67,18 @@ class slide_textboxMultiple extends XoopsModules\Quizmaker\Type_question
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
 
-      $name = 'minReponses';  
-      $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMinReponses->setMinMax(0, 12);
-      $trayOptions->addElement($inpMinReponses);     
+//       $name = 'minReponses';  
+//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpMinReponses->setMinMax(0, 12);
+//       $trayOptions->addElement($inpMinReponses);     
+
+      $name = 'disposition'; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
+      $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PLUGINS_PATH);
+      $imgList = XoopsLists::getFileListByExtension($path,  array('jpg','png','gif'), '');
+      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputDisposition->setGridIconNumber(count($imgList),1);
+      $trayOptions->addElement($inputDisposition);      
       //--------------------------------------------------------------------           
 
       return $trayOptions;

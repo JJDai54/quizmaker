@@ -1,7 +1,65 @@
+
 <h3>alphaSimple : Question de lettres</h3>
-
-<p class="MsoNormal">Cette slide propose sz choisir une lettre qui répons à la question.<br>
-A chaque proposition vous devez attribuer un nombre de points positifs pour les bonnes réponses, nul ou
-négatif pour les mauvaises réponses.<br>Si le nombre de points global (Zones des optins) est supérieur à zéro, c'est ce dernier qui sera pris en compte sinon ce sera la somme des items sélectionnés.</p><p class="MsoNormal">
-Vous pouvez indiquer au maximum 12 termes.<br>Pour supprimer un itmen vider la zone de texte correspondante, inutile de les décaler, il seront affcicher correctement à la prochaine modification.<br></p><p class="MsoNormal"><span style="font-weight: bold;">Options</span> : <br></p><ul><li><span style="font-weight: bold;">Images</span> : vous pouvez associer une image qui sera afficée à gauche de la liste des options</li><li><span style="font-weight: bold;">Hauteur de l'image </span>: Défini la taille de l'image par la hauteur, attention aux images trop large.</li><li><span style="font-weight: bold;">Mélanger les propositions</span> : la liste sera mélangée à chaque lancement du quiz..</li></ul>
-
+<h3>Cette slide est composé :</h3>
+<ul>
+  <li>d'une question qui porte sur des caractères alpha-numériques ou
+des expressions. <span style="font-weight: bold;"><br>Les mots qui porte sur la question peuvent entre accolade</span>. Dans ce cas ils seront repris dans le slide selon le template sélectionné. Les accolades seront automatiquement supprimées.<br></li>
+  <li>d'une image (optionelle)</li>
+  <li>d'un directive pour aider l'utilisateur<br>
+  </li>
+  <li>d'une liste de caractères alpha-numériques ou de plusieurs
+expressions cliquables<br></li>
+</ul>
+<h3>Objectif : <br>
+</h3>
+<p class="MsoNormal">Il faut sélectioner un ou plusieurs caractères
+alha-numérique ou expression qui correspondent à la question</p><h3>Options :
+</h3>
+<ul>
+  <li><span style="font-weight: bold;">points : </span>Si ( <b>points
+== 0)</b> alors c'est le nombre de points affectés aux bonnes et
+mauvaises réponses qui seront comptées. Si <b>points &gt; 0</b>, c'est
+cette valeur qui sera utilisée pour le score.<br>
+    <b>dans tous les cas</b> il faut affecter un nombre de points aux
+bonnes réponses pour les identifier et calculer le bon score.</li>
+  <li><span style="font-weight: bold;">images</span> (optionelle): vous
+pouvez
+associer une image qui sera affichée selon le <span style="font-weight: bold;">template</span> qui sera sélectioné</li>
+  <li><span style="font-weight: bold;">hauteur de l'image </span>:
+Défini la taille de l'image par la hauteur, attention aux images trop
+larges.</li>
+  <li><span style="font-weight: bold;">mélanger les propositions</span>
+: la liste des caractère alpha-numérique ou expression sera mélangée à
+chaque lancement du quiz..</li>
+  <li><span style="font-weight: bold;">directive</span> (optionelle):
+un texte court pour indiquer à l'utilisateur ce qu'il doit faire</li>
+  <li><span style="font-weight: bold;">propositions</span> : Liste de
+caractères alpha-numérique ou exressions cliquable. Caaque caractère
+ou exression doit être séparé par un tiret "-". Pour forcer un retour à
+la ligne dans la suite de caractère ou expression il suffit de doubler
+le séparateur.</li>
+  <li><span style="font-weight: bold;">bouton "X" </span>:&nbsp;&nbsp;
+Efface le champs proposition </li>
+  <li><span style="font-weight: bold;">bouton "@" : </span>Affecte au
+champ proposition une des caractères alphabétiques<span style="font-weight: bold;"><br>
+    </span></li>
+  <li><span style="font-weight: bold;">bouton "#" : </span><span style="font-weight: bold;"></span>Affecte au champ proposition une des
+caractères numériques<br>
+  </li>
+  <li><span style="font-weight: bold;">bouton "@#" :</span><span style="font-weight: bold;"></span> Affecte au champ proposition une
+des caractèresalphabétiques et numériques</li>
+  <li><span style="font-weight: bold;">Template</span> : le slide
+propose plusieures dispositions : <br>
+  </li>
+  <ul>
+    <li>les trois traits courts et&nbsp; noirs représentent les mots
+entre accolades repris dans la question</li>
+    <li>la forme rouge représentent la ou les réponses cliquées par
+l'utilisateur<br>
+    </li>
+    <li>La forme bleue repésente l'image</li>
+    <li>les trois traits longs représentent la proposition de
+caractères alpha-numériques<br>
+    </li>
+  </ul>
+</ul><h3>Réponses :</h3>Liste de de bonnes réponses. Chaque répopnse doit avoir un nombre de points supérieure à zéro.<br>Il es possible, bien que pas conseillé, d'ajouter des mauvaises réponses avec un nombre de points négatif.<br>Le poids permet de réordonner la liste sans devoir faire des couper / coller. Si l'option "Mélanger les propositions" à été cochées l'odre des réponses à peu d'importance.<br>

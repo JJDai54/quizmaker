@@ -1,19 +1,13 @@
 // JavaScript Document
+A faire : 
 
-1 : class Ajouter 
- extends quizPrototype
-
-2 : modifier build
+- modifier build
 id="${currentQuestion.answers[k].id}"  name="${currentQuestion.answers[k].name}"
 
-3 : selector modifier name
+-selector modifier name
 const selector = `input[name=${this.getName(currentQuestion)}]:???`;
 
-4 : suprimer les fonctions
-toString()
-incremente_question()
 
-5 : ajouter la fonction showAntiSeche
 
 /* ************************************
 *

@@ -61,7 +61,7 @@ include_once("../class/Minifier.php");
 function mkdir_quiz_min_folders(){
 global $objError;
 
-    $fldArr = array('/js/tpl', '/js/language', '/css') ;
+    $fldArr = array('/js/plugins', '/js/language', '/css') ;
     foreach($fldArr as $key => $fld){
       if(!is_dir(QUIZMAKER_QUIZ_JS_MIN . $fld)) 
           if(!mkdir(QUIZMAKER_QUIZ_JS_MIN . $fld, 0777, true)) $objError->setErrors("Echec de la creation du dossier \{$fld}\"");
@@ -170,7 +170,7 @@ switch($op) {
                 break;
             case 'minifie': 
                 $filesListRoot = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'js',  'js,JS');   
-                $filesListTpl = getFilesList(QUIZMAKER_QUIZ_JS_ORG,  'js/tpl', 'js,JS');   
+                $filesListTpl = getFilesList(QUIZMAKER_QUIZ_JS_ORG,  'js/plugins', 'js,JS');   
                 $filesListCss = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'css', 'css,CSS');   
                 $filesList   = array_merge($filesListRoot, $filesListTpl, $filesListCss);  
                 $msg .= do_it($filesList, $action, '');
@@ -190,7 +190,7 @@ switch($op) {
         
     case "plugins":
         $msg =  "{$domaine}===>{$action}===>{$caption}";
-        $filesList = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'js/tpl', 'js,JS');
+        $filesList = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'js/plugins', 'js,JS');
         $msg .= do_it($filesList, $action, '');
         break;
         

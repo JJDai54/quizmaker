@@ -17,7 +17,7 @@ function quiz_textareaInput_event(eventName, id, name, chrono) {
     
     var exp = clQuestion.data.text;
     
-    var obs = getObjectsByName(name, "input");
+    var obs = getObjectsByName("input", name);
     switch(eventName){
 
     case "update":
@@ -240,6 +240,7 @@ function moveToNewParent(idToMove, idToNewParent, idParrentForReturn=''){
 /*       Fonction de Drag And drop sur des images                   */
 /* **************************************************************** */
 function dad_start(e, isDiv=false){
+console.log("===> dad => " + "dad_start");
     e.dataTransfer.effectAllowed = "move";
     if(isDiv){
         e.dataTransfer.setData("text", e.target.parentNode.getAttribute("id"));
@@ -249,7 +250,9 @@ function dad_start(e, isDiv=false){
     blob("dad_start : " + e.target.getAttribute("id") + " | " + e.target.getAttribute("src") );
 }
 
+/* *********************************** */
 function dad_over(e){
+console.log("===> dad => " + "dad_over");
 //alert('dad_over')
 //blob(`dad_over : ${e.dataTransfer.getData("text")} / ${e.currentTarget.getAttribute("id")}`);
     if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
@@ -265,8 +268,9 @@ function dad_over(e){
     return false;
 }
 
+/* *********************************** */
 function dad_drop(e, mode=0){
-alert('dad_drop')
+console.log("===> dad => " + "dad_drop");
     idFrom = e.dataTransfer.getData("text");
 
 /*
@@ -316,7 +320,9 @@ alert('dad_drop')
     return false;
 }
 
+/* *********************************** */
 function dad_leave(e){
+console.log("===> dad => " + "dad_leave");
 
 /*
    e.currentTarget.classList.remove('myimg2');
@@ -325,6 +331,7 @@ function dad_leave(e){
    
    e.currentTarget.parentNode.classList.remove('quiz_dad2');
    e.currentTarget.parentNode.classList.add('quiz_dad1');
+
 }
 /* *********************************** */
 function replaceImg(obSource,obDest){

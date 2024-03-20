@@ -44,7 +44,9 @@ var $maxGroups = 4;
         $this->maxPropositions = 16;	
         $this->optionsDefaults = ['group0'=>'','group1'=>'','group2'=>'','group3'=>'',
                                   'bgGroup0'=>'#dfdfdf','bgGroup1'=>'#dfdfdf','bgGroup2'=>'#dfdfdf','bgGroup3'=>'#dfdfdf',
-                                  'ulWidth'=>'28','groupDefault'=>'-1', 'disposition'=>''];
+                                  'ulWidth'=>'28',
+                                  'groupDefault'=>'-1', 
+                                  'disposition'=>''];
     }
 
 	/**

@@ -222,8 +222,8 @@ global $utility, $xoopsConfig;
     
     //----------------------------------------------
     //insertion des tpl js
-    $tTpljs = \JJD\FSO\getFilePrefixedBy($rootApp.'/js/tpl', array('js'), '', false, false,false);
-//echo "<hr><pre>TPL-JS <br>: {$rootApp}/js/tpl" . print_r($tTpljs, true) . "</pre><hr>";
+    $tTpljs = \JJD\FSO\getFilePrefixedBy($rootApp.'/js/plugins', array('js'), '', false, false,false);
+//echo "<hr><pre>TPL-JS <br>: {$rootApp}/js/plugins" . print_r($tTpljs, true) . "</pre><hr>";
     $tpl->assign('allTpljs', $tTpljs);
 
     //----------------------------------------------
@@ -363,6 +363,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$type_question
         $tQuest = array();
         $tQuest['quizId']         = $quizId;
         $tQuest['questId']        = $values['quest_id'];
+        $tQuest['parentId']       = $values['quest_parent_id'];
         $tQuest['type']           = $values['type_question'];
         $tQuest['typeQuestion']   = $values['type_question'];
         $tQuest['typeForm']       = $values['typeForm'];
@@ -388,6 +389,7 @@ exit;
         $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
         $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['image']          = self::sanitise($values['quest_image']);
+        $tQuest['height']         = self::sanitise($values['quest_height']);
         $tQuest['points']         = $values['points'];
         $tQuest['numbering']      = $values['numbering'];
 //        $tQuest['shuffleAnswers'] = $values['shuffleAnswers'];

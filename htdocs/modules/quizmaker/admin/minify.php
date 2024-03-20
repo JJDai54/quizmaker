@@ -115,7 +115,7 @@ switch($op) {
         
         case 'all':
           $filesListRoot = getFilesList($pathSource,'js',  'js,JS');   
-          $filesListTpl = getFilesList($pathSource, 'js/tpl', 'js,JS');   
+          $filesListTpl = getFilesList($pathSource, 'js/plugins', 'js,JS');   
           //$filesListLang = getFilesList($pathSource, 'js/language', 'js,JS');   
           $filesListCss = getFilesList($pathSource, 'css', 'css,CSS');   
           $filesList   = array_merge($filesListRoot, $filesListTpl, $filesListCss);    
@@ -123,7 +123,7 @@ switch($op) {
         break;
         case 'js':
           $filesListRoot = getFilesList($pathSource,'js',  'js,JS');   
-          $filesListTpl = getFilesList($pathSource, 'js/tpl', 'js,JS');
+          $filesListTpl = getFilesList($pathSource, 'js/plugins', 'js,JS');
           $filesList   = array_merge($filesListRoot,  $filesListTpl);    
         break;
         
@@ -192,7 +192,7 @@ switch($op) {
         
         $filesListRoot = getFilesList($pathSource, 'js', 'js,JS');   
         $filesListLang = getFilesList($pathSource, 'js/language', 'js,JS');   
-        $filesListTpl = getFilesList($pathSource, 'js/tpl', 'js,JS');   
+        $filesListTpl = getFilesList($pathSource, 'js/plugins', 'js,JS');   
         $filesListCss = getFilesList($pathSource, 'css', 'css,CSS');   
         
          $filesList   = array_merge($filesListRoot, $filesListLang, $filesListTpl,$filesListCss);    

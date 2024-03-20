@@ -124,7 +124,7 @@ var $prefix = '_CO_QUIZMAKER_TYPE_';
 	{
         $this->trayGlobal = new \XoopsFormElementTray  (_AM_QUIZMAKER_PROPOSITIONS, $delimeter = '<hr>');
         
-        //l'insertion de l'aide a été déplacée dans le form ded la question pour une meilleurs ergonomie
+        //l'insertion de l'aide a été déplacée dans le form de la question pour une meilleurs ergonomie
         //$this->trayGlobal->addElement($this->getSlideHelper());
 	}
 
@@ -201,14 +201,16 @@ function getHtmlImgModeles($width = 80){
         $tImg = array();
         $tImg[] = "<div id='modelesTypeQuestionId'  name='{$this->type}' class='highslide-gallery'>";
 
+        //echo "<hr>";
         foreach ($this->pathArr['snapshoot_url'] as $key=>$url)
         {
-                $img =  <<<___IMG___
-                <a href='{$url}' class='highslide' onclick='return hs.expand(this);' >
-                    <img src="{$url}" alt="slides" style="max-width:{$width}px" />
-                </a>
-                ___IMG___;
-                $tImg[] = $img;
+        //echo "{$url}<br>";
+            $img =  <<<___IMG___
+            <a href='{$url}' class='highslide' onclick='return hs.expand(this);' >
+                <img src="{$url}" alt="slides" style="max-width:{$width}px" />
+            </a>
+            ___IMG___;
+            $tImg[] = $img;
 
         }        
         $tImg[] = "</div>";

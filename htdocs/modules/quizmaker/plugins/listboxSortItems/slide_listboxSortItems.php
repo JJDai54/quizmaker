@@ -38,6 +38,10 @@ class slide_listboxSortItems extends XoopsModules\Quizmaker\Type_question
 	{
         parent::__construct("listboxSortItems", 0, "listbox");
         $this->optionsDefaults = ['orderStrict'=>'N', 'title'=>'', 'btnColor'=>'blue', 'btnHeight'=>28, 'mouseClick'=>1];
+
+        $this->hasImageMain = true;
+        $this->multiPoints = false;
+        
     }
 
 	/**
@@ -155,62 +159,6 @@ class slide_listboxSortItems extends XoopsModules\Quizmaker\Type_question
 		return $this->trayGlobal;
 	}
     
- 	public function getForm_old($questId, $quizId)
- 	{
-        global $utility, $answersHandler;
-
-        $answers = $answersHandler->getListByParent($questId);
-        $this->initFormForQuestion();
-
-
-//    echo "<hr>answers<pre>" . print_r($answers, true) . "</pre><hr>";
-        //-------------------------------------------------
-        //element definissat un objet ou un ensemble
-        $i=0;
-        for ($h = 0; $h < 1; $h++){
-            $trayAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
-            if (isset($answers[$h])) {
-                $tMots = explode(',', $answers[$h]->getVar('answer_proposition'));
-                $points = $answers[$h]->getVar('answer_points');
-                $caption = $answers[$h]->getVar('answer_caption'); 
-                $weight = $answers[$h]->getVar('answer_weight'); 
-            }else{
-                $tMots = array();
-                $points = 0;
-                $caption = ''; 
-                $weight = 0; 
-            };
-            //------------------------------------------------------------
-            
-            $trayMots = new XoopsFormElementTray  ('', $delimeter = '<br>');  
-            $weight = 0;
-            for ($i = 0; $i < $this->maxPropositions; $i++){
-            $trayItem = new XoopsFormElementTray  ('', $delimeter = ' ');  
-            
-            
-                $inpLab  = new XoopsFormLabel("", $i+1 . " : ");  
-                $trayItem->addElement($inpLab);
-                
-                $mot = (isset($tMots[$i])) ? $tMots[$i] : '';          
-                $name = $this->getName($i, 'proposition');
-                $inpMot = new \XoopsFormText("", $name, $this->lgMot1, $this->lgMot2, $mot);
-                $trayItem->addElement($inpMot);
-                
-         
-                $name = $this->getName($i, 'weight');
-                $inpWeight = new \XoopsFormText("", $name, $this->lgWeight, $this->lgWeight, $weight += 10);
-                $trayItem->addElement($inpWeight);
-                
-                $trayMots->addElement($trayItem);
-            }            
-            $trayAns->addElement($trayMots);
-            
-            $this->trayGlobal->addElement($trayAns);
-        
-        }
-        //----------------------------------------------------------
-		return $this->trayGlobal;
-	}
 
 /* *************************************************
 *

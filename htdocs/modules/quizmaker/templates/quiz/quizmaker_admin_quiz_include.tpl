@@ -5,14 +5,14 @@
 <link rel="stylesheet" type="text/css" media="screen" href="css/style-item-color.css"/>
 
 
-<script src="<{$smarty.const.QUIZMAKER_QUIZ_JS_URL}>/js/tpl/slide__prototype.js"></script>
+<script src="<{$smarty.const.QUIZMAKER_QUIZ_JS_URL}>/js/plugins/slide__prototype.js"></script>
 
 
 <{*    ----- insertion des classes de slide -----*}>      
 <{$smarty.const.QUIZMAKER_QUIZ_JS_URL}>
 
 <{foreach item=slide from=$allSlides}>
-    <script src="<{$smarty.const.QUIZMAKER_QUIZ_JS_URL}>/js/tpl/<{$slide}>.js"></script>
+    <script src="<{$smarty.const.QUIZMAKER_QUIZ_JS_URL}>/js/plugins/<{$slide}>.js"></script>
 <{/foreach}>
             
 

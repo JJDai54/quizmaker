@@ -97,6 +97,13 @@ var $maxGroups = 4;
       $trayOptions ->addElement($inputShowCaption);     
 
       //--------------------------------------
+      $options = array();
+//           $libGroup0 = ($options['group0']) ? $options['group0'] : _AM_QUIZMAKER_GROUP;
+//     $libGroup1 = ($options['group1']) ? $options['group1'] : _AM_QUIZMAKER_GROUP . ' 1';
+//     $libGroup2 = ($options['group2']) ? $options['group2'] : _AM_QUIZMAKER_GROUP . ' 2';
+//     $libGroup3 = ($options['group3']) ? $options['group3'] : _AM_QUIZMAKER_GROUP . ' 3';
+
+
       // groupes
       for($h = 0; $h < $this->maxGroups; $h++){
           $trayGroup = new XoopsFormElementTray('', $delimeter = ' ');  
@@ -104,12 +111,17 @@ var $maxGroups = 4;
           $name = 'group' . $h;
           $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' ' .  $h,  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
           $trayGroup->addElement($inpGoup);     
+          $options["group{$h}"] = $tValues[$name];  
 
           $name = 'bgGroup' . $h;  
           $inpBgGroup = new XoopsFormColorPicker('', "{$optionName}[{$name}]", $tValues[$name]);
           $trayGroup->addElement($inpBgGroup);     
           
-          $trayOptions->addElement($trayGroup);     
+//           $inpGroupeNeutre = new \XoopsFormRadio("Groupe neutre", "{$optionName}[{$name}", $tValues[$name]);
+//           $inpGroupeNeutre->addOption($h, "zzzzz");
+//           $trayGroup->addElement($inpGroupeNeutre);     
+          
+          $trayOptions->addElement($trayGroup);  
       }
       //--------------------------------------
       $name = 'groupDefault';  
@@ -175,6 +187,25 @@ var $maxGroups = 4;
 * - sequence logique
 * - mauvaises reponses
 * ************************************************** */
+public function getLstGroups($caption, $name, $group, &$options){
+    //recupe des libellés de groupe si ils ont déjà été definis
+    $libGroup0 = ($options['group0']) ? $options['group0'] : _AM_QUIZMAKER_GROUP;
+    $libGroup1 = ($options['group1']) ? $options['group1'] : _AM_QUIZMAKER_GROUP . ' 1';
+    $libGroup2 = ($options['group2']) ? $options['group2'] : _AM_QUIZMAKER_GROUP . ' 2';
+    $libGroup3 = ($options['group3']) ? $options['group3'] : _AM_QUIZMAKER_GROUP . ' 3';
+
+    $inpGroup = new \xoopsFormSelect($caption,  $name, $group); 
+    $inpGroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2, '3'=>$libGroup3]);
+    
+    return $inpGroup;
+}
+
+/* *************************************************
+* meme procedure pour chaque groupe:
+* - image de substitution
+* - sequence logique
+* - mauvaises reponses
+* ************************************************** */
 public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem, $maxItems, $path, $options)
 { 
         //suppression des enregistrement en trop
@@ -214,11 +245,11 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             }
             
             //recupe des libellés de groupe si ils ont déjà été definis
-            $libGroup0 = ($options['group0']) ? $options['group0'] : _AM_QUIZMAKER_GROUP;
-            $libGroup1 = ($options['group1']) ? $options['group1'] : _AM_QUIZMAKER_GROUP . ' 1';
-            $libGroup2 = ($options['group2']) ? $options['group2'] : _AM_QUIZMAKER_GROUP . ' 2';
-            $libGroup3 = ($options['group3']) ? $options['group3'] : _AM_QUIZMAKER_GROUP . ' 3';
-            
+//             $libGroup0 = ($options['group0']) ? $options['group0'] : _AM_QUIZMAKER_GROUP;
+//             $libGroup1 = ($options['group1']) ? $options['group1'] : _AM_QUIZMAKER_GROUP . ' 1';
+//             $libGroup2 = ($options['group2']) ? $options['group2'] : _AM_QUIZMAKER_GROUP . ' 2';
+//             $libGroup3 = ($options['group3']) ? $options['group3'] : _AM_QUIZMAKER_GROUP . ' 3';
+//             
 
             //recupe des libellés de groupe si ils ont déjà été defini
             //$this->echoAns ($options,'options', false);   
@@ -246,9 +277,9 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
 //             $inpWeight->setClass('togodo');
             $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
             $inpPoints->setMinMax(1, 30);
-            $inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
-            $inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2, '3'=>$libGroup3]);
-              
+            //$inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
+            //$inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2, '3'=>$libGroup3]);
+            $inpgroup  = $this->getLstGroups(_AM_QUIZMAKER_GROUP, $this->getName($i,'group'), $group, $options); 
             
             
             //$tbl->addStyle('background:yellow');
@@ -337,7 +368,7 @@ exit;
         }
         
         //SSi le champ 'points' est plus petit que zéro on le force à 1
-        if (intval($v['points']) == 0) $v['points'] = 1;
+        //if (intval($v['points']) == 0) $v['points'] = 1;
 
         //if(isset($v['proposition'])) $ansObj->setVar('answer_proposition', $v['proposition']);        
        // if ($fileImg =! '') $ansObj->setVar('answer_proposition', $fileImg);

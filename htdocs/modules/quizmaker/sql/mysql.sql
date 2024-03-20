@@ -92,6 +92,7 @@ CREATE TABLE `quizmaker_questions` (
   `quest_learn_more` varchar(255) NOT NULL DEFAULT '',
   `quest_see_also` varchar(255) NOT NULL DEFAULT '',
   `quest_image` varchar(255) NOT NULL DEFAULT '',
+  `quest_height` tinyint(1) NOT NULL DEFAULT '80',
   `quest_points`  tinyint(1) NOT NULL DEFAULT '0',
   `quest_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quest_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',

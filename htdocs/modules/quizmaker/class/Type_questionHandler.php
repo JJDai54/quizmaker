@@ -191,34 +191,10 @@ public function getClassTypeQuestion($typeQuestion){
 
 public function getTypeQuestion(&$typeQuestion)
   {
-    //transfert de classes obsolettes
     // pour permettre une correction sans aceder à la base apres un changement de nom
     // A virer dès que les noms seront stabilisés
     // $typeQuestion est passé par référence pour remonter le transfert
-    switch($typeQuestion){
-        case 'checkboxLogical' :
-            $typeQuestion = 'checkboxSimple'; 
-        case 'radioLogical' :
-            $typeQuestion = 'radioSimple'; 
-            break;
-        case 'listboxIntruders1' : 
-        case 'listboxIntruders2' : 
-        case 'listboxIntruders' : 
-            $typeQuestion = 'listboxClassItems';   
-            break;
-        case 'comboboxSortList' :
-            $typeQuestion = 'comboboxSortItems'; 
-            break;
-        case 'imagesSortItems' :
-            $typeQuestion = 'imagesDaDSortItems'; 
-            break;
-        case 'ulSortList' :
-            $typeQuestion = 'ulDaDSortList'; 
-        case 'imagesDaDBasket' :
-            $typeQuestion = 'imagesDaDGroups'; 
-            
-    }
-      //------------------------------------------------------
+    $this->getNewTypeQuestion($typeQuestion);
 
       //if(!isset($typeQuestion[$typeQuestion])) echo "<hr>===> {$typeQuestion}<br>";
       if(isset($this->allPlugins))
@@ -241,7 +217,52 @@ public function getTypeQuestion(&$typeQuestion)
         return null;
       }
   }
+  /* *****
+  * transfert de classes obsolettes
+  * pour permettre une correction sans aceder à la base apres un changement de nom
+  * A virer dès que les noms seront stabilisés
+  * $typeQuestion est passé par référence pour remonter le transfert
+  * ****** */
+public function getNewTypeQuestion(&$typeQuestion){
 
+    switch($typeQuestion){
+        case 'checkboxLogical' :
+            $typeQuestion = 'checkboxSimple'; 
+        case 'radioLogical' :
+            $typeQuestion = 'radioSimple'; 
+            break;
+        case 'listboxIntruders1' : 
+        case 'listboxIntruders2' : 
+        case 'listboxIntruders' : 
+            $typeQuestion = 'listboxClassItems';   
+            break;
+        case 'sortCombobox' :
+        case 'comboboxSortList' :
+            $typeQuestion = 'comboboxSortItems'; 
+            break;
+        case 'imagesSortItems' :
+            $typeQuestion = 'imagesDaDSortItems'; 
+            break;
+        case 'ulSortList' :
+            $typeQuestion = 'ulDaDSortList'; 
+            break;
+        case 'imagesDaDBasket' :
+            $typeQuestion = 'imagesDaDGroups'; 
+            break;
+        case 'matchItems' :
+            $typeQuestion = 'comboboxMatchItems'; 
+            break;
+        case 'textarea' :
+            $typeQuestion = 'textareaSimple'; 
+            break;
+        case 'radioMultiple2' :
+            $typeQuestion = 'radioMultiple'; 
+            break;
+        case 'multiTextbox' :
+            $typeQuestion = 'textboxMultiple'; 
+            break;
+  }
+}
 /* ////////////////////////////////////////////////////////////////////// */
 
 /* ****************************************************

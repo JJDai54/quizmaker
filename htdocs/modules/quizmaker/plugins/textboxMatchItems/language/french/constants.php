@@ -28,4 +28,9 @@ define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS', "Associer les éléments deux à 
 define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_DESC', "Ce slide es composé d'une liste de termes à la quelle il faut faire correspondre un terme à saisir.");
 define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_CONSIGNE', "Consigne à complèter");
 
+\define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON', "Comparaison");
+\define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON_0', "Comparaison strict (Mot exact avec accents)");
+\define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON_1', "Comparaison avec Accents optionnels (ex: \"sérénade\" équivalent à \"serênade\" équivalent à \"serenade\")");
+\define('_CO_QUIZMAKER_TYPE_TEXTBOXMATCHITEMS_COMPARAISON_2', "Comparaison souple (Mot contenu avec ou sans accents (ex: \"sérénade\", \"serênade\" sont équivalents à \"serenade\")");
+
 ?>

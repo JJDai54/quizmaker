@@ -28,4 +28,6 @@ define('_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS', "Associer les éléments deux à
 define('_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_DESC', "Ce slide es composé d'une liste de termes à la quelle il faut associer les termes d'une autre liste<br>Chaque teme de la deuxième liste est une liste mélangée des termes de la première liste.");
 define('_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_CONSIGNE', "Consigne à complèter");
 
+define('_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_INTRUS', "Intrus");
+define('_CO_QUIZMAKER_TYPE_COMBOBOXMATCHITEMS_INTRUS_DESC', "Vous pouvez définir ici une liste de mots ou d'expressions qui seront ajoutés dans les listes déroulantes pour tromper l'utilisateur.<br>Cette liste doit utiliser la virgule comme séparateur");
 ?>

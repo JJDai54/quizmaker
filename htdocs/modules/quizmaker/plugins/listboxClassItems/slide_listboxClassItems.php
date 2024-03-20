@@ -40,7 +40,7 @@ class slide_listboxClassItems extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("listboxClassItems", 0, "listbox");
-        $this->optionsDefaults = ['group0'=>'','group1'=>'','group2'=>'', 'groupDefault'=>'-1', 'minReponses'=>0,"shuffleAnswers"=>1, 'mouseClick'=>1];
+        $this->optionsDefaults = ['group0'=>'','group1'=>'','group2'=>'', 'groupDefault'=>'-1', "shuffleAnswers"=>1, 'mouseClick'=>1];
     }
 
 	/**
@@ -97,10 +97,10 @@ class slide_listboxClassItems extends XoopsModules\Quizmaker\Type_question
       } 
       $trayOptions->addElement($inputGroupDefault);     
            
-      $name = 'minReponses';  
-      $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMinReponses->setMinMax(0, 12);
-      $trayOptions->addElement($inpMinReponses);     
+//       $name = 'minReponses';  
+//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpMinReponses->setMinMax(0, 12);
+//       $trayOptions->addElement($inpMinReponses);     
       
       return $trayOptions;
     }
@@ -207,7 +207,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 900);
             $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
-            $inpPoints->setMinMax(-30, 30);
+            $inpPoints->setMinMax(0, 30);
             $inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
             $inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2]);
             
@@ -222,11 +222,9 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             $tbl->addElement($inpAnswerId, ++$col, $k, '');
             //$tbl->addElement($libChrono, $col, $k);
             $tbl->addElement($inpProposition, $col, $k);
-             
-            $tbl->addElement($inpWeight, ++$col, $k);
             $tbl->addElement($inpPoints, ++$col, $k);
-            
             $tbl->addElement($inpgroup, ++$col, $k);
+            $tbl->addElement($inpWeight, ++$col, $k);
            
         }
         
@@ -290,7 +288,7 @@ exit;
         //un pour le champ "proposition" qui stocke l'image principale
         //et un pour le champ imge qui stocke l'image de substitution
         //SSi le champ 'points' est plus petit que zéro on le force à 1
-        if (intval($v['points']) == 0) $v['points'] = 1;
+        //if (intval($v['points']) == 0) $v['points'] = 1;
 
         //if(isset($v['proposition'])) $ansObj->setVar('answer_proposition', $v['proposition']);        
        // if ($fileImg =! '') $ansObj->setVar('answer_proposition', $fileImg);

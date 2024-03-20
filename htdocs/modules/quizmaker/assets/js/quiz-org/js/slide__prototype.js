@@ -3,6 +3,7 @@
   * *****************************************************************/
 class quizPrototype{
 name = "quizPrototype";  
+divMainId = "";
 question = Object;
 typeName = '';
 chrono = 0;    
@@ -32,6 +33,7 @@ stats = {
     this.typeQuestion = question.type;
     this.typeForm = question.typeForm;
     this.chrono = chrono;
+    this.divMainId =  this.getId('main');//lais apres affectation de chrono si même id    
 // this.blob("dans la classe ---> " + question.type)
 
     this.getOptionsDefaults();
@@ -49,6 +51,46 @@ stats = {
 //---------------------------------------------------
  build (){}
   
+/* **********************************************************
+
+************************************************************* */
+getObDivMain (){
+    return document.getElementById(this.divMainId);
+}
+/* **********************************************************
+
+************************************************************* */
+// getQuerySelector (selector){
+//     return document.getElementById(this.divMainId).querySelectorAll(selector);
+// }
+/*********************************************
+ * extra a utiliser avec checked par exemple  
+ * **** */
+getQuerySelector(balise, name = "", typeObj = "", extra="", extra2 = "")
+{ 
+    var selector = balise;
+    
+    if (name != '') selector += `[name=${name}]`;    
+    if (typeObj != '') selector += `[type=${typeObj}]`;    
+    
+    if (extra != '') {
+        if (extra[0] == "["){
+            selector += `${extra}`    
+        }else{
+            selector += `:${extra}`    
+        }
+    }
+    if (extra2 != '') {
+        if (extra2[0] == "["){
+            selector += `${extra2}`    
+        }else{
+            selector += `:${extra2}`    
+        }
+    }
+
+    return document.getElementById(this.divMainId).querySelectorAll(selector);
+}
+
 /* **********************************************************
 
 ************************************************************* */
@@ -120,6 +162,19 @@ getId (index, indexElement = null){
 * @ return: null
 * ********** */
 prepareData(){
+}
+
+/* ***************************************
+*
+* *** */
+getImage(){
+    var name = this.getName();
+    var currentQuestion = this.question;
+    if (currentQuestion.image) {
+        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
+    }else{
+        return "";
+    }
 }
 
 /* *******************************************
@@ -270,15 +325,23 @@ static  update(nameId, chrono) {
     }
   } 
 //---------------------------------------------------
+getDisposition(disposition, tableId=null){}  
+//---------------------------------------------------
 balises2Values(exp, bReplaceSlash = false)
 {
-    var newExp = exp.replace("{scoreMaxiQQ}", this.scoreMaxiQQ);
-        newExp = newExp.replace("{timer}", this.question.timer);
+    var newExp = exp.replaceAll("{scoreMaxiQQ}", this.scoreMaxiQQ);
+        newExp = newExp.replaceAll("{timer}", this.question.timer);
         
-    newExp = newExp.replace('{', '');
-    newExp = newExp.replace('}', '');
-    if (bReplaceSlash) {newExp = newExp.replace('/', '<br>');}
+    newExp = newExp.replaceAll('{', '');
+    newExp = newExp.replaceAll('}', '');
+    if (bReplaceSlash) {newExp = newExp.replaceAll('/', '<br>');}
 
+    return newExp;
+    
+  } 
+sanityse_question(bReplaceSlash = false)
+{
+    var newExp = this.balises2Values(this.question.question, true); 
     return newExp;
     
   } 
@@ -286,10 +349,11 @@ balises2Values(exp, bReplaceSlash = false)
 /* ************************************
 *
 * **** */
-reloadQuestion(currentQuestion, quizDivAllSlides)//, answerContainer
+reloadQuestion()
   {
-    alert(currentQuestion.type + "reloadQuestion.(currentQuestion, , quizDivAllSlides){}\n===> Fonction à developper")
+    document.getElementById(this.divMainId).innerHTML = this.getInnerHTML();
   } 
+  
 /* ************************************
 *
 * **** */
@@ -308,12 +372,12 @@ showBadAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
 //---------------------------------------------------
 toString()
   {
-    return this.name + " | " + this.question.question;
+    return this.name + " | " + this.question.question; + " | " + this.question.typeQuestion;
   } 
 
 //---------------------------------------------------
 blob(message)
-  {
+  {return true;
     if(!this.boolDog) return;
     if(Array.isArray(message)){
         console.log(`......................`);

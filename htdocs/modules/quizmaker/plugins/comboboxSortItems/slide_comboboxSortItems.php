@@ -37,6 +37,10 @@ class slide_comboboxSortItems extends  \slide_listboxSortItems
 	{   
         $this->__init("comboboxSortItems", 0, "combobox");
         $this->optionsDefaults = ['ordre'=>'N', 'title'=>''];
+
+        $this->hasImageMain = true;
+        $this->multiPoints = false;
+        
     }
  	/**
 	 * @static function &getInstance
@@ -63,7 +67,7 @@ class slide_comboboxSortItems extends  \slide_listboxSortItems
       //--------------------------------------------------------------------           
 
       $name = 'ordre';  
-      $inputOrder = new \XoopsFormRadio($caption, "{$optionName}[{$name}]", $tValues[$name], ' ');
+      $inputOrder = new \XoopsFormRadio(_CO_QUIZMAKER_TYPE_COMBOBOXSORTITEMS_SORT, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
       $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
       $trayOptions->addElement($inputOrder);     

@@ -38,7 +38,7 @@ function reloadImgModeles(divId, imgHeight=80){
         btnAddQuestion.style.display = 'block';
         var tImg = [];
         for(var i=0; i<3; i++){
-            var url = `../assets/images/modeles/slide_${typeQuestion}-0${i}.jpg`;
+            var url = `../plugins/${typeQuestion}/snapshoot/snapshoot-00${i}.jpg`;
             tImg.push(`<a href='${url}' class='highslide' onclick='return hs.expand(this);' >
                       <img src="${url}" alt="" style="max-height:${imgHeight}px" />
                    </a>`)
