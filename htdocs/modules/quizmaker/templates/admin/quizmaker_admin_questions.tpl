@@ -48,6 +48,7 @@ function addNewChild(parentId){
 
 <div class="floatright">
     <div class="xo-buttons">
+        <{$btnCategory}>
         <{$btnInitWeight}>
         <{$btnPurgerImg}>
         <{$btnExportQuiz}>

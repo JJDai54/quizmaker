@@ -77,8 +77,8 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
             ans = groups[k][j];
             src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
             switch (posCaption){
-                case 'T': captionTop = ans.caption.replace(' ','<br>') + '<br>' ; break;
-                case 'B': captionBottom = '<br>' + ans.caption.replace(' ','<br>'); break;
+                case 'T': captionTop = ans.caption.replace(' ','<br>').replace('/','<br>') + '<br>' ; break;
+                case 'B': captionBottom = '<br>' + ans.caption.replace(' ','<br>').replace('/','<br>') ; break;
                 default: break;
             }
 

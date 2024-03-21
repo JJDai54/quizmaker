@@ -10,34 +10,41 @@ name = 'imagesDaDSortItems';
 /* ***************************************
 *
 * *** */
+// build (){
+//     var currentQuestion = this.question;
+//     var name = this.getName();
+//     this.boolDog = true;    
+//     
+//     const answers = [];
+//     answers.push(`<div id="${name}">`);
+//     answers.push(this.getInnerHTML());
+//     answers.push(`</div>`);
+//     
+//     
+// //    this.focusId = name + "-" + "0";
+//     //alert (this.focusId);
+// 
+//     return answers.join("\n");
+// 
+//  }
+/* ***************************************
+*
+* *** */
 build (){
-    var currentQuestion = this.question;
-    var name = this.getName();
-    this.boolDog = true;    
-    
-    const answers = [];
-    answers.push(`<div id="${name}">`);
-    answers.push(this.getInnerHTML());
-    answers.push(`</div>`);
-    
-    
-//    this.focusId = name + "-" + "0";
-    //alert (this.focusId);
-
-    return answers.join("\n");
-
+    this.boolDog = false;
+    return this.getInnerHTML();
  }
 
 /* ************************************
 *
 * **** */
- reloadQuestion() {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML();
-    return true;
-}
+//  reloadQuestion() {
+//     var name = this.getName();
+//     var obContenair = document.getElementById(`${name}`);
+// 
+//     obContenair.innerHTML = this.getInnerHTML();
+//     return true;
+// }
 
 /* ************************************
 *

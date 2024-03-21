@@ -259,10 +259,11 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         // ===================================================================
         // cette partie insert l'aide, les options et les poropositions propres au type de question, mais pas que (image)
         // ===================================================================
-
-        //ajout de l'aide pour ce slide
-        $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SLIDE_CONSIGNE . "</center></div>");
-        $form->addElement($clTypeQuestion->getSlideHelper());
+        if ($quizmakerHelper->getConfig('display_slide_help')){
+          //ajout de l'aide pour ce slide
+          $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SLIDE_CONSIGNE . "</center></div>");
+          $form->addElement($clTypeQuestion->getSlideHelper());
+        }
 
         //====================================================================
         //options globales pour les propositions (height, btnColor, ...)

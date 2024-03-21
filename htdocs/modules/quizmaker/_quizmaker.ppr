@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quizmaker
 	+quizmaker
-		-admin
+		+admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -817,8 +817,8 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
-			-english
+		+language
+			+english
 				-help
 					language\english\help\help.html
 					language\english\help\index.html
@@ -843,7 +843,7 @@ _quizmaker
 				language\english\main.php
 				language\english\modinfo.php
 				language\english\type_questions.php
-			-french
+			+french
 				-help
 					language\french\help\help.html
 					language\french\help\index.html
@@ -1314,7 +1314,7 @@ _quizmaker
 					plugins\textboxMatchItems\snapshoot\snapshoot-002.jpg
 				plugins\textboxMatchItems\index.html
 				plugins\textboxMatchItems\slide_textboxMatchItems.php
-			+textboxMultiple
+			-textboxMultiple
 				-language
 					-english
 						plugins\textboxMultiple\language\english\constants.php
@@ -1378,12 +1378,12 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		+sql
+		-sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
-			-admin
+		+templates
+			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
@@ -1475,13 +1475,18 @@ _quizmaker
 4=plugins\textboxMultiple\slide_textboxMultiple.php
 5=plugins\pageBegin\slide_pageBegin.php
 6=class\Questions.php
-7=class\QuizUtility.php
-8=sql\mysql.sql
-9=plugins\comboboxMatchItems\slide_comboboxMatchItems.php
-10=plugins\checkboxSimple\slide_checkboxSimple.php
+7=sql\mysql.sql
+8=plugins\comboboxMatchItems\slide_comboboxMatchItems.php
+9=plugins\checkboxSimple\slide_checkboxSimple.php
+10=xoops_version.php
+11=admin\questions-list.php
+12=admin\questions.php
+13=admin\quiz.php
+14=J:\Xoops\_JJD\modules-JJD\quizmaker\zzzzzzzzz\module_from_wamp.bat
+15=J:\Xoops\_JJD\modules-JJD\copie_module_from_wamp.bat
 [Selected Project Files]
 Main=
-Selected=plugins\textboxMultiple\slide_textboxMultiple.php
+Selected=J:\Xoops\_JJD\modules-JJD\copie_module_from_wamp.bat
 [plugins\radioMultiple\slide_radioMultiple.php]
 TopLine=1
 Caret=13,33
@@ -1495,17 +1500,14 @@ Caret=120,93
 TopLine=299
 Caret=1,326
 [plugins\textboxMultiple\slide_textboxMultiple.php]
-TopLine=50
+TopLine=66
 Caret=1,79
 [plugins\pageBegin\slide_pageBegin.php]
 TopLine=76
 Caret=26,85
 [class\Questions.php]
-TopLine=264
-Caret=65,286
-[class\QuizUtility.php]
-TopLine=362
-Caret=25,365
+TopLine=242
+Caret=62,262
 [sql\mysql.sql]
 TopLine=61
 Caret=19,82
@@ -1515,3 +1517,21 @@ Caret=1,94
 [plugins\checkboxSimple\slide_checkboxSimple.php]
 TopLine=46
 Caret=8,78
+[xoops_version.php]
+TopLine=1
+Caret=38,33
+[admin\questions-list.php]
+TopLine=95
+Caret=117,116
+[admin\questions.php]
+TopLine=44
+Caret=41,71
+[admin\quiz.php]
+TopLine=9
+Caret=35,38
+[J:\Xoops\_JJD\modules-JJD\quizmaker\zzzzzzzzz\module_from_wamp.bat]
+TopLine=1
+Caret=35,12
+[J:\Xoops\_JJD\modules-JJD\copie_module_from_wamp.bat]
+TopLine=1
+Caret=1,13

@@ -149,4 +149,16 @@ define('_MI_QUIZMAKER_MAXWIDTH_IMAGE_DESC', 'Set the max width to which uploaded
 define('_MI_QUIZMAKER_MAXHEIGHT_IMAGE', 'Max height image');
 define('_MI_QUIZMAKER_MAXHEIGHT_IMAGE_DESC', 'Set the max height to which uploaded images should be scaled (in pixel)<br>0 means, that images keeps the original size. <br>If an image is smaller than maximum value then the image will be not enlarge, it will be save in original height');
 
+define('_MI_QUIZMAKER_SHOW_TPL_NAME', 'Afficher le nom des templates');
+define('_MI_QUIZMAKER_SHOW_TPL_NAME_DESC', 'Option à utiliser pour le développement, la désactiver en production');
+define('_MI_QUIZMAKER_CATEGORIES_BLOCK', "Bloc catégories");
+define('_MI_QUIZMAKER_CATEGORIES_BLOCK_DESC', "Description du bloc de catégories");
+define('_MI_QUIZMAKER_TOOLS', "Outils");
+
+define('_MI_QUIZMAKER_APLY_PERM_CAT', "Permissions pour chaque quiz");
+define('_MI_QUIZMAKER_APLY_PERM_CAT_DESC', "Non : Les permissions de la cétégorie sont appliquée.<br>Oui : il faut gérer les permissions pour chaque quiz en plus de la catétorie.");
+
+define('_MI_QUIZMAKER_DISPLAY_SLIDE_HELP', "Aide des slides");
+define('_MI_QUIZMAKER_DISPLAY_SLIDE_HELP_DESC', "Permet d'afficher la description du slide avec ses options lors de l'édition des questions.<br>Si vous maitriser le module il est possible de masquer cette aide pour réduire l'affichage lors de l'édition des questions.");
+
 ?>

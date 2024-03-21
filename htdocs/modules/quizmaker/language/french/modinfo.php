@@ -162,4 +162,7 @@ define('_MI_QUIZMAKER_TOOLS', "Outils");
 define('_MI_QUIZMAKER_APLY_PERM_CAT', "Permissions pour chaque quiz");
 define('_MI_QUIZMAKER_APLY_PERM_CAT_DESC', "Non : Les permissions de la cétégorie sont appliquée.<br>Oui : il faut gérer les permissions pour chaque quiz en plus de la catétorie.");
 
+define('_MI_QUIZMAKER_DISPLAY_SLIDE_HELP', "Aide des slides");
+define('_MI_QUIZMAKER_DISPLAY_SLIDE_HELP_DESC', "Permet d'afficher la description du slide avec ses options lors de l'édition des questions.<br>Si vous maitriser le module il est possible de masquer cette aide pour réduire l'affichage lors de l'édition des questions.");
+
 ?>

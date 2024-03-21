@@ -66,6 +66,12 @@ switch($op) {
         include_once("questions-{$op}.php");
         break;
     
+    case 'goto_category':
+        $questionsHandler->incrementeWeight($quizId);
+        $url = "quiz.php?op=list&quiz_id={$quizId}";
+        \redirect_header($url, 0, "");
+	break;
+    
     case 'init_weight':
         $questionsHandler->incrementeWeight($quizId);
         $url = "questions.php?op=list&" . getParams2list($quizId, $quest_type_question)."#question-{$questId}";

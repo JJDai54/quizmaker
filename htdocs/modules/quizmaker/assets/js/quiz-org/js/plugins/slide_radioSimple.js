@@ -16,7 +16,7 @@ get_optionsList(){
     const htmlArr = [];
     this.data.styleCSS = getMarginStyle(currentQuestion.answers.length);
     htmlArr.push(`<div id="${name}-famille" style="text-align:left;margin-left:100px;">`);
-    htmlArr.push(getHtmlRadioKeys   (name, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));  
+    htmlArr.push(this.getHtmlInputKeys(name, 'radio', this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));  
     htmlArr.push(`</div>`);
 
     //alert (this.focusId);

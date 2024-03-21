@@ -28,9 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.06,
+	'version'             => 4.10,
 	'module_status'       => 'Beta 1',
-	'release_date'        => '2024/02/25',
+	'release_date'        => '2024/03/21',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -313,6 +313,7 @@ $modversion['config'][] = [
 	'valuetype'   => 'int',
 	'default'     => 50,
 ];
+/*
 // Get groups
 $memberHandler = xoops_getHandler('member');
 $xoopsGroups  = $memberHandler->getGroupList();
@@ -330,6 +331,7 @@ $modversion['config'][] = [
 	'default'     => $groups,
 	'options'     => $groups,
 ];
+*/
 // Upload groups
 $modversion['config'][] = [
 	'name'        => 'upload_groups',
@@ -340,6 +342,7 @@ $modversion['config'][] = [
 	'default'     => $groups,
 	'options'     => $groups,
 ];
+/*
 // Get Admin groups
 $crGroups = new \CriteriaCompo();
 $crGroups->add( new \Criteria( 'group_type', 'Admin' ) );
@@ -358,6 +361,7 @@ $modversion['config'][] = [
 	'default'     => $adminGroups,
 	'options'     => $adminGroups,
 ];
+*/
 unset($crGroups);
 // Keywords
 $modversion['config'][] = [
@@ -477,14 +481,14 @@ $modversion['config'][] = [
 ];
 
 // Use tag
-$modversion['config'][] = [
-	'name'        => 'usetag',
-	'title'       => '_MI_QUIZMAKER_USE_TAG',
-	'description' => '_MI_QUIZMAKER_USE_TAG_DESC',
-	'formtype'    => 'yesno',
-	'valuetype'   => 'int',
-	'default'     => 0,
-];
+// $modversion['config'][] = [
+// 	'name'        => 'usetag',
+// 	'title'       => '_MI_QUIZMAKER_USE_TAG',
+// 	'description' => '_MI_QUIZMAKER_USE_TAG_DESC',
+// 	'formtype'    => 'yesno',
+// 	'valuetype'   => 'int',
+// 	'default'     => 0,
+// ];
 /*
 // Number column
 $modversion['config'][] = [
@@ -546,14 +550,14 @@ $modversion['config'][] = [
 	'default'     => 0,
 ];
 // Make Sample button visible?
-$modversion['config'][] = [
-	'name'        => 'displaySampleButton',
-	'title'       => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON',
-	'description' => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC',
-	'formtype'    => 'yesno',
-	'valuetype'   => 'int',
-	'default'     => 1,
-];
+// $modversion['config'][] = [
+// 	'name'        => 'displaySampleButton',
+// 	'title'       => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON',
+// 	'description' => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC',
+// 	'formtype'    => 'yesno',
+// 	'valuetype'   => 'int',
+// 	'default'     => 1,
+// ];
 // Maintained by
 $modversion['config'][] = [
 	'name'        => 'maintainedby',
@@ -583,6 +587,15 @@ $modversion['config'][] = [
 	'default'     => 0,
 ];
 
+// help type de question
+$modversion['config'][] = [
+	'name'        => 'display_slide_help',
+	'title'       => '_MI_QUIZMAKER_DISPLAY_SLIDE_HELP',
+	'description' => '_MI_QUIZMAKER_DISPLAY_SLIDE_HELP_DESC',
+	'formtype'    => 'yesno',
+	'valuetype'   => 'int',
+	'default'     => 1,
+];
 
 $modversion['config'][] = [
     'name' => 'displayTemplateName',

@@ -1129,56 +1129,6 @@ var tRet = [];
     return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
 }
 
-/* ******************************************
-*
-* ******************************************** */
-function getHtmlRadioKeys(name, tItems, numerotation, offset=0, extra="", sep="<br>"){
-    
-    var keys = Object.keys(tItems);
-    var tHtml = [];
-
-    for(var j=0; j < keys.length; j++){
-        item = tItems[keys[j]];
-    //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
-      tHtml.push(`<label>
-                 <input type="radio" name="${name}"  id="${name}-${j}" value="${j}" ${extra} caption="${item.key}">
-                 ${getNumAlpha(j,numerotation,offset)}${item.word}
-                 </label>${sep}`);
-    }
-    return tHtml.join("\n");
-
-}
-/* ******************************************
-*
-* ******************************************** */
-function getHtmlCheckboxKeys(name, tItems, numerotation, offset=0, extra="", sep="<br>"){
-
-    var keys = Object.keys(tItems);
-//alert("getHtmlCheckboxKeys\n" + keys.join(" - "));  
-
-
-    var tHtml = [];
-    for(var j=0; j < keys.length; j++){
-        item = tItems[keys[j]];
-    //alert('getHtmlCheckboxKeys : ' + keys[j] + ' ===> ' + tItems[keys[j]].word);
-      tHtml.push(`<label>
-                 <input type="checkbox" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}">
-                 ${getNumAlpha(j,numerotation,offset)}${item.word}
-                 </label>${sep}`);
-    
-    
-    }
-/*
-    var j=0;
-
-    tItems.forEach((item, index) => {  
-    alert('getHtmlCheckboxKeys : ' + item.word);
-    });  
-*/    
-
-    return tHtml.join("\n");
-
-}
 
 //function getMarginStyle(nbItems, min=5, max=12, numStyle=0, extra=''){
 function getMarginStyle(nbItems, numStyle=0, extra='', min=2, max=8){

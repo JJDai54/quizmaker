@@ -39,11 +39,31 @@ get_optionsList(){
     const htmlArr = [];
     this.data.styleCSS = getMarginStyle(currentQuestion.answers.length);
     htmlArr.push(`<div id="${name}-famille" familyWords>`);
-    htmlArr.push(getHtmlCheckboxKeys(name, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));
+    htmlArr.push(this.getHtmlInputKeys(name, 'checkbox', this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));
     htmlArr.push(`</div>`);
 
     //alert (this.focusId);
    return htmlArr.join("\n");
+}
+/* ******************************************
+*
+* ******************************************** */
+ getHtmlInputKeys(name, typeInp, tItems, numerotation, offset=0, extra="", sep="<br>"){
+var item;
+    var keys = Object.keys(tItems);
+
+    var tHtml = [];
+    for(var j=0; j < keys.length; j++){
+        item = tItems[keys[j]];
+        tHtml.push(`<label>
+                 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}">
+                 ${getNumAlpha(j,numerotation,offset)}${item.word}
+                 </label>${sep}`);
+    
+    
+    }
+    return tHtml.join("\n");
+
 }
 
 /* ***************************************
