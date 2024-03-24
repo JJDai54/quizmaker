@@ -20,20 +20,7 @@ build (){
 *
 * ******** */
 getInnerHTML(){
-/*
-  
-<div style='width:50%;text-align:center;font-size:1.2em;'>
-    <!-- (B) THE LIST -->
-    <ul id="sortlistzzz" class="sortlist">
-      <li>First</li>
-      <li>Second</li>
-      <li>Third</li>
-      <li>Forth</li>
-      <li>Fifth</li>
-    </ul>
-</div>  
 
-*/
     var  currentQuestion = this.question;
     var name = this.getName();
     var id = this.getName();
@@ -43,8 +30,8 @@ getInnerHTML(){
     }
 
     const html = [];
-    html.push(`<center><div id='${this.getId('main')}' class='ulDaDSortList' style='width:50%;text-align:left;font-size:1.2em;'>`);
     if (currentQuestion.options.title) html.push(`<span>${currentQuestion.options.title}</span><br>`);
+    html.push(`<center><div id='${this.getId('main')}'>`);
     html.push(`<ul id="${id}" >`);
     
     for (var j=0; j < tItems.length; j++){
@@ -54,11 +41,7 @@ getInnerHTML(){
     html.push(``);
     html.push(`</ul>`);
     html.push(`</div></center>`);
-/*
-    <!-- (C) CREATE SORTABLE LIST -->
-    <script>
-    </script>
-*/    
+
     return html.join("\n");
 }
 //---------------------------------------------------
@@ -67,11 +50,11 @@ initSlide (){
     //alert ("===> initSlide : " + this.question.typeQuestion  + " - " + this.question.question + " \n->" + this.getName());
     ulDaDSortList_init_slist(document.getElementById(this.getName()));
 
-  modifCSSRule(".quiz_ulDaDSortList_slist li", "background", currentQuestion.options.liBgDefault) ;
-  modifCSSRule(".quiz_ulDaDSortList_slist li.hint", "background", currentQuestion.options.liBgDefault) ;
+  modifCSSRule(".ulDaDSortList_slist li", "background", currentQuestion.options.liBgDefault) ;
+  modifCSSRule(".ulDaDSortList_slist li.hint", "background", currentQuestion.options.liBgDefault) ;
 
-  modifCSSRule(".quiz_ulDaDSortList_slist li.active", "background", currentQuestion.options.liBgActive) ;
-  modifCSSRule(".quiz_ulDaDSortList_slist li.hover", "background", currentQuestion.options.liBgHover) ;
+  modifCSSRule(".ulDaDSortList_slist li.active", "background", currentQuestion.options.liBgActive) ;
+  modifCSSRule(".ulDaDSortList_slist li.hover", "background", currentQuestion.options.liBgHover) ;
 
     return true;
  }
@@ -224,8 +207,6 @@ showBadAnswers()
 }
   
  
-  
- 
 } // ----- fin de la classe ------
 
 /*
@@ -233,7 +214,7 @@ https://code-boxx.com/drag-drop-sortable-list-javascript/
 */
 function ulDaDSortList_init_slist (target) {
   // (A) SET CSS + GET ALL LIST ITEMS
-  target.classList.add("quiz_ulDaDSortList_slist");
+  target.classList.add("ulDaDSortList_slist");
   let items = target.getElementsByTagName("li"), current = null;
 //alert('ok=>' + target.id + "\n nb items = " + items.length);  
 //return true;

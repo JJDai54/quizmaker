@@ -1,16 +1,23 @@
 ﻿/* (A) LIST STYLES */
+.ulDaDSortList div{
+ width:50%;
+ text-align:left;
+ font-size:1.2em;
+/*  background:cyan; */
+}
 .ulDaDSortList span{
     font-size:1.4em;
     font-weight:bold;
 }
 
-.quiz_ulDaDSortList_slist {
+.ulDaDSortList_slist {
   list-style: none;
   padding: 0;
   margin: 0;
   text-align:center;
 }
-.quiz_ulDaDSortList_slist li {
+
+.ulDaDSortList_slist li {
   margin: 5px;
   padding: 6px;
   border: 1px solid #dfdfdf;
@@ -18,20 +25,20 @@
   cursor: grab;
   -moz-border-radius:8px;
   border-radius:8px;
-  width:70%;
+  width:90%;
 }
 
 /* (B) DRAG-AND-DROP HINT 
 */
-.quiz_ulDaDSortList_slist li.hint {
+.ulDaDSortList_slist li.hint {
   border: 1px solid #ffc49a;
   background: #feffb4;  /* background de tous les items pendant le survol */
 }
-.quiz_ulDaDSortList_slist li.active {
+.ulDaDSortList_slist li.active {
   border: 1px solid #ffa5a5;
   background: #ffe7e7;   /* background de l'item survole pendant drag on drop*/
 }
-.quiz_ulDaDSortList_slist li:hover {
+.ulDaDSortList_slist li:hover {
   border: 1px solid #ffa5a5;
   background: #00FF00;      /* background de l'item survole avant drag on drop*/
 }

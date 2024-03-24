@@ -1,33 +1,16 @@
 ﻿
 
- /*******************************************************************
+ /* ******************************************************************
   *                     _slide_ulSortList
-  * *****************************************************************/
+  * **************************************************************** */
 
 class ulDaDGroups extends quizPrototype{
 name = "ulDaDGroups";
 
-/* *************************************
-*
-* ******** */
+//---------------------------------------------------
 build (){
-    load_css(this.name);
-
-    var currentQuestion = this.question;
-    var name = this.getName();
-this.boolDog = true;
-    
-    
-    const answers = [];
-    answers.push(`<div id="${name}" style='width:100%;'>`);
-    answers.push(this.getInnerHTML());
-    answers.push(`</div>`);
-    
-    
-//    this.focusId = name + "-" + "0";
-    //alert (this.focusId);
-    return answers.join("\n");
-
+    this.boolDog = false;
+    return this.getInnerHTML();
  }
 
 /* ************************************
@@ -56,11 +39,12 @@ this.boolDog = true;
     
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
-        groupIndex = (currentQuestion.options.groupDefault < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
+        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
+//alert(currentQuestion.options.groupDefault + "-" + groupIndex);
         //alert ('groupIndex : ' + groupIndex);
         obGroup = obGroups[groupIndex];
         //alert(ans.id);
-        obGroup.appendChild(document.getElementById(ans.id + "-div")); 
+        obGroup.appendChild(document.getElementById(ans.id )); //+ "-div"
 
     }
 
@@ -83,7 +67,7 @@ getInnerHTML(){
     //var tpl = "<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td>{suggestion}</td></tr></table>";
 var divHeight = currentQuestion.options.imgHeight1*1+12;  
 var posCaption = currentQuestion.options.showCaptions;    
-var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
+//var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 //var divStyle=`style="overflow-y: scroll;overflow: hidden;"`;
 
 var ImgStyle=`style="height:${divHeight}px;"`;
@@ -98,25 +82,27 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
 
     var groups = [];
     var ans;
-    var index;
+    var groupIndex;
     for(var k = 0; k < nbGroups; k++){
         groups[k] = [];
     }
     
    //repartir les propositions par group
     for(var k in currentQuestion.answers){
-        index = rnd(nbGroups-1);
-
+        //index = rnd(nbGroups-1);
+        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
+/*
         if(nbGroups > 2){
-          //recherche un group différent que celui attribué pour mélanger les items 
+          //recherche un groupe différent que celui attribué pour mélanger les items 
           // pas sur que ce soit une bonne idée surtout si il n'y a que deux groupes, il suffit d'inveerser toutes les images
           while (currentQuestion.answers[k].group == index){
             index = rnd(nbGroups-1);
           }      
         }
-        //if(!groups[index]) groups[index] = [];
-        groups[index].push(currentQuestion.answers[k]);
-        //alert("rnd : " + k + " | " + index);
+*/        
+
+        groups[groupIndex].push(currentQuestion.answers[k]);
+
     }
    
 
@@ -164,7 +150,7 @@ initSlide (){
             this.init_slist(obGroup);
         }
     }
-    this.reloadQuestion();    
+    //this.reloadQuestion();    
     return true;
  }
 /*
@@ -326,12 +312,6 @@ var tHtml = [];
 
 }
 
-/* ***************************************
-*
-* *** */
-reloadQuestion() {
-    this.showBadAnswers();
-}
   
 /* ***************************************
 *

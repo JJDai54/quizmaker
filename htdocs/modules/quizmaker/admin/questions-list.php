@@ -47,7 +47,7 @@ use XoopsModules\Quizmaker\Constants;
         if ($catId == 0) $catId = array_key_first($catArr);
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();" style="background:cyan;"');
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
         
         $quizArr = $quizHandler->getListKeyName($catId);
@@ -57,7 +57,7 @@ use XoopsModules\Quizmaker\Constants;
         }
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizArr);
-        $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();" style="background:cyan;"');
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
        // ----- /Listes de selection pour filtrage -----     
           
@@ -87,7 +87,7 @@ use XoopsModules\Quizmaker\Constants;
         if (!$quest_type_question) $quest_type_question = 'checkboxSimple';
         $inpTypeQuest = new \XoopsFormSelect(_CO_QUIZMAKER_TYPE_QUESTION, 'quest_type_question', $quest_type_question);
         $inpTypeQuest->addOptionArray($type_questionHandler->getListByGroup(true));
-        $inpTypeQuest->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\",{$imgModelesHeight});'");
+        $inpTypeQuest->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\",{$imgModelesHeight});' style='background:#FFCCCC;'");
         $GLOBALS['xoopsTpl']->assign('inpTypeQuest', $inpTypeQuest->render());
 \JJD\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');

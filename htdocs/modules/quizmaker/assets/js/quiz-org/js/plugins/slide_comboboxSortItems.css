@@ -4,7 +4,12 @@
   margin-top:0px;
   border: 0px solid black;
   border-collapse: collapse;
-  width:50%;
+  width:70%;
+  font-size:1.0em;
+}
+.comboboxSortItems select{
+  font-size:1.2em;
+  width:100%;
 }
 .comboboxSortItems td{
   text-align:center;

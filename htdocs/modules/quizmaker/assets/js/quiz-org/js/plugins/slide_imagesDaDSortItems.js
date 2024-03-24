@@ -64,10 +64,10 @@ var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
     var tpl =`<div id="${this.getId('img')}" class='imagesDaDSortItems' >\n{sequence}\n</div>`;
 
 var eventImgToEvent=`
-onDragStart="imagesDaDSortItems_dad_start(event);"
-onDragOver="return imagesDaDSortItems_dad_over(event);" 
-onDragLeave="imagesDaDSortItems_dad_leave(event);"
-onDrop="return imagesSortItems_dad_drop(event,${this.question.options.moveMode});"
+onDragStart="imagesDaDSortItems_start(event);"
+onDragOver="return imagesDaDSortItems_over(event);" 
+onDragLeave="imagesDaDSortItems_leave(event);"
+onDrop="return imagesDaDSortItems_drop(event,${this.question.options.moveMode});"
 onclick="testOnClick(event);"
 onmouseover="testMouseOver(event);"`;
 
@@ -236,21 +236,21 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 /* **************************************************************** */
 /*       Fonction de Drag And drop sur des images                   */
 /* **************************************************************** */
-function imagesDaDSortItems_dad_start(e, isDiv=false){
+function imagesDaDSortItems_start(e, isDiv=false){
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text", e.target.getAttribute("id"));
 }
-function imagesDaDSortItems_dad_over(e){
+function imagesDaDSortItems_over(e){
     if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
     e.currentTarget.classList.remove('imagesDaDSortItems_myimg1');
     e.currentTarget.classList.add('imagesDaDSortItems_myimg2');
     return false;
 }
-function imagesDaDSortItems_dad_leave(e){
+function imagesDaDSortItems_leave(e){
    e.currentTarget.classList.remove('imagesDaDSortItems_myimg2');
    e.currentTarget.classList.add('imagesDaDSortItems_myimg1');
 }
-function imagesSortItems_dad_drop(e, mode=0){
+function imagesDaDSortItems_drop(e, mode=0){
 //alert('dad_drop')
     idFrom = e.dataTransfer.getData("text");
 
@@ -263,11 +263,11 @@ function imagesSortItems_dad_drop(e, mode=0){
     //alert(`idFrom : ${obSource.id}\nidDest : ${obDest.id}`);
     switch(mode){
         case 1 : 
-            shiftDivImg(obSource,obDest);
+            imagesDaDSortItems_shiftDivImg(obSource,obDest);
             break;
         case 0 : 
         default : 
-            replaceDivImg(obSource,obDest);
+            imagesDaDSortItems_replaceDivImg(obSource,obDest);
             break;
     }
 
@@ -280,10 +280,10 @@ function imagesSortItems_dad_drop(e, mode=0){
 /* ****
  *
  ******************************* */
-function replaceDivImg(obSource,obDest){
+function imagesDaDSortItems_replaceDivImg(obSource,obDest){
 //alert(`replaceDivImg : obSource = ${obSource.id}\nobDest = ${obDest.id}`)
-  var obNext = obSource.nextSibling; 
-  var obPrevious = obSource.previousSibling; 
+  var obNext = obSource.nextElementSibling; 
+  var obPrevious = obSource.previousElementSibling; 
   //if(!obNext) obNext = obDest.previousSibling; 
   
   obSource.parentNode.insertBefore(obSource, obDest);
@@ -300,7 +300,7 @@ function replaceDivImg(obSource,obDest){
 /* ***
  *
  ******************************** */
-function shiftDivImg(obSource,obDest){
+function imagesDaDSortItems_shiftDivImg(obSource,obDest){
 //alert(`shiftDivImg : obSource = ${obSource.id}\nobDest = ${obDest.id}`)
  obSource.parentNode.insertBefore(obSource, obDest);
 }

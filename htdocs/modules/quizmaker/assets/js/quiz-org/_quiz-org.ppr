@@ -213,6 +213,8 @@ _quiz-org
 				js\plugins\slide_imagesDaDMatchItems.js
 				js\plugins\slide_imagesDaDSortItems.css
 				js\plugins\slide_imagesDaDSortItems.js
+				js\plugins\slide_imagesDaDSortItemsIns.css
+				js\plugins\slide_imagesDaDSortItemsIns.js
 				js\plugins\slide_imagesLogical.css
 				js\plugins\slide_imagesLogical.js
 				js\plugins\slide_imagesSimple.css
@@ -256,22 +258,38 @@ _quiz-org
 		modif pour extends.js
 		quiz.html
 [Open project files]
-0=css\quiz.css
-1=js\quiz-functions.js
-2=js\slide__prototype.js
+0=js\slide__prototype.js
+1=js\quiz-main.js
+2=js\quiz-functions.js
 3=js\plugins\slide_imagesDaDGroups.js
+4=js\plugins\slide_ulDaDGroups.js
+5=js\plugins\slide_ulDaDGroups.css
+6=js\plugins\slide_ulDaDSortList.js
+7=js\plugins\slide_ulDaDGroups - Copie.js
 [Selected Project Files]
 Main=
-Selected=js\plugins\slide_imagesDaDGroups.js
-[css\quiz.css]
-TopLine=5
-Caret=5,28
-[js\quiz-functions.js]
-TopLine=1117
-Caret=9,1134
+Selected=js\plugins\slide_ulDaDGroups.js
 [js\slide__prototype.js]
-TopLine=151
-Caret=19,176
+TopLine=1
+Caret=1,1
+[js\quiz-main.js]
+TopLine=1
+Caret=1,1
+[js\quiz-functions.js]
+TopLine=1
+Caret=1,1
 [js\plugins\slide_imagesDaDGroups.js]
-TopLine=56
-Caret=104,81
+TopLine=1
+Caret=1,14
+[js\plugins\slide_ulDaDGroups.js]
+TopLine=38
+Caret=3,43
+[js\plugins\slide_ulDaDGroups.css]
+TopLine=1
+Caret=32,29
+[js\plugins\slide_ulDaDSortList.js]
+TopLine=148
+Caret=1,163
+[js\plugins\slide_ulDaDGroups - Copie.js]
+TopLine=1
+Caret=1,1

@@ -23,9 +23,8 @@
  
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
-//------------------------------------------------------------------
-define('_CO_QUIZMAKER_TYPE_IMAGESDADGROUPS', "Regrouper les images");
-define('_CO_QUIZMAKER_TYPE_IMAGESDADGROUPS_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
-define('_CO_QUIZMAKER_TYPE_IMAGESDADGROUPS_CONSIGNE', "Consigne à complèter");
+define('_CO_QUIZMAKER_TYPE_IMAGESDADSORTITEMS', "Order images");
+define('_CO_QUIZMAKER_TYPE_IMAGESDADSORTITEMS_DESC', "This slide is made up of images that must be sorted in the correct order.");
+define('_CO_QUIZMAKER_TYPE_IMAGESDADSORTITEMS_CONSIGNE', "Consigne à complèter");
 
 ?>

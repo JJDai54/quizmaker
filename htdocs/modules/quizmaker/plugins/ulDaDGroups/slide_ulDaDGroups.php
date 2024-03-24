@@ -46,7 +46,7 @@ var $maxGroups = 4;
                                   'bgGroup0'=>'#dfdfdf','bgGroup1'=>'#dfdfdf','bgGroup2'=>'#dfdfdf','bgGroup3'=>'#dfdfdf',
                                   'ulWidth'=>'28',
                                   'groupDefault'=>'-1', 
-                                  'disposition'=>''];
+                                  'disposition'=>'disposition-02'];
     }
 
 	/**
@@ -106,9 +106,10 @@ var $maxGroups = 4;
       $trayOptions ->addElement($inputGroupDefault);     
 
       $name = 'disposition'; 
-      $path = XOOPS_ROOT_PATH . "/modules/quizmaker/assets/images/disposition"; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      $trayOptions ->addElement($inputDisposition);     
+      //$inputDisposition->setHorizontalIconNumber(9);
+      $trayOptions->addElement($inputDisposition);     
       
       return $trayOptions;
     }

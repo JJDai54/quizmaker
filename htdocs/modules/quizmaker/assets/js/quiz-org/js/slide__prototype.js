@@ -60,6 +60,14 @@ getObDivMain (){
 /* **********************************************************
 
 ************************************************************* */
+getChildById(id){
+    return document.getElementById(id);
+    
+    //return document.getElementById(this.divMainId).getElementById(id);
+}
+/* **********************************************************
+
+************************************************************* */
 // getQuerySelector (selector){
 //     return document.getElementById(this.divMainId).querySelectorAll(selector);
 // }

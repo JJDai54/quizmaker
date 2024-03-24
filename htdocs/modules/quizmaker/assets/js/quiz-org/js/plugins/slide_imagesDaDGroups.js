@@ -100,6 +100,9 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
     }
     return tpl;
 }
+/* *********************************************************
+*
+* ********************************************************** */
 initSlide(){
     this.reloadQuestion();
 }
@@ -618,7 +621,7 @@ console.log("===> dad => " + "imagesDaDGroups_over");
     
     //seul firefox peut acceder aux valeurx de dataTransfer dans le over
     //mais il y en a besoin pour idenfier le group survolé
-    //lors du star la valeur a ete stockée dans une balise "input type=hidden" globale
+    //lors du start la valeur a ete stockée dans une balise "input type=hidden" globale
     idDivImg = get_param(0);
    // var idDivImg = e.dataTransfer.getData("idImg");
     var obDivImg = document.getElementById(idDivImg);

@@ -2,12 +2,14 @@
 
 
 .ulDaDGroups{
- width:100%;
- min-height:150px;
  }
- 
+ .ulDaDGroups table{
+    border: 1px solid transparent;
+ }
+
 .ulDaDGroups td{
     padding:5px;
+    border: 1px solid transparent;
     vertical-align: top; }
 
 .ulDaDGroups span {
@@ -24,7 +26,7 @@
     overflow: hidden;
     width:100%;
     min-height:80px;
-    background-color:red;
+    /* background-color:red; */
     -moz-border-radius: 0px 12px 12px 12px;
     -webkit-border-radius: 0px 12px 12px 12px;
     -khtml-border-radius: 0px 12px 12px 12px;
