@@ -75,26 +75,6 @@ var name = this.getName();
   }
 
 //---------------------------------------------------
-/*
-buildFormSubmitAnswers(){
-    var tNamesId = ['quiz_id', 'uid', 'answers_total', 'answers_achieved', 
-                    'score_achieved', 'score_max', 'score_min', 'duration'];
-                 
-    var tHtml = []
-    
-    tHtml.push(`<form name="form_submit_quizmaker" id="form" action="/modules/quizmaker/results_submit.php?op=submit_answers" method="post">`);
-    
-    for (var h = 0; h < tNamesId.length; h++){
-        tHtml.push(`<input type="hidden" name="${tNamesId[h]}" id="${tNamesId[h]}" value="0" />`);
-    }
-    tHtml.push(`</form>`);
-    
-    
-    return "\n" + tHtml.join("\n") + "\n";
-}  
-*/
-
-//---------------------------------------------------
 isQuestion (){
               
     return false;         

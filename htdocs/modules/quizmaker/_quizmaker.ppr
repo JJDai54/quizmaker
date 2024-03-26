@@ -50,7 +50,7 @@ _quizmaker
 			admin\results.php
 			admin\tools.php
 			admin\type_question.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -58,7 +58,7 @@ _quizmaker
 				assets\css\index.html
 				assets\css\style.css
 			-icons
-				-16
+				+16
 					-arrows
 						-blue
 							assets\icons\16\arrows\blue\down-0.png
@@ -86,7 +86,7 @@ _quizmaker
 							assets\icons\16\arrows\red\sommaire.png
 							assets\icons\16\arrows\red\up-0.png
 							assets\icons\16\arrows\red\up-1.png
-					-notes
+					+notes
 						assets\icons\16\notes\000.png
 						assets\icons\16\notes\001.png
 						assets\icons\16\notes\002.png
@@ -603,7 +603,7 @@ _quizmaker
 				language\english\main.php
 				language\english\modinfo.php
 				language\english\type_questions.php
-			-french
+			+french
 				-help
 					language\french\help\help.html
 					language\french\help\index.html
@@ -759,7 +759,7 @@ _quizmaker
 					plugins\imagesDaDGroups\snapshoot\snapshoot-002.jpg
 				plugins\imagesDaDGroups\index.html
 				plugins\imagesDaDGroups\slide_imagesDaDGroups.php
-			-imagesDaDLogical
+			+imagesDaDLogical
 				-language
 					-english
 						plugins\imagesDaDLogical\language\english\constants.php
@@ -812,13 +812,13 @@ _quizmaker
 					plugins\imagesDaDSortItems\snapshoot\snapshoot-002.jpg
 				plugins\imagesDaDSortItems\index.html
 				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.php
-			-imagesDaDSortItemsIns
+			+imagesDaDSortItemsIns
 				+language
 					-english
 						plugins\imagesDaDSortItemsIns\language\english\constants.php
 						plugins\imagesDaDSortItemsIns\language\english\help.html
 						plugins\imagesDaDSortItemsIns\language\english\index.html
-					+french
+					-french
 						plugins\imagesDaDSortItemsIns\language\french\constants.php
 						plugins\imagesDaDSortItemsIns\language\french\help.html
 						plugins\imagesDaDSortItemsIns\language\french\index.html
@@ -1103,7 +1103,7 @@ _quizmaker
 					plugins\textboxMultiple\snapshoot\snapshoot-002.jpg
 				plugins\textboxMultiple\index.html
 				plugins\textboxMultiple\slide_textboxMultiple.php
-			+ulDaDGroups
+			-ulDaDGroups
 				-language
 					-english
 						plugins\ulDaDGroups\language\english\constants.php
@@ -1145,16 +1145,16 @@ _quizmaker
 			plugins\_slide_help.lnk
 			plugins\_tpl-JavaScript.lnk
 			plugins\index.html
-		-preloads
+		+preloads
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		-sql
+		+sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
 		-templates
-			-admin
+			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
@@ -1239,30 +1239,58 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.php
-1=plugins\imagesDaDSortItemsIns\language\french\constants.php
-2=admin\questions.php
-3=admin\questions-list.php
-4=plugins\ulDaDGroups\slide_ulDaDGroups.php
-5=plugins\imagesDaDGroups\slide_imagesDaDGroups.php
+0=class\Results.php
+1=admin\results.php
+2=templates\admin\quizmaker_admin_results.tpl
+3=admin\categories.php
+4=admin\questions.php
+5=admin\questions-edit.php
+6=sql\mysql.sql
+7=results_submit.php
+8=templates\quizmaker_results_list.tpl
+9=plugins\imagesDaDGroups\slide_imagesDaDGroups.php
+10=plugins\imagesDaDLogical\slide_imagesDaDLogical.php
+11=admin\questions-clone.php
+12=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=plugins\ulDaDGroups\slide_ulDaDGroups.php
-[plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.php]
-TopLine=1
-Caret=1,1
-[plugins\imagesDaDSortItemsIns\language\french\constants.php]
-TopLine=1
-Caret=49,29
+Selected=xoops_version.php
+[class\Results.php]
+TopLine=118
+Caret=73,135
+[admin\results.php]
+TopLine=91
+Caret=37,143
+[templates\admin\quizmaker_admin_results.tpl]
+TopLine=29
+Caret=31,54
+[admin\categories.php]
+TopLine=65
+Caret=1,90
 [admin\questions.php]
-TopLine=47
+TopLine=56
 Caret=1,1
-[admin\questions-list.php]
-TopLine=59
-Caret=135,90
-[plugins\ulDaDGroups\slide_ulDaDGroups.php]
-TopLine=26
-Caret=65,49
+[admin\questions-edit.php]
+TopLine=1
+Caret=17,23
+[sql\mysql.sql]
+TopLine=143
+Caret=1,162
+[results_submit.php]
+TopLine=76
+Caret=33,98
+[templates\quizmaker_results_list.tpl]
+TopLine=37
+Caret=24,64
 [plugins\imagesDaDGroups\slide_imagesDaDGroups.php]
-TopLine=98
+TopLine=121
 Caret=1,141
+[plugins\imagesDaDLogical\slide_imagesDaDLogical.php]
+TopLine=21
+Caret=68,46
+[admin\questions-clone.php]
+TopLine=1
+Caret=1,22
+[xoops_version.php]
+TopLine=7
+Caret=34,32

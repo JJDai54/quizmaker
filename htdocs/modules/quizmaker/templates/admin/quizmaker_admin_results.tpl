@@ -48,7 +48,12 @@
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Results.id}></td>
 				<td class='center'><{$Results.quiz_id}></td>
-				<td class='left'><{$Results.result_uname}> (#<{$Results.uid}>)</td>
+				<td class='left'>
+                    /* <a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"  > */
+                        <{$Results.result_uname}> (#<{$Results.uid}>)
+                    /* </a> */
+
+                </td>
 				<td class='right'><{$Results.score_achieved}></td>
 				<td class='center'><{$Results.score_max}></td>
 				<td class='center'><{$Results.score_min}></td>

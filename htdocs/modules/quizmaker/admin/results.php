@@ -133,6 +133,16 @@ switch($op) {
 		}
 	break;
 
+	case 'edit':
+		$templateMain = 'quizmaker_admin_results.tpl';
+		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('results.php'));
+		$adminObject->addItemButton(_AM_QUIZMAKER_QUESTIONS_LIST, 'questions.php', 'list');
+		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+		// Get Form
+		$resultsObj = $resultsHandler->get($resultId);
+		$form = $resultsObj->getFormResults();
+		$GLOBALS['xoopsTpl']->assign('form', $form->render());    
+	break;
 
 /*
 
@@ -147,8 +157,6 @@ switch($op) {
     
 	break;
 	case 'save':
-	break;
-	case 'edit':
 	break;
 */
 	case 'delete':

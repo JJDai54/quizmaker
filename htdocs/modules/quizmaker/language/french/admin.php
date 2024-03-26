@@ -164,7 +164,6 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_NOT_QUESTION', "Ce n'est pas une question");
 \define('_AM_QUIZMAKER_NUMBERING', "Numérotation");
 \define('_AM_QUIZMAKER_NUM_NUMERIQUE', "1 2 3 ...");
-\define('_AM_QUIZMAKER_NUM_NONE', "Sans");
 \define('_AM_QUIZMAKER_OPTIONS', "Options");
 \define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Options spécifiques");
 \define('_AM_QUIZMAKER_OPTIONS_FOR_DEV', "Options pour le développement - Laiser  \"Non\" ces options en production");

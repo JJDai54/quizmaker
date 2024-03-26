@@ -41,7 +41,8 @@ class slide_imagesDaDSortItemsIns extends XoopsModules\Quizmaker\Type_question
 	{
         parent::__construct("imagesDaDSortItemsIns", 0, "imagesDaD");
         $this->maxPropositions = 8;	
-        $this->optionsDefaults = ['imgHeight1'=>64, 'moveMode'=>0, 'showCaptions'=>'B'];
+        $this->optionsDefaults = ['imgHeight1'=>64, 
+                                  'showCaptions'=>'B'];
     }
 
 	/**
@@ -92,12 +93,6 @@ class slide_imagesDaDSortItemsIns extends XoopsModules\Quizmaker\Type_question
       $inputShowCaption->addOption("T", _AM_QUIZMAKER_SHOW_CAPTIONS_TOP);            
       $inputShowCaption->addOption("B", _AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM);            
       $trayOptions ->addElement($inputShowCaption);     
-      
-      
-      $name = 'moveMode';  
-      $inpMoveMode = new \xoopsFormRadio(_AM_QUIZMAKER_MOVE_MODE, "{$optionName}[{$name}]" ,$tValues[$name] , ' ');
-      $inpMoveMode->addOptionArray(['0'=>_AM_QUIZMAKER_IMG_FLIP, "1"=>_AM_QUIZMAKER_IMG_INSERT]);
-      $trayOptions ->addElement($inpMoveMode);     
       
       //--------------------------------------------------------------------           
       

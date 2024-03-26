@@ -37,7 +37,7 @@ var name = this.getName();
                 `);
           
       }
-      answers.push(`<br><button id="quiz_btn_endQuiz"  name="quiz_btn_endQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;">${quiz_messages.btnEndQuiz}</button>`);      
+      //answers.push(`<br><button id="quiz_btn_endQuiz"  name="quiz_btn_endQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;">${quiz_messages.btnEndQuiz}</button>`);      
       //if(this.typeForm == 3){
           answers.push(this.buildFormSubmitAnswers());
       //}
@@ -53,7 +53,7 @@ buildFormSubmitAnswers(){
                  
     var tHtml = [];
     
-    tHtml.push(`<form name="form_submit_quizmaker" id="form" action="/modules/quizmaker/results_submit.php?op=submit_answers" method="post">`);
+    tHtml.push(`<form name="form_submit_quizmaker" id="form_submit_quizmaker" action="/modules/quizmaker/results_submit.php?op=submit_answers" method="post">`);
     
     for (var h = 0; h < tNamesId.length; h++){
         tHtml.push(`<input type="hidden" name="${tNamesId[h]}" id="${tNamesId[h]}" value="0" />`);
@@ -65,7 +65,7 @@ buildFormSubmitAnswers(){
 }  
 //---------------------------------------------------
 submitAnswers(){
-
+console.log("submitAnswers begin");
     //---------------------------------------------
     //alert('submitAnswers in pageinfo - typeForm = ' + this.typeForm);
     document.form_submit_quizmaker.quiz_id.value = quiz.quizId;
@@ -83,6 +83,7 @@ submitAnswers(){
 
     //---------------------------------
     document.form_submit_quizmaker.submit();
+alert("submitAnswers end");
 }
 
 //---------------------------------------------------

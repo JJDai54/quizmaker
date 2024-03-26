@@ -82,24 +82,26 @@ switch($op) {
         //$cat = $categoriesHandler->getListKeyName(null, false, false);
         $inpCatTQ = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'catTypeQuestion', $catTypeQuestion);
         $inpCatTQ->addOptionArray($type_questionHandler->getCategories(true));
-        $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . " style='background:#FFCCCC'");
   	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
         // ----- Listes de selection pour filtrage -----  
-/*
-*/        
+/* ces liste de sélection ne sont pas utile, prévue au départ pour ajouter des question il est préférable d'utiliser l'onglet question
+
         //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
         //$cat = $categoriesHandler->getListKeyName(null, false, false);
         $catArray = $categoriesHandler->getListKeyName(null, false, false,null);        
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_QUESTION_CATEGORY, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArray);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . " style='background:cyan'");
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
         
         
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
         //$inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpQuiz->setExtra("style='background:cyan'");
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
+*/        
         
        // ----- /Listes de selection pour filtrage -----        
 /*

@@ -90,17 +90,17 @@ switch($op) {
         $cat = $categoriesHandler->getListKeyName(null, false, false,null);
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($cat);
-        $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE);
+        $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE . " style='background:cyan'");
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
         
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE);
+        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE . " style='background:cyan'");
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
         
         $inpQuest = new \XoopsFormSelect(_AM_QUIZMAKER_QUESTION, 'quest_id', $questId);
         $inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));
-        $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE);
+        $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE . " style='background:#FFCCCC;'");
   	    $GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
         
        // ----- /Listes de selection pour filtrage -----

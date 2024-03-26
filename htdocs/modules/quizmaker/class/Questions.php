@@ -225,7 +225,7 @@ $xoTheme->addScript(QUIZMAKER_URL . '/assets/js/admin.js');
         /* ***** Options uniquement pour les questions ***** */
         if($clTypeQuestion->isQuestion()){
             // Form Text questNumbering
-            $tOptNumbering = array(_AM_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE);
+            $tOptNumbering = array(_CO_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE);
             $inpNumbering = new \XoopsFormSelect(_AM_QUIZMAKER_NUMBERING , 'quest_numbering', $this->getVar('quest_numbering'));
             $inpNumbering->addOptionArray($tOptNumbering);
         }else{
@@ -429,7 +429,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         $flags['visible'] = quizFlagAscii($ret['visible'], "V");
         $flags['shuffleAnswers'] = quizFlagAscii($ret['shuffleAnswers'], "M");
         
-        $flags['numbering'] = quizFlagAlpha($ret['numbering'], _AM_QUIZMAKER_NUM_NONE . "|123|ABC|abc","red|green|blue|blue");
+        $flags['numbering'] = quizFlagAlpha($ret['numbering'], _CO_QUIZMAKER_NUM_NONE . "|123|ABC|abc","red|green|blue|blue");
                                            
         return $flags;
                                       

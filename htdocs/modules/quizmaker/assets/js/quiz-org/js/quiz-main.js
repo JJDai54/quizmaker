@@ -16,9 +16,9 @@ var quiz_rgp = requestGetPost();
 
 const quiz_config = {
     name : 'Quizmaker',
-    version : "5.01",
+    version : "5.02",
     date_creation : "25-01-2019",
-    date_release : "30-11-2023",
+    date_release : "25-03-2024",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
@@ -139,7 +139,16 @@ function getHtmlFooter(){
  * ************************************************************************/
 function getHtmlMessage(){
     //return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.score}</div>`;
-    return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>`;
+    //return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>`
+    
+    return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>
+            <div id="quiz_div_start" name="quiz_div_start" class="${quiz_css.message}">
+            <center><br>
+            <button id="quiz_btn_startQuiz"     name="quiz_btn_startQuiz"     class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnStartQuiz}</button>
+            <button id="quiz_btn_submitAnswers"     name="quiz_btn_submitAnswers"     class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnSubmit}</button>
+
+            </center>
+            </div>`
 }
 /**************************************************************************
  *   
@@ -201,18 +210,17 @@ function getHtmlLog(){
  * ************************************************************************/
 function getHtmlButtons(){                       //   style='background:blue;'
   return  `<div id="quiz_div_buttons" name="quiz_div_buttons">
-            <button id="quiz_div_horloge"        class="${quiz_css.horloge}">00:00</button>
+            <button id="quiz_div_horloge"           class="${quiz_css.horloge}">00:00</button>
             <button id="quiz_btn_previousSlide"     class="${quiz_css.buttons}">${quiz_messages.btnPrevious}</button>
             <button id="quiz_btn_nextSlide"         class="${quiz_css.buttons}">${quiz_messages.btnNext}</button>
-            <button id="quiz_btn_submitAnswers"     class="${quiz_css.buttons}">${quiz_messages.btnSubmit}</button>
             <button id="quiz_btn_reload_answers"    class="${quiz_css.buttons}">${quiz_messages.btnReload}</button>
             <button id="quiz_btn_show_good_answers" class="${quiz_css.buttons}">${quiz_messages.btnAntiseche}</button>
             <button id="quiz_btn_show_bad_answers"  class="${quiz_css.buttons}" style="transform: rotate(0.5turn);">${quiz_messages.btnAntiseche}</button>
-            <button id="quiz_btn_goto_slide"        class="${quiz_css.buttons}" >${quiz_messages.btnGotoSlide}</button>
-            <button id="quiz_btn_goto_slide_begin"  class="${quiz_css.buttons}" >${quiz_messages.btnGotoSlideBegin}</button>
+            <button id="quiz_btn_goto_slide"        class="${quiz_css.buttons}">${quiz_messages.btnGotoSlide}</button>
+            <button id="quiz_btn_goto_slide_begin"  class="${quiz_css.buttons}">${quiz_messages.btnGotoSlideBegin}</button>
             <input  type="hidden" id="quiz_goto_slide" value="">
-            ${getHtmlConsignesButtons()}
-            </div>`;
+            </div>${getHtmlConsignesButtons()}
+            `;
 
 }
 /**************************************************************************
@@ -577,7 +585,7 @@ const statsTotal = {
   function submitAnswers(){
     currentQuestion = quizard[currentSlide];
     currentQuestion.submitAnswers();
-//alert ("showAntiSeche => lMinMax = " + evt.target.id);
+alert ("submitAnswers");
 //currentQuestion.showGoodAnswers(currentQuestion, quizDivAllSlides);
 //       }
   }
@@ -823,8 +831,11 @@ if(obHelp) obHelp.innerHTML = consigne;
     var bolOk = isInputOk() || !quizard[currentSlide].isQuestion();
     var allowedGotoNextslide = (bolOk &&  quiz.answerBeforeNext) || !quiz.answerBeforeNext;
     //------------------------------------------
+    showDiv('quiz_div_start',  false);
+    showDiv('quiz_div_message', true);
+
     if(firstSlide){
-        showSlide_first(newSlide);              
+        showSlide_first(newSlide);  
     }else if(lastSlide){
         showSlide_last(newSlide);   
     }else if(!isQuestion){                   
@@ -832,6 +843,7 @@ if(obHelp) obHelp.innerHTML = consigne;
     }else{
         showSlide_question(newSlide,secondSlide,allowedGotoNextslide);   
     }
+        //showDiv('quiz_btn_submitAnswers', true);
    
   //alert("showSlide_new : " + offset);
   if (quiz.showResultAllways) showResults();
@@ -855,7 +867,14 @@ if(obHelp) obHelp.innerHTML = consigne;
             document.getElementById("quiz_pseudo").focus();
        }
           
+       showDiv('quiz_div_message', false);
+       showDiv('quiz_div_start',  true);
+       showDiv('quiz_btn_startQuiz', true);
+       showDiv('quiz_btn_submitAnswers', false);
+
        showDiv('quiz_div_navigation', false);
+       quizDivMessage.innerHTML = "";//`<button id="quiz_btn_startQuiz"  name="quiz_btn_startQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnStartQuiz}</button>`;
+               
   }
   
 /* ******************************************
@@ -872,7 +891,12 @@ if(obHelp) obHelp.innerHTML = consigne;
         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
         enableButton(btnNextSlide, 0);
 
-        enableButton(btnSubmit, ((quiz.allowedSubmit) ? 1 : 3));
+       showDiv('quiz_div_message', false);
+        showDiv('quiz_div_start',  true);
+        showDiv('quiz_btn_startQuiz', false);
+        showDiv('quiz_btn_submitAnswers', true);
+
+        //enableButton(btnSubmit, ((quiz.allowedSubmit) ? 1 : 3));
         showDiv('quiz_div_navigation', false);       
   }
 /* ******************************************
@@ -882,7 +906,7 @@ if(obHelp) obHelp.innerHTML = consigne;
 
         objAllSlides[newSlide].classList.add('quiz_div_slide_question');
 
-            showDiv('quiz_div_navigation', true);       
+        showDiv('quiz_div_navigation', true);       
         if(!firstSlide){
 
             //alert("premiser slide");
@@ -894,7 +918,7 @@ if(obHelp) obHelp.innerHTML = consigne;
 
         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
         enableButton(btnNextSlide, ((allowedGotoNextslide) ? 1 : 0));
-        enableButton(btnSubmit, 3);
+        //enableButton(btnSubmit, 3);
         
         enableButton(btnReloadAnswers, (quiz.showReloadAnswers ? 0 : 3));        
         enableButton(btnShowGoodAnswers, (quiz.showGoodAnswers ? 0 : 3));        
@@ -919,7 +943,7 @@ if(obHelp) obHelp.innerHTML = consigne;
              
         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
         enableButton(btnNextSlide, ((allowedGotoNextslide) ? 1 : 0));
-        enableButton(btnSubmit, 3);
+        //enableButton(btnSubmit, 3);
 
         enableButton(btnReloadAnswers, (quiz.showReloadAnswers ? 1 : 3));        
         enableButton(btnShowGoodAnswers, (quiz.showGoodAnswers ? 1 : 3));        
@@ -1110,7 +1134,7 @@ function event_show_popup_result(currentSlide) {
  function showDiv (id, etat=0){
 // this.blob(id); //JJDai
        var obRep = document.getElementById(id);
-       if(!obRep) alert(`|${id}|`);
+       if(!obRep) alert(`showDiv : |${id}| n'existe pas`);
        obRep.style.display = (etat == 1) ? "block" : "none";
 
  }
@@ -1305,7 +1329,7 @@ const tEvents = [];
   const btnPreviousSlide = document.getElementById('quiz_btn_previousSlide');
   const btnNextSlide = document.getElementById('quiz_btn_nextSlide');
   const btnStartQuiz = document.getElementById('quiz_btn_startQuiz');
-  const btnEndQuiz = document.getElementById('quiz_btn_endQuiz');
+  //const btnEndQuiz = document.getElementById('quiz_btn_endQuiz');
   const btnReloadAnswers = document.getElementById('quiz_btn_reload_answers');
   const btnShowGoodAnswers = document.getElementById('quiz_btn_show_good_answers');
   const btnShowBadAnswers = document.getElementById('quiz_btn_show_bad_answers');
@@ -1324,7 +1348,7 @@ const tEvents = [];
   btnPreviousSlide.addEventListener("click", showPreviousSlide);
   btnNextSlide.addEventListener("click", showNextSlide);
   btnStartQuiz.addEventListener("click", showNextSlide);
-  btnEndQuiz.addEventListener("click", submitAnswers);
+  //btnEndQuiz.addEventListener("click", submitAnswers);
   btnReloadAnswers.addEventListener('click', reloadQuestion);
   btnShowGoodAnswers.addEventListener('click', showGoodAnswers);
   btnShowBadAnswers.addEventListener('click', showBadAnswers);

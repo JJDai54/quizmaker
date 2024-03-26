@@ -90,7 +90,7 @@ if ($GLOBALS['xoopsUser']) {
         $resultsObj->setVar('result_answers_achieved', Request::getInt('answers_achieved', 0));
         $resultsObj->setVar('result_score_min', Request::getInt('score_min', 0));
         $resultsObj->setVar('result_duration', Request::getInt('duration', 0));
-
+        
         $res = str_replace(',', '.', (sprintf("%s",round($score_achieved / $score_max * 100, 2)) ));
 //        echo "{$res}<br>";
         $resultsObj->setVar('result_note',$res);

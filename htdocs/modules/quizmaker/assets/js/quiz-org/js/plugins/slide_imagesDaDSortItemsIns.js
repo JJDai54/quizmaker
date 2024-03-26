@@ -6,6 +6,14 @@
 class imagesDaDSortItemsIns extends imagesDaDSortItems{
       
 name = 'imagesDaDSortItemsIns';
+/* *************************************
+*
+* ******** */
+build (){
+
+    this.boolDog = true;
+    return this.getInnerHTML();
+ }
 
 /* ************************************
 *
@@ -89,31 +97,6 @@ var  tplEncar = `<div id="{id}-encart" encart  class='imagesDaDSortItemsIns_myim
 
 
 
-/* ***************************************
-*
-* *** */
-
- showGoodAnswers()
-  {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML(false);
-    return true;
-  } 
-/* ***************************************
-*
-* *** */
-
- showBadAnswers()
-  {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML(true);
-    return true;
-
-  } 
 
 } // ----- fin de la classe ------     
 

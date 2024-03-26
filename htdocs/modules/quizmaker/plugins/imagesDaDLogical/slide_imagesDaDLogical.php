@@ -41,7 +41,9 @@ class slide_imagesDaDLogical extends XoopsModules\Quizmaker\Type_question
 	{
         parent::__construct("imagesDaDLogical", 0, "imagesDaD");
         $this->maxPropositions = 12;	
-        $this->optionsDefaults = ['imgHeight1'=>64,'imgHeight2'=>48];
+        $this->optionsDefaults = ['imgHeight1'  => 64,
+                                  'imgHeight2'  => 48,
+                                  'disposition' => 'dispositions-10'];
     }
 
 	/**
@@ -83,6 +85,12 @@ class slide_imagesDaDLogical extends XoopsModules\Quizmaker\Type_question
       $trayHeight2->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
       $trayOptions->addElement($trayHeight2);     
       
+      $name = 'disposition'; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
+      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
+      //$inputDisposition->setHorizontalIconNumber(9);
+      $trayOptions->addElement($inputDisposition);     
+
       return $trayOptions;
 
     }

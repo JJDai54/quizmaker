@@ -189,10 +189,10 @@ var idDivGood;
 this.blob('showGoodAnswers -----------------------------------------');
       for(var k = 0; k < currentQuestion.answers.length; k++){
         ans =  currentQuestion.answers[k];
-        obImg = document.getElementById(ans.id + "-div");
-        
+console.log("getScoreByProposition.obImg" + ans.id + "-img");         
+        obImg = document.getElementById(ans.id + "-img"); //
         idDivGood =  this.getId('group', ans.group);
-        this.blob(`divGood = ${idDivGood} - divFound = ${obImg.parentNode.id}`);
+//        this.blob(`divGood = ${idDivGood} - divFound = ${obImg.parentNode.id}`);
 //         if (idDivGood == obImg.parentNode.id && ans.group != currentQuestion.options.groupDefault && currentQuestion.options.groupDefault>=0){
 //             points += ans.points*1;
 //         alert("plus : " + ans.group + " - " + currentQuestion.options.groupDefault + " -> " + ans.points);

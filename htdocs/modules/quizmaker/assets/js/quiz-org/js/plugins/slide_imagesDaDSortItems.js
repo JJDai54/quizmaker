@@ -10,41 +10,10 @@ name = 'imagesDaDSortItems';
 /* ***************************************
 *
 * *** */
-// build (){
-//     var currentQuestion = this.question;
-//     var name = this.getName();
-//     this.boolDog = true;    
-//     
-//     const answers = [];
-//     answers.push(`<div id="${name}">`);
-//     answers.push(this.getInnerHTML());
-//     answers.push(`</div>`);
-//     
-//     
-// //    this.focusId = name + "-" + "0";
-//     //alert (this.focusId);
-// 
-//     return answers.join("\n");
-// 
-//  }
-/* ***************************************
-*
-* *** */
 build (){
     this.boolDog = false;
     return this.getInnerHTML();
  }
-
-/* ************************************
-*
-* **** */
-//  reloadQuestion() {
-//     var name = this.getName();
-//     var obContenair = document.getElementById(`${name}`);
-// 
-//     obContenair.innerHTML = this.getInnerHTML();
-//     return true;
-// }
 
 /* ************************************
 *
@@ -149,7 +118,7 @@ calcul le nombre de points obtenus d'une question/slide
 **************************************************** */ 
 getScoreByProposition (answerContainer){
 var bolOk = true;
-
+//alert("imagesDaDSortItems.getScoreByProposition");
     var currentQuestion = this.question;
 
     //var obDivImg = document.getElementById(this.getId('img'));
@@ -157,6 +126,10 @@ var bolOk = true;
     var obListImg = document.querySelectorAll(`#${this.getId('img img')}`);
     
     for(var k=0; k < obListImg.length; k++){
+    console.log("-------imagesDaDSortItems-getScoreByProposition-----------");
+    console.log(obListImg[k].getAttribute('src'));
+    console.log(`${quiz_config.urlQuizImg}/${currentQuestion.answers[k].proposition}`);
+
         //alert(obListImg[k].getAttribute('src') + "\n" + `${quiz_config.urlQuizImg}/${currentQuestion.answers[k].proposition}`);
         if(obListImg[k].getAttribute('src') != `${quiz_config.urlQuizImg}/${currentQuestion.answers[k].proposition}`){
             bolOk=false;
@@ -210,10 +183,7 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 
  showGoodAnswers()
   {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML(false);
+    this.getObDivMain().innerHTML = this.getInnerHTML(false);
     return true;
   } 
 /* ***************************************
@@ -222,10 +192,7 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 
  showBadAnswers()
   {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML(true);
+    this.getObDivMain().innerHTML = this.getInnerHTML(true);
     return true;
 
   } 
@@ -307,15 +274,4 @@ function imagesDaDSortItems_shiftDivImg(obSource,obDest){
 
 
 
-
-
-/* *********************************** */
-// function replaceImg(obSource,obDest){
-// 
-//     var srcTmp = obDest.getAttribute("src");
-//     obDest.setAttribute("src", obSource.getAttribute("src"));
-//     obSource.setAttribute("src", srcTmp);
-// 
-//     
-// }
 

@@ -136,7 +136,6 @@ define('_AM_QUIZMAKER_NAME', "Nom");
 define('_AM_QUIZMAKER_RESULTS_NOTE', "Note");
 define('_AM_QUIZMAKER_NB_QUIZ', "Number Quiz");
 define('_AM_QUIZMAKER_NUM_NUMERIQUE', "1 2 3 ...");
-define('_AM_QUIZMAKER_NUM_NONE', "None");
 define('_AM_QUIZMAKER_NUMBERING', "Numérotation");
 define('_AM_QUIZMAKER_QUIZ_ONCLICK', "OnClick");
 define('_AM_QUIZMAKER_OPTIONS', "Options");
@@ -305,6 +304,7 @@ define('_AM_QUIZMAKER_QUIZ_AUTHOR', "Auteur");
 \define('_AM_QUIZMAKER_MOVE_MODE', "Mode de déplacement");
 \define('_AM_QUIZMAKER_PURGER_IMAGES', "Purger les images");
 \define('_AM_QUIZMAKER_QUIZ_PURGER_IMAGES', "Suprime toutes les images du quiz non référencées");
+define('_CO_QUIZMAKER_NUM_NONE', "Sans");
 
  
 

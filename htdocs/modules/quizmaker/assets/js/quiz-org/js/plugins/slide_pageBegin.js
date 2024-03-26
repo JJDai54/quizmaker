@@ -48,32 +48,12 @@ var name = this.getName();
           
       }
 
-      answers.push(`<br><button id="quiz_btn_startQuiz"  name="quiz_btn_startQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnStartQuiz}</button>`);
+      //answers.push(`<br><button id="quiz_btn_startQuiz"  name="quiz_btn_startQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnStartQuiz}</button>`);
        answers.push(`</div>`);
       
       return answers.join("\n");
 
   }
-
-//---------------------------------------------------
-/*
-buildFormSubmitAnswers(){
-    var tNamesId = ['quiz_id', 'uid', 'answers_total', 'answers_achieved', 
-                    'score_achieved', 'score_max', 'score_min', 'duration'];
-                 
-    var tHtml = []
-    
-    tHtml.push(`<form name="form_submit_quizmaker" id="form" action="/modules/quizmaker/results_submit.php?op=submit_answers" method="post">`);
-    
-    for (var h = 0; h < tNamesId.length; h++){
-        tHtml.push(`<input type="hidden" name="${tNamesId[h]}" id="${tNamesId[h]}" value="0" />`);
-    }
-    tHtml.push(`</form>`);
-    
-    
-    return "\n" + tHtml.join("\n") + "\n";
-}  
-*/
 
 //---------------------------------------------------
 isQuestion (){

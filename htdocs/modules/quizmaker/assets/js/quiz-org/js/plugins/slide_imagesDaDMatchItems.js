@@ -9,34 +9,9 @@ name = 'imagesDaDMatchItems';
 *
 * *** */
 build (){
-    var currentQuestion = this.question;
-    var name = this.getName();
-    this.boolDog = true;
-    
-    
-    const answers = [];
-    answers.push(`<div id="${name}">`);
-    answers.push(this.getInnerHTML());
-    answers.push(`</div>`);
-    
-    
-//    this.focusId = name + "-" + "0";
-    //alert (this.focusId);
-
-    return answers.join("\n");
-
+    this.boolDog = false;
+    return this.getInnerHTML();
  }
-
-/* ************************************
-*
-* **** */
- reloadQuestion() {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML();
-    return true;
-}
 
 /* ************************************
 *
@@ -48,8 +23,8 @@ getInnerHTML(bSolution = false){
     var tItems = new Object;
     //var tpl = "<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td>{suggestion}</td></tr></table>";
     var tpl = "<div style='border: none;text-align:left;'>"
-            + `<div class='imagesLogical'>{sequence}</div><hr>${quiz_messages.message02}</div>`;
-    var tpl =`<div id="${this.getId('img')}" class='myimg0' style='border: none;text-align:left;'>\n{sequence}\n</div>`;
+            + `<div class='imagesDaDLogical'>{sequence}</div><hr>${quiz_messages.message02}</div>`;
+    var tpl =`<div id="${this.getId('img')}" style='border: none;text-align:left;'>\n{sequence}\n</div>`;
                 
 //     var tpl = "<style>.imagesLogical{border: none;text-align:left;}</style>"
 //             + "<div class='imagesLogical'>{sequence}</div><div class='imagesLogical'>{suggestion}</div>";
@@ -68,10 +43,10 @@ style="height:${currentQuestion.options.imgHeight1}px;"
 
  var eventImg=`
 style="height:${currentQuestion.options.imgHeight1}px;cursor: grab;"
-onDragStart="imagesDaDMatchItems_dad_start(event);"
-onDragOver="return imagesDaDMatchItems_dad_over(event);" 
-onDrop="return imagesDaDMatchItems_dad_drop(event);"
-onDragLeave="imagesDaDMatchItems_dad_leave(event);"
+onDragStart="imagesDaDMatchItems_start(event);"
+onDragOver="return imagesDaDMatchItems_over(event);" 
+onDrop="return imagesDaDMatchItems_drop(event);"
+onDragLeave="imagesDaDMatchItems_leave(event);"
 `;
 //onmouseover="testMouseOver(event);"
 //onclick="testOnClick(event);"   
@@ -79,7 +54,7 @@ onDragLeave="imagesDaDMatchItems_dad_leave(event);"
 var caption;
 var src;  
 var img;   
-tHtmlSequence.push(`<table class="${this.name}" width="100%" style="font-size:0.8em;"><tr>`);    
+tHtmlSequence.push(`<table><tr>`);    
     
     if(bSolution){
       var tCaptions = this.data.solution;
@@ -96,7 +71,7 @@ tHtmlSequence.push(`<table class="${this.name}" width="100%" style="font-size:0.
             src = `${quiz_config.urlQuizImg}/${tImages[k].proposition}`;
             caption = tCaptions[k].caption.replace(' ','<br>'); 
             img = `<td style='text-align:center;'>`
-                + `<img id="${tImages[k].id}" src="${src}" title="" alt="" ${eventImg}>`
+                + `<img id="${tImages[k].id}" draggable='true' src="${src}" class="imagesDaDMatchItems_myimg1" title="" alt="" ${eventImg}>`
                 + `<div>${caption}</div></td>`;  
                       
             //alert(`newline : ${k}-${(k*1+1)}-${((k*1+1) % 4)}`);
@@ -208,7 +183,7 @@ computeScoresMinMaxByProposition(){
     var name = this.getName();
     var obContenair = document.getElementById(`${name}`);
 
-    obContenair.innerHTML = this.getInnerHTML(true);
+    this.getObDivMain().innerHTML = this.getInnerHTML(true);
     
      return true;
   } 
@@ -219,9 +194,7 @@ computeScoresMinMaxByProposition(){
  showBadAnswers()
   {
     var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML(false);
+   this.reloadQuestion();
     return true;
 
   } 
@@ -232,27 +205,27 @@ computeScoresMinMaxByProposition(){
 /* **************************************************************** */
 /*       Fonction de Drag And drop sur des images                   */
 /* **************************************************************** */
-function imagesDaDMatchItems_dad_start(e, isDiv=false){
+function imagesDaDMatchItems_start(e, isDiv=false){
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text", e.target.getAttribute("id"));
-    blob("imagesDaDMatchItems_dad_start : " + e.target.getAttribute("id") + " | " + e.target.getAttribute("src") );
-    blob("imagesDaDMatchItems_dad_start Data-text : " + e.dataTransfer.getData("text"));
+    blob("imagesDaDMatchItems_start : " + e.target.getAttribute("id") + " | " + e.target.getAttribute("src") );
+    blob("imagesDaDMatchItems_start Data-text : " + e.dataTransfer.getData("text"));
     return false;
 }
 
-function imagesDaDMatchItems_dad_over(e){
+function imagesDaDMatchItems_over(e){
 //alert('dad_over')
-    if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
+   // if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
 
-blob(`dad_over : ${e.dataTransfer.getData("text")} / ${e.currentTarget.getAttribute("id")}`);
-
+//blob(`dad_over : ${e.dataTransfer.getData("text")} / ${e.currentTarget.getAttribute("id")}`);
+console.log("imagesDaDMatchItems_start -> e.currentTarget.id : " + e.currentTarget.id);
     e.currentTarget.classList.remove('imagesDaDMatchItems_myimg1');
     e.currentTarget.classList.add('imagesDaDMatchItems_myimg2');
     
     return false;
 }
 
-function imagesDaDMatchItems_dad_drop(e, mode=0){
+function imagesDaDMatchItems_drop(e, mode=0){
     //pas de massage alert avant la lecture de transfert.data
     idFrom = e.dataTransfer.getData("text");
 
@@ -277,7 +250,7 @@ function imagesDaDMatchItems_dad_drop(e, mode=0){
     return false;
 }
 
-function imagesDaDMatchItems_dad_leave(e){
+function imagesDaDMatchItems_leave(e){
 
    e.currentTarget.classList.remove('imagesDaDMatchItems_myimg2');
    e.currentTarget.classList.add('imagesDaDMatchItems_myimg1');

@@ -4,8 +4,8 @@
   border: 0px solid red;
 
 }
-
-#quiz_div_main{             /* ensemble du quiz interface utilisateur */
+ /* ensemble du quiz interface utilisateur */
+#quiz_div_main{            
     width : 700px;
     /*  background:rgb(0,204,0) ;*/
     position:relative;
@@ -53,6 +53,13 @@
     width : 100%;
     height : 80px;
     /*background:rgb(153,153,255);*/
+left:20px;
+}
+#quiz_div_start{          /* message de bas de page */
+    width : 100%;
+    height : 80px;
+    /*background:rgb(153,153,255);*/
+    /* padding:10px 0px 0px 0px; */
 left:20px;
 }
 

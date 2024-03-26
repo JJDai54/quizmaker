@@ -5,51 +5,37 @@
 class imagesDaDLogical extends quizPrototype{
 name = 'imagesDaDLogical';
   
-/* ***************************************
+/* *************************************
 *
-* *** */
+* ******** */
 build (){
-    var currentQuestion = this.question;
-    var name = this.getName();
-    
-    
-    const answers = [];
-    answers.push(`<div id="${name}">`);
-    answers.push(this.getInnerHTML());
-    answers.push(`</div>`);
-    
-    
-//    this.focusId = name + "-" + "0";
-    //alert (this.focusId);
 
-    return answers.join("\n");
-
+    this.boolDog = true;
+    return this.getInnerHTML();
  }
 
-/* ************************************
-*
-* **** */
- reloadQuestion() {
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML();
-    return true;
-}
 
 /* ************************************
 *
 * **** */
-getInnerHTML(){
+build (){
+    this.boolDog = false;
+    return this.getInnerHTML();
+ }
+
+
+/* ************************************
+*
+* **** */
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var tWords = [];
     var tPoints = [];
     var tItems = new Object;
-    //var tpl = "<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td>{suggestion}</td></tr></table>";
-    var tpl = "<div style='border: none;text-align:left;'>"
-            + `<div class='imagesDaDLogical'>{sequence}</div><hr>${quiz_messages.message02}<hr><div class='myimg0'>{suggestion}</div></div>`;
-//     var tpl = "<style>.imagesLogical{border: none;text-align:left;}</style>"
-//             + "<div class='imagesLogical'>{sequence}</div><div class='imagesLogical'>{suggestion}</div>";
+
+    var tpl = this.getDisposition(currentQuestion.options.disposition).replace("{message}", quiz_messages.message02);
+    
+
    
     var tHtmlSequence = [];
     var tHtmlSuggestion = [];
@@ -58,61 +44,47 @@ getInnerHTML(){
     var currentQuestion = this.question;
     var tImgSequence = [];
     var img = '';
+    var caption = "";
+    var src = "";
 //alert('imagesLocal : execution = ' + quiz_execution + ' - quiz.url = ' + quiz.url);   
  
 var eventImgToStyle=`
-style="height:${currentQuestion.options.imgHeight1}px;"
-`;
-var eventImgFromStyle=`
-style="height:${currentQuestion.options.imgHeight2}px;"
-`;
+style="height:${currentQuestion.options.imgHeight1}px;"`;
+var eventImgFromStyle=`style="height:${currentQuestion.options.imgHeight2}px;"`;
+
 var eventImgToEvent=`
-onDragStart="imagesDaDLogical_dad_start(event);"
-onDragOver="return imagesDaDLogical_dad_over(event);" 
-onDrop="return imagesDaDLogical_dad_drop(event,0);"
-onDragLeave="imagesDaDLogical_dad_leave(event);"`;
+onDragStart="imagesDaDLogical_start(event);"
+onDragOver="return imagesDaDLogical_over(event);" 
+onDrop="return imagesDaDLogical_drop(event,0);"
+onDragLeave="imagesDaDLogical_leave(event);"`;
     
 var eventImgFrom=`
-style="height:${currentQuestion.options.imgHeight1}px;cursor:pointer;"    
-onDragStart="dad_start(event);"
-`;
-var caption;
+style="height:${currentQuestion.options.imgHeight1}px;"    
+ onDragStart="dad_start(event);"`;
     
-tHtmlSequence.push('<table width="100%" style="font-size:0.8em;" class="myimg0"><tr>');    
-    for(var k in this.data.sequence){
-        var ans =  this.data.sequence[k];
-        //alert('inputs = ' + ans.inputs);
-        if (ans.points*1 > 0){
-            var src = `${quiz_config.urlQuizImg}/${ans.image}`;
+    //tHtmlSequence.push('<table><tr>');    
+    //on place unioquement les silhouette des prposition pour points>0
+    var tShuffle = shuffleArray(currentQuestion.answers);
+    var j = 0;
+    
+    for(var k in tShuffle){
+        var ans =  tShuffle[k];
+        console.log("ans.idSequence = " + ans.idSequence);
+        if(ans.isOk) {
+            src = `${quiz_config.urlQuizImg}/${ans.image}`;
+           var idSequence = this.getId(j++,"sequence");
+           ans.idSequence = idSequence;
             caption = (ans.caption) ? '<br>' + ans.caption : ''; 
-            img = `<td style='text-align:center;'><img id="${ans.id}"  class='myimg1' src="${src}" title="${ans.proposition}" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</td>`;        
-
+            //img = `<td style='text-align:center;'><img id="${idSequence}"  class='imagesDaDLogical_myimg1' src="${src}" title="${ans.proposition}" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</td>`;        
+            img = `<div><img id="${idSequence}"  class='imagesDaDLogical_myimg1' src="${src}" title="${ans.proposition}" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</div>`;        
+            tHtmlSequence.push(img);
         }else{
-            var src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
-            caption = (ans.caption) ? '<br>' + ans.caption : ''; 
-            img = `<td style='text-align:center;'><img id="${ans.id}"  class='myimg1' src="${src}" title="${ans.proposition}" alt="" ${eventImgToStyle}>${caption}</td>`;        
-
         }
-        tHtmlSequence.push(img);
+        src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
+        img = `<img id="${ans.id}"  class='imagesDaDLogical_myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title="${ans.proposition}"  ${eventImgFromStyle} alt="xxx"  ${eventImgFrom}>`;
+        tHtmlSuggestion.push(img);
     }
-tHtmlSequence.push('</tr></table>');    
-    //--------------------------------------------------------------
-    
-    
-      var sug = duplicateArray(this.data.suggestion);
-      shuffleArrayFY(sug);
-      for(var k in sug){
-          var ans =  sug[k];
-          var idFrom = ans.id; //this.getId('suggestion',k);
-          //var ev = evTpl.replace('{idFrom}', idFrom);
-          //var ev = ev.replace('{idTo}', this.getId(this.data.toFind[j]) );
-          //alert(ev);
-          img = `<img id="${idFrom}"  class='myimg0 myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title="${ans.proposition}"  ${eventImgFromStyle} alt="xxx"  ${eventImgFrom}>`;
-          tHtmlSuggestion.push(img);
-      }
-
-    
-    
+    //tHtmlSequence.push('</tr></table>');    
     
     //---------------------------------------------------------------------
     tpl=tpl.replace('{sequence}', tHtmlSequence.join("\n")).replace('{suggestion}', tHtmlSuggestion.join("\n"));
@@ -123,54 +95,20 @@ tHtmlSequence.push('</tr></table>');
  prepareData(){
     
     var currentQuestion = this.question;
-    var sequence = [];
-    var suggestion = [];
-    
-    var tWords = [];
-    var tPoints = [];
-    var tItems = new Object;
-    var j = currentQuestion.answers.length;
-    
-    var i=-1;
-    var arrToFind = [];
-    for(var k in currentQuestion.answers){
-    //for(var k = 0; k < currentQuestion.answers.length; k++){
-        currentQuestion.answers[k].id = this.getId(k,);
-        if(currentQuestion.answers[k].points > 0){
-            arrToFind.push(k);
-            sequence.push(currentQuestion.answers[k]);
-            
-        var newItem = JSON.parse(JSON.stringify(currentQuestion.answers[k]));
-        newItem.id = this.getId(k+j);
-        suggestion.push(newItem);
-            
-        }else{
-            suggestion.push(currentQuestion.answers[k]); 
-        } 
-            
-    }   
-    
-    for(var k=0; k < arrToFind.length; k++){
-//         newItem.org = arrToFind[k];
-//         newItem.idOrg = 99999;//this.getId(arrToFind[k]);
-//            alert('newItem.idOrg 3 : ' + newItem.idOrg);
-    }
-     //var newItem = currentQuestion.answers[i];
-    
-    //alert("winner = " + i + " / " + currentQuestion.answers[i].proposition) + "/" + newItem.proposition;
-     
-     //this.data.idWinner = this.getId(k); 
-        
-        
-//alert(`num propositions : - 0=>${sequence.length} - 1=>${suggestion.length} - toFind=>${arrToFind.length} - ` + arrToFind.join("|"));        
-    this.data.sequence = sequence;        
-    this.data.suggestion = suggestion;   
-    this.data.toFind = arrToFind;   
-    
-    
-    this.data.urlCommonImg = quiz_config.urlCommonImg;
+    this.data.masks = 0;
 
-        
+    for(var k in currentQuestion.answers){
+        currentQuestion.answers[k].id = this.getId(k,"ans");
+        currentQuestion.answers[k].idSequence = "";
+        if(currentQuestion.answers[k].points > 0){
+            currentQuestion.answers[k].isOk = true;
+            this.data.masks += 1;
+            
+         }else{
+            currentQuestion.answers[k].isOk = false;
+        } 
+    }   
+    this.data.urlCommonImg = quiz_config.urlCommonImg;
         
 }
 
@@ -181,18 +119,16 @@ getScoreByProposition (answerContainer){
 var points = 0;
 
     var currentQuestion = this.question;
-//alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
-      for(var k = 0; k < this.data.sequence.length; k++){
-        var ans = this.data.sequence[k];
+      for(var k = 0; k < currentQuestion.answers.length; k++){
+        var ans = currentQuestion.answers[k];
+        var idSequence = ans.idSequence;
         if (ans.points*1 > 0){
-          var obImg = document.getElementById(ans.id);
-          //alert(obImg.getAttribute('src') + "\n" + `${quiz_config.urlQuizImg}/${ans.proposition}`);
-          if (obImg.getAttribute('src') == `${quiz_config.urlQuizImg}/${ans.proposition}`)        
+          var obSequence = document.getElementById(ans.idSequence);
+          if (obSequence.getAttribute('src') == `${quiz_config.urlQuizImg}/${ans.proposition}`)        
                 points += ans.points*1;
         }      
                     
     }
-    //return ((currentQuestion.points > 0) ? currentQuestion.points : points);
     return points;
 }
 
@@ -230,21 +166,16 @@ getAllReponses (flag = 0){
      var tPoints = this.data.points;
      var tpl1;
      var tReponses = [];
-     
 
     for(var k in this.data.sequence){
-    //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.data.sequence[k];
         var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
         tReponses.push ([img, ans.caption, ans.points]);
-
     }          
-
      
     tReponses.push (['<hr>', '<hr>']);
             
     for(var k in this.data.suggestion){
-    //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.data.suggestion[k];
         if (ans.points<=0){
           var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
@@ -252,7 +183,6 @@ getAllReponses (flag = 0){
         }
 
     }   
-
 
     return formatArray0(tReponses, "=>");
 }
@@ -264,21 +194,24 @@ getAllReponses (flag = 0){
  showGoodAnswers()
   {
     var currentQuestion = this.question;
-//alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
-      for(var k = 0; k < this.data.sequence.length; k++){
-        var ans = this.data.sequence[k];
-//        alert(`propo = ${ans.proposition} - points = ${ans.points}` );
+    var j = 0;
+
+      for(var k = 0; k < currentQuestion.answers.length; k++){
+        var ans = currentQuestion.answers[k];
+        var idSequence = this.getId(k,"sequence");
+
           if (ans.points*1 > 0){
-            var obImg = document.getElementById(ans.id);
-//            alert(obImg.getAttribute('src'));
+            var obImg = document.getElementById(ans.idSequence);
             obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${ans.proposition}`);
+            document.getElementById(ans.id).setAttribute('src', `${quiz_config.urlQuizImg}/${ans.image}`);
+          }else{
+             document.getElementById(ans.id).setAttribute('src', `${quiz_config.urlQuizImg}/${ans.proposition}`);
           } 
       }
 
-
-
      return true;
   } 
+
 /* ***************************************
 *
 * *** */
@@ -286,19 +219,56 @@ getAllReponses (flag = 0){
  showBadAnswers()
   {
     var currentQuestion = this.question;
-//alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
-      for(var k = 0; k < this.data.sequence.length; k++){
-        var ans = this.data.sequence[k];
-//        alert(`propo = ${ans.proposition} - points = ${ans.points}` );
-          if (ans.points*1 > 0){
-            var idFrom = rnd(this.data.suggestion.length -1);
-            var obImg = document.getElementById(ans.id);
-//            alert(obImg.getAttribute('src'));
-            obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${this.data.suggestion[idFrom].proposition}` );
-          } 
-      }
+    this.reloadQuestion();
+    
+    var tShuffle = [];
+    for (var h = 0; h < currentQuestion.answers.length; h++){tShuffle.push(h);}
+    tShuffle = shuffleArray(tShuffle);
+
+    var tAnsAlea = shuffleArray(currentQuestion.answers);
+
+    for(var k = 0; k < this.data.masks; k++){
+        var idSequence = this.getId(k,"sequence");    
+        var obSequence = document.getElementById(idSequence);
+    
+        var idAns = tAnsAlea[k].id;
+        var obAns = document.getElementById(idAns);
+        
+        replaceImg(obAns, obSequence);
+    }
+    
      return true;
   } 
+
+/* ***************************************
+*
+* *** */
+getDisposition(disposition){
+    switch(disposition){
+        default:
+        case 'disposition-10':
+          var tpl = `<table width:"100%"'>
+                        <tr><td>{sequence}</td></tr>
+                        <tr><td><hr>{message}<hr></td></tr>
+                        <tr><td>{suggestion}</td></tr>
+                    </table>`;
+            break;
+        case 'disposition-11':
+          var tpl = `<table width:"100%"'>
+                        <tr><td>{sequence}</td></tr>
+                        <tr><td><hr>{message}<hr></td></tr>
+                        <tr><td>{suggestion}</td></tr>
+                    </table>`;
+            break;
+        case 'disposition-20':
+          var tpl = `{message}<hr><table><tr>
+                        <td style='width:50%;vertical-align: top;'>{suggestion}</td>
+                        <td style='width:50%;vertical-align: top;'>{sequence}</td>
+                    </tr></table>`;
+            break;
+    }
+    return tpl;
+}
 
 } // ----- fin de la classe ------
 
@@ -306,23 +276,25 @@ getAllReponses (flag = 0){
 /* **************************************************************** */
 /*       Fonction de Drag And drop sur des images                   */
 /* **************************************************************** */
-function imagesDaDLogical_dad_start(e, isDiv=false){
+function imagesDaDLogical_start(e, isDiv=false){
     e.dataTransfer.effectAllowed = "move";
-    e.dataTransfer.setData("text", e.target.getAttribute("id"));
+    e.dataTransfer.setData("text", e.currentTarget.id);
+    console.log("imagesDaDLogical_start : " + e.currentTarget.id);
 }
-function imagesDaDLogical_dad_over(e){
-    if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
+function imagesDaDLogical_over(e){
+   // if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
     e.currentTarget.classList.remove('imagesDaDLogical_myimg1');
     e.currentTarget.classList.add('imagesDaDLogical_myimg2');
+console.log("===>imagesDaDLogical_over : " + e.currentTarget.id);
     return false;
 }
-function imagesDaDLogical_dad_leave(e){
+function imagesDaDLogical_leave(e){
    e.currentTarget.classList.remove('imagesDaDLogical_myimg2');
    e.currentTarget.classList.add('imagesDaDLogical_myimg1');
 }
-function imagesDaDLogical_dad_drop (e, mode=0){
+function imagesDaDLogical_drop (e, mode=0){
 //alert('dad_drop')
-    idFrom = e.dataTransfer.getData("text");
+    var idFrom = e.dataTransfer.getData("text");
 
     e.currentTarget.classList.remove('imagesDaDLogical_myimg2');
     e.currentTarget.classList.add('imagesDaDLogical_myimg1');
@@ -330,8 +302,7 @@ function imagesDaDLogical_dad_drop (e, mode=0){
     
     var obSource = document.getElementById(idFrom);
     var obDest = document.getElementById(e.currentTarget.getAttribute("id"));
-    //alert(`idFrom : ${obSource.id}\nidDest : ${obDest.id}`);
-        replaceImg(obSource,obDest);
+    replaceImg(obSource,obDest);
     //-----------------------------------------------
     computeAllScoreEvent();
     e.stopPropagation();

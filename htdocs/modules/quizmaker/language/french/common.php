@@ -84,6 +84,6 @@ define('_CO_QUIZMAKER_TIME', "Date/Heure");
 define('_CO_QUIZMAKER_HOUR', "heure(s)");
 define('_CO_QUIZMAKER_MINUTES', "minute(s)");
 define('_CO_QUIZMAKER_SECONDS', "secondes");
-
+define('_CO_QUIZMAKER_NUM_NONE', "Sans");
 
 ?>
