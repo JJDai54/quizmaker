@@ -70,18 +70,18 @@ $adminmenu[] = [
 	'link' => 'admin/import.php?op=list',
 	'icon' => $sysPathIcon32 . '/download.png',
 ];
-/*
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_MINIFY,
 	'link' => 'admin/minify.php',
 	'icon' => $sysPathIcon32.'/discount.png',
 ];
-*/
+/*
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_TOOLS,
 	'link' => 'admin/tools.php',
 	'icon' => $sysPathIcon32.'/synchronized.png',
 ];
+*/
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU8,

@@ -24,6 +24,8 @@ use Xmf\Request;
 use XoopsModules\Quizmaker;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
+use Common\FilesManagement; // Files Management Trait
+    
 //-----------------------------------------------
 
 require __DIR__ . '/header.php';
@@ -38,8 +40,8 @@ if (isset($_POST['submit'])){
 } 
 
 //------------------------------------------------------
-//$tr = "<pre>" . print_r($_POST, true) . "</pre>";
-//echo "<hr>{$op} - {$select}<pre>" . print_r($_POST, true) . "</pre><hr>";
+// $tr = "<pre>" . print_r($_POST, true) . "</pre>";
+// echo "<hr>{$op} - {$select}<pre>" . print_r($_POST, true) . "</pre><hr>";
 //exit;
 //------------------------------------------------------
 
@@ -58,90 +60,125 @@ $objError = new \XoopsObject();
 //echo "<hr>{$pathSource}<br>nb files = " . count($filesList) . "<hr>";
 include_once("../class/Minifier.php");       
 
-function mkdir_quiz_min_folders(){
-global $objError;
 
-    $fldArr = array('/js/plugins', '/js/language', '/css') ;
-    foreach($fldArr as $key => $fld){
-      if(!is_dir(QUIZMAKER_QUIZ_JS_MIN . $fld)) 
-          if(!mkdir(QUIZMAKER_QUIZ_JS_MIN . $fld, 0777, true)) $objError->setErrors("Echec de la creation du dossier \{$fld}\"");
-    
+/* ***
+*
+**** */
+function getQuizFolder($root, $folder = ''){
+    if($folder == ''){
+      return $root; 
+    }else{
+      return $root . '/' . $folder;
     }
 }
-function getFilesList($path, $subFolder='', $strExtentions=''){
+
+/* ***
+*
+**** */
+function restaure_folder($folder = ''){
 global $objError;
-    $ret = array();
-    $extensions = explode(',', $strExtentions);
-    
-    if ($subFolder == '')
-    {
-        $filesList =  XoopsLists::getFileListByExtension($path, $extensions);   
-        foreach($filesList AS $k=>$f){
-            $ret[$k] = $path . '/' . $filesList[$k];
-        }
-     }else{
-        $path .= '/' . $subFolder;
-        $filesList =  XoopsLists::getFileListByExtension($path,  $extensions, '');   
-        foreach($filesList AS $k=>$f){
-            $f =  $subFolder . '/' . $filesList[$k];
-            $ret[$f] =  $path . '/' . $subFolder . '/' . $filesList[$k];
-        }
-     }   
-//echo "<hr>{$path}<pre>" . print_r($ret, true) . "</pre><hr>";exit;
-     return $ret;   
+    if($folder == ''){
+      $org = QUIZMAKER_PATH_QUIZ_ORG; 
+      $min   = QUIZMAKER_PATH_QUIZ_MIN; 
+    }else{
+      $org = QUIZMAKER_PATH_QUIZ_ORG . '/' . $folder;
+      $min   = QUIZMAKER_PATH_QUIZ_MIN . '/' . $folder;
+    }
+//echo "<hr>restaure_folder : <br>{$org}<br>{$min}<hr>";
+
+    Utility::deleteDirectory($min);
+    Utility::recurseCopy($org, $min);  
+   // exit;
 }
-function minifie_files($filesList, $extra = ''){
+/* ***
+*
+**** */
+function getFilesList($folder = ''){
+global $objError;
+    if($folder == ''){
+      $org = QUIZMAKER_PATH_QUIZ_ORG; 
+      $min   = QUIZMAKER_PATH_QUIZ_MIN; 
+    }else{
+      $org = QUIZMAKER_PATH_QUIZ_ORG . '/' . $folder;
+      $min   = QUIZMAKER_PATH_QUIZ_MIN . '/' . $folder;
+    }
+    $ext = array('js','css');
+    $filesList =  Utility::getRecurseFiles($org,$ext);
+    
+    //retire  root du nom du fichier
+    $lgRoot = strlen(QUIZMAKER_PATH_QUIZ_ORG);
+    foreach($filesList as $k=>$f){
+        $filesList[$k] = substr($f, $lgRoot);
+    }
+    //echoArray($filesList, 'minifie_files', false);
+    return $filesList; 
+} 
+/* ***
+*
+**** */
+function minifie_files($folder = ''){
+global $objError;
+    if($folder == ''){
+      $org = QUIZMAKER_PATH_QUIZ_ORG; 
+      $min   = QUIZMAKER_PATH_QUIZ_MIN; 
+    }else{
+      $org = QUIZMAKER_PATH_QUIZ_ORG . '/' . $folder;
+      $min   = QUIZMAKER_PATH_QUIZ_MIN . '/' . $folder;
+    }
+    $ext = array('js','css');
+    $filesList =  Utility::getRecurseFiles($org, $ext);
+    
+    //retire  root du nom du fichier
+    $lgRoot = strlen(QUIZMAKER_PATH_QUIZ_ORG);
+    foreach($filesList as $k=>$f){
+        $filesList[$k] = substr($f, $lgRoot);
+    }
+    //echoArray($filesList, 'minifie_files', false);
+    minifie_filesList($filesList, '');
+    return true; 
+} 
+
+function minifie_filesList($filesList, $extra = ''){
 global $objError;
     $clMin = new Minifier();
       
     foreach($filesList AS $k=>$f){
-        $from = QUIZMAKER_QUIZ_JS_ORG . '/' .$k;
-        $to   = QUIZMAKER_QUIZ_JS_MIN . '/' . $k;
+        $from = QUIZMAKER_PATH_QUIZ_ORG . $f;
+        $to   = QUIZMAKER_PATH_QUIZ_MIN . $f;
         
-        $pos = strrpos($k, '.');
-        $ext = substr($k, $pos+1);
+        $pos = strrpos($f, '.');
+        $ext = substr($f, $pos+1);
         
         $content = \file_get_contents($from);
         $newContent = $clMin->minify($content, $ext, $extra);
         //$newContent = $clMin->minifyJS($content);
         
-        //echo "Path : {$ext}<br>{$from}<br>{$to}<br><br>";
+        //echo "minifie_filesList Path : {$ext}<br>{$from}<br>{$to}<br><br>";
         if(\file_put_contents($to, $newContent) === false)
             $objError->setErrors("no minification <br>de ===> {$from}<br>vers ===> {$to}");  ;
-    }        
+    }
+    //exit;        
 }
 
-function restaure_files($filesList){
-global $objError;
-     
+function folder_is_minified($folder = ''){
+$bolOk = true;
+    $min = getQuizFolder(QUIZMAKER_PATH_QUIZ_MIN, $folder);
+    //$filesList = getFilesList($min);
+    $filesList = getFilesList($folder);
+    //echo "<hr>folder_is_minified : {$folder} => {$min}<hr>";
+    
     foreach($filesList AS $k=>$f){
-        $from = QUIZMAKER_QUIZ_JS_ORG . '/' . $k;
-        $to   = QUIZMAKER_QUIZ_JS_MIN . '/' . $k;
-        
-        if(!copy($from, $to)){
-            $objError->setErrors("no copie <br>de ===> {$from}<br>vers ===> {$to}");  
-        }
-    }    
+        $fullName = QUIZMAKER_PATH_QUIZ_MIN . '/' . $f;
+        //echo "{$folder} => {$fullName}<br>";
+        $content = \file_get_contents($fullName);
+        //echo"<br>{$content}<br>";
+        $nbLines = count(explode("\n", $content));
+        if($nbLines > 1) $bolOk = false;
+    }
+    return $bolOk;
 }
-function do_it($filesList, $action, $extra = ''){
-global $objError;   
-$msg = '';             
-        switch ($action){
-            case 'restaure': 
-                restaure_files($filesList);
-                $msg .= "<br>" . _AM_QUIZMAKER_TOOLS_RESTAURE_OK;
-                break;
-            case 'minifie': 
-                minifie_files($filesList, $extra);
-                $msg .= "<br>" . _AM_QUIZMAKER_TOOLS_MINIFIE_OK;  
-                break;
-            default:
-                $objError->setErrors("Action \"{$action}\" do not exixt");
-                $msg = '???';             
-                break;
-        }
-        return $msg;        
-}
+
+
 /////////////////////////////////////////////////////////////////////
 // echoArray($_GET);
 //echoArray($_POST);
@@ -155,65 +192,36 @@ $caption = $actionArr[$domaine][$action];
 $op=$domaine;  
 $msg = null;
 
-$pathSource = QUIZMAKER_QUIZ_JS_ORG;
-$pathDest   = QUIZMAKER_QUIZ_JS_MIN;
-mkdir_quiz_min_folders();
+$pathSource = QUIZMAKER_PATH_QUIZ_ORG;
+$pathDest   = QUIZMAKER_PATH_QUIZ_MIN;
 
-switch($op) {
-    case "all":
-        $msg =  "{$domaine}===>{$action}===>{$caption}"; 
-        switch ($action){
-            case 'restaure': 
-                //restaure_files($filesList);
-                $quizUtility::recurseCopy(QUIZMAKER_QUIZ_JS_ORG, QUIZMAKER_QUIZ_JS_MIN);
-                $msg .= "<br>" . _AM_QUIZMAKER_TOOLS_RESTAURE_OK;
-                break;
-            case 'minifie': 
-                $filesListRoot = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'js',  'js,JS');   
-                $filesListTpl = getFilesList(QUIZMAKER_QUIZ_JS_ORG,  'js/plugins', 'js,JS');   
-                $filesListCss = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'css', 'css,CSS');   
-                $filesList   = array_merge($filesListRoot, $filesListTpl, $filesListCss);  
-                $msg .= do_it($filesList, $action, '');
 
-                $filesList = getFilesList($pathSource, 'js/language', 'js,JS');   
-                $msg .= do_it($filesList, $action, 'lang');
-                break;
+    switch ($domaine){
+        case '_all_':
+            $folder = '';
+            break;
+        case 'js':
+        case 'css':
+        case 'language':
+        case 'plugins':
+            $folder = $domaine;
+            break;
+        default:
+            $folder = 'plugins/' . $domaine;
+            break; 
+    }
+
+    switch($action) {
+        case "restaure":
+            restaure_folder($folder);
+            break;
+            
+        case "minifie":
+            $filesList =($folder);
+            minifie_files($filesList);
+            break;
         }
-        break;
-        
-    case "js":
-        $msg =  "{$domaine}===>{$action}===>{$caption}";
-        $filesList = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'js',  'js,JS');   
-        $msg .= do_it($filesList, $action, '');
-        
-        break;
-        
-    case "plugins":
-        $msg =  "{$domaine}===>{$action}===>{$caption}";
-        $filesList = getFilesList(QUIZMAKER_QUIZ_JS_ORG, 'js/plugins', 'js,JS');
-        $msg .= do_it($filesList, $action, '');
-        break;
-        
-    case "css":
-        $msg =  "{$domaine}===>{$action}===>{$caption}";
-        $filesList = getFilesList($pathSource, 'css', 'css,CSS');        
-        $msg .= do_it($filesList, $action, '');
-        break;
-        
-    case "html":
-        $msg =  "{$domaine}===>{$action}===>{$caption}";
-        $filesList = getFilesList($pathSource, 'js/language', 'js,JS');   
-        $msg .= do_it($filesList, $action, '');
-        break;
-        
-    case "lang":
-        $msg =  "{$domaine}===>{$action}===>{$caption}";
-        $filesList = getFilesList($pathSource, 'js/language', 'js,JS');   
-        $msg .= do_it($filesList, $action, 'lang');
-        break;
-    
-    case "list":
-    default:
+    //---------------------------------------------
         if($objError->getErrors())
             $errors = $objError->getHtmlErrors();
         else
@@ -227,30 +235,28 @@ switch($op) {
       $GLOBALS['xoopsTpl']->assign('buttons', '');
 
        $actions_list = array( 
-                    'all'    => _AM_QUIZMAKER_TOOLS_MINIFY_ALL_DESC,
-                    'js'     => _AM_QUIZMAKER_TOOLS_MINIFY_JS_DESC,
-                    'plugins'=> _AM_QUIZMAKER_TOOLS_MINIFY_PLUGINS_DESC,
-                    'css'    => _AM_QUIZMAKER_TOOLS_MINIFY_CSS_DESC,
-                    //'html'   => _AM_QUIZMAKER_TOOLS_MINIFY_HTML_DESC,
-                    'lang'   => _AM_QUIZMAKER_TOOLS_MINIFY_LANGUAGE_DESC
-        );
-        /*
-        
-        $actions=array( 'minify_all'    => array('caption' => _AM_QUIZMAKER_TOOLS_MINIFY_ALL,        'description' => _AM_QUIZMAKER_TOOLS_MINIFY_ALL_DESC),
-                        'minify_js'     => array('caption' => _AM_QUIZMAKER_TOOLS_MINIFY_JS,         'description' => _AM_QUIZMAKER_TOOLS_MINIFY_JS_DESC),
-                        'minify_plugins'=> array('caption' => _AM_QUIZMAKER_TOOLS_MINIFY_PLUGINS,    'description' => _AM_QUIZMAKER_TOOLS_MINIFY_PLUGINS_DESC),
-                        'minify_css'    => array('caption' => _AM_QUIZMAKER_TOOLS_MINIFY_CSS,        'description' => _AM_QUIZMAKER_TOOLS_MINIFY_CSS_DESC),
-                        'minify_html'   => array('caption' => _AM_QUIZMAKER_TOOLS_MINIFY_HTML,       'description' => _AM_QUIZMAKER_TOOLS_MINIFY_HTML_DESC_DESC),
-                        'minify_lang'   => array('caption' => _AM_QUIZMAKER_TOOLS_MINIFY_LANGUAGE,   'description' => _AM_QUIZMAKER_TOOLS_MINIFY_LANGUAGE_DESC)
-        )
-        */
+                    '_all_'     => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_ALL_DESC,      'isMinified'=> folder_is_minified('_all_')],
+                    'js'        => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_APP_DESC,      'isMinified'=> folder_is_minified('js')],
+                    'css'       => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_CSS_DESC,      'isMinified'=> folder_is_minified('css')],
+                    //'html'    => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_HTML_DESC,     'isMinified'=> folder_is_minified('html')],
+                    'language'  => ['desc' => _AM_QUIZMAKER_TOOLS_MINIFY_LANGUAGE_DESC, 'isMinified'=> folder_is_minified('language')],
+                    'plugins'   => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_PLUGINS_DESC,  'isMinified'=> folder_is_minified('plugins')]
+                    );
+                    
+        //recupe de tous les plugins pour les traiter un par un
+		$type_questionAll = $type_questionHandler->getAll($catTypeQuestion);
+        //echoArray($type_questionAll);
+        foreach($type_questionAll as $k=>$plugin){
+            //$actions_list[$plugin['name']] = $plugin['description'];
+            $actions_list[$plugin['type']] = ['desc' => $plugin['name'], 'isMinified'=> folder_is_minified("plugins/" . $plugin['type'])];
+        }                    
         $xoopsTpl->assign('actions_list', $actions_list);
-        break;
-        
-    
-    }   
-    
-   
+    	$xoopsTpl->assign('modPathNotes', $modPathIcon16 . "/notes");
+
+
+
+
+
 /////////////////////////////////////////   
 if($objError->getErrors()){
 //    $GLOBALS['xoopsTpl']->assign('error', $errors);
@@ -263,4 +269,6 @@ if($objError->getErrors()){
 if($msg)
     redirect_header('tools.php', 3, $msg);    
 else
-    require __DIR__ . '/footer.php';
+    require __DIR__ . '/footer.php';exit;
+//////////////////////////////////////////////////////
+

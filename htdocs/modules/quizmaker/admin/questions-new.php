@@ -43,7 +43,7 @@ use XoopsModules\Quizmaker\Constants;
 /*
             $lanquage = $xoopsConfig['language'];
             //$f = XOOPS_ROOT_PATH . "/modules/quizmaker/language/{$lanquage}/slide/slide_resultats.html";
-            $f = QUIZMAKER_PATH . "/language/{$lanquage}/slide/slide_resultats.html";
+            $f = QUIZMAKER_PATH_MODULE . "/language/{$lanquage}/slide/slide_resultats.html";
             $slideresultats = $quizUtility->loadTextFile($f);
 echo "<hr>{$f}<hr>{$slideresultats}<hr>";    
 */            

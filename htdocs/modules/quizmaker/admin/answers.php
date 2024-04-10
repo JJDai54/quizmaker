@@ -83,8 +83,8 @@ switch($op) {
 		$answersCount = $answersHandler->getCountAnswers($criteria);
 		$answersAll = $answersHandler->getAllAnswers($criteria, $start, $limit, 'answer_weight, answer_proposition');
 		$GLOBALS['xoopsTpl']->assign('answers_count', $answersCount);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
         // ----- Listes de selection pour filtrage -----  
         $cat = $categoriesHandler->getListKeyName(null, false, false,null);
@@ -105,11 +105,11 @@ switch($op) {
         
        // ----- /Listes de selection pour filtrage -----
 /*
-        $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', QUIZMAKER_ICONS_URL."/16/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
+        $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
 		$GLOBALS['xoopsTpl']->assign('btnNewAnswer', $btnNewAnswer);
         //---------------------------------------------        
         //update weight 
-        $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_ICONS_URL."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
+        $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
 */               
 

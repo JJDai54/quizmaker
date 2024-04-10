@@ -74,8 +74,8 @@ switch($op) {
 		$type_questionCount = count($type_questionAll);
 //echo "<hr>type_questions<pre>" . print_r($type_questionAll, true) . "</pre><hr>";        
 		$GLOBALS['xoopsTpl']->assign('type_question_count', $type_questionCount);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
         
         // ----- Listes de selection pour filtrage des type de questions par categorie-----  
         //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
@@ -105,7 +105,7 @@ switch($op) {
         
        // ----- /Listes de selection pour filtrage -----        
 /*
-        $btnGoToQuestion = $quizUtility->getNewBtn(_AM_QUIZMAKER_STRANGER_EXP, 'list', QUIZMAKER_ICONS_URL."/16/question.png",  "");
+        $btnGoToQuestion = $quizUtility->getNewBtn(_AM_QUIZMAKER_STRANGER_EXP, 'list', QUIZMAKER_URL_ICONS."/16/question.png",  "");
 		$GLOBALS['xoopsTpl']->assign('btnGoToQuestion', $btnGoToQuestion);
 */    
         

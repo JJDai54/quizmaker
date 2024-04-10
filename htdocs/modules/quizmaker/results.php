@@ -55,7 +55,7 @@ $quiz = $quizObj->getValuesQuiz();
 \JJD\load_css('', false);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
+$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 $keywords = [];
 //----------------------------------------------------
@@ -68,7 +68,7 @@ $permEdit = $permissionsHandler->getPermGlobalView();
 //echoArray($permEdit);
 $GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
-$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL . '/'];
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL_MODULE . '/'];
 
 $GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
 $GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);

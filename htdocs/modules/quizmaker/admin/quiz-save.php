@@ -145,7 +145,7 @@ use XoopsModules\Quizmaker\Utility;
                         
         }else if ($oldFolder !== $newFolder){
             //Le quiz a changé de dossier qu'il faut renomer
-            rename(QUIZMAKER_UPLOAD_QUIZ_PATH . '/' . $oldFolder, QUIZMAKER_UPLOAD_QUIZ_PATH . '/' . $newFolder);
+            rename(QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $oldFolder, QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $newFolder);
         }
 
         
@@ -158,7 +158,7 @@ use XoopsModules\Quizmaker\Utility;
 /*
             $lanquage = $xoopsConfig['language'];
             //$f = XOOPS_ROOT_PATH . "/modules/quizmaker/language/{$lanquage}/slide/slide_resultats.html";
-            $f = QUIZMAKER_PATH . "/language/{$lanquage}/slide/slide_resultats.html";
+            $f = QUIZMAKER_PATH_MODULE . "/language/{$lanquage}/slide/slide_resultats.html";
             $slideresultats = $quizUtility->loadTextFile($f);
 echo "<hr>{$f}<hr>{$slideresultats}<hr>";    
 */            

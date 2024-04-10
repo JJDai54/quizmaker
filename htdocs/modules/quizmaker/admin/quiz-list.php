@@ -45,7 +45,7 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, "quiz.php?op=init_weight&cat_id={$catId}", 'update');
         
         //update weight 
-//         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_ICONS_URL."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
+//         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 // 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
         
         
@@ -60,8 +60,8 @@ if($quizId > 0 && $sender != 'cat_id'){
         //$criteria->setOrder('ASC');
 		$quizAll = $quizHandler->getAllQuiz($criteria, $start, $limit, 'quiz_weight ASC, quiz_cat_id ASC,quiz_id');
 		$GLOBALS['xoopsTpl']->assign('quiz_count', $quizCount);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
       // ----- Listes de selection pour filtrage -----  
       //$cat = $categoriesHandler->getListKeyName(null, true, false);

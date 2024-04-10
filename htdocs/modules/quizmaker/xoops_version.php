@@ -28,7 +28,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.10,
+	'version'             => 4.12,
 	'module_status'       => 'Beta 2',
 	'release_date'        => '2024/03/21',
 	'description'         => _MI_QUIZMAKER_DESC,
@@ -94,6 +94,7 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_type_new_question.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_clone.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_tools.tpl', 'description' => '', 'type' => 'admin'],
 
@@ -331,7 +332,6 @@ $modversion['config'][] = [
 	'default'     => $groups,
 	'options'     => $groups,
 ];
-*/
 // Upload groups
 $modversion['config'][] = [
 	'name'        => 'upload_groups',
@@ -342,6 +342,7 @@ $modversion['config'][] = [
 	'default'     => $groups,
 	'options'     => $groups,
 ];
+*/
 /*
 // Get Admin groups
 $crGroups = new \CriteriaCompo();

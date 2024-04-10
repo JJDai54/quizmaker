@@ -68,7 +68,7 @@ switch ($op) {
 
         $patKeys   = \array_keys($patterns);
         $patValues = \array_values($patterns);
-        cloneFileFolder(\QUIZMAKER_PATH);
+        cloneFileFolder(\QUIZMAKER_PATH_MODULE);
         $logocreated = createLogo(\mb_strtolower($clone));
 
         //change module name in modinfo.php

@@ -46,8 +46,8 @@ switch($op) {
 		$categoriesCount = $categoriesHandler->getCountCategories();
 		$categoriesAll = $categoriesHandler->getAllCategories($start, $limit, 'cat_weight,cat_name');
 		$GLOBALS['xoopsTpl']->assign('categories_count', $categoriesCount);   
-		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 		// Table view categories
 		if ($categoriesCount > 0) {
 			foreach(array_keys($categoriesAll) as $i) {

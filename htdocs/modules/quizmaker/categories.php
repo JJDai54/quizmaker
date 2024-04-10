@@ -41,7 +41,7 @@ $catId = Request::getInt('cat_id', 0);
 \JJD\load_css('', false);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
+$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 $GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
 $GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);

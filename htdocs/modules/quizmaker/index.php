@@ -39,8 +39,8 @@ $catId = Request::getInt('cat_id', 0);
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-$GLOBALS['xoopsTpl']->assign('modUrlImg', QUIZMAKER_IMAGE_URL);
+$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+$GLOBALS['xoopsTpl']->assign('modUrlImg', QUIZMAKER_URL_IMAGE);
 
 $keywords = [];
 
@@ -108,7 +108,7 @@ unset($keywords);
 
 // Description
 quizmakerMetaDescription(_MA_QUIZMAKER_CATEGORIES_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL.'/categories.php');
-$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/categories.php');
+$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
 require __DIR__ . '/footer.php';

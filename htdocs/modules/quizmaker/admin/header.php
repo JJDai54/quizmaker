@@ -30,8 +30,8 @@ xoops_load('XoopsFormLoader');
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
 $sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
-$modPathIcon32   = QUIZMAKER_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
+$modPathIcon16   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
+$modPathIcon32   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
 
 // 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
@@ -59,7 +59,7 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style = QUIZMAKER_URL . '/assets/css/admin/style.css';
+$style = QUIZMAKER_URL_MODULE . '/assets/css/admin/style.css';
 
 xoops_load('XoopsLists', 'core');
 $utility = new \XoopsModules\Quizmaker\Utility();

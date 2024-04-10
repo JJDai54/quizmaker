@@ -52,13 +52,42 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
 		$questionsObj->setVar('quest_question', Request::getString('quest_question', ''));
 		$questionsObj->setVar('quest_identifiant', Request::getString('quest_identifiant', ''));
         
-        $options = Request::getArray('quest_options', null);
-//echoArray($options,'options',true);        
-//echoArray($_POST,'options',true);        
+        $options = Request::getArray(QUIZMAKER_PREFIX_OPTIONS_NAME, null);
 		//$questionsObj->setVar('quest_options', implode('|', $options));
+        
+        //--------------------------------------------------------
+        $quiz = $quizHandler->get($quizId);
+        $folderJS = $quiz->getVar('quiz_folderJS');
+        $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";  
+        $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
+        //********************************************************
+        //gesion des images du form "options" spécifique a chaque type de question
+        // recherche des imges de prefix quest_options
+        $prefix = "quiz-{$questId}-";
+        foreach($_FILES as $key=>$img){
+            //echo "===>{$key} => {$img['name']} => {$img['tmp_name']}<br>"; 
+            if(substr($key,0,strlen(QUIZMAKER_PREFIX_OPTIONS_NAME)) == QUIZMAKER_PREFIX_OPTIONS_NAME){
+                //echo "===>{$key} => {$img['name']} => {$img['tmp_name']}<br>"; 
+            
+                $newImg = $cls->save_img($ans, $key, $path, $folderJS, $prefix);
+                if($newImg == ''){
+                    //echo "===> {$key} => pas d'image sauvegardée<br>";        
+                }else{
+                    //echo "===> {$key} => newImg = {$newImg}<br>";        
+                    $keyOptions = substr($key,strlen(QUIZMAKER_PREFIX_OPTIONS_NAME)+1);
+                    $options[$keyOptions] = $newImg;
+                }
+            }
+        }
+        //--------------------------------------------------------
 		$questionsObj->setVar('quest_options', json_encode($options));
-        
-        
+        //********************************************************
+/*
+echoArray($options,'options',false);        
+echoArray($_POST,'_POST',false);     
+echoArray($_FILES,'_FILES',true);     
+*/        
+   
         
 		//$questionsObj->setVar('quest_options', Request::getString('quest_options', ''));
 		$questionsObj->setVar('quest_comment1', Request::getText('quest_comment1', ''));
@@ -80,11 +109,8 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
 
         // --- gestion de limage de la question
         $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
-        $quiz = $quizHandler->get($quizId);
-        $folderJS = $quiz->getVar('quiz_folderJS');
-        $path = QUIZMAKER_UPLOAD_PATH . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";  
         
-        //recupe de la nouvelle image si elle a ete selectionée
+        //recupe de la nouvelle image si elle a ete selectionnée
         $questImage = $cls->save_img($ans, 'quest_image', $path, $folderJS, 'question', $nameOrg);
         
         //suppression de l'image existant si besoin si la case a ete coche 

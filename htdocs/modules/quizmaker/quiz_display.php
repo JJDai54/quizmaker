@@ -35,7 +35,7 @@ $quizId = Request::getInt('quiz_id', 0);
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
+$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 
 // Check permissions
@@ -47,12 +47,12 @@ if (0 == $quizId) {
 	redirect_header('categories.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
 }
 ///////////////////////////////////////////////////
-//     $rootApp = QUIZMAKER_QUIZ_JS_PATH . "/quiz-js";
-//     $urlApp  = QUIZMAKER_QUIZ_JS_URL  . "/quiz-js";
+//     $rootApp = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js";
+//     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";
 // 
 //     //insertion des CSS
 //     $tCss = \JJD\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
-//     $urlCss = QUIZMAKER_QUIZ_JS_URL. "/quiz-js/css";
+//     $urlCss = QUIZMAKER_URL_QUIZ_JS. "/quiz-js/css";
 //     foreach($tCss as $css){
 // 		$GLOBALS['xoTheme']->addStylesheet($urlCss .'/'. $css , null );    
 //     }
@@ -131,8 +131,8 @@ unset($keywords);
 
 // Description
 quizmakerMetaDescription(_MA_QUIZMAKER_QUIZ_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL.'/quiz.php');
-$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/quiz.php');
+$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
 // View comments
 require_once XOOPS_ROOT_PATH . '/include/comment_view.php';

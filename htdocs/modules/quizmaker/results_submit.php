@@ -38,7 +38,7 @@ $sender = 'quiz_id';
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
-$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
+$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 $keywords = [];
 
@@ -134,8 +134,8 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Description
 quizmakerMetaDescription(_MA_QUIZMAKER_QUIZ_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL.'/quiz.php');
-$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/quiz.php');
+$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
 // View comments
 //require_once XOOPS_ROOT_PATH . '/include/comment_view.php';

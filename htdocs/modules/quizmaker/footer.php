@@ -27,7 +27,7 @@ $GLOBALS['xoopsTpl']->assign('adv', $quizmakerHelper->getConfig('advertise'));
 $GLOBALS['xoopsTpl']->assign('bookmarks', $quizmakerHelper->getConfig('bookmarks'));
 $GLOBALS['xoopsTpl']->assign('fbcomments', $quizmakerHelper->getConfig('fbcomments'));
 // 
-$GLOBALS['xoopsTpl']->assign('admin', QUIZMAKER_ADMIN);
+$GLOBALS['xoopsTpl']->assign('admin', QUIZMAKER_URL_ADMIN);
 $GLOBALS['xoopsTpl']->assign('copyright', $copyright);
 // 
 include_once XOOPS_ROOT_PATH . '/footer.php';

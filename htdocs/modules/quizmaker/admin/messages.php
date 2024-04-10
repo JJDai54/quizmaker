@@ -57,8 +57,8 @@ switch($op) {
 		$messagesCount = $messagesHandler->getCountMessages($criteria);
 		$messagesAll = $messagesHandler->getAllMessages($criteria, $start, $limit,'msg_code,msg_language');
 		$GLOBALS['xoopsTpl']->assign('messages_count', $messagesCount);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 		// Table view messages
 		if ($messagesCount > 0) {
 			foreach(array_keys($messagesAll) as $i) {

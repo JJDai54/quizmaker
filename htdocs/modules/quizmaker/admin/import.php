@@ -48,8 +48,8 @@ $upload_size = 12000000; //maxsize_image
 
 
 $newFldImport = "/files_new_quiz" ; //. rand(1,1000);
-$pathImport = QUIZMAKER_UPLOAD_IMPORT_PATH . $newFldImport;
-if (!is_dir(QUIZMAKER_UPLOAD_IMPORT_PATH)) mkdir(QUIZMAKER_UPLOAD_IMPORT_PATH);
+$pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
+if (!is_dir(QUIZMAKER_PATH_UPLOAD_IMPORT)) mkdir(QUIZMAKER_PATH_UPLOAD_IMPORT);
 if (!is_dir($pathImport)) mkdir($pathImport);
 ////////////////////////////////////////////////////////////////////////
 list_on_errors:        
@@ -58,9 +58,9 @@ switch($op) {
 
 //exit('case = import_ok');                      
 
-\JJD\FSO\isFolder(QUIZMAKER_UPLOAD_IMPORT_PATH, true);
-//\JJD\FSO\isFolder(QUIZMAKER_UPLOAD_IMPORT_PATH . "/files_new_quiz", true);
-//\JJD\FSO\isFolder(QUIZMAKER_UPLOAD_IMPORT_PATH . "/files_new_quiz", true);
+\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_IMPORT, true);
+//\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz", true);
+//\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz", true);
 
 // echo "<hr>Import : _POST<pre>" . print_r($_POST, true) . "</pre><hr>";
 // echo "<hr>Import : _FILES<pre>" . print_r($_FILES, true) . "</pre><hr>";
@@ -69,7 +69,7 @@ switch($op) {
           $imgMimetype    = $_FILES['quizmaker_files']['type'];
           //$imgNameDef     = Request::getString('sld_short_name');
           $uploaderErrors = '';
-          $uploader = new \XoopsMediaUploader(QUIZMAKER_UPLOAD_IMPORT_PATH , 
+          $uploader = new \XoopsMediaUploader(QUIZMAKER_PATH_UPLOAD_IMPORT , 
                       array('application/x-gzip','application/zip', 'text/plain','application/gzip','application/x-compressed','application/x-zip-compressed'), 
                       $upload_size, null, null);
                       $uploaderErrors = $uploader->getErrors();
@@ -88,13 +88,13 @@ switch($op) {
                   } else {
                       $savedFilename = $uploader->getSavedFileName();
                       
-                      $fullName =  QUIZMAKER_UPLOAD_IMPORT_PATH . "/". $savedFilename;
+                      $fullName =  QUIZMAKER_PATH_UPLOAD_IMPORT . "/". $savedFilename;
 
                       
                       chmod($fullName, 0666);
                       chmod($pathImport, 0777);
                       \JJD\unZipFile($fullName, $pathImport);
-                      \JJD\FSO\setChmodRecursif(QUIZMAKER_UPLOAD_IMPORT_PATH, 0777);
+                      \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
                       $newQuizId = $quizUtility::import_quiz($pathImport, $catId);
                   }
                 } 
@@ -116,9 +116,9 @@ switch($op) {
     
         //$quizUtility::deleteTree($pathImport);                      
         //$quizUtility::rmAllDir($pathImport);     exit;  
-        $quizUtility::deleteDirectory(QUIZMAKER_UPLOAD_IMPORT_PATH . "/files_new_quiz");                      
-        $quizUtility::createFolder(QUIZMAKER_UPLOAD_IMPORT_PATH . "/files_new_quiz");                      
-        $quizUtility::createFolder(QUIZMAKER_UPLOAD_IMPORT_PATH . "/files_new_quiz/images");                      
+        $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
+        $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
+        $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz/images");                      
         
         $utility = new Quizmaker\Utility();
         //$utility::rrmdir($pathImport . '/images');

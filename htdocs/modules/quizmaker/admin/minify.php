@@ -24,21 +24,8 @@ use Xmf\Request;
 use XoopsModules\Quizmaker;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
-
-define('_AM_QUIZMAKER_MINIFY',"Minification");
-
-//define('_SUBMIT_ALL',"submit_all");
-define('_AM_QUIZMAKER_MINIFY_ALL',"Minifier tous les fichiers sauf lang");
-define('_AM_QUIZMAKER_MINIFY_JS',"Minifier le JS");
-define('_AM_QUIZMAKER_MINIFY_CSS',"Minifier les CSS");
-define('_AM_QUIZMAKER_MINIFY_HTML',"Minifier les HTML");
-define('_AM_QUIZMAKER_MINIFY_LANGUAGE',"Minifier les fichiers de langues");
-
-define('_AM_QUIZMAKER_MINIFY_RESTAURE_ORG',"Restaure les originaux");
-
-define('_AM_QUIZMAKER_MINIFY_SELECTION',"Minifier la sélection");
-define('_AM_QUIZMAKER_MINIFY_RESTAURE_OK',"Restaure OK");
-
+use Common\FilesManagement; // Files Management Trait
+    
 //-----------------------------------------------
 
 require __DIR__ . '/header.php';
@@ -53,8 +40,8 @@ if (isset($_POST['submit'])){
 } 
 
 //------------------------------------------------------
-//$tr = "<pre>" . print_r($_POST, true) . "</pre>";
-//echo "<hr>{$op} - {$select}<pre>" . print_r($_POST, true) . "</pre><hr>";
+// $tr = "<pre>" . print_r($_POST, true) . "</pre>";
+// echo "<hr>{$op} - {$select}<pre>" . print_r($_POST, true) . "</pre><hr>";
 //exit;
 //------------------------------------------------------
 
@@ -64,161 +51,224 @@ $quizId = Request::getInt('quiz_id', 0);
 
 $utility = new \XoopsModules\Quizmaker\Utility();  
 $templateMain = 'quizmaker_admin_minify.tpl';
-
+$objError = new \XoopsObject();        
+//$errors = '';
 
 ////////////////////////////////////////////////////////////////////////
-$pathSource = QUIZMAKER_QUIZ_JS_ORG;
-$pathDest   = QUIZMAKER_QUIZ_JS_MIN;
 
 
 //echo "<hr>{$pathSource}<br>nb files = " . count($filesList) . "<hr>";
-        include_once("../class/Minifier.php");       
+include_once("../class/Minifier.php");       
 
-function getFilesList($path, $subFolder='', $strExtentions=''){
-    $ret = array();
-    $extensions = explode(',', $strExtentions);
-    
-    if ($subFolder == '')
-    {
-        $filesList =  XoopsLists::getFileListByExtension($path, $extensions);   
-        foreach($filesList AS $k=>$f){
-            $ret[$k] = $path . '/' . $filesList[$k];
-        }
-     }else{
-        $path .= '/' . $subFolder;
-        $filesList =  XoopsLists::getFileListByExtension($path,  $extensions, '');   
-        foreach($filesList AS $k=>$f){
-            $f =  $subFolder . '/' . $filesList[$k];
-            $ret[$f] =  $path . '/' . $subFolder . '/' . $filesList[$k];
-        }
-     }   
-//echo "<hr>{$path}<pre>" . print_r($ret, true) . "</pre><hr>";exit;
-     return $ret;   
+
+/* ***
+*
+**** */
+function getQuizFolder($root, $folder = ''){
+    if($folder == '' || $folder == QUIZMAKER_ALL){
+      return $root; 
+    }else{
+      return $root . '/' . $folder;
+    }
 }
 
-//------------------------------------------------------------
-$extra = ''; // pour traiter notamment les fichiers de langues
-switch($op) {
-    case "minify_ok":
-        switch ($select){
-        case "retaure_org":
-            //deleteDirectory($pathDest);
-            $quizUtility::recurseCopy($pathSource, $pathDest);
-            //exit('retaure_org');
-            redirect_header('minify.php',3,_AM_QUIZMAKER_MINIFY_RESTAURE_OK);
+/* ***
+*
+**** */
+function restaure_folder($folder = ''){
+global $objError;
+    if($folder == ''){
+      $org = QUIZMAKER_PATH_QUIZ_ORG; 
+      $min   = QUIZMAKER_PATH_QUIZ_MIN; 
+    }else{
+      $org = QUIZMAKER_PATH_QUIZ_ORG . '/' . $folder;
+      $min   = QUIZMAKER_PATH_QUIZ_MIN . '/' . $folder;
+    }
+//echo "<hr>restaure_folder : <br>{$org}<br>{$min}<hr>";
+
+    Utility::deleteDirectory($min);
+    Utility::recurseCopy($org, $min);  
+   // exit;
+}
+/* ***
+*
+**** */
+function getFilesList($folder = ''){
+global $objError;
+    if($folder == '' || $folder == QUIZMAKER_ALL){
+      $org = QUIZMAKER_PATH_QUIZ_ORG; 
+      $min   = QUIZMAKER_PATH_QUIZ_MIN; 
+    }else{
+      $org = QUIZMAKER_PATH_QUIZ_ORG . '/' . $folder;
+      $min   = QUIZMAKER_PATH_QUIZ_MIN . '/' . $folder;
+    }
+    $ext = array('js','css');
+    $filesList =  Utility::getRecurseFiles($org,$ext);
+    
+    //retire  root du nom du fichier
+    $lgRoot = strlen(QUIZMAKER_PATH_QUIZ_ORG);
+    foreach($filesList as $k=>$f){
+        $filesList[$k] = substr($f, $lgRoot);
+    }
+    //echoArray($filesList, 'minifie_files', false);
+    return $filesList; 
+} 
+/* ***
+*
+**** */
+function minifie_files($folder = ''){
+global $objError;
+    if($folder == ''){
+      $org = QUIZMAKER_PATH_QUIZ_ORG; 
+      $min   = QUIZMAKER_PATH_QUIZ_MIN; 
+    }else{
+      $org = QUIZMAKER_PATH_QUIZ_ORG . '/' . $folder;
+      $min   = QUIZMAKER_PATH_QUIZ_MIN . '/' . $folder;
+    }
+    $ext = array('js','css');
+    $filesList =  Utility::getRecurseFiles($org, $ext);
+    
+    //retire  root du nom du fichier
+    $lgRoot = strlen(QUIZMAKER_PATH_QUIZ_ORG);
+    foreach($filesList as $k=>$f){
+        $filesList[$k] = substr($f, $lgRoot);
+    }
+    //echoArray($filesList, 'minifie_files', false);
+    minifie_filesList($filesList, '');
+    return true; 
+} 
+
+function minifie_filesList($filesList, $extra = ''){
+global $objError;
+    $clMin = new Minifier();
+      
+    foreach($filesList AS $k=>$f){
+        $from = QUIZMAKER_PATH_QUIZ_ORG . $f;
+        $to   = QUIZMAKER_PATH_QUIZ_MIN . $f;
+        
+        $pos = strrpos($f, '.');
+        $ext = substr($f, $pos+1);
+        
+        $content = \file_get_contents($from);
+        $newContent = $clMin->minify($content, $ext, $extra);
+        //$newContent = $clMin->minifyJS($content);
+        
+        //echo "minifie_filesList Path : {$ext}<br>{$from}<br>{$to}<br><br>";
+        if(\file_put_contents($to, $newContent) === false)
+            $objError->setErrors("no minification <br>de ===> {$from}<br>vers ===> {$to}");  ;
+    }
+    //exit;        
+}
+
+function folder_is_minified($folder = ''){
+$bolOk = true;
+    $min = getQuizFolder(QUIZMAKER_PATH_QUIZ_MIN, $folder);
+    //$filesList = getFilesList($min);
+    $filesList = getFilesList($folder);
+    //echo "<hr>folder_is_minified : {$folder} [" . count($filesList) . "] => {$min}<hr>";
+    
+    foreach($filesList AS $k=>$f){
+        $fullName = QUIZMAKER_PATH_QUIZ_MIN . '/' . $f;
+        //echo "{$folder} => {$fullName}<br>";
+        $content = \file_get_contents($fullName);
+        //echo"<br>{$content}<br>";
+        $nbLines = count(explode("\n", $content));
+        if($nbLines > 1) $bolOk = false;
+    }
+    return $bolOk;
+}
+
+
+/////////////////////////////////////////////////////////////////////
+// echoArray($_GET);
+//echoArray($_POST);
+$actionArr = Request::getArray('action', array('list'=>array('list'=>'list')));
+//echoArray($actionArr);
+list_on_errors:        
+
+$domaine = array_key_first($actionArr);  
+$action = array_key_first($actionArr[$domaine]);  
+$caption = $actionArr[$domaine][$action];   
+$op=$domaine;  
+$msg = null;
+
+$pathSource = QUIZMAKER_PATH_QUIZ_ORG;
+$pathDest   = QUIZMAKER_PATH_QUIZ_MIN;
+
+
+    switch ($domaine){
+        case QUIZMAKER_ALL:
+            $folder = '';
+            break;
+        case 'js':
+        case 'css':
+        case 'language':
+        case 'plugins':
+            $folder = $domaine;
             break;
         default:
-        case 'selection':
-//echo "<hr><pre>" . print_r($_POST, true) . "</pre><hr>";exit;
-        $filesList = Request::getArray('files');    
-        break;
-        
-        case 'all':
-          $filesListRoot = getFilesList($pathSource,'js',  'js,JS');   
-          $filesListTpl = getFilesList($pathSource, 'js/plugins', 'js,JS');   
-          //$filesListLang = getFilesList($pathSource, 'js/language', 'js,JS');   
-          $filesListCss = getFilesList($pathSource, 'css', 'css,CSS');   
-          $filesList   = array_merge($filesListRoot, $filesListTpl, $filesListCss);    
+            $folder = 'plugins/' . $domaine;
+            break; 
+    }
 
-        break;
-        case 'js':
-          $filesListRoot = getFilesList($pathSource,'js',  'js,JS');   
-          $filesListTpl = getFilesList($pathSource, 'js/plugins', 'js,JS');
-          $filesList   = array_merge($filesListRoot,  $filesListTpl);    
-        break;
-        
-        case 'language':
-          $filesList = getFilesList($pathSource, 'js/language', 'js,JS');   
-          $extra = 'lang';
-        break;
-        
-        case 'css':
-          $filesList = getFilesList($pathSource, 'css', 'css,CSS');   
-        break;
-        case 'html':
-            // pas trité pour l'instant
-        break;
+    switch($action) {
+        case "restaure":
+            restaure_folder($folder);
+            break;
+            
+        case "minifie":
+            $filesList =($folder);
+            minifie_files($filesList);
+            break;
         }
-        //--------------------------------------
-        $clMin = new Minifier();
-          
-        foreach($filesList AS $k=>$f){
-            $fullName = $pathSource . '/' .$k;
-            $pos = strrpos($k, '.');
-            $ext = substr($k, $pos+1);
-            
-            $content = \file_get_contents($fullName);
-            $newContent = $clMin->minify($content, $ext, $extra);
-            //$newContent = $clMin->minifyJS($content);
-            
-            $newPath = $pathDest . '/' . $k;
-            //echo "Path : {$ext}<br>{$fullName}<br>{$newPath}<br><br>";
-            \file_put_contents($newPath, $newContent);
-        }        
+    //---------------------------------------------
+        if($objError->getErrors())
+            $errors = $objError->getHtmlErrors();
+        else
+            $errors = '';
         
-        //pas de break on continue sur 'list'
-        
-    case 'list':
-	default:
-		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-// 		if (false === $action) {
-// 			$action = $_SERVER['REQUEST_URI'];
-// 		}
-		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
-		// Permissions for uploader
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-		$permissionUpload = $grouppermHandler->checkRight('upload_groups', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
-		
-        
-        // Title
-		$title = _AM_QUIZMAKER_MINIFY;        
-		// Get Theme Form
-		xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form_minify', 'minify.php', 'post', true);
-		$form->setExtra('enctype="multipart/form-data"');
-		$form->addElement(new \XoopsFormHidden('op', 'minify_ok'));
-        //-----------------------------------------------
-        $buttonsTray = new XoopsFormElementTray('', " ");
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[retaure_org]', _AM_QUIZMAKER_MINIFY_RESTAURE_ORG, 'submit'));
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[all]', _AM_QUIZMAKER_MINIFY_ALL, 'submit'));
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[selection]', _AM_QUIZMAKER_MINIFY_SELECTION, 'submit'));
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[js]', _AM_QUIZMAKER_MINIFY_JS,    'submit'));
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[css]', _AM_QUIZMAKER_MINIFY_CSS, 'submit'));
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[html]', _AM_QUIZMAKER_MINIFY_HTML, 'submit'));
-		$buttonsTray->addElement(new \XoopsFormButton('', 'submit[language]', _AM_QUIZMAKER_MINIFY_LANGUAGE,    'submit'));
-		$form->addElement($buttonsTray);
-        //-----------------------------------------------
-        
-        $filesListRoot = getFilesList($pathSource, 'js', 'js,JS');   
-        $filesListLang = getFilesList($pathSource, 'js/language', 'js,JS');   
-        $filesListTpl = getFilesList($pathSource, 'js/plugins', 'js,JS');   
-        $filesListCss = getFilesList($pathSource, 'css', 'css,CSS');   
-        
-         $filesList   = array_merge($filesListRoot, $filesListLang, $filesListTpl,$filesListCss);    
-        foreach($filesList AS $k=>$f){
-            
-            $chqFile = new XoopsFormCheckbox('', "files[{$k}]",1);
-            $chqFile->addOption(0, 'ok');
-            $libFile = new XoopsFormLabel('',$k);
-            
-            $fileTray = new XoopsFormElementTray('', " ");
-  	        $fileTray->addElement($chqFile);
-  	        $fileTray->addElement($libFile);
-            
-  	        $form->addElement($fileTray);
-        }
-        
-        
-        
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
-        
-/////////////////////////////////////////        
+      $GLOBALS['xoopsTpl']->assign('error', $errors);
+      $objError = new \XoopsObject();     
+      //----------------------------------------------------
+
+//echoArray($actionArr);
+      $GLOBALS['xoopsTpl']->assign('buttons', '');
+
+       $actions_list = array( 
+                    QUIZMAKER_ALL => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_ALL_DESC,      'isMinified'=> folder_is_minified(QUIZMAKER_ALL)],
+                    'js'          => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_APP_DESC,      'isMinified'=> folder_is_minified('js')],
+                    'css'         => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_CSS_DESC,      'isMinified'=> folder_is_minified('css')],
+                    //'html'      => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_HTML_DESC,     'isMinified'=> folder_is_minified('html')],
+                    'language'    => ['desc' => _AM_QUIZMAKER_TOOLS_MINIFY_LANGUAGE_DESC, 'isMinified'=> folder_is_minified('language')],
+                    'plugins'     => ['desc' => _AM_QUIZMAKER_TOOLS_FOLDER_PLUGINS_DESC,  'isMinified'=> folder_is_minified('plugins')]
+                    );
+                    
+        //recupe de tous les plugins pour les traiter un par un
+		$type_questionAll = $type_questionHandler->getAll();
+        //echoArray($type_questionAll);
+        foreach($type_questionAll as $k=>$plugin){
+            //$actions_list[$plugin['name']] = $plugin['description'];
+            $actions_list[$plugin['type']] = ['desc' => $plugin['name'], 'isMinified'=> folder_is_minified("plugins/" . $plugin['type'])];
+        }                    
+        $xoopsTpl->assign('actions_list', $actions_list);
+    	$xoopsTpl->assign('modPathNotes', $modPathIcon16 . "/notes");
 
 
-    
-    break;
-    
 
-}
-require __DIR__ . '/footer.php';
+
+
+/////////////////////////////////////////   
+if($objError->getErrors()){
+//    $GLOBALS['xoopsTpl']->assign('error', $errors);
+    $actionArr = array('list'=>array('list'=>'list'));     
+//    $objError = new \XoopsObject();     
+    //exit($errors);
+    goto list_on_errors;
+}     
+
+if($msg)
+    redirect_header('tools.php', 3, $msg);    
+else
+    require __DIR__ . '/footer.php';exit;
+//////////////////////////////////////////////////////
+

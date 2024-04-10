@@ -87,9 +87,9 @@ switch($op) {
         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
        // ----- /Listes de selection pour filtrage -----    
-        $btn['razResults'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RAZ_RESULTS, 'delete_all', QUIZMAKER_ICONS_URL."/16/delete.png",  _AM_QUIZMAKER_RAZ_RESULTS);
-        //$btn['importQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_IMPORT_YML, 'import_quiz', QUIZMAKER_ICONS_URL."/16/add.png",  _AM_QUIZMAKER_IMPORT_QUIZ_YML);
-        //$btn['restorQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RESTOR_YML, 'restor_quiz', QUIZMAKER_ICONS_URL."/16/add.png",  _AM_QUIZMAKER_RESTOR_QUIZ_YML);
+        $btn['razResults'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RAZ_RESULTS, 'delete_all', QUIZMAKER_URL_ICONS."/16/delete.png",  _AM_QUIZMAKER_RAZ_RESULTS);
+        //$btn['importQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_IMPORT_YML, 'import_quiz', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_IMPORT_QUIZ_YML);
+        //$btn['restorQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RESTOR_YML, 'restor_quiz', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_RESTOR_QUIZ_YML);
 
         //---------------------------------------------------
 		$GLOBALS['xoopsTpl']->assign('btn', $btn);
@@ -113,8 +113,8 @@ switch($op) {
 		//$resultsCount = $resultsHandler->getCountResults();
 		//$resultsAll = $resultsHandler->getAllResults($start, $limit);
 		$GLOBALS['xoopsTpl']->assign('results_count', $resultsCount);
-// 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL);
-// 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_UPLOAD_URL);
+// 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
+// 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 		// Table view results
 		if ($resultsCount > 0) {
 			foreach(array_keys($resultsAll) as $i) {

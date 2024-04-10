@@ -28,7 +28,7 @@ include_once __DIR__ . '/include/functions.php';
 $moduleDirName = basename(__DIR__);
 // Breadcrumbs
 $xoBreadcrumbs = [];
-$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL . '/'];
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL_MODULE . '/'];
 // Get instance of module
 $quizHandler = $quizmakerHelper->getHandler('Quiz');
 $questionsHandler = $quizmakerHelper->getHandler('Questions');
@@ -41,7 +41,7 @@ $permissionsHandler = $quizmakerHelper->getHandler('Permissions');
 // 
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
-$style = QUIZMAKER_URL . '/assets/css/style.css';
+$style = QUIZMAKER_URL_MODULE . '/assets/css/style.css';
 // Smarty Default
 $sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
 $sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
