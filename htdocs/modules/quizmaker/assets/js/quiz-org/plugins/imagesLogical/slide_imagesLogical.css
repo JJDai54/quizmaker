@@ -1,0 +1,19 @@
+﻿.imagesLogical{
+}
+
+.imagesLogical div{
+    border: none;
+    text-align:left;
+}
+
+.imagesLogical img[isselectable]{
+    cursor:pointer;
+    border: 3px solid transparent;    
+}
+
+.imagesLogical img:hover[isselectable]{
+    border: 3px solid green;
+}
+
+
+

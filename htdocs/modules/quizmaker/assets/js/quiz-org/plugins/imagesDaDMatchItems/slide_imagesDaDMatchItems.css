@@ -1,0 +1,53 @@
+﻿/* Drag An Drop */
+.imagesDaDMatchItems {
+    margin-top:50px;
+}
+.imagesDaDMatchItems table{
+    width:100%;
+    font-size:1.0em;
+}
+
+.imagesDaDMatchItems div{
+    width:auto;
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+
+    /*background-color:rgb(204,255,255);*/
+    background-color: transparent;
+
+    float:left;margin:5px;
+    font-size:0.8em;
+    text-align:center;
+    padding:2px;
+}
+.imagesDaDMatchItems div:hover{
+    border: 0px solid green;
+}
+
+.imagesDaDMatchItems img{
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    margin-bottom:5px;
+    /* border: 4px solid green; */
+    cursor:grab;
+}
+.imagesDaDMatchItems img:hover{
+    border: 4px solid red;
+}
+
+
+
+
+
+.imagesDaDMatchItems_myimg1{
+    border: 4px solid transparent;
+}
+
+.imagesDaDMatchItems_myimg2{
+    border: 4px solid red;
+}    
+

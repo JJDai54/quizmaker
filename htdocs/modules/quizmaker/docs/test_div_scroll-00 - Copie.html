@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <title></title>
+  </head>
+  <body>
+
+<style>
+/* ----- contenairs principaaux -----*/
+#div_quiz_main{             /* ensemble du quiz interface utilisateur */
+    width : 750px;
+    background:rgb(0,204,0) ;
+    position:relative;
+}
+
+#div_quiz_log{             /* zone de log pour affichage des bonnes réponse en dev et en test */
+    width : 750px;
+    background:rgb(0,204,0) ;
+position:relative;
+
+}
+/* ----- structure dans le contenair principal ----- */
+#div_quiz_header{           /* Pour le titre*/
+    width : 600px;
+    min-height :10px;
+    height : 50px;
+    background:rgb(0,0,255);
+}
+#div_quiz_slides_main{      /* l'ensemble des slides */
+    width : 650px;
+    height : 600px;
+    background:rgb(204,255,255) ;
+    display: flex;
+flex-direction: column;
+position:relative;
+}
+#div_quiz_message{          /* message de bas de page */
+    width : 620px;
+    height : 80px;
+    background:rgb(153,153,255);
+left:20px;
+}
+#div_quiz_footer{           /* version / auteur / date / ... */  
+    width : 600px;
+    min-height :10px;
+    height : 20px;
+    background:rgb(0,0,255);
+}
+
+/* ----- opjets contenu dans #div_quiz_slides_main ----- */
+#div_quiz_question{         /* pour la question et le commentaire associé */
+    width : 600px;
+    min-height : 50px;
+    max-height : 150px;
+
+    background:rgb(255,255,0);
+    overflow-y: auto;
+
+}
+
+#div_quiz_propositions{     /* zones de saisies des réponses */
+    width : 600px;
+    min-height :10px;
+    background:rgb(255,204,0);
+    overflow-y: auto;
+align-items: stretch;
+}
+
+#div_quiz_buttons{      /* bouton de déplacement, de validations, reload, ... */
+    width : 600px;
+    height : 50px;
+    background:rgb(255,255,0);
+position: absolute;
+
+ bottom: 0;
+}
+/******************************************************/
+
+
+/*
+position: absolute;
+ bottom: 50px;
+    display:none;
+*/
+
+</style>
+<!-- *************************************************** -->
+<center>
+<div id='div_quiz_main'>
+  <div id='div_quiz_header'>
+    header
+  </div>
+  <div id='div_quiz_slides_main'>
+    <div id='div_quiz_question'>
+    question<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>aaa<br>
+    aaa<br>
+    aaa<br>
+    aaa<br>
+    aaa<br>
+    aaa<br>
+    aaa<br>
+  
+    ooooooooooooooooooooooooooooo
+  
+  
+    </div>
+    <div id='div_quiz_propositions'>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+    proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+  
+    
+    </div>
+    
+    <div id='div_quiz_buttons'>buttons
+    </div>
+  </div>
+  <div id='div_quiz_message'>
+  </div>
+  <div id='div_quiz_footer'>
+    version
+  </div>
+</div>
+</center>
+
+
+  </body>
+</html>

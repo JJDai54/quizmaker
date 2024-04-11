@@ -1,0 +1,265 @@
+ 
+
+
+<{xoModuleIcons16 'edit.png'}>
+<{xoModuleIcons16 'delete.png'}>
+<{xoModuleIcons16 'download.png'}>
+<{xoModuleIcons16 'inserttable.png'}>
+<{xoModuleIcons16 'spinner.gif'}>
+<{xoModuleIcons16 'editcopy.png'}>
+<{xoModuleIcons16 'add.png'}>
+
+quest_minReponse
+quiz_binOptions
+quiz_onClickSimple
+
+ALTER TABLE `x2511_quizmaker_answers` ADD `answer_image1` VARCHAR(255) NOT NULL AFTER `answer_image`, ADD `answer_image2` VARCHAR(255) NOT NULL AFTER `answer_image1`; 
+//---------------------------------------------------------------
+
+ALTER TABLE `x2511_quizmaker_questions` CHANGE `quest_options` `quest_options` VARCHAR(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL; 
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_identifiant` VARCHAR(50) NOT NULL AFTER `quest_question`; 
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_showConsigne` TINYINT(1) NOT NULL DEFAULT '1' AFTER `quiz_shuffleQuestions`; 
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_consigne` TEXT NOT NULL AFTER `quest_type_form`; 
+ALTER TABLE `x251_quizmaker_answers` ADD `answer_color` VARCHAR(30) NOT NULL AFTER `answer_caption`, ADD `answer_background` VARCHAR(30) NOT NULL AFTER `answer_color`; 
+
+ 
+tableau des chemin d'un quiz
+Array
+(
+    [name] => checkboxLogical
+    [path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical
+    [url] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical
+    [php_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/slide_checkboxLogical.php
+    [js_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/slide_checkboxLogical.js
+    [constants_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/language/french/constants.php
+    [help_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/language/french/help.html
+    [img_path] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/img
+    [js_url] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/checkboxLogical.js
+    [img_url] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/img
+    [snapshoot_path] => Array
+        (
+            [snapshoot-000.jpg] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-000.jpg
+            [snapshoot-001.jpg] => D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/www/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-001.jpg
+        )
+
+    [snapshoot_url] => Array
+        (
+            [snapshoot-000.jpg] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-000.jpg
+            [snapshoot-001.jpg] => http://xoops-2511b-fr/modules/quizmaker/plugins_questions/checkboxLogical/img/snapshoot-001.jpg
+        )
+
+)
+
+<p><a href="#" onclick="gotoSlideByName('checkboxLogical');">checkboxLogical : Question de logique à réponses multiples</a>
+<p><a href="#" onclick="gotoSlideByName('checkboxSimple');">checkboxSimple : Question à réponses multiples</a>
+<p><a href="#" onclick="gotoSlideByName('comboboxMatchItems');">comboboxMatchItems : Associer les éléments deux à deux</a>
+<p><a href="#" onclick="gotoSlideByName('comboboxSortItems');">comboboxSortItems : Trier une liste multiple</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDBasket');">imagesDaDBasket : Distribuer les images</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDGroups');">imagesDaDGroups : Regrouper les images</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDLogical');">imagesDaDLogical : Trouver les images manquantes</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDMatchItems');">imagesDaDMatchItems : Replacer les images à leure place</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDSortItems');">imagesDaDSortItems : Ordonner les images</a>
+<p><a href="#" onclick="gotoSlideByName('imagesLogical');">imagesLogical : Trouver l'image manquante</a>
+<p><a href="#" onclick="gotoSlideByName('imagesSimple');">imagesSimple : Trouver les images de la même famille</a>
+<p><a href="#" onclick="gotoSlideByName('listboxClassItems1');">listboxClassItems1 : Chasser les intrus</a>
+<p><a href="#" onclick="gotoSlideByName('listboxClassItems2');">listboxClassItems2 : Déplacer les intrus (double liste)</a>
+<p><a href="#" onclick="gotoSlideByName('listboxSortItems');">listboxSortItems : Trier une listbox</a>
+<p><a href="#" onclick="gotoSlideByName('radioLogical');">radioLogical : Question de logique à réponse unique</a>
+<p><a href="#" onclick="gotoSlideByName('radioMultiple');">radioMultiple : Retrouver les termes qui vont ensemble</a>
+<p><a href="#" onclick="gotoSlideByName('radioSimple');">radioSimple : Question à réponse unique</a>
+<p><a href="#" onclick="gotoSlideByName('textareaInput');">textareaInput : Saisir les mots manquants</a>
+<p><a href="#" onclick="gotoSlideByName('textareaListbox');">textareaListbox : Retrouver les mots manquants</a>
+<p><a href="#" onclick="gotoSlideByName('textareaSimple');">textareaSimple : Corriger le texte</a>
+<p><a href="#" onclick="gotoSlideByName('textboxMatchItems');">textboxMatchItems : Associer les éléments deux à deux</a>
+<p><a href="#" onclick="gotoSlideByName('textboxMultiple');">textboxMultiple : Questions multiples à réponses multiples.</a>
+<p><a href="#" onclick="gotoSlideByName('ulDaDGroups');">ulDaDGroups : Répartir les propositions dans les groupes</a>
+<p><a href="#" onclick="gotoSlideByName('ulSortList');">ulSortList : Trier une liste de termes   </a>
+
+//////////////////////////////////////////////////////////////////////////   
+  <p><a href="#" onclick="gotoSlideByName('Togodo');">Identifiant</a>
+  
+checkboxLogical:Question de logique à réponses multiples
+checkboxSimple:Question à réponses multiples
+comboboxMatchItems:Associer les éléments deux à deux
+comboboxSortItems:Trier une liste multiple
+imagesDaDBasket:Distribuer les images
+imagesDaDGroups:Regrouper les images
+imagesDaDLogical:Trouver les images manquantes
+imagesDaDMatchItems:Replacer les images à leure place
+imagesDaDSortItems:Ordonner les images
+imagesLogical:Trouver l'image manquante
+imagesSimple:Trouver les images de la même famille
+listboxClassItems1:Chasser les intrus
+listboxClassItems2:Déplacer les intrus (double liste)
+listboxSortItems:Trier une listbox
+radioLogical:Question de logique à réponse unique
+radioMultiple:Retrouver les termes qui vont ensemble
+radioSimple:Question à réponse unique
+textareaInput:Saisir les mots manquants
+textareaListbox:Retrouver les mots manquants
+textareaSimple:Corriger le texte
+textboxMatchItems:Associer les éléments deux à deux
+textboxMultiple:Questions multiples à réponses multiples.
+ulDaDGroups:Répartir les propositions dans les groupes
+ulSortList:Trier une liste de termes   
+  
+  
+[>checkbox] => checkbox : Cases à cocher
+    [checkboxLogical] => --- checkboxLogical : Question de logique à réponses multiples
+    [checkboxSimple] => --- checkboxSimple : Question à réponses multiples
+    [>combobox] => combobox : Listes déroulantes
+    [comboboxMatchItems] => --- comboboxMatchItems : Associer les éléments deux à deux
+    [comboboxSortItems] => --- comboboxSortItems : Trier une liste multiple
+    [>imagesDaD] => imagesDaD : Images Drag and Drop
+    [imagesDaDBasket] => --- imagesDaDBasket : Distribuer les images
+    [imagesDaDGroups] => --- imagesDaDGroups : Regrouper les images
+    [imagesDaDLogical] => --- imagesDaDLogical : Trouver les images manquantes
+    [imagesDaDMatchItems] => --- imagesDaDMatchItems : Replacer les images à leure place
+    [imagesDaDSortItems] => --- imagesDaDSortItems : Ordonner les images
+    [>images] => images : Images
+    [imagesLogical] => --- imagesLogical : Trouver l'image manquante
+    [imagesSimple] => --- imagesSimple : Trouver les images de la même famille
+    [>listbox] => listbox : Listes multi lignes
+    [listboxClassItems1] => --- listboxClassItems1 : Chasser les intrus
+    [listboxClassItems2] => --- listboxClassItems2 : Déplacer les intrus (double liste)
+    [listboxSortItems] => --- listboxSortItems : Trier une listbox
+    [>page] => page : Pages de début, de fin et de regroupement
+    [pageBegin] => --- pageBegin : Page de présentation du quiz
+    [pageEnd] => --- pageEnd : Page de résultat du quiz
+    [pageGroup] => --- pageGroup : Page de regroupement de questions
+    [>radio] => radio : Boutons radios
+    [radioLogical] => --- radioLogical : Question de logique à réponse unique
+    [radioMultiple] => --- radioMultiple : Retrouver les termes qui vont ensemble
+    [radioSimple] => --- radioSimple : Question à réponse unique
+    [>textarea] => textarea : Textes à comppléter
+    [textareaInput] => --- textareaInput : Saisir les mots manquants
+    [textareaListbox] => --- textareaListbox : Retrouver les mots manquants
+    [textareaSimple] => --- textareaSimple : Corriger le texte
+    [>textbox] => textbox : Zones de saisie
+    [textboxMatchItems] => --- textboxMatchItems : Associer les éléments deux à deux
+    [textboxMultiple] => --- textboxMultiple : Questions multiples à réponses multiples.
+    [>ul] => ul : Liste de libellés
+    [ulDaDGroups] => --- ulDaDGroups : Répartir les propositions dans les groupes
+    [ulSortList] => --- ulSortList : Trier une liste de termes   
+//////////////////////////////////////////////////////////////////////////        
+
+supprimer le champ msg_constant : inutile de multiplier les constantes.
+
+textboxMultiple
+
+
+UPDATE `x251_quizmaker_categories` SET `cat_id` = `cat_id` + 1 ORDER BY `cat_id` DESC;
+INSERT INTO `x251_quizmaker_categories` (`cat_id`, `cat_parent_id`, `cat_name`, `cat_description`, `cat_theme`, `cat_weight`, `cat_creation`, `cat_update`) 
+VALUES ('1', '0', 'Exemples', 'Catégorie réservée aux exemple de quiz fourni avec le module.', '0', '0', '2022-01-2500 00:00:00.000000', '2022-01-2500 00:00:00.000000'); 
+UPDATE `x251_quizmaker_quiz` SET `quiz_cat_id` = `quiz_cat_id` + 1;
+
+//--------------------------------------------------------------------------------------
+UPDATE `x251_quizmaker_questions` SET `quest_type_question` = 'pageBegin' WHERE `quest_type_form` = 1;
+UPDATE `x251_quizmaker_questions` SET `quest_type_question` = 'pageGroup' WHERE `quest_type_form` = 2;
+UPDATE `x251_quizmaker_questions` SET `quest_type_question` = 'pageEnd' WHERE `quest_type_form` = 3;
+
+UPDATE `x251_quizmaker_questions` SET `quest_type_question` = 'pageBegin' WHERE `quest_type_form` = 1;
+UPDATE `x251_quizmaker_questions` SET `quest_type_question` = 'pageGroup' WHERE `quest_type_form` = 2;
+UPDATE `x251_quizmaker_questions` SET `quest_type_question` = 'pageEnd' WHERE `quest_type_form` = 3;
+
+SELECT 
+tChild.quest_id, tChild.quest_parent_id, tChild.quest_flag, tChild.quest_quiz_id,tChild.quest_type_question,
+tParent.quest_id, tParent.quest_parent_id, tParent.quest_flag, tParent.quest_quiz_id
+
+FROM x251_quizmaker_questions tChild
+LEFT JOIN x251_quizmaker_questions tParent 
+
+ON tChild.quest_parent_id = tParent.quest_flag
+
+AND tChild.quest_parent_id >0
+AND tChild.quest_quiz_id=15
+ORDER BY tChild.quest_id
+---------------------------------------------------
+SELECT * FROM `x251_quizmaker_questions` 
+WHERE `quest_quiz_id`=15
+ORDER BY quest_weight
+-------------------------------------------------
+
+
+SELECT tChild.*
+FROM x251_quizmaker_questions tChild
+WHERE  tChild.quest_quiz_id=14 AND tChild.quest_parent_id > 0
+
+
+SELECT tChild.*
+FROM x251_quizmaker_questions tChild
+LEFT JOIN x251_quizmaker_questions tParent 
+ON tChild.quest_parent_id = tParent.quest_flag 
+
+WHERE tChild.quest_parent_id = tParent.quest_id 
+AND tChild.quest_quiz_id=14 AND tChild.quest_parent_id > 0
+
+-------------------------------------------------
+Nombre de réponses : {repondu} / {totalQuestions}
+score : {score} /  {scoreMaxiQQ}
+score minimum : {scoreMiniQQ}
+temps de réponse : {duree}
+-------------------------------------------------
+
+
+
+
+UPDATE x251_quizmaker_questions SET quest_flag=0;
+UPDATE x251_quizmaker_questions SET quest_flag=0 WHERE quest_quiz_id=7;
+update x251_quizmaker_questions  , x251_quizmaker_questions tp
+right join x251_quizmaker_questions tq ON tq.quest_parent_id = tp.quest_id 
+SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, (tp.quest_weight*1000)+tq.quest_weight)
+WHERE tq.quest_quiz_id = 7;
+
+SELECT `quest_id`, `quest_parent_id`, `quest_flag`, `quest_quiz_id`, `quest_weight` 
+FROM `x251_quizmaker_questions` 
+WHERE `quest_quiz_id`=7
+ORDER BY quest_weight;
+
+--------------------------------------
+UPDATE x251_quizmaker_questions SET quest_flag=0;
+UPDATE x251_quizmaker_questions SET quest_flag=0 WHERE quest_quiz_id=7;
+update x251_quizmaker_questions  , x251_quizmaker_questions tp
+right join x251_quizmaker_questions tq ON tq.quest_parent_id = tp.quest_id AND tq.quest_quiz_id = 7
+SET tq.quest_flag = tq.quest_id;
+
+SELECT `quest_id`, `quest_parent_id`, `quest_flag`, `quest_quiz_id`, `quest_weight` 
+FROM `x251_quizmaker_questions` 
+WHERE `quest_quiz_id`=7 OR 1=1
+ORDER BY quest_weight;
+----------------------------------------------
+
+
+
+
+
+
+
+
+
+
+update x251_quizmaker_questions  , x251_quizmaker_questions tp
+left join x251_quizmaker_questions tq ON tq.quest_parent_id = tp.quest_id
+SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, (tp.quest_weight*1000)+tq.quest_weight);
+
+
+
+---------------------------------------------
+update x251_quizmaker_questions  , x251_quizmaker_questions tp
+left join x251_quizmaker_questions tq ON tq.quest_parent_id = tp.quest_id
+SET tq.quest_flag = if(tp.quest_id is null, tq.quest_weight*1000, tp.quest_weight*1000+tq.quest_weight);
+
+---------------------------------------------
+SELECT tq.* , if(tp.quest_id is null, tq.quest_weight*1000, tp.quest_weight*1000+tq.quest_weight) AS newWeight
+FROM x251_quizmaker_questions tq
+left join x251_quizmaker_questions tp ON tq.quest_parent_id = tp.quest_id
+WHERE tq.quest_quiz_id = 7
+ORDER BY newWeight
+
+---------------------------------------------
+SELECT tq.* , ifnull(tp.quest_weight, 1) AS parentWeight
+FROM x251_quizmaker_questions tq
+left join x251_quizmaker_questions tp ON tq.quest_parent_id = tp.quest_id
+WHERE tq.quest_quiz_id = 7
+ORDER BY tq.quest_weight
+----------------------------------------------

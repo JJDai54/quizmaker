@@ -1,0 +1,2026 @@
+/*  color_set  */
+
+/*------------------------------------------------------------*/
+.default-item {background-color:#808080;     color:#FFFFFF; }
+.default-item-legend  {background-color:#808080;     color:#FFFFFF; }
+.default-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.default-item-head        {background-color:#808080;     color:#FFFFFF; }
+.default-item-head a     {background-color:transparent; color:#FFFFFF; }
+.default-item-info        {background-color:#BFBFBF;     color:#FFFFFF; }
+.default-item-a {background-color:transparent; color:#FFFFFF; }
+.default-item-body        {background-color:#F2F2F2;     color:#000000; }
+.default-item-body  td      {background-color:#F2F2F2;     color:#000000; }
+.default-item-body-scoop  {background-color:#F2F2F2;     color:#000000; }
+.default-item-text  {background-color:transparent; color:#000000; }
+.default-item-foot {background-color:#BFBFBF;     color:#000000; }
+.default-item-foot a {background-color:transparent; color:#000000; }
+.default-item-button {background-color:#808080;     color:#FFFFFF; }
+.default-item-button:hover {background-color:#5F5F5F;     color:#F8F8F8; }
+.default-item-button:active {background-color:#BFBFBF;     color:#FFFFFF; }
+.default-item-button:disabled,
+.default-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.default-item-utton:disabled:hover,
+.default-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.default-item-button:disabled:active,
+.default-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.default-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #BFBFBF, #808080, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.default-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(191, 191, 191, 0), rgba(128, 128, 128, 0.75), rgba(191, 191, 191, 0));
+}
+
+/* Double-color dashed line */
+
+hr.default-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #808080;
+}
+
+/* Single-direction drop shadow */
+
+hr.default-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(128, 128, 128, 0.5);
+}
+
+/* Cloud */
+
+hr.default-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #808080;
+}
+hr.default-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.default-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(128, 128, 128, 0.1);
+    border-bottom: 1px solid rgba(191, 191, 191, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.default-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #808080;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.default-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #808080;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.default-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #808080;
+    color: #808080;
+    text-align: center;
+}
+hr.default-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #BFBFBF;
+}
+/*------------------------------------------------------------*/
+
+.grey1-item {background-color:#808080;     color:#F8F8F8; }
+.grey1-item-legend  {background-color:#808080;     color:#F8F8F8; }
+.grey1-item-legend a  {background-color:transparent; color:#EAEAEA; }
+.grey1-item-head        {background-color:#808080;     color:#FFFFFF; }
+.grey1-item-head a     {background-color:transparent; color:#EAEAEA; }
+.grey1-item-info        {background-color:#BFBFBF;     color:#FFFFFF; }
+.grey1-item-a {background-color:transparent; color:#FFFFFF; }
+.grey1-item-body        {background-color:#F2F2F2;     color:#000000; }
+.grey1-item-body  td      {background-color:#F2F2F2;     color:#000000; }
+.grey1-item-body-scoop  {background-color:#F2F2F2;     color:#000000; }
+.grey1-item-text  {background-color:transparent; color:#000000; }
+.grey1-item-foot {background-color:#BFBFBF;     color:#000000; }
+.grey1-item-foot a {background-color:transparent; color:#000000; }
+.grey1-item-button {background-color:#808080;     color:#FFFFFF; }
+.grey1-item-button:hover {background-color:#5F5F5F;     color:#F8F8F8; }
+.grey1-item-button:active {background-color:#BFBFBF;     color:#FFFFFF; }
+.grey1-item-button:disabled,
+.grey1-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.grey1-item-utton:disabled:hover,
+.grey1-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.grey1-item-button:disabled:active,
+.grey1-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.grey1-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #BFBFBF, #808080, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.grey1-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(191, 191, 191, 0), rgba(128, 128, 128, 0.75), rgba(191, 191, 191, 0));
+}
+
+/* Double-color dashed line */
+
+hr.grey1-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #808080;
+}
+
+/* Single-direction drop shadow */
+
+hr.grey1-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(128, 128, 128, 0.5);
+}
+
+/* Cloud */
+
+hr.grey1-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #808080;
+}
+hr.grey1-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.grey1-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(128, 128, 128, 0.1);
+    border-bottom: 1px solid rgba(191, 191, 191, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.grey1-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #808080;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.grey1-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #808080;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.grey1-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #808080;
+    color: #808080;
+    text-align: center;
+}
+hr.grey1-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #BFBFBF;
+}
+/*------------------------------------------------------------*/
+
+.blue-item {background-color:#548AC3;     color:#FFFFFF; }
+.blue-item-legend  {background-color:#548AC3;     color:#FFFFFF; }
+.blue-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.blue-item-head        {background-color:#548AC3;     color:#000000; }
+.blue-item-head a     {background-color:transparent; color:#CCECFF; }
+.blue-item-info        {background-color:#B6CDE4;     color:#000000; }
+.blue-item-a {background-color:transparent; color:#FFFFFF; }
+.blue-item-body        {background-color:#E6EFEF;     color:#000000; }
+.blue-item-body  td      {background-color:#E6EFEF;     color:#000000; }
+.blue-item-body-scoop  {background-color:#E6EFEF;     color:#000000; }
+.blue-item-text  {background-color:transparent; color:#000000; }
+.blue-item-foot {background-color:#B6CDE4;     color:#000000; }
+.blue-item-foot a {background-color:transparent; color:#0000CC; }
+.blue-item-button {background-color:#548AC3;     color:#000000; }
+.blue-item-button:hover {background-color:#37699F;     color:#000000; }
+.blue-item-button:active {background-color:#B6CDE4;     color:#000000; }
+.blue-item-button:disabled,
+.blue-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.blue-item-utton:disabled:hover,
+.blue-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.blue-item-button:disabled:active,
+.blue-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.blue-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #B6CDE4, #548AC3, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.blue-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(182, 205, 228, 0), rgba(84, 138, 195, 0.75), rgba(182, 205, 228, 0));
+}
+
+/* Double-color dashed line */
+
+hr.blue-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #548AC3;
+}
+
+/* Single-direction drop shadow */
+
+hr.blue-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(84, 138, 195, 0.5);
+}
+
+/* Cloud */
+
+hr.blue-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #548AC3;
+}
+hr.blue-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.blue-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(84, 138, 195, 0.1);
+    border-bottom: 1px solid rgba(182, 205, 228, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.blue-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #548AC3;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.blue-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #548AC3;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.blue-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #548AC3;
+    color: #548AC3;
+    text-align: center;
+}
+hr.blue-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #B6CDE4;
+}
+/*------------------------------------------------------------*/
+
+.blue2-item {background-color:#305496;     color:#CCECFF; }
+.blue2-item-legend  {background-color:#305496;     color:#CCECFF; }
+.blue2-item-legend a  {background-color:transparent; color:#CCECFF; }
+.blue2-item-head        {background-color:#305496;     color:#FFFFFF; }
+.blue2-item-head a     {background-color:transparent; color:#CCECFF; }
+.blue2-item-info        {background-color:#8EA9DB;     color:#FFFFFF; }
+.blue2-item-a {background-color:transparent; color:#FFFFFF; }
+.blue2-item-body        {background-color:#D9E1F2;     color:#000099; }
+.blue2-item-body  td      {background-color:#D9E1F2;     color:#000099; }
+.blue2-item-body-scoop  {background-color:#D9E1F2;     color:#000099; }
+.blue2-item-text  {background-color:transparent; color:#000099; }
+.blue2-item-foot {background-color:#8EA9DB;     color:#FFFFFF; }
+.blue2-item-foot a {background-color:transparent; color:#0000B4; }
+.blue2-item-button {background-color:#305496;     color:#FFFFFF; }
+.blue2-item-button:hover {background-color:#213965;     color:#FFFFFF; }
+.blue2-item-button:active {background-color:#8EA9DB;     color:#FFFFFF; }
+.blue2-item-button:disabled,
+.blue2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.blue2-item-utton:disabled:hover,
+.blue2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.blue2-item-button:disabled:active,
+.blue2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.blue2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #8EA9DB, #305496, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.blue2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(142, 169, 219, 0), rgba(48, 84, 150, 0.75), rgba(142, 169, 219, 0));
+}
+
+/* Double-color dashed line */
+
+hr.blue2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #305496;
+}
+
+/* Single-direction drop shadow */
+
+hr.blue2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(48, 84, 150, 0.5);
+}
+
+/* Cloud */
+
+hr.blue2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #305496;
+}
+hr.blue2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.blue2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(48, 84, 150, 0.1);
+    border-bottom: 1px solid rgba(142, 169, 219, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.blue2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #305496;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.blue2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #305496;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.blue2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #305496;
+    color: #305496;
+    text-align: center;
+}
+hr.blue2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #8EA9DB;
+}
+/*------------------------------------------------------------*/
+
+.green-item {background-color:#22B14C;     color:#FFFFFF; }
+.green-item-legend  {background-color:#22B14C;     color:#FFFFFF; }
+.green-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.green-item-head        {background-color:#22B14C;     color:#000000; }
+.green-item-head a     {background-color:transparent; color:#CCFFCC; }
+.green-item-info        {background-color:#98E0AD;     color:#000000; }
+.green-item-a {background-color:transparent; color:#FFFFFF; }
+.green-item-body        {background-color:#E6EFE5;     color:#000000; }
+.green-item-body  td      {background-color:#E6EFE5;     color:#000000; }
+.green-item-body-scoop  {background-color:#E6EFE5;     color:#000000; }
+.green-item-text  {background-color:transparent; color:#000000; }
+.green-item-foot {background-color:#C8EFD4;     color:#000000; }
+.green-item-foot a {background-color:transparent; color:#003300; }
+.green-item-button {background-color:#22B14C;     color:#000000; }
+.green-item-button:hover {background-color:#1C903D;     color:#000000; }
+.green-item-button:active {background-color:#98E0AD;     color:#000000; }
+.green-item-button:disabled,
+.green-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.green-item-utton:disabled:hover,
+.green-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.green-item-button:disabled:active,
+.green-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.green-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #98E0AD, #22B14C, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.green-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(152, 224, 173, 0), rgba(34, 177, 76, 0.75), rgba(152, 224, 173, 0));
+}
+
+/* Double-color dashed line */
+
+hr.green-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #22B14C;
+}
+
+/* Single-direction drop shadow */
+
+hr.green-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(34, 177, 76, 0.5);
+}
+
+/* Cloud */
+
+hr.green-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #22B14C;
+}
+hr.green-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.green-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(34, 177, 76, 0.1);
+    border-bottom: 1px solid rgba(152, 224, 173, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.green-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #22B14C;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.green-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #22B14C;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.green-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #22B14C;
+    color: #22B14C;
+    text-align: center;
+}
+hr.green-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #98E0AD;
+}
+/*------------------------------------------------------------*/
+
+.green2-item {background-color:#008000;     color:#FFFFFF; }
+.green2-item-legend  {background-color:#008000;     color:#FFFFFF; }
+.green2-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.green2-item-head        {background-color:#008000;     color:#FFFFFF; }
+.green2-item-head a     {background-color:transparent; color:#CCFFFF; }
+.green2-item-info        {background-color:#A9D08E;     color:#FFFFFF; }
+.green2-item-a {background-color:transparent; color:#FFFFFF; }
+.green2-item-body        {background-color:#E2EFDA;     color:#005400; }
+.green2-item-body  td      {background-color:#E2EFDA;     color:#005400; }
+.green2-item-body-scoop  {background-color:#E2EFDA;     color:#005400; }
+.green2-item-text  {background-color:transparent; color:#005400; }
+.green2-item-foot {background-color:#A9D08E;     color:#000000; }
+.green2-item-foot a {background-color:transparent; color:#003A00; }
+.green2-item-button {background-color:#008000;     color:#FFFFFF; }
+.green2-item-button:hover {background-color:#006600;     color:#FFFFFF; }
+.green2-item-button:active {background-color:#A9D08E;     color:#FFFFFF; }
+.green2-item-button:disabled,
+.green2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.green2-item-utton:disabled:hover,
+.green2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.green2-item-button:disabled:active,
+.green2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.green2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #A9D08E, #008000, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.green2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(169, 208, 142, 0), rgba(0, 128, 0, 0.75), rgba(169, 208, 142, 0));
+}
+
+/* Double-color dashed line */
+
+hr.green2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #008000;
+}
+
+/* Single-direction drop shadow */
+
+hr.green2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 128, 0, 0.5);
+}
+
+/* Cloud */
+
+hr.green2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #008000;
+}
+hr.green2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.green2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 128, 0, 0.1);
+    border-bottom: 1px solid rgba(169, 208, 142, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.green2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #008000;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.green2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #008000;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.green2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #008000;
+    color: #008000;
+    text-align: center;
+}
+hr.green2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #A9D08E;
+}
+/*------------------------------------------------------------*/
+
+.purple-item {background-color:#7A297B;     color:#FFFFFF; }
+.purple-item-legend  {background-color:#7A297B;     color:#FFFFFF; }
+.purple-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.purple-item-head        {background-color:#7A297B;     color:#CC99FF; }
+.purple-item-head a     {background-color:transparent; color:#FFCCFF; }
+.purple-item-info        {background-color:#C785C8;     color:#000000; }
+.purple-item-a {background-color:transparent; color:#FFFFFF; }
+.purple-item-body        {background-color:#EDD3ED;     color:#4C004C; }
+.purple-item-body  td      {background-color:#EDD3ED;     color:#4C004C; }
+.purple-item-body-scoop  {background-color:#EDD3ED;     color:#4C004C; }
+.purple-item-text  {background-color:transparent; color:#4C004C; }
+.purple-item-foot {background-color:#DAAADB;     color:#000000; }
+.purple-item-foot a {background-color:transparent; color:#5C005C; }
+.purple-item-button {background-color:#7A297B;     color:#CC99FF; }
+.purple-item-button:hover {background-color:#581D59;     color:#CC99FF; }
+.purple-item-button:active {background-color:#C785C8;     color:#000000; }
+.purple-item-button:disabled,
+.purple-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.purple-item-utton:disabled:hover,
+.purple-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.purple-item-button:disabled:active,
+.purple-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.purple-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #C785C8, #7A297B, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.purple-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(199, 133, 200, 0), rgba(122, 41, 123, 0.75), rgba(199, 133, 200, 0));
+}
+
+/* Double-color dashed line */
+
+hr.purple-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #7A297B;
+}
+
+/* Single-direction drop shadow */
+
+hr.purple-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(122, 41, 123, 0.5);
+}
+
+/* Cloud */
+
+hr.purple-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #7A297B;
+}
+hr.purple-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.purple-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(122, 41, 123, 0.1);
+    border-bottom: 1px solid rgba(199, 133, 200, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.purple-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #7A297B;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.purple-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #7A297B;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.purple-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #7A297B;
+    color: #7A297B;
+    text-align: center;
+}
+hr.purple-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #C785C8;
+}
+/*------------------------------------------------------------*/
+
+.purple2-item {background-color:#6600FF;     color:#FFFFFF; }
+.purple2-item-legend  {background-color:#6600FF;     color:#FFFFFF; }
+.purple2-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.purple2-item-head        {background-color:#6600FF;     color:#FFFFFF; }
+.purple2-item-head a     {background-color:transparent; color:#FFCCFF; }
+.purple2-item-info        {background-color:#CC99FF;     color:#FFFFFF; }
+.purple2-item-a {background-color:transparent; color:#FFFFFF; }
+.purple2-item-body        {background-color:#FFCCFF;     color:#000000; }
+.purple2-item-body  td      {background-color:#FFCCFF;     color:#000000; }
+.purple2-item-body-scoop  {background-color:#FFCCFF;     color:#000000; }
+.purple2-item-text  {background-color:transparent; color:#000000; }
+.purple2-item-foot {background-color:#CC99FF;     color:#000000; }
+.purple2-item-foot a {background-color:transparent; color:#000000; }
+.purple2-item-button {background-color:#6600FF;     color:#FFFFFF; }
+.purple2-item-button:hover {background-color:#6600CC;     color:#FFFFFF; }
+.purple2-item-button:active {background-color:#CC99FF;     color:#FFFFFF; }
+.purple2-item-button:disabled,
+.purple2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.purple2-item-utton:disabled:hover,
+.purple2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.purple2-item-button:disabled:active,
+.purple2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.purple2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #CC99FF, #6600FF, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.purple2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(204, 153, 255, 0), rgba(102, 0, 255, 0.75), rgba(204, 153, 255, 0));
+}
+
+/* Double-color dashed line */
+
+hr.purple2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #6600FF;
+}
+
+/* Single-direction drop shadow */
+
+hr.purple2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(102, 0, 255, 0.5);
+}
+
+/* Cloud */
+
+hr.purple2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #6600FF;
+}
+hr.purple2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.purple2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(102, 0, 255, 0.1);
+    border-bottom: 1px solid rgba(204, 153, 255, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.purple2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #6600FF;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.purple2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #6600FF;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.purple2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #6600FF;
+    color: #6600FF;
+    text-align: center;
+}
+hr.purple2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #CC99FF;
+}
+/*------------------------------------------------------------*/
+
+.red-item {background-color:#B21016;     color:#FFFFFF; }
+.red-item-legend  {background-color:#B21016;     color:#FFFFFF; }
+.red-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.red-item-head        {background-color:#B21016;     color:#FFE1E1; }
+.red-item-head a     {background-color:transparent; color:#FFCCCC; }
+.red-item-info        {background-color:#F47378;     color:#000000; }
+.red-item-a {background-color:transparent; color:#FFFFFF; }
+.red-item-body        {background-color:#FBCFD0;     color:#680000; }
+.red-item-body  td      {background-color:#FBCFD0;     color:#680000; }
+.red-item-body-scoop  {background-color:#FBCFD0;     color:#680000; }
+.red-item-text  {background-color:transparent; color:#680000; }
+.red-item-foot {background-color:#F8A1A4;     color:#000000; }
+.red-item-foot a {background-color:transparent; color:#860000; }
+.red-item-button {background-color:#B21016;     color:#FFE1E1; }
+.red-item-button:hover {background-color:#950D13;     color:#FFE1E1; }
+.red-item-button:active {background-color:#F47378;     color:#000000; }
+.red-item-button:disabled,
+.red-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.red-item-utton:disabled:hover,
+.red-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.red-item-button:disabled:active,
+.red-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.red-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #F47378, #B21016, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.red-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(244, 115, 120, 0), rgba(178, 16, 22, 0.75), rgba(244, 115, 120, 0));
+}
+
+/* Double-color dashed line */
+
+hr.red-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #B21016;
+}
+
+/* Single-direction drop shadow */
+
+hr.red-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(178, 16, 22, 0.5);
+}
+
+/* Cloud */
+
+hr.red-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #B21016;
+}
+hr.red-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.red-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(178, 16, 22, 0.1);
+    border-bottom: 1px solid rgba(244, 115, 120, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.red-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #B21016;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.red-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #B21016;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.red-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #B21016;
+    color: #B21016;
+    text-align: center;
+}
+hr.red-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #F47378;
+}
+/*------------------------------------------------------------*/
+
+.red2-item {background-color:#CC0000;     color:#FFFFFF; }
+.red2-item-legend  {background-color:#CC0000;     color:#FFFFFF; }
+.red2-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.red2-item-head        {background-color:#CC0000;     color:#FFCCFF; }
+.red2-item-head a     {background-color:transparent; color:#FFFFFF; }
+.red2-item-info        {background-color:#FF5050;     color:#FFFFFF; }
+.red2-item-a {background-color:transparent; color:#FFFFFF; }
+.red2-item-body        {background-color:#FFCCCC;     color:#000000; }
+.red2-item-body  td      {background-color:#FFCCCC;     color:#000000; }
+.red2-item-body-scoop  {background-color:#FFCCCC;     color:#000000; }
+.red2-item-text  {background-color:transparent; color:#000000; }
+.red2-item-foot {background-color:#FF5050;     color:#000000; }
+.red2-item-foot a {background-color:transparent; color:#000000; }
+.red2-item-button {background-color:#CC0000;     color:#FFCCFF; }
+.red2-item-button:hover {background-color:#A50021;     color:#FFCCFF; }
+.red2-item-button:active {background-color:#FF5050;     color:#FFFFFF; }
+.red2-item-button:disabled,
+.red2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.red2-item-utton:disabled:hover,
+.red2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.red2-item-button:disabled:active,
+.red2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.red2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #FF5050, #CC0000, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.red2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(255, 80, 80, 0), rgba(204, 0, 0, 0.75), rgba(255, 80, 80, 0));
+}
+
+/* Double-color dashed line */
+
+hr.red2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #CC0000;
+}
+
+/* Single-direction drop shadow */
+
+hr.red2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(204, 0, 0, 0.5);
+}
+
+/* Cloud */
+
+hr.red2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #CC0000;
+}
+hr.red2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.red2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(204, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 80, 80, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.red2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #CC0000;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.red2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #CC0000;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.red2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #CC0000;
+    color: #CC0000;
+    text-align: center;
+}
+hr.red2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #FF5050;
+}
+/*------------------------------------------------------------*/
+
+.saumon-item {background-color:#BF5B16;     color:#FFFFFF; }
+.saumon-item-legend  {background-color:#BF5B16;     color:#FFFFFF; }
+.saumon-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.saumon-item-head        {background-color:#BF5B16;     color:#FFCC99; }
+.saumon-item-head a     {background-color:transparent; color:#FFCC99; }
+.saumon-item-info        {background-color:#FFB27D;     color:#000000; }
+.saumon-item-a {background-color:transparent; color:#FFCC99; }
+.saumon-item-body        {background-color:#FFE5D4;     color:#482400; }
+.saumon-item-body  td      {background-color:#FFE5D4;     color:#482400; }
+.saumon-item-body-scoop  {background-color:#FFE5D4;     color:#482400; }
+.saumon-item-text  {background-color:transparent; color:#482400; }
+.saumon-item-foot {background-color:#FFCCA9;     color:#000000; }
+.saumon-item-foot a {background-color:transparent; color:#663300; }
+.saumon-item-button {background-color:#BF5B16;     color:#FFCC99; }
+.saumon-item-button:hover {background-color:#A14C13;     color:#FFCC99; }
+.saumon-item-button:active {background-color:#FFB27D;     color:#000000; }
+.saumon-item-button:disabled,
+.saumon-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.saumon-item-utton:disabled:hover,
+.saumon-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.saumon-item-button:disabled:active,
+.saumon-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.saumon-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #FFB27D, #BF5B16, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.saumon-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(255, 178, 125, 0), rgba(191, 91, 22, 0.75), rgba(255, 178, 125, 0));
+}
+
+/* Double-color dashed line */
+
+hr.saumon-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #BF5B16;
+}
+
+/* Single-direction drop shadow */
+
+hr.saumon-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(191, 91, 22, 0.5);
+}
+
+/* Cloud */
+
+hr.saumon-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #BF5B16;
+}
+hr.saumon-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.saumon-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(191, 91, 22, 0.1);
+    border-bottom: 1px solid rgba(255, 178, 125, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.saumon-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #BF5B16;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.saumon-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #BF5B16;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.saumon-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #BF5B16;
+    color: #BF5B16;
+    text-align: center;
+}
+hr.saumon-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #FFB27D;
+}
+/*------------------------------------------------------------*/
+
+.saumon2-item {background-color:#BF8F00;     color:#FFFFFF; }
+.saumon2-item-legend  {background-color:#BF8F00;     color:#FFFFFF; }
+.saumon2-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.saumon2-item-head        {background-color:#BF8F00;     color:#FFFFFF; }
+.saumon2-item-head a     {background-color:transparent; color:#FFFFFF; }
+.saumon2-item-info        {background-color:#FFD966;     color:#4C3800; }
+.saumon2-item-a {background-color:transparent; color:#FFFFFF; }
+.saumon2-item-body        {background-color:#FFF2CC;     color:#000000; }
+.saumon2-item-body  td      {background-color:#FFF2CC;     color:#000000; }
+.saumon2-item-body-scoop  {background-color:#FFF2CC;     color:#000000; }
+.saumon2-item-text  {background-color:transparent; color:#000000; }
+.saumon2-item-foot {background-color:#FFD966;     color:#000000; }
+.saumon2-item-foot a {background-color:transparent; color:#663300; }
+.saumon2-item-button {background-color:#BF8F00;     color:#FFFFFF; }
+.saumon2-item-button:hover {background-color:#966F00;     color:#FFFFFF; }
+.saumon2-item-button:active {background-color:#FFD966;     color:#4C3800; }
+.saumon2-item-button:disabled,
+.saumon2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.saumon2-item-utton:disabled:hover,
+.saumon2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.saumon2-item-button:disabled:active,
+.saumon2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.saumon2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #FFD966, #BF8F00, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.saumon2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(255, 217, 102, 0), rgba(191, 143, 0, 0.75), rgba(255, 217, 102, 0));
+}
+
+/* Double-color dashed line */
+
+hr.saumon2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #BF8F00;
+}
+
+/* Single-direction drop shadow */
+
+hr.saumon2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(191, 143, 0, 0.5);
+}
+
+/* Cloud */
+
+hr.saumon2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #BF8F00;
+}
+hr.saumon2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.saumon2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(191, 143, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 217, 102, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.saumon2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #BF8F00;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.saumon2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #BF8F00;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.saumon2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #BF8F00;
+    color: #BF8F00;
+    text-align: center;
+}
+hr.saumon2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #FFD966;
+}
+/*------------------------------------------------------------*/
+
+.yellow-item {background-color:#BFB500;     color:#FFFFFF; }
+.yellow-item-legend  {background-color:#BFB500;     color:#FFFFFF; }
+.yellow-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.yellow-item-head        {background-color:#BFB500;     color:#000000; }
+.yellow-item-head a     {background-color:transparent; color:#FFFFFF; }
+.yellow-item-info        {background-color:#FFF766;     color:#000000; }
+.yellow-item-a {background-color:transparent; color:#FFFFFF; }
+.yellow-item-body        {background-color:#FFFCCC;     color:#582C00; }
+.yellow-item-body  td      {background-color:#FFFCCC;     color:#582C00; }
+.yellow-item-body-scoop  {background-color:#FFFCCC;     color:#582C00; }
+.yellow-item-text  {background-color:transparent; color:#582C00; }
+.yellow-item-foot {background-color:#FFFA99;     color:#000000; }
+.yellow-item-foot a {background-color:transparent; color:#744D26; }
+.yellow-item-button {background-color:#BFB500;     color:#000000; }
+.yellow-item-button:hover {background-color:#928B00;     color:#000000; }
+.yellow-item-button:active {background-color:#FFF766;     color:#000000; }
+.yellow-item-button:disabled,
+.yellow-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.yellow-item-utton:disabled:hover,
+.yellow-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.yellow-item-button:disabled:active,
+.yellow-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.yellow-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #FFF766, #BFB500, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.yellow-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(255, 247, 102, 0), rgba(191, 181, 0, 0.75), rgba(255, 247, 102, 0));
+}
+
+/* Double-color dashed line */
+
+hr.yellow-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #BFB500;
+}
+
+/* Single-direction drop shadow */
+
+hr.yellow-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(191, 181, 0, 0.5);
+}
+
+/* Cloud */
+
+hr.yellow-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #BFB500;
+}
+hr.yellow-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.yellow-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(191, 181, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 247, 102, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.yellow-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #BFB500;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.yellow-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #BFB500;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.yellow-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #BFB500;
+    color: #BFB500;
+    text-align: center;
+}
+hr.yellow-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #FFF766;
+}
+/*------------------------------------------------------------*/
+
+.yellow2-item {background-color:#CCCC00;     color:#FFFFFF; }
+.yellow2-item-legend  {background-color:#CCCC00;     color:#FFFFFF; }
+.yellow2-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.yellow2-item-head        {background-color:#CCCC00;     color:#FFFFFF; }
+.yellow2-item-head a     {background-color:transparent; color:#FFFFFF; }
+.yellow2-item-info        {background-color:#FFFF00;     color:#000000; }
+.yellow2-item-a {background-color:transparent; color:#FFFFFF; }
+.yellow2-item-body        {background-color:#FFFFCC;     color:#000000; }
+.yellow2-item-body  td      {background-color:#FFFFCC;     color:#000000; }
+.yellow2-item-body-scoop  {background-color:#FFFFCC;     color:#000000; }
+.yellow2-item-text  {background-color:transparent; color:#000000; }
+.yellow2-item-foot {background-color:#FFFF99;     color:#000000; }
+.yellow2-item-foot a {background-color:transparent; color:#000000; }
+.yellow2-item-button {background-color:#CCCC00;     color:#FFFFFF; }
+.yellow2-item-button:hover {background-color:#CC9900;     color:#FFFFFF; }
+.yellow2-item-button:active {background-color:#FFFF00;     color:#000000; }
+.yellow2-item-button:disabled,
+.yellow2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.yellow2-item-utton:disabled:hover,
+.yellow2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.yellow2-item-button:disabled:active,
+.yellow2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.yellow2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #FFFF00, #CCCC00, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.yellow2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(255, 255, 0, 0), rgba(204, 204, 0, 0.75), rgba(255, 255, 0, 0));
+}
+
+/* Double-color dashed line */
+
+hr.yellow2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #CCCC00;
+}
+
+/* Single-direction drop shadow */
+
+hr.yellow2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(204, 204, 0, 0.5);
+}
+
+/* Cloud */
+
+hr.yellow2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #CCCC00;
+}
+hr.yellow2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.yellow2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(204, 204, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 0, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.yellow2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #CCCC00;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.yellow2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #CCCC00;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.yellow2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #CCCC00;
+    color: #CCCC00;
+    text-align: center;
+}
+hr.yellow2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #FFFF00;
+}
+/*------------------------------------------------------------*/
+
+.braun2-item {background-color:#C65911;     color:#FFFFFF; }
+.braun2-item-legend  {background-color:#C65911;     color:#FFFFFF; }
+.braun2-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.braun2-item-head        {background-color:#C65911;     color:#FFFFFF; }
+.braun2-item-head a     {background-color:transparent; color:#FFFFFF; }
+.braun2-item-info        {background-color:#F4B084;     color:#FFFFFF; }
+.braun2-item-a {background-color:transparent; color:#FFFFFF; }
+.braun2-item-body        {background-color:#FCE4D6;     color:#000000; }
+.braun2-item-body  td      {background-color:#FCE4D6;     color:#000000; }
+.braun2-item-body-scoop  {background-color:#FCE4D6;     color:#000000; }
+.braun2-item-text  {background-color:transparent; color:#000000; }
+.braun2-item-foot {background-color:#F4B084;     color:#000000; }
+.braun2-item-foot a {background-color:transparent; color:#600020; }
+.braun2-item-button {background-color:#C65911;     color:#FFFFFF; }
+.braun2-item-button:hover {background-color:#9B460D;     color:#FFFFFF; }
+.braun2-item-button:active {background-color:#F4B084;     color:#FFFFFF; }
+.braun2-item-button:disabled,
+.braun2-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.braun2-item-utton:disabled:hover,
+.braun2-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.braun2-item-button:disabled:active,
+.braun2-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.braun2-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #F4B084, #C65911, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.braun2-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(244, 176, 132, 0), rgba(198, 89, 17, 0.75), rgba(244, 176, 132, 0));
+}
+
+/* Double-color dashed line */
+
+hr.braun2-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #C65911;
+}
+
+/* Single-direction drop shadow */
+
+hr.braun2-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(198, 89, 17, 0.5);
+}
+
+/* Cloud */
+
+hr.braun2-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #C65911;
+}
+hr.braun2-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.braun2-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(198, 89, 17, 0.1);
+    border-bottom: 1px solid rgba(244, 176, 132, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.braun2-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #C65911;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.braun2-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #C65911;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.braun2-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #C65911;
+    color: #C65911;
+    text-align: center;
+}
+hr.braun2-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #F4B084;
+}
+/*------------------------------------------------------------*/
+
+.France-item {background-color:#0033CC;     color:#FFFFFF; }
+.France-item-legend  {background-color:#0033CC;     color:#FFFFFF; }
+.France-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.France-item-head        {background-color:#0033CC;     color:#FFFFFF; }
+.France-item-head a     {background-color:transparent; color:#FFFFFF; }
+.France-item-info        {background-color:#3366FF;     color:#FFFFFF; }
+.France-item-a {background-color:transparent; color:#FFFFFF; }
+.France-item-body        {background-color:#FFFFFF;     color:#000000; }
+.France-item-body  td      {background-color:#FFFFFF;     color:#000000; }
+.France-item-body-scoop  {background-color:#FFFFFF;     color:#000000; }
+.France-item-text  {background-color:transparent; color:#000000; }
+.France-item-foot {background-color:#FF0000;     color:#000000; }
+.France-item-foot a {background-color:transparent; color:#000000; }
+.France-item-button {background-color:#0033CC;     color:#FFFFFF; }
+.France-item-button:hover {background-color:#000099;     color:#FFFFFF; }
+.France-item-button:active {background-color:#3366FF;     color:#FFFFFF; }
+.France-item-button:disabled,
+.France-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.France-item-utton:disabled:hover,
+.France-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.France-item-button:disabled:active,
+.France-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.France-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #3366FF, #0033CC, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.France-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(51, 102, 255, 0), rgba(0, 51, 204, 0.75), rgba(51, 102, 255, 0));
+}
+
+/* Double-color dashed line */
+
+hr.France-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #0033CC;
+}
+
+/* Single-direction drop shadow */
+
+hr.France-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 51, 204, 0.5);
+}
+
+/* Cloud */
+
+hr.France-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #0033CC;
+}
+hr.France-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.France-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 51, 204, 0.1);
+    border-bottom: 1px solid rgba(51, 102, 255, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.France-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #0033CC;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.France-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #0033CC;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.France-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #0033CC;
+    color: #0033CC;
+    text-align: center;
+}
+hr.France-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #3366FF;
+}
+/*------------------------------------------------------------*/
+
+.allBlack-item {background-color:#000000;     color:#FFFFFF; }
+.allBlack-item-legend  {background-color:#000000;     color:#FFFFFF; }
+.allBlack-item-legend a  {background-color:transparent; color:#FFFFFF; }
+.allBlack-item-head        {background-color:#000000;     color:#FFFFFF; }
+.allBlack-item-head a     {background-color:transparent; color:#EAEAEA; }
+.allBlack-item-info        {background-color:#DDDDDD;     color:#000000; }
+.allBlack-item-a {background-color:transparent; color:#FFFFFF; }
+.allBlack-item-body        {background-color:#B2B2B2;     color:#000000; }
+.allBlack-item-body  td      {background-color:#B2B2B2;     color:#000000; }
+.allBlack-item-body-scoop  {background-color:#B2B2B2;     color:#000000; }
+.allBlack-item-text  {background-color:transparent; color:#000000; }
+.allBlack-item-foot {background-color:#000000;     color:#FFFFFF; }
+.allBlack-item-foot a {background-color:transparent; color:#B2B2B2; }
+.allBlack-item-button {background-color:#000000;     color:#FFFFFF; }
+.allBlack-item-button:hover {background-color:#5F5F5F;     color:#FFFFFF; }
+.allBlack-item-button:active {background-color:#DDDDDD;     color:#000000; }
+.allBlack-item-button:disabled,
+.allBlack-item-button[disabled] {background-color:#BFBFBF;     color:#FFFFFF; }
+.allBlack-item-utton:disabled:hover,
+.allBlack-item-button[disabled]:hover {background-color:#BFBFBF;     color:#FFFFFF; }
+.allBlack-item-button:disabled:active,
+.allBlack-item-button[disabled]:active {background-color:#BFBFBF;     color:#FFFFFF; }
+
+/* Gradient color1 - color2 - color1 */
+
+hr.allBlack-hr-style-one {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #DDDDDD, #000000, #ccc);
+}
+
+/* Gradient transparent - color - transparent */
+
+hr.allBlack-hr-style-two {
+    border: 0;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(221, 221, 221, 0), rgba(0, 0, 0, 0.75), rgba(221, 221, 221, 0));
+}
+
+/* Double-color dashed line */
+
+hr.allBlack-hr-style-three {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #000000;
+}
+
+/* Single-direction drop shadow */
+
+hr.allBlack-hr-style-four {
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Cloud */
+
+hr.allBlack-hr-style-five {
+    border: 0;
+    height: 0; /* Firefox... */
+    box-shadow: 0 0 10px 1px #000000;
+}
+hr.allBlack-hr-style-five:after {  /* Not really supposed to work, but does */
+    content: "\00a0";  /* Prevent margin collapse */
+}
+
+/* Inset, by Dan Eden */
+
+hr.allBlack-hr-style-six {
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.allBlack-hr-style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+hr.allBlack-hr-style-seven:before { /* Not really supposed to work, but does */
+    display: block;
+    content: "";
+    height: 30px;
+    margin-top: -31px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 0 0 1px 0;
+    border-radius: 20px;
+}
+
+/* Glyph, by Harry Roberts */
+
+hr.allBlack-hr-style-eight {
+    overflow: visible; /* For IE */
+    padding: 0;
+    border: none;
+    border-top: medium double #000000;
+    color: #000000;
+    text-align: center;
+}
+hr.allBlack-hr-style-eight:after {
+    content: "§";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: #DDDDDD;
+}
+/*------------------------------------------------------------*/
+

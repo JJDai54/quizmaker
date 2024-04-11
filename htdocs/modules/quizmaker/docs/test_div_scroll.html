@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <title></title>
+  </head>
+  <body>
+
+<style>
+/* ----- contenairs principaaux -----*/
+#gigi_div_main{             /* ensemble du quiz interface utilisateur */
+    width : 750px;
+    background:rgb(0,204,0) ;
+    position:relative;
+}
+
+#gigi_div_log{             /* zone de log pour affichage des bonnes réponse en dev et en test */
+    width : 750px;
+    background:rgb(0,204,0) ;
+position:relative;
+
+}
+/* ----- structure dans le contenair principal ----- */
+#gigi_div_header{           /* Pour le titre*/
+    width : 80%;
+    min-height :10px;
+    height : 50px;
+    background:rgb(0,0,255);
+}
+#gigi_div_body{      /* l'ensemble des slides */
+    width : 80%;
+    height : 500px;
+    background:rgb(204,255,255) ;
+/*
+    display: flex;
+flex-direction: column;
+position:relative;
+*/
+}
+#gigi_div_message{          /* message de bas de page */
+    width : 80%;
+    height : 80px;
+    background:rgb(153,153,255);
+left:20px;
+}
+#gigi_div_footer{           /* version / auteur / date / ... */  
+    width : 80%;
+    min-height :10px;
+    height : 20px;
+    background:rgb(0,0,255);
+}
+
+/* ----- opjets contenu dans gigi_div_body ----- */
+#gigi_div_quizard{         /* pour tous les slides */
+    width : 90%;
+
+    /* max-height : 150px; */
+    background:rgb(255,255,204);
+
+display: flex;
+flex-direction: column;
+position:relative;
+}
+.gigi_div_quizard_begin{         /* pour pageBegin */
+    min-height : 450px; /* body - buttons*/
+    height : 500px; /* body sans tenir compte de button*/
+}
+.gigi_div_quizard_end{         /* pour pageEnd */
+    min-height : 450px; /* body - buttons*/
+    height : 500px; /* body sans tenir compte de button*/
+}
+.gigi_div_quizard_question{         /* pour tous les slides contenant une question ou pageGroup*/
+    min-height : 450px; /* body - buttons*/
+    height : 450px; /* body - buttons*/
+}
+
+
+#gigi_div_buttons{      /* bouton de déplacement, de validations, reload, ... */
+    width : 95%;
+    min-height : 50px;
+    height : 50px;
+    background:rgb(255,255,0);
+    bottom : 0;
+    /* 
+    display : none; 
+    */
+}
+/* *********************************************************** */
+#gigi_div_question{         /* pour la question et le commentaire associé */
+    width : 80%;
+    min-height : 100px;
+    max-height : 200px;
+
+    background:rgb(255,51,0);
+    overflow-y: auto;
+
+}
+
+#gigi_div_propositions{     /* zones de saisies des réponses */
+    width : 80%;
+    min-height :50px;
+    background:rgb(255,204,0);
+    overflow-y: auto;
+
+}
+
+/******************************************************/
+
+
+/*
+position: absolute;
+ bottom: 50px;
+    display:none;
+*/
+
+</style>
+<!-- *************************************************** -->
+<center>
+<div id='gigi_div_main'>
+  <div id='gigi_div_header'></div>
+  <div id='gigi_div_body'>
+    <div id='gigi_div_quizard' class='gigi_div_quizard_question'>
+      <div id='gigi_div_question'></div>
+      <div id='gigi_div_propositions'></div>
+    </div>
+    <div id='gigi_div_buttons'></div>
+  </div>
+  <div id='gigi_div_message'></div>
+  <div id='gigi_div_footer'></div>
+</div>
+</center>
+
+
+
+
+<hr>
+<script>
+    document.getElementById('gigi_div_header').innerHTML = "header";
+    document.getElementById('gigi_div_buttons').innerHTML = "buttons";
+    document.getElementById('gigi_div_message').innerHTML = "message";
+    document.getElementById('gigi_div_footer').innerHTML = "version";
+    
+    document.getElementById('gigi_div_question').innerHTML = 
+     `question<br>question<br>question<br>question<br>question<br>
+      question<br>question<br>question<br>question<br>question<br>
+      question<br>question<br>question<br>question<br>question<br>`;
+      
+    document.getElementById('gigi_div_propositions').innerHTML = 
+      `proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      proposition<br>proposition<br>proposition<br>proposition<br>proposition<br>
+      fin`;
+</script      
+
+  </body>
+</html>

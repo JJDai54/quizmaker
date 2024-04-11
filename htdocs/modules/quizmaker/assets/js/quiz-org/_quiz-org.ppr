@@ -1,0 +1,317 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+Extensions=*.*
+[Project tree]
+_quiz-org
+	+quiz-org
+		-css
+			-infobulle
+				-images
+					css\infobulle\images\Award.png
+					css\infobulle\images\Bow tie.png
+					css\infobulle\images\Cinema.png
+					css\infobulle\images\Coffee.png
+					css\infobulle\images\Critical.png
+					css\infobulle\images\Dating.png
+					css\infobulle\images\Dollar.png
+					css\infobulle\images\Game_strategy.png
+					css\infobulle\images\Hamburger.png
+					css\infobulle\images\Help.png
+					css\infobulle\images\Hint.png
+					css\infobulle\images\Home.png
+					css\infobulle\images\index.html
+					css\infobulle\images\Info.png
+					css\infobulle\images\Kids.png
+					css\infobulle\images\Music.png
+					css\infobulle\images\View.png
+					css\infobulle\images\Warning.png
+				css\infobulle\exemple-01.html
+				css\infobulle\index.html
+				css\infobulle\infobulle.css
+			-progressbarr
+				css\progressbarr\shaded-blue.png
+				css\progressbarr\shaded-green.png
+				css\progressbarr\shaded-magenta.png
+				css\progressbarr\shaded-red.png
+				css\progressbarr\shaded-yellow.png
+			css\index.html
+			css\quiz.css
+			css\quiz-tmp.css
+			css\style-item-color.css
+			css\style-item-color-old.css
+			css\style-item-design.css
+			css\style-item-design-old.css
+		-images
+			-_temp
+				-_modeles
+					images\_temp\_modeles\btn_bottom.png
+					images\_temp\_modeles\btn_cancel-01.png
+					images\_temp\_modeles\btn_cancel-02.png
+					images\_temp\_modeles\btn_down.png
+					images\_temp\_modeles\btn_empty.png
+					images\_temp\_modeles\btn_first.png
+					images\_temp\_modeles\btn_last.png
+					images\_temp\_modeles\btn_next.png
+					images\_temp\_modeles\btn_ok.png
+					images\_temp\_modeles\btn_previous.png
+					images\_temp\_modeles\btn_top.png
+					images\_temp\_modeles\btn_up.png
+					images\_temp\_modeles\btn_view-01.png
+					images\_temp\_modeles\btn_view-02.png
+				images\_temp\Boutons - Copie.svg
+				images\_temp\Boutons.png
+				images\_temp\Boutons.svg
+			-buttons
+				-blue
+					images\buttons\blue\btn_bottom.png
+					images\buttons\blue\btn_cancel-01.png
+					images\buttons\blue\btn_cancel-02.png
+					images\buttons\blue\btn_down.png
+					images\buttons\blue\btn_empty.png
+					images\buttons\blue\btn_first.png
+					images\buttons\blue\btn_last.png
+					images\buttons\blue\btn_next.png
+					images\buttons\blue\btn_ok.png
+					images\buttons\blue\btn_previous.png
+					images\buttons\blue\btn_top.png
+					images\buttons\blue\btn_up.png
+					images\buttons\blue\btn_view-01.png
+					images\buttons\blue\btn_view-02.png
+				-default
+					images\buttons\default\btn_bottom.png
+					images\buttons\default\btn_cancel-01.png
+					images\buttons\default\btn_cancel-02.png
+					images\buttons\default\btn_down.png
+					images\buttons\default\btn_empty.png
+					images\buttons\default\btn_first.png
+					images\buttons\default\btn_last.png
+					images\buttons\default\btn_next.png
+					images\buttons\default\btn_ok.png
+					images\buttons\default\btn_previous.png
+					images\buttons\default\btn_top.png
+					images\buttons\default\btn_up.png
+					images\buttons\default\btn_view-01.png
+					images\buttons\default\btn_view-02.png
+				-green
+					images\buttons\green\btn_bottom.png
+					images\buttons\green\btn_cancel-01.png
+					images\buttons\green\btn_cancel-02.png
+					images\buttons\green\btn_down.png
+					images\buttons\green\btn_empty.png
+					images\buttons\green\btn_first.png
+					images\buttons\green\btn_last.png
+					images\buttons\green\btn_next.png
+					images\buttons\green\btn_ok.png
+					images\buttons\green\btn_previous.png
+					images\buttons\green\btn_top.png
+					images\buttons\green\btn_up.png
+					images\buttons\green\btn_view-01.png
+					images\buttons\green\btn_view-02.png
+				-magenta
+					images\buttons\magenta\btn_bottom.png
+					images\buttons\magenta\btn_cancel-01.png
+					images\buttons\magenta\btn_cancel-02.png
+					images\buttons\magenta\btn_down.png
+					images\buttons\magenta\btn_empty.png
+					images\buttons\magenta\btn_first.png
+					images\buttons\magenta\btn_last.png
+					images\buttons\magenta\btn_next.png
+					images\buttons\magenta\btn_ok.png
+					images\buttons\magenta\btn_previous.png
+					images\buttons\magenta\btn_top.png
+					images\buttons\magenta\btn_up.png
+					images\buttons\magenta\btn_view-01.png
+					images\buttons\magenta\btn_view-02.png
+				-yellow
+					images\buttons\yellow\btn_bottom.png
+					images\buttons\yellow\btn_cancel-01.png
+					images\buttons\yellow\btn_cancel-02.png
+					images\buttons\yellow\btn_down.png
+					images\buttons\yellow\btn_empty.png
+					images\buttons\yellow\btn_first.png
+					images\buttons\yellow\btn_last.png
+					images\buttons\yellow\btn_next.png
+					images\buttons\yellow\btn_ok.png
+					images\buttons\yellow\btn_previous.png
+					images\buttons\yellow\btn_top.png
+					images\buttons\yellow\btn_up.png
+					images\buttons\yellow\btn_view-01.png
+					images\buttons\yellow\btn_view-02.png
+				images\buttons\index.html
+			-emoji
+				images\emoji\emoji_icon_00.png
+				images\emoji\emoji_icon_01.png
+				images\emoji\emoji_icon_02.png
+			-substitut
+				images\substitut\blank-jaune.jpg
+				images\substitut\blank-org.jpg
+				images\substitut\blank-rouge.jpg
+				images\substitut\blank-vert.jpg
+				images\substitut\blank-violet.jpg
+				images\substitut\index.html
+				images\substitut\interrogation-01.jpg
+				images\substitut\interrogation-02-gris.png
+				images\substitut\interrogation-02-jaune.png
+				images\substitut\interrogation-02-rouge.jpg
+				images\substitut\interrogation-02-vert.png
+				images\substitut\interrogation-02-violet.png
+				images\substitut\interrogation-03-jaune.png
+				images\substitut\interrogation-03-noir.png
+				images\substitut\interrogation-03-rouge.png
+				images\substitut\interrogation-03-vert.png
+				images\substitut\interrogation-03-violet.png
+				images\substitut\interrogation-04-jaune.png
+				images\substitut\interrogation-04-org.png
+				images\substitut\interrogation-04-rouge.png
+				images\substitut\interrogation-04-vert.png
+				images\substitut\interrogation-04-violet.png
+				images\substitut\interrogation-05-bleu.png
+				images\substitut\interrogation-05-gris.png
+				images\substitut\interrogation-05-jaune.png
+				images\substitut\interrogation-05-rouge.png
+				images\substitut\interrogation-05-vert.png
+				images\substitut\interrogation-05-violet.png
+			images\2points-gris.png
+			images\arrow-right.png
+			images\feu-rouge.png
+			images\feu-vert.png
+			images\Help.png
+			images\Hint.png
+			images\index.html
+		+js
+			js\quiz-events.js
+			js\quiz-functions.js
+			js\quiz-main.js
+			js\quiz-options-dist.js
+			js\slide__prototype.js
+		-language
+			language\quiz-english.js
+			language\quiz-french.js
+		+plugins
+			+alphaSimple
+				plugins\alphaSimple\index.html
+				plugins\alphaSimple\slide_alphaSimple.css
+				plugins\alphaSimple\slide_alphaSimple.js
+			+checkboxSimple
+				plugins\checkboxSimple\index.html
+				plugins\checkboxSimple\slide_checkboxSimple.css
+				plugins\checkboxSimple\slide_checkboxSimple.js
+			-comboboxMatchItems
+				plugins\comboboxMatchItems\index.html
+				plugins\comboboxMatchItems\slide_comboboxMatchItems.css
+				plugins\comboboxMatchItems\slide_comboboxMatchItems.js
+			-comboboxSortItems
+				plugins\comboboxSortItems\index.html
+				plugins\comboboxSortItems\slide_comboboxSortItems.css
+				plugins\comboboxSortItems\slide_comboboxSortItems.js
+			-imagesDaDGroups
+				plugins\imagesDaDGroups\index.html
+				plugins\imagesDaDGroups\slide_imagesDaDGroups.css
+				plugins\imagesDaDGroups\slide_imagesDaDGroups.js
+			-imagesDaDMatchItems
+				plugins\imagesDaDMatchItems\index.html
+				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
+				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
+			-imagesDaDSortItems
+				plugins\imagesDaDSortItems\index.html
+				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
+				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
+			-imagesDaDSortItemsIns
+				plugins\imagesDaDSortItemsIns\index.html
+				plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.css
+				plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.js
+			+imagesLogical
+				plugins\imagesLogical\index.html
+				plugins\imagesLogical\slide_imagesLogical.css
+				plugins\imagesLogical\slide_imagesLogical.js
+			-imagesSimple
+				plugins\imagesSimple\index.html
+				plugins\imagesSimple\slide_imagesSimple.css
+				plugins\imagesSimple\slide_imagesSimple.js
+			-listboxClassItems
+				plugins\listboxClassItems\index.html
+				plugins\listboxClassItems\slide_listboxClassItems.css
+				plugins\listboxClassItems\slide_listboxClassItems.js
+			+listboxSortItems
+				plugins\listboxSortItems\index.html
+				plugins\listboxSortItems\slide_listboxSortItems.css
+				plugins\listboxSortItems\slide_listboxSortItems.js
+			-pageBegin
+				plugins\pageBegin\index.html
+				plugins\pageBegin\slide_pageBegin.css
+				plugins\pageBegin\slide_pageBegin.js
+			-pageEnd
+				plugins\pageEnd\index.html
+				plugins\pageEnd\slide_pageEnd.css
+				plugins\pageEnd\slide_pageEnd.js
+			-pageGroup
+				plugins\pageGroup\index.html
+				plugins\pageGroup\slide_pageGroup.css
+				plugins\pageGroup\slide_pageGroup.js
+			+radioMultiple
+				plugins\radioMultiple\index.html
+				plugins\radioMultiple\slide_radioMultiple.css
+				plugins\radioMultiple\slide_radioMultiple.js
+			-radioSimple
+				plugins\radioSimple\index.html
+				plugins\radioSimple\slide_radioSimple.css
+				plugins\radioSimple\slide_radioSimple.js
+			-textareaInput
+				plugins\textareaInput\index.html
+				plugins\textareaInput\slide_textareaInput.css
+				plugins\textareaInput\slide_textareaInput.js
+			-textareaListbox
+				plugins\textareaListbox\index.html
+				plugins\textareaListbox\slide_textareaListbox.css
+				plugins\textareaListbox\slide_textareaListbox.js
+			-textareaSimple
+				plugins\textareaSimple\index.html
+				plugins\textareaSimple\slide_textareaSimple.css
+				plugins\textareaSimple\slide_textareaSimple.js
+			-textboxMatchItems
+				plugins\textboxMatchItems\index.html
+				plugins\textboxMatchItems\slide_textboxMatchItems.css
+				plugins\textboxMatchItems\slide_textboxMatchItems.js
+			+textboxMultiple
+				plugins\textboxMultiple\index.html
+				plugins\textboxMultiple\slide_textboxMultiple.css
+				plugins\textboxMultiple\slide_textboxMultiple.js
+			+ulDaDGroups
+				plugins\ulDaDGroups\index.html
+				plugins\ulDaDGroups\slide_ulDaDGroups.css
+				plugins\ulDaDGroups\slide_ulDaDGroups.js
+			-ulDaDSortList
+				plugins\ulDaDSortList\index.html
+				plugins\ulDaDSortList\slide_ulDaDSortList.css
+				plugins\ulDaDSortList\slide_ulDaDSortList.js
+			plugins\index.html
+		_quiz-org.ppr
+[Open project files]
+0=plugins\imagesLogical\slide_imagesLogical.js
+1=plugins\listboxSortItems\slide_listboxSortItems.js
+2=js\quiz-main.js
+[Selected Project Files]
+Main=
+Selected=js\quiz-main.js
+[plugins\imagesLogical\slide_imagesLogical.js]
+TopLine=39
+Caret=1,39
+[plugins\listboxSortItems\slide_listboxSortItems.js]
+TopLine=15
+Caret=64,41
+[js\quiz-main.js]
+TopLine=67
+Caret=11,85

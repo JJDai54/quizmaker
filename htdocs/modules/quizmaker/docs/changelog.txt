@@ -1,0 +1,85 @@
+2024-04-10a v 4.12 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- restructuration des plugins dans la partie javascript
+- refonte de la minification des fichier CSS et JS
+- ajout des CSS manquand pour chaque plugin
+- transfert des images propres a un plugins dans le dossier "img" de ce dernier
+- ajout de la propriété "urlPlugin" pour pointer sur les images de ce dernier
+- création du plugin "alphaSimple"
+- fusion et suppression de plugins
+- refonte du popup apres chaque question
+- nettoyage des fichiers inutiles
+- ajout d'une imageprincipale  pour la question dans certains plugins
+- Gestion de la disposition pour certains plugins (ex : imgDaD Groups, ulDaDGroups, ...)
+- ré écriture des fichier "help.html" 'freench) pour chaque plugin
+- ajout du bouton "Catégorie" dans l'onglet "questions" pour faciliter la navigation
+- mise en couleur des liste de filtrage dans l'admin (categorie, quiz, question...)
+- onglet "minification" ajout d'un indicateur en couleur : "Point vert" : les fichiers sont minifiés sinon "Point gris" 
+
+2023-11-03a v 4.02 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Gestion du popup entre les question pour afficher le résultat au fure et à mesure
+- Correction du numero de question et numero de slide.
+  le numero de question ne prend pas en compte les slide pageBegin, pageEnd et pageGroup
+
+
+2023-03-08 - v 3.08 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Restructuration de l'arborescence sous forme de plugins..
+Centralisation des fichiers de chaque type de question dans un dossier par type
+le tout dans un même dossier:
+    - plugins_questions
+        - checkboxLogical
+            - img
+                - snapshoot-000.jpg
+                - snapshoot-001.jpg
+                - snapshoot-002.jpg
+            - language
+                - english
+                    - constants.php
+                    - help.html
+                - french
+                    - constants.php
+                    - help.html
+            - slide_checkboxLogical.js                         
+            - slide_checkboxLogical.php
+            
+        - comboboxMatchItems  ...
+                          
+2023-02-05 - v 3.01 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout des block 'last' et 'random'
+
+2022-12-12 - v 2.94 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout des type de question avec images à cliquer
+- Ajout des type de question avec images et Drag and Drop
+
+2022-10-25 - v 2.92 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout du champ quiz_showAllSolutions dans la table quiz
+- Ajout de l'expot dans l'onglet quiz zt question pour plus de paticité
+- Séparation des "page_info" en "pageBegin", "pageEnd" et "pageGroup"
+- Ajout des modèles en image pour faciliter le choix du type de question
+- Ajout de la categorie d'origine lors de l'import (crée ou recherche une categorie de même nom)
+
+
+2022-04-06 - v 2.92 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Ajout du champ see_also et read_more dans la table des solutions
+- Gestion de l'onglet "Résultats" : suppresion global et individuel par quiz 
+- Ajout du flag "numerotation" dans la liste de l'admin des questions
+
+2022-04-06 - v 2.6 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Corrections de bugs
+- modification de l'enchainement à la fin du quiz avec les slutions
+- Modifcation dans l'admin de la gestion des flag, les icones sont remplacer par des espresssions et de la couleur pour faciliter la lecture
+  exemple : N/Y en rouge et vert
+- correction du form about
+- Ajout de pages d'information->encart pour permettre des regrouppements de questions
+
+==============================================================
+Change Log for CreaQuiz - 2020/08/27 12:19:51 Version 1.0
+==============================================================
+ - Original release quizmaker (Jean-Jacques Delalandre)
