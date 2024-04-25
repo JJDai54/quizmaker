@@ -264,6 +264,9 @@ public function getNewTypeQuestion(&$typeQuestion){
         case 'imagesDaDLogical' :
             $typeQuestion = 'imagesDaDMatchItems'; 
             break;
+        case 'imagesDaDSortItemsIns' :
+            $typeQuestion = 'imagesDaDSortItems'; 
+            break;
   }
 }
 /* ////////////////////////////////////////////////////////////////////// */

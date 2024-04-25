@@ -92,9 +92,9 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         
 
         //---------------------------------------------       
-        //retour au quiz 
-//         $btnGotoQuiz = $quizUtility->getNewBtn(_AM_QUIZMAKER_QUIZ, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
-// 		$GLOBALS['xoopsTpl']->assign('btnGotoQuiz', $btnGotoQuiz);
+        //edition du quiz 
+        $btnEditQuiz = $quizUtility->getNewBtn(_AM_QUIZMAKER_EDIT_QUIZ, 'edit_quiz', QUIZMAKER_URL_ICONS."/16/edit.png",  _EDIT);
+ 		$GLOBALS['xoopsTpl']->assign('btnEditQuiz', $btnEditQuiz);
         
         //retour a la categorie
         $btnCategory = $quizUtility->getNewBtn(_AM_QUIZMAKER_CATEGORY, 'goto_category', QUIZMAKER_URL_ICONS."/16/up.png",  _AM_QUIZMAKER_CATEGORY);

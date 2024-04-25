@@ -1,3 +1,31 @@
+2024-04-23a v 4.14 beta 6 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- table "quiz" ajout du champ "quiz_questPosComment1" qui détermine la position de comment1 de la table questions
+  valeur : 0 : le champ comment1 est masqué
+           1 : le champ comment1 est placé sous la question
+           2 : le champ comment1 est placé en tête de la zone des proposition
+ 
+- table "questions" ajout du champ "quest_posComment1" qui détermine la position de comment1.
+  inutilisé pour l'instant, enprévisio d'une individualisation pour chaque question de la position de comment1
+ 
+           
+2024-04-22a v 4.14 beta 4 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- correction iomport : ajout de maxsize_import dans les référence et ajout du message d'error de dépassement de taille
+- plugin : imagesDaDSortItems 
+           fusion avec imagesDaDSortItemsIns et suppression de ce dernier
+           Ajout d'une image principale
+- plugin : comboboxMatchItems
+           Ajout d'une image principale
+- plugin : imagesDadMatchItems 
+           Ajout de plusierus dispositions, verticale, horizontale, multiple ou unique
+- mise à jour des fichiers d'aide de chaque plugin
+- progressbarre : ajout de l'evenement "onclick" pour atteindre un slide, actif uniquement si "gotoSlide' est actif           
+- Minification : elle se fait maintenant par dossier et plugins
+                 ajout de la restauration ur le même principe
+                 active uniquement si elle paramettrée dans les préférences du module
+- question : suppression du clonage, probleme de clonage de la table enfant des propositions, a revoir
+           
 2024-04-10a v 4.12 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - restructuration des plugins dans la partie javascript

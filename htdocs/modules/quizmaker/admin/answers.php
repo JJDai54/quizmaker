@@ -224,7 +224,8 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $answersObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(['ok' => 1, 'answer_id' => $answerId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, "[{$answerId}]-" . $answersObj->getVar('answer_proposition')));
+            $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $answerId, $answersObj->getVar('answer_proposition'));
+			xoops_confirm(['ok' => 1, 'answer_id' => $answerId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
 		}
 	break;
 

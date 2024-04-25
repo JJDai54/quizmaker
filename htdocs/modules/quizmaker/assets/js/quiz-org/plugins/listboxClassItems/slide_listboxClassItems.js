@@ -247,6 +247,7 @@ return true;
     var currentQuestion = this.question;
 
 var bolOk = true;
+/*
 return bolOk;
     var id1 = `${this.getName()}-1`;
     var ob1 = getObjectById(id1);
@@ -264,6 +265,7 @@ return bolOk;
 
 
       return bolOk;
+*/
 
  }
 

@@ -42,9 +42,7 @@ var name = this.getName();
         if(currentQuestion.answers[k].proposition == '') continue;
         console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
           var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
-          answers.push(
-            `<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled>${exp}</div>
-        `);
+          answers.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled>${exp}</div>`);
           
       }
 

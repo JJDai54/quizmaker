@@ -1,1 +1,23 @@
-﻿.radioSimple{width 100%;font-size:1.1em;}.radioSimple table{margin-top:0px;border:0px solid black;border-collapse:collapse;width 100%;}.radioSimple td[familyWords]{text-align:left;font-size:1.1em;font-weight:bold;color:blue;padding:5px 0px 5px 30px;}.radioSimple label{margin:2px 0px 2px 30px;}
+﻿.radioSimple {
+    width 100%;
+    font-size:1.1em;
+}
+
+.radioSimple table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+  width 100%;
+}
+
+.radioSimple td[familyWords]{
+    text-align:left;
+    font-size:1.1em;
+    font-weight:bold;
+    color:blue;
+    padding: 5px 0px 5px 30px;
+}
+.radioSimple label{
+    /* padding: 5px 0px 5px 30px; */
+    margin: 2px 0px 2px 30px;
+}

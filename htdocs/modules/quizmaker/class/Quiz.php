@@ -57,6 +57,7 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_publishAnswers', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_showAllSolutions', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_theme', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_questPosComment1', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_answerBeforeNext', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_allowedPrevious', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_shuffleQuestions', XOBJ_DTYPE_INT);
@@ -238,6 +239,13 @@ class Quiz extends \XoopsObject
 		$form->addElement($inpTheme, false);
 
         
+        
+		// Form Check Box quiz_questPosComment1
+		$inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quiz_questPosComment1', $this->getVar('quiz_questPosComment1'));
+        $inpPosComment->addOptionArray(['1'=>_AM_QUIZMAKER_POS_COMMENT_1, '2'=>_AM_QUIZMAKER_POS_COMMENT_2 , '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
+        $inpPosComment->setDescription(_AM_QUIZMAKER_POS_COMMENT_DESC);
+        $form->addElement($inpPosComment);
+
 		// Form Check Box quiz_showConsigne
 		/*
         $quizShowConsigne = $this->isNew() ? 0 : $this->getVar('quiz_showConsigne');
@@ -265,6 +273,7 @@ class Quiz extends \XoopsObject
 		$checkQuizAnswerBeforeNext = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT, 'quiz_answerBeforeNext', $quizAnswerBeforeNext);
 		$checkQuizAnswerBeforeNext->setDescription(_AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC);
 		$form->addElement($checkQuizAnswerBeforeNext );
+        
         
 		// Form Check Box quizAllowedPrevious
 		$quizAllowedPrevious = $this->isNew() ? 0 : $this->getVar('quiz_allowedPrevious');
@@ -443,6 +452,7 @@ class Quiz extends \XoopsObject
         
 		$ret['theme']             = $this->getVar('quiz_theme');
         $ret['theme_ok'] = ($ret['theme'] == '') ? $categoriesHandler->getValue($ret['cat_id'],'cat_theme','default') : $ret['theme'];
+		$ret['questPosComment1']  = $this->getVar('quiz_questPosComment1');
 		$ret['answerBeforeNext']  = $this->getVar('quiz_answerBeforeNext');
 		$ret['allowedPrevious']   = $this->getVar('quiz_allowedPrevious');
 		$ret['allowedSubmit']     = $this->getVar('quiz_allowedSubmit');

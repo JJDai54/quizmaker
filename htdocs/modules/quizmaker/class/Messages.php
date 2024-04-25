@@ -96,7 +96,7 @@ class Messages extends \XoopsObject
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGES_CODE, 'msg_code', 100, 80, $this->getVar('msg_code') ), true);
 		
         // Form Text msgMessage
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGE, 'msg_message', 100, 255, $this->getVar('msg_message') ), true);
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_MESSAGES, 'msg_message', 100, 255, $this->getVar('msg_message') ), true);
         
         // Form Text msgLanguage
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_LANGUAGE, 'msg_language', 100, 50, $this->getVar('msg_language') ), true);

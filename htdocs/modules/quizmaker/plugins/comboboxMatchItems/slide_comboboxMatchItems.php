@@ -44,6 +44,9 @@ class slide_comboboxMatchItems extends XoopsModules\Quizmaker\Type_question
                                   'minReponses'    => 0,
                                   'disposition'    => 'disposition-01',
                                   'intrus' => ''];
+        $this->hasImageMain = true;
+        //$this->multiPoints = true;
+
     }
 
 	/**

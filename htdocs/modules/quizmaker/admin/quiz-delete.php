@@ -38,5 +38,6 @@ use XoopsModules\Quizmaker\Utility;
 				$GLOBALS['xoopsTpl']->assign('error', $quizObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $quizObj->getVar('quiz_cat_id')));
+            $msg =  sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $quizObj->getVar('quiz_id'), $quizObj->getVar('quiz_name'));
+			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
 		}

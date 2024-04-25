@@ -59,7 +59,7 @@ function addNewQuestion(typeQuestion){
           				<img src="<{xoModuleIcons32}>add.png" alt="Add Question" title='<{$smarty.const._AM_QUIZMAKER_ADD_NEW_QUESTION}>' />
                       </a>
                     <{/if}>
-                <td class='left'>
+                <td class='left width20'>
 <{* 
                     <div class='highslide-gallery'>
 			         <{foreach item=modele from=$TypeDeQuestion.modeles}>    

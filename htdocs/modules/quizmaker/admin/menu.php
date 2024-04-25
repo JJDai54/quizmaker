@@ -75,13 +75,6 @@ $adminmenu[] = [
 	'link' => 'admin/minify.php',
 	'icon' => $sysPathIcon32.'/discount.png',
 ];
-/*
-$adminmenu[] = [
-	'title' => _MI_QUIZMAKER_TOOLS,
-	'link' => 'admin/tools.php',
-	'icon' => $sysPathIcon32.'/synchronized.png',
-];
-*/
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU8,
@@ -99,8 +92,7 @@ $adminmenu[] = [
 	'link' => 'admin/messages.php',
 	'icon' => $sysPathIcon32.'/translations.png',
 ];
-/*
-*/
+
 $adminmenu[] = [
     'title' => _MI_QUIZMAKER_ADMENU_CLONE,
     'link' => 'admin/clone.php',

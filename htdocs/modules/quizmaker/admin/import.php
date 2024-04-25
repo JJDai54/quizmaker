@@ -28,9 +28,9 @@ require __DIR__ . '/header.php';
 //use JJD;
 $pg = array_merge($_GET, $_POST);
 //echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
-if(count($_GET)>0) echo "<hr>GET : <pre>" . print_r($_GET, true) . "</pre><hr>";
-if(count($_POST)>0) echo "<hr>POST : <pre>" . print_r($_POST, true) . "</pre><hr>";
-if(count($_FILES)>0) echo "<hr>FILES : <pre>" . print_r($_FILES, true) . "</pre><hr>";
+// if(count($_GET)>0) echo "<hr>GET : <pre>" . print_r($_GET, true) . "</pre><hr>";
+ if(count($_POST)>0) echo "<hr>POST : <pre>" . print_r($_POST, true) . "</pre><hr>";
+ if(count($_FILES)>0) echo "<hr>FILES : <pre>" . print_r($_FILES, true) . "</pre><hr>";
 
 $templateMain = 'quizmaker_admin_import.tpl';
 
@@ -43,10 +43,8 @@ $quizId = Request::getInt('quiz_id');
 $objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
 
-$upload_size = $quizmakerHelper->getConfig('maxsize_image'); 
-$upload_size = 12000000; //maxsize_image
-
-
+$upload_size = $quizmakerHelper->getConfig('maxsize_import'); //$upload_size = 12000000; 
+//echo  "<hr>{$upload_size}<hr>"; exit;
 $newFldImport = "/files_new_quiz" ; //. rand(1,1000);
 $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
 if (!is_dir(QUIZMAKER_PATH_UPLOAD_IMPORT)) mkdir(QUIZMAKER_PATH_UPLOAD_IMPORT);
@@ -72,21 +70,23 @@ switch($op) {
           $uploader = new \XoopsMediaUploader(QUIZMAKER_PATH_UPLOAD_IMPORT , 
                       array('application/x-gzip','application/zip', 'text/plain','application/gzip','application/x-compressed','application/x-zip-compressed'), 
                       $upload_size, null, null);
-                      $uploaderErrors = $uploader->getErrors();
-                      echo "<hr>Errors upload : {$uploaderErrors}<hr>";
- 
+          $uploaderErrors = $uploader->getErrors();
+          echo "<hr>01-Errors upload : {$uploaderErrors}<hr>";
+          
+            
                                                       
           if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
+//  exit("ici");
               $h= strlen($filename) - strrpos($filename, '.');  
               $fileName = "new-quiz"; 
                   $uploader->setPrefix($fileName . "-");
                   $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                   if (!$uploader->upload()) {
                       $uploaderErrors = $uploader->getErrors();
-                      echo "<hr>Errors upload : {$uploaderErrors}<hr>";
+                      echo "<hr>02-Errors upload : {$uploaderErrors}<hr>";
                       exit;
                   } else {
-                      $savedFilename = $uploader->getSavedFileName();
+                     $savedFilename = $uploader->getSavedFileName();
                       
                       $fullName =  QUIZMAKER_PATH_UPLOAD_IMPORT . "/". $savedFilename;
 
@@ -96,18 +96,28 @@ switch($op) {
                       \JJD\unZipFile($fullName, $pathImport);
                       \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
                       $newQuizId = $quizUtility::import_quiz($pathImport, $catId);
+                      $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
+                      $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
                   }
+                }else{
+                      //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
+                      $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
+                      $url = "import.php?op=error&numerr=1";
                 } 
-
-            redirect_header("questions.php?op=list&quiz_id={$newQuizId}&sender=", 5, "Importation Ok dans quiz_id={$newQuizId}");
+//  exit("{$msg}<br>{$url}");
+            redirect_header($url, 5, $msg);
     break;
     
+    case 'error':
+        $errors = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko"); 
     case 'import':
     case 'list':
-        if($objError->getErrors())
-            $errors = $objError->getHtmlErrors();
-        else
-            $errors = '';
+        if(!isset($errors)) {
+          if($objError->getErrors())
+              $errors = $objError->getHtmlErrors();
+          else
+              $errors = '';
+        }
         
       $GLOBALS['xoopsTpl']->assign('error', $errors);
       $objError = new \XoopsObject();     
@@ -173,6 +183,7 @@ switch($op) {
 
 //echo $form->render()  ;      
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
+        
     
     break;
     

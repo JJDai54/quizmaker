@@ -1,4 +1,5 @@
- 
+ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_questPosComment1` TINYINT NOT NULL DEFAULT '1' AFTER `quiz_showAllSolutions`; 
+ALTER TABLE `x251_quizmaker_questions` ADD `quest_posComment1` TINYINT NOT NULL DEFAULT '0' AFTER `quest_comment1`;  
 
 
 <{xoModuleIcons16 'edit.png'}>

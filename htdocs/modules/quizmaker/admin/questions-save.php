@@ -91,6 +91,7 @@ echoArray($_FILES,'_FILES',true);
         
 		//$questionsObj->setVar('quest_options', Request::getString('quest_options', ''));
 		$questionsObj->setVar('quest_comment1', Request::getText('quest_comment1', ''));
+		$questionsObj->setVar('quest_posComment1', Request::getText('quest_posComment1', ''));
 		$questionsObj->setVar('quest_explanation', Request::getText('quest_explanation', ''));
 		$questionsObj->setVar('quest_consigne', Request::getText('quest_consigne', ''));
 		$questionsObj->setVar('quest_learn_more', Request::getString('quest_learn_more', ''));

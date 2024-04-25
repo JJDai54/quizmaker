@@ -1231,7 +1231,7 @@ function pb_showProgression()
 *
 * *** */
 function blob(message)
-  { return true;
+  { //return true;
     if(!boolDog) return;
     if(Array.isArray(message)){
         console.log(`......................`);

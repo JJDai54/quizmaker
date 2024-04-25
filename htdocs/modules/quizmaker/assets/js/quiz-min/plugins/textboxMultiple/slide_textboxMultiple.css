@@ -1,1 +1,16 @@
-﻿.textboxMultiple{font-size:1.0em;text-align:left;color:black;}.textboxMultiple input{font-size:1.0em;text-align:left;color:black;margin:0px 5px 0px 5px;}
+﻿.textboxMultiple {
+/*     border:1px solid red; */
+  font-size:1.0em;
+  text-align:left;
+  color:black;
+}
+
+.textboxMultiple input{
+/*     border:1px solid red; */
+  font-size:1.0em;
+  text-align:left;
+  color:black;
+  margin:0px 5px 0px 5px;
+}
+
+

@@ -28,4 +28,14 @@ define('_QT_QUIZMAKER_IMAGESDADSORTITEMS', "Ordonner les images");
 define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_DESC', "Ce slide est composé d'images qu'il faut classer dans le bon ordre.");
 define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_CONSIGNE', "Consigne à complèter");
 
+\define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_FLIP', "Echange les images");
+\define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_INSERT', "Insert et décale les images sans carret");
+\define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_CARRET', "Insert et décale les images avec carret");
+
+define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE', "Directive");
+define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_DESC', "Action à faire affichée sur le slide.");
+define('_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB', "Cliquez sur les images et déplacez les pour les mettre dans l'ordre.");
+
+
+
 ?>

@@ -41,7 +41,14 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 	{
         parent::__construct("imagesDaDSortItems", 0, "imagesDaD");
         $this->maxPropositions = 8;	
-        $this->optionsDefaults = ['imgHeight1'=>64, 'moveMode'=>0, 'showCaptions'=>'B'];
+        $this->optionsDefaults = ['imgHeight1'  => 64, 
+                                  'moveMode'    => 0, 
+                                  'showCaptions'=> 'B',
+                                  'directive'   => _AM_QUIZMAKER_NEW_];
+
+        $this->hasImageMain = true;
+        $this->multiPoints = true;
+
     }
 
 	/**
@@ -96,11 +103,17 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
       
       $name = 'moveMode';  
       $inpMoveMode = new \xoopsFormRadio(_AM_QUIZMAKER_MOVE_MODE, "{$optionName}[{$name}]" ,$tValues[$name] , ' ');
-      $inpMoveMode->addOptionArray(['0'=>_AM_QUIZMAKER_IMG_FLIP, "1"=>_AM_QUIZMAKER_IMG_INSERT]);
+      $inpMoveMode->addOptionArray(['0'=>_QT_QUIZMAKER_IMAGESDADSORTITEMS_FLIP, "1"=>_QT_QUIZMAKER_IMAGESDADSORTITEMS_INSERT, "2"=>_QT_QUIZMAKER_IMAGESDADSORTITEMS_CARRET]);
       $trayOptions ->addElement($inpMoveMode);     
-      
+
+      $name = 'directive';  
+      if ($tValues[$name] == _AM_QUIZMAKER_NEW_) $tValues[$name] = _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $trayOptions ->addElement($inpDirective);     
+      $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      
+     
       //--------------------------------------------------------------------           
-      
+     
       return $trayOptions;
     }
 

@@ -134,6 +134,10 @@ switch($op) {
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
 	break;
 
+	case 'edit_quiz':
+        redirect_header("quiz.php?op=edit&quiz_id={$quizId}&sender=",0,"");
+	break;
+    
 	case 'update_list':
   $gp = array_merge($_GET, $_POST);
     $list = Request::getArray('quest_list');

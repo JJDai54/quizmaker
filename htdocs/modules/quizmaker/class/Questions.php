@@ -53,6 +53,7 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_consigne', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_learn_more', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_see_also', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_posComment1', XOBJ_DTYPE_INT);
 		$this->initVar('quest_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_height', XOBJ_DTYPE_INT);
 		$this->initVar('quest_points', XOBJ_DTYPE_INT);
@@ -223,13 +224,21 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$form->addElement($inpSeeAlso);
         
         /* ***** Options uniquement pour les questions ***** */
+        // Form quest_posComment1
+/* a vooir dans une prochaine si cette options est déporté de quiz vers question pour affiner la présentation individuellement
+*/		
+        $inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quest_posComment1', $this->getVar('quest_posComment1'));
+        $inpPosComment->addOptionArray(['0'=>_AM_QUIZMAKER_POS_COMMENT_0, '1'=>_AM_QUIZMAKER_POS_COMMENT_1 , '2'=>_AM_QUIZMAKER_POS_COMMENT_2, '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
+        $inpPosComment->setDescription(_AM_QUIZMAKER_POS_COMMENT_DESC);
+        $form->addElement($inpPosComment);
+        
         if($clTypeQuestion->isQuestion()){
             // Form Text questNumbering
             $tOptNumbering = array(_CO_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE);
             $inpNumbering = new \XoopsFormSelect(_AM_QUIZMAKER_NUMBERING , 'quest_numbering', $this->getVar('quest_numbering'));
             $inpNumbering->addOptionArray($tOptNumbering);
         }else{
-            $inpParent = new \XoopsFormHidden('quest_numbering', 0);        
+            $inpNumbering = new \XoopsFormHidden('quest_numbering', 0);        
         }
         $form->addElement($inpNumbering);
 
@@ -383,6 +392,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         if(!$ret['options']) $ret['options'] = json_encode($clTypeQuestion->optionsDefaults);
       
 		$ret['comment1']       = $this->getVar('quest_comment1', 'e');
+		$ret['pos_comment1']   = $this->getVar('quest_posComment1');
 		$ret['comment1_short'] = $utility::truncateHtml($ret['comment1'], $editorMaxchar);
  		$ret['explanation']    = $this->getVar('quest_explanation', 'e');
  		$ret['explanation_short'] = $utility::truncateHtml($ret['explanation'], $editorMaxchar);

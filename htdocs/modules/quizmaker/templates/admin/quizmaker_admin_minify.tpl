@@ -14,10 +14,19 @@
 		</thead>
 		<tbody>
 			<{foreach item=Action from=$actions_list name=actions key=code}>
-			<tr class='<{cycle values='odd, even'}>'>
-				<td class='left'><{$code}></td>
-				<td class='left'><{$Action.desc}></td>
-				<td class='center'>
+            
+              <{if $code == $smarty.const.QUIZMAKER_ALL}>
+                <{assign var="styleParent" value="style='background:navajowhite;'"}>
+              <{elseif $code == 'plugins'}>
+                <{assign var="styleParent" value="style='background:lightblue;'"}>
+              <{else}>
+                <{assign var="styleParent" value=""}>
+              <{/if}>
+            
+			<tr class='<{cycle values='odd, even'}>' <{$styleParent}>>
+				<td class='left' <{$styleParent}> ><{$code}></td>
+				<td class='left' <{$styleParent}> ><{$Action.desc}></td>
+				<td class='center' <{$styleParent}> >
                     <{* $Action.isMinified *}>
                   <{if $Action.isMinified}>
                       <img src="<{$modPathNotes}>/004.png" alt='' title=''>
@@ -25,7 +34,7 @@
                       <img src="<{$modPathNotes}>/000.png" alt='' title=''>
                   <{/if}>
                 </td>
-				<td class='center'>
+				<td class='center' <{$styleParent}> >
 <input type="submit" class="formbutton" name="action[<{$code}>][restaure]" id="action[<{$code}>][restaure]" value="<{$smarty.const._AM_QUIZMAKER_TOOLS_RESTAURE}>" style='width:150px;'>                
 <input type="submit" class="formbutton" name="action[<{$code}>][minifie]"  id="action[<{$code}>][minifie]"  value="<{$smarty.const._AM_QUIZMAKER_TOOLS_MINIFIER}>" style='width:150px;'>                
                 </td>
@@ -35,6 +44,10 @@
 	</table>
 </form> 
 <{/if}>
+
+
+
+
 
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>

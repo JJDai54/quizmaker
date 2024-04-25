@@ -32,8 +32,9 @@ define('_QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION', "Orientation des groupes de bo
 define('_QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION_V', "Verticale");
 define('_QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION_H', "Horizontale");
 
-define('_AM_QUIZMAKER_RADIOMULTIPLE', "Directive");
-define('_AM_QUIZMAKER_RADIOMULTIPLE_DESC', "Action à faire.");
+define('_AM_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE', "Directive");
+define('_QT_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE_DESC', "Action à faire.");
+define('_AM_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE_LIB', "");
 
 
 ?>

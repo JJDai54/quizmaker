@@ -37,5 +37,6 @@ use XoopsModules\Quizmaker\Constants;
   		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());
   	}
   } else {
-  	xoops_confirm(['ok' => 1, 'quest_id' => $questId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $questionsObj->getVar('quest_quiz_id')));
+    $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $questionsObj->getVar('quest_id'), $questionsObj->getVar('quest_question'));
+  	xoops_confirm(['ok' => 1, 'quest_id' => $questId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
   }

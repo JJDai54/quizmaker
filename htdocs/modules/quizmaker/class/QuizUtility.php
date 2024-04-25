@@ -289,6 +289,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['legend']                   = $quizValues['legend'];//"{allType}"
     $optionsArr['theme']                    = $theme;
     $optionsArr['onClickSimple']            = $quizValues['onClickSimple'];
+    $optionsArr['questPosComment1']         = $quizValues['questPosComment1'];
     $optionsArr['answerBeforeNext']         = $quizValues['answerBeforeNext'];
     $optionsArr['allowedPrevious']          = $quizValues['allowedPrevious'];
     $optionsArr['shuffleQuestions']         = $quizValues['shuffleQuestions'];
@@ -310,7 +311,6 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['url']                      = QUIZMAKER_URL_UPLOAD_QUIZ;
     $optionsArr['urlMain']                  = QUIZMAKER_URL_QUIZ_JS;
     $optionsArr['execution']                = $quizValues['actif'];
-    $optionsArr['showResultAllways']        = $quizValues['showResultAllways'];
           
     //Utiliser pour le dev pas utile de mettre ces infos en base
     $optionsArr['showTypeQuestion']         = $quizValues['showTypeQuestion'];
@@ -384,6 +384,7 @@ exit;
 }
 */
         $tQuest['comment1']       = self::sanitise($values['quest_comment1']);
+        $tQuest['pos_comment1']   = self::sanitise($values['quest_posComment1']);
         $tQuest['explanation']    = self::sanitise($values['quest_explanation']);
         $tQuest['consigne']       = self::sanitise($values['quest_consigne'],0,'UTF-8');
         //echo "<hr><pre>{$tQuest['consigne']}</pre><hr>" ;
@@ -782,7 +783,7 @@ public static function import_quiz($pathSource, $catId = 1)
     //exit;
     //pour finir on supprime les images non référencées dans les réponses 
     // au cas ou la purge n'aurait pas été faite à l'export
-    $quizHandler->purgerImages($quiz_id);
+    $quizHandler->purgerImages($newQuizId);
 //exit;
     return $newQuizId;
 /*

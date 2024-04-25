@@ -12,8 +12,9 @@ name = "ulDaDSortList";
 * ******** */
 build (){
 
-    return this.getInnerHTML();
     this.boolDog = true;
+    return this.getInnerHTML();
+    
  }
  
 /* *************************************

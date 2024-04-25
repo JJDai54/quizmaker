@@ -1,1 +1,27 @@
-﻿.listboxClassItems{margin:0 auto;margin-left:auto;padding:0px;width:90%;}.listboxClassItems div{float:left;margin:0px 5px 0px 5px;margin-itemRound-bottom:5px;}.listboxClassItems span{font-size:1.4em;font-weight:bold;}.listboxClassItems select{height:280px;width:100%;font-size:1.2em;margin-itemRound-bottom:5px;z-index:999;text-align-last:center;}
+﻿
+.listboxClassItems{
+  margin: 0 auto;
+  margin-left: auto;
+  padding: 0px;
+  width:90%;
+}
+
+.listboxClassItems div{
+  float:left;
+  margin: 0px 5px 0px 5px;
+  margin-itemRound-bottom: 5px;
+}
+.listboxClassItems span{
+    font-size: 1.4em;
+    font-weight:bold;
+}
+.listboxClassItems select{
+    height:280px;
+    width:100%;
+    font-size: 1.2em;
+    margin-itemRound-bottom: 5px;
+    z-index:999;  
+    text-align-last:center;
+}
+
+

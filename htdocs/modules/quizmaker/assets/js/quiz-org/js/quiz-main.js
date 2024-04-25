@@ -50,9 +50,7 @@ const quiz_css = {
     footer      : `item-round-bottom ${quiz.theme}-item-head`,
     
     popup       : `item-round-all ${quiz.theme}-item-body`,
-    log         : `item-round-all ${quiz.theme}-item-body`,
-    consignes   : `background: #fafadc;opacity:1;text-align:left;`      
-    
+    log         : `item-round-all ${quiz.theme}-item-body`
 };
 
 var quizard = [];
@@ -90,9 +88,9 @@ var content = `
           ${getHtmlButtons()}
           ${getProgressbarHTML()}
         </div>  
+        ${getHtmlMessage()}
+        ${getHtmlFooter()}
       </div>
-      ${getHtmlMessage()}
-      ${getHtmlFooter()}
       <input type='hidden' name='quiz_data' id = 'quiz_data0' value=''>
       <input type='hidden' name='quiz_data' id = 'quiz_data1' value=''>
       <input type='hidden' name='quiz_data' id = 'quiz_data2' value=''>
@@ -138,9 +136,7 @@ function getHtmlFooter(){
  *   
  * ************************************************************************/
 function getHtmlMessage(){
-    //return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.score}</div>`;
-    //return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>`
-    
+
     return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>
             <div id="quiz_div_start" name="quiz_div_start" class="${quiz_css.message}">
             <center><br>
@@ -236,7 +232,8 @@ var offset1 = 16;
 var offset2 = offset1*2;
 var consigneTop = imgHeight-offset1;
 
-    switch(quiz.showConsigne){          
+    switch(quiz.showConsigne){  
+    case 0: return '';        
     case 2:  var btnPosition = "top:+5px;right:5px;";     var ConsignePosition = `top:+${offset2}px;left:-${consigneWidth+offset1}px;`;  break;   // Top/Right
     case 3:  var btnPosition = "bottom:+5px;right:5px;";  var ConsignePosition = `top:-${consigneHeight}px;left:-${consigneWidth+offset1}px;`;  break;    // Bottom/Right
     case 4:  var btnPosition = "bottom:+5px;left:5px;";   var ConsignePosition = `top:-${consigneHeight}px;left:${offset2}px;`;  break;    // Bottom/Left
@@ -245,7 +242,7 @@ var consigneTop = imgHeight-offset1;
     
   return  `<div id='quiz_btn_showConsigne' name='quiz_btn_showConsigne' class='quiz_infobulle' style='position:absolute;${btnPosition};' >
           <img src="${quiz_config.urlCommonImg}/Help.png" alt="" title="" style="max-height:48px;"/>    
-          <div class="custom" width350="" style="${quiz_css.consignes};${ConsignePosition}">
+          <div id="quiz_div_consigne" class="custom" width350="" style="${ConsignePosition}">
             <span id='quiz_consignes' name='quiz_consignes' >
               Texte des consignes<br>
               Texte des consignes
@@ -258,10 +255,11 @@ var consigneTop = imgHeight-offset1;
  *   
  * ************************************************************************/
 function getProgressbarHTML(){
+var extra = (quiz.showGoToSlide == 1) ? 'onclick="event_pb_gotoSlide(event);" style="cursor: pointer;"':  ''; 
 return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" style="padding: 0px 0px 5px 0px;"><center>
           <div id="pb_contenair" name="pb_contenair" class='${quiz_css.navigation}'>
             <div id="pb_text" name="pb_text" width="80px">0 / 0</div>
-            <div id="pb_base" name="pb_base">
+            <div id="pb_base" name="pb_base" ${extra}>
                 <div id="pb_indicator"></div>
             </div>
           </div>
@@ -269,7 +267,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
 }
 
 /**************************************************************************
- *   GENERATION DE tous les SLIDES
+ *   Génération de tous les SLIDES
  * ************************************************************************/
   function getHtmlAllSlides (){
     // variable to store the HTML output
@@ -297,13 +295,24 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
 
         statsTotal.quiz_score_max += clQuestion.scoreMaxiQQ;
         statsTotal.quiz_score_min += clQuestion.scoreMiniQQ;
-        
+       
+       //quiz.questPosComment1 = 2; 
        var comment1 = '';  
+       var comment2 = '';  
+       if (!quiz.questPosComment1) {quiz.questPosComment1 = 1;}
+       if (!clQuestion.question.posComment1) {clQuestion.question.posComment1 = 0;}
+       var posComment1 = (clQuestion.question.posComment1 == 0 ) ? quiz.questPosComment1 : clQuestion.question.posComment1;
+
        if (clQuestion.question.comment1) {
-         comment1 = clQuestion.balises2Values(getMessage(clQuestion.question.comment1));
-         //comment1 = comment1.replace("{scoreMaxiQQ}", clQuestion.scoreMaxiQQ).replace("{timer}", clQuestion.question.timer);
-         comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment1}</span>`;
-         
+            var comment = clQuestion.balises2Values(getMessage(clQuestion.question.comment1));
+            switch(posComment1){
+            case 1:
+                comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment}</span>`;
+                break;
+            case 2:
+                comment2 = `<div class="quiz-shadowbox"  style='width:90%;' disabled>${comment}</div><br>`;
+                break;
+            }
        }
 
        var divPoints = "";
@@ -335,17 +344,12 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
        //alert(question) ;
          
          
-         
-         
-         
        var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${slideNumber}${quiz_messages.twoPoints}${question}${comment1}</div>`;
-
-
 
         // add this question and its answers to the output    
        var output = [];
        var classCSS = `quiz_div_slide_main ${quiz_css.slide}` + ((clQuestion.question.typeQuestion == 'pageBegin') ? " quiz_div_slide_begin" : "");
-        //---------------------------------------------------------------                                                 
+        //---------------------------------------------------------------     
         output.push(
           `<div id="slide[${questionNumber}]" name="slide${questionNumber}" class="${classCSS}" >
             <div class="quiz_slide_question_main ${quiz_css.question}">
@@ -354,7 +358,7 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
             </div>
             
             <div class="quiz_slide_propositions ${quiz_css.proposition}">
-                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:90%;'>${clQuestion.build()}</div>
+                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:95%;'>${comment2}${clQuestion.build()}</div>
             </div>
           </div>`
         );       
@@ -461,7 +465,7 @@ var answerContainer;
 
 //        var obRep = document.getElementById(qdic.divLog);
 //        obRep.style.display = "block";
-       showDiv('quiz_div_log', quiz.showLog);    
+       showDivById('quiz_div_log', quiz.showLog);    
 
        return reponseOk;
 
@@ -479,7 +483,7 @@ var answerContainer;
     //-------------------------------------------------------
     reponseOk = currentQuestion.getAllReponses();
     //-------------------------------------------------------
-    showDiv('quiz_div_log', quiz.showLog);
+    showDivById('quiz_div_log', quiz.showLog);
     return reponseOk;
 
  }
@@ -787,7 +791,9 @@ function reloadQuestion() {
     if (newSlide < 0) newSlide = 0;
   
     objAllSlides[currentSlide].classList.remove('quiz_div_slide_begin');
-    objAllSlides[currentSlide].classList.remove('quiz_div_slide_question');
+    //objAllSlides[currentSlide].classList.remove('quiz_div_slide_question' + quiz.showResultAllways);
+    objAllSlides[currentSlide].classList.remove('quiz_div_slide_question0');
+    objAllSlides[currentSlide].classList.remove('quiz_div_slide_question1');
     
 
     var isNewSlide = (currentSlide != newSlide);
@@ -831,8 +837,8 @@ if(obHelp) obHelp.innerHTML = consigne;
     var bolOk = isInputOk() || !quizard[currentSlide].isQuestion();
     var allowedGotoNextslide = (bolOk &&  quiz.answerBeforeNext) || !quiz.answerBeforeNext;
     //------------------------------------------
-    showDiv('quiz_div_start',  false);
-    showDiv('quiz_div_message', true);
+    showDivById('quiz_div_start',  false);
+    showDivById('quiz_div_message', quiz.showResultAllways);
 
     if(firstSlide){
         showSlide_first(newSlide);  
@@ -843,7 +849,7 @@ if(obHelp) obHelp.innerHTML = consigne;
     }else{
         showSlide_question(newSlide,secondSlide,allowedGotoNextslide);   
     }
-        //showDiv('quiz_btn_submitAnswers', true);
+        //showDivById('quiz_btn_submitAnswers', true);
    
   //alert("showSlide_new : " + offset);
   if (quiz.showResultAllways) showResults();
@@ -867,12 +873,12 @@ if(obHelp) obHelp.innerHTML = consigne;
             document.getElementById("quiz_pseudo").focus();
        }
           
-       showDiv('quiz_div_message', false);
-       showDiv('quiz_div_start',  true);
-       showDiv('quiz_btn_startQuiz', true);
-       showDiv('quiz_btn_submitAnswers', false);
+       showDivById('quiz_div_message', false);
+       showDivById('quiz_div_start',  true);
+       showDivById('quiz_btn_startQuiz', true);
+       showDivById('quiz_btn_submitAnswers', false);
 
-       showDiv('quiz_div_navigation', false);
+       showDivById('quiz_div_navigation', false);
        quizDivMessage.innerHTML = "";//`<button id="quiz_btn_startQuiz"  name="quiz_btn_startQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnStartQuiz}</button>`;
                
   }
@@ -891,22 +897,22 @@ if(obHelp) obHelp.innerHTML = consigne;
         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
         enableButton(btnNextSlide, 0);
 
-       showDiv('quiz_div_message', false);
-        showDiv('quiz_div_start',  true);
-        showDiv('quiz_btn_startQuiz', false);
-        showDiv('quiz_btn_submitAnswers', true);
+        showDivById('quiz_div_message', false);
+        showDivById('quiz_div_start',  true);
+        showDivById('quiz_btn_startQuiz', false);
+        showDivById('quiz_btn_submitAnswers', true);
 
         //enableButton(btnSubmit, ((quiz.allowedSubmit) ? 1 : 3));
-        showDiv('quiz_div_navigation', false);       
+        showDivById('quiz_div_navigation', false);       
   }
 /* ******************************************
 
 ********************************************* */   
   function showSlide_group(newSlide,firstSlide,allowedGotoNextslide) {
 
-        objAllSlides[newSlide].classList.add('quiz_div_slide_question');
+        objAllSlides[newSlide].classList.add('quiz_div_slide_question' + quiz.showResultAllways);
 
-        showDiv('quiz_div_navigation', true);       
+        showDivById('quiz_div_navigation', true);       
         if(!firstSlide){
 
             //alert("premiser slide");
@@ -924,14 +930,15 @@ if(obHelp) obHelp.innerHTML = consigne;
         enableButton(btnShowGoodAnswers, (quiz.showGoodAnswers ? 0 : 3));        
         enableButton(btnShowBadAnswers, (quiz.showBadAnswers  ? 0 : 3));        
         enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
+        enableButton(btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3));        
        
         
         
   }
   function showSlide_question(newSlide,secondSlide,allowedGotoNextslide) {
-        objAllSlides[newSlide].classList.add('quiz_div_slide_question');
+        objAllSlides[newSlide].classList.add('quiz_div_slide_question' + quiz.showResultAllways);
         //au cas ou l'appel aurait été fait pa l'appel de gotoSlide externe à l'objet
-        showDiv('quiz_div_navigation', true);       
+        showDivById('quiz_div_navigation', true);       
 
         if(secondSlide){
  
@@ -949,6 +956,7 @@ if(obHelp) obHelp.innerHTML = consigne;
         enableButton(btnShowGoodAnswers, (quiz.showGoodAnswers ? 1 : 3));        
         enableButton(btnShowBadAnswers, (quiz.showBadAnswers  ? 1 : 3));        
         enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
+        enableButton(btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3));        
         
 //alert("showSlide_question : " + newSlide);        
   }
@@ -1131,12 +1139,20 @@ function event_show_popup_result(currentSlide) {
 /* ***********************************************
 *
 * */
- function showDiv (id, etat=0){
+ function showDivById (id, etat=0){
+    return showDivObj(document.getElementById(id), etat);
+ }
+/* ***********************************************
+*
+* */
+ function showDivObj (obDiv, etat=0){
 // this.blob(id); //JJDai
-       var obRep = document.getElementById(id);
-       if(!obRep) alert(`showDiv : |${id}| n'existe pas`);
-       obRep.style.display = (etat == 1) ? "block" : "none";
-
+    if(!obDiv) {
+        alert(`showDivById : |${id}| n'existe pas`);
+        return false;
+    }
+    obDiv.style.display = (etat == 1) ? "block" : "none";
+    return true;
  }
 /* ***********************************************
 *
@@ -1155,32 +1171,18 @@ function event_show_popup_result(currentSlide) {
 * */
 function shuffleMyquiz () {
 
-    var Intro;
-    var Result;
-    var newQuestions = [];
+    var newQuestions = myQuestions.slice(1,myQuestions.length-1);
+    newQuestions = shuffleArray(newQuestions);
+    
+    newQuestions.unshift(myQuestions[0]);    
+    newQuestions.push(myQuestions[myQuestions.length-1]);    
 
-    myQuestions.forEach(
-      (currentQuestion, idxQuestion) => {
-        if (currentQuestion.type == "Intro"){
-           Intro = currentQuestion;
-        }else if (currentQuestion.type == "Result"){
-          Result = currentQuestion;
-        }else{
-          newQuestions.push(currentQuestion);
-        }
-      });
+    myQuestions = newQuestions;
 
-      if (quiz.shuffleQuestions)
-            newQuestions = shuffleArray(newQuestions);
-
-      newQuestions.unshift(Intro);
-      newQuestions.push(Result);
-      myQuestions = newQuestions;
-
-      return true;
+    return true;
 }
 
- 
+
 /* ***********************************************
 *
         case 0: // disable and visible
@@ -1192,6 +1194,7 @@ function shuffleMyquiz () {
   if(debug){
     alert ("enableButton : " + btn.id + "\netat = " + etat);
   }
+  if(!btn) return false;
   
     switch (etat) {
         case 0: // disable and visible
@@ -1275,18 +1278,18 @@ function updateOptions (){
 
        ob = document.getElementById("quiz-showResultAllways");
        quiz.showResultAllways = (ob.checked == 1) ? 1: 0;
-       showDiv("results", ob.checked);
+       showDivById("results", ob.checked);
 
        ob = document.getElementById("quiz-showReponses");
        quiz.showReponsesBottom = (ob.checked == 1) ? 1: 0;
-       showDiv('quiz_div_log', ob.checked);
+       showDivById('quiz_div_log', ob.checked);
 
        ob = document.getElementById("quiz-useTimer");
        quiz.useTimer = (ob.checked == 1) ? 1: 0;
 
        ob = document.getElementById("quiz-showLog");
        quiz.showLog = (ob.checked == 1) ? 1: 0;
-       showDiv('quiz_div_log', ob.checked);
+       showDivById('quiz_div_log', ob.checked);
 //alert("updateOptions");
 return true;
  }
@@ -1313,7 +1316,7 @@ const tEvents = [];
  *     GENERATION DU QUIZ
  * ************************************************************/
 //    quiz.theme = change_theme(); //changement aleatoire du theme utilisé pour les tests
-    shuffleMyquiz();
+    if (quiz.shuffleQuestions) {shuffleMyquiz();}
     buildQuiz();
 //eventList_init();
 

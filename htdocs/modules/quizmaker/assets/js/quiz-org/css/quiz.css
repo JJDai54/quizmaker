@@ -53,14 +53,14 @@
     width : 100%;
     height : 80px;
     /*background:rgb(153,153,255);*/
-left:20px;
+    left:20px;
 }
 #quiz_div_start{          /* message de bas de page */
     width : 100%;
     height : 80px;
     /*background:rgb(153,153,255);*/
     /* padding:10px 0px 0px 0px; */
-left:20px;
+    left:20px;
 }
 
 #quiz_div_body{      /* l'ensemble des slides */
@@ -115,9 +115,14 @@ position:relative;
   text-align:left;
   border:1px solid gray;
   margin-top:5px;	
-  
-
 }
+
+#quiz_div_consigne{
+  background: #fafadc;
+  opacity:1;
+  text-align:left;      
+}    
+
 /* ////////////////////////////////////////////////////////////////// */
 
 /* ----- Autres objets ----- */
@@ -156,7 +161,7 @@ position:relative;
     flex-direction: column;
     position:relative;
 }
-.quiz_div_slide_question{         /* pour tous les slides contenant une question ou pageGroup*/
+.quiz_div_slide_question1{         /* pour tous les slides contenant une question ou pageGroup*/
     min-height : 50px; /* body - buttons*/
     height : 500px; /* body - buttons*/
     background:rgb(204,153,255);
@@ -165,6 +170,14 @@ position:relative;
     position:relative;
 }
 
+.quiz_div_slide_question0{         /* pour tous les slides contenant une question ou pageGroup*/
+    min-height : 50px; /* body - buttons*/
+    height : 550px; /* body - buttons*/
+    background:rgb(204,153,255);
+    display: flex;
+    flex-direction: column;
+    position:relative;
+}
 
 
 

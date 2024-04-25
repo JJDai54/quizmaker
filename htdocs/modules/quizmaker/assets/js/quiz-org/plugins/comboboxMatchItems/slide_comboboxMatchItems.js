@@ -44,7 +44,9 @@ const htmlArr = [];
        }
     }
     
-    htmlArr.push(`<table class="question">`);
+    htmlArr.push(this.getImage());
+    
+    htmlArr.push(`<center><table>`);
     for(var k = 0; k< newKeys.length; k++){
         var key = newKeys[k];
         var textId = textName + "-" + k;
@@ -61,7 +63,7 @@ const htmlArr = [];
         htmlArr.push(htmlTD);
         htmlArr.push(`</tr>`);
     }
-    htmlArr.push(`</table>`);
+    htmlArr.push(`</table></center>`);
     
    
     //return "en construction";

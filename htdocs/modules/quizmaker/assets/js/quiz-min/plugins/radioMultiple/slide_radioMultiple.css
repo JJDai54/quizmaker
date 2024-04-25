@@ -1,1 +1,36 @@
-﻿.radioMultiple table{width:100%;border-collapse:collapse;border-spacing:0px;}.radioMultiple span{font-size:1.5em;font-weight:bold;color:blue;margin:0px 5px 0px 5px;cursor:not-allowed;}.radioMultiple_radio_H{border-collapse:collapse;border-top:1px blue solid;border-bottom:1px blue solid;padding:5px;margin-bottom:0px;text-align:left;}.radioMultiple_radio_V{border-left:1px blue solid;border-right:1px blue solid;padding:5px;margin-bottom:0px;text-align:left;}
+﻿.radioMultiple table{
+  width:100%;
+  border-collapse:collapse;
+  border-spacing:0px;
+}
+
+.radioMultiple span{
+ font-size: 1.5em;
+ font-weight:bold;
+ color:blue;
+ margin: 0px 5px 0px 5px;
+ cursor: not-allowed;
+ }
+
+.radioMultiple_radio_H{
+  border-collapse:collapse;
+  border-top: 1px blue solid;
+  border-bottom: 1px blue solid;
+  padding: 5px;
+  margin-bottom: 0px;
+  text-align:left;
+  /* background-color: lightgrey; */
+}
+
+.radioMultiple_radio_V{
+  border-left: 1px blue solid;
+  border-right: 1px blue solid;
+  padding: 5px;
+  margin-bottom: 0px;
+  text-align:left;
+  /* background-color: lightgrey; */
+}
+
+
+
+

@@ -29,7 +29,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
 	'version'             => 4.12,
-	'module_status'       => 'Beta 2',
+	'module_status'       => 'Beta 4',
 	'release_date'        => '2024/03/21',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
@@ -96,7 +96,6 @@ $modversion['templates'] = [
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
-    ['file' => 'quizmaker_admin_tools.tpl', 'description' => '', 'type' => 'admin'],
 
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
@@ -469,6 +468,16 @@ $modversion['config'][] = [
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
     'default'     => 300,
+];
+// Uploads : maxsize of image
+$modversion['config'][] = [
+    'name'        => 'maxsize_import',
+    'title'       => '_MI_QUIZMAKER_MAXSIZE_IMPORT',
+    'description' => '_MI_QUIZMAKER_MAXSIZE_IMPORT_DESC',
+    'formtype'    => 'select',
+    'valuetype'   => 'int',
+    'default'     => 15728640,
+    'options'     => $optionMaxsize,
 ];
 //////////////////////////////////////////////////////
 // Admin framework highslide

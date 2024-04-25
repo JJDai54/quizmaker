@@ -177,7 +177,7 @@ switch($op) {
 		} else {
 //             $quiz = $quizHandler->get($quizId);
 //             $name = $quiz->getVar('quiz_name');
-            $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $resultsObj->getVar('result_id'));
+            $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $resultsObj->getVar('result_id'), "");
 			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'result_id' => $resultId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
 		}
 	break;

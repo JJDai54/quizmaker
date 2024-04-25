@@ -69,10 +69,10 @@ class slide_radioMultiple extends XoopsModules\Quizmaker\Type_question
       //--------------------------------------------------------------------           
       
       $name = 'directive';  
-      if (!$tValues[$name]) $tValues[$name] = _AM_QUIZMAKER_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_RADIOMULTIPLE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      if (!$tValues[$name]) $tValues[$name] = _AM_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
-//      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_RADIOMULTIPLE_DESC));    
+//      $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE_DESC));    
         
 //       $labTitle = new \XoopsFormLabel('', _AM_QUIZMAKER_ORIENTATION . ' : ');
 //       $labTitle->setDescription ('blablabla');      

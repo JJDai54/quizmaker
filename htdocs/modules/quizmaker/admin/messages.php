@@ -35,7 +35,8 @@ switch($op) {
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
-		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
+		//$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
+		$limit = 0; //pas de pagination, la liste est exhustive
         $language = Request::getString('language', $GLOBALS['xoopsConfig']['language']);
             
 		$templateMain = 'quizmaker_admin_messages.tpl';
@@ -135,7 +136,8 @@ switch($op) {
 				$GLOBALS['xoopsTpl']->assign('error', $messagesObj->getHtmlErrors());
 			}
 		} else {
-			xoops_confirm(['ok' => 1, 'msg_id' => $msgId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $messagesObj->getVar('msg_code')));
+            $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $messagesObj->getVar('msg_id'), $messagesObj->getVar('msg_code'));
+			xoops_confirm(['ok' => 1, 'msg_id' => $msgId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
 		}
 	break;
     //-------------------------------------------------------

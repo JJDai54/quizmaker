@@ -116,6 +116,7 @@ switch($op) {
 		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'default'));
 		$quizObj->setVar('quiz_answerBeforeNext', Request::getInt('quiz_answerBeforeNext', 0));
+		$quizObj->setVar('quiz_questPosComment1', Request::getInt('quiz_questPosComment1', 1));
 		$quizObj->setVar('quiz_allowedPrevious', Request::getInt('quiz_allowedPrevious', 0));
 		$quizObj->setVar('quiz_allowedSubmit', Request::getInt('quiz_allowedSubmit', 0));
 		$quizObj->setVar('quiz_showScoreMinMax', Request::getInt('quiz_showScoreMinMax', 0));

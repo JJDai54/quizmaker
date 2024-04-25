@@ -13,6 +13,7 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quiz-org
@@ -201,15 +202,15 @@ _quiz-org
 			language\quiz-english.js
 			language\quiz-french.js
 		+plugins
-			+alphaSimple
+			-alphaSimple
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\slide_alphaSimple.css
 				plugins\alphaSimple\slide_alphaSimple.js
-			+checkboxSimple
+			-checkboxSimple
 				plugins\checkboxSimple\index.html
 				plugins\checkboxSimple\slide_checkboxSimple.css
 				plugins\checkboxSimple\slide_checkboxSimple.js
-			-comboboxMatchItems
+			+comboboxMatchItems
 				plugins\comboboxMatchItems\index.html
 				plugins\comboboxMatchItems\slide_comboboxMatchItems.css
 				plugins\comboboxMatchItems\slide_comboboxMatchItems.js
@@ -225,15 +226,11 @@ _quiz-org
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
 				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
-			-imagesDaDSortItems
+			+imagesDaDSortItems
 				plugins\imagesDaDSortItems\index.html
 				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
 				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
-			-imagesDaDSortItemsIns
-				plugins\imagesDaDSortItemsIns\index.html
-				plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.css
-				plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.js
-			+imagesLogical
+			-imagesLogical
 				plugins\imagesLogical\index.html
 				plugins\imagesLogical\slide_imagesLogical.css
 				plugins\imagesLogical\slide_imagesLogical.js
@@ -245,11 +242,11 @@ _quiz-org
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\slide_listboxClassItems.css
 				plugins\listboxClassItems\slide_listboxClassItems.js
-			+listboxSortItems
+			-listboxSortItems
 				plugins\listboxSortItems\index.html
 				plugins\listboxSortItems\slide_listboxSortItems.css
 				plugins\listboxSortItems\slide_listboxSortItems.js
-			-pageBegin
+			+pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\slide_pageBegin.css
 				plugins\pageBegin\slide_pageBegin.js
@@ -261,7 +258,7 @@ _quiz-org
 				plugins\pageGroup\index.html
 				plugins\pageGroup\slide_pageGroup.css
 				plugins\pageGroup\slide_pageGroup.js
-			+radioMultiple
+			-radioMultiple
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\slide_radioMultiple.css
 				plugins\radioMultiple\slide_radioMultiple.js
@@ -285,11 +282,11 @@ _quiz-org
 				plugins\textboxMatchItems\index.html
 				plugins\textboxMatchItems\slide_textboxMatchItems.css
 				plugins\textboxMatchItems\slide_textboxMatchItems.js
-			+textboxMultiple
+			-textboxMultiple
 				plugins\textboxMultiple\index.html
 				plugins\textboxMultiple\slide_textboxMultiple.css
 				plugins\textboxMultiple\slide_textboxMultiple.js
-			+ulDaDGroups
+			-ulDaDGroups
 				plugins\ulDaDGroups\index.html
 				plugins\ulDaDGroups\slide_ulDaDGroups.css
 				plugins\ulDaDGroups\slide_ulDaDGroups.js
@@ -300,18 +297,38 @@ _quiz-org
 			plugins\index.html
 		_quiz-org.ppr
 [Open project files]
-0=plugins\imagesLogical\slide_imagesLogical.js
-1=plugins\listboxSortItems\slide_listboxSortItems.js
-2=js\quiz-main.js
+0=plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
+1=plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
+2=plugins\comboboxSortItems\slide_comboboxSortItems.js
+3=plugins\comboboxMatchItems\slide_comboboxMatchItems.js
+4=js\quiz-main.js
+5=js\quiz-functions.js
+6=plugins\pageBegin\slide_pageBegin.js
+7=css\quiz.css
 [Selected Project Files]
 Main=
-Selected=js\quiz-main.js
-[plugins\imagesLogical\slide_imagesLogical.js]
-TopLine=39
-Caret=1,39
-[plugins\listboxSortItems\slide_listboxSortItems.js]
-TopLine=15
-Caret=64,41
+Selected=css\quiz.css
+[plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js]
+TopLine=94
+Caret=34,141
+[plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css]
+TopLine=13
+Caret=14,33
+[plugins\comboboxSortItems\slide_comboboxSortItems.js]
+TopLine=1
+Caret=1,9
+[plugins\comboboxMatchItems\slide_comboboxMatchItems.js]
+TopLine=23
+Caret=1,47
 [js\quiz-main.js]
-TopLine=67
-Caret=11,85
+TopLine=19
+Caret=59,53
+[js\quiz-functions.js]
+TopLine=1025
+Caret=49,1043
+[plugins\pageBegin\slide_pageBegin.js]
+TopLine=33
+Caret=1,45
+[css\quiz.css]
+TopLine=98
+Caret=19,123

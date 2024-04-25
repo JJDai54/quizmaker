@@ -379,12 +379,12 @@ showBadAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
 //---------------------------------------------------
 toString()
   {
-    return this.name + " | " + this.question.question; + " | " + this.question.typeQuestion;
+    return this.name + " | " + this.question.question + " | " + this.question.typeQuestion;
   } 
 
 //---------------------------------------------------
 blob(message)
-  {return true;
+  {//return true;
     if(!this.boolDog) return;
     if(Array.isArray(message)){
         console.log(`......................`);

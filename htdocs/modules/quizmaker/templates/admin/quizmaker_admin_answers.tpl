@@ -77,7 +77,7 @@
                     <{$Answers.background}></td>
                 
                 <{* ---------------- Arrows -------------------- *}>
-                <td class='center'>
+                <td class='center width10' >
                     <{if $smarty.foreach.ans.first}>
                       <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
                       <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">

@@ -71,7 +71,7 @@
 				<td class='center'><{$cat.nbQuiz}></td>
                 
                 <{* ----- Actions ----- *}>
-				<td class="center  width5">
+				<td class="center  width10">
 					<a href="categories.php?op=edit&amp;cat_id=<{$cat.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16}>/edit.png" alt="categories" />
                         </a>
@@ -80,7 +80,7 @@
                         <img src="<{xoModuleIcons16}>/delete.png" alt="categories" />
                         </a>
                     <{else}>
-                        <img src="<{xoModuleIcons16 'warning.png'}>" alt="categories" title="<{$smarty.const._AM_QUIZMAKER_CAT_NOT_EMPTY}>"/>
+                        <img src="<{xoModuleIcons16}>/warning.png" alt="categories" title="<{$smarty.const._AM_QUIZMAKER_CAT_NOT_EMPTY}>"/>
                     <{/if}>
 					<img src="<{$modPathIcon16}>/blank-16.png" alt="" />
 					<a href="quiz.php?op=list&cat_id=<{$cat.id}>&sender='cat_id'" title="<{$smarty.const._AM_QUIZMAKER_QUIZ}>">

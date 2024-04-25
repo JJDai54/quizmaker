@@ -1,1 +1,22 @@
-﻿.checkboxSimple{width 100%;font-size:1.1em;}.checkboxSimple table{margin-top:0px;border:0px solid black;border-collapse:collapse;width 100%;}.checkboxSimple td[familyWords]{text-align:left;font-size:1.1em;font-weight:bold;color:blue;padding-left:50px;}.checkboxSimple label{margin:2px 0px 2px 30px;}
+﻿.checkboxSimple {
+    width 100%;
+    font-size:1.1em;    
+}
+.checkboxSimple table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+    width 100%;
+}
+
+.checkboxSimple td[familyWords]{
+    text-align:left;
+    font-size:1.1em;
+    font-weight:bold;
+    color:blue;
+    padding-left:50px;
+}
+.checkboxSimple label{
+    /* padding: 5px 0px 5px 30px; */
+    margin: 2px 0px 2px 30px;
+}

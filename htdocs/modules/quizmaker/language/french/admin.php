@@ -121,7 +121,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_FORM_DELETE', "Dégager");
 \define('_AM_QUIZMAKER_FORM_DELETE_OK', "Supprimé avec succès");
 \define('_AM_QUIZMAKER_FORM_OK', "Enregistré avec succès");
-\define('_AM_QUIZMAKER_FORM_SURE_DELETE', "Êtes-vous sûr de supprimer : <b><span style='color : Red;'>%s </span></b>");
+\define('_AM_QUIZMAKER_FORM_SURE_DELETE', "Êtes-vous sûr de supprimer : <b><span style='color : Red;'>[#%s] %s</span></b>");
 \define('_AM_QUIZMAKER_FORM_TYPE', "Type de formulaire");
 \define('_AM_QUIZMAKER_FORM_TYPE_SHORT', "Formulaire");
 \define('_AM_QUIZMAKER_GROUP', "Groupe");      
@@ -130,10 +130,8 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_GROUP_ALL', "Tous les groupes");      
 \define('_AM_QUIZMAKER_ID', "[#]");
 \define('_AM_QUIZMAKER_IMAGE', "Image");
-\define('_AM_QUIZMAKER_IMG_FLIP', "Echange les images");
 \define('_AM_QUIZMAKER_IMG_HEIGHT', "Hauteur des images");
 \define('_AM_QUIZMAKER_IMG_HEIGHT1', "Hauteur de l'image");
-\define('_AM_QUIZMAKER_IMG_INSERT', "Insert et décale les images");
 \define('_AM_QUIZMAKER_IMG_SUBSTITUT', "Image de Substitution");            
 \define('_AM_QUIZMAKER_IMG_TO_LOAD', "Image");            
 \define('_AM_QUIZMAKER_IMPORT', "Importation");
@@ -150,6 +148,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_MAINTAINEDBY', "  est maintenu par");
 \define('_AM_QUIZMAKER_MESSAGES_ADD', "Ajouter des messages");
 \define('_AM_QUIZMAKER_MESSAGES_CODE', "Code");
+\define('_AM_QUIZMAKER_MESSAGES', "Texte");
 \define('_AM_QUIZMAKER_MESSAGES_CONSTANT', "Constante");
 \define('_AM_QUIZMAKER_MESSAGES_EDIT', "Modifier les messages");
 \define('_AM_QUIZMAKER_MESSAGES_ID', "Id");
@@ -417,5 +416,18 @@ define('_AM_QUIZMAKER_MINIFY_RESTAURE_ORG',"Restaure les originaux");
 define('_AM_QUIZMAKER_MINIFY_SELECTION',"Minifier la sélection");
 define('_AM_QUIZMAKER_MINIFY_RESTAURE_OK',"Restaure OK");
 define('_AM_QUIZMAKER_IS_MINIFED',"Minifié");
-           
+define('_AM_QUIZMAKER_DIRECTIVE',"Directive");
+define('_AM_QUIZMAKER_DIRECTIVE_DESC',"Indiquer ici une action à faire, une aide ou toute indication utile.");
+   
+define('_AM_QUIZMAKER_IMPORT_OK',"Importation Ok dans quiz_id=%s");
+define('_AM_QUIZMAKER_IMPORT_ERROR_01',"Echec de l'importation.<br>Vérifiez que le poids du fichier est inférieur à %s.<br>Vérifier les parametres d'importations (config.php, Xoops et module)");
+define('_AM_QUIZMAKER_EDIT_QUIZ',"Editer le quiz");
+   
+define('_AM_QUIZMAKER_POS_COMMENT',"Position du commentaire de la    question");
+define('_AM_QUIZMAKER_POS_COMMENT_DESC',"Affichage pour chaque question du commentaire sous la question ou en tête de la zone de proposition");
+define('_AM_QUIZMAKER_POS_COMMENT_0',"Valeur par défaut du quiz");
+define('_AM_QUIZMAKER_POS_COMMENT_1',"Commentaire sous la question");
+define('_AM_QUIZMAKER_POS_COMMENT_2',"Commentaire dans la zone de proposition");
+define('_AM_QUIZMAKER_POS_COMMENT_3',"Masquer le commentaire");
+
 ?>

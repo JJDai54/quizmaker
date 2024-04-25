@@ -48,6 +48,7 @@ function addNewChild(parentId){
 
 <div class="floatright">
     <div class="xo-buttons">
+        <{$btnEditQuiz}>
         <{$btnCategory}>
         <{$btnInitWeight}>
         <{$btnPurgerImg}>
@@ -97,6 +98,7 @@ function addNewChild(parentId){
 		</thead>
 		<{if $questions_count}>
 		<tbody>
+            <{assign var="indexJS" value = -1}>
 			<{foreach item=Questions from=$questions_list name=quest  key=index}>
                 <{if $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>
                   <{assign var="fldImg" value="red"}>
@@ -115,8 +117,21 @@ function addNewChild(parentId){
                   <{assign var="styleParent" value=""}>
                 <{/if}>
                 
+                
   			<tr class='<{cycle values='odd, even'}>' style='height:40px;'>
-				<td class='center' <{$styleParent}> ><span style='color:blue;'><{$index}></span></td>
+                
+                <{if $Questions.actif}>
+                    <{assign var="indexJS" value=$indexJS+1}>
+				    <td class='center width5' <{$styleParent}> ><span style='color:blue;'><{$index}>/<{$indexJS}></span></td>
+                <{else}>
+				    <td class='center width5' <{$styleParent}> ><span style='color:blue;'><{$index}>/##</span></td>
+                <{/if}>
+                
+                
+                
+                
+                
+                
 				<td class='center' <{$styleParent}> ><a name='question-<{$Questions.id}>' /><{$Questions.id}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.quiz_id}></td>
@@ -201,15 +216,17 @@ function addNewChild(parentId){
                     <{/if}>
 				</td>
                 
-				<td class="center width5" <{$styleParent}> >
+				<td class="center width10" <{$styleParent}> >
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16}>/edit.png" alt="questions" />
                         </a>
                         
                     <{if $Questions.canDelete}>
+<{* action du clone a revoir : probleme : copie de la table enfant au détriment de la quastionsource
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
                             </a>
+*}>                     
     					<a href="questions.php?op=delete&amp;quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
                             <img src="<{xoModuleIcons16}>/delete.png" alt="questions" />
                             </a>

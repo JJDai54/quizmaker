@@ -6,26 +6,6 @@
 class comboboxSortItems extends quizPrototype{
 name = "comboboxSortItems";  
   
-//---------------------------------------------------
-// build (){
-//     var currentQuestion = this.question;
-//     var name = this.getName();
-// this.boolDog = true;
-//     
-//     this.divMainId =  this.getId('main');
-//     const tHtml = [];
-//     tHtml.push(`<div id="${this.divMainId}" class='comboboxSortItems'>`);
-//     tHtml.push(this.getInnerHTML());
-//     tHtml.push(`</div>`);
-//     
-//     
-// //    this.focusId = name + "-" + "0";
-//     //alert (this.focusId);
-//     return tHtml.join("\n");
-// 
-// 
-//  }
-
 build (){
     this.boolDog = false;
     return this.getInnerHTML();

@@ -5,12 +5,12 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
-<{if $form}>
-	<{$form}>
-<{/if}>
-
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
+<{/if}>
+
+<{if $form}>
+	<{$form}>
 <{/if}>
 
 <!-- Footer -->
