@@ -147,7 +147,8 @@ switch($op) {
 		$catName = $categoriesObj->getVar('cat_name');
 		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
 			if (!$GLOBALS['xoopsSecurity']->check()) {
-				redirect_header('categories.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+                $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $catId, $categoriesObj->getVar('cat_name'));
+    			redirect_header('categories.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()),$msg);
 			}
 			if ($categoriesHandler->delete($categoriesObj)) {
 				redirect_header('categories.php', 3, _AM_QUIZMAKER_FORM_DELETE_OK);
@@ -156,7 +157,7 @@ switch($op) {
 			}
 		} else {
             $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $categoriesObj->getVar('cat_id'), $categoriesObj->getVar('cat_name'));
-			xoops_confirm(['ok' => 1, 'cat_id' => $catId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], );
+			xoops_confirm(['ok' => 1, 'cat_id' => $catId, 'op' => 'delete'], $_SERVER['REQUEST_URI'],$msg);
 		}
 	break;
 

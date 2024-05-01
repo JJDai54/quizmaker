@@ -191,8 +191,8 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
               $libImage = new \XoopsFormLabel('', $image);                        
             
             if($addNew){
-              $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
-              //$delSubstitut = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+              $delProposition = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
+              //$delSubstitut = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
             }else{
               $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);

@@ -44,7 +44,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
         $this->optionsDefaults = ['imgHeight1'  => 64, 
                                   'moveMode'    => 0, 
                                   'showCaptions'=> 'B',
-                                  'directive'   => _AM_QUIZMAKER_NEW_];
+                                  'directive'   => QUIZMAKER_NEW];
 
         $this->hasImageMain = true;
         $this->multiPoints = true;
@@ -87,7 +87,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 128);
+      $inpHeight1->setMinMax(32, 300);
       $trayHeight1 = new XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT, $delimeter = ' ');  
       $trayHeight1->addElement($inpHeight1);
       $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
@@ -107,7 +107,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
       $trayOptions ->addElement($inpMoveMode);     
 
       $name = 'directive';  
-      if ($tValues[$name] == _AM_QUIZMAKER_NEW_) $tValues[$name] = _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
+      if ($tValues[$name] == QUIZMAKER_NEW_) $tValues[$name] = _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      
@@ -253,10 +253,10 @@ public function getFormGroup(&$trayAllAns, $arr,$titleGroup, $firstItem, $maxIte
 //             $tbl->addElement($libProposition,  $col, $k);
 //             
              $tbl->addElement($inpCaption,  ++$col, $k);
-             $tbl->addElement($inpWeight,  $col, $k);
-             $tbl->addElement($inpPoints,  $col, $k);
+             $tbl->addElement($inpWeight,  ++$col, $k);
+             //$tbl->addElement($inpPoints,  $col, $k);
 //             
-             $tbl->addElement($inpImage,  ++$col, $k);
+            // $tbl->addElement($inpImage,  ++$col, $k);
 //             $tbl->addElement($inpImgSubstitut,  $col, $k);
 //             //$tbl->addElement($delSubstitut,  $col, $k);
 //             $tbl->addElement($libImage,  $col, $k);

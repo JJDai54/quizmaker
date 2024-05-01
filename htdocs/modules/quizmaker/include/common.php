@@ -118,12 +118,14 @@ define('QUIZMAKER_TIMER_MAX', 120);
 define('QUIZMAKER_SHUFFLE_DEFAULT', 0);
 
 define('QUIZMAKER_PREFIX_OPTIONS_NAME', 'quest_options');
+define('QUIZMAKER_NEW', "_NEW_");
 
 
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';
 $copyright = "<a href='http://oritheque.fr' title='Origami' target='_blank'><img src='".$localLogo."' alt='Origami' /></a>";
+
 include_once XOOPS_ROOT_PATH . '/class/xoopsrequest.php';
 include_once QUIZMAKER_PATH_MODULE . '/include/functions.php';
 

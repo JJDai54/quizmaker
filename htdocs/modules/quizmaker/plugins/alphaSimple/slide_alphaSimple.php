@@ -42,7 +42,7 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
         parent::__construct("alphaSimple", 0, "alpha");
         $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
                                   'imgHeight'      => '80', 
-                                  'directive'      => _AM_QUIZMAKER_NEW_, 
+                                  'directive'      => QUIZMAKER_NEW, 
                                   'propositions'   => '', 
                                   'disposition'    => ''];
         $this->hasImageMain = true;
@@ -89,7 +89,7 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
       $name = 'directive';  
-      if ($tValues[$name] == _AM_QUIZMAKER_NEW_) $tValues[$name] = _QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_LIB;
+      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_DESC));      

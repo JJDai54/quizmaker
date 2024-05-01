@@ -314,8 +314,8 @@ _quiz-org
 Main=
 Selected=plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
 [plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js]
-TopLine=27
-Caret=28,45
+TopLine=65
+Caret=12,88
 [plugins\alphaSimple\slide_alphaSimple.js]
 TopLine=11
 Caret=76,38
@@ -341,7 +341,7 @@ Caret=1,45
 TopLine=130
 Caret=20,157
 [js\slide__prototype.js]
-TopLine=344
+TopLine=351
 Caret=10,393
 [plugins\listboxClassItems\slide_listboxClassItems.js]
 TopLine=238

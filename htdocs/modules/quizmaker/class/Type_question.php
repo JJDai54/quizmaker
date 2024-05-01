@@ -505,13 +505,13 @@ global $xoopDB;
               $delImg = new \XoopsFormCheckBox('', $delChkName);                        
               $delImg->addOption(1, _AM_QUIZMAKER_DELETE);
             }else{
-              $delImg = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+              $delImg = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
             }
                                      
         }else $delImg = new \XoopsFormLabel('', ''); 
  /*
-               $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
-              $delSubstitut = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+               $delProposition = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
+              $delSubstitut = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
             }else{
               $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
@@ -570,13 +570,13 @@ global $xoopDB;
               $delImg = new \XoopsFormCheckBox('', $delChkName);                        
               $delImg->addOption(1, _AM_QUIZMAKER_DELETE);
             }else{
-              $delImg = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+              $delImg = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
             }
                                      
         }else $delImg = new \XoopsFormLabel('', ''); 
  /*
-               $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
-              $delSubstitut = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+               $delProposition = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
+              $delSubstitut = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
             }else{
               $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
@@ -932,7 +932,7 @@ public function getAnswerInp(&$ans, &$i, $inputs, $path){
             
             
     if($addNew){
-      $tInp['delProposition'] = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+      $tInp['delProposition'] = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
     }else{
       $tInp['delProposition'] = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
       $tInp['delProposition']->addOption(1, _AM_QUIZMAKER_DELETE);

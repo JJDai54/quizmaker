@@ -1,3 +1,8 @@
+2024-04-23a v 4.14 beta 7 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Ajout de l'édition des score dans l'admin pour permettre la correction des résultats.
+relooking du template admin_results.tpl
+
 2024-04-23a v 4.14 beta 6 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - table "quiz" ajout du champ "quiz_questPosComment1" qui détermine la position de comment1 de la table questions

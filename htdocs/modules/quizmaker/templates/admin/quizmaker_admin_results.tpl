@@ -33,11 +33,10 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_QUIZ_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE_MAX}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE_MIN}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NOTE}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE_MINMAX}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NBANSWERS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_DURATION}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NOTE}></th>
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_TIME}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>
@@ -54,17 +53,16 @@
                     /* </a> */
 
                 </td>
-				<td class='right'><{$Results.score_achieved}></td>
-				<td class='center'><{$Results.score_max}></td>
-				<td class='center'><{$Results.score_min}></td>
-				<td class='center'><{$Results.answers_achieved}></td>
+				<td class='center'><{$Results.score_achieved}> / <{$Results.score_max}></td>
+				<td class='center'><{$Results.note}> / 100</td>
+				<td class='center'><{$Results.score_min}> / <{$Results.score_max}></td>
+				<td class='center'><{$Results.answers_achieved}> / <{$Results.answers_total}></td>
 				<td class='center'><{$Results.duration}></td>
-				<td class='center'><{$Results.note}></td>
 				<td class='center'><{$Results.creation}></td>
 				<td class="center  width5">
                     <{*
-					<a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16}>/edit.png" alt="results" /></a>
                     *}>
+					<a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16}>/edit.png" alt="results" /></a>
 					<a href="results.php?op=delete&amp;quiz_id=<{$Results.quiz_id}>&amp;result_id=<{$Results.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16}>/delete.png" alt="results" /></a>
 				</td>
 			</tr>

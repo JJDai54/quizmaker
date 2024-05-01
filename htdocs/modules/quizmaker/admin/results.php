@@ -32,13 +32,18 @@ require __DIR__ . '/header.php';
 $op = Request::getCmd('op', 'list');
 // Request quest_id
 
-$sender  = Request::getString('sender', '');
-$catId   = Request::getInt('cat_id', 0);
+$sender   = Request::getString('sender', '');
+$catId    = Request::getInt('cat_id', 0);
+$resultId = Request::getInt('result_id', 0);
+
 if ($sender == 'cat_id') {
     $quizId = $quizHandler->getFirstIdOfParent($catId);
 }else{
-  $quizId  = Request::getInt('quiz_id', 1);
+  $quizId = Request::getInt('result_quiz_id', 0);
+  if ($quizId == 0) $quizId  = Request::getInt('quiz_id', 1);
 }
+
+
 //  $quizId  = Request::getInt('quiz_id', 1);
 
 // $questId = Request::getInt('quest_id', 0);
@@ -106,7 +111,7 @@ switch($op) {
           $resultsCount = 0;
           $resultsAll = null;
         }
-        //exit;
+
         ///-------------------------------------------------------
 		//$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('results.php'));
         
@@ -144,6 +149,43 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());    
 	break;
 
+	case 'save':
+		// Security Check
+		if (!$GLOBALS['xoopsSecurity']->check()) {
+			redirect_header('results.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+		}
+		if ($resultId == 0) {
+			redirect_header('results.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+        }
+		$resultsObj = $resultsHandler->get($resultId);
+        
+		$resultsObj->setVar('result_score_achieved', Request::getInt('result_score_achieved', '0'));        
+		$resultsObj->setVar('result_score_max', Request::getInt('result_score_max', '0'));        
+		$resultsObj->setVar('result_score_min', Request::getInt('result_score_min', '0'));        
+		//$resultsObj->setVar('result_answers_achieved', Request::getInt('result_answers_achieved', '0'));        
+		$resultsObj->setVar('result_answers_total', Request::getInt('result_answers_total', '0'));        
+
+		$resultsObj->setVar('result_answers_achieved', $resultsObj->getVar('result_answers_total'));   
+             
+        $score_achieved = Request::getInt('result_score_achieved', '0');    
+        $score_max = Request::getInt('result_score_max', '0');
+        $res = str_replace(',', '.', (sprintf("%s",round($score_achieved / $score_max * 100, 2)) ));
+//        echo "{$res}<br>";
+        $resultsObj->setVar('result_note',$res);
+        
+		// Insert Data
+		if ($resultsHandler->insert($resultsObj)) {
+			redirect_header("results.php?op=list&quiz_id={$quizId}", 2, _AM_QUIZMAKER_FORM_OK);
+		}
+/* *************************** */        
+		// Get Form
+		$GLOBALS['xoopsTpl']->assign('error', $resultsObj->getHtmlErrors());
+		$form = $resultsObj->getFormResults();
+		$GLOBALS['xoopsTpl']->assign('form', $form->render());
+
+
+
+	break;
 /*
 
 
@@ -155,8 +197,6 @@ switch($op) {
 	break;
 
     
-	break;
-	case 'save':
 	break;
 */
 	case 'delete':

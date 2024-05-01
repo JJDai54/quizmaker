@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quizmaker
 	+quizmaker
-		-admin
+		+admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -719,7 +719,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -761,7 +761,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 076.jpg
@@ -794,7 +794,7 @@ _quizmaker
 			include\update.php
 			include\xoops_version.inc.php
 		-language
-			+english
+			-english
 				-help
 					language\english\help\help.html
 					language\english\help\index.html
@@ -845,7 +845,7 @@ _quizmaker
 				language\french\modinfo.php
 				language\french\type_questions.php
 			language\index.html
-		+plugins
+		-plugins
 			+alphaSimple
 				-img
 					-dispositions
@@ -997,7 +997,7 @@ _quizmaker
 					plugins\imagesDaDMatchItems\snapshoot\snapshoot-002.jpg
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.php
-			+imagesDaDSortItems
+			-imagesDaDSortItems
 				+language
 					+english
 						plugins\imagesDaDSortItems\language\english\constants.php
@@ -1440,29 +1440,65 @@ _quizmaker
 		xoops_version.php
 [Open project files]
 0=Nouveau1.txt
-1=plugins\comboboxSortItems\slide_comboboxSortItems.php
-2=plugins\alphaSimple\slide_alphaSimple.php
-3=plugins\imagesDaDSortItems\slide_imagesDaDSortItems.php
-4=plugins\imagesDaDSortItems\language\french\constants.php
-5=plugins\imagesDaDSortItems\language\english\constants.php
+1=include\functions.php
+2=admin\results.php
+3=templates\admin\quizmaker_admin_results.tpl
+4=class\Results.php
+5=class\Categories.php
+6=class\Questions.php
+7=sql\mysql.sql
+8=admin\questions.php
+9=admin\questions-list.php
+10=admin\categories.php
+11=results_submit.php
+12=docs\changelog.txt
+13=language\french\admin.php
+14=language\english\admin.php
 [Selected Project Files]
 Main=
-Selected=plugins\imagesDaDSortItems\slide_imagesDaDSortItems.php
+Selected=docs\changelog.txt
 [Nouveau1.txt]
 TopLine=1
 Caret=1,1
-[plugins\comboboxSortItems\slide_comboboxSortItems.php]
-TopLine=30
-Caret=7,75
-[plugins\alphaSimple\slide_alphaSimple.php]
-TopLine=31
-Caret=1,46
-[plugins\imagesDaDSortItems\slide_imagesDaDSortItems.php]
-TopLine=27
-Caret=52,44
-[plugins\imagesDaDSortItems\language\french\constants.php]
-TopLine=3
-Caret=1,38
-[plugins\imagesDaDSortItems\language\english\constants.php]
+[include\functions.php]
+TopLine=254
+Caret=1,1
+[admin\results.php]
+TopLine=152
+Caret=5,165
+[templates\admin\quizmaker_admin_results.tpl]
+TopLine=37
+Caret=18,47
+[class\Results.php]
+TopLine=112
+Caret=43,138
+[class\Categories.php]
+TopLine=215
+Caret=34,131
+[class\Questions.php]
+TopLine=116
+Caret=1,142
+[sql\mysql.sql]
+TopLine=145
+Caret=18,166
+[admin\questions.php]
+TopLine=21
+Caret=7,35
+[admin\questions-list.php]
+TopLine=21
+Caret=1,48
+[admin\categories.php]
+TopLine=85
+Caret=1,97
+[results_submit.php]
+TopLine=67
+Caret=1,97
+[docs\changelog.txt]
 TopLine=1
-Caret=1,38
+Caret=1,5
+[language\french\admin.php]
+TopLine=258
+Caret=41,277
+[language\english\admin.php]
+TopLine=258
+Caret=1,278

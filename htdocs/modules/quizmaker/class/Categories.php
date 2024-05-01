@@ -91,6 +91,7 @@ class Categories extends \XoopsObject
 		xoops_load('XoopsFormLoader');
 		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
+        //------------------------------------------------------------------------
 		// Form Text catName
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_CATEGORIES_NAME, 'cat_name', 50, 255, $this->getVar('cat_name') ), true);
 		// Form Editor DhtmlTextArea catDescription

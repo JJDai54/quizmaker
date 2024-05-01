@@ -46,7 +46,7 @@ class slide_imagesSimple extends XoopsModules\Quizmaker\Type_question
                                   'imgHeight2'  => 48,
                                   'imgGreen'    => '',
                                   'imgRed'      => '',
-                                  'directive'   => _AM_QUIZMAKER_NEW_,
+                                  'directive'   => QUIZMAKER_NEW,
                                   'disposition' => 'disposition-01'];
     }
 
@@ -111,7 +111,7 @@ class slide_imagesSimple extends XoopsModules\Quizmaker\Type_question
       $trayOptions ->addElement($inpImgRed);   
 
       $name = 'directive';  
-      if ($tValues[$name] == _AM_QUIZMAKER_NEW_) $tValues[$name] = _QT_QUIZMAKER_IMAGESSIMPLE_DIRECTIVE;
+      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _QT_QUIZMAKER_IMAGESSIMPLE_DIRECTIVE;
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_RADIOMULTIPLE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
 

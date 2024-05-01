@@ -84,7 +84,8 @@ onmouseover="testMouseOver(event);"`;
 
 
     //---------------------------------------------------------------------
-    tpl=tpl.replace('{sequence}', tHtmlSequence.join("\n"));
+    tpl=tpl.replace('{questImage}', this.getImage())
+           .replace('{sequence}', tHtmlSequence.join("\n"));
     return tpl;
 }
 

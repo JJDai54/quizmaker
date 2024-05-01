@@ -269,12 +269,13 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_RESULTS_DURATION', "Durée");
 \define('_AM_QUIZMAKER_RESULTS_ID', "Id");
 \define('_AM_QUIZMAKER_RESULTS_LIST', "Liste des résultats");
-\define('_AM_QUIZMAKER_RESULTS_NBANSWERS', "Nonbre de réponses");
+\define('_AM_QUIZMAKER_RESULTS_NBANSWERS', "Nombre de réponses");
 \define('_AM_QUIZMAKER_RESULTS_NOTE', "Note");
 \define('_AM_QUIZMAKER_RESULTS_QUIZ_ID', "Quiz id");
 \define('_AM_QUIZMAKER_RESULTS_SCORE', "Score");
 \define('_AM_QUIZMAKER_RESULTS_SCORE_MAX', "Score maximum");
 \define('_AM_QUIZMAKER_RESULTS_SCORE_MIN', "Score minimum");
+\define('_AM_QUIZMAKER_RESULTS_SCORE_MINMAX', "Score min / max");
 \define('_AM_QUIZMAKER_SCORE', "Score");
 \define('_AM_QUIZMAKER_SELECT_CATEGORY_DESC', "Sélectionnez une catégorie de destintion pour ce nouveau quiz.<br>Catégorie d'origine recherchera une catégorie du même nom que la catégorie d'origine.<br>Si elle n'est pas trouvée elle sera créée.");
 \define('_AM_QUIZMAKER_SELECT_CATEGORY_ORG', "Catégorie d'origine");
@@ -400,7 +401,7 @@ define('_AM_QUIZMAKER_BACKGROUND', "Couleur du fond");
 
 define('_AM_QUIZMAKER_FAMILY_WORDS', "Famille de mots");
 define('_AM_QUIZMAKER_FAMILY_WORDS_DESC', "Cette liste de mots séparée par une virgule  permet d'orienter les réponses.<br>exemple trouver les termes ayant un point commun avec cette liste.<br>Elle sera affichée à côté de la liste d'options.");
-define('_AM_QUIZMAKER_NEW_', "_NEW_");
+
 
 define('_AM_QUIZMAKER_MINIFY',"Minification");
 
@@ -429,5 +430,13 @@ define('_AM_QUIZMAKER_POS_COMMENT_0',"Valeur par défaut du quiz");
 define('_AM_QUIZMAKER_POS_COMMENT_1',"Commentaire sous la question");
 define('_AM_QUIZMAKER_POS_COMMENT_2',"Commentaire dans la zone de proposition");
 define('_AM_QUIZMAKER_POS_COMMENT_3',"Masquer le commentaire");
+define('_AM_QUIZMAKER_RESULTS_ADD',"Ajouter un résultat");
+define('_AM_QUIZMAKER_RESULTS_EDIT',"Editer le résultat");
+
+define ('_AM_QUIZMAKER_SCORE_ACHIEVED', "Score obtenu");
+define ('_AM_QUIZMAKER_SCORE_MAX', "Score maximum");
+define ('_AM_QUIZMAKER_SCORE_MIN', "Score minimum");
+define ('_AM_QUIZMAKER_ANSWERS_ACHIEVED', "Nombre de réponses faites");
+define ('_AM_QUIZMAKER_ANSWERS_TOTAL', "Nombre total de questions");
 
 ?>
