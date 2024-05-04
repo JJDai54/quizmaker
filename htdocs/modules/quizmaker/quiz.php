@@ -117,7 +117,6 @@ switch($op) {
 		$quizObj->setVar('quiz_libBegin', Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
 		$quizObj->setVar('quiz_libEnd', Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 		$quizObj->setVar('quiz_questPosComment1', Request::getInt('quiz_questPosComment1', 1));
-		$quizObj->setVar('quiz_minusOnShowGoodAnswers', Request::getInt('quiz_minusOnShowGoodAnswers', 0));
 		$quizObj->setVar('quiz_legend', Request::getText('quiz_legend', ''));
 		$quizObj->setVar('quiz_dateBeginOk', Request::getInt('quiz_dateBeginOk', 0));
 		$quizObj->setVar('quiz_dateEndOk', Request::getInt('quiz_dateEndOk', 0));

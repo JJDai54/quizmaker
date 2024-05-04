@@ -32,7 +32,8 @@ use XoopsModules\Quizmaker\Constants;
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
         
-        
+        //$download = Request::getInt('download', 0);
+        if(!isset($download))  $GLOBALS['xoopsTpl']->assign('download', 0);
         //----------------------------------------------
         //recupe du quiz a afficher
         $quiz = $quizHandler->get($quizId);
@@ -106,11 +107,11 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$GLOBALS['xoopsTpl']->assign('btnInitWeight', $btnInitWeight);
         //---------------------------------------------      
         //export jSon : génération du quiz en Html
-        $btnBuildHtml = $quizUtility->getNewBtn(_AM_QUIZMAKER_BUILD_QUIZ, 'export_json', QUIZMAKER_URL_ICONS."/16/film.png",  _AM_QUIZMAKER_BUILD_QUIZ);
+        $btnBuildHtml = $quizUtility->getNewBtn(_AM_QUIZMAKER_BUILD_QUIZ, 'build_quiz', QUIZMAKER_URL_ICONS."/16/film.png",  _AM_QUIZMAKER_BUILD_QUIZ);
 		$GLOBALS['xoopsTpl']->assign('btnBuildHtml', $btnBuildHtml);
         //---------------------------------------------        
         //test du quiz : affiche l'icone avec un "?" bleu si le quiz a ete générérer, permet de le tester
-        if($quiz){
+        if($quiz && isset($quizValues["quiz_html"])){
             $lib =  _AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'];
             if($quizValues["quiz_html"] != '' ){
                 $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $quizValues["quiz_html"].'?'.getParamsForQuiz(1) );

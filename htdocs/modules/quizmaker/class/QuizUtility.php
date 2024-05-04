@@ -663,7 +663,7 @@ public static function import_quiz($pathSource, $catId = 1)
     //Mise à jour des champs avant importation
     foreach ($tabledata as $index => $row) {
 
-        //champs obsolettes
+        //champs obsolettes , pour import d'ancienne version
         if (isset($tabledata[$index]['quiz_binOptions'])) unset($tabledata[$index]['quiz_binOptions']);
         if (isset($tabledata[$index]['quiz_onClickSimple'])) unset($tabledata[$index]['quiz_onClickSimple']);
         if (isset($tabledata[$index]['quiz_allowedSubmit'])) unset($tabledata[$index]['quiz_allowedSubmit']);

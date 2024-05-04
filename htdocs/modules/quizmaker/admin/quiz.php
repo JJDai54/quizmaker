@@ -55,7 +55,7 @@ switch($op) {
         include_once("quiz-{$op}.php");
 	   break;
     
-	case 'export_json':
+	case 'build_quiz':
         $quizUtility::build_quiz($quizId);
 		//redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Export effectue");

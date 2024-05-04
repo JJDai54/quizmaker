@@ -231,7 +231,7 @@ img{
                         <img src="<{xoModuleIcons16}>/inserttable.png" alt="" />
                         </a>
                         
-                    <a href="quiz.php?op=export_json&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>"  title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>">
+                    <a href="quiz.php?op=build_quiz&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>"  title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>">
                         <img src="<{xoModuleIcons16}>/spinner.gif" alt="" />
                         </a>
 

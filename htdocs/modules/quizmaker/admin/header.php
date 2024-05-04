@@ -22,9 +22,7 @@
 include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include_once dirname(__DIR__) . '/include/common.php';
-//global $smarty;
-//$smarty->register_compiler_function("quizFlagAscii", "../smarty/function.quizFlagAscii.php", false);
-//$xoopsTpl->register_compiler_function("quizFlagAscii", "../smarty/function.quizFlagAscii.php", false);
+
 xoops_load('XoopsFormLoader');
 
 $sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');

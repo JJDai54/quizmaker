@@ -65,7 +65,6 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_publishQuiz',       Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_theme',             Request::getString('quiz_theme', 'defaut'));
 		$quizObj->setVar('quiz_questPosComment1',  Request::getInt('quiz_questPosComment1', 1));
-		$quizObj->setVar('quiz_minusOnShowGoodAnswers', Request::getInt('quiz_minusOnShowGoodAnswers', 0));
 		$quizObj->setVar('quiz_legend',            Request::getText('quiz_legend', ''));
 		$quizObj->setVar('quiz_dateBeginOk',       Request::getInt('quiz_dateBeginOk', 0));
 		$quizObj->setVar('quiz_dateEndOk',         Request::getInt('quiz_dateEndOk', 0));

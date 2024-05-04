@@ -304,8 +304,8 @@ _quiz-org
 Main=
 Selected=js\quiz-main.js
 [js\quiz-main.js]
-TopLine=152
-Caret=150,170
+TopLine=1189
+Caret=19,1216
 [js\quiz-functions.js]
 TopLine=1390
 Caret=17,1442

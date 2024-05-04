@@ -87,7 +87,7 @@ switch($op) {
         \redirect_header($url, 0, "");
         break;
 
-	case 'export_json':
+	case 'build_quiz':
         $quizUtility::build_quiz($quizId);
         //$utility::export_questions2Jason($quizId);
         redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_type_question), 5, "Export effectue");
@@ -105,6 +105,7 @@ switch($op) {
 	case 'export_quiz':
         $quizUtility::exportQuiz($quizId);
         $op = 'list';
+        $download = 1;
         include_once("questions-{$op}.php");
 //        $quizUtility->saveDataKeepId($quizId);
         //$quizUtility->saveData($quizId);

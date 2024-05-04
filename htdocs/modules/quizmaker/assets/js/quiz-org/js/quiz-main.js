@@ -1196,15 +1196,63 @@ function event_show_popup_result(currentSlide) {
 *
 * */
 function shuffleMyquiz () {
-
-    var newQuestions = myQuestions.slice(1,myQuestions.length-1);
-    newQuestions = shuffleArray(newQuestions);
+    //rechercher des groupes
+    var i = 0;
+    var j = 0;
+    var allGroups = [];
+    var newGroupe = true;
     
-    newQuestions.unshift(myQuestions[0]);    
-    newQuestions.push(myQuestions[myQuestions.length-1]);    
+    //recherchez les groupes si il existent
+    for(var h = 0; h < myQuestions.length; h++){
+        console.log ("typeQuestion = " + myQuestions[h].typeQuestion);
+        if (myQuestions[h].typeQuestion == "pageGroup" | myQuestions[h].typeQuestion == "pageEnd"){
+            if ( i > 0){
+                var newGroups = myQuestions.slice(i,j+1);
+                allGroups.push(newGroups);
+            }
+            i = h;
+            j = i;
+        }else if (i > 0){
+            j = h;
+        }
+    }
+    console.log("++++++++++++++++++++++++++++++++++++++++++++")
+    //---------------------------------------------------------------
+    if(allGroups.length == 0){
+        // il n'y a pas de groupe
+        var newQuestions = myQuestions.slice(1,myQuestions.length-1);
+        newQuestions = shuffleArray(newQuestions);
+
+        newQuestions.unshift(myQuestions[0]);    
+        newQuestions.push(myQuestions[myQuestions.length-1]);    
+
+    }{
+            //un ou plusieurs groupes
+        var nbq = 0;
+        allGroups = shuffleArray(allGroups);    
+        var newQuestions = [];
+        newQuestions.push(myQuestions[0]);    
+        
+        for(var h = 0; h < allGroups.length; h++){
+            console.log(`groupe ${h} - nb questions = ${allGroups[h].length} - ${allGroups[h][0].typeQuestion} - ${allGroups[h][0].question}`);
+            nbq += allGroups[h].length;
+            
+            var newgroup = allGroups[h].slice(1,allGroups.length);
+            newgroup = shuffleArray(newgroup);
+            newgroup.unshift(allGroups[h][0]);   
+            //newQuestions.push(newgroup);     
+            newQuestions = newQuestions.concat(newgroup);
+        }
+          newQuestions.push(myQuestions[myQuestions.length-1]);    
+        
+        console.log(`shuffleMyquiz - nb groups = ${allGroups.length} - nbq = ${nbq} <=> ${myQuestions.length}`);
+        console.log("===========================================")
+    }
+    
+    
+    //--------------------------------------------------------
 
     myQuestions = newQuestions;
-
     return true;
 }
 

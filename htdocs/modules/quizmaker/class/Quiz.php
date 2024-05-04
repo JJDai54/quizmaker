@@ -59,7 +59,6 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_libBegin', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_libEnd', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_questPosComment1', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_minusOnShowGoodAnswers', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_legend', XOBJ_DTYPE_OTHER);
 		$this->initVar('quiz_build', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_optionsIhm', XOBJ_DTYPE_INT);
@@ -369,7 +368,6 @@ class Quiz extends \XoopsObject
 		$ret['libEnd']            = $this->getVar('quiz_libEnd');
         $ret['theme_ok'] = ($ret['theme'] == '') ? $categoriesHandler->getValue($ret['cat_id'],'cat_theme','default') : $ret['theme'];
 		$ret['questPosComment1']  = $this->getVar('quiz_questPosComment1');
-		$ret['minusOnShowGoodAnswers'] = $this->getVar('quiz_minusOnShowGoodAnswers');
 		$ret['legend']            = $this->getVar('quiz_legend', 'e');
 		$ret['legend_short']      = $utility::truncateHtml($ret['legend'], $editorMaxchar);
 		$ret['dateBeginOk']       = $this->getVar('quiz_dateBeginOk');
