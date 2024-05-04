@@ -17,6 +17,11 @@ HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
+	+_JJD
+		..\..\Frameworks\JJD-Framework\class\xoopsform\checkboxbin\js\checkboxbin.js
+		..\..\Frameworks\JJD-Framework\class\xoopsform\checkboxbin\formcheckboxbin.php
+		..\..\Frameworks\JJD-Framework\include\fw-functions.php
+		..\..\Frameworks\JJD-Framework\include\globales-functions.php
 	+quizmaker
 		+admin
 			admin\about.php
@@ -105,6 +110,7 @@ _quizmaker
 					assets\icons\16\configuration_small.png
 					assets\icons\16\delete.png
 					assets\icons\16\download.png
+					assets\icons\16\edit.png
 					assets\icons\16\film.png
 					assets\icons\16\generer.png
 					assets\icons\16\generer-1.png
@@ -313,7 +319,7 @@ _quizmaker
 							assets\js\quiz-min\plugins\listboxClassItems\index.html
 							assets\js\quiz-min\plugins\listboxClassItems\slide_listboxClassItems.css
 							assets\js\quiz-min\plugins\listboxClassItems\slide_listboxClassItems.js
-						-listÿ xS ?? tems
+						-listboxSortItems
 							-img
 								-buttons
 									-blue
@@ -559,10 +565,6 @@ _quizmaker
 							assets\js\quiz-org\plugins\imagesDaDSortItems\index.html
 							assets\js\quiz-org\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
 							assets\js\quiz-org\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
-						-imagesDaDSortItemsIns
-							assets\js\quiz-org\plugins\imagesDaDSortItemsIns\index.html
-							assets\js\quiz-org\plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.css
-							assets\js\quiz-org\plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.js
 						-imagesLogical
 							-img
 								assets\js\quiz-org\plugins\imagesLogical\img\2points-green.png
@@ -719,7 +721,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		-class
+		+class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -764,23 +766,16 @@ _quizmaker
 		+docs
 			docs\changelog.txt
 			docs\credits.txt
-			docs\Image 076.jpg
-			docs\Image 077.jpg
-			docs\Image 078.jpg
-			docs\Image 079.jpg
 			docs\Image 080.jpg
 			docs\index.html
 			docs\install.txt
 			docs\lang.diff
-			docs\Les concepts de base pour flexbox - CSS Feuilles de style en cascade MDN.URL
 			docs\license.txt
 			docs\readme.txt
 			docs\structures_div.svg
 			docs\test_div_scroll.html
-			docs\test_div_scroll-00 - Copie.html
-			docs\test_div_scroll-00.html
 			docs\todo.txt
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\function.quizFlagAscii.php
@@ -793,8 +788,8 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
-			-english
+		+language
+			+english
 				-help
 					language\english\help\help.html
 					language\english\help\index.html
@@ -846,7 +841,7 @@ _quizmaker
 				language\french\type_questions.php
 			language\index.html
 		-plugins
-			+alphaSimple
+			-alphaSimple
 				-img
 					-dispositions
 						plugins\alphaSimple\img\dispositions\disposition-01.png
@@ -864,12 +859,12 @@ _quizmaker
 						plugins\alphaSimple\img\dispositions\dispositions.svg
 						plugins\alphaSimple\img\dispositions\index.html
 					plugins\alphaSimple\img\index.html
-				+language
+				-language
 					-english
 						plugins\alphaSimple\language\english\constants.php
 						plugins\alphaSimple\language\english\help.html
 						plugins\alphaSimple\language\english\index.html
-					+french
+					-french
 						plugins\alphaSimple\language\french\constants.php
 						plugins\alphaSimple\language\french\help.html
 						plugins\alphaSimple\language\french\index.html
@@ -881,13 +876,13 @@ _quizmaker
 					plugins\alphaSimple\snapshoot\snapshoot-002.jpg
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\slide_alphaSimple.php
-			+checkboxSimple
-				+language
+			-checkboxSimple
+				-language
 					-english
 						plugins\checkboxSimple\language\english\constants.php
 						plugins\checkboxSimple\language\english\help.html
 						plugins\checkboxSimple\language\english\index.html
-					+french
+					-french
 						plugins\checkboxSimple\language\french\constants.php
 						plugins\checkboxSimple\language\french\help.html
 						plugins\checkboxSimple\language\french\index.html
@@ -923,7 +918,7 @@ _quizmaker
 					plugins\comboboxMatchItems\snapshoot\snapshoot-002.jpg
 				plugins\comboboxMatchItems\index.html
 				plugins\comboboxMatchItems\slide_comboboxMatchItems.php
-			+comboboxSortItems
+			-comboboxSortItems
 				-language
 					-english
 						plugins\comboboxSortItems\language\english\constants.php
@@ -980,12 +975,12 @@ _quizmaker
 						plugins\imagesDaDMatchItems\img\dispositions\disposition-20.png
 						plugins\imagesDaDMatchItems\img\dispositions\dispositions.svg
 						plugins\imagesDaDMatchItems\img\dispositions\index.html
-				+language
+				-language
 					-english
 						plugins\imagesDaDMatchItems\language\english\constants.php
 						plugins\imagesDaDMatchItems\language\english\help.html
 						plugins\imagesDaDMatchItems\language\english\index.html
-					+french
+					-french
 						plugins\imagesDaDMatchItems\language\french\constants.php
 						plugins\imagesDaDMatchItems\language\french\help.html
 						plugins\imagesDaDMatchItems\language\french\index.html
@@ -998,12 +993,12 @@ _quizmaker
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.php
 			-imagesDaDSortItems
-				+language
-					+english
+				-language
+					-english
 						plugins\imagesDaDSortItems\language\english\constants.php
 						plugins\imagesDaDSortItems\language\english\help.html
 						plugins\imagesDaDSortItems\language\english\index.html
-					+french
+					-french
 						plugins\imagesDaDSortItems\language\french\constants.php
 						plugins\imagesDaDSortItems\language\french\help.html
 						plugins\imagesDaDSortItems\language\french\index.html
@@ -1151,12 +1146,12 @@ _quizmaker
 						plugins\radioMultiple\img\dispositions\index.html
 						plugins\radioMultiple\img\dispositions\vertical.png
 					plugins\radioMultiple\img\index.html
-				+language
+				-language
 					-english
 						plugins\radioMultiple\language\english\constants.php
 						plugins\radioMultiple\language\english\help.html
 						plugins\radioMultiple\language\english\index.html
-					+french
+					-french
 						plugins\radioMultiple\language\french\constants.php
 						plugins\radioMultiple\language\french\help.html
 						plugins\radioMultiple\language\french\index.html
@@ -1414,7 +1409,7 @@ _quizmaker
 			testdata\images pour quiz.lnk
 			testdata\index.html
 			testdata\index.php
-		-versions
+		+versions
 			versions\index.html
 		_quizmaker.ppr
 		_quiz-org.lnk
@@ -1439,66 +1434,74 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=Nouveau1.txt
-1=include\functions.php
-2=admin\results.php
-3=templates\admin\quizmaker_admin_results.tpl
-4=class\Results.php
-5=class\Categories.php
-6=class\Questions.php
-7=sql\mysql.sql
-8=admin\questions.php
-9=admin\questions-list.php
-10=admin\categories.php
-11=results_submit.php
-12=docs\changelog.txt
-13=language\french\admin.php
-14=language\english\admin.php
+0=docs\changelog.txt
+1=docs\todo.txt
+2=sql\mysql.sql
+3=class\QuizHandler.php
+4=admin\quiz.php
+5=class\Quiz.php
+6=templates\admin\quizmaker_admin_quiz.tpl
+7=include\quizFlagAscii.php
+8=templates\admin\quizmaker_admin_questions.tpl
+9=class\Questions.php
+10=templates\admin\quizmaker_admin_download.tpl
+11=admin\questions-list.php
+12=admin\messages.php
+13=admin\questions.php
+14=class\QuizUtility.php
+15=..\..\Frameworks\JJD-Framework\include\fw-functions.php
+16=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
-[Nouveau1.txt]
-TopLine=1
-Caret=1,1
-[include\functions.php]
-TopLine=254
-Caret=1,1
-[admin\results.php]
-TopLine=152
-Caret=5,165
-[templates\admin\quizmaker_admin_results.tpl]
-TopLine=37
-Caret=18,47
-[class\Results.php]
-TopLine=112
-Caret=43,138
-[class\Categories.php]
-TopLine=215
-Caret=34,131
-[class\Questions.php]
-TopLine=116
-Caret=1,142
-[sql\mysql.sql]
-TopLine=145
-Caret=18,166
-[admin\questions.php]
-TopLine=21
-Caret=7,35
-[admin\questions-list.php]
-TopLine=21
-Caret=1,48
-[admin\categories.php]
-TopLine=85
-Caret=1,97
-[results_submit.php]
-TopLine=67
-Caret=1,97
+Selected=xoops_version.php
 [docs\changelog.txt]
 TopLine=1
-Caret=1,5
-[language\french\admin.php]
-TopLine=258
-Caret=41,277
-[language\english\admin.php]
-TopLine=258
-Caret=1,278
+Caret=123,27
+[docs\todo.txt]
+TopLine=1
+Caret=21,44
+[sql\mysql.sql]
+TopLine=60
+Caret=1,98
+[class\QuizHandler.php]
+TopLine=540
+Caret=2,574
+[admin\quiz.php]
+TopLine=1
+Caret=1,44
+[class\Quiz.php]
+TopLine=352
+Caret=9,372
+[templates\admin\quizmaker_admin_quiz.tpl]
+TopLine=85
+Caret=43,111
+[include\quizFlagAscii.php]
+TopLine=42
+Caret=1,98
+[templates\admin\quizmaker_admin_questions.tpl]
+TopLine=133
+Caret=1,133
+[class\Questions.php]
+TopLine=410
+Caret=11,441
+[templates\admin\quizmaker_admin_download.tpl]
+TopLine=1
+Caret=7,2
+[admin\questions-list.php]
+TopLine=107
+Caret=116,128
+[admin\messages.php]
+TopLine=25
+Caret=108,46
+[admin\questions.php]
+TopLine=103
+Caret=33,106
+[class\QuizUtility.php]
+TopLine=590
+Caret=3,629
+[..\..\Frameworks\JJD-Framework\include\fw-functions.php]
+TopLine=234
+Caret=17,243
+[xoops_version.php]
+TopLine=1
+Caret=38,33

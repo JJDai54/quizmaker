@@ -1439,3 +1439,7 @@ function arrayToArrayNum(strArr){
     return intArr;
 }
 
+function isBitOk(numBit, value){
+    return  ((value & Math.pow(2, numBit)) > 0) ? 1 : 0 ;
+
+}

@@ -2,13 +2,36 @@
 ---------------------------------------------------
 Ajout de l'édition des score dans l'admin pour permettre la correction des résultats.
 relooking du template admin_results.tpl
+Nettoyage de fichiers inutiles
+Ajout des champs quiz_libBegin et quiz_libEnd pour une meilleure personalisation des quiz
+    ajout des constantes attenantes
+    MAJ du JS        
+table quiz : suppression des champs ci-dessous remplacé par quiz_optionsDev de type binnaire:
+    quiz_showTypeQuestion
+    quiz_showReloadAnswers
+    quiz_showGoToSlide
+    quiz_showGoodAnswers        
+    quiz_showBadAnswers        
+    quiz_showLog        
+    quiz_showResultAllways        
+    quiz_showReponsesBottom ...        
 
+champs "quiz_optionsIhm" et "quiz_optionsDev";
+    - Changement du type de champs en BIT
+    - ajout de la fonction "setBinOn' dans quizHandler pour modifier les valeur bit par bit
+    - modif des appels pour les champs supprimés "chage_etat remplacé par "set_binOn"
+    
+Table question : 
+    - suppression du champs "quest_visible" qui faisait double emloi avec "ques_actif"
+    - modification du termplate de l'admin
+import : correctioon de la recherche de la categorie, problème des quotes dans le nom "=" remplacé par Like et "'" par "_"
+     
 2024-04-23a v 4.14 beta 6 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - table "quiz" ajout du champ "quiz_questPosComment1" qui détermine la position de comment1 de la table questions
   valeur : 0 : le champ comment1 est masqué
            1 : le champ comment1 est placé sous la question
-           2 : le champ comment1 est placé en tête de la zone des proposition
+           2 : le champ comment1 est placé en tête de la zone des propositions
  
 - table "questions" ajout du champ "quest_posComment1" qui détermine la position de comment1.
   inutilisé pour l'instant, enprévisio d'une individualisation pour chaque question de la position de comment1

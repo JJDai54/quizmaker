@@ -39,8 +39,8 @@ $quizId = Request::getInt('quiz_id');
 $sender = Request::getString('');
 
 $utility = new \XoopsModules\Quizmaker\Utility();  
-//  $gp = array_merge($_GET, $_POST);
-//  echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
+//   $gp = array_merge($_GET, $_POST);
+//   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
 //echo "quizId = {$quizId}<br>sender = {$sender}";
 
@@ -78,7 +78,15 @@ switch($op) {
         $quizHandler->changeEtat($quizId, $field, $modulo);
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
 	break;
-    
+
+	case 'set_bit':
+        $field = Request::getString('field');
+        $bitIndex = Request::getInt('bitIndex');
+        $newValue = Request::getInt('newValue', -1);
+        $quizHandler->setBitOn($quizId, $field, $bitIndex, $newValue);
+//        exit;
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
+	break;
 // 	case 'config_options':
 //         $config = Request::getInt('config', 0);
 //         $quizHandler->config_options($quizId, $config);

@@ -288,34 +288,27 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['description']              = $quizValues['description']; 
     $optionsArr['legend']                   = $quizValues['legend'];//"{allType}"
     $optionsArr['theme']                    = $theme;
+    $optionsArr['libBegin']                 = $quizValues['libBegin'];
+    $optionsArr['libEnd']                   = $quizValues['libEnd'];
     $optionsArr['onClickSimple']            = $quizValues['onClickSimple'];
     $optionsArr['questPosComment1']         = $quizValues['questPosComment1'];
-    $optionsArr['answerBeforeNext']         = $quizValues['answerBeforeNext'];
-    $optionsArr['allowedPrevious']          = $quizValues['allowedPrevious'];
-    $optionsArr['shuffleQuestions']         = $quizValues['shuffleQuestions'];
     $optionsArr['showConsigne']             = $quizValues['showConsigne'];
-    $optionsArr['useTimer']                 = $quizValues['quiz_useTimer'];
-    $optionsArr['showGoodAnswers']          = $quizValues['showGoodAnswers'];
-    $optionsArr['showBadAnswers']           = $quizValues['showBadAnswers'];
     $optionsArr['minusOnShowGoodAnswers']   = $quizValues['minusOnShowGoodAnswers'];
-    $optionsArr['showReloadAnswers']        = $quizValues['showReloadAnswers'];
-    $optionsArr['showGoToSlide']            = $quizValues['showGoToSlide'];
-    $optionsArr['allowedSubmit']            = $quizValues['allowedSubmit'];
-    $optionsArr['showReponsesBottom']       = $quizValues['showReponsesBottom'];
-    $optionsArr['showScoreMinMax']          = $quizValues['showScoreMinMax'];
-    $optionsArr['showResultPopup']          = $quizValues['showResultPopup'];  
-    $optionsArr['showResultAllways']        = $quizValues['showResultAllways'];
-    $optionsArr['showLog']                  = $quizValues['quiz_showLog'];
     $optionsArr['build']                    = $quizValues['quiz_build'];
     $optionsArr['folderJS']                 = $quizValues['folderJS'];
     $optionsArr['url']                      = QUIZMAKER_URL_UPLOAD_QUIZ;
     $optionsArr['urlMain']                  = QUIZMAKER_URL_QUIZ_JS;
     $optionsArr['execution']                = $quizValues['actif'];
           
-    //Utiliser pour le dev pas utile de mettre ces infos en base
-    $optionsArr['showTypeQuestion']         = $quizValues['showTypeQuestion'];
-    $optionsArr['devOptions']               = $quizValues['devOptions'];
+    //options d'interface
+    $optionsArr['optionsIhm']               = $quizValues['optionsIhm'];
+
+    //options de developpement
+    $optionsArr['optionsDev']               = $quizValues['optionsDev'];
+    
     $optionsArr['mode']                     = 0;
+
+      
 
     //---------------------------------------------------------
 //echo "<hr><pre>optionsArr : " . print_r($optionsArr, true) . "</pre><hr>";
@@ -351,7 +344,8 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$type_question
     $typesQuestions = array();
     
     $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
-    $criteria->add(new \Criteria('quest_visible', 1, '='));
+    //double emploi avec actif, champ inutile a virer
+    //$criteria->add(new \Criteria('quest_visible', 1, '='));
     $criteria->add(new \Criteria('quest_actif', 1, '='));
     $criteria->setsort("quest_weight");
     $criteria->setOrder("ASC");
@@ -519,6 +513,9 @@ __HTML__;
 
 
 
+/* ***********************
+
+************************** */
 public static function exportQuiz($quizId){
 global $quizHandler;
 echo "<hr>exportQuiz - quizId = {$quizId}<hr>";
@@ -614,12 +611,12 @@ public static function import_quiz($pathSource, $catId = 1)
         $table     = 'quizmaker_' . $shortName;
         $tabledata = \Xmf\Yaml::readWrapped($pathSource . "/". $shortName . '.yml');      
 //echo "<hr>categories<pre>" . print_r($tabledata, true) . "</pre><hr>";
-        $catName = $tabledata[0]['cat_name'];
+        //$tabledata[0]['cat_name'] = str_replace("''","'",$tabledata[0]['cat_name']);
+        $catName = str_replace(chr(39),"_",$tabledata[0]['cat_name']);
       
-        $criteria = new \Criteria("cat_name", $catName, '=');
+        $criteria = new \Criteria("cat_name", $catName, 'LIKE');
         $catFound = $categoriesHandler->getAll($criteria);
 //echo "<hr>found<pre>" . print_r($catFound, true) . "</pre><hr>";
-        
         if (count($catFound) > 0) {
             $cat = array_shift($catFound);
             $catId = $cat->getVar('cat_id');
@@ -628,7 +625,8 @@ public static function import_quiz($pathSource, $catId = 1)
             $tabledata[0]['cat_id'] = $catId;
             \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
         }   
-//        echo "<hr>name = {$catName}<br>catId = {$catId}<hr>";
+//echo "<hr>name = {$catName}<br>catId = {$catId}<hr>";
+//exit;        
 
     }
     
@@ -668,6 +666,8 @@ public static function import_quiz($pathSource, $catId = 1)
         //champs obsolettes
         if (isset($tabledata[$index]['quiz_binOptions'])) unset($tabledata[$index]['quiz_binOptions']);
         if (isset($tabledata[$index]['quiz_onClickSimple'])) unset($tabledata[$index]['quiz_onClickSimple']);
+        if (isset($tabledata[$index]['quiz_allowedSubmit'])) unset($tabledata[$index]['quiz_allowedSubmit']);
+        if (isset($tabledata[$index]['quiz_minusOnShowGoodAnswers'])) unset($tabledata[$index]['quiz_minusOnShowGoodAnswers']);
 
         //affectation du nouvel ID
         $tabledata[$index]['quiz_id'] = $newQuizId;

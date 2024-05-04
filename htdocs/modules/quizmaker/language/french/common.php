@@ -86,4 +86,12 @@ define('_CO_QUIZMAKER_MINUTES', "minute(s)");
 define('_CO_QUIZMAKER_SECONDS', "secondes");
 define('_CO_QUIZMAKER_NUM_NONE', "Sans");
 
+define('_CO_QUIZMAKER_LIB_BEGIN', "Bouton du premier slide");
+define('_CO_QUIZMAKER_LIB_BEGIN_DEFAULT', "Lancez le quiz");
+define('_CO_QUIZMAKER_LIB_BEGIN_DESC', "Libellé du premier bouton pour lancer le quiz");
+
+define('_CO_QUIZMAKER_LIB_END', "Bouton du dernier slide");
+define('_CO_QUIZMAKER_LIB_END_DEFAULT', "Validez votre score pour voir les réponses");
+define('_CO_QUIZMAKER_LIB_END_DESC', "Libellé du bouton du dernier slide du quiz");
+
 ?>

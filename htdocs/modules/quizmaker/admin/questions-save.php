@@ -102,7 +102,7 @@ echoArray($_FILES,'_FILES',true);
 		$questionsObj->setVar('quest_shuffleAnswers', Request::getInt('quest_shuffleAnswers', 1));
 		$questionsObj->setVar('quest_weight', Request::getInt('quest_weight', 0));
 		$questionsObj->setVar('quest_timer', Request::getInt('quest_timer', 0));
-		$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
+		//$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
 		$questionsObj->setVar('quest_actif', Request::getInt('quest_actif', 1));
 		$questionsObj->setVar('quest_update', \JJD\getSqlDate());
 

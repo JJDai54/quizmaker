@@ -49,7 +49,7 @@ function smarty_function_quizFlagAscii($flag, $argStr, $color0='red', $color1='g
 
 function smarty_function_quizFlagAscii($args, &$smarty)
 {
-    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'blue');
+    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'cyan');
     $exp = $args['exp'];
     $color = $tColors[$args['flag']];
     $fontSize = '16px';
@@ -61,7 +61,7 @@ function smarty_function_quizFlagAscii($args, &$smarty)
 function smarty_function_quizFlagAlpha($args, &$smarty)
 {
     $tExp = (isset($args['exp'])) ? explode('|',$args['exp']) : array('Yes','No','Auto');
-    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'blue');
+    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'cyan');
     $exp = $tExp [$args['flag']];
     $color = $tColors[$args['flag']];
     $fontSize = '16px';
@@ -69,9 +69,9 @@ function smarty_function_quizFlagAlpha($args, &$smarty)
 }
 
 /* **************************************************** */
-function quizFlagAscii($flag, $exp, $color = 'red|green|blue')
+function quizFlagAscii($flag, $exp, $color = 'red|green|cyan')
 {
-    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue');
+    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'cyan');
     //$exp = implode('|', $exp);
     $color = $tColors[$flag];
     $fontSize = '16px';
@@ -80,10 +80,10 @@ function quizFlagAscii($flag, $exp, $color = 'red|green|blue')
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
 
-function quizFlagAlpha($flag, $exps, $color = 'red|green|blue')
+function quizFlagAlpha($flag, $exps, $color = 'red|green|cyan')
 {
     $tExp = (isset($exps)) ? explode('|',$exps) : array('Yes','No','Auto');
-    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue');
+    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'cyan');
 
     $exp = $tExp [$flag];
     $color = $tColors[$flag];

@@ -37,7 +37,7 @@ use XoopsModules\Quizmaker\Constants;
             $questionsObj->setVar('quest_quiz_id', $quizId);
             $questionsObj->setVar('quest_type_question', $typeQuestion);
             $questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
-            $questionsObj->setVar('quest_visible', 1);
+            //$questionsObj->setVar('quest_visible', 1);
             $questionsObj->setVar('quest_actif', 1);
             $questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 /*

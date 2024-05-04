@@ -19,6 +19,9 @@
  * @param $smarty
  * @return string
  */
+
+define('QUIZMAKER_FLAGS_COLORS', "red|green|cyan|black");
+
 /*
 function smarty_compiler_xoModuleIcons32($argStr, &$smarty)
 {
@@ -49,7 +52,7 @@ function smarty_function_quizFlagAscii($flag, $argStr, $color0='red', $color1='g
 
 function smarty_function_quizFlagAscii($args, &$smarty)
 {
-    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'blue');
+    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : explode('|', QUIZMAKER_FLAGS_COLORS);
     $exp = $args['exp'];
     $color = $tColors[$args['flag']];
     $fontSize = '16px';
@@ -61,7 +64,7 @@ function smarty_function_quizFlagAscii($args, &$smarty)
 function smarty_function_quizFlagAlpha($args, &$smarty)
 {
     $tExp = (isset($args['exp'])) ? explode('|',$args['exp']) : array('Yes','No','Auto');
-    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : array('red', 'green', 'blue');
+    $tColors = (isset($args['colors'])) ? explode('|',$args['colors']) : explode('|', QUIZMAKER_FLAGS_COLORS);
     $exp = $tExp [$args['flag']];
     $color = $tColors[$args['flag']];
     $fontSize = '16px';
@@ -69,10 +72,10 @@ function smarty_function_quizFlagAlpha($args, &$smarty)
 }
 
 /* **************************************************** */
-function quizFlagAscii($flag, $exp, $color = 'red|green|blue|black')
+function quizFlagAscii($flag, $exp, $color = QUIZMAKER_FLAGS_COLORS)
 {    
     //if (!$flag) $flag=3;
-    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue', 'black');
+    $tColors = (isset($colors)) ? explode('|',$colors) : explode('|', QUIZMAKER_FLAGS_COLORS);
     //$exp = implode('|', $exp);
     $color = $tColors[$flag];
     $fontSize = '16px';
@@ -81,10 +84,10 @@ function quizFlagAscii($flag, $exp, $color = 'red|green|blue|black')
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
 
-function quizFlagAlpha($flag, $exps, $colors = 'red|green|blue')
+function quizFlagAlpha($flag, $exps, $colors = QUIZMAKER_FLAGS_COLORS)
 {
     $tExp = (isset($exps)) ? explode('|',$exps) : array('Yes','No','Auto');
-    $tColors = (isset($colors)) ? explode('|',$colors) : array('red', 'green', 'blue');
+    $tColors = (isset($colors)) ? explode('|',$colors) : explode('|', QUIZMAKER_FLAGS_COLORS);
 
     $exp = $tExp [$flag];
     $color = $tColors[$flag];

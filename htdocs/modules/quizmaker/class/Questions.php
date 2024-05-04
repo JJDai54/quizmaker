@@ -256,9 +256,11 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		//$form->addElement($fileNameTray);
         
         // Form quest_visible
+        /*
 		$inpVisible = new \XoopsFormRadioYN(_AM_QUIZMAKER_VISIBLE, 'quest_visible', $this->getVar('quest_visible'));
         $inpVisible->setDescription(_AM_QUIZMAKER_VISIBLE_DESC);
         $form->addElement($inpVisible);
+        */
         
         // Form quest_actif
 		$inpActif = new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'quest_actif', $this->getVar('quest_actif'));
@@ -409,7 +411,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         
 		$ret['weight']         = $this->getVar('quest_weight');
 		$ret['timer']          = $this->getVar('quest_timer');
-		$ret['visible']        = $this->getVar('quest_visible');
+		//$ret['visible']        = $this->getVar('quest_visible');
 		$ret['actif']          = $this->getVar('quest_actif');
 		$ret['flags']          = $this->getFlags($ret);
         
@@ -436,7 +438,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
     public function getFlags(&$ret){
         $flags = array();
         $flags['actif'] = quizFlagAscii($ret['actif'], "A");
-        $flags['visible'] = quizFlagAscii($ret['visible'], "V");
+        //$flags['visible'] = quizFlagAscii($ret['visible'], "V");
         $flags['shuffleAnswers'] = quizFlagAscii($ret['shuffleAnswers'], "M");
         
         $flags['numbering'] = quizFlagAlpha($ret['numbering'], _CO_QUIZMAKER_NUM_NONE . "|123|ABC|abc","red|green|blue|blue");

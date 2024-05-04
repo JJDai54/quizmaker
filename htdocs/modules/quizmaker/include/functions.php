@@ -265,7 +265,7 @@ function format_caractere($car, $color, $size="11px"){
  * getParamsForQuiz : renvoi une chaine de parametre pour personaliser le quiz
  * Tout n'est pas utile uname et name sont probablement suffisant, a voir
  **********************************************************************/
-function getParamsForQuiz ($asString = false){
+function getParamsForQuiz ($asString = false, $resultId=0){
 global $xoopsUser;
         xoops_load('XoopsUserUtility');
     if(is_object($xoopsUser)){
@@ -282,7 +282,9 @@ global $xoopsUser;
         'name' => 'Anonymous',
         'email' => 'anonymous@orange.fr',
         'ip'   => XoopsUserUtility::getIP(true));
-    }        
+    }     
+    $allParams['resultId'] = $resultId;   
+    //-------------------------------------------
     if($asString){
         $t = [];
         foreach($allParams AS $key=>$value)

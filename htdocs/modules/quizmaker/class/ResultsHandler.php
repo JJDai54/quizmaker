@@ -167,5 +167,6 @@ public function getStatistics($QuizId = 0){
 //    echoArray($stat);
     return $stat;
 }
+
     
 }

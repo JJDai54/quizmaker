@@ -55,33 +55,22 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_publishQuiz', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_publishResults', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_publishAnswers', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showAllSolutions', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_theme', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_libBegin', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_libEnd', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_questPosComment1', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_answerBeforeNext', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_allowedPrevious', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_shuffleQuestions', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showGoodAnswers', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showBadAnswers', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showReloadAnswers', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showGoToSlide', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_minusOnShowGoodAnswers', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_allowedSubmit', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showScoreMinMax', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_useTimer', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showResultAllways', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showReponsesBottom', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showResultPopup', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showTypeQuestion', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_showLog', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_legend', XOBJ_DTYPE_OTHER);
 		$this->initVar('quiz_build', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_optionsIhm', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_optionsDev', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_actif', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_showConsigne', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_dateBeginOk', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_dateEndOk', XOBJ_DTYPE_INT);
+        
 	}
-
+        
 	/**
 	 * @static function &getInstance
 	 *
@@ -163,7 +152,6 @@ class Quiz extends \XoopsObject
         // Form Text quiz_weight
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quiz_weight', 50, 255, $this->getVar('quiz_weight') ), false);
         //----------------------------------------------------------
-        
 		// Form Editor DhtmlTextArea quizDescription
         /* champ a supprimer fait double emploi avec les champs du premier slide "page_info/intro"
         $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $quizmakerHelper);
@@ -171,6 +159,11 @@ class Quiz extends \XoopsObject
         */
             
             
+        
+		// Form Check Box quiz_actif
+		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
+		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
+		$form->addElement($inpActif);
         
 
 		// Form Check Box quizDateBegin
@@ -189,11 +182,6 @@ class Quiz extends \XoopsObject
 		$inpExecution->addOption(1, _CO_QUIZMAKER_PUBLISH_INLINE);
 		$inpExecution->addOption(2, _CO_QUIZMAKER_PUBLISH_OUTLINE);
 		$form->addElement($inpExecution);
-        
-		// Form Check Box quiz_actif
-		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
-		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
-		$form->addElement($inpActif);
 
         $publishArr = array(1=>_YES, 0=>_NO, 2=>_AM_QUIZMAKER_AUTO);
         $inpPublishResults = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_RESULTS , 'quiz_publishResults', $this->getVar('quiz_publishResults'));
@@ -206,28 +194,11 @@ class Quiz extends \XoopsObject
         $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
 		$form->addElement($inpPublishAnswers);
 
-        $inpShowAllSolutions = new \XoopsFormRadioYN(_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS , 'quiz_showAllSolutions', $this->getVar('quiz_showAllSolutions'));
-        //$inpShowAllSolutions->addOptionArray($publishArr);
-        $inpShowAllSolutions->setDescription(_AM_QUIZMAKER_SHOW_ALL_SOLUTIONS_DESC);
-		$form->addElement($inpShowAllSolutions);
-        
         /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
         oui : ce bouton est activer sur le dernier slide
         non :  ce bouton esst désactiver sur le dernier slide (utilisation en dehors du site a verifier)
         */
-/* Inutilise et a virer - le bouton est défini sur pageEnd quelque soit le choix
-		// Form Check Box quizAllowedSubmit
-		$quizAllowedSubmit = $this->isNew() ? 0 : $this->getVar('quiz_allowedSubmit');
-		$checkQuizAllowedSubmit = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT, 'quiz_allowedSubmit', $quizAllowedSubmit);
-		$checkQuizAllowedSubmit->setDescription(_AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT_DESC);
-		$form->addElement($checkQuizAllowedSubmit );
-*/        
         
-		// Form Check Box quizAllowedSubmit
-		$quizShowScoreMinMax = $this->isNew() ? 0 : $this->getVar('quiz_showScoreMinMax');
-		$inpShowScoreMinMax = new \XoopsFormRadioYN(_AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX, 'quiz_showScoreMinMax', $quizShowScoreMinMax);
-		$inpShowScoreMinMax->setDescription(_AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX_DESC);
-		$form->addElement($inpShowScoreMinMax);
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_QUIZ . '</div></center>');
         //========================================================
@@ -238,7 +209,17 @@ class Quiz extends \XoopsObject
         $inpTheme->addOptionArray( \JJD\get_css_color());
 		$form->addElement($inpTheme, false);
 
+        // Form Text quiz_libBegin
+        $libBegin = ($this->getVar('quiz_libBegin')) ? $this->getVar('quiz_libBegin') :  _CO_QUIZMAKER_LIB_BEGIN_DEFAULT;
+        $inpLibBegin = new \XoopsFormText(_CO_QUIZMAKER_LIB_BEGIN , 'quiz_libBegin', 120, 120, $libBegin);  
+        $inpLibBegin->setDescription(_CO_QUIZMAKER_LIB_BEGIN_DESC);  
+		$form->addElement($inpLibBegin, false);
         
+        // Form Text quiz_libEnd
+        $libEnd = ($this->getVar('quiz_libEnd')) ? $this->getVar('quiz_libEnd') :  _CO_QUIZMAKER_LIB_END_DEFAULT;
+        $inpLibEnd = new \XoopsFormText(_CO_QUIZMAKER_LIB_END , 'quiz_libEnd', 120, 120, $libEnd);  
+        $inpLibEnd->setDescription(_CO_QUIZMAKER_LIB_END_DESC);  
+		$form->addElement($inpLibEnd, false);
         
 		// Form Check Box quiz_questPosComment1
 		$inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quiz_questPosComment1', $this->getVar('quiz_questPosComment1'));
@@ -268,102 +249,36 @@ class Quiz extends \XoopsObject
 		$form->addElement($editLegend, false);
 */		
         
-		// Form Check Box quizAnswerBeforeNext
-		$quizAnswerBeforeNext = $this->isNew() ? 0 : $this->getVar('quiz_answerBeforeNext');
-		$checkQuizAnswerBeforeNext = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT, 'quiz_answerBeforeNext', $quizAnswerBeforeNext);
-		$checkQuizAnswerBeforeNext->setDescription(_AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC);
-		$form->addElement($checkQuizAnswerBeforeNext );
-        
-        
-		// Form Check Box quizAllowedPrevious
-		$quizAllowedPrevious = $this->isNew() ? 0 : $this->getVar('quiz_allowedPrevious');
-		$checkQuizAllowedPrevious = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS, 'quiz_allowedPrevious', $quizAllowedPrevious);
-		$checkQuizAllowedPrevious->setDescription(_AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC);
-		$form->addElement($checkQuizAllowedPrevious );
-        
-		// Form Check Box quizTimer
-		$quizTimer = $this->isNew() ? 0 : $this->getVar('quiz_useTimer');
-		$checkQuizTimer = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_USE_TIMER, 'quiz_useTimer', $quizTimer);
-		$checkQuizTimer->setDescription(_AM_QUIZMAKER_QUIZ_USE_TIMER_DESC);
-		$form->addElement($checkQuizTimer );
-        
-		// Form Check Box shuffleQuestions
-		$quizShuffleQuestions = $this->isNew() ? 0 : $this->getVar('quiz_shuffleQuestions');
-		$inpShuffleQuestions = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, 'quiz_shuffleQuestions', $quizShuffleQuestions);
-		$inpShuffleQuestions->setDescription(_AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC);
-		$form->addElement($inpShuffleQuestions);
-        
-        
-		// Form Check Box showResultPopup
-		$ShowResultPopup = $this->isNew() ? 0 : $this->getVar('quiz_showResultPopup');
-		$inpShowResultPopup = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_RESULT_POPUP, 'quiz_showResultPopup', $ShowResultPopup);
-		$inpShowResultPopup->setDescription(_AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC);
-		$form->addElement($inpShowResultPopup);
-        
-        /* JJDai : A virer fonctionalité pas très utiles a voir dans le temps
-        pour l'instant juste désactivé dans le formulaire
-		// Form Check Box minusOnShowGoodAnswers
-		$minusOnShowGoodAnswers = $this->isNew() ? 0 : $this->getVar('quiz_minusOnShowGoodAnswers');
-        $inpMinusOnShowGoodAnswers = new \XoopsFormNumber(_AM_QUIZMAKER_QUIZ_MINUS_OSGA, 'quiz_minusOnShowGoodAnswers', 5, 5, $minusOnShowGoodAnswers);
-        $inpMinusOnShowGoodAnswers->setDescription(_AM_QUIZMAKER_QUIZ_MINUS_OSGA_DESC);
-        $inpMinusOnShowGoodAnswers->setMinMax(0, 50);
-		$form->addElement($inpMinusOnShowGoodAnswers);
-        */
-        
+		// Form CheckBoxBin quiz_optionsIhm
+        $inpOptionsIhm = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM . "[{$this->getVar('quiz_optionsIhm')}]", 'quiz_optionsIhm', $this->getVar('quiz_optionsIhm'),1,true);
+        $inpOptionsIhm->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM_DESC);
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOWSCOREMINMAX,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX, _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX_DESC) ) ;
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOWALLSOLUTIONS,sprintf("%s (%s)", _AM_QUIZMAKER_VIEW_ALL_SOLUTIONS, _AM_QUIZMAKER_SHOW_ALL_SOLUTIONS_DESC) ) ;
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_ANSWERBEFORENEXT,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT, _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC) ) ;
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_ALLOWEDPREVIOUS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS, _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC) ) ;
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_USETIMER,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_USE_TIMER, _AM_QUIZMAKER_QUIZ_USE_TIMER_DESC) ) ;
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHUFFLEQUESTIONS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC) ) ;
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOWRESULTPOPUP,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC) ) ;
+		$form->addElement($inpOptionsIhm);
+        $inpOptionsIhm->addOption(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS, _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS_DESC) ) ;
         
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_DEV . '</div></center>');
         //========================================================
+		// Form CheckBoxBin quiz_optionsDev
+        $inpOptionsDev = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV . "[{$this->getVar('quiz_optionsDev')}]", 'quiz_optionsDev', $this->getVar('quiz_optionsDev'),1,true);
+        $inpOptionsDev->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV_DESC);
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWTYPEQUESTION,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_TYPE_QUESTION, _AM_QUIZMAKER_QUIZ_SHOW_TYPE_QUESTION_DESC) ) ;
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWRELOADANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS_DESC) );
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWGOTOSLIDE, sprintf("%s (%s)", _AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE, _AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE_DESC));
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWGOODANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS_DESC) );
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWBADANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC) );
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWLOG, sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOWLOG, _AM_QUIZMAKER_QUIZ_SHOWLOG_DESC));
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWRESULTALLWAYS, sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS, _AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS_DESC) );
+        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOWREPONSESBOTTOM, sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOWREPONSES_BOTTOM, _AM_QUIZMAKER_QUIZ_SHOWREPONSES_BOTTOM_DESC));
+		$form->addElement($inpOptionsDev);
 
-		// Form Check Box quiz_showTypeQuestion
-		$quizShowTypeQuestion = $this->isNew() ? 0 : $this->getVar('quiz_showTypeQuestion');
-		$checkQuizShowTypeQuestion = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOW_TYPE_QUESTION, 'quiz_showTypeQuestion', $quizShowTypeQuestion);
-		$checkQuizShowTypeQuestion->setDescription(_AM_QUIZMAKER_QUIZ_SHOW_TYPE_QUESTION_DESC);
-		$form->addElement($checkQuizShowTypeQuestion);
 
-		// Form radio quiz_showReloadAnswers
-		$showReloadAnswers = $this->isNew() ? 0 : $this->getVar('quiz_showReloadAnswers');
-		$inpReloadGoodAnswers = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS, 'quiz_showReloadAnswers', $showReloadAnswers);
-		$inpReloadGoodAnswers->setDescription(_AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS_DESC);
-		$form->addElement($inpReloadGoodAnswers);
-        
-		// Form radio quiz_showGoToSlide
-		$showGoToSlide = $this->isNew() ? 0 : $this->getVar('quiz_showGoToSlide');
-		$inpGoToSlide = new \XoopsFormRadioYN( _AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE, 'quiz_showGoToSlide', $showGoToSlide);
-		$inpGoToSlide->setDescription(_AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE_DESC);
-		$form->addElement($inpGoToSlide);
-        
-		// Form Check Box quizShowGoodAnswers
-		$showGoodAnswers = $this->isNew() ? 0 : $this->getVar('quiz_showGoodAnswers');
-		$inpShowGoodAnswers = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS, 'quiz_showGoodAnswers', $showGoodAnswers);
-		$inpShowGoodAnswers->setDescription(_AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS_DESC);
-		$form->addElement($inpShowGoodAnswers);
-        
-		// Form Check Box quizShowBadAnswers
-		$showBadAnswers = $this->isNew() ? 0 : $this->getVar('quiz_showBadAnswers');
-		$inpShowBadAnswers = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS, 'quiz_showBadAnswers', $showGoodAnswers);
-		$inpShowBadAnswers->setDescription(_AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC);
-		$form->addElement($inpShowBadAnswers);
-        
-		// Form Check Box quizShowLog
-		$quizShowLog = $this->isNew() ? 0 : $this->getVar('quiz_showLog');
-		$checkQuizShowLog = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOWLOG, 'quiz_showLog', $quizShowLog);
-		$checkQuizShowLog->setDescription(_AM_QUIZMAKER_QUIZ_SHOWLOG_DESC);
-		$form->addElement($checkQuizShowLog);
-        
-		// Form Check Box quizShowResultAllways
-		$quizShowResultAllways = $this->isNew() ? 0 : $this->getVar('quiz_showResultAllways');
-		$checkQuizShowResultAllways = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS, 'quiz_showResultAllways', $quizShowResultAllways);
-		$checkQuizShowResultAllways->setDescription(_AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS_DESC);
-		$form->addElement($checkQuizShowResultAllways );
-        
-        
-		// Form Check Box ShowReponses
-		$quizShowReponses = $this->isNew() ? 0 : $this->getVar('quiz_showReponsesBottom');
-		$checkQuizShowReponses = new \XoopsFormRadioYN( _AM_QUIZMAKER_QUIZ_SHOWREPONSES_BOTTOM, 'quiz_showReponsesBottom', $quizShowReponses);
-		$checkQuizShowReponses->setDescription(_AM_QUIZMAKER_QUIZ_SHOWREPONSES_BOTTOM_DESC);
-		$form->addElement($checkQuizShowReponses );
-        
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_PERMISSIONS . '</div></center>');
         //========================================================
@@ -448,34 +363,23 @@ class Quiz extends \XoopsObject
 		$ret['publishAnswers']      = $this->getVar('quiz_publishAnswers');
         $ret['publishAnswersOk']    = (($ret['periodeOK']==0 && $ret['publishQuiz']>0 && $ret['publishAnswers']==2) || $ret['publishAnswers']==1) ? 1 : 0;
 
-		$ret['showAllSolutions']      = $this->getVar('quiz_showAllSolutions');
         
 		$ret['theme']             = $this->getVar('quiz_theme');
+		$ret['libBegin']          = $this->getVar('quiz_libBegin');
+		$ret['libEnd']            = $this->getVar('quiz_libEnd');
         $ret['theme_ok'] = ($ret['theme'] == '') ? $categoriesHandler->getValue($ret['cat_id'],'cat_theme','default') : $ret['theme'];
 		$ret['questPosComment1']  = $this->getVar('quiz_questPosComment1');
-		$ret['answerBeforeNext']  = $this->getVar('quiz_answerBeforeNext');
-		$ret['allowedPrevious']   = $this->getVar('quiz_allowedPrevious');
-		$ret['allowedSubmit']     = $this->getVar('quiz_allowedSubmit');
-		$ret['showScoreMinMax']   = $this->getVar('quiz_showScoreMinMax');
-		$ret['shuffleQuestions']  = $this->getVar('quiz_shuffleQuestions');
-		$ret['showGoodAnswers']   = $this->getVar('quiz_showGoodAnswers');
-		$ret['showBadAnswers']    = $this->getVar('quiz_showBadAnswers');
-		$ret['showReloadAnswers'] = $this->getVar('quiz_showReloadAnswers');
-		$ret['showGoToSlide']     = $this->getVar('quiz_showGoToSlide');
 		$ret['minusOnShowGoodAnswers'] = $this->getVar('quiz_minusOnShowGoodAnswers');
-		$ret['useTimer']          = $this->getVar('quiz_useTimer');
-		$ret['showResultAllways'] = $this->getVar('quiz_showResultAllways');
-		$ret['showReponsesBottom']= $this->getVar('quiz_showReponsesBottom');
-		$ret['showResultPopup']   = $this->getVar('quiz_showResultPopup');
-		$ret['showTypeQuestion']  = $this->getVar('quiz_showTypeQuestion');
-		$ret['showLog']           = $this->getVar('quiz_showLog');
 		$ret['legend']            = $this->getVar('quiz_legend', 'e');
 		$ret['legend_short']      = $utility::truncateHtml($ret['legend'], $editorMaxchar);
 		$ret['dateBeginOk']       = $this->getVar('quiz_dateBeginOk');
 		$ret['dateEndOk']         = $this->getVar('quiz_dateEndOk');
 		$ret['build']             = $this->getVar('quiz_build');
+		$ret['optionsIhm']        = $this->getVar('quiz_optionsIhm');
+		$ret['optionsDev']        = $this->getVar('quiz_optionsDev');
 		$ret['actif']             = $this->getVar('quiz_actif');
 		$ret['showConsigne']      = $this->getVar('quiz_showConsigne');
+
         //verifie que le quiz a été généré
         $quiz_html = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.html"; 
         $ret['quiz_html'] = (file_exists($quiz_html)) ?  QUIZMAKER_URL_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.html" : '';
@@ -485,6 +389,9 @@ class Quiz extends \XoopsObject
         $ret['quiz_tpl'] = (file_exists($quiz_tpl)) ?  QUIZMAKER_URL_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.tpl" : '';
         $ret['quiz_tpl_path'] = (file_exists($quiz_tpl)) ?  $quiz_tpl : '';
         $ret['flags'] = $this->getFlags($ret);
+
+
+
         
         $ret['countQuestions'] = $this->countQuestions();
         
@@ -497,21 +404,30 @@ class Quiz extends \XoopsObject
         $flags['showConsigne']      = quizFlagAscii($ret['showConsigne'], "?");
         $flags['publishResults']    = quizFlagAscii($ret['publishResults'], "R");
         $flags['publishAnswers']    = quizFlagAscii($ret['publishAnswers'], "S");
-        $flags['showResultPopup']   = quizFlagAscii($ret['showResultPopup'], "Popup");
-        $flags['useTimer']          = quizFlagAscii($ret['useTimer'], "T");        
-        $flags['allowedSubmit']     = quizFlagAscii($ret['allowedSubmit'], "Sb");                                
-        $flags['showReloadAnswers'] = quizFlagAscii($ret['showReloadAnswers'], "Rl");
-        $flags['showGoToSlide']     = quizFlagAscii($ret['showGoToSlide'], "Go");
-        $flags['allowedPrevious']   = quizFlagAscii($ret['allowedPrevious'], "Pr"); 
-        $flags['shuffleQuestions']  = quizFlagAscii($ret['shuffleQuestions'], "M"); 
-        $flags['showGoodAnswers']   = quizFlagAscii($ret['showGoodAnswers'], "Ga"); 
-        $flags['showBadAnswers']    = quizFlagAscii($ret['showBadAnswers'], "Ba"); 
-        $flags['showScoreMinMax']   = quizFlagAscii($ret['showScoreMinMax'], "Smm"); 
-        $flags['showAllSolutions']  = quizFlagAscii($ret['showAllSolutions'], "Vas"); 
                
-        $flags['answerBeforeNext']  = quizFlagAlpha($ret['answerBeforeNext'], "Ro|Ro");
         //$flags['onClickSimple']     = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk"); //basculé dans les options du slide
+        
+        $optionsIhm = $ret['optionsIhm'];
+        $flags['allowedSubmit']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT__ALLOWEDSUBMIT, $optionsIhm), "Sb"); 
+        $flags['showScoreMinMax']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWSCOREMINMAX, $optionsIhm), "Smm"); 
+        $flags['showAllSolutions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWALLSOLUTIONS, $optionsIhm), "Vas"); 
+        $flags['answerBeforeNext']  = quizFlagAlpha(isBitOk(QUIZMAKER_BIT_ANSWERBEFORENEXT, $optionsIhm), "Ro|Ro");
+        $flags['allowedPrevious']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_ALLOWEDPREVIOUS, $optionsIhm), "Pr"); 
+        $flags['useTimer']          = quizFlagAscii(isBitOk(QUIZMAKER_BIT_USETIMER, $optionsIhm), "T");        
+        $flags['shuffleQuestions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHUFFLEQUESTIONS, $optionsIhm), "M"); 
+        $flags['showResultPopup']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWRESULTPOPUP, $optionsIhm), "Popup");
+        $flags['minusOnShowGoodAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS, $optionsIhm), "Minus");
 
+        $optionsDev = $ret['optionsDev'];
+        $flags['showTypeQuestion']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWTYPEQUESTION, $optionsDev), "TQ");
+        $flags['showReloadAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWRELOADANSWERS, $optionsDev), "Rl");
+        $flags['showGoToSlide']     = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWGOTOSLIDE, $optionsDev), "Go");
+        $flags['showGoodAnswers']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWGOODANSWERS, $optionsDev), "Ga"); 
+        $flags['showBadAnswers']    = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWBADANSWERS, $optionsDev), "Ba"); 
+        $flags['showLog']           = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWLOG, $optionsDev), "Log"); 
+        $flags['showResultAllways'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWRESULTALLWAYS, $optionsDev), "Ra"); 
+        $flags['showReponsesBottom']= quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWREPONSESBOTTOM, $optionsDev), "Rb"); 
+        
         return $flags;
 }                                      
 

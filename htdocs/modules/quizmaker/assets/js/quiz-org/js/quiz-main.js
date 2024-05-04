@@ -53,6 +53,30 @@ const quiz_css = {
     log         : `item-round-all ${quiz.theme}-item-body`
 };
 
+var h = 0;
+var optionsIhm = quiz.optionsIhm*1;
+quiz.allowedSubmit     = isBitOk(h++, optionsIhm); 
+quiz.showScoreMinMax   = isBitOk(h++, optionsIhm); 
+quiz.showAllSolutions  = isBitOk(h++, optionsIhm); 
+quiz.answerBeforeNext  = isBitOk(h++, optionsIhm); 
+quiz.allowedPrevious   = isBitOk(h++, optionsIhm); 
+quiz.useTimer          = isBitOk(h++, optionsIhm); 
+quiz.shuffleQuestions  = isBitOk(h++, optionsIhm);  
+quiz.showResultPopup   = isBitOk(h++, optionsIhm);  
+quiz.minusOnShowGoodAnswers = isBitOk(h++, optionsIhm);  
+
+//alert("optionsDev = " + quiz.optionsDev);
+var h = 0;
+var optionsDev = quiz.optionsDev*1;
+quiz.showTypeQuestion   = isBitOk(h++, optionsDev); 
+quiz.showReloadAnswers  = isBitOk(h++, optionsDev); 
+quiz.showGoToSlide      = isBitOk(h++, optionsDev); 
+quiz.showGoodAnswers    = isBitOk(h++, optionsDev); 
+quiz.showBadAnswers     = isBitOk(h++, optionsDev); 
+quiz.showLog            = isBitOk(h++, optionsDev); 
+quiz.showResultAllways  = isBitOk(h++, optionsDev);
+quiz.showReponsesBottom = isBitOk(h++, optionsDev); 
+
 var quizard = [];
 ///  zzz.togodo();
 // ----------------------------------------------------------
@@ -136,12 +160,14 @@ function getHtmlFooter(){
  *   
  * ************************************************************************/
 function getHtmlMessage(){
+    var libBegin = (quiz.libBegin) ? quiz.libBegin : quiz_messages.btnStartQuiz;
+    var libEnd   = (quiz.libEnd)   ? quiz.libEnd   : quiz_messages.btnSubmit;
 
     return `<div id="quiz_div_message" name="quiz_div_message" class="${quiz_css.message}">${quiz_messages.messages}</div>
             <div id="quiz_div_start" name="quiz_div_start" class="${quiz_css.message}">
             <center><br>
-            <button id="quiz_btn_startQuiz"     name="quiz_btn_startQuiz"     class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnStartQuiz}</button>
-            <button id="quiz_btn_submitAnswers"     name="quiz_btn_submitAnswers"     class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${quiz_messages.btnSubmit}</button>
+            <button id="quiz_btn_startQuiz"     name="quiz_btn_startQuiz"     class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${libBegin}</button>
+            <button id="quiz_btn_submitAnswers"     name="quiz_btn_submitAnswers"     class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;z-index:9999;">${libEnd}</button>
 
             </center>
             </div>`
@@ -853,7 +879,7 @@ if(obHelp) obHelp.innerHTML = consigne;
    
   //alert("showSlide_new : " + offset);
   if (quiz.showResultAllways) showResults();
-  if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
+  //if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
 
    }
    
@@ -1259,7 +1285,6 @@ function shuffleMyquiz () {
  
 /* ***********************************************
 *
-* */
 function updateOptions (){
        var ob;
 
@@ -1293,6 +1318,7 @@ function updateOptions (){
 //alert("updateOptions");
 return true;
  }
+* */
  
 
 /*****************************************************************

@@ -302,6 +302,85 @@ global $questionsHandler, $resultsHandler;
     }
 
 /* ******************************
+ * Change l'etat du champ passer en parametre
+ * @$quizId : id du quiz
+ * @$field : nom du champ à changer
+ * *********************** */
+/*
+public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
+{
+    if (($newValue) < 0){
+        $binValue = pow(2, $bitIndex);
+        $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ {$binValue}";
+    }
+    
+    $sql .= " WHERE quiz_id={$quizId};";
+    $ret = $this->db->queryf($sql);
+    return $ret;
+}
+*/
+
+public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
+{
+    if($bitIndex == -1){
+    
+        if ($newValue == 1){
+            $binValue = pow(2, 16)-1;
+            $sql = "UPDATE {$this->table} SET {$field} = {$binValue}";
+        }elseif ($newValue == 0){
+            $sql = "UPDATE {$this->table} SET {$field} = 0";
+        }else{
+            $binValue = pow(2, 16)-1;
+            $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ {$binValue}";
+        }
+    
+        
+    }else{
+        $binValue = pow(2, $bitIndex);
+        if ($newValue == 1){
+            $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue}";
+        }elseif ($newValue == 0){
+            $sql = "UPDATE {$this->table} SET {$field} = {$field} & ~{$binValue}";
+        }else{
+            $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ {$binValue}";
+        }
+    
+        
+    }
+    
+    
+    $sql .= " WHERE quiz_id={$quizId};";
+    $ret = $this->db->queryf($sql);
+//exit;
+    return $ret;
+}
+
+// public function setBitOn($quizId, $field, $bitIndex, $newBitValue)
+// {
+//     $binValue = pow(2,$bitIndex);
+//     if($newBitValue){
+//         $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue};";
+//     }else{
+//         $sql = "UPDATE {$this->table} SET {$field} = {$field} & ~{$binValue};";
+//     }
+//     
+//     $ret = $this->db->queryf($sql);
+//     return $ret;
+// }
+// public function setBitXor($quizId, $field, $bitIndex, $newBitValue)
+// {
+//     $binValue = pow(2,$bitIndex);
+//     if($newBitValue){
+//         $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue};";
+//     }else{
+//         $sql = "UPDATE {$this->table} SET {$field} = {$field} xor {$binValue};";
+//     }
+// 
+//     $ret = $this->db->queryf($sql);
+//     return $ret;
+// }
+
+/* ******************************
  * renvoi un jeu de valeurs utilisé dans la liste de l'admin
  * permet une modification rapide des options
  * *********************** */
@@ -309,48 +388,20 @@ global $questionsHandler, $resultsHandler;
     {
         switch ($config){
         case 1:
-        $tField = array('quiz_answerBeforeNext'     => '1',
-                        'quiz_allowedPrevious'      => '1',
-                        'quiz_allowedSubmit'        => '0',
-                        'quiz_showScoreMinMax'      => '0',
-                        'quiz_shuffleQuestions'     => '0',
-                        'quiz_showGoodAnswers'      => '1',
-                        'quiz_showBadAnswers'       => '1',
-                        'quiz_showReloadAnswers'    => '1',
-                        'quiz_showGoToSlide'        => '1',
-                        'quiz_useTimer'             => '0',
-                        'quiz_showAllSolutions'     => '1',
-                        'quiz_showResultAllways'    => '1',
-                        'quiz_showReponsesBottom'   => '1',
-                        'quiz_showResultPopup'      => '0',
-                        'quiz_showTypeQuestion'     => '1',
-                        'quiz_showLog'              => '1',
-                        'quiz_showConsigne'         => '1',
+        $tField = array('quiz_showConsigne'         => '1',
+                        'quiz_optionsIhm'           => '0',
+                        'quiz_optionsDev'           => '0',
                         'quiz_actif'                => '0');
             break;
             
         default :
-        $tField = array('quiz_answerBeforeNext'     => '1',
-                        'quiz_allowedPrevious'      => '0',
-                        'quiz_allowedSubmit'        => '0',
-                        'quiz_showScoreMinMax'      => '0',
-                        'quiz_shuffleQuestions'     => '0',
-                        'quiz_showGoodAnswers'      => '0',
-                        'quiz_showBadAnswers'       => '0',
-                        'quiz_showReloadAnswers'    => '0',
-                        'quiz_showGoToSlide'        => '0',
-                        'quiz_useTimer'             => '0',
-                        'quiz_showAllSolutions'     => '0',
-                        'quiz_showResultAllways'    => '0',
-                        'quiz_showReponsesBottom'   => '0',
-                        'quiz_showResultPopup'      => '1',
-                        'quiz_showTypeQuestion'     => '0',
-                        'quiz_showLog'              => '0',
-                        'quiz_showConsigne'         => '1',
+        $tField = array('quiz_showConsigne'         => '1',
+                        'quiz_optionsIhm'           => '0',
+                        'quiz_optionsDev'           => '0',
                         'quiz_actif'                => '1');
             break;
         }
-        
+
     $sql = "UPDATE " . $this->table . " SET " . implode(', ', $tField)   
          . " WHERE quiz_id = {$quizId}; ";     
         

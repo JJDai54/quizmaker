@@ -112,32 +112,21 @@ switch($op) {
 		$quizObj->setVar('quiz_dateEnd', $QuizDateEnd);
 		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
 		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
-		$quizObj->setVar('quiz_showAllSolutions', Request::getInt('quiz_showAllSolutions', 0));
 		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'default'));
-		$quizObj->setVar('quiz_answerBeforeNext', Request::getInt('quiz_answerBeforeNext', 0));
+		$quizObj->setVar('quiz_libBegin', Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
+		$quizObj->setVar('quiz_libEnd', Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 		$quizObj->setVar('quiz_questPosComment1', Request::getInt('quiz_questPosComment1', 1));
-		$quizObj->setVar('quiz_allowedPrevious', Request::getInt('quiz_allowedPrevious', 0));
-		$quizObj->setVar('quiz_allowedSubmit', Request::getInt('quiz_allowedSubmit', 0));
-		$quizObj->setVar('quiz_showScoreMinMax', Request::getInt('quiz_showScoreMinMax', 0));
-		$quizObj->setVar('quiz_shuffleQuestions', Request::getInt('quiz_shuffleQuestions', 0));
-		$quizObj->setVar('quiz_showGoodAnswers', Request::getInt('quiz_showGoodAnswers', 0));
-		$quizObj->setVar('quiz_showBadAnswers', Request::getInt('quiz_showBadAnswers', 0));
-		$quizObj->setVar('quiz_showReloadAnswers', Request::getInt('quiz_showReloadAnswers', 0));
-		$quizObj->setVar('quiz_showGoToSlide', Request::getInt('quiz_showGoToSlide', 0));
 		$quizObj->setVar('quiz_minusOnShowGoodAnswers', Request::getInt('quiz_minusOnShowGoodAnswers', 0));
-		$quizObj->setVar('quiz_useTimer', Request::getInt('quiz_useTimer', 0));
-		$quizObj->setVar('quiz_showResultAllways', Request::getInt('quiz_showResultAllways', 0));
-		$quizObj->setVar('quiz_showReponsesBottom', Request::getInt('quiz_showReponsesBottom', 0));
-		$quizObj->setVar('quiz_showResultPopup', Request::getInt('quiz_showResultPopup', 0));
-		$quizObj->setVar('quiz_showTypeQuestion', Request::getInt('quiz_showTypeQuestion', 0));
-		$quizObj->setVar('quiz_showLog', Request::getInt('quiz_showLog', 0));
 		$quizObj->setVar('quiz_legend', Request::getText('quiz_legend', ''));
 		$quizObj->setVar('quiz_dateBeginOk', Request::getInt('quiz_dateBeginOk', 0));
 		$quizObj->setVar('quiz_dateEndOk', Request::getInt('quiz_dateEndOk', 0));
 		$quizObj->setVar('quiz_build', Request::getInt('quiz_build', 0));
+		$quizObj->setVar('quiz_optionsIhm', Request::getInt('quiz_optionsIhm', 0));
+		$quizObj->setVar('quiz_optionsDev', Request::getInt('quiz_optionsDev', 0));
 		$quizObj->setVar('quiz_actif', Request::getInt('quiz_actif', 1));
 		$quizObj->setVar('quiz_showConsigne', Request::getInt('quiz_showConsigne', 0));
+        
 		// Insert Data
 		if ($quizHandler->insert($quizObj)) {
 			$newQuizId = $quizId > 0 ? $quizId : $quizObj->getNewInsertedIdQuiz();

@@ -112,6 +112,9 @@ function addNewChild(parentId){
                   <{assign var="fldImg" value="red"}>
                   <{assign var="styleParent" value="style='background:mistyrose;'"}>
                   
+                <{elseif !$Questions.actif}>
+                  <{assign var="fldImg" value="blue"}>
+                  <{assign var="styleParent" value="style='background:#FFCCFF;color:red;'"}>
                 <{else}>
                   <{assign var="fldImg" value="blue"}>
                   <{assign var="styleParent" value=""}>
@@ -122,15 +125,10 @@ function addNewChild(parentId){
                 
                 <{if $Questions.actif}>
                     <{assign var="indexJS" value=$indexJS+1}>
-				    <td class='center width5' <{$styleParent}> ><span style='color:blue;'><{$index}>/<{$indexJS}></span></td>
+				    <td class='center width5' <{$styleParent}> ><{$index}>/<{$indexJS}></td>
                 <{else}>
-				    <td class='center width5' <{$styleParent}> ><span style='color:blue;'><{$index}>/##</span></td>
+				    <td class='center width5' <{$styleParent}> ><{$index}>/##</td>
                 <{/if}>
-                
-                
-                
-                
-                
                 
 				<td class='center' <{$styleParent}> ><a name='question-<{$Questions.id}>' /><{$Questions.id}></td>
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}></td>
@@ -175,48 +173,25 @@ function addNewChild(parentId){
 				<td class='center' <{$styleParent}> ><{$Questions.inpPoints}>
 				
                 <td class='center' <{$styleParent}> >
-<{* 
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_timer&modulo=-10&action=minus"  title='<{$smarty.const._AM_QUIZMAKER_PLUS}>' >
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/minus.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
-                      </a>
-                    <{$Questions.quest_timer}>
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_timer&modulo=10&action=plus"  title='<{$smarty.const._AM_QUIZMAKER_PLUS}>' >
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/plus.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
-                      </a>
-*}>                 
                       <{$Questions.inpTimer}>
                 </td>
                 
 				<{* <td class='center' <{$styleParent}> ><{$Questions.creation}></td> *}>
                 
 				<td class="center  width10" <{$styleParent}> >
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
-        				<{*  <img src="<{xoModuleIcons16}><{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' /> *}>
-                        <{$Questions.flags.actif}>
-                        </a>|
-                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' >
-        				<{*  <img src="<{xoModuleIcons16}><{$Questions.visible}>.png" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' /> *}>
-                        <{$Questions.flags.visible}>
-                        </a>
                         
                     <{if $Questions.isQuestion}>
                         |<a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_numbering&modulo=4"  title='<{$smarty.const._AM_QUIZMAKER_NUMBERING}>' >
                             <{$Questions.flags.numbering}>
-                            </a>
-<{* 
-                        <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers"  title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANS}>' >
-
-                            <{$Questions.flags.shuffleAnswers}>
                             </a>|
-                        <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers" >
-                            </a>
-                    <{else}>
-        				<img src="<{$modPathIcon16}>/grey.gif" alt="Visible" title='<{$smarty.const._AM_QUIZMAKER_NOT_QUESTION}>' />
-*}>                             
                     <{/if}>
 				</td>
                 
 				<td class="center width10" <{$styleParent}> >
+                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
+        				 <img src="<{xoModuleIcons16}><{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                        </a>
+                        
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16}>/edit.png" alt="questions" />
                         </a>

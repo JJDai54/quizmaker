@@ -2,3 +2,4 @@ Read Me First
 =============
 
 Install just like another XOOPS module
+In the package there is somm quiz to import and test the module.

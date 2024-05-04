@@ -111,14 +111,15 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //---------------------------------------------        
         //test du quiz : affiche l'icone avec un "?" bleu si le quiz a ete générérer, permet de le tester
         if($quiz){
-        if($quizValues["quiz_html"] != '' ){
-            $imgTestHtml = new XoopsFormImg(_AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'], QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $quizValues["quiz_html"].'?'.getParamsForQuiz(1) );
-        }else{
-            $imgTestHtml = new XoopsFormImg(_AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'], QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
-        } 
-        $imgTestHtml->setExtra("target='blank'");
-        //$btn['imgTest'] = $imgTest->render();
-		$GLOBALS['xoopsTpl']->assign('imgTestHtml', $imgTestHtml->render());
+            $lib =  _AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'];
+            if($quizValues["quiz_html"] != '' ){
+                $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $quizValues["quiz_html"].'?'.getParamsForQuiz(1) );
+            }else{
+                $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
+            } 
+            $imgTestHtml->setExtra("target='blank'");
+            //$btn['imgTest'] = $imgTest->render();
+  		    $GLOBALS['xoopsTpl']->assign('imgTestHtml', $imgTestHtml->render());
         }
         
         $btnPurgerImg = $quizUtility->getNewBtn(_AM_QUIZMAKER_PURGER_IMAGES, 'purger_images', QUIZMAKER_URL_ICONS."/16/delete.png",  _AM_QUIZMAKER_QUIZ_PURGER_IMAGES);

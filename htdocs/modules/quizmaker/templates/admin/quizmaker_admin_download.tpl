@@ -1,5 +1,5 @@
 
-<{if $download==1}>
+<{if $download == 1}>
 <style>
 #quiz_download {
     padding: 8px;
