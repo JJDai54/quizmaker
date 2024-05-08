@@ -19,6 +19,7 @@ Extensions=*.*
 _quizmaker
 	+_JJD
 		..\..\Frameworks\JJD-Framework\include\about-functions.php
+		..\..\Frameworks\JJD-Framework\templates\admin_about.tpl
 		..\..\Frameworks\JJD-Framework\class\xoopsform\checkboxbin\js\checkboxbin.js
 		..\..\Frameworks\JJD-Framework\class\xoopsform\checkboxbin\formcheckboxbin.php
 		..\..\Frameworks\JJD-Framework\include\fw-functions.php
@@ -1454,10 +1455,10 @@ _quizmaker
 11=admin\type_question_help.php
 [Selected Project Files]
 Main=
-Selected=class\Type_questionHandler.php
+Selected=docs\changelog.txt
 [docs\changelog.txt]
 TopLine=11
-Caret=5,36
+Caret=75,29
 [docs\todo.txt]
 TopLine=4
 Caret=21,44

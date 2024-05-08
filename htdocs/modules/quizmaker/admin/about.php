@@ -54,5 +54,6 @@ $box['changelog']['content'] = $clAbout->changelog();
 /************************************************************************/
 $adminObject->displayNavigation('about.php');
 $GLOBALS['xoopsTpl']->assign('box', $box);
+$GLOBALS['xoopsTpl']->assign('tplAbout', XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/templates/admin_about.tpl");
 
 require __DIR__ . '/footer.php';
