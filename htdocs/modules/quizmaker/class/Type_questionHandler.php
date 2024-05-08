@@ -118,10 +118,7 @@ public function getListKeyName($category = null, $boolCode = false){
 
         
         foreach ($listTQ as $key=>$arr){
-
               $ret[$arr['type']] = (($boolCode) ? $arr['type'] . ' : ' : '') . $arr['name'];  
-  
-        
         }
 
        //tri sur le poids poids 
@@ -133,30 +130,35 @@ public function getListKeyName($category = null, $boolCode = false){
 /* ************************
 
 ************************** */
-public function getListByGroup($boolCode = false){
+public function getListByGroup($boolCode = false, $addPagesBeginEnd = false){
     $allTQ = $this->getAll(null, true);
-    $weight = array();
-    $cat = array();
-    foreach($allTQ as $key => $arr) {
-        $wheight[$key] = $arr['type'];
-        $cat[$key]     = $arr['category'];
-    }
-    //sort($wheight);
-    //sort($cat);
-    //array_multisort($allTQ, $cat, $weight);
-    
-    $cat="";
-    $ret = array();
-    $prefix = '--- ';
+    $list = array();
+
     foreach($allTQ as $key => $arr) {
        if($arr['obsolette']) continue;
-       if ($cat != $arr['category']){
-            $ret['>' . $arr['category']] = $arr['category'] . ' : ' . $arr['categoryLib'];
-
-       }
-       $ret[$key] = $prefix . (($boolCode) ? $arr['type'] . ' : ' : '') . $arr['name'];
-       $cat = $arr['category'];
+       if (!$addPagesBeginEnd && ($key == "pageBegin" || $key == "pageEnd")) continue;
+       if(!isset($list[$arr['category']])) $list[$arr['category']] = $arr['category'];
+       
+       $key = $arr['category'] .'-' . $arr['type'];
+       $list[$key] = $arr['type'];
+       
     }
+    ksort($list);
+    //echoArray($list);
+
+    //--------------------------------------------------------
+    $ret = array();
+    $prefix = '--- ';
+    
+    foreach($list as $key => $v) {
+        if ($key == $v){
+            $ret['>' . $v] = constant(QUIZMAKER_PREFIX_CAT .  strToUpper($v));
+        }else{
+            $lib = $allTQ[$v]['name'];
+            $ret[$v] = $prefix . $lib . (($boolCode) ? " [{$v}]"  : '') ;
+        }
+    }
+    
     //echoArray($ret);
     return $ret;    
 }
@@ -169,7 +171,8 @@ public function getCategories($addAll = false){
     if($addAll) $cat[QUIZMAKER_ALL] = '(*)';
     foreach($allTQ as $key => $arr) {
         if(!array_key_exists($arr['category'], $cat))
-            $cat[$arr['category']] = $arr['category'];
+            $cat[$arr['category']] = $arr['category'] . " - " . constant(QUIZMAKER_PREFIX_CAT . strToUpper($arr['category']));
+            $cat[$arr['category']] = constant(QUIZMAKER_PREFIX_CAT . strToUpper($arr['category'])) . " [{$arr['category']}]";
     }
     return $cat;    
 }
@@ -281,12 +284,13 @@ public function getAllPluginsName(){
 
 ******************************************************* */
 public function getAllPlugins($category=null, $bolKeyType = false){
-    if (!$category)  $category = QUIZMAKER_ALL;
+    if (!$category) $category=QUIZMAKER_ALL;
+    
     $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PATH_PLUGINS_PHP);
 //echoArray($allPluginsName, QUIZMAKER_PATH_PLUGINS_PHP);    
     $ret = array();    
     foreach($allPluginsName as $key=>$typeQuestion){    
-        if(substr($typeQuestion,0,strlen($category)) == $category || $category == QUIZMAKER_ALL) {
+//        if(substr($typeQuestion,0,strlen($category)) == $category || $category == QUIZMAKER_ALL) {
 //           $f = QUIZMAKER_PATH_PLUGINS_PHP . "/{$key}/slide_" . $key . ".php";  
 //           include_once($f);
 //           $clsName = "slide_" . $key;    
@@ -294,6 +298,9 @@ public function getAllPlugins($category=null, $bolKeyType = false){
           
           
           $cls = $this->getTypeQuestion($typeQuestion);
+          if($cls->category == $category || $category == QUIZMAKER_ALL) {
+          
+          
           if($bolKeyType)
             $ret[$cls->type] = $cls->getValuesType_question();
           else

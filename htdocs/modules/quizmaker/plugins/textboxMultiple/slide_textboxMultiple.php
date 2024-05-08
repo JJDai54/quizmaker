@@ -39,7 +39,7 @@ class slide_textboxMultiple extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("textboxMultiple", 0, "textbox");
+        parent::__construct("textboxMultiple", 0, "text");
 
         $this->hasImageMain = true;
         $this->optionsDefaults = ['disposition' => 'disposition-01'];

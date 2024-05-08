@@ -35,7 +35,7 @@ class slide_comboboxSortItems extends  \slide_listboxSortItems
 	 */
 	public function __construct()
 	{   
-        $this->__init("comboboxSortItems", 0, "combobox");
+        $this->__init("comboboxSortItems", 0, "other");
         $this->optionsDefaults = ['ordre'=>'N', 'title'=>''];
 
         $this->hasImageMain = true;

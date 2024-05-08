@@ -76,7 +76,7 @@ define('_CO_QUIZMAKER_PUBLISH_QUIZ', "Publication du quiz");
 define('_CO_QUIZMAKER_FORM_INTRO', "Introduction");
 define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
 define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
-define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir ressaisir les réponses.");
+define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir les ressaisir.");
 define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
 define('_CO_QUIZMAKER_CATEGORIES', "Catégories");
 define('_CO_QUIZMAKER_SEE_ANSWER', "Voir les réponses");

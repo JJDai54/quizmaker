@@ -18,6 +18,7 @@ Extensions=*.*
 [Project tree]
 _quizmaker
 	+_JJD
+		..\..\Frameworks\JJD-Framework\include\about-functions.php
 		..\..\Frameworks\JJD-Framework\class\xoopsform\checkboxbin\js\checkboxbin.js
 		..\..\Frameworks\JJD-Framework\class\xoopsform\checkboxbin\formcheckboxbin.php
 		..\..\Frameworks\JJD-Framework\include\fw-functions.php
@@ -54,7 +55,8 @@ _quizmaker
 			admin\quiz-save.php
 			admin\results.php
 			admin\type_question.php
-		-assets
+			admin\type_question_help.php
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -184,7 +186,7 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
+			+js
 				-quiz-min
 					-css
 						-infobulle
@@ -715,7 +717,11 @@ _quizmaker
 							assets\js\quiz-org\plugins\ulDaDSortList\slide_ulDaDSortList.js
 						assets\js\quiz-org\plugins\index.html
 					assets\js\quiz-org\_quiz-org.ppr
+				assets\js\admin.js
+				assets\js\functions.js
+				assets\js\highslide.js
 				assets\js\index.html
+				assets\js\quizmaker.js
 			assets\index.html
 		-blocks
 			blocks\categories.php
@@ -763,7 +769,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 080.jpg
@@ -775,7 +781,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -787,7 +793,7 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
+		-language
 			+english
 				-help
 					language\english\help\help.html
@@ -839,8 +845,8 @@ _quizmaker
 				language\french\modinfo.php
 				language\french\type_questions.php
 			language\index.html
-		-plugins
-			-alphaSimple
+		+plugins
+			+alphaSimple
 				-img
 					-dispositions
 						plugins\alphaSimple\img\dispositions\disposition-01.png
@@ -875,7 +881,7 @@ _quizmaker
 					plugins\alphaSimple\snapshoot\snapshoot-002.jpg
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\slide_alphaSimple.php
-			-checkboxSimple
+			+checkboxSimple
 				-language
 					-english
 						plugins\checkboxSimple\language\english\constants.php
@@ -917,7 +923,7 @@ _quizmaker
 					plugins\comboboxMatchItems\snapshoot\snapshoot-002.jpg
 				plugins\comboboxMatchItems\index.html
 				plugins\comboboxMatchItems\slide_comboboxMatchItems.php
-			-comboboxSortItems
+			+comboboxSortItems
 				-language
 					-english
 						plugins\comboboxSortItems\language\english\constants.php
@@ -934,7 +940,7 @@ _quizmaker
 					plugins\comboboxSortItems\snapshoot\snapshoot-001.jpg
 				plugins\comboboxSortItems\index.html
 				plugins\comboboxSortItems\slide_comboboxSortItems.php
-			-imagesDaDGroups
+			+imagesDaDGroups
 				-img
 					-dispositions
 						plugins\imagesDaDGroups\img\dispositions\disposition-02.png
@@ -1162,7 +1168,7 @@ _quizmaker
 					plugins\radioMultiple\snapshoot\snapshoot-002.jpg
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\slide_radioMultiple.php
-			-radioSimple
+			+radioSimple
 				-language
 					-english
 						plugins\radioSimple\language\english\constants.php
@@ -1376,6 +1382,7 @@ _quizmaker
 				templates\admin\quizmaker_admin_results.tpl
 				templates\admin\quizmaker_admin_type_new_question.tpl
 				templates\admin\quizmaker_admin_type_question.tpl
+				templates\admin\quizmaker_admin_type_question_help.tpl
 			-blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
@@ -1435,72 +1442,52 @@ _quizmaker
 [Open project files]
 0=docs\changelog.txt
 1=docs\todo.txt
-2=sql\mysql.sql
-3=class\QuizHandler.php
-4=admin\quiz.php
-5=admin\header.php
-6=class\QuizUtility.php
-7=templates\admin\quizmaker_admin_questions.tpl
-8=templates\admin\quizmaker_admin_quiz.tpl
-9=templates\admin\quizmaker_admin_download.tpl
-10=admin\questions.php
-11=admin\questions-list.php
-12=..\..\Frameworks\JJD-Framework\include\fw-functions.php
-13=class\Quiz.php
-14=quiz.php
-15=admin\quiz-save.php
-16=xoops_version.php
+2=admin\header.php
+3=class\Type_questionHandler.php
+4=plugins\listboxSortItems\slide_listboxSortItems.php
+5=plugins\checkboxSimple\slide_checkboxSimple.php
+6=plugins\radioMultiple\slide_radioMultiple.php
+7=plugins\radioSimple\slide_radioSimple.php
+8=admin\type_question.php
+9=assets\js\quizmaker.js
+10=templates\admin\quizmaker_admin_type_question_help.tpl
+11=admin\type_question_help.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
+Selected=class\Type_questionHandler.php
 [docs\changelog.txt]
-TopLine=1
-Caret=26,1
+TopLine=11
+Caret=5,36
 [docs\todo.txt]
-TopLine=1
+TopLine=4
 Caret=21,44
-[sql\mysql.sql]
-TopLine=60
-Caret=1,98
-[class\QuizHandler.php]
-TopLine=540
-Caret=2,574
-[admin\quiz.php]
-TopLine=37
-Caret=18,58
 [admin\header.php]
-TopLine=6
-Caret=1,26
-[class\QuizUtility.php]
-TopLine=649
-Caret=61,666
-[templates\admin\quizmaker_admin_questions.tpl]
+TopLine=16
+Caret=19,37
+[class\Type_questionHandler.php]
+TopLine=104
+Caret=13,125
+[plugins\listboxSortItems\slide_listboxSortItems.php]
+TopLine=18
+Caret=58,39
+[plugins\checkboxSimple\slide_checkboxSimple.php]
+TopLine=9
+Caret=56,42
+[plugins\radioMultiple\slide_radioMultiple.php]
+TopLine=21
+Caret=55,42
+[plugins\radioSimple\slide_radioSimple.php]
+TopLine=21
+Caret=47,42
+[admin\type_question.php]
+TopLine=48
+Caret=1,79
+[assets\js\quizmaker.js]
+TopLine=4
+Caret=13,42
+[templates\admin\quizmaker_admin_type_question_help.tpl]
 TopLine=1
-Caret=1,1
-[templates\admin\quizmaker_admin_quiz.tpl]
-TopLine=213
-Caret=52,234
-[templates\admin\quizmaker_admin_download.tpl]
-TopLine=1
-Caret=15,2
-[admin\questions.php]
-TopLine=75
-Caret=18,108
-[admin\questions-list.php]
-TopLine=88
-Caret=51,114
-[..\..\Frameworks\JJD-Framework\include\fw-functions.php]
-TopLine=19
-Caret=17,45
-[class\Quiz.php]
-TopLine=351
-Caret=51,372
-[quiz.php]
-TopLine=99
-Caret=1,120
-[admin\quiz-save.php]
-TopLine=47
-Caret=21,68
-[xoops_version.php]
-TopLine=1
-Caret=34,32
+Caret=19,12
+[admin\type_question_help.php]
+TopLine=15
+Caret=16,54

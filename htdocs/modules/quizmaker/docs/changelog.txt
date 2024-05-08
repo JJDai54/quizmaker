@@ -1,6 +1,6 @@
 2024-04-23a v 4.14 beta 8 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-Ajout de l'édition des score dans l'admin pour permettre la correction des résultats.
+Ajout de l'édition des scores dans l'admin pour permettre la correction des résultats.
 relooking du template admin_results.tpl
 Nettoyage de fichiers inutiles
 Ajout des champs quiz_libBegin et quiz_libEnd pour une meilleure personalisation des quiz
@@ -21,11 +21,22 @@ champs "quiz_optionsIhm" et "quiz_optionsDev";
     - ajout de la fonction "setBinOn' dans quizHandler pour modifier les valeur bit par bit
     - modif des appels pour les champs supprimés "chage_etat remplacé par "set_binOn"
     
-Table question : 
+Table "questions" : 
     - suppression du champs "quest_visible" qui faisait double emloi avec "ques_actif"
     - modification du termplate de l'admin
 import : correctioon de la recherche de la categorie, problème des quotes dans le nom "=" remplacé par Like et "'" par "_"
-     
+
+onglet "About" : 
+    - transfert des fonctions de l'onglet "About" dans "JJD-Framework" afin de l'utiliser dans d'autres modules
+    
+onglet "Type de question" : 
+    - suppression des listes qui permettaient d'ajouter un type de question à un quiz? option pas pratique
+    - Suppression du bouton "+" remplacé par le bouton "?" qui permet d'affiche un popup avec l'aide du plugin.
+    - génération du popup qui affiche l'aide d'un plugin en cliquant sur le bouton "?"
+    
+- correction JS : reloadImgModeles, verif de l'existence de l'objet "btnAddQuestion"
+- refonte de la fonction type_questionHandler->getListByGroup()
+             
 2024-04-23a v 4.14 beta 6 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - table "quiz" ajout du champ "quiz_questPosComment1" qui détermine la position de comment1 de la table questions
@@ -53,7 +64,7 @@ import : correctioon de la recherche de la categorie, problème des quotes dans 
                  ajout de la restauration ur le même principe
                  active uniquement si elle paramettrée dans les préférences du module
 - question : suppression du clonage, probleme de clonage de la table enfant des propositions, a revoir
-           
+            
 2024-04-10a v 4.12 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - restructuration des plugins dans la partie javascript

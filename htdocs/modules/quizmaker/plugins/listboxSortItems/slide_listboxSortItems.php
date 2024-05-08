@@ -36,7 +36,7 @@ class slide_listboxSortItems extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("listboxSortItems", 0, "listbox");
+        parent::__construct("listboxSortItems", 0, "other");
         $this->optionsDefaults = ['orderStrict'=>'N', 'title'=>'', 'btnColor'=>'blue', 'btnHeight'=>28, 'mouseClick'=>1];
 
         $this->hasImageMain = true;

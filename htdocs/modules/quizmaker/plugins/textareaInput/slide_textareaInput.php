@@ -39,7 +39,7 @@ class slide_textareaInput extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("textareaInput", 0, "textarea");
+        parent::__construct("textareaInput", 0, "text");
         $this->optionsDefaults = ['orientation'=>'V', 
                                   'scoreByWord'=>5, 
                                   'tokenColor'=>'#FF0000'];

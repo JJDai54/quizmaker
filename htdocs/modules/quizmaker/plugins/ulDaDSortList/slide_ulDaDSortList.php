@@ -36,7 +36,7 @@ class slide_ulDaDSortList extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("ulDaDSortList", 0, "ul");
+        parent::__construct("ulDaDSortList", 0, "dragAndDrop");
         $this->optionsDefaults = ['ordre'=>'N', 'title'=>'', 
                                   'liBgDefault' =>'#f5f5f5', 
                                   'liBgActive'  =>'#ffe7e7', 

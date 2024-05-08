@@ -88,7 +88,7 @@ $resultsHandler = $quizmakerHelper->getHandler('Results');
 $messagesHandler = $quizmakerHelper->getHandler('Messages');
 $myts = MyTextSanitizer::getInstance();
 
-
+//echoArray($quizmakerHelper);
 /*
 */
 require_once("../include/quizFlagAscii.php");

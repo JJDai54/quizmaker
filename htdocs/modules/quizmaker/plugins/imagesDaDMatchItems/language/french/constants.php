@@ -24,7 +24,7 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS', "Replacer les images à leure place");
+define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS', "Replacer les images à leur place");
 define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_DESC', "Ce slide est composé d'images et de titres. Il faut replacer les images sur les bons titres.");
 define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_CONSIGNE', "Consigne à complèter");
 

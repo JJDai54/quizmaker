@@ -39,7 +39,7 @@ class slide_comboboxMatchItems extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("comboboxMatchItems", 0, "combobox");
+        parent::__construct("comboboxMatchItems", 0, "other");
         $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
                                   'minReponses'    => 0,
                                   'disposition'    => 'disposition-01',

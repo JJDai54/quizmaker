@@ -39,7 +39,7 @@ class slide_radioMultiple extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("radioMultiple", 0, "radio");
+        parent::__construct("radioMultiple", 0, "basic");
         $this->optionsDefaults = ['orientation' => 'horitontal', 
                                   'directive'   => ''];
         $this->hasImageMain = true;

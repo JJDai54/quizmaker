@@ -39,7 +39,7 @@ class slide_textareaSimple extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("textareaSimple", 0, "textarea");
+        parent::__construct("textareaSimple", 0, "text");
         $this->optionsDefaults = ['strToReplace'=>'@@@@@'];
     }
 

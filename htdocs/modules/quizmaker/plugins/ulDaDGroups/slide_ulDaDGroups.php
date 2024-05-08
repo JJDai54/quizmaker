@@ -40,7 +40,7 @@ var $maxGroups = 4;
 	 */
 	public function __construct()
 	{
-        parent::__construct("ulDaDGroups", 0, "ul");
+        parent::__construct("ulDaDGroups", 0, "dragAndDrop");
         $this->maxPropositions = 16;	
         $this->optionsDefaults = ['group0'=>'','group1'=>'','group2'=>'','group3'=>'',
                                   'bgGroup0'=>'#dfdfdf','bgGroup1'=>'#dfdfdf','bgGroup2'=>'#dfdfdf','bgGroup3'=>'#dfdfdf',

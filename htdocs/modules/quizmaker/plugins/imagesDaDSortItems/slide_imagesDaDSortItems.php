@@ -39,7 +39,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("imagesDaDSortItems", 0, "imagesDaD");
+        parent::__construct("imagesDaDSortItems", 0, "dragAndDrop");
         $this->maxPropositions = 8;	
         $this->optionsDefaults = ['imgHeight1'  => 64, 
                                   'moveMode'    => 0, 

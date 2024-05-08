@@ -25,7 +25,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
 define('_QT_QUIZMAKER_ALPHASIMPLE', "Question de lettres");
-define('_QT_QUIZMAKER_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractère alpha-nummériques à cocher.");
+define('_QT_QUIZMAKER_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères alpha-nummériques à cocher.");
 define('_QT_QUIZMAKER_ALPHASIMPLE_CONSIGNE', "Vous devez sélectioner un caractère alpha-numérique qui correspond à la question.");
 
 define('_QT_QUIZMAKER_ALPHASIMPLE_LETTERS', "Lettres");     

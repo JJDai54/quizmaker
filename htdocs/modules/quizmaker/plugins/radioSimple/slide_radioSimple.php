@@ -39,7 +39,7 @@ class slide_radioSimple extends \slide_checkboxSimple
 	 */
 	public function __construct()
 	{
-        $this->__init("radioSimple", 0, "radio");
+        $this->__init("radioSimple", 0, "basic");
         $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT, 
                                   'imgHeight'      => '80', 
                                   'familyWords'    => ''];

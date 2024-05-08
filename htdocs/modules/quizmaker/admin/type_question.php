@@ -44,17 +44,9 @@ if ($sender == 'cat_id'){
     $quizId  = Request::getInt('quiz_id', 0);
 }
 
-//   $gp = array_merge($_GET, $_POST);
-//   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
+//    $gp = array_merge($_GET, $_POST);
+//    echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
-// if ($quizId > 0) {
-//     $quizObj = $quizHandler->get($quizId);
-//     $catId = $quizObj->getVar('quiz_ct_id');
-// }else{
-//     $keys = array_keys ($catArray);
-//     $catId = $keys[0];
-//     $quizId = $quizHandler->getFirstIdOfParent($catId);
-//}
 
 
 
@@ -84,40 +76,31 @@ switch($op) {
         $inpCatTQ->addOptionArray($type_questionHandler->getCategories(true));
         $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . " style='background:#FFCCCC'");
   	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
-        // ----- Listes de selection pour filtrage -----  
-/* ces liste de sélection ne sont pas utile, prévue au départ pour ajouter des question il est préférable d'utiliser l'onglet question
-
-        //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
-        //$cat = $categoriesHandler->getListKeyName(null, false, false);
-        $catArray = $categoriesHandler->getListKeyName(null, false, false,null);        
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_QUESTION_CATEGORY, 'cat_id', $catId);
-        $inpCategory->addOptionArray($catArray);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . " style='background:cyan'");
-  	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
         
-        
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-        //$inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
-        $inpQuiz->setExtra("style='background:cyan'");
-  	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
-*/        
-        
-       // ----- /Listes de selection pour filtrage -----        
-/*
-        $btnGoToQuestion = $quizUtility->getNewBtn(_AM_QUIZMAKER_STRANGER_EXP, 'list', QUIZMAKER_URL_ICONS."/16/question.png",  "");
-		$GLOBALS['xoopsTpl']->assign('btnGoToQuestion', $btnGoToQuestion);
-*/    
-        
-        
-        
-        // Table view type_question
-		//$GLOBALS['xoopsTpl']->append('type_question_list', $type_questionAll);
 		$GLOBALS['xoopsTpl']->assign('type_question_list', $type_questionAll);
                         
 \JJD\include_highslide();
 	break;
 
+	case 'view':
+    
+/*
+<a href='' onclick="javascript:openWithSelfMain('<{$smarty.const._MED_URL}>/diapo.php?idMedia=<{$media.idMedia}>','',900,600);return false;"
+http://127.0.0.16/modules/quizmaker/plugins/alphaSimple/language/french/help.html
+ 
+<a href='' onclick="javascript:openWithSelfMain('<{$smarty.const.XOOPS_URL}>//modules/quizmaker/plugins/alphaSimple/language/french/help.html>','',900,600);return false;"
+http://127.0.0.16/modules/quizmaker/plugins/alphaSimple/language/french/help.html
+    public function 
+		$type_questionAll = $type_questionHandler->getAll($catTypeQuestion);    
+*/    
+      $templateMain = 'quizmaker_admin_type_question_help.tpl';
+      $plugin = Request::getString('plugin', '');
+      //echo "<hr>plugin : {$plugin}<hr>";
+      $clsTypeQuestion = $type_questionHandler->getTypeQuestion($plugin);
+      $GLOBALS['xoopsTpl']->assign('viewHelpTypeQuestion', $clsTypeQuestion->getViewType_question());
+
+        
+        break;
 
 
 }

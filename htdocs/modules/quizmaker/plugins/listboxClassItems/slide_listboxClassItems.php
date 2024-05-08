@@ -39,7 +39,7 @@ class slide_listboxClassItems extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("listboxClassItems", 0, "listbox");
+        parent::__construct("listboxClassItems", 0, "other");
         $this->optionsDefaults = ['group0'=>'', 'group1'=>'', 'group2'=>'', 
                                   'groupDefault'   => '-1', 
                                   'shuffleAnswers' => 1, 

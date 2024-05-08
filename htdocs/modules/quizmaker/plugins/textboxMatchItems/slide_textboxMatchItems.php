@@ -39,7 +39,7 @@ class slide_textboxMatchItems extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("textboxMatchItems", 0, "textbox");
+        parent::__construct("textboxMatchItems", 0, "text");
         $this->optionsDefaults = ['comparaison'=>0, 
                                   'disposition'=>'disposition-01'];
     }

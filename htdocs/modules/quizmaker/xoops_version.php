@@ -28,7 +28,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.14
+	'version'             => 4.14,
 	'module_status'       => 'Beta 8',
 	'release_date'        => '2024/05/04',
 	'description'         => _MI_QUIZMAKER_DESC,
@@ -96,6 +96,7 @@ $modversion['templates'] = [
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_type_question_help.tpl', 'description' => '', 'type' => 'admin'],
 
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],

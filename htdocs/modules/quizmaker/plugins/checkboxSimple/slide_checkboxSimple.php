@@ -39,7 +39,7 @@ class slide_checkboxSimple extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("checkboxSimple", 0, "checkbox");
+        parent::__construct("checkboxSimple", 0, "basic");
         $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
                                   'imgHeight'      => '80', 
                                   'familyWords'    => ''];

@@ -39,7 +39,7 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("alphaSimple", 0, "alpha");
+        parent::__construct("alphaSimple", 0, "text");
         $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
                                   'imgHeight'      => '80', 
                                   'directive'      => QUIZMAKER_NEW, 

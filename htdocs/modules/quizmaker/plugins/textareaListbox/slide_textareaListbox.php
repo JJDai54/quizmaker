@@ -39,7 +39,7 @@ class slide_textareaListbox extends XoopsModules\Quizmaker\Type_question
 	 */
 	public function __construct()
 	{
-        parent::__construct("textareaListbox", 0, "textarea");
+        parent::__construct("textareaListbox", 0, "text");
         $this->optionsDefaults = ['orientation'=>'V', 
                                   'scoreByGoodWord'=>2, 
                                   'scoreByBadWord'=>0, 

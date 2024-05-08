@@ -39,7 +39,7 @@ var $maxGroups = 4;
 	 */
 	public function __construct()
 	{
-        parent::__construct("imagesDaDGroups", 0, "imagesDaD");
+        parent::__construct("imagesDaDGroups", 0, "dragAndDrop");
         $this->maxPropositions = 16;	
         $this->optionsDefaults = ['imgHeight1'=>64,'imgHeight2'=>64,
                                   'group0'=>'Panier','group1'=>'','group2'=>'','group3'=>'',

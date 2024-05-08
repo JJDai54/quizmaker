@@ -86,7 +86,7 @@ var $prefix = '_QT_QUIZMAKER_';
         $this->typeQuestion = $typeQuestion;
         $this->questId = $parentId;
         $this->category = $cat;
-        
+//exit("ici<hr>");        
         switch($typeQuestion){
         case 'pageBegin' : $this->typeForm = QUIZMAKER_TYPE_FORM_BEGIN;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_INTRO;    break;
         case 'pageGroup' : $this->typeForm = QUIZMAKER_TYPE_FORM_GROUP;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_GROUP;    break;
@@ -95,7 +95,7 @@ var $prefix = '_QT_QUIZMAKER_';
         }
 
         $this->pathArr = $this->getPluginPath();
-//echoArray($this->pathArr, $typeQuestion);
+//echo "<hr><pre>" . print_r($this->pathArr,true) . "</pre><hr>";
         $this->name        = constant($this->prefix . strToUpper($typeQuestion));
         $this->description = constant($this->prefix . strToUpper($typeQuestion) . '_DESC');
         $this->consigne    = constant($this->prefix . strToUpper($typeQuestion) . '_CONSIGNE');
@@ -328,6 +328,14 @@ global $xoopDB;
 /* **********************************************************
 *
 * *********************************************************** */
+ 	public function getViewType_question($addSnapShoot = 1)
+ 	{
+    //exit("c'est bien la");
+        return $this->getInpHelp($addSnapShoot)->render();
+	}
+/* **********************************************************
+*
+* *********************************************************** */
  	public function getFormType_question($typeQuestion)
  	{
 	}
@@ -358,7 +366,7 @@ global $xoopDB;
 /* ********************************************
 *
 *********************************************** */
- 	public function getInpHelp()
+ 	public function getInpHelp($addSnapShoot = 1)
  	{global $xoopsConfig, $utility;
         //conteneur pour l'aide et les images
         $trayHelp = new \XoopsFormElementTray  ('', $delimeter = '');          
@@ -386,7 +394,7 @@ global $xoopDB;
 */        
         //--------------------------------
         //$inpSnapShoot = new \XoopsFormLabel  ('', 'fgdfhghk');
-
+    if($addSnapShoot == 1){
         $width  = 40; 
 
         foreach ($this->pathArr['snapshoot_url'] as $key=>$url)
@@ -402,7 +410,17 @@ global $xoopDB;
 
 
         }        
-        
+    }else if($addSnapShoot == 2){
+        $width  = 210; 
+
+        foreach ($this->pathArr['snapshoot_url'] as $key=>$url)
+        {
+                $img =  "<img src='{$url}' alt='slides' style='max-width:{$width}px' />";
+                
+                $inpImg = new \XoopsFormLabel  ('', $img);  
+                $trayHelp->addElement($inpImg);
+        }
+    }    
         //----------------------------------------------        
         return $trayHelp;
     }

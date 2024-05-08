@@ -7,26 +7,13 @@
 <input type="hidden" name="quest_parent_id" value="0" />
 <input type="hidden" name="quest_type_question" value="" />
     <div class="floatleft xo-buttons">
-
-<{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
-<{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
-<{$smarty.const._AM_QUIZMAKER_TYPE_QUESTION_CATEGORY}> : <{$inpCatTQ}>
-
+        <{$smarty.const._AM_QUIZMAKER_TYPE_QUESTION_CATEGORY}> : <{$inpCatTQ}>
          <{* <{$btnGoToQuestion}> *}>
     </div>
 
 
 </form>
 
-<script>
-function addNewQuestion(typeQuestion){
-//alert("addNewQuestion : " + typeQuestion);
-    document.quizmaker_select_filter.quest_type_question.value = typeQuestion;
-    document.quizmaker_select_filter.submit();
-
-    return true;
-}
-</script>
 
 <{if $type_question_list}>
 	<table id='quiz_type_question_list' name='quiz_type_question_list' class='table table-bordered'>
@@ -36,7 +23,6 @@ function addNewQuestion(typeQuestion){
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_TYPE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_SHORTDESC}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ACTIONS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_IMAGE}></th>
 
@@ -52,13 +38,12 @@ function addNewQuestion(typeQuestion){
 				<td class='left'><{$TypeDeQuestion.type}></td>
 				<td class='left'><{$TypeDeQuestion.name}></td>
 				<td class='left width50'><{$TypeDeQuestion.description}></td>
-				<td class='center'><{$TypeDeQuestion.weight}></td>
 				<td class='center'>
-                    <{if $TypeDeQuestion.canDelete}>
-                      <a  onclick="addNewQuestion('<{$TypeDeQuestion.type}>');">
-          				<img src="<{xoModuleIcons32}>add.png" alt="Add Question" title='<{$smarty.const._AM_QUIZMAKER_ADD_NEW_QUESTION}>' />
-                      </a>
-                    <{/if}>
+                    <a href='' onclick="javascript:openWithSelfMain('<{$smarty.const.XOOPS_URL}>/modules/quizmaker/admin/type_question_help.php?op=view&plugin=<{$TypeDeQuestion.type}>','<{$TypeDeQuestion.type}>',680,600);return false;">
+          				<img src="<{xoModuleIcons32}>faq.png" alt="Add Question" title='<{$smarty.const._AM_QUIZMAKER_ADD_NEW_QUESTION}>' />
+                    </a>
+                </td>   
+                    
                 <td class='left width20'>
 <{* 
                     <div class='highslide-gallery'>
