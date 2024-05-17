@@ -1,53 +1,82 @@
-<h1>imagesDadMatchItems : Replacer les images au bon endroit<br>
-</h1>
-
-<h3>Description :</h3>
-
-<span style="color: rgb(204, 0, 0); font-weight: bold;"></span><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Ce slide présente une liste d'images et une liste d'expressions toutes deux dans le désordre.<br>
-Dans certaine disposition, une image de substitution peut être présentées, voir les propositions et la disposition plus bas.<br>
-<br>
-</span>
-<h3>Objectif : <br>
-</h3>
-<span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Il faut replacer chaque image avec la bonne expression.</span>.<br>
-
-<h3>Options :
-</h3>
-
-<ul><li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">hauteur des images </span>: Hauteur
-des images à replacer au bon endroit.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"> <br>
-</span></b></li><li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">hauteur des silouhettes </span>: Hauteur
-des images de substitution.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"> </span></b></li><li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">directive optionnelle</span> : une texte pour préciser ce que l'utilisateur doit faire.</span></li><li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">disposition : plusieurs dispositions sont possibles. <br>
-</span></li><ul><li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">première disposition repr&amp;ésentée par un simple carré, images et expressions sont mélangées et affichées ensemble</span></li><li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">autres
-disositions : Images et espressions sont séparées dans deux zones,&nbsp; et
-une image de substitution est affichée avec chaque expression.<br>
-      </span></li></ul></ul>
-<br>
-
-<span style="font-weight: bold; color: rgb(153, 0, 0);"></span><span style="font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span>
-<h3>Propositions :</h3>
-
-Chaque proposition comprend : <br>
-
-<ul><li><span style="font-weight: bold;">Suppression</span> : la case a
-cocher en début de ligne permet de supprimer la proposition proprement,
-images comprises.<br>
-    <span style="font-weight: bold;"></span></li><li><span style="font-weight: bold;">une image</span> : Utilisée de
-préférence des images ayant le même format de taille au risque de
-perturber l'affichage. Ne pas utiliser des images trop lourde.</li><li><span style="font-weight: bold;">une expression</span> : chaque image devra être replacée avec la bonne expression.</li><li><span style="font-weight: bold;">poids</span> : il défini l'orde
-des propositions à trouver.</li><li><span style="font-weight: bold;">points</span> : nombre de points pour chaque couple. Il doit être égale ou supérieur à "1".</li><li><span style="font-weight: bold;">image de substution</span> :
-cette images est utilisée dans les disposition autre que la première.
-Elle est affichée avec l'expression, et sera supprimée après
-association d'unimage avec une expression.<br>
-  </li></ul>
-
-Il est possible de définir jusqu'à 12 propositions. Attention au poids
-des images, vérifier le poids maximum autorisé par votre environnement
-(module - préférences de Xoopx et l'hébergement), <br>
-
-<br>
-
-&nbsp; <br>
-
-<br>
-
+<html>
+  <head>
+    <title>imagesDadMatchItems : Replacer les images au bon endroit</title>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  </head>
+  <body>
+    <h1>imagesDadMatchItems : Replacer les images au bon endroit<br>
+    </h1>
+    <h3>Description :</h3>
+    <span style="color: rgb(204, 0, 0); font-weight: bold;"></span><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Ce
+      slide présente une liste d'images et une liste d'expressions toutes deux
+      dans le désordre.<br>
+      Dans certaine disposition, une image de substitution peut être présentées,
+      voir les propositions et la disposition plus bas.<br>
+      <br>
+    </span>
+    <h3>Objectif : <br>
+    </h3>
+    <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Il
+      faut replacer chaque image avec la bonne expression.</span>.<br>
+    <h3>Options :
+    </h3>
+    <ul>
+      <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span
+            style="font-weight: bold;">hauteur des images </span>: Hauteur
+          des images à replacer au bon endroit.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
+            <br>
+          </span></b></li>
+      <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span
+          style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span
+            style="font-weight: bold;">hauteur des silhouettes </span>: Hauteur
+          des images de substitution.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
+          </span></b></li>
+      <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span
+            style="font-weight: bold;">directive optionnelle</span> : une texte
+          pour préciser ce que l'utilisateur doit faire.</span></li>
+      <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">disposition
+          : plusieurs dispositions sont possibles. <br>
+        </span></li>
+      <ul>
+        <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">première
+            disposition représentée par un simple carré, images et expressions
+            sont mélangées et affichées ensemble</span></li>
+        <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">autres
+            dispositions : Images et expressions sont séparées dans deux
+            zones,&nbsp; et
+            une image de substitution est affichée avec chaque expression.<br>
+          </span></li>
+      </ul>
+    </ul>
+    <br>
+    <span style="font-weight: bold; color: rgb(153, 0, 0);"></span><span style="font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span>
+    <h3>Propositions :</h3>
+    Chaque proposition comprend : <br>
+    <ul>
+      <li><span style="font-weight: bold;">Suppression</span> : la case a
+        cocher en début de ligne permet de supprimer la proposition proprement,
+        images comprises.<br>
+        <span style="font-weight: bold;"></span></li>
+      <li><span style="font-weight: bold;">une image</span> : Utilisée de
+        préférence des images ayant le même format de taille au risque de
+        perturber l'affichage. Ne pas utiliser des images trop lourde.</li>
+      <li><span style="font-weight: bold;">une expression</span> : chaque image
+        devra être replacée avec la bonne expression.</li>
+      <li><span style="font-weight: bold;">poids</span> : il défini l'ordre
+        des propositions à trouver.</li>
+      <li><span style="font-weight: bold;">points</span> : nombre de points pour
+        chaque couple. Il doit être égale ou supérieur à "1".</li>
+      <li><span style="font-weight: bold;">image de substitution</span> :
+        cette images est utilisée dans les disposition autre que la première.
+        Elle est affichée avec l'expression, et sera supprimée après
+        association d'une image avec une expression.<br>
+      </li>
+    </ul>
+    Il est possible de définir jusqu'à 12 propositions. Attention au poids
+    des images, vérifier le poids maximum autorisé par votre environnement
+    (module - préférences de Xoops et hébergement), <br>
+    <br>
+    &nbsp; <br>
+    <br>
+  </body>
+</html>

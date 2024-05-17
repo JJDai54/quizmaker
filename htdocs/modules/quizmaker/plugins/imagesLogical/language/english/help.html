@@ -1,52 +1,101 @@
-<h1>imagesLogical : retrouver les images manquantes<br>
-</h1>
-
-<h3>Description :</h3>
-
-<span style="color: rgb(204, 0, 0); font-weight: bold;"></span><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Ce slide présente :<br></span><ul><li><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">une liste d'images dans un ordre logique dont certaines sont masquées.</span></li><li><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">autant de listes d'images que d'images masquées, chacune correspondant à l'une des images masquées.</span></li></ul><h3>Objectif : <br>
-</h3>
-<span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Il faut retrouver les images manquantes en cliqant sur les images proposées.</span><br>
-
-<h3>Options :
-</h3>
-
-<ul><li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">hauteur des images à retrouver </span>: Hauteur
-des images de la première liste avec celles masquées.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"> <br>
-</span></b></li><li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">hauteur des images proposées </span>: Hauteur
-des images proposées.</span></li></ul>
-
-
-<span style="font-weight: bold; color: rgb(153, 0, 0);"></span><span style="font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span>
-<h3>Propositions :</h3>Les propositions comprennent deux listes avec les champs suivants :<br><ul><li>&nbsp;&nbsp;&nbsp; La suite logique d'image dont celles qui seront masquées</li><ul><li><span style="font-weight: bold;">Suppression</span> : la case a
-cocher en début de ligne permet de supprimer la proposition proprement,
-images comprises.<br>
-    <span style="font-weight: bold;"></span></li><li><span style="font-weight: bold;">une image</span> : Utilisée de
-préférence des images ayant le même format de taille au risque de
-perturber l'affichage. Ne pas utiliser des images trop lourde.</li><li><span style="font-weight: bold;">un titre</span> : il sera placé sous l'image</li><li><span style="font-weight: bold;">poids</span> : il défini l'orde
-logique des images.</li><li><span style="font-weight: bold;">points</span>
-: les images qui ont un nombre de points supérieur à zéro seront
-masquées. Ce sont les images à retrouver. Les autres doivent avoir un
-nombre de point égal à zéro.</li><li><span style="font-weight: bold;">image de substitution</span>
-: utilisée pour masquer celles à retouver, donc celles qui ont un
-nombre de points supérieur à zéro. Les autres images n'ont pas besoin
-d'image de substitution et seront automatiquement supprimées.</li></ul></ul><br><ul><li>&nbsp;&nbsp;&nbsp; Une liste d'mages différentes de la suite logique.</li><ul><li><span style="font-weight: bold;">Suppression</span> : la case a
-cocher en début de ligne permet de supprimer la proposition proprement,
-images comprises.<br>
-    <span style="font-weight: bold;"></span></li><li><span style="font-weight: bold;">une image</span> : Utilisée de
-préférence des images ayant le même format de taille au risque de
-perturber l'affichage. Ne pas utiliser des images trop lourde.</li><li><span style="font-weight: bold;">un titre</span> : il sera placé sous l'image</li><li><span style="font-weight: bold;">poids</span> : il défini l'orde
-logique des images.</li><li><span style="font-weight: bold;">points</span>
-: le nombre de points peut être inférieur ou égal à zéro. Si il est inférieur le score sera diminué d'autant si elle est sélectionnée.</li></ul></ul><span style="font-weight: bold;">Important</span> : les images masquée de la prière liste seront automatiquement ajoutées à la deuxièmes liste, il ne faut pas les ajouter.<br>&nbsp;<br>
-
-
-
-Il est possible de définir jusqu'à 8 propositions pour chacune des listes. Attention au poids
-des images, vérifier le poids maximum autorisé par votre environnement
-(module - préférences de Xoopx et l'hébergement), <br>
-
-<br>
-
-&nbsp; <br>
-
-<br>
-
+<html>
+  <head>
+    <title>imagesLogical : retrouver les images manquantes</title>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  </head>
+  <body>
+    <h1>imagesLogical : retrouver les images manquantes<br>
+    </h1>
+    <h3>Description :</h3>
+    <span style="color: rgb(204, 0, 0); font-weight: bold;"></span><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Ce
+      slide présente :<br>
+    </span>
+    <ul>
+      <li><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">une
+          liste d'images dans un ordre logique dont certaines sont masquées.</span></li>
+      <li><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">autant
+          de listes d'images que d'images masquées, chacune correspondant à
+          l'une des images masquées.</span></li>
+    </ul>
+    <h3>Objectif : <br>
+    </h3>
+    <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Il
+      faut retrouver les images manquantes en cliquant sur les images proposées.</span><br>
+    <h3>Options :
+    </h3>
+    <ul>
+      <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span
+            style="font-weight: bold;">hauteur des images à retrouver </span>:
+          Hauteur
+          des images de la première liste avec celles masquées.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
+            <br>
+          </span></b></li>
+      <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span
+          style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span
+            style="font-weight: bold;">hauteur des images proposées </span>:
+          Hauteur
+          des images proposées.</span></li>
+    </ul>
+    <span style="font-weight: bold; color: rgb(153, 0, 0);"></span><span style="font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span>
+    <h3>Propositions :</h3>
+    Les propositions comprennent deux listes avec les champs suivants :<br>
+    <ul>
+      <li>&nbsp;&nbsp;&nbsp; La suite logique d'image dont celles qui seront
+        masquées</li>
+      <ul>
+        <li><span style="font-weight: bold;">Suppression</span> : la case a
+          cocher en début de ligne permet de supprimer la proposition
+          proprement,
+          images comprises.<br>
+          <span style="font-weight: bold;"></span></li>
+        <li><span style="font-weight: bold;">une image</span> : Utilisée de
+          préférence des images ayant le même format de taille au risque de
+          perturber l'affichage. Ne pas utiliser des images trop lourde.</li>
+        <li><span style="font-weight: bold;">un titre</span> : il sera placé
+          sous l'image</li>
+        <li><span style="font-weight: bold;">poids</span> : il défini l’ordre
+          logique des images.</li>
+        <li><span style="font-weight: bold;">points</span>
+          : les images qui ont un nombre de points supérieur à zéro seront
+          masquées. Ce sont les images à retrouver. Les autres doivent avoir un
+          nombre de point égal à zéro.</li>
+        <li><span style="font-weight: bold;">image de substitution</span>
+          : utilisée pour masquer celles à retrouver, donc celles qui ont un
+          nombre de points supérieur à zéro. Les autres images n'ont pas besoin
+          d'image de substitution et seront automatiquement supprimées.</li>
+      </ul>
+    </ul>
+    <br>
+    <ul>
+      <li>&nbsp;&nbsp;&nbsp; Une liste d’images différentes de la suite logique.</li>
+      <ul>
+        <li><span style="font-weight: bold;">Suppression</span> : la case a
+          cocher en début de ligne permet de supprimer la proposition
+          proprement,
+          images comprises.<br>
+          <span style="font-weight: bold;"></span></li>
+        <li><span style="font-weight: bold;">une image</span> : Utilisée de
+          préférence des images ayant le même format de taille au risque de
+          perturber l'affichage. Ne pas utiliser des images trop lourde.</li>
+        <li><span style="font-weight: bold;">un titre</span> : il sera placé
+          sous l'image</li>
+        <li><span style="font-weight: bold;">poids</span> : il défini l’ordre
+          logique des images.</li>
+        <li><span style="font-weight: bold;">points</span>
+          : le nombre de points peut être inférieur ou égal à zéro. Si il est
+          inférieur le score sera diminué d'autant si elle est sélectionnée.</li>
+      </ul>
+    </ul>
+    <span style="font-weight: bold;">Important</span> : les images masquée de la
+    prière liste seront automatiquement ajoutées à la deuxièmes liste, il ne
+    faut pas les ajouter.<br>
+    &nbsp;<br>
+    Il est possible de définir jusqu'à 8 propositions pour chacune des listes.
+    Attention au poids
+    des images, vérifier le poids maximum autorisé par votre environnement
+    (module - préférences de Xoops et l'hébergement), <br>
+    <br>
+    &nbsp; <br>
+    <br>
+  </body>
+</html>

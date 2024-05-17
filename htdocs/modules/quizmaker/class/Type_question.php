@@ -392,6 +392,8 @@ global $xoopDB;
         $inpImg->setExtra("class='highslide-gallery'");
 //\JJD\include_highslide();       
 */        
+  
+        $trayHelp->addElement(new \XoopsFormLabel  ('', "<hr>"));
         //--------------------------------
         //$inpSnapShoot = new \XoopsFormLabel  ('', 'fgdfhghk');
     if($addSnapShoot == 1){
