@@ -65,7 +65,7 @@ public static function build_quiz($quizId){
 global $quizHandler, $questionsHandler, $answersHandler;
 ///quiz-questions.js
     
-    //Au cas ou cela aurait ÈtÈ oubliÈ
+    //Au cas ou cela aurait √©t√© oubli√©
     $questionsHandler->incrementeWeight($quizId);
     
     // --- Dossier de destination
@@ -77,21 +77,21 @@ global $quizHandler, $questionsHandler, $answersHandler;
     
     
     // --- copies du dossier des images si il n'existe pas---
-    //copie des images utilisÈes notamment pour pour les liste a trier
+    //copie des images utilis√©es notamment pour pour les liste a trier
     self::copie_ressources_images(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images');
     \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images', 0777);   
      
-    // --- GÈnÈration du fichier d'option ---
+    // --- G√©n√©ration du fichier d'option ---
     self::export_options2Jason($quiz, $path);
     
     self::export_consignes($path);    
         
-    // --- GÈnÈration du fichier de questions ---
+    // --- G√©n√©ration du fichier de questions ---
     self::export_questions2Jason($quizId, $path, $typesQuestions);
 //    self::export_classLoader($typesQuestions, $path);
     
     
-    // --- GÈnÈration du fichier d'HTML ---
+    // --- G√©n√©ration du fichier d'HTML ---
     self::build_quizinline($quiz, QUIZMAKER_PATH_UPLOAD_QUIZ, $name);
     
 
@@ -117,22 +117,22 @@ self:: CopieRep2 ($pathSource,$pathDest) ;
 }
 
 /****************************************************************************
-// copie le contenu du repertoire $orig vers le repertoire $dest en le crÈant 
-// copie tous les sous-reps de maniËre rÈcursive 
-// sous-entend qu'on a les droits d'Ècriture, bien s˚r! 
+// copie le contenu du repertoire $orig vers le repertoire $dest en le cr√©ant 
+// copie tous les sous-reps de mani√®re r√©cursive 
+// sous-entend qu'on a les droits d'√©criture, bien s√ªr! 
  ****************************************************************************/
 //function CopyRep ($orig,$dest) { return CopieRep ($orig,$dest);}
 // public static function CopieRep ($orig, $dest) { 
 // //echo "CopieRep<hr>{$orig}<br>{$dest}<hr>";
 //   \JJD\FSO\isFolder($orig, true, 0777);   
 //   
-//   //if (!is_dir($dest)) mkdir ($dest,0777); // ‡ modifier si le rep cible existe dÈj‡
+//   //if (!is_dir($dest)) mkdir ($dest,0777); // √† modifier si le rep cible existe d√©j√†
 //   $dir = dir($orig); 
 // 
 //   while ($entry = $dir->read()) { 
 //     $pathOrig = "$orig/$entry"; 
 //     $pathDest = "$dest/$entry"; 
-//     // repertoire ->copie rÈcursive
+//     // repertoire ->copie r√©cursive
 //     if (is_dir($pathOrig) and (substr($entry,0,1)<>'.')) self::CopieRep ($pathOrig,$pathDest);     
 //    // fichier -> copie simple
 //    if (is_file($pathOrig) and ($pathDest<>'') and ($fp=fopen($pathOrig,'rb'))) { 
@@ -171,11 +171,11 @@ public static function deleteTree($dir){
     foreach(glob($dir . "/*") as $element){
         if(is_dir($element)){
             self::deleteTree($element); // On rappel la fonction deleteTree           
-            rmdir($element); // Une fois le dossier courant vidÈ, on le supprime
+            rmdir($element); // Une fois le dossier courant vid√©, on le supprime
         } else { // Sinon c'est un fichier, on le supprime
             unlink($element);
         }
-        // On passe ‡ l'ÈlÈment suivant
+        // On passe √† l'√©l√©ment suivant
     }
 }
 
@@ -520,7 +520,7 @@ public static function exportQuiz($quizId){
 global $quizHandler;
 echo "<hr>exportQuiz - quizId = {$quizId}<hr>";
 
-        //suppression des images non rÈfÈrencÈes dans les rÈponses
+        //suppression des images non r√©f√©renc√©es dans les r√©ponses
         $quizHandler->purgerImages($quizId);
         
         $quiz = $quizHandler->get($quizId);
@@ -604,7 +604,7 @@ public static function import_quiz($pathSource, $catId = 1)
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
 //exit;    
     //--------------------------------------------------------
-    //Recherche de la catÈgorie par son nom ou crÈation si $catId == 0
+    //Recherche de la cat√©gorie par son nom ou cr√©ation si $catId == 0
     //--------------------------------------------------------
     if($catId == 0){
         $shortName = "categories";
@@ -635,7 +635,7 @@ public static function import_quiz($pathSource, $catId = 1)
  
     
     // --- Nouvel id pour ce quiz
-    // --- ce n'est pas la bonne mÈthode il faudrait utiliser la mÈthode de xoopsObjectHandler
+    // --- ce n'est pas la bonne m√©thode il faudrait utiliser la m√©thode de xoopsObjectHandler
     $newQuizId  = $quizHandler->getMax('quiz_id')+1;
 //echo "<hr>quiz<pre>" . print_r($quiz, true) . "</pre><hr>";
 //exit;    
@@ -660,7 +660,7 @@ public static function import_quiz($pathSource, $catId = 1)
 //     echo "path import : <hr>{$pathSource}<hr>";
 //     echoArray($tabledata);
 
-    //Mise ‡ jour des champs avant importation
+    //Mise √† jour des champs avant importation
     foreach ($tabledata as $index => $row) {
 
         //champs obsolettes , pour import d'ancienne version
@@ -671,14 +671,14 @@ public static function import_quiz($pathSource, $catId = 1)
 
         //affectation du nouvel ID
         $tabledata[$index]['quiz_id'] = $newQuizId;
-        // stockage de l'ancien ID dans le champs flag pour permettre la mise ‡ jour des enfants   
+        // stockage de l'ancien ID dans le champs flag pour permettre la mise √† jour des enfants   
         $tabledata[$index]['quiz_flag'] = $tabledata[$index]['quiz_id'];    
         //modification du nom du fichier et dossier du quiz pour ne pas surcharger l'original si il existe
-        //cette modification consiste juste ‡ ajouter un nombre alÈatoir a la fin du nom original
-        //il pourra Ítre modifier une fois l'importation terminÈ
+        //cette modification consiste juste √† ajouter un nombre al√©atoir a la fin du nom original
+        //il pourra √™tre modifier une fois l'importation termin√©
         $quizFileName = $tabledata[$index]['quiz_folderJS'] . "-" . rand(1000, 9999);        
         $tabledata[$index]['quiz_folderJS'] = $quizFileName;
-        //affectation de la nouvelle catÈgorie pour ce quiz    
+        //affectation de la nouvelle cat√©gorie pour ce quiz    
         $tabledata[$index]['quiz_cat_id'] = $catId;    
         //unset($tabledata[$index]['quiz_id']);    
     }
@@ -721,7 +721,7 @@ public static function import_quiz($pathSource, $catId = 1)
     $questionsHandler->updateAll('quest_quiz_id', $newQuizId, $criteria);
     
     //--------------------------------------------------------------
-    //mise ‡ jour du champ parent_id pour recreer les groupes (pageinfo)
+    //mise √† jour du champ parent_id pour recreer les groupes (pageinfo)
     //--------------------------------------------------------------
     $criteria = new \criteriaCompo(new \Criteria('quest_quiz_id',  $newQuizId, '='));
     $criteria->add(new \Criteria('quest_parent_id',  0, '='));
@@ -759,7 +759,7 @@ public static function import_quiz($pathSource, $catId = 1)
     //chargement du tableau dans la table
     \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
     
-    //mise ‡ jour du cham answer_quest_id pour recreer le lien avec la table question
+    //mise √† jour du cham answer_quest_id pour recreer le lien avec la table question
     $tblAns = $xoopsDB->prefix($table);  
     $sql = "UPDATE " . $tblAns  . " ta"
          . " LEFT JOIN " . $xoopsDB->prefix('quizmaker_questions') . " tq"
@@ -781,8 +781,8 @@ public static function import_quiz($pathSource, $catId = 1)
     
     
     //exit;
-    //pour finir on supprime les images non rÈfÈrencÈes dans les rÈponses 
-    // au cas ou la purge n'aurait pas ÈtÈ faite ‡ l'export
+    //pour finir on supprime les images non r√©f√©renc√©es dans les r√©ponses 
+    // au cas ou la purge n'aurait pas √©t√© faite √† l'export
     $quizHandler->purgerImages($newQuizId);
 //exit;
     return $newQuizId;
@@ -927,7 +927,7 @@ public static function sanitiseFileName($str, $replaceBlankBy = '_'){
 //echo "nom du fichier avant : {$str}<br>";
    $str = self::minusculesSansAccents($str);
 
-//echo "nom du fichier aprËs : {$str}<br>";
+//echo "nom du fichier apr√®s : {$str}<br>";
 
    return $str;
 }
@@ -938,18 +938,18 @@ public static function minusculesSansAccents($str, $replaceBlankBy = '_'){
     $str = utf8_decode($str);
     $str = str_replace(
 			array(
-				'‡', '‚', '‰', '·', '„', 'Â',
-				'Ó', 'Ô', 'Ï', 'Ì', 
-				'Ù', 'ˆ', 'Ú', 'Û', 'ı', '¯', 
-				'˘', '˚', '¸', '˙', 
-				'È', 'Ë', 'Í', 'Î', 
-				'Á', 'ˇ', 'Ò',
-				'¿', '¬', 'ƒ', '¡', '√', '≈',
-				'Œ', 'œ', 'Ã', 'Õ', 
-				'‘', '÷', '“', '”', '’', 'ÿ', 
-				'Ÿ', '€', '‹', '⁄', 
-				'…', '»', ' ', 'À', 
-				'«', 'ü', '—'
+				'√†', '√¢', '√§', '√°', '√£', '√•',
+				'√Æ', '√Ø', '√¨', '√≠', 
+				'√¥', '√∂', '√≤', '√≥', '√µ', '√∏', 
+				'√π', '√ª', '√º', '√∫', 
+				'√©', '√®', '√™', '√´', 
+				'√ß', '√ø', '√±',
+				'√Ä', '√Ç', '√Ñ', '√Å', '√É', '√Ö',
+				'√é', '√è', '√å', '√ç', 
+				'√î', '√ñ', '√í', '√ì', '√ï', '√ò', 
+				'√ô', '√õ', '√ú', '√ö', 
+				'√â', '√à', '√ä', '√ã', 
+				'√á', '≈∏', '√ë'
 			),
 			array(
 				'a', 'a', 'a', 'a', 'a', 'a', 

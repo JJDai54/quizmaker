@@ -76,7 +76,7 @@ switch($op) {
         $field = Request::getString('field');
         $modulo = Request::getInt('modulo', 2);
         $quizHandler->changeEtat($quizId, $field, $modulo);
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} ChangÃ©");
 	break;
 
 	case 'set_bit':
@@ -85,12 +85,12 @@ switch($op) {
         $newValue = Request::getInt('newValue', -1);
         $quizHandler->setBitOn($quizId, $field, $bitIndex, $newValue);
 //        exit;
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} ChangÃ©");
 	break;
 // 	case 'config_options':
 //         $config = Request::getInt('config', 0);
 //         $quizHandler->config_options($quizId, $config);
-//         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Options mise à jour");
+//         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Options mise Ã  jour");
 // 	break;
 
     case 'init_weight':

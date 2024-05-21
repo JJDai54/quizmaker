@@ -61,7 +61,7 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";  
         $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
         //********************************************************
-        //gesion des images du form "options" spécifique a chaque type de question
+        //gesion des images du form "options" spÃ©cifique a chaque type de question
         // recherche des imges de prefix quest_options
         $prefix = "quiz-{$questId}-";
         foreach($_FILES as $key=>$img){
@@ -71,7 +71,7 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
             
                 $newImg = $cls->save_img($ans, $key, $path, $folderJS, $prefix);
                 if($newImg == ''){
-                    //echo "===> {$key} => pas d'image sauvegardée<br>";        
+                    //echo "===> {$key} => pas d'image sauvegardÃ©e<br>";        
                 }else{
                     //echo "===> {$key} => newImg = {$newImg}<br>";        
                     $keyOptions = substr($key,strlen(QUIZMAKER_PREFIX_OPTIONS_NAME)+1);
@@ -111,11 +111,11 @@ echoArray($_FILES,'_FILES',true);
         // --- gestion de limage de la question
         $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
         
-        //recupe de la nouvelle image si elle a ete selectionnée
+        //recupe de la nouvelle image si elle a ete selectionnÃ©e
         $questImage = $cls->save_img($ans, 'quest_image', $path, $folderJS, 'question', $nameOrg);
         
         //suppression de l'image existant si besoin si la case a ete coche 
-        //ou si le nom de la nouvelle image est différent de l'ancienne
+        //ou si le nom de la nouvelle image est diffÃ©rent de l'ancienne
         $delImage = Request::getInt('del_image', 0);
         if($delImage == 1 || $questImage){
             $fullName = $path . '/' . $questionsObj->getVar('quest_image');

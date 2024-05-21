@@ -49,7 +49,7 @@ $GLOBALS['xoopsTpl']->assign('showItem', $quizId > 0);
 switch($op) {
 	case 'submit_answers':
 //echoArray($_POST); //xit;
-// echo "Enregistrement des résultats";
+// echo "Enregistrement des rÃ©sultats";
         $ip = \Xmf\IPAddress::fromRequest()->asReadable();
         $criteria = new \CriteriaCompo(new \criteria('result_ip', $ip, "="));
         $criteria->add(new \criteria('result_quiz_id', $quizId, "="));

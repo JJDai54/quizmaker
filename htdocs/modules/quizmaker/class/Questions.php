@@ -225,7 +225,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         
         /* ***** Options uniquement pour les questions ***** */
         // Form quest_posComment1
-/* a vooir dans une prochaine si cette options est déporté de quiz vers question pour affiner la présentation individuellement
+/* a vooir dans une prochaine si cette options est dÃ©portÃ© de quiz vers question pour affiner la prÃ©sentation individuellement
 */		
         $inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quest_posComment1', $this->getVar('quest_posComment1'));
         $inpPosComment->addOptionArray(['0'=>_AM_QUIZMAKER_POS_COMMENT_0, '1'=>_AM_QUIZMAKER_POS_COMMENT_1 , '2'=>_AM_QUIZMAKER_POS_COMMENT_2, '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
@@ -331,7 +331,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //exit("options = " . $this->getVar('quest_options'));
        
         //================================================
-        //ajout des propositions de réponses
+        //ajout des propositions de rÃ©ponses
         //$titleOptions = new \XoopsFormLabel(null,'Liste des options');
         $form->insertBreak("<div style='background:green;color:white;'><center>" . _AM_QUIZMAKER_PROPOSITIONS_ANSWERS . "</center></div>");
         if ($clTypeQuestion)  $form->addElement($clTypeQuestion->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id')));
@@ -389,8 +389,8 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         
         //getVar genere une transformation facheuse 
 		$ret['options']        = html_entity_decode($this->getVar('quest_options')) ;
-        //pour palier aux transfert des options spécifiques sur des quiz plus anciens,
-        //on recupère les options par éfauts en attenaant de modifier et valider de nouveau la question
+        //pour palier aux transfert des options spÃ©cifiques sur des quiz plus anciens,
+        //on recupÃ¨re les options par Ã©fauts en attenaant de modifier et valider de nouveau la question
         if(!$ret['options']) $ret['options'] = json_encode($clTypeQuestion->optionsDefaults);
       
 		$ret['comment1']       = $this->getVar('quest_comment1', 'e');
@@ -465,7 +465,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 /* ******************************
  * Change l'etat du champ passer en parametre
  * @$quizId : id du quiz
- * @$field : nom du champ à changer
+ * @$field : nom du champ Ã  changer
  * *********************** */
     public function changeEtat($questId)
     {
@@ -476,7 +476,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 
 /* ******************************
  *  getTypeQuestion : renvoie la class du type de question
- * @return : classe héritée du type de question
+ * @return : classe hÃ©ritÃ©e du type de question
  * *********************** */
     public function getTypeQuestion(&$typeQuestion = null)
     {

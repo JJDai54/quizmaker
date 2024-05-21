@@ -130,7 +130,7 @@ echo $sql_queries;
     $xoopsDB->query($sql);
     
     //global $grouppermHandler;
-	// Ajout des Permissions pour catégorie de test
+	// Ajout des Permissions pour catÃ©gorie de test
     $grouppermHandler = xoops_getHandler('groupperm');
     $mid = $module->getVar('mid');
     $groupId = 1;

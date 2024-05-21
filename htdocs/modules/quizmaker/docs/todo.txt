@@ -199,96 +199,96 @@ Array
 
 )
 
-<p><a href="#" onclick="gotoSlideByName('checkboxLogical');">checkboxLogical : Question de logique à réponses multiples</a>
-<p><a href="#" onclick="gotoSlideByName('checkboxSimple');">checkboxSimple : Question à réponses multiples</a>
-<p><a href="#" onclick="gotoSlideByName('comboboxMatchItems');">comboboxMatchItems : Associer les éléments deux à deux</a>
+<p><a href="#" onclick="gotoSlideByName('checkboxLogical');">checkboxLogical : Question de logique Ã  rÃ©ponses multiples</a>
+<p><a href="#" onclick="gotoSlideByName('checkboxSimple');">checkboxSimple : Question Ã  rÃ©ponses multiples</a>
+<p><a href="#" onclick="gotoSlideByName('comboboxMatchItems');">comboboxMatchItems : Associer les Ã©lÃ©ments deux Ã  deux</a>
 <p><a href="#" onclick="gotoSlideByName('comboboxSortItems');">comboboxSortItems : Trier une liste multiple</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDBasket');">imagesDaDBasket : Distribuer les images</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDGroups');">imagesDaDGroups : Regrouper les images</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDLogical');">imagesDaDLogical : Trouver les images manquantes</a>
-<p><a href="#" onclick="gotoSlideByName('imagesDaDMatchItems');">imagesDaDMatchItems : Replacer les images à leure place</a>
+<p><a href="#" onclick="gotoSlideByName('imagesDaDMatchItems');">imagesDaDMatchItems : Replacer les images Ã  leure place</a>
 <p><a href="#" onclick="gotoSlideByName('imagesDaDSortItems');">imagesDaDSortItems : Ordonner les images</a>
 <p><a href="#" onclick="gotoSlideByName('imagesLogical');">imagesLogical : Trouver l'image manquante</a>
-<p><a href="#" onclick="gotoSlideByName('imagesSimple');">imagesSimple : Trouver les images de la même famille</a>
+<p><a href="#" onclick="gotoSlideByName('imagesSimple');">imagesSimple : Trouver les images de la mÃªme famille</a>
 <p><a href="#" onclick="gotoSlideByName('listboxClassItems1');">listboxClassItems1 : Chasser les intrus</a>
-<p><a href="#" onclick="gotoSlideByName('listboxClassItems2');">listboxClassItems2 : Déplacer les intrus (double liste)</a>
+<p><a href="#" onclick="gotoSlideByName('listboxClassItems2');">listboxClassItems2 : DÃ©placer les intrus (double liste)</a>
 <p><a href="#" onclick="gotoSlideByName('listboxSortItems');">listboxSortItems : Trier une listbox</a>
-<p><a href="#" onclick="gotoSlideByName('radioLogical');">radioLogical : Question de logique à réponse unique</a>
+<p><a href="#" onclick="gotoSlideByName('radioLogical');">radioLogical : Question de logique Ã  rÃ©ponse unique</a>
 <p><a href="#" onclick="gotoSlideByName('radioMultiple');">radioMultiple : Retrouver les termes qui vont ensemble</a>
-<p><a href="#" onclick="gotoSlideByName('radioSimple');">radioSimple : Question à réponse unique</a>
+<p><a href="#" onclick="gotoSlideByName('radioSimple');">radioSimple : Question Ã  rÃ©ponse unique</a>
 <p><a href="#" onclick="gotoSlideByName('textareaInput');">textareaInput : Saisir les mots manquants</a>
 <p><a href="#" onclick="gotoSlideByName('textareaListbox');">textareaListbox : Retrouver les mots manquants</a>
 <p><a href="#" onclick="gotoSlideByName('textareaSimple');">textareaSimple : Corriger le texte</a>
-<p><a href="#" onclick="gotoSlideByName('textboxMatchItems');">textboxMatchItems : Associer les éléments deux à deux</a>
-<p><a href="#" onclick="gotoSlideByName('textboxMultiple');">textboxMultiple : Questions multiples à réponses multiples.</a>
-<p><a href="#" onclick="gotoSlideByName('ulDaDGroups');">ulDaDGroups : Répartir les propositions dans les groupes</a>
+<p><a href="#" onclick="gotoSlideByName('textboxMatchItems');">textboxMatchItems : Associer les Ã©lÃ©ments deux Ã  deux</a>
+<p><a href="#" onclick="gotoSlideByName('textboxMultiple');">textboxMultiple : Questions multiples Ã  rÃ©ponses multiples.</a>
+<p><a href="#" onclick="gotoSlideByName('ulDaDGroups');">ulDaDGroups : RÃ©partir les propositions dans les groupes</a>
 <p><a href="#" onclick="gotoSlideByName('ulSortList');">ulSortList : Trier une liste de termes   </a>
 
 //////////////////////////////////////////////////////////////////////////   
   <p><a href="#" onclick="gotoSlideByName('Togodo');">Identifiant</a>
   
-checkboxLogical:Question de logique à réponses multiples
-checkboxSimple:Question à réponses multiples
-comboboxMatchItems:Associer les éléments deux à deux
+checkboxLogical:Question de logique Ã  rÃ©ponses multiples
+checkboxSimple:Question Ã  rÃ©ponses multiples
+comboboxMatchItems:Associer les Ã©lÃ©ments deux Ã  deux
 comboboxSortItems:Trier une liste multiple
 imagesDaDBasket:Distribuer les images
 imagesDaDGroups:Regrouper les images
 imagesDaDLogical:Trouver les images manquantes
-imagesDaDMatchItems:Replacer les images à leure place
+imagesDaDMatchItems:Replacer les images Ã  leure place
 imagesDaDSortItems:Ordonner les images
 imagesLogical:Trouver l'image manquante
-imagesSimple:Trouver les images de la même famille
+imagesSimple:Trouver les images de la mÃªme famille
 listboxClassItems1:Chasser les intrus
-listboxClassItems2:Déplacer les intrus (double liste)
+listboxClassItems2:DÃ©placer les intrus (double liste)
 listboxSortItems:Trier une listbox
-radioLogical:Question de logique à réponse unique
+radioLogical:Question de logique Ã  rÃ©ponse unique
 radioMultiple:Retrouver les termes qui vont ensemble
-radioSimple:Question à réponse unique
+radioSimple:Question Ã  rÃ©ponse unique
 textareaInput:Saisir les mots manquants
 textareaListbox:Retrouver les mots manquants
 textareaSimple:Corriger le texte
-textboxMatchItems:Associer les éléments deux à deux
-textboxMultiple:Questions multiples à réponses multiples.
-ulDaDGroups:Répartir les propositions dans les groupes
+textboxMatchItems:Associer les Ã©lÃ©ments deux Ã  deux
+textboxMultiple:Questions multiples Ã  rÃ©ponses multiples.
+ulDaDGroups:RÃ©partir les propositions dans les groupes
 ulSortList:Trier une liste de termes   
   
   
-[>checkbox] => checkbox : Cases à cocher
-    [checkboxLogical] => --- checkboxLogical : Question de logique à réponses multiples
-    [checkboxSimple] => --- checkboxSimple : Question à réponses multiples
-    [>combobox] => combobox : Listes déroulantes
-    [comboboxMatchItems] => --- comboboxMatchItems : Associer les éléments deux à deux
+[>checkbox] => checkbox : Cases Ã  cocher
+    [checkboxLogical] => --- checkboxLogical : Question de logique Ã  rÃ©ponses multiples
+    [checkboxSimple] => --- checkboxSimple : Question Ã  rÃ©ponses multiples
+    [>combobox] => combobox : Listes dÃ©roulantes
+    [comboboxMatchItems] => --- comboboxMatchItems : Associer les Ã©lÃ©ments deux Ã  deux
     [comboboxSortItems] => --- comboboxSortItems : Trier une liste multiple
     [>imagesDaD] => imagesDaD : Images Drag and Drop
     [imagesDaDBasket] => --- imagesDaDBasket : Distribuer les images
     [imagesDaDGroups] => --- imagesDaDGroups : Regrouper les images
     [imagesDaDLogical] => --- imagesDaDLogical : Trouver les images manquantes
-    [imagesDaDMatchItems] => --- imagesDaDMatchItems : Replacer les images à leure place
+    [imagesDaDMatchItems] => --- imagesDaDMatchItems : Replacer les images Ã  leure place
     [imagesDaDSortItems] => --- imagesDaDSortItems : Ordonner les images
     [>images] => images : Images
     [imagesLogical] => --- imagesLogical : Trouver l'image manquante
-    [imagesSimple] => --- imagesSimple : Trouver les images de la même famille
+    [imagesSimple] => --- imagesSimple : Trouver les images de la mÃªme famille
     [>listbox] => listbox : Listes multi lignes
     [listboxClassItems1] => --- listboxClassItems1 : Chasser les intrus
-    [listboxClassItems2] => --- listboxClassItems2 : Déplacer les intrus (double liste)
+    [listboxClassItems2] => --- listboxClassItems2 : DÃ©placer les intrus (double liste)
     [listboxSortItems] => --- listboxSortItems : Trier une listbox
-    [>page] => page : Pages de début, de fin et de regroupement
-    [pageBegin] => --- pageBegin : Page de présentation du quiz
-    [pageEnd] => --- pageEnd : Page de résultat du quiz
+    [>page] => page : Pages de dÃ©but, de fin et de regroupement
+    [pageBegin] => --- pageBegin : Page de prÃ©sentation du quiz
+    [pageEnd] => --- pageEnd : Page de rÃ©sultat du quiz
     [pageGroup] => --- pageGroup : Page de regroupement de questions
     [>radio] => radio : Boutons radios
-    [radioLogical] => --- radioLogical : Question de logique à réponse unique
+    [radioLogical] => --- radioLogical : Question de logique Ã  rÃ©ponse unique
     [radioMultiple] => --- radioMultiple : Retrouver les termes qui vont ensemble
-    [radioSimple] => --- radioSimple : Question à réponse unique
-    [>textarea] => textarea : Textes à comppléter
+    [radioSimple] => --- radioSimple : Question Ã  rÃ©ponse unique
+    [>textarea] => textarea : Textes Ã  compplÃ©ter
     [textareaInput] => --- textareaInput : Saisir les mots manquants
     [textareaListbox] => --- textareaListbox : Retrouver les mots manquants
     [textareaSimple] => --- textareaSimple : Corriger le texte
     [>textbox] => textbox : Zones de saisie
-    [textboxMatchItems] => --- textboxMatchItems : Associer les éléments deux à deux
-    [textboxMultiple] => --- textboxMultiple : Questions multiples à réponses multiples.
-    [>ul] => ul : Liste de libellés
-    [ulDaDGroups] => --- ulDaDGroups : Répartir les propositions dans les groupes
+    [textboxMatchItems] => --- textboxMatchItems : Associer les Ã©lÃ©ments deux Ã  deux
+    [textboxMultiple] => --- textboxMultiple : Questions multiples Ã  rÃ©ponses multiples.
+    [>ul] => ul : Liste de libellÃ©s
+    [ulDaDGroups] => --- ulDaDGroups : RÃ©partir les propositions dans les groupes
     [ulSortList] => --- ulSortList : Trier une liste de termes   
 //////////////////////////////////////////////////////////////////////////        
 
@@ -299,7 +299,7 @@ textboxMultiple
 
 UPDATE `x251_quizmaker_categories` SET `cat_id` = `cat_id` + 1 ORDER BY `cat_id` DESC;
 INSERT INTO `x251_quizmaker_categories` (`cat_id`, `cat_parent_id`, `cat_name`, `cat_description`, `cat_theme`, `cat_weight`, `cat_creation`, `cat_update`) 
-VALUES ('1', '0', 'Exemples', 'Catégorie réservée aux exemple de quiz fourni avec le module.', '0', '0', '2022-01-2500 00:00:00.000000', '2022-01-2500 00:00:00.000000'); 
+VALUES ('1', '0', 'Exemples', 'CatÃ©gorie rÃ©servÃ©e aux exemple de quiz fourni avec le module.', '0', '0', '2022-01-2500 00:00:00.000000', '2022-01-2500 00:00:00.000000'); 
 UPDATE `x251_quizmaker_quiz` SET `quiz_cat_id` = `quiz_cat_id` + 1;
 
 //--------------------------------------------------------------------------------------
@@ -344,10 +344,10 @@ WHERE tChild.quest_parent_id = tParent.quest_id
 AND tChild.quest_quiz_id=14 AND tChild.quest_parent_id > 0
 
 -------------------------------------------------
-Nombre de réponses : {repondu} / {totalQuestions}
+Nombre de rÃ©ponses : {repondu} / {totalQuestions}
 score : {score} /  {scoreMaxiQQ}
 score minimum : {scoreMiniQQ}
-temps de réponse : {duree}
+temps de rÃ©ponse : {duree}
 -------------------------------------------------
 
 

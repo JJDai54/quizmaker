@@ -351,7 +351,7 @@ public static function recurseCopy2(
     public static function clearFolder($dir_name)
     {
     
-    $dir = opendir( $dir_name );  // ouvre le répertoire
+    $dir = opendir( $dir_name );  // ouvre le rÃ©pertoire
     $files = readdir( $dir );
 
     while ( $files = readdir( $dir ) ) {
@@ -361,7 +361,7 @@ public static function recurseCopy2(
           && $files != '..' 
           && is_file ("$dir_name/$files" )){ // exception avec l'index.php
             //echo  "$dir_name/$files<br>";
-            unlink( "$dir_name/$files" );  // supprime chaque fichier du répertoire
+            unlink( "$dir_name/$files" );  // supprime chaque fichier du rÃ©pertoire
         }
     }
     closedir( $dir );

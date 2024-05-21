@@ -183,9 +183,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     }
 
 	/**
-     * Fonction qui liste les catégories qui respectent la permission demandée
+     * Fonction qui liste les catÃ©gories qui respectent la permission demandÃ©e
      * @param string   $permtype	Type de permission
-     * @return array   $cat		    Liste des catégorie qui correspondent à la permission
+     * @return array   $cat		    Liste des catÃ©gorie qui correspondent Ã  la permission
      */
 	public static function getPermissions($short_permtype = 'view')
     {
@@ -204,9 +204,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
     }
 
 	/**
-     * Fonction qui liste les catégories qui respectent la permission demandée
+     * Fonction qui liste les catÃ©gories qui respectent la permission demandÃ©e
      * @param string   $permtype	Type de permission
-     * @return array   $cat		    Liste des catégorie qui correspondent à la permission
+     * @return array   $cat		    Liste des catÃ©gorie qui correspondent Ã  la permission
      */
 	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='cat_weight,cat_name,cat_id', $order="ASC")
     {

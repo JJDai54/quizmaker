@@ -257,9 +257,9 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
 
 
 	/**
-     * Fonction qui liste les categories et des quiz qui respectent la permission demandée
+     * Fonction qui liste les categories et des quiz qui respectent la permission demandÃ©e
      * @param string   $permtype	Type de permission
-     * @return array   $cat		    Liste des catégorie qui correspondent à la permission
+     * @return array   $cat		    Liste des catÃ©gorie qui correspondent Ã  la permission
      */
 // 	public static function getPermissions()
 //     {

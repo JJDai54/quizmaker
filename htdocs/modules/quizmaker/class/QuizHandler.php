@@ -270,13 +270,13 @@ class QuizHandler extends \XoopsPersistableObjectHandler
 * *********************************************************** */
 public function deleteQuiz ($quizId) {
 global $questionsHandler, $resultsHandler;    
-    if ($quizId == 0) return false; //sinon ça efface tout
+    if ($quizId == 0) return false; //sinon Ã§a efface tout
     
     //suppression des resultats
     $criteria = new \Criteria("result_quiz_id", $quizId, '=');
     $ret = $resultsHandler->deleteAll($criteria);
     
-    //suppression des questions et des propositions(réponses)
+    //suppression des questions et des propositions(rÃ©ponses)
     $questionsHandler->deleteQuestionsByQuizId ($quizId);
     
      $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
@@ -291,7 +291,7 @@ global $questionsHandler, $resultsHandler;
 /* ******************************
  * Change l'etat du champ passer en parametre
  * @$quizId : id du quiz
- * @$field : nom du champ à changer
+ * @$field : nom du champ Ã  changer
  * *********************** */
     public function changeEtat($quizId, $field, $modulo = 2)
     {
@@ -304,7 +304,7 @@ global $questionsHandler, $resultsHandler;
 /* ******************************
  * Change l'etat du champ passer en parametre
  * @$quizId : id du quiz
- * @$field : nom du champ à changer
+ * @$field : nom du champ Ã  changer
  * *********************** */
 /*
 public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
@@ -381,7 +381,7 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 // }
 
 /* ******************************
- * renvoi un jeu de valeurs utilisé dans la liste de l'admin
+ * renvoi un jeu de valeurs utilisÃ© dans la liste de l'admin
  * permet une modification rapide des options
  * *********************** */
     public function config_options($quizId, $config = 0)
@@ -411,9 +411,9 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 
 
 	/**
-     * Fonction qui liste les quiz qui respectent la permission demandée
+     * Fonction qui liste les quiz qui respectent la permission demandÃ©e
      * @param string   $permtype	Type de permission
-     * @return array   $cat		    Liste des catégorie qui correspondent à la permission
+     * @return array   $cat		    Liste des catÃ©gorie qui correspondent Ã  la permission
      */
 	public function getPermissions($short_permtype = 'view')
     {
@@ -434,9 +434,9 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 
 
 	/**
-     * Fonction qui liste les catégories qui respectent la permission demandée
+     * Fonction qui liste les catÃ©gories qui respectent la permission demandÃ©e
      * @param string   $permtype	Type de permission
-     * @return array   $cat		    Liste des catégorie qui correspondent à la permission
+     * @return array   $cat		    Liste des catÃ©gorie qui correspondent Ã  la permission
      */
 	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC")
     {
@@ -481,7 +481,7 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
     }
     
 	/**
-     * Fonction qui liste les catégories qui respectent la permission demandée
+     * Fonction qui liste les catÃ©gories qui respectent la permission demandÃ©e
      * @param int $QuizId  id du quiz
      * @return array   
      */
@@ -499,7 +499,7 @@ global $questionsHandler, $resultsHandler;
     $stat = array ();
      foreach($statQuestions as $key=>$arr){
          if (isset($statResults[$key])){
-            //ajout des clé du tablau $result dans le tableau $question
+            //ajout des clÃ© du tablau $result dans le tableau $question
             foreach($statResults[$key] as $j=>$v){
              $statQuestions[$key][$j] = $v;
             }
@@ -631,7 +631,7 @@ $fldMasterId =  "quiz_cat_id";
         }
     }
     //effacement du champ imae si le fihichier physique n'est pas dans une table
-    //finalement pas une bonne idée de faire comme ça
+    //finalement pas une bonne idÃ©e de faire comme Ã§a
 //     foreach($quizTblImg as $key=>$file){
 //         if(!in_array($file, $imgList)) {
 //             $sql = "update " . $xoopsDB->prefix('quizmaker_answers') . "SET answer_proposition = '' WHERE answer_proposition LIKE {$file}";

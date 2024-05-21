@@ -55,7 +55,7 @@
             $f    = $fld . $name . '.php';
             //ext_echo ("<hr>{$f}<hr>");
             if (is_readable($f)) {
-                echo "mise à jour version : {$key} = {$val}<br>";
+                echo "mise Ã  jour version : {$key} = {$val}<br>";
                 require_once $f;
                 $cl = new $name($xoopsModule, ['previousVersion' => $previousVersion]);
             }

@@ -1,4 +1,4 @@
-﻿// alert ("ok : " + myQuestions.length);
+// alert ("ok : " + myQuestions.length);
 // alert ("ok : " + myQuestions[0].question);
 
 

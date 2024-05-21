@@ -40,7 +40,7 @@ $(document).ready(function(){
         $("#quiz_download").delay(1000).show(2000, "linear");
 
         $("#quiz_download").delay(8000).hide(2000, "linear", function(){
-            //alert("Titre bien caché");
+            //alert("Titre bien cachÃ©");
         });
     });
 </script>

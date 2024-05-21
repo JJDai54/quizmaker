@@ -106,11 +106,11 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $btnInitWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 		$GLOBALS['xoopsTpl']->assign('btnInitWeight', $btnInitWeight);
         //---------------------------------------------      
-        //export jSon : génération du quiz en Html
+        //export jSon : gÃ©nÃ©ration du quiz en Html
         $btnBuildHtml = $quizUtility->getNewBtn(_AM_QUIZMAKER_BUILD_QUIZ, 'build_quiz', QUIZMAKER_URL_ICONS."/16/film.png",  _AM_QUIZMAKER_BUILD_QUIZ);
 		$GLOBALS['xoopsTpl']->assign('btnBuildHtml', $btnBuildHtml);
         //---------------------------------------------        
-        //test du quiz : affiche l'icone avec un "?" bleu si le quiz a ete générérer, permet de le tester
+        //test du quiz : affiche l'icone avec un "?" bleu si le quiz a ete gÃ©nÃ©rÃ©rer, permet de le tester
         if($quiz && isset($quizValues["quiz_html"])){
             $lib =  _AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'];
             if($quizValues["quiz_html"] != '' ){

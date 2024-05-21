@@ -68,10 +68,10 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 // 
 //      switch($err){
 //         case JSON_ERROR_NONE:  return " - Aucune erreur";        break;
-//         case JSON_ERROR_STATE_MISMATCH:  return " - Inadéquation des modes ou underflow";   break;
-//         case JSON_ERROR_CTRL_CHAR: return " - Erreur lors du contrôle des caractères"; break;
-//         case JSON_ERROR_SYNTAX: return " - Erreur de syntaxe ; JSON malformé"; break;
-//         case JSON_ERROR_UTF8: return " - Caractères UTF-8 malformés, probablement une erreur d\'encodage";  break;
+//         case JSON_ERROR_STATE_MISMATCH:  return " - InadÃ©quation des modes ou underflow";   break;
+//         case JSON_ERROR_CTRL_CHAR: return " - Erreur lors du contrÃ´le des caractÃ¨res"; break;
+//         case JSON_ERROR_SYNTAX: return " - Erreur de syntaxe ; JSON malformÃ©"; break;
+//         case JSON_ERROR_UTF8: return " - CaractÃ¨res UTF-8 malformÃ©s, probablement une erreur d\'encodage";  break;
 //         default: return " - Erreur inconnue";  break;
 //     }  
 // }
@@ -119,15 +119,15 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 
 
 /* *************************************************
-* le champ inputs sert à différencier la suite logique des mauvaises réponses
+* le champ inputs sert Ã  diffÃ©rencier la suite logique des mauvaises rÃ©ponses
 *  - 0 : suite logique + weight
 *  - 1 : mauvaises reponses
-*  Le nom de l'image est stocké dans proposition
-*  L'image de substitution est stocké dans le champ image
-*  Les items a trouvé sont notés avec des points positifs et seront rempacés par l'image de substitution
-*  Il peut y avoir plusieurs items a trouver dans la suite (conseillé : 2 ou 3 max )
-*  Le nombre d'image de la séquence est de 8 maximum (voir 10 à tester)
-*  Le nombre de fausse images est limité aussi à 8 (voir 10 à tester)
+*  Le nom de l'image est stockÃ© dans proposition
+*  L'image de substitution est stockÃ© dans le champ image
+*  Les items a trouvÃ© sont notÃ©s avec des points positifs et seront rempacÃ©s par l'image de substitution
+*  Il peut y avoir plusieurs items a trouver dans la suite (conseillÃ© : 2 ou 3 max )
+*  Le nombre d'image de la sÃ©quence est de 8 maximum (voir 10 Ã  tester)
+*  Le nombre de fausse images est limitÃ© aussi Ã  8 (voir 10 Ã  tester)
 * ************************************************** */
  	public function getForm($questId, $quizId)
  	{
@@ -137,10 +137,10 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
         $path =  "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
 //echo "<hr>{$path}<hr>";
 
-        //lecture de toutes les proposition et répartition en 
+        //lecture de toutes les proposition et rÃ©partition en 
         // - sequence logique
         // - image de remplacement
-        // - mauvaise réponses
+        // - mauvaise rÃ©ponses
         $answers = $answersHandler->getListByParent($questId);
                 
 
@@ -151,7 +151,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
         $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
 
         //-------------------------------------------------------------
-        // affichage de la séquence correcte
+        // affichage de la sÃ©quence correcte
         $i = $this->getFormGroup($trayAllAns, $answers, _AM_QUIZMAKER_SEQUENCE, 0, $this->maxPropositions, $path);
         
         //----------------------------------------------------------------
@@ -196,7 +196,7 @@ public function getFormGroup(&$trayAllAns, $arr,$titleGroup, $firstItem, $maxIte
                 $caption     = '';
             }
             
-            //inutilisé dans ce slide
+            //inutilisÃ© dans ce slide
             $imgName = '';
             $points  = 0;
             $inputs = 0;
@@ -306,15 +306,15 @@ echo '<hr>';
         //Suppression de la proposition et de l'image
         if( $v['delete'] == 1) $this->delete_answer_by_image($v,$path);  
         
-        //affectation d'une valeur par défaut pour ce type de question
-        //Il n'y a pas de points défini pour chaque proposition
+        //affectation d'une valeur par dÃ©faut pour ce type de question
+        //Il n'y a pas de points dÃ©fini pour chaque proposition
         if ($v['points'] == 0) $v['points'] = 5;
         
         //enregistrement de l'image
         //if($_FILES['answers'][name] != '') 
         //recuperation de l'image pour le champ proposition
-        //le chrono ne correspond pad forcément à la clé dans files
-        //il faut retrouver cette clé à patir du non du form donner dans le formumaire de saisie
+        //le chrono ne correspond pad forcÃ©ment Ã  la clÃ© dans files
+        //il faut retrouver cette clÃ© Ã  patir du non du form donner dans le formumaire de saisie
         //un pour le champ "proposition" qui stocke l'image principale
         //et un pour le champ imge qui stocke l'image de substitution
         $prefix = "quiz-{$questId}-{$v['chrono']}";        
@@ -367,7 +367,7 @@ echo '<hr>';
     $html = array();
  
     //-------------------------------------------
-    // commençons par la solution
+    // commenÃ§ons par la solution
     $answersAll = $answersHandler->getListByParent($questId, 'answer_weight,answer_id');
     $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
 //    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");

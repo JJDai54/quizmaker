@@ -194,9 +194,9 @@ public function getClassTypeQuestion($typeQuestion){
 
 public function getTypeQuestion(&$typeQuestion)
   {
-    // pour permettre une correction sans aceder à la base apres un changement de nom
-    // A virer dès que les noms seront stabilisés
-    // $typeQuestion est passé par référence pour remonter le transfert
+    // pour permettre une correction sans aceder Ã  la base apres un changement de nom
+    // A virer dÃ¨s que les noms seront stabilisÃ©s
+    // $typeQuestion est passÃ© par rÃ©fÃ©rence pour remonter le transfert
     $this->getNewTypeQuestion($typeQuestion);
 
       //if(!isset($typeQuestion[$typeQuestion])) echo "<hr>===> {$typeQuestion}<br>";
@@ -222,9 +222,9 @@ public function getTypeQuestion(&$typeQuestion)
   }
   /* *****
   * transfert de classes obsolettes
-  * pour permettre une correction sans aceder à la base apres un changement de nom
-  * A virer dès que les noms seront stabilisés
-  * $typeQuestion est passé par référence pour remonter le transfert
+  * pour permettre une correction sans aceder Ã  la base apres un changement de nom
+  * A virer dÃ¨s que les noms seront stabilisÃ©s
+  * $typeQuestion est passÃ© par rÃ©fÃ©rence pour remonter le transfert
   * ****** */
 public function getNewTypeQuestion(&$typeQuestion){
 

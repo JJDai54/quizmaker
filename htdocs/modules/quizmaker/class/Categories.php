@@ -113,7 +113,7 @@ class Categories extends \XoopsObject
         // Categories Handler
 		$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 		
-        /* todo - champ à virer, pas utile de le garder
+        /* todo - champ Ã  virer, pas utile de le garder
         */
         // Form Select catTheme
 		$inpTheme = new \XoopsFormSelect( _AM_QUIZMAKER_THEME, 'cat_theme', $this->getVar('cat_theme'));

@@ -1,4 +1,4 @@
-﻿ 
+ 
 document.onkeydown = quizmaker_applyKey;
 
 
