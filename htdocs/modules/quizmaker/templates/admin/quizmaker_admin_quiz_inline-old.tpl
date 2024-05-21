@@ -1,4 +1,4 @@
-﻿<{if $outline}>
+<{if $outline}>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <?xml version="1.0" encoding="UTF-8"?>
 

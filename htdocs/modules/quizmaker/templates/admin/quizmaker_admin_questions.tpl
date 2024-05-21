@@ -197,7 +197,7 @@ function addNewChild(parentId){
                         </a>
                         
                     <{if $Questions.canDelete}>
-<{* action du clone a revoir : probleme : copie de la table enfant au détriment de la quastionsource
+<{* action du clone a revoir : probleme : copie de la table enfant au dÃ©triment de la quastionsource
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
                             </a>

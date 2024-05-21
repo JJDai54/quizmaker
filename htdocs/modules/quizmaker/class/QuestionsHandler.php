@@ -212,7 +212,7 @@ __SQL__;
     $sql = "SET @rank={$firstWeight};";
     $result = $this->db->queryf($sql);
     
-    //affection du poids à partir du poids provisoir calculé précédemment
+    //affection du poids Ã  partir du poids provisoir calculÃ© prÃ©cÃ©demment
     //$sql = "update {$this->table} SET quest_flag = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";
     $sql = "update {$this->table} SET quest_weight = (@rank:=@rank+{$step}) WHERE quest_quiz_id='{$quiz_id}' ORDER BY quest_flag {$orderBy};";    
     $result = $this->db->queryf($sql);
@@ -343,7 +343,7 @@ __SQL__;
         return $ret;
     }
 /* ******************************
- * supprime la question, ses enfants si c'est un groupe les réponses et les images si besoin
+ * supprime la question, ses enfants si c'est un groupe les rÃ©ponses et les images si besoin
  * *********************** */
     public function deleteCascade( $object, $force = false)
     {
@@ -383,7 +383,7 @@ __SQL__;
 // * *********************************************************** */
 // public function deleteQuestionsByQuizId ($quizId) {
 // global $answersHandler;    
-//     if ($quizId == 0) return false; //sinon ça efface tout
+//     if ($quizId == 0) return false; //sinon Ã§a efface tout
 //     
 //      $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
 // //     echo "===> Criteria delete : " . $criteria->render() . "<br>";
@@ -409,13 +409,13 @@ __SQL__;
             $etat =  $questObj->getVar($field); //$questObj->getVar($field)+1 % $modulo;
 
             if($questObj->getVar('quest_type_question') == 'pageBegin'){
-              // si c'est le slide d'introduction, change l'état de toutes les questions du quiz
+              // si c'est le slide d'introduction, change l'Ã©tat de toutes les questions du quiz
               //$etat =  mod($questObj->getVar($field)+1, $modulo);
               $quizId = $questObj->getVar('quest_quiz_id');
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_quiz_id={$quizId};";            
               $ret = $this->db->queryf($sql);
             }elseif($questObj->getVar('quest_type_question') == 'pageGroup'){
-              // si c'est un slide "pageGroup" , change l'état de toutes les questions du groupe
+              // si c'est un slide "pageGroup" , change l'Ã©tat de toutes les questions du groupe
               //$etat =  mod($questObj->getVar($field)+1, $modulo);
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_parent_id={$questId};";            
               $ret = $this->db->queryf($sql);

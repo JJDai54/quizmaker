@@ -99,7 +99,7 @@ switch($op) {
         $modulo = Request::getInt('modulo', 2);
         $doItForGroup = ($field == 'quest_actif') ? true : false;
         $questionsHandler->changeEtat($questId, $field, $modulo, $doItForGroup);
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} ChangÃ©");
 	break;
     //------------------------------------------------------
 	case 'export_quiz':
@@ -110,7 +110,7 @@ switch($op) {
 //        $quizUtility->saveDataKeepId($quizId);
         //$quizUtility->saveData($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
-        //redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Export effectué");
+        //redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Export effectuÃ©");
 	break;
     
 	case 'purger_images':
@@ -125,14 +125,14 @@ switch($op) {
         //$quizUtility->loadData($quizId);
         $quizUtility->loadData($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} ChangÃ©");
 	break;
     
 	case 'import_quiz':
         //$quizUtility->loadData($quizId);
         $quizUtility->import_quiz($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} ChangÃ©");
 	break;
 
 	case 'edit_quiz':
@@ -153,7 +153,7 @@ switch($op) {
         //$quizUtility->loadData($quizId);
 
 //         $quizHandler->changeEtat($quizId, $field);
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise Ã  jour ok");
 	break;
     } // fin du switch maitre
     

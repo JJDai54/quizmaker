@@ -193,9 +193,9 @@ class Quiz extends \XoopsObject
         $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
 		$form->addElement($inpPublishAnswers);
 
-        /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
+        /* JJDai - Pas vraiment utile, mais je garde des fois que Ã§a puisse servir a autre chose
         oui : ce bouton est activer sur le dernier slide
-        non :  ce bouton esst désactiver sur le dernier slide (utilisation en dehors du site a verifier)
+        non :  ce bouton esst dÃ©sactiver sur le dernier slide (utilisation en dehors du site a verifier)
         */
         
         //========================================================
@@ -282,7 +282,7 @@ class Quiz extends \XoopsObject
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_PERMISSIONS . '</div></center>');
         //========================================================
         
-		// Permissions si  'perm_by_quiz') est défini sur oui
+		// Permissions si  'perm_by_quiz') est dÃ©fini sur oui
         if ($quizmakerHelper->getConfig('perm_by_quiz')){
     		$memberHandler = xoops_getHandler('member');
     		$groupList = $memberHandler->getGroupList();
@@ -378,7 +378,7 @@ class Quiz extends \XoopsObject
 		$ret['actif']             = $this->getVar('quiz_actif');
 		$ret['showConsigne']      = $this->getVar('quiz_showConsigne');
 
-        //verifie que le quiz a été généré
+        //verifie que le quiz a Ã©tÃ© gÃ©nÃ©rÃ©
         $quiz_html = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.html"; 
         $ret['quiz_html'] = (file_exists($quiz_html)) ?  QUIZMAKER_URL_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.html" : '';
         $ret['quiz_html_path'] = (file_exists($quiz_html)) ?  $quiz_html : '';
@@ -403,7 +403,7 @@ class Quiz extends \XoopsObject
         $flags['publishResults']    = quizFlagAscii($ret['publishResults'], "R");
         $flags['publishAnswers']    = quizFlagAscii($ret['publishAnswers'], "S");
                
-        //$flags['onClickSimple']     = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk"); //basculé dans les options du slide
+        //$flags['onClickSimple']     = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk"); //basculÃ© dans les options du slide
         
         $optionsIhm = $ret['optionsIhm'];
         $flags['allowedSubmit']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT__ALLOWEDSUBMIT, $optionsIhm), "Sb"); 

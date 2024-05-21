@@ -148,7 +148,7 @@ class AnswersHandler extends \XoopsPersistableObjectHandler
         return $ret;
     }
 /* *************************************************
- * renvoie une liste des réponses pour un idparent trié
+ * renvoie une liste des rÃ©ponses pour un idparent triÃ©
  * *********************** */
     public function getListByParent($quest_id = 0, $sort = 'answer_weight, answer_quest_id, answer_id', $order = 'ASC')
     {
@@ -239,7 +239,7 @@ class AnswersHandler extends \XoopsPersistableObjectHandler
 * *********************************************************** */
 public function deleteAnswersByQuestId ($questId) {
 global $answersHandler;    
-    if ($questId == 0) return false; //sinon ça efface tout
+    if ($questId == 0) return false; //sinon Ã§a efface tout
     
      $criteria = new \CriteriaCompo(new \Criteria('answer_quest_id', $questId, '='));
 //     echo "===> Criteria delete : " . $criteria->render() . "<br>";

@@ -231,7 +231,7 @@ function Convert_Sec_JHms($Seconde)
 	while ($Seconde >= 60)
 	{$Minute = $Minute + 1; $Seconde = $Seconde - 60;}
 	
-	// Ajout des zéros au cas où l'affichage soit en dessous de 10
+	// Ajout des zÃ©ros au cas oÃ¹ l'affichage soit en dessous de 10
 	if ($Heure < 10)
 	{$Heure = '0'.$Heure;}
 	if ($Minute < 10 AND $Minute > 0)

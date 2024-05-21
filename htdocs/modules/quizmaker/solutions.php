@@ -74,12 +74,12 @@ if (0 == $quizId) {
         $criteria->add(new \Criteria('quest_quiz_id',$quizId, "="));
         
         $questionsCount = $questionsHandler->getCountQuestions($criteria);
-        //ça ne devrait pas arrivé mais au cas ou, pas de question retour aux categories
+        //Ã§a ne devrait pas arrivÃ© mais au cas ou, pas de question retour aux categories
 		if ($questionsCount == 0) 
 	           redirect_header('categories.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
         $questionsAll = $questionsHandler->getAllQuestions($criteria, $start, $limit, 'quest_weight ASC, quest_question');
         
-        //chargement des données des questions
+        //chargement des donnÃ©es des questions
         $questions = array();
         $numQuestion = 0;
 		foreach(array_keys($questionsAll) as $i) {
@@ -91,7 +91,7 @@ if (0 == $quizId) {
             else
                 $question['numQuestion'] = 0;
             
-            //chargement des réponses correctes   pour chaque question
+            //chargement des rÃ©ponses correctes   pour chaque question
             $questions[] = $question;
 		}
         
@@ -110,7 +110,7 @@ $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/ass
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS];
 
 //---------------------------------------------------
-//  ajout du resultat du participant le cas échéant
+//  ajout du resultat du participant le cas Ã©chÃ©ant
 //----------------------------------------------------
     //$tResult['result_id'] = $resultId;
     

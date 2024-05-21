@@ -143,7 +143,7 @@ $stat = $quizHandler->getStatistics();
             
 		}
     }
-    //recherche des quiz de la catégorie
+    //recherche des quiz de la catÃ©gorie
     $GLOBALS['xoopsTpl']->assign('paramsForQuiz', getParamsForQuiz(1));
     
 	$GLOBALS['xoopsTpl']->assign('categories', $categories);

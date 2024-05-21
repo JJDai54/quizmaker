@@ -37,6 +37,8 @@ return (object)[
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/files',
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/quiz-js',
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/quiz-js/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
+        XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/messages',
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
 	],
 	'copyBlankFiles'  => [

@@ -54,7 +54,7 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_libBegin` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `quiz_libEnd` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `quiz_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
-  `quiz_optionsDev` bit(16) NOT NULL b'0',
+  `quiz_optionsDev` bit(16) NOT NULL DEFAULT b'0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
   `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
@@ -170,5 +170,5 @@ CREATE TABLE `quizmaker_results` (
 
 
 INSERT INTO quizmaker_categories( `cat_name`, `cat_description`,  `cat_theme`, `cat_weight`) VALUES 
-('Test', 'Catégorie de test', 'default', 0);
+('Test', 'CatÃ©gorie de test', 'default', 0);
 

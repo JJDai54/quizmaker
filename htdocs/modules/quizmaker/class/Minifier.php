@@ -18,7 +18,7 @@ class Minifier
 	 * @return null|string|string[]
 	 */
 	public function minify(&$buffer, $ext, $extra='') {
-        $ext .= $extra; //permet de gérer le cas particulier des fichiers de langues
+        $ext .= $extra; //permet de gÃ©rer le cas particulier des fichiers de langues
         switch (trim($ext)){
             case 'js'     : return $this->minifyJS($buffer);   break;
             case 'jslang' : return $this->minifyJSLanguage($buffer);   break;
@@ -102,7 +102,7 @@ class Minifier
   
 	/**
 	 * Compress Javascript pour des fichiers de langues
-	 * nottament il ne faut pas supprimler les espace avant les parenthès ou accolades
+	 * nottament il ne faut pas supprimler les espace avant les parenthÃ¨s ou accolades
 	 * @param $buffer
 	 * @return string
 	 */

@@ -68,7 +68,7 @@ window.scroll(0, window.scrollY + offsetV);
 
 
 <{*
-<hr>result_id = <{$result.result_id }> (affichage du score En cours de développement)<hr>
+<hr>result_id = <{$result.result_id }> (affichage du score En cours de dÃ©veloppement)<hr>
  [result_id] => 11
     [result_quiz_id] => 5
     [result_uid] => 2
@@ -105,7 +105,7 @@ window.scroll(0, window.scrollY + offsetV);
 
 <{else}>
   <{* A faire : mettre ici la moyenne des scores 
-  <hr>Pas de résultat à afficher pour <{$result.result_id }><hr>
+  <hr>Pas de rÃ©sultat Ã  afficher pour <{$result.result_id }><hr>
   *}>
 <{/if}>
 

@@ -90,9 +90,9 @@ use XoopsModules\Quizmaker\Utility;
 		// Set Vars
         if($newQuiz){
              //------------------------------------------------------------------
-             //ajout automatique des pages d'info et de résultat
+             //ajout automatique des pages d'info et de rÃ©sultat
              //------------------------------------------------------------------
-             // page de présentation
+             // page de prÃ©sentation
              $questionsObj = $questionsHandler->create();
              $questionsObj->setVar('quest_quiz_id', $quizId);
              $questionsObj->setVar('quest_type_question', 'pageBegin');
@@ -113,7 +113,7 @@ use XoopsModules\Quizmaker\Utility;
 		     $answersHandler->insert($answerObj);             
              
              //------------------------------------------------------------------
-             // page de résultats
+             // page de rÃ©sultats
              //--------------------------             
              $questionsObj = $questionsHandler->create();
              $questionsObj->setVar('quest_quiz_id', $quizId);
@@ -135,7 +135,7 @@ use XoopsModules\Quizmaker\Utility;
 		     $answersHandler->insert($answerObj);  
                         
         }else if ($oldFolder !== $newFolder){
-            //Le quiz a changé de dossier qu'il faut renomer
+            //Le quiz a changÃ© de dossier qu'il faut renomer
             rename(QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $oldFolder, QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $newFolder);
         }
 

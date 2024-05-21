@@ -146,7 +146,7 @@ FROM `x251_quizmaker_results`
           }
 
       }
-    //recherche des quiz de la catégorie
+    //recherche des quiz de la catÃ©gorie
     
 
 //echoArray($categories);    

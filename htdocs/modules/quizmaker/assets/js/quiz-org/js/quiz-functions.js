@@ -1,4 +1,4 @@
-﻿
+
 /*
 Construit le code html de chaque question/slide.
 function build_ (currentQuestion, index){

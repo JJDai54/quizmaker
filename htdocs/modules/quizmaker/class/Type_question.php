@@ -65,8 +65,8 @@ var $renameImage = false; // Permet de garder le nom originale d'une image, a ut
 var $optionsDefaults = array('test'=>'JJD');
 var $hasImageMain = false;
 
-//si true, ne sera plus dans les listes de sélection pour une création, 
-//mais permet de garder la compatibilité avec des slides créés avec ce type de question.
+//si true, ne sera plus dans les listes de sÃ©lection pour une crÃ©ation, 
+//mais permet de garder la compatibilitÃ© avec des slides crÃ©Ã©s avec ce type de question.
 var $obsolette = false; 
 var $pathArr = false; 
 var $prefix = '_QT_QUIZMAKER_';
@@ -124,7 +124,7 @@ var $prefix = '_QT_QUIZMAKER_';
 	{
         $this->trayGlobal = new \XoopsFormElementTray  (_AM_QUIZMAKER_PROPOSITIONS, $delimeter = '<hr>');
         
-        //l'insertion de l'aide a été déplacée dans le form de la question pour une meilleurs ergonomie
+        //l'insertion de l'aide a Ã©tÃ© dÃ©placÃ©e dans le form de la question pour une meilleurs ergonomie
         //$this->trayGlobal->addElement($this->getSlideHelper());
 	}
 
@@ -137,7 +137,7 @@ var $prefix = '_QT_QUIZMAKER_';
 	{
 
         $trayHeader = new \XoopsFormElementTray  (_AM_QUIZMAKER_SLIDE_CONSIGNE, $delimeter = '<br>'); 
-        /* pas vraiment utile tout ça, fait double emploi
+        /* pas vraiment utile tout Ã§a, fait double emploi
         $trayHeader->addElement(new \XoopsFormLabel('', $this->name));
         $trayHeader->addElement(new \XoopsFormLabel('', $this->description));
         $trayHeader->addElement(new \XoopsFormLabel('', '<hr>'));
@@ -380,7 +380,7 @@ global $xoopDB;
         
         //----------------------------------------------   
 /*
-        // --- Ajout de la copie d'écran du slide
+        // --- Ajout de la copie d'Ã©cran du slide
         $url =  QUIZMAKER_URL_QUIZ_JS . "/quiz-php/images/slide_" . $this->type . '.jpg';
         $img =  <<<___IMG___
             <a href='{$url}' class='highslide' onclick='return hs.expand(this);' >
@@ -656,7 +656,7 @@ global $quizmakerHelper, $quizUtility;
             $nameOrg = $_FILES[$_POST['xoops_upload_file'][$keyFile]]['name'];       
             if($this->renameImage){
                 //echo "===>savedFilename : {$savedFilename}<br>";  
-                //modification du nom pour les repérer dans le dossier   
+                //modification du nom pour les repÃ©rer dans le dossier   
                 $newName = $prefix . '-' . $quizUtility::sanitiseFileName($nameOrg);
                 rename($path.'/'. $savedFilename,  $path.'/' . $newName);
                 $savedFilename = $newName;
@@ -674,7 +674,7 @@ global $quizmakerHelper, $quizUtility;
             $uploaderErrors = $uploader->getErrors();
         //}
         // il faut garder l'image existante si il n'y a pas eu de nouvelle selection
-        // ou l'image sélectionée dans la liste
+        // ou l'image sÃ©lectionÃ©e dans la liste
         //$slidesObj->setVar('sld_image', Request::getString('sld_image'));
         $savedFilename = '';
         exit("save_img");
@@ -701,8 +701,8 @@ function save_img_old(&$answer, $path, $folderQuiz){
 global $quizmakerHelper;
     $chrono = $answer['chrono']-1;
     
-    //le chrono ne correspond pad forcément à la clé dans files
-    //il faut retrouver cette clé à patir du non du form donner dans le formumaire de saisie
+    //le chrono ne correspond pad forcÃ©ment Ã  la clÃ© dans files
+    //il faut retrouver cette clÃ© Ã  patir du non du form donner dans le formumaire de saisie
     //un pour le champ "proposition" qui stocke l'image principale
     //et un pour le champ imge qui stocke l'image de substitution
 
@@ -725,7 +725,7 @@ global $quizmakerHelper;
 /*
               $imgNameDef     = Request::getString('sld_short_name');
               
-              //si le nom n'est pas renseigné on prend le nom du fichier image
+              //si le nom n'est pas renseignÃ© on prend le nom du fichier image
               $shortName = Request::getString('sld_short_name', '');
               if($shortName == '') {
                 if ($filename == '') $filename = Request::getString('sld_image', '');
@@ -773,7 +773,7 @@ global $quizmakerHelper;
             $uploaderErrors = $uploader->getErrors();
         //}
         // il faut garder l'image existante si il n'y a pas eu de nouvelle selection
-        // ou l'image sélectionée dans la liste
+        // ou l'image sÃ©lectionÃ©e dans la liste
         //$slidesObj->setVar('sld_image', Request::getString('sld_image'));
     
     }
@@ -866,9 +866,9 @@ $select = $inpImg->render();
      }
      
 /* *************************************************
-* Le nombre d'items est limité, si il y en a plus il y a eu un problème de sauvegarde.
+* Le nombre d'items est limitÃ©, si il y en a plus il y a eu un problÃ¨me de sauvegarde.
 * Il faut supprimer les enregistrements en trop
-* utilisé en dev pour remettre de l'ordre
+* utilisÃ© en dev pour remettre de l'ordre
 * ************************************************** */
  	public function deleteToMuchItems($arr, $maxItems)
  	{ 
@@ -881,7 +881,7 @@ $select = $inpImg->render();
      }
 
 /* *************************************************
-*  inititlise une table avec xoopsformTableXtray (J°J°D)
+*  inititlise une table avec xoopsformTableXtray (JÂ°JÂ°D)
 *  pour la liste des propositions
 * ************************************************** */
  	public function getNewXoopsTableXtray($caption='', $globalTdStyle = null , $extra = null)
