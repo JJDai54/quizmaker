@@ -20,21 +20,34 @@
  * @version {version}
  * Traduction:  
  */
- 
-defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
-//------------------------------------------------------------------
-//noms des catégories de questions par objets utilisés
-define('_QT_QUIZMAKER_CAT_ALPHA', "Alpha-Numérique");
-define('_QT_QUIZMAKER_CAT_CHECKBOX', "Cases à cocher");
-define('_QT_QUIZMAKER_CAT_COMBOBOX', "Listes déroulantes");
-define('_QT_QUIZMAKER_CAT_IMAGESDAD', "Images Drag and Drop");
-define('_QT_QUIZMAKER_CAT_IMAGES', "Images");
-define('_QT_QUIZMAKER_CAT_LISTBOX', "Listes multi lignes");
-define('_QT_QUIZMAKER_CAT_PAGE', "Pages de début, de fin et de regroupement");
-define('_QT_QUIZMAKER_CAT_RADIO', "Boutons radios");
-define('_QT_QUIZMAKER_CAT_TEXTAREA', "Textes à comppléter");
-define('_QT_QUIZMAKER_CAT_TEXTBOX', "Zones de saisie");
-define('_QT_QUIZMAKER_CAT_UL', "Liste de libellés");
+defined( 'XOOPS_ROOT_PATH' ) or die( 'Restricted access' );
+
+//------------------------------------------------ ------------------
+//names of question categories by objects used
+// define('_QT_QUIZMAKER_CAT_ALPHA', "Alpha-Numerical");
+// define('_QT_QUIZMAKER_CAT_CHECKBOX', "Checkboxes");
+// define('_QT_QUIZMAKER_CAT_COMBOBOX', "Dropdown lists");
+// define('_QT_QUIZMAKER_CAT_IMAGESDAD', "Images Drag and Drop");
+// define('_QT_QUIZMAKER_CAT_LISTBOX', "Multi-line lists");
+// define('_QT_QUIZMAKER_CAT_RADIO', "Radio buttons");
+// define('_QT_QUIZMAKER_CAT_TEXTAREA', "Texts to complete");
+// define('_QT_QUIZMAKER_CAT_TEXTBOX', "Input boxes");
+// define('_QT_QUIZMAKER_CAT_UL', "List of labels");
+
+define('_QT_QUIZMAKER_CAT_PAGE', "Start, end and grouping pages");
+define('_QT_QUIZMAKER_CAT_BASIC', "Basic questions");
+define('_QT_QUIZMAKER_CAT_TEXT', "Texts");
+define('_QT_QUIZMAKER_CAT_DRAGANDDROP', "Click and drop");
+define('_QT_QUIZMAKER_CAT_OTHER', "Other question types");
+define('_QT_QUIZMAKER_CAT_IMAGES', "Easy clickable images");
+
+
+// image
+//  page
+//  basique
+//  text
+//  dragAndDrop
+//  other
 
 ?>

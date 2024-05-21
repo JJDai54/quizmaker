@@ -402,7 +402,6 @@ define('_AM_QUIZMAKER_BACKGROUND', "Couleur du fond");
 define('_AM_QUIZMAKER_FAMILY_WORDS', "Famille de mots");
 define('_AM_QUIZMAKER_FAMILY_WORDS_DESC', "Cette liste de mots séparée par une virgule  permet d'orienter les réponses.<br>exemple trouver les termes ayant un point commun avec cette liste.<br>Elle sera affichée à côté de la liste d'options.");
 
-
 define('_AM_QUIZMAKER_MINIFY',"Minification");
 
 //define('_SUBMIT_ALL',"submit_all");
