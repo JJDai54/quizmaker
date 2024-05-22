@@ -1,4 +1,4 @@
-  function testClick2(exp) {
+﻿  function testClick2(exp) {
     var a = 555;
     alert("testClick : exp = " + exp + " | a = " + a);
   }

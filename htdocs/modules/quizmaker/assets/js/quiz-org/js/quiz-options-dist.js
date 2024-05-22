@@ -1,4 +1,4 @@
-
+﻿
 const quiz_bit = {
   previous:  1,  // retour arriere
   next:      2,  // next si repondu

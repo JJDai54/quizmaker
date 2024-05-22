@@ -1,4 +1,4 @@
-// alert ("ok : " + myQuestions.length);
+﻿// alert ("ok : " + myQuestions.length);
 // alert ("ok : " + myQuestions[0].question);
 
 
@@ -13,6 +13,7 @@
 const quiz_request_keys=['uid','uname','name','email','ip','quiz_id'];
 var quiz_rgp = requestGetPost();
 //alert ("quiz_rgp : " + quiz_rgp.uname + "\nquiz_id : " + quiz_rgp.quiz_id);
+var qbr =  '<br>' ;
 
 const quiz_config = {
     name : 'Quizmaker',
@@ -1216,7 +1217,7 @@ function shuffleMyquiz () {
             j = h;
         }
     }
-    console.log("++++++++++++++++++++++++++++++++++++++++++++")
+    console.log("++++++++++++++++++++++++++++++++++++++++++++");
     //---------------------------------------------------------------
     if(allGroups.length == 0){
         // il n'y a pas de groupe
