@@ -566,89 +566,13 @@ $fldMasterId =  "quiz_cat_id";
  }
 
  /* ******************************
- * Update weight
+ *  purgerImages
  * *********************** */
  public function purgerImages($quiz_id){
  global $questionsHandler, $answersHandler, $xoopsDB;
  $nbImgDeleted = 0;
     
-    $quiz = $this->get($quiz_id);
-    // Liste des fichier dans le dossiers des images du quiz
-// echo "<hr><pre>quiz : " . print_r($quiz, true) . "</pre><hr>";    
-    $folder = $quiz->getVar('quiz_folderJS');
-    $imgPath = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $folder . '/images';
-    //$imgList = XoopsLists::getDirListAsArray(QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $folder . '/images');
-    $imgList = \XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'));    
-    
-    //--------------------------------------------------
-    //Liste des images dans la table answers du quiz
-    $quizTblImg = array();
-    $sql = "SELECT tq.quest_quiz_id, ta.answer_proposition, ta.answer_image, ta.answer_image1, ta.answer_image2"
-     . " FROM " . $xoopsDB->prefix('quizmaker_answers') . " ta"
-     . " LEFT JOIN " . $xoopsDB->prefix('quizmaker_questions') ." tq"
-     . " ON ta.answer_quest_id = tq.quest_id"
-     . " WHERE tq.quest_quiz_id = {$quiz_id}";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        //echo "purger images : {$row['answer_proposition']}/{$row['answer_image']}/{$row['answer_image1']}<br>";
-        if ($row['answer_proposition']) $quizTblImg[] = $row['answer_proposition'];
-        if ($row['answer_image']) $quizTblImg[] = $row['answer_image'];
-        if ($row['answer_image1']) $quizTblImg[] = $row['answer_image1'];
-        if ($row['answer_image2']) $quizTblImg[] = $row['answer_image2'];
-     }
-     
-    //--------------------------------------------------
-     //liste des images dant le champ "image" de la table questions
-    $sql = "SELECT quest_image FROM " . $xoopsDB->prefix('quizmaker_questions')
-         . " WHERE quest_quiz_id = {$quiz_id} AND quest_image <> ''";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        if ($row['quest_image']) $quizTblImg[] = $row['quest_image'];
-     }
-     
-    //--------------------------------------------------
-     //liste des images dant le champ "options" de la table questions
-    $sql = "SELECT quest_options FROM " . $xoopsDB->prefix('quizmaker_questions')
-         . " WHERE quest_quiz_id = {$quiz_id}";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        $tOptions = json_decode($row['quest_options'],true);
-        if (is_array($tOptions)){
-            foreach($tOptions as $key=>$v) $quizTblImg[] = $v;
-        }
-     }
-    
-     //----------------------------------------------------------------
-    //echo "delete from {$imgPath}<br>";
-    //suppression des fichiers physique si le nom n'est pas dans une des table
-    foreach($imgList as $key=>$file){
-        if(!in_array($key, $quizTblImg)) {
-       
-            //echo "delete {$key}<br>";
-            $fullName = $imgPath . '/' . $key;
-            unlink($fullName);
-            $nbImgDeleted++;
-        }
-    }
-    //effacement du champ imae si le fihichier physique n'est pas dans une table
-    //finalement pas une bonne idée de faire comme ça
-//     foreach($quizTblImg as $key=>$file){
-//         if(!in_array($file, $imgList)) {
-//             $sql = "update " . $xoopsDB->prefix('quizmaker_answers') . "SET answer_proposition = '' WHERE answer_proposition LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('answer_image') . "SET answer_proposition = '' WHERE answer_image LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('answer_image1') . "SET answer_proposition = '' WHERE answer_image1 LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('answer_image2') . "SET answer_proposition = '' WHERE answer_image2 LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('quizmaker_questions') . "SET answer_proposition = '' WHERE answer_image2 LIKE {$file}";
-//             echo "{$sql}<br>";
-//         }
-//     }
-    
-    //exit;
-    return $nbImgDeleted;
+    return $this->get($quiz_id)->purgerImages();
  }
  /* ******************************
  * Update weight

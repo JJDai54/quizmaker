@@ -1,4 +1,4 @@
-
+﻿
  /*******************************************************************
   *                     _imagesDaDMatchItems
   * *****************************************************************/
@@ -77,7 +77,7 @@ onDragStart="dad_start(event);"`;
            var idSequence = this.getId(j++,"sequence");
            ansImg.idSequence = idSequence;
         src = `${quiz_config.urlQuizImg}/${ansImg.proposition}`;
-        caption = (ansCap.caption) ? '<br>' +  ansCap.caption : ansCap.proposition; 
+        caption = (ansCap.caption) ? qbr +  ansCap.caption : ansCap.proposition; 
         img = `<div><img id="${idSequence}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</div>`;
         tHtmlSequence.push(img);
         
@@ -127,7 +127,7 @@ onDragStart="dad_start(event);"`;
             src = `${quiz_config.urlQuizImg}/${ans.image}`;
            var idSequence = this.getId(j++,"sequence");
            ans.idSequence = idSequence;
-            caption = (ans.caption) ? '<br>' + ans.caption : ''; 
+            caption = (ans.caption) ? qbr + ans.caption : ''; 
             img = `<div><img id="${idSequence}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</div>`;        
             tHtmlSequence.push(img);
         }

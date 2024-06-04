@@ -1,4 +1,4 @@
-
+﻿
 
  /* ******************************************************************
   *                     _slide_ulSortList
@@ -114,8 +114,8 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
             ans = groups[k][j];
 
             switch (posCaption){
-                case 'T': captionTop = ans.caption.replace(' ','<br>') + '<br>' ; break;
-                case 'B': captionBottom = '<br>' + ans.caption.replace(' ','<br>'); break;
+                case 'T': captionTop =    ans.caption + qbr ; break;
+                case 'B': captionBottom = qbr + ans.caption ; break;
                 default: break;
             }
             var backGround = (ans.background) ? `background:${ans.background};` : '';
@@ -192,6 +192,9 @@ init_slist (target) {
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
         ans.id = this.getId('item', k);
+        ans.caption.replace(' ', qbr);
+                        
+                        
         if(ans.points == 0) {ans.points = 1;}
         if(!groups[ans.group*1]) groups[ans.group*1] = [];
         groups[ans.group*1].push(ans);
@@ -290,8 +293,8 @@ var ImgStyle=`style="height:${divHeight}px;"`;
         var g = ans.group;
  
         switch (posCaption){
-            case 'T': captionTop = ans.caption.replace(' ','<br>') + '<br>' ; break;
-            case 'B': captionBottom = '<br>' + ans.caption.replace(' ','<br>'); break;
+            case 'T': captionTop    = ans.caption + qbr ; break;
+            case 'B': captionBottom = qbr + ans.caption ; break;
             default: break;
         }
 

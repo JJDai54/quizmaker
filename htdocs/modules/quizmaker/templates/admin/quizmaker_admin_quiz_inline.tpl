@@ -1,9 +1,9 @@
 <{if $outline}>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<?xml version="1.0" encoding="UTF-8"?>
+<!doctype html>
 
 <html>
   <head>
+    <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" /> 
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="generator" content="PSPad editor, www.pspad.com">
@@ -11,6 +11,9 @@
     <title><{$quiz.name}></title>
 <{/if}>
 
+
+
+<{* ===============================================*}>
 <{$highslide}>
 <script>const quiz_execution=<{$quiz_execution}> </script>
     <script src="<{$quizUrl}>/js/quiz-consignes.js"></script>

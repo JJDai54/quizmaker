@@ -1,0 +1,20 @@
+﻿
+.imagesSimple div{
+    border: none;
+    text-align:left;
+}
+ 
+.imagesSimple img{
+    margin:2px;
+    border: 3px solid transparent;
+}
+
+.imagesSimple img[selectable]{
+    margin:2px;
+    cursor:pointer; 
+}
+.imagesSimple img[selectable]:hover{
+    border: 3px solid red;
+}
+
+

@@ -1,4 +1,4 @@
-
+﻿
  /*******************************************************************
   *                     _textboxMultiple
   * *****************************************************************/
@@ -277,7 +277,7 @@ var tpl = "";
         break;
     case 'disposition-01':    
         tpl = `{input}`;
-        varByRef = '<br>';
+        varByRef = qbr;
         break;
     case 'disposition-10':
         tpl = `<center>{image}</center><br><div>{input}`;
@@ -285,7 +285,7 @@ var tpl = "";
         break;
     case 'disposition-11':
         tpl = `<center>{image}</center><br><div>{input}`;
-        varByRef = '<br>';
+        varByRef = qbr;
         break;
     case 'disposition-20':
         tpl = `<table><tr><td>{image}</td><td>{input}</td></tr></table>`;
@@ -293,7 +293,7 @@ var tpl = "";
         break;
     case 'disposition-21':
         tpl = `<table><tr><td>{image}</td><td>{input}</td></tr></table>`;
-        varByRef = '<br>';
+        varByRef = qbr;
         break;
     }
     return tpl;

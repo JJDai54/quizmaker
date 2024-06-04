@@ -1,4 +1,4 @@
-
+﻿
  /*******************************************************************
   *                     _textareaSimple
   * *****************************************************************/
@@ -97,7 +97,7 @@ var textboxClass = "quiz-shadowbox2";
     var currentQuestion = this.question;
     
     var obText = document.getElementById(this.getId(0));
-    obText.value = this.data.textOk.replaceAll('<br>', "\n");
+    obText.value = this.data.textOk.replaceAll(qbr, "\n");
 
 
     return true;

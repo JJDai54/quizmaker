@@ -1,4 +1,4 @@
-﻿ /*******************************************************************
+ /*******************************************************************
   *                     _quizPrototype
   * *****************************************************************/
 class quizPrototype{
@@ -341,7 +341,7 @@ balises2Values(exp, bReplaceSlash = false)
         
     newExp = newExp.replaceAll('{', '');
     newExp = newExp.replaceAll('}', '');
-    if (bReplaceSlash) {newExp = newExp.replaceAll('/', '<br>');}
+    if (bReplaceSlash) {newExp = newExp.replaceAll('/', qbr);}
 
     return newExp;
     

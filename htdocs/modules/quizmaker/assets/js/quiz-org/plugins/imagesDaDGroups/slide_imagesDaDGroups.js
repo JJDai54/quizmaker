@@ -1,4 +1,4 @@
-
+﻿
  /*******************************************************************
   *                     _imagesDaDGroups
   * *****************************************************************/
@@ -77,8 +77,8 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
             ans = groups[k][j];
             src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
             switch (posCaption){
-                case 'T': captionTop = ans.caption.replace(' ','<br>').replace('/','<br>') + '<br>' ; break;
-                case 'B': captionBottom = '<br>' + ans.caption.replace(' ','<br>').replace('/','<br>') ; break;
+                case 'T': captionTop    = ans.caption + qbr ; break;
+                case 'B': captionBottom = qbr + ans.caption ; break;
                 default: break;
             }
 
@@ -120,6 +120,8 @@ initSlide(){
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
         ans.id = this.getId('img', k);
+        ans.caption = ans.caption.replace(' ',qbr).replace('/',qbr);
+        
         if(ans.points <= 0) {ans.points = 1;}
         if(!groups[ans.group*1]) groups[ans.group*1] = [];
         groups[ans.group*1].push(ans);
@@ -292,8 +294,8 @@ var ImgStyle=`style="height:${divHeight}px;"`;
         var g = ans.group;
         src = `${quiz_config.urlQuizImg}/${ans.proposition}`; 
         switch (posCaption){
-            case 'T': captionTop = ans.caption.replace(' ','<br>') + '<br>' ; break;
-            case 'B': captionBottom = '<br>' + ans.caption.replace(' ','<br>'); break;
+            case 'T': captionTop    = ans.caption + qbr ; break;
+            case 'B': captionBottom = qbr + ans.caption ; break;
             default: break;
         }
 

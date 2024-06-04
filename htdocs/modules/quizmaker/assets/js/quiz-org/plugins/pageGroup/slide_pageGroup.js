@@ -1,4 +1,4 @@
-
+﻿
  /*******************************************************************
   *                     _Group
   * *****************************************************************/
@@ -65,7 +65,7 @@ var name = this.getName();
       }
       
       //pour que l'ombre du bas du dernuer texte ne soit pas oupé, un padding serait peut être mieux
-      answers.push('<br>'); 
+      answers.push(qbr); 
 //       if(this.typeForm == 3){
 //           answers.push(this.buildFormSubmitAnswers());
 //       }

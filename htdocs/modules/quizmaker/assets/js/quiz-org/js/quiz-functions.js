@@ -1,4 +1,4 @@
-﻿
+
 /*
 Construit le code html de chaque question/slide.
 function build_ (currentQuestion, index){
@@ -412,7 +412,7 @@ var textOk = '';
 //    alert(tWordsA.join('|'));
 //----------------------------------------------
     //remplacement des mots entre accolade par le mask defini dans options
-    var exp2 = exp.replaceAll('<br>', "\n");
+    var exp2 = exp.replaceAll(qbr, "\n");
     ret.nbRows = exp2.split("\n").length; //nombre de lignes du texte
 //    exp = exp.replaceAll("\n","<br>");
 

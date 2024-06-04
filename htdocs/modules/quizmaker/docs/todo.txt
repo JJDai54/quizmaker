@@ -1,3 +1,40 @@
+
+not minified
+QUIZMAKER_QUIZ_JS_TO_RUN
+/assets/js/quiz-org
+QUIZMAKER_PATH_QUIZ_JS
+D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/htdocs/modules/quizmaker/assets/js/quiz-org
+QUIZMAKER_URL_PLUGINS_JS
+http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins
+QUIZMAKER_URL_QUIZ_JS
+http://127.0.0.16/modules/quizmaker/assets/js/quiz-org
+
+
+
+minified
+QUIZMAKER_QUIZ_JS_TO_RUN
+/assets/js/quiz-min
+QUIZMAKER_PATH_QUIZ_JS
+D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/htdocs/modules/quizmaker/assets/js/quiz-min
+QUIZMAKER_URL_PLUGINS_JS
+http://127.0.0.16/modules/quizmaker/assets/js/quiz-min/plugins
+QUIZMAKER_URL_QUIZ_JS
+http://127.0.0.16/modules/quizmaker/assets/js/quiz-min
+
+
+minified
+QUIZMAKER_QUIZ_JS_TO_RUN
+/quiz-min
+QUIZMAKER_PATH_QUIZ_JS
+D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/htdocs/uploads/quizmaker/quiz-min
+QUIZMAKER_URL_PLUGINS_JS
+http://127.0.0.16/uploads/quizmaker/quiz-min/plugins
+QUIZMAKER_URL_QUIZ_JS
+http://127.0.0.16/uploads/quizmaker/quiz-min
+
+
+
+
 ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_libBegin` VARCHAR(120) NOT NULL AFTER `quiz_theme`, ADD `quiz_libEnd` VARCHAR(120) NOT NULL AFTER `quiz_libBegin`; 
 ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_optionsIhm` INT NOT NULL DEFAULT '0' AFTER `quiz_execution`, ADD `quiz_optionsDev` INT NOT NULL AFTER `quiz_optionsIhm`; 
 

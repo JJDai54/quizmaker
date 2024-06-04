@@ -25,6 +25,7 @@ $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = XoopsModule::getByDirname($dirname);
 $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
+$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU1,
@@ -70,11 +71,14 @@ $adminmenu[] = [
 	'link' => 'admin/import.php?op=list',
 	'icon' => $sysPathIcon32 . '/download.png',
 ];
-$adminmenu[] = [
-	'title' => _MI_QUIZMAKER_MINIFY,
-	'link' => 'admin/minify.php',
-	'icon' => $sysPathIcon32.'/discount.png',
-];
+
+if ($quizmakerHelper->getConfig('use_js_minified')){
+  $adminmenu[] = [
+  	'title' => _MI_QUIZMAKER_MINIFY,
+  	'link' => 'admin/minify.php',
+  	'icon' => $sysPathIcon32.'/discount.png',
+  ];
+}
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU8,

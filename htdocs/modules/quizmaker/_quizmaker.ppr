@@ -25,7 +25,7 @@ _quizmaker
 		..\..\Frameworks\JJD-Framework\include\fw-functions.php
 		..\..\Frameworks\JJD-Framework\include\globales-functions.php
 	+quizmaker
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -57,7 +57,7 @@ _quizmaker
 			admin\results.php
 			admin\type_question.php
 			admin\type_question_help.php
-		+assets
+		-assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -188,274 +188,7 @@ _quizmaker
 				assets\images\solution-02.png
 				assets\images\solution-03.png
 			+js
-				-quiz-min
-					-css
-						-infobulle
-							-images
-								assets\js\quiz-min\css\infobulle\images\Award.png
-								assets\js\quiz-min\css\infobulle\images\Bow tie.png
-								assets\js\quiz-min\css\infobulle\images\Cinema.png
-								assets\js\quiz-min\css\infobulle\images\Coffee.png
-								assets\js\quiz-min\css\infobulle\images\Critical.png
-								assets\js\quiz-min\css\infobulle\images\Dating.png
-								assets\js\quiz-min\css\infobulle\images\Dollar.png
-								assets\js\quiz-min\css\infobulle\images\Game_strategy.png
-								assets\js\quiz-min\css\infobulle\images\Hamburger.png
-								assets\js\quiz-min\css\infobulle\images\Help.png
-								assets\js\quiz-min\css\infobulle\images\Hint.png
-								assets\js\quiz-min\css\infobulle\images\Home.png
-								assets\js\quiz-min\css\infobulle\images\index.html
-								assets\js\quiz-min\css\infobulle\images\Info.png
-								assets\js\quiz-min\css\infobulle\images\Kids.png
-								assets\js\quiz-min\css\infobulle\images\Music.png
-								assets\js\quiz-min\css\infobulle\images\View.png
-								assets\js\quiz-min\css\infobulle\images\Warning.png
-							assets\js\quiz-min\css\infobulle\exemple-01.html
-							assets\js\quiz-min\css\infobulle\index.html
-							assets\js\quiz-min\css\infobulle\infobulle.css
-						-progressbarr
-							assets\js\quiz-min\css\progressbarr\shaded-blue.png
-							assets\js\quiz-min\css\progressbarr\shaded-green.png
-							assets\js\quiz-min\css\progressbarr\shaded-magenta.png
-							assets\js\quiz-min\css\progressbarr\shaded-red.png
-							assets\js\quiz-min\css\progressbarr\shaded-yellow.png
-						assets\js\quiz-min\css\index.html
-						assets\js\quiz-min\css\quiz.css
-						assets\js\quiz-min\css\quiz-tmp.css
-						assets\js\quiz-min\css\style-item-color.css
-						assets\js\quiz-min\css\style-item-color-old.css
-						assets\js\quiz-min\css\style-item-design.css
-						assets\js\quiz-min\css\style-item-design-old.css
-					-images
-						-emoji
-							assets\js\quiz-min\images\emoji\emoji_icon_00.png
-							assets\js\quiz-min\images\emoji\emoji_icon_01.png
-							assets\js\quiz-min\images\emoji\emoji_icon_02.png
-						-substitut
-							assets\js\quiz-min\images\substitut\blank-jaune.jpg
-							assets\js\quiz-min\images\substitut\blank-org.jpg
-							assets\js\quiz-min\images\substitut\blank-rouge.jpg
-							assets\js\quiz-min\images\substitut\blank-vert.jpg
-							assets\js\quiz-min\images\substitut\blank-violet.jpg
-							assets\js\quiz-min\images\substitut\index.html
-							assets\js\quiz-min\images\substitut\interrogation-01.jpg
-							assets\js\quiz-min\images\substitut\interrogation-02-gris.png
-							assets\js\quiz-min\images\substitut\interrogation-02-jaune.png
-							assets\js\quiz-min\images\substitut\interrogation-02-rouge.jpg
-							assets\js\quiz-min\images\substitut\interrogation-02-vert.png
-							assets\js\quiz-min\images\substitut\interrogation-02-violet.png
-							assets\js\quiz-min\images\substitut\interrogation-03-jaune.png
-							assets\js\quiz-min\images\substitut\interrogation-03-noir.png
-							assets\js\quiz-min\images\substitut\interrogation-03-rouge.png
-							assets\js\quiz-min\images\substitut\interrogation-03-vert.png
-							assets\js\quiz-min\images\substitut\interrogation-03-violet.png
-							assets\js\quiz-min\images\substitut\interrogation-04-jaune.png
-							assets\js\quiz-min\images\substitut\interrogation-04-org.png
-							assets\js\quiz-min\images\substitut\interrogation-04-rouge.png
-							assets\js\quiz-min\images\substitut\interrogation-04-vert.png
-							assets\js\quiz-min\images\substitut\interrogation-04-violet.png
-							assets\js\quiz-min\images\substitut\interrogation-05-bleu.png
-							assets\js\quiz-min\images\substitut\interrogation-05-gris.png
-							assets\js\quiz-min\images\substitut\interrogation-05-jaune.png
-							assets\js\quiz-min\images\substitut\interrogation-05-rouge.png
-							assets\js\quiz-min\images\substitut\interrogation-05-vert.png
-							assets\js\quiz-min\images\substitut\interrogation-05-violet.png
-						assets\js\quiz-min\images\Help.png
-						assets\js\quiz-min\images\Hint.png
-						assets\js\quiz-min\images\index.html
-					-js
-						assets\js\quiz-min\js\quiz-events.js
-						assets\js\quiz-min\js\quiz-functions.js
-						assets\js\quiz-min\js\quiz-main.js
-						assets\js\quiz-min\js\quiz-options-dist.js
-						assets\js\quiz-min\js\slide__prototype.js
-					-language
-						assets\js\quiz-min\language\quiz-english.js
-						assets\js\quiz-min\language\quiz-french.js
-					-plugins
-						-alphaSimple
-							assets\js\quiz-min\plugins\alphaSimple\index.html
-							assets\js\quiz-min\plugins\alphaSimple\slide_alphaSimple.css
-							assets\js\quiz-min\plugins\alphaSimple\slide_alphaSimple.js
-						-checkboxSimple
-							assets\js\quiz-min\plugins\checkboxSimple\index.html
-							assets\js\quiz-min\plugins\checkboxSimple\slide_checkboxSimple.css
-							assets\js\quiz-min\plugins\checkboxSimple\slide_checkboxSimple.js
-						-comboboxMatchItems
-							assets\js\quiz-min\plugins\comboboxMatchItems\index.html
-							assets\js\quiz-min\plugins\comboboxMatchItems\slide_comboboxMatchItems.css
-							assets\js\quiz-min\plugins\comboboxMatchItems\slide_comboboxMatchItems.js
-						-comboboxSortItems
-							assets\js\quiz-min\plugins\comboboxSortItems\index.html
-							assets\js\quiz-min\plugins\comboboxSortItems\slide_comboboxSortItems.css
-							assets\js\quiz-min\plugins\comboboxSortItems\slide_comboboxSortItems.js
-						-imagesDaDGroups
-							assets\js\quiz-min\plugins\imagesDaDGroups\index.html
-							assets\js\quiz-min\plugins\imagesDaDGroups\slide_imagesDaDGroups.css
-							assets\js\quiz-min\plugins\imagesDaDGroups\slide_imagesDaDGroups.js
-						-imagesDaDMatchItems
-							assets\js\quiz-min\plugins\imagesDaDMatchItems\index.html
-							assets\js\quiz-min\plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
-							assets\js\quiz-min\plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
-						-imagesDaDSortItems
-							assets\js\quiz-min\plugins\imagesDaDSortItems\index.html
-							assets\js\quiz-min\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
-							assets\js\quiz-min\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
-						-imagesDaDSortItemsIns
-							assets\js\quiz-min\plugins\imagesDaDSortItemsIns\index.html
-							assets\js\quiz-min\plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.css
-							assets\js\quiz-min\plugins\imagesDaDSortItemsIns\slide_imagesDaDSortItemsIns.js
-						-imagesLogical
-							-img
-								assets\js\quiz-min\plugins\imagesLogical\img\2points-green.png
-								assets\js\quiz-min\plugins\imagesLogical\img\2points-grey.png
-								assets\js\quiz-min\plugins\imagesLogical\img\2points-red.png
-								assets\js\quiz-min\plugins\imagesLogical\img\index.html
-							assets\js\quiz-min\plugins\imagesLogical\index.html
-							assets\js\quiz-min\plugins\imagesLogical\slide_imagesLogical.css
-							assets\js\quiz-min\plugins\imagesLogical\slide_imagesLogical.js
-						-imagesSimple
-							assets\js\quiz-min\plugins\imagesSimple\index.html
-							assets\js\quiz-min\plugins\imagesSimple\slide_imagesSimple.css
-							assets\js\quiz-min\plugins\imagesSimple\slide_imagesSimple.js
-						-listboxClassItems
-							assets\js\quiz-min\plugins\listboxClassItems\index.html
-							assets\js\quiz-min\plugins\listboxClassItems\slide_listboxClassItems.css
-							assets\js\quiz-min\plugins\listboxClassItems\slide_listboxClassItems.js
-						-listboxSortItems
-							-img
-								-buttons
-									-blue
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_bottom.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_cancel-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_cancel-02.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_down.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_empty.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_first.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_last.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_next.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_ok.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_previous.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_top.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_up.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_view-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\blue\btn_view-02.png
-									-default
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_bottom.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_cancel-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_cancel-02.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_down.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_empty.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_first.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_last.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_next.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_ok.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_previous.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_top.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_up.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_view-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\default\btn_view-02.png
-									-green
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_bottom.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_cancel-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_cancel-02.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_down.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_empty.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_first.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_last.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_next.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_ok.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_previous.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_top.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_up.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_view-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\green\btn_view-02.png
-									-magenta
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_bottom.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_cancel-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_cancel-02.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_down.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_empty.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_first.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_last.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_next.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_ok.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_previous.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_top.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_up.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_view-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\magenta\btn_view-02.png
-									-yellow
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_bottom.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_cancel-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_cancel-02.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_down.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_empty.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_first.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_last.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_next.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_ok.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_previous.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_top.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_up.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_view-01.png
-										assets\js\quiz-min\plugins\listboxSortItems\img\buttons\yellow\btn_view-02.png
-									assets\js\quiz-min\plugins\listboxSortItems\img\buttons\index.html
-								assets\js\quiz-min\plugins\listboxSortItems\img\index.html
-							assets\js\quiz-min\plugins\listboxSortItems\index.html
-							assets\js\quiz-min\plugins\listboxSortItems\slide_listboxSortItems.css
-							assets\js\quiz-min\plugins\listboxSortItems\slide_listboxSortItems.js
-						-pageBegin
-							assets\js\quiz-min\plugins\pageBegin\index.html
-							assets\js\quiz-min\plugins\pageBegin\slide_pageBegin.css
-							assets\js\quiz-min\plugins\pageBegin\slide_pageBegin.js
-						-pageEnd
-							assets\js\quiz-min\plugins\pageEnd\index.html
-							assets\js\quiz-min\plugins\pageEnd\slide_pageEnd.css
-							assets\js\quiz-min\plugins\pageEnd\slide_pageEnd.js
-						-pageGroup
-							assets\js\quiz-min\plugins\pageGroup\index.html
-							assets\js\quiz-min\plugins\pageGroup\slide_pageGroup.css
-							assets\js\quiz-min\plugins\pageGroup\slide_pageGroup.js
-						-radioMultiple
-							assets\js\quiz-min\plugins\radioMultiple\index.html
-							assets\js\quiz-min\plugins\radioMultiple\slide_radioMultiple.css
-							assets\js\quiz-min\plugins\radioMultiple\slide_radioMultiple.js
-						-radioSimple
-							assets\js\quiz-min\plugins\radioSimple\index.html
-							assets\js\quiz-min\plugins\radioSimple\slide_radioSimple.css
-							assets\js\quiz-min\plugins\radioSimple\slide_radioSimple.js
-						-textareaInput
-							assets\js\quiz-min\plugins\textareaInput\index.html
-							assets\js\quiz-min\plugins\textareaInput\slide_textareaInput.css
-							assets\js\quiz-min\plugins\textareaInput\slide_textareaInput.js
-						-textareaListbox
-							assets\js\quiz-min\plugins\textareaListbox\index.html
-							assets\js\quiz-min\plugins\textareaListbox\slide_textareaListbox.css
-							assets\js\quiz-min\plugins\textareaListbox\slide_textareaListbox.js
-						-textareaSimple
-							assets\js\quiz-min\plugins\textareaSimple\index.html
-							assets\js\quiz-min\plugins\textareaSimple\slide_textareaSimple.css
-							assets\js\quiz-min\plugins\textareaSimple\slide_textareaSimple.js
-						-textboxMatchItems
-							assets\js\quiz-min\plugins\textboxMatchItems\index.html
-							assets\js\quiz-min\plugins\textboxMatchItems\slide_textboxMatchItems.css
-							assets\js\quiz-min\plugins\textboxMatchItems\slide_textboxMatchItems.js
-						-textboxMultiple
-							assets\js\quiz-min\plugins\textboxMultiple\index.html
-							assets\js\quiz-min\plugins\textboxMultiple\slide_textboxMultiple.css
-							assets\js\quiz-min\plugins\textboxMultiple\slide_textboxMultiple.js
-						-ulDaDGroups
-							assets\js\quiz-min\plugins\ulDaDGroups\index.html
-							assets\js\quiz-min\plugins\ulDaDGroups\slide_ulDaDGroups.css
-							assets\js\quiz-min\plugins\ulDaDGroups\slide_ulDaDGroups.js
-						-ulDaDSortList
-							assets\js\quiz-min\plugins\ulDaDSortList\index.html
-							assets\js\quiz-min\plugins\ulDaDSortList\slide_ulDaDSortList.css
-							assets\js\quiz-min\plugins\ulDaDSortList\slide_ulDaDSortList.js
-						assets\js\quiz-min\plugins\index.html
-					assets\js\quiz-min\_quiz-org.ppr
-				-quiz-org
+				+quiz-org
 					-css
 						-infobulle
 							-images
@@ -530,7 +263,7 @@ _quizmaker
 						assets\js\quiz-org\images\Help.png
 						assets\js\quiz-org\images\Hint.png
 						assets\js\quiz-org\images\index.html
-					-js
+					+js
 						assets\js\quiz-org\js\quiz-events.js
 						assets\js\quiz-org\js\quiz-functions.js
 						assets\js\quiz-org\js\quiz-main.js
@@ -564,7 +297,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\imagesDaDMatchItems\index.html
 							assets\js\quiz-org\plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
 							assets\js\quiz-org\plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
-						-imagesDaDSortItems
+						+imagesDaDSortItems
 							assets\js\quiz-org\plugins\imagesDaDSortItems\index.html
 							assets\js\quiz-org\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
 							assets\js\quiz-org\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
@@ -728,7 +461,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -770,7 +503,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 080.jpg
@@ -782,7 +515,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -1441,54 +1174,90 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=docs\changelog.txt
+0=include\common.php
 1=docs\todo.txt
-2=admin\header.php
-3=class\Type_questionHandler.php
-4=plugins\listboxSortItems\slide_listboxSortItems.php
-5=plugins\checkboxSimple\slide_checkboxSimple.php
-6=plugins\radioMultiple\slide_radioMultiple.php
-7=plugins\radioSimple\slide_radioSimple.php
-8=admin\type_question.php
-9=assets\js\quizmaker.js
-10=admin\type_question_help.php
-11=class\Type_question.php
+2=assets\js\quiz-org\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
+3=assets\js\quiz-org\js\quiz-main.js
+4=admin\questions.php
+5=class\QuestionsHandler.php
+6=class\QuizHandler.php
+7=class\QuizUtility.php
+8=class\Quiz.php
+9=docs\changelog.txt
+10=xoops_version.php
+11=assets\js\quiz-org\js\slide__prototype.js
+12=assets\js\quiz-org\plugins\ulDaDSortList\slide_ulDaDSortList.js
+13=assets\js\quiz-org\plugins\ulDaDGroups\slide_ulDaDGroups.js
+14=assets\js\quiz-org\plugins\textboxMultiple\slide_textboxMultiple.js
+15=assets\js\quiz-org\plugins\textareaSimple\slide_textareaSimple.js
+16=assets\js\quiz-org\plugins\pageGroup\slide_pageGroup.js
+17=assets\js\quiz-org\plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
+18=assets\js\quiz-org\plugins\imagesDaDGroups\slide_imagesDaDGroups.js
+19=assets\js\quiz-org\plugins\alphaSimple\slide_alphaSimple.js
+20=assets\js\quiz-org\js\quiz-functions.js
 [Selected Project Files]
 Main=
-Selected=class\Type_question.php
-[docs\changelog.txt]
-TopLine=11
-Caret=75,29
+Selected=assets\js\quiz-org\js\quiz-functions.js
+[include\common.php]
+TopLine=65
+Caret=1,91
 [docs\todo.txt]
-TopLine=4
-Caret=21,44
-[admin\header.php]
-TopLine=16
-Caret=19,37
-[class\Type_questionHandler.php]
-TopLine=104
-Caret=13,125
-[plugins\listboxSortItems\slide_listboxSortItems.php]
-TopLine=18
-Caret=58,39
-[plugins\checkboxSimple\slide_checkboxSimple.php]
-TopLine=9
-Caret=56,42
-[plugins\radioMultiple\slide_radioMultiple.php]
-TopLine=21
-Caret=55,42
-[plugins\radioSimple\slide_radioSimple.php]
-TopLine=11
-Caret=47,42
-[admin\type_question.php]
-TopLine=51
-Caret=98,100
-[assets\js\quizmaker.js]
-TopLine=3
-Caret=13,42
-[admin\type_question_help.php]
 TopLine=1
-Caret=16,54
-[class\Type_question.php]
-TopLine=386
-Caret=1,396
+Caret=7,27
+[assets\js\quiz-org\plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js]
+TopLine=165
+Caret=81,186
+[assets\js\quiz-org\js\quiz-main.js]
+TopLine=355
+Caret=66,375
+[admin\questions.php]
+TopLine=95
+Caret=44,117
+[class\QuestionsHandler.php]
+TopLine=353
+Caret=23,374
+[class\QuizHandler.php]
+TopLine=549
+Caret=1,576
+[class\QuizUtility.php]
+TopLine=765
+Caret=19,786
+[class\Quiz.php]
+TopLine=485
+Caret=13,495
+[docs\changelog.txt]
+TopLine=15
+Caret=7,47
+[xoops_version.php]
+TopLine=560
+Caret=35,583
+[assets\js\quiz-org\js\slide__prototype.js]
+TopLine=316
+Caret=5,347
+[assets\js\quiz-org\plugins\ulDaDSortList\slide_ulDaDSortList.js]
+TopLine=13
+Caret=96,34
+[assets\js\quiz-org\plugins\ulDaDGroups\slide_ulDaDGroups.js]
+TopLine=377
+Caret=37,398
+[assets\js\quiz-org\plugins\textboxMultiple\slide_textboxMultiple.js]
+TopLine=248
+Caret=23,280
+[assets\js\quiz-org\plugins\textareaSimple\slide_textareaSimple.js]
+TopLine=79
+Caret=51,100
+[assets\js\quiz-org\plugins\pageGroup\slide_pageGroup.js]
+TopLine=47
+Caret=20,68
+[assets\js\quiz-org\plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js]
+TopLine=60
+Caret=38,80
+[assets\js\quiz-org\plugins\imagesDaDGroups\slide_imagesDaDGroups.js]
+TopLine=60
+Caret=40,80
+[assets\js\quiz-org\plugins\alphaSimple\slide_alphaSimple.js]
+TopLine=73
+Caret=24,93
+[assets\js\quiz-org\js\quiz-functions.js]
+TopLine=395
+Caret=34,415

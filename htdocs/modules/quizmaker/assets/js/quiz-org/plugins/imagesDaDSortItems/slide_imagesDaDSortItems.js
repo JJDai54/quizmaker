@@ -66,8 +66,8 @@ onmouseover="testMouseOver(event);"`;
         var ans =  newSequence[k];
         var src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
         switch (posCaption){
-            case 'T': captionTop = ans.caption.replace('/','<br>') + '<br>' ; break;
-            case 'B': captionBottom = '<br>' + ans.caption.replace('/','<br>'); break;
+            case 'T': captionTop    = ans.caption + qbr ; break;
+            case 'B': captionBottom = qbr + ans.caption ; break;
             default: break;
         }
         
@@ -139,9 +139,10 @@ var  tplEncar = `<div id="{id}-encart" encart  class='imagesDaDSortItems_myimg1'
     for(var k in newSequence){
         var ans =  newSequence[k];
         var src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
+
         switch (posCaption){
-            case 'T': captionTop = ans.caption.replace('//','<br>') + '<br>' ; break;
-            case 'B': captionBottom = '<br>' + ans.caption.replace('//','<br>'); break;
+            case 'T': captionTop    = ans.caption + qbr ; break;
+            case 'B': captionBottom = qbr + ans.caption ; break;
             default: break;
         }
         
@@ -182,6 +183,8 @@ var  tplEncar = `<div id="{id}-encart" encart  class='imagesDaDSortItems_myimg1'
     for(var k in currentQuestion.answers){
         currentQuestion.answers[k].id = this.getId(k);
         if( currentQuestion.answers[k].points <= 0) currentQuestion.answers[k].points =1;
+        currentQuestion.answers[k].caption = currentQuestion.answers[k].caption.replace('/'+'/', qbr).replace('/', qbr);
+
         //sequence.push(currentQuestion.answers[k]);
 
             
@@ -260,10 +263,9 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
     for(var k in this.question.answers){
     //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.question.answers[k];
-        var caption = ans.caption.replace('/','<br>');
           var img = `<div id="${ans.id}-div" ${divStyle}>
             <img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">
-            <br>${caption}</div>`;
+            <br>${ans.caption}</div>`;
           tReponses.push (img);
     }   
 

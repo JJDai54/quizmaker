@@ -1,4 +1,4 @@
-
+﻿
  /*******************************************************************
   *                     _alphaSimple
   * *****************************************************************/
@@ -90,7 +90,7 @@ var tLetters = this.getLetters();
 
     for(var k = 0; k < tLetters.length; k++){
         if (tLetters[k] == ''){
-            html += '<br>'; 
+            html += qbr; 
         }else{
             //var onclick = `document.getElementById('${this.idDivReponse}').innerHTML='${tLetters[k]}';`;
             var onclick = `eventOnClickAlpha('${this.idDivReponse}','${tLetters[k]}',${this.data.nbSoluces},'${this.sep}');`;

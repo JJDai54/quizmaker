@@ -177,10 +177,13 @@ function getHtmlMessage(){
  *   
  * ************************************************************************/
 function getHtmlPopup(){
+    //icone provisoir pour eviter une erreur JS par absence d'image, 
+    var EMOJI   = quiz.url + '/images/emoji/emoji_icon_02.png';    
+      
     return `<div id="quiz_div_disabled_all"    name="quiz_div_disabled_all">
               <div id="quiz_div_popup_main"    name="quiz_div_popup_main" class="${quiz_css.popup}">
                 <div id="quiz_div_popup_emoji" name="quiz_div_popup_emoji"     class="${quiz_css.popup}">
-                    <img  id="quiz_popup_emoji_icon" name="quiz_popup_emoji_icon" src="__EMOJI__" style="width:80px;margin:5px;float:left;"><br>
+                    <img  id="quiz_popup_emoji_icon" name="quiz_popup_emoji_icon" src="${EMOJI}" style="width:80px;margin:5px;float:left;"><br>
                     <span id="quiz_popup_emoji_text" name="quiz_popup_emoji_text">__EMOJI_TEXT__</span>
                 </div>
                 <hr class="quiz-style-two">
@@ -193,6 +196,9 @@ function getHtmlPopup(){
                 <br><button id="btnPopContinue" class="${quiz_css.buttons}" onclick="event_hide_popup_result();">${quiz_messages.btnContinue}</button>
               </div>
             </div>`;
+            
+            
+     
     
 }
 /**************************************************************************
