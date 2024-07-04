@@ -712,7 +712,7 @@ input.slide-proposition2{
     margin:0px;
     padding:0px;
     font-weight:bold;
-    line-height: 0.5em;
+    line-height: 1.1em;
 }
 
 .quiz_sommaire h2{
@@ -722,5 +722,5 @@ input.slide-proposition2{
     margin:0px 0px 0px 12px;
     padding:0px;
     font-weight:normal;
-    line-height: 0.5em;
+    line-height: 1.1em;
 }

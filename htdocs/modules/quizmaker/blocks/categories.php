@@ -23,7 +23,7 @@ declare(strict_types=1);
  * @author         XOOPS Development Team - Email:<jjdelalandre@orange.fr> - Website:<jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Helper;
 use XoopsModules\Quizmaker\Constants;
 

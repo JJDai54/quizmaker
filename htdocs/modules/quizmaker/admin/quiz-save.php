@@ -22,18 +22,21 @@
 
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
+
 
 		// Security Check
 		if (!$GLOBALS['xoopsSecurity']->check()) {
 			redirect_header('quiz.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 		}
 		if ($quizId > 0) {
+            $clPerms->checkAndRedirect('edit_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 			$quizObj = $quizHandler->get($quizId);
 		} else {
+            $clPerms->checkAndRedirect('create_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 			$quizObj = $quizHandler->create();
     		$quizObj->setVar('quiz_creation', \JJD\getSqlDate());
 		}
@@ -76,10 +79,6 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_libBegin',          Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
 		$quizObj->setVar('quiz_libEnd',            Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 
-//  $gp = array_merge($_GET, $_POST);
-//  echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
-//         exit;
-        
 		// Insert Data
 		if ($quizHandler->insert($quizObj)) {
     		if ($quizId == 0) {
@@ -98,7 +97,8 @@ use XoopsModules\Quizmaker\Utility;
              $questionsObj->setVar('quest_type_question', 'pageBegin');
              //$questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
              $questionsObj->setVar('quest_weight', -99999);
-             //$questionsObj->setVar('quest_visible', 1);
+             $questionsObj->setVar('quest_timer', 0);
+             $questionsObj->setVar('quest_start_timer', 0);
              $questionsObj->setVar('quest_actif', 1);
              $questionsObj->setVar('quest_parent_id', 0);
              $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_PRESENTATION);
@@ -108,7 +108,7 @@ use XoopsModules\Quizmaker\Utility;
              
              $answerObj = $answersHandler->create();
              $answerObj->setVar('answer_quest_id',$questId);
-             $answerObj->setVar('answer_proposition', _AM_QUIZMAKER_QUIZ_PRESENTATION);
+             $answerObj->setVar('answer_proposition', _AM_QUIZMAKER_PAGEBEGIN_DEFAULT1);
              $answerObj->setVar('answer_weight',0);
 		     $answersHandler->insert($answerObj);             
              
@@ -120,7 +120,8 @@ use XoopsModules\Quizmaker\Utility;
              $questionsObj->setVar('quest_type_question', 'pageEnd');
              //$questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
              $questionsObj->setVar('quest_weight', 9999);
-             //$questionsObj->setVar('quest_visible', 1);
+             $questionsObj->setVar('quest_timer', 0);
+             $questionsObj->setVar('quest_start_timer', 0);
              $questionsObj->setVar('quest_actif', 1);
              $questionsObj->setVar('quest_parent_id', 0);
              $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_RESULTATS);
@@ -138,50 +139,8 @@ use XoopsModules\Quizmaker\Utility;
             //Le quiz a changé de dossier qu'il faut renomer
             rename(QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $oldFolder, QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $newFolder);
         }
-
-        
-//             exit;       
-/* ==================================================================
-
-
-===================================================================== */        
-
-/*
-            $lanquage = $xoopsConfig['language'];
-            //$f = XOOPS_ROOT_PATH . "/modules/quizmaker/language/{$lanquage}/slide/slide_resultats.html";
-            $f = QUIZMAKER_PATH_MODULE . "/language/{$lanquage}/slide/slide_resultats.html";
-            $slideresultats = $quizUtility->loadTextFile($f);
-echo "<hr>{$f}<hr>{$slideresultats}<hr>";    
-*/            
-        
-
-            
-        //echo "<hr>quiz : {$quizId}<br>newQuizId : {$newQuizId}<hr>";exit;
-			//$permId = isset($_REQUEST['quiz_id']) ? $quizId : $newQuizId;
-			$permId = $quizId;
-			$grouppermHandler = xoops_getHandler('groupperm');
-			$mid = $GLOBALS['xoopsModule']->getVar('mid');
-			// Permission to view_quiz
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_view_quiz', $permId);
-			if (isset($_POST['groups_view_quiz'])) {
-				foreach($_POST['groups_view_quiz'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_view_quiz', $permId, $onegroupId, $mid);
-				}
-			}
-			// Permission to submit_quiz
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_submit_quiz', $permId);
-			if (isset($_POST['groups_submit_quiz'])) {
-				foreach($_POST['groups_submit_quiz'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_submit_quiz', $permId, $onegroupId, $mid);
-				}
-			}
-			// Permission to approve_quiz
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_approve_quiz', $permId);
-			if (isset($_POST['groups_approve_quiz'])) {
-				foreach($_POST['groups_approve_quiz'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_approve_quiz', $permId, $onegroupId, $mid);
-				}
-			}
+       
+         
             $url = "quiz.php?op=list&quiz_id={$quizId}&sender=";
 			redirect_header("quiz.php?op=list&quiz_id={$quizId}&sender=", 2, _AM_QUIZMAKER_FORM_OK);
 		}
@@ -189,3 +148,4 @@ echo "<hr>{$f}<hr>{$slideresultats}<hr>";
 		$GLOBALS['xoopsTpl']->assign('error', $quizObj->getHtmlErrors());
 		$form = $quizObj->getFormQuiz();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());
+        

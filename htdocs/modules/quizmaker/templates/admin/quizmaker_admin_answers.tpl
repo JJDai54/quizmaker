@@ -29,7 +29,9 @@
 
 </form>
 
-
+<{if $questOptions}>
+    <hr><{$smarty.const._AM_QUIZMAKER_QUEST_OPTIONS}><br><{$questOptions}><hr>
+<{/if}>
 <{if $answersCount > 0}>
 	<table class='table table-bordered'>
 		<thead>
@@ -69,7 +71,9 @@
                     <{$Answers.caption}></td>
                     
                 <td class='left'>    
-                    <{$Answers.image1}></td>
+                    <{$Answers.image1}>
+                    <{if $Answers.image2}><br><{$Answers.image2}><{/if}>
+                </td>
                     
                 <td class='center width10'>
                     <{$Answers.color}></td>

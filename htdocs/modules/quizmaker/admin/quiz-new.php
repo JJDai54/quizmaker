@@ -21,10 +21,12 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
+
+        $clPerms->checkAndRedirect('create_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 
 		$templateMain = 'quizmaker_admin_quiz.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('quiz.php'));

@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -90,8 +90,8 @@ class ResultsHandler extends \XoopsPersistableObjectHandler
 // 	}
 	public function getCountResults($criteria=null, $start = 0, $limit = 0, $sort = 'result_id', $order = 'ASC')
 	{
-		$newCriteria = ($criteria) ? $criteria: new \CriteriaCompo();
-		$crCountResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);
+		if(!$criteria) $criteria = new \CriteriaCompo();
+		$crCountResults = $this->getResultsCriteria($criteria, $start, $limit, $sort, $order);
 		return parent::getCount($crCountResults);
 	}
 
@@ -167,6 +167,22 @@ public function getStatistics($QuizId = 0){
 //    echoArray($stat);
     return $stat;
 }
+
+/* ******************************
+ * renvoie le score max pour un uid et un quiz
+ * *********************** */
+    public function getScoreMax($quest_id , $uid)
+    {
+        $field = "result_score_achieved"; 
+        
+        $sql = "SELECT max({$field}) AS valueMax FROM {$this->table}"
+             . " WHERE result_quiz_id = {$quest_id} AND result_uid = {$uid}";
+        
+        $rst = $this->db->query($sql);
+        $arr = $this->db->fetchArray($rst);
+//        echo print_r($arr,true);
+        return $arr['valueMax'];
+    }
 
     
 }

@@ -17,15 +17,15 @@ var qbr =  '<br>' ;
 
 const quiz_config = {
     name : 'Quizmaker',
-    version : "5.02",
+    version : "6.00 beta 1",
     date_creation : "25-01-2019",
-    date_release : "25-03-2024",
+    date_release : "16-06-2024",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
     urlCommonImg : (quiz_execution == 1) ? `${quiz.url}/images` : `../images`,
     regexAllLetters : /\{[\w+\0123456789 àéèêëîïôöûüù]*\}/gi,
-    regexAllLettersPP : /\{[\w+\0123456789 àéèêëîïôöûüù,\;\-\?\!\.\_\=\/]*\}/gi, //PP pour plus ponctuation
+    regexAllLettersPP : /\{[\w+\0123456789 àéèêëîïôöûüùç,\;\-\?\!\.\_\=\/]*\}/gi, //PP pour plus ponctuation
     dad_flip_img  :  0, //echange des deux images par l'attribut src
     dad_shift_img :  1, // decalage d'image par remplacement successif
     dad_move_img  :  2, // deplace l'image et changement de div contenair
@@ -64,7 +64,8 @@ quiz.allowedPrevious   = isBitOk(h++, optionsIhm);
 quiz.useTimer          = isBitOk(h++, optionsIhm); 
 quiz.shuffleQuestions  = isBitOk(h++, optionsIhm);  
 quiz.showResultPopup   = isBitOk(h++, optionsIhm);  
-quiz.minusOnShowGoodAnswers = isBitOk(h++, optionsIhm);  
+//quiz.minusOnShowGoodAnswers = isBitOk(h++, optionsIhm);  //avirer
+ 
 
 //alert("optionsDev = " + quiz.optionsDev);
 var h = 0;
@@ -98,7 +99,6 @@ function togodo() {
  * ************************************************************************/
   function buildQuiz (){
 //    alert ("02 : " + myQuestions);
-filtrerQuestions(); //pour tester chaque type de question une par une
 
 //alert('===>buildQuiz');    
 var content = `  
@@ -136,10 +136,13 @@ var content = `
         //alert ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
         clQuestion.initSlide ();
       });
-
-
+      
+     //lors de la construction des slide les score mini et maxi ne sont pas encore completement connu
+     //il faut réactualiser le slide pageBegin pour pour pouvoir afficcer ces valeurs apres parcours de touts les slides 
+    quizard[0].onUpdate();
+    
 }
-///////////////////////////////////////////////////////////////////////////////////////////////
+
 /**************************************************************************
  *   
  * ************************************************************************/
@@ -298,37 +301,48 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
           </div>
         </center></div>`;
 }
-
 /**************************************************************************
- *   Génération de tous les SLIDES
+ *   
  * ************************************************************************/
-  function getHtmlAllSlides (){
-    // variable to store the HTML output
+
+function getHtmlAllSlides(){
+var newQuestions = [];
+var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et pageGroup
+var questionNumber = 0;     //n° du slide hors page_begin, page_end et page_group,
+//alert ("zz : " + myQuestions.length);
+// alert ("zz : " + myQuestions[0].question);
     const output = [];
 
-    quizard.forEach((clQuestion, index) => {
-        //alert ("===> buildSlides : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
-        output.push(getHtmlSlide (clQuestion));
-      });
+    myQuestions.forEach((currentQuestion, index) => {
+      if(currentQuestion){
+      
+      //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + " - \n" + currentQuestion.question);
+            // debut du type de slide a traiter
+            var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
+            if(clQuestion){
+                clQuestion.question.questionNumber = (clQuestion.isQuestion) ? ++questionNumber : 0;
+                quizard.push(clQuestion);
 
+                statsTotal.quiz_questions  += (clQuestion.isQuestion ? 1 : 0);
+                statsTotal.quiz_score_maxi += clQuestion.scoreMaxiQQ;
+                statsTotal.quiz_score_mini += clQuestion.scoreMiniQQ;
+                
+                output.push(getHtmlSlide (clQuestion));
+            }
+      }
+    });
     return output.join("\n");
+}
 
-  }
-  
 /**************************************************************************
  *   GENERATION DES SLIDES
  * ************************************************************************/
   function getHtmlSlide (clQuestion){
 //  alert(clQuestion.typeName);
-        const answers = [];  
-        //-------------------------------------------------------
-        var questionNumber = clQuestion.question.questionNumber;
-        var slideNumber = clQuestion.slideNumber;
-        statsTotal.quiz_questions = clQuestion.incremente_question(statsTotal.quiz_questions);
-
-        statsTotal.quiz_score_max += clQuestion.scoreMaxiQQ;
-        statsTotal.quiz_score_min += clQuestion.scoreMiniQQ;
-       
+    var questionNumber = clQuestion.question.questionNumber;
+    var slideNumber = clQuestion.slideNumber;
+        
+ //alert(`getHtmlSlide - maxiQQ = ${clQuestion.scoreMaxiQQ}\n${clQuestion.question.question}\n${statsTotal.quiz_score_maxi}`)  ;    
        //quiz.questPosComment1 = 2; 
        var comment1 = '';  
        var comment2 = '';  
@@ -369,9 +383,6 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
               divPoints += " " + divChrono + "<br>";
        }
        
-       //JJDai - type - deplacer dans showResults
-       //var sTypeQuestion = (quiz.showTypeQuestion) ? `<br><span style="color:white;">(${clQuestion.question.typeQuestion}/${clQuestion.question.typeForm} - questId = ${clQuestion.question.quizId}/${clQuestion.question.questId}) - ${clQuestion.question.timestamp}</span>`: '';
-
       // var question = clQuestion.question.question.replace('/','<br>') 
        var question =  clQuestion.balises2Values(clQuestion.question.question, true);
        //alert(question) ;
@@ -398,41 +409,6 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
 
     return output.join('');
 }  
-
-
-/**************************************************************************
- *   
- * ************************************************************************/
-
-function filtrerQuestions(){
-var newQuestions = [];
-var chrono = 0; //index dans la table quizard
-var slideNumber = 0; //n° du slide y compris les pageBegin, pageEnd et pageGroup
-var questionNumber = 0; // numero de slide hors page_begin, page_end et page_group,
-//alert ("zz : " + myQuestions.length);
-// alert ("zz : " + myQuestions[0].question);
-
-    myQuestions.forEach((currentQuestion, index) => {
-      if(currentQuestion){
-      
-      //alert ("filtrerQuestions : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + " - \n" + currentQuestion.question);
-            // debut du type de slide a traiter
-            var newTplClass = getTplNewClass (currentQuestion, chrono);
-            if(newTplClass){
-                newTplClass.slideNumber = slideNumber++;
-                newTplClass.question.questionNumber = (newTplClass.isQuestion()) ? ++questionNumber : 0;
-                chrono++;
-                currentQuestion.questionNumber = chrono;
-                quizard.push(newTplClass);
-                
-                //evite de le faire individuellement dans chaque classe
-                for (var k=0; k < currentQuestion.answers.length; k++){
-                  currentQuestion.answers[k].proposition = decodeHTMLEntities(currentQuestion.answers[k].proposition);
-                }
-            }
-      }
-    });
-}
 
 
 
@@ -490,7 +466,6 @@ var answerContainer;
  * ************************************************************************/
 
  function getGoodReponses (currentQuestion){
-//alert("isInputOk");
 
       let reponseOk = currentQuestion.getGoodReponses();
       
@@ -510,7 +485,6 @@ var answerContainer;
  * ************************************************************************/
 
  function getAllReponses (currentQuestion){
-//alert("isInputOk");
 
     let reponseOk = "";
     //-------------------------------------------------------
@@ -567,16 +541,20 @@ var answerContainer;
           //result.repondu +=  clQuestion.getScore(answerContainers[index]);// ((points>0) ? points : 0;
           result.repondu  += (clQuestion.isInputOk( answerContainers[index]) ? 1 : 0);  
           //result.score  += clQuestion.points*1;  
-          result.score  += clQuestion.getScore()*1;  
+          result.score  += clQuestion.getScoreByProposition()*1;  
+          //alert(clQuestion.question.question + '->' + clQuestion.getScoreByProposition()*1);
           //clQuestion.getScore()*1;  
           //result.score  += clQuestion.points*1;
+          /*
           if (clQuestion.isAntiseche && quiz.minusOnShowGoodAnswers != 0) {
               result.repondu  = 0;  
               result.score  -= quiz.minusOnShowGoodAnswers;  
           }
+          */
         };
           
     });
+
     return result;
   }
   
@@ -584,28 +562,6 @@ var answerContainer;
   *    CALCUL DES RESULTATS
   * ***********************************************************************/
   function getStatistiques (currentQuestion = null){
-/*
-const statsTotal = {
-      nbQuestions:  0,
-      scoreMaxiQQ:    0,
-      scoreMiniQQ:    0,
-      repondu:      0,
-      score:        0,
-      counter:      0,
-      timer:        0,
-      quiz_score_max:   0,
-      quiz_score_min:   0,
-      quiz_questions:   0;
-      cumul_questions:  0;
-      cumul_max:        0,
-      cumul_min:        0,
-      cumul_score:      0,
-      cumul_timer:      0,
-      question_max:     0,
-      question_min:     0,
-      question_points:  0
-  };
-*/    
                         
     //Ajout de la question courante
     if(currentQuestion) {
@@ -622,7 +578,7 @@ const statsTotal = {
   function submitAnswers(){
     currentQuestion = quizard[currentSlide];
     currentQuestion.submitAnswers();
-alert ("submitAnswers");
+//alert ("submitAnswers");
 //currentQuestion.showGoodAnswers(currentQuestion, quizDivAllSlides);
 //       }
   }
@@ -636,7 +592,7 @@ alert ("submitAnswers");
 //     let numPoints = 0;
 //     let points = 0;
 
-
+alert("showResults");
     var results = getAllScores();
     var currentQuestion = quizard[currentSlide];
     if(currentQuestion.isQuestion){
@@ -644,7 +600,7 @@ alert ("submitAnswers");
     }else{
         var score = currentQuestion.getScore();
         var scoreMaxi = currentQuestion.scoreMaxiQQ;
-        scoreCurrentSlide = quiz_messages.resultThisSlide.replace("{score}",score).replace("{scoreMaxi}", scoreMaxi);  
+        scoreCurrentSlide = quiz_messages.resultThisSlide.replaceAll("{score}",score).replaceAll("{scoreMaxi}", scoreMaxi);  
     }
     //alert (scoreCurrentSlide);
 
@@ -652,12 +608,12 @@ alert ("submitAnswers");
     statsTotal.cumul_questions = results.repondu;
 
     var exp = quiz_messages.resultOnSlide;
-    exp = exp.replace("{reponses}", results.repondu);  //countInputOk()    numCorrect
-    exp = exp.replace("{questions}", statsTotal.quiz_questions);
-    exp = exp.replace("{points}", results.score);
-    exp = exp.replace("{totalPoints}", statsTotal.quiz_score_max);
-    //exp = exp.replace("{horloge}", horloge);
-   // exp = exp.replace("{rnd}", rnd);
+    exp = exp.replaceAll("{reponses}", results.repondu)
+             .replaceAll("{questions}", statsTotal.quiz_questions)
+             .replaceAll("{points}", results.score)
+             .replaceAll("{totalPoints}", statsTotal.quiz_score_maxi);
+    //.replaceAll("{horloge}", horloge);
+
 
     //pour le dev ajout du type de question, en prod a desativer dans le formulaire du quiz
     if(quiz.showTypeQuestion)
@@ -675,11 +631,12 @@ alert ("submitAnswers");
 //----------------------------------------------------------
   function showFinalResults (){
     // gather answer containers from our quiz
-    var answerContainers = quizDivAllSlides.querySelectorAll('.answers');
-
+    //var answerContainers = quizDivAllSlides.querySelectorAll('.answers');
     var results = getAllScores();
+//console.log('showFinalResults => score = ' + results.score);
     statsTotal.cumul_score = results.score;
     statsTotal.cumul_questions = results.repondu;
+
     
   }
 
@@ -791,19 +748,25 @@ function reloadQuestion() {
   function showSlide (n) {
     //alert("showSlide : " + n);
     showSlide_new (n - currentSlide);
+    quizard[currentSlide].setFocus();
     return true;
     
    }
 
   function showNextSlide () {
+  console.log("===>showNextSlide");
     //alert("showNextSlide");
     //if (currentSlide > 0 && quiz.showResultPopup) event_show_popup_result(currentSlide);
     showSlide_new(+1);
+    quizard[currentSlide].setFocus();
+
   }
 
   function showPreviousSlide () {
     //alert("showPreviousSlide");
     showSlide_new(-1);
+    quizard[currentSlide].setFocus();
+    
   }
 //--------------------------------------------------------------------
 
@@ -815,6 +778,7 @@ function reloadQuestion() {
 * */
 
   function showSlide_new (offset=0) {
+  console.log("===>showSlide_new - offset=" + offset);
     //affichage du popup des solutions si osset > 0 uniquement
     if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
     //alert("showSlide_new : " + offset);
@@ -835,19 +799,21 @@ function reloadQuestion() {
     pb_setValue(currentSlide + 1);
     
     
-       if (isNewSlide){
-         clearInterval(idSlideTimer);
-         statsTotal.slideTimer = 0;
-         idSlideTimer=0;
-         quizard[currentSlide].setFocus();
+        if (isNewSlide){
+          showFinalResults();
+          clearInterval(idSlideTimer);
+          statsTotal.slideTimer = 0;
+          idSlideTimer=0;
+          quizard[currentSlide].onEnter();
+          quizard[currentSlide].setFocus();
 
-       }
+        }
     //----------------------------------------------
     // pour faciliter la lecture du code    
     var firstSlide  = (currentSlide === 0);
     var lastSlide   = (currentSlide === (objAllSlides.length-1));
     var secondSlide = (currentSlide === 1); //en realité la premiere question normalement
-    var isQuestion  = (quizard[currentSlide].isQuestion());  
+    var isQuestion  = (quizard[currentSlide].isQuestion);  
 
 
 var consigne = quizard[currentSlide].question['consigne'];
@@ -867,7 +833,7 @@ if(obHelp) obHelp.innerHTML = consigne;
     if (quiz.showReponsesBottom)
         QuizDivAnswersBottom.innerHTML = getAllReponses(quizard[currentSlide]);
       
-    var bolOk = isInputOk() || !quizard[currentSlide].isQuestion();
+    var bolOk = isInputOk() || !quizard[currentSlide].isQuestion;
     var allowedGotoNextslide = (bolOk &&  quiz.answerBeforeNext) || !quiz.answerBeforeNext;
     //------------------------------------------
     showDivById('quiz_div_start',  false);
@@ -879,15 +845,18 @@ if(obHelp) obHelp.innerHTML = consigne;
         showSlide_last(newSlide);   
     }else if(!isQuestion){                   
         showSlide_group(newSlide,firstSlide,allowedGotoNextslide);   
+
     }else{
         showSlide_question(newSlide,secondSlide,allowedGotoNextslide);   
     }
-        //showDivById('quiz_btn_submitAnswers', true);
+    currentQuestion = quizard[currentSlide];
+    currentQuestion.onUpdate(); 
+    //showDivById('quiz_btn_submitAnswers', true);
+
    
   //alert("showSlide_new : " + offset);
   if (quiz.showResultAllways) showResults();
   //if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
-
    }
    
 /* ******************************************
@@ -924,7 +893,7 @@ if(obHelp) obHelp.innerHTML = consigne;
     
         //c'est le dernier slide
         showFinalResults();
-        quizard[currentSlide].reloadQuestion();
+        //quizard[currentSlide].reloadQuestion();
         stopTimer();
         
         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
@@ -955,7 +924,9 @@ if(obHelp) obHelp.innerHTML = consigne;
         }
         
 
-        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
+       enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
+         //enableButton(btnPreviousSlide, ((quiz.allowedPrevious)?1:0));
+
         enableButton(btnNextSlide, ((allowedGotoNextslide) ? 1 : 0));
         //enableButton(btnSubmit, 3);
         
@@ -981,7 +952,8 @@ if(obHelp) obHelp.innerHTML = consigne;
             if (idQuizTimer == 0 ) startTimer();
         }
              
-        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
+        //enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0));
+        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
         enableButton(btnNextSlide, ((allowedGotoNextslide) ? 1 : 0));
         //enableButton(btnSubmit, 3);
 
@@ -999,7 +971,6 @@ if(obHelp) obHelp.innerHTML = consigne;
    * ************************************************************/
   function updateSlideTimer (){
      currentQuestion =  quizard[currentSlide];
-     //if (currentQuestion.isQuestion == 0) return false;
 
      var obSlideTimer = document.getElementById("question" + currentSlide + "-slideTimer");
      //var obSlideTimer = document.getElementById("question" + currentQuestion.questionNumber + "-slideTimer");
@@ -1045,12 +1016,12 @@ if(obHelp) obHelp.innerHTML = consigne;
  * ****************************************************************/
 
   function testClick () {
-    a = getRandomInt(100);
+    a = getRandom(100);
     alert("testClick : " + a);
   }
 
   function eventList_delItem (e) {
-    a = getRandomInt(100);
+    a = getRandom(100);
     alert("eventList_delItem : " + a);
   }
 
@@ -1085,7 +1056,7 @@ function event_show_popup_result(currentSlide) {
     
      var currentQuestion = quizard[currentSlide];
 
-    if (!currentQuestion.isQuestion()) {
+    if (!currentQuestion.isQuestion) {
         return false;
     } 
     
@@ -1126,7 +1097,7 @@ function event_show_popup_result(currentSlide) {
      msgScore =  quiz_messages.popupScoreCumule.replace("{nbReponses}", statsTotal.question_number);
      msgScore =  msgScore.replace("{nbQuestions}", statsTotal.quiz_questions);    
      msgScore =  msgScore.replace("{score}", statsTotal.cumul_score);    
-     msgScore =  msgScore.replace("{total}", statsTotal.quiz_score_max);    
+     msgScore =  msgScore.replaceAll("{total}", statsTotal.quiz_score_maxi);    
      document.getElementById('quiz_div_popup_score').innerHTML = msgScore;
     
     //var ans = getAllReponses(currentQuestion); //JJDai
@@ -1162,7 +1133,7 @@ function event_show_popup_result(currentSlide) {
 
 
 
-    var index = getRandomInt(ttheme.length -1);
+    var index = getRandom(ttheme.length -1);
     return ttheme[index];
 
  }
@@ -1324,20 +1295,6 @@ function shuffleMyquiz () {
        return newMessage;
   }
 
- 
-/* ***********************************************
-*
-* */
-  function getMessage2 (exp){
-      for(key in quiz_messages){
-        exp = exp.replaceAll("{" + key + "}", quiz_messages[key]);
-      }
-      return exp;
-  }
-
-
-
- 
 /* ***********************************************
 *
 function updateOptions (){

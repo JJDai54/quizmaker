@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -73,11 +73,8 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
 //echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
       $name = 'imgHeight';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 300);
-      $trayHeight1 = new \XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT1, $delimeter = ' ');  
-      $trayHeight1->addElement($inpHeight1);
-      $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions->addElement($trayHeight1);     
+      $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions->addElement($inpHeight1);     
 
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
@@ -124,12 +121,12 @@ class slide_alphaSimple extends XoopsModules\Quizmaker\Type_question
       
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(4);
       $inputDisposition->setGridIconNumber(4,3);
       $trayOptions->addElement($inputDisposition);     
    
-      $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+     // $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
 
       
       
@@ -187,7 +184,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
                 $points = $arr[$k]->getVar('answer_points');
             }else{
                 $proposition = '';
-                $points = 1;
+                $points = 0;
             }
       
             
@@ -242,7 +239,6 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             }
         
      }
-     //exit ("<hr>===>saveAnswers<hr>");
     }
     
 // /* ********************************************
@@ -307,7 +303,6 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
              . "<td style='text-align:right;padding-right:5px;'><span style='color:%5\$s;'>%3\$s</span></td>"
              . "<td><span style='color:%5\$s;'>%4\$s</span></td></tr>";
 
-//if(!$boolAllSolutions) exit;    
     $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
 //    echoArray($answersAll);
     $ret = array();

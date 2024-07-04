@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -82,10 +82,10 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return int
 	 */
-	public function getCountCategories($start = 0, $limit = 0, $sort = 'cat_id ASC, cat_name', $order = 'ASC')
+	public function getCountCategories($crAllCategories, $start = 0, $limit = 0, $sort = 'cat_id ASC, cat_name', $order = 'ASC')
 	{
-		$crCountCategories = new \CriteriaCompo();
-		$crCountCategories = $this->getCategoriesCriteria($crCountCategories, $start, $limit, $sort, $order);
+		if(!$crAllCategories) $crAllCategories = new \CriteriaCompo();
+		$crCountCategories = $this->getCategoriesCriteria($crAllCategories, $start, $limit, $sort, $order);
 		return parent::getCount($crCountCategories);
 	}
 
@@ -97,9 +97,9 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return array
 	 */
-	public function getAllCategories($start = 0, $limit = 0, $sort = 'cat_id ASC, cat_name', $order = 'ASC')
+	public function getAllCategories($crAllCategories, $start = 0, $limit = 0, $sort = 'cat_id ASC, cat_name', $order = 'ASC')
 	{
-		$crAllCategories = new \CriteriaCompo();
+		if(!$crAllCategories) $crAllCategories = new \CriteriaCompo();
 		$crAllCategories = $this->getCategoriesCriteria($crAllCategories, $start, $limit, $sort, $order);
 		return parent::getAll($crAllCategories);
 	}
@@ -144,23 +144,16 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 
 /* ******************************
  * renvoie une liste "id=>name" pour les formSelect 
+ * $categoriesHandler->getListKeyName
  * *********************** */
-    public function getListKeyName(CriteriaElement $criteria = null, $addAll=false, $addNull=false, $short_permtype = 'view')
-    {
-        if (!$short_permtype) return $this->getList($criteria);
+    public function getListKeyName($short_permtype = 'view_cats', $addAll=false)
+    {global $clPerms;
+        if (!$short_permtype) return $this->getList();
         //-------------------------------------------------------------
-        $ret     = array();
-        if ($addAll) $ret[0] = "(*)";
-
-         $obs = $this->getAllowed($short_permtype, $criteria = null, $sorted='cat_name,cat_id', $order="ASC");
-        
-        foreach (array_keys($obs) as $i) {
-            $key = $obs[$i]->getVar('cat_id');
-            $ret[$key] = $obs[$i]->getVar('cat_name') . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");;
-        
-        }
-
-        return $ret;
+        $clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+        $cat = $this->getList($criteriaCatAllowed);
+        if ($addAll) $cat[0] = "(*)";
+        return $cat;
     }
     
 /* ******************************
@@ -187,7 +180,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
      * @param string   $permtype	Type de permission
      * @return array   $cat		    Liste des catégorie qui correspondent à la permission
      */
-	public static function getPermissions($short_permtype = 'view')
+	public static function getPermissionsOld($short_permtype = 'view')
     {
         global $xoopsUser;
 
@@ -208,16 +201,17 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
      * @param string   $permtype	Type de permission
      * @return array   $cat		    Liste des catégorie qui correspondent à la permission
      */
-	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='cat_weight,cat_name,cat_id', $order="ASC")
-    {
-        $tPerm = $this->getPermissions($short_permtype);
-        $ids = join(',', $tPerm);
-        //echo "<hr>===>getAllowed cat :<br>idsCat : {$ids}<hr>";
-        //------------------------------------------------
+	public function getAllowed($short_permtype = 'view_cats', $criteria = null, $sorted='cat_weight,cat_name,cat_id', $order="ASC")
+    {global $clPerms;
+        $clPerms->addPermissions($criteria, 'view_cats', 'cat_id');
+        
         if (is_null($criteria)) $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('cat_id',"({$ids})",'IN'));
         if ($sorted != '') $criteria->setSort($sorted);
         if ($order  != '') $criteria->setOrder($order);
+        
+        
+        //------------------------------------------------
 
         $allEnrAllowed = parent::getAll($criteria);
         return $allEnrAllowed;
@@ -245,7 +239,6 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
           $cat_weight = $currentEnr->getVar('cat_weight');
           $cat_parent_id  = $currentEnr->getVar('cat_parent_id');
           
-//exit ("===>cat_id = {$cat_id}<br>Action = {$action}");          
          switch ($action){
             case 'up'; 
               $sens =  '<';
@@ -355,6 +348,63 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 //     $criteria->setStart = 0;
 //     $
 // }
+/* ******************************
+ *  
+ * *********************** */
+public function getNewCat($name){
+    $categoriesObj = $this->create();
+	$categoriesObj->setVar('cat_creation', \JJD\getSqlDate());
+		
+	$categoriesObj->setVar('cat_name', $name);
+    $categoriesObj->setVar('cat_description', '');        
+    $categoriesObj->setVar('cat_weight', 0);
+    $categoriesObj->setVar('cat_theme', 'default');
+    $categoriesObj->setVar('cat_update', \JJD\getSqlDate());
+
+        
+	// Insert Data
+	if ($categoriesHandler->insert($categoriesObj)) {
+		$newCatId = $categoriesObj->getNewInsertedIdCategories();
+	}else{
+		$newCatId = 0;
+    }
+        
+	return $newCatId;
+}
+/* ******************************
+ *  
+ * *********************** */
+    public function getId($name, $create = false){
+    global $xoopsDB;
+    
+        $criteria = new \Criteria("cat_name", $xoopsDB->escape($name), 'LIKE');
+        $rst = $this->getAll($criteria);
+    
+        if (count($rst) > 0) {
+            $cat = array_shift($rst);
+            $catId = $cat->getVar('cat_id');
+        }else if($create){
+            $cat = $this->getNewCat($name);    
+        }else{
+            $catId  = 0;        
+        }   
+    
+    return $catId;    
+    }
+
+/* ******************************
+ * Incremente weight
+ * *********************** */
+ public function incrementeWeight($orderBy = 'ASC', $firstWeight = 10, $step = 10){
+$fldWeight = 'cat_weight';
+
+    $sql = "SET @rank=-{$step};";
+    $result = $this->db->queryf($sql);
+
+    $sql = "update {$this->table} SET {$fldWeight} = {$step}+(@rank:=@rank+{$step}) ORDER BY {$fldWeight} {$orderBy};";    
+    $result = $this->db->queryf($sql);
+   
+}
 
 
 } // fin de la classe

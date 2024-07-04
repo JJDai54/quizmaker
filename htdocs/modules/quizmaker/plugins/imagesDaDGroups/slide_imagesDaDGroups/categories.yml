@@ -1,0 +1,9 @@
+-
+    cat_id: '1'
+    cat_parent_id: '0'
+    cat_name: 'Exemples de quiz par type de question'
+    cat_description: '<p>Cat&eacute;gorie r&eacute;serv&eacute;e aux exemple de quiz fourni avec le module.</p>'
+    cat_theme: red
+    cat_weight: '10'
+    cat_creation: '0000-00-00 00:00:00.000000'
+    cat_update: '2024-06-05 18:41:58.000000'

@@ -393,7 +393,6 @@ public static function recurseCopy2(
   
   public static function getRecurseFilesByExtension($dirname, &$extensionList, &$filelist)
   {
-//echo "===> dirname  => {$dirname}<br>";
 
       if ($handle = opendir($dirname)) {
           while (false !== ($file = readdir($handle))) {

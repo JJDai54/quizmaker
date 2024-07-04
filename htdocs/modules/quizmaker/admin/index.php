@@ -41,7 +41,8 @@ $countResults = $resultsHandler->getCount();
 // InfoBox Statistics
 $adminObject->addInfoBox(_AM_QUIZMAKER_STATISTICS);
 // Info elements
-$redirectFile = $_SERVER['SCRIPT_NAME'];$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_CATEGORIES.'</label>', $countCategories));
+$redirectFile = $_SERVER['SCRIPT_NAME'];
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_CATEGORIES.'</label>', $countCategories));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_QUIZ.'</label>', $countQuiz));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_QUESTIONS.'</label>', $countQuestions));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_ANSWERS.'</label>', $countAnswers));
@@ -49,6 +50,41 @@ $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_TYPE_QUES
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_MESSAGES.'</label>', $countMessages));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_RESULTS.'</label>', $countResults));
 
+
+//----------------------------------------------------------
+// InfoBox traitements
+//----------------------------------------------------------
+$nbTraitements = 0;
+$adminObject->addInfoBox(_AM_QUIZMAKER_TRAITEMENTS);
+// Info elements
+$nbFiles = count(XoopsLists::getFileListByExtension(QUIZMAKER_PATH_UPLOAD_EXPORT, array('zip')));
+//$nbFiles = count(XoopsLists::getFileListAsArray(QUIZMAKER_PATH_UPLOAD_EXPORT));        
+if($nbFiles > 0){
+    $nbTraitements++;
+    $fld=substr(QUIZMAKER_FLD_EXPORT,1);
+    $adminObject->addInfoBoxLine("<a href='traitements.php?op=truncat&folder={$fld}'>".sprintf(_AM_QUIZMAKER_TRUNCAT_FOLDER, QUIZMAKER_FLD_EXPORT,$nbFiles)."</a>");
+}
+
+$nbFiles = count(XoopsLists::getFileListByExtension(QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH, array('zip')));
+//$nbFiles = count(XoopsLists::getFileListAsArray(QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH));        
+if($nbFiles > 0){
+    $nbTraitements++;
+    $fld=substr(QUIZMAKER_FLD_IMPORT_BATCH,1);
+    $adminObject->addInfoBoxLine("<a href='traitements.php?op=truncat&folder={$fld}'>".sprintf(_AM_QUIZMAKER_TRUNCAT_FOLDER, QUIZMAKER_FLD_IMPORT_BATCH,$nbFiles)."</a>");
+}
+
+$nbFiles = count(XoopsLists::getFileListByExtension(QUIZMAKER_PATH_UPLOAD_IMPORT, array('zip')));
+//$nbFiles = count(XoopsLists::getFileListAsArray(QUIZMAKER_PATH_UPLOAD_IMPORT));        
+if($nbFiles > 0){
+    $nbTraitements++;
+    $fld=substr(QUIZMAKER_FLD_IMPORT,1);
+    $adminObject->addInfoBoxLine("<a href='traitements.php?op=truncat&folder={$fld}'>".sprintf(_AM_QUIZMAKER_TRUNCAT_FOLDER, QUIZMAKER_FLD_IMPORT,$nbFiles)."</a>");
+}
+if($nbTraitements == 0){
+    $adminObject->addInfoBoxLine(_AM_QUIZMAKER_NO_TRAITEMENT_TODO);
+}
+
+//-------------------------------------------------------------
 // Upload Folders
 $configurator = new Common\Configurator();
 if ($configurator->uploadFolders && is_array($configurator->uploadFolders)) {

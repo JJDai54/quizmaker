@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -38,7 +38,7 @@ class QuizHandler extends \XoopsPersistableObjectHandler
 	 */
 	public function __construct(\XoopsDatabase $db)
 	{
-		parent::__construct($db, 'quizmaker_quiz', Quiz::class, 'quiz_id', 'quiz_cat_id');
+		parent::__construct($db, 'quizmaker_quiz', Quiz::class, 'quiz_id', 'quiz_name');
 	}
 
 	/**
@@ -138,7 +138,8 @@ class QuizHandler extends \XoopsPersistableObjectHandler
         if($quiz_cat_id > 0){
             $criteria = new \CriteriaCompo(new \Criteria('quiz_cat_id' , $quiz_cat_id, '='));
         }
-        $criteria->setOrder('answer_id');
+        $criteria->setSort('quiz_name');
+        $criteria->setOrder('ASC');
         
         if($short_permtype != '')
             $allAllowed = $this->getAllowed($short_permtype, $criteria);
@@ -152,10 +153,41 @@ class QuizHandler extends \XoopsPersistableObjectHandler
             //$ret[$key] =  ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "") . $allAllowed[$i]->getVar('quiz_name');            
         
         }
-
+        
+        $ret=array_flip($ret);
+        ksort($ret);
+        $ret=array_flip($ret);
+        
         return $ret;
     }
 
+/* *************************************************
+ * renvoie une liste "id=>name" pour les formSelect 
+ * *********************** */
+
+    public function getKeysByCat($quiz_cat_id, $keyField)
+
+    {
+        $ret     = array();
+
+        $criteria = new \CriteriaCompo();
+        if($quiz_cat_id > 0){
+            $criteria = new \CriteriaCompo(new \Criteria('quiz_cat_id' , $quiz_cat_id, '='));
+        }
+
+        $allAllowed = $this->getObjects($criteria, true);
+
+                
+        foreach (array_keys($allAllowed) as $i) {
+            $key = $allAllowed[$i]->getVar($keyField);
+            if(!isset($ret[$key])){
+                $ret[$key] = $allAllowed[$i]->getVar('quiz_id');
+            }else{
+                // le nom existe déjà
+            }
+        }
+        return $ret;
+    }
 
 /* ******************************
  * renvoie l'id parent pour l'idEnfant
@@ -243,6 +275,11 @@ class QuizHandler extends \XoopsPersistableObjectHandler
     {
         global $answersHandler, $questionsHandler, $resultsHandler;
         
+        if (is_int($object)){
+           $object = $this->get($object);
+        }
+        
+        
         $quizId = $object->getVar("quiz_id");
         //-----------------------------------------------------
         //suppression des resultats
@@ -251,12 +288,16 @@ class QuizHandler extends \XoopsPersistableObjectHandler
         
         //-----------------------------------------------------
         $ids = $this->getChildrenIds($quizId);
-        $criteria = new \CriteriaCompo(new \Criteria("answer_quest_id", "($ids)", 'IN'));
-        $ret = $answersHandler->deleteAll($criteria);
+        if($ids){
+          $criteria = new \CriteriaCompo(new \Criteria("answer_quest_id", "({$ids})", 'IN'));
+          $ret = $answersHandler->deleteAll($criteria);
+        }
         //-----------------------------------------------------
         $criteria = new \CriteriaCompo(new \Criteria("quest_quiz_id", $quizId, '='));
         $ret = $questionsHandler->deleteAll($criteria);
         
+        $fld = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $object->getVar('quiz_folderJS');
+        Utility::deleteDirectory($fld);
         $ret = parent::delete($object, $force);
         
         return $ret;
@@ -351,7 +392,6 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
     
     $sql .= " WHERE quiz_id={$quizId};";
     $ret = $this->db->queryf($sql);
-//exit;
     return $ret;
 }
 
@@ -415,10 +455,9 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
      * @param string   $permtype	Type de permission
      * @return array   $cat		    Liste des catégorie qui correspondent à la permission
      */
-	public function getPermissions($short_permtype = 'view')
+	public function getPermissionsOld($short_permtype = 'view')
     {
         global $xoopsUser, $quizmakerHelper;
-//exit("===>getPermissions : {$short_permtype}");        
         
         $permtype = sprintf("quizmaker_%s_quiz", $short_permtype);
         
@@ -434,28 +473,63 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 
 
 	/**
+     * Fonction getAllQuizAllowed liste les quiz de la categorie en fonction de la date et de actif
+     * @param int   $catId	id de la categorie
+     * @param string  $sorted 	champs de tri
+     * @param string  $order 	ordre de tri
+     * @param string  $permName nom de la permission : gpermName)
+    * @return array   Liste des quiz
+     */
+	public function getAllQuizAllowed($catId, $asKeyNameArr=false, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC", $permName = 'view_cats'){
+        global $categoriesHandler, $quizmakerHelper, $clPerms;
+        if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
+        
+        $clPerms->addPermissions($criteria, $permName, 'quiz_cat_id');        
+        $criteria->add(new \Criteria('quiz_cat_id', $catId, "="));
+        //---------------------------------------------------------------
+       $now = \JJD\getSqlDate();
+       $crtDatBegin = new \CriteriaCompo();   
+       $crtDatBegin->add(new \Criteria('quiz_dateBegin', $now, "<="));
+       $crtDatBegin->add(new \Criteria('quiz_dateBeginOk', 0, "="),'OR');
+       $criteria->add($crtDatBegin,'AND');   
+       
+       $crtDatEnd = new \CriteriaCompo();   
+       $crtDatEnd->add(new \Criteria('quiz_dateEnd', $now, ">="));
+       $crtDatEnd->add(new \Criteria('quiz_dateEndOk', 0, "="),'OR');
+       $criteria->add($crtDatEnd,'AND');   
+   
+        if ($sorted != '') $criteria->setSort($sorted);
+        if ($order  != '') $criteria->setOrder($order);
+        
+        if($asKeyNameArr){
+            $allEnrAllowed = parent::getList($criteria);
+        }else{
+            $allEnrAllowed = parent::getAll($criteria);
+        }
+        
+        return $allEnrAllowed;
+    }
+    
+	/**
      * Fonction qui liste les catégories qui respectent la permission demandée
      * @param string   $permtype	Type de permission
      * @return array   $cat		    Liste des catégorie qui correspondent à la permission
      */
-	public function getAllowed($short_permtype = 'view', $criteria = null, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC")
+	public function getAllowed($short_permtype = 'view_cats', $criteria = null, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC")
     {
-        global $categoriesHandler, $quizmakerHelper;
-        
-        if (is_null($criteria)) $criteria = new \CriteriaCompo();
-        $tPerm = $this->getPermissions($short_permtype);
-//exit("===>getAllowed"); 
-     
-        if ($quizmakerHelper->getConfig('perm_by_quiz')){
-            $idsQuiz = (count($tPerm) > 0 ) ? join(',', $tPerm) : '0';
-            //$idsQuiz = join(',', $tPerm);
-            $criteria->add(new \Criteria('quiz_id',"({$idsQuiz})",'IN'));
-        }
-        
-        //---------------------------------------------------------------
+        global $categoriesHandler, $quizmakerHelper, $clPerms;
         if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
 
-        $idsCat = join(',', $categoriesHandler->getPermissions($short_permtype));
+        $clPerms->addPermissions($criteria, 'view_cats', 'quiz_cat_id');
+        
+        if (is_null($criteria)) $criteria = new \CriteriaCompo();
+        
+        $tPerm = $this->getPermissionsOld($short_permtype);
+     
+        
+        //---------------------------------------------------------------
+
+        $idsCat = join(',', $categoriesHandler->getPermissionsOld($short_permtype));
         //echo "<hr>===>getAllowed quiz :<br>idsQuiz : {$idsQuiz}<br>idsCat : {$idsCat}<hr>";
         //------------------------------------------------
         $criteria->add(new \Criteria('quiz_cat_id',"({$idsCat})",'IN'), 'AND');
@@ -474,7 +548,6 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
    
         if ($sorted != '') $criteria->setSort($sorted);
         if ($order  != '') $criteria->setOrder($order);
-//exit ("<hr>===>getAllowed<hr>" . $criteria->renderWhere() ."<hr>");       
         $allEnrAllowed = parent::getAll($criteria);
 
         return $allEnrAllowed;
@@ -574,32 +647,25 @@ $fldMasterId =  "quiz_cat_id";
     
     return $this->get($quiz_id)->purgerImages();
  }
- /* ******************************
- * Update weight
+
+/* ******************************
+ *  
  * *********************** */
- public function purgerImages_old($quiz_id){
- global $questionsHandler, $answersHandler;
- $nbImgDeleted = 0;
+    public function getId($name, $catId = 0){
     
-    $quiz = $this->get($quiz_id);
-// echo "<hr><pre>quiz : " . print_r($quiz, true) . "</pre><hr>";    
-    $folder = $quiz->getVar('quiz_folderJS');
-    $imgPath = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $folder . '/images';
-    //$imgList = XoopsLists::getDirListAsArray(QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $folder . '/images');
-    $imgList = \XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'));    
-//echo "<hr><pre>images : " . print_r($imgList, true) . "</pre><hr>";    
-    foreach($imgList as $key=>$file){
-        //echo "<br>image : {$key} | {$file}";
-        $criteria = new \CriteriaCompo(new \Criteria("answer_proposition",$key,'='));
-        $criteria->add(new \Criteria("answer_image",$key,'='), 'OR');
-        $ans = $answersHandler->getAll($criteria);
-        if (count($ans) == 0){
-            $fullName = $imgPath . '/' . $key;
-            unlink($fullName);
-            $nbImgDeleted++;
-        }
-        
+    
+        $criteria = new \CriteriaCompo(new \Criteria("quiz_name", $name, 'LIKE'));
+        if ($catId > 0) $criteria->add(new \Criteria("quiz_cat_id", $catId, '='));
+        $rst = $this->getAll($criteria);
+    
+        if (count($rst) > 0) {
+            $quiz = array_shift($rst);
+            $quizId = $quiz->getVar('quiz_id');
+        }else{
+            $quizId  = 0;        
+        }   
+    
+    return $quizId;    
     }
-    return $nbImgDeleted;
- }
+ 
 } // Fin de la classe

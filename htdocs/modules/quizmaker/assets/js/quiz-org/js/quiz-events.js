@@ -10,9 +10,9 @@ function computeAllScoreEvent(){
   document.getElementById('quiz_div_all_slides').click();
 }
 //------------------------------------------------------------------------
-function quiz_textareaInput_event(eventName, id, name, chrono) {
+function quiz_textareaInput_event(eventName, id, name, slideNumber) {
 //alert("quiz_textareaInput_event : " + eventName);
-    clQuestion = quizard[chrono];
+    clQuestion = quizard[slideNumber];
     var obExp = document.getElementById(id);
     
     var exp = clQuestion.data.text;
@@ -36,9 +36,9 @@ function quiz_textareaInput_event(eventName, id, name, chrono) {
 }
 
 //------------------------------------------------------------------------
-function quiz_textareaListbox_event(e, action, idText, idParentList, chrono) {
+function quiz_textareaListbox_event(e, action, idText, idParentList, slideNumber) {
 // this.blob(`===> quiz_textareaListbox_event - ${action} - ${idText} - ${name}`);
-    clQuestion = quizard[chrono];
+    clQuestion = quizard[slideNumber];
     var obExp = document.getElementById(idText);
     var exp = clQuestion.data.text;
     
@@ -199,11 +199,11 @@ function quiz_basculeValue(idLeft, idRight) {
 //     
 // };
 
-function permuteImg_event(idFrom, idTo, chrono) {
+function permuteImg_event(idFrom, idTo, slideNumber) {
 // this.blob(`===> quiz_textareaListbox_event - ${eventName} - ${id} - ${name}`);
 //alert(`permuteImg_event : \n ${idFrom}\n ${idTo}`);
 
-    //clQuestion = quizard[chrono];
+    //clQuestion = quizard[slideNumber];
     var obImgFrom = document.getElementById(idFrom);
     var obImgTo = document.getElementById(idTo);
     
@@ -213,11 +213,11 @@ function permuteImg_event(idFrom, idTo, chrono) {
     
 }
 
-function setImgFromImg_event(idFrom, idTo, chrono) {
+function setImgFromImg_event(idFrom, idTo, slideNumber) {
 // this.blob(`===> quiz_textareaListbox_event - ${eventName} - ${id} - ${name}`);
 //alert(`setImgFromImg_event : \n ${idFrom}\n ${idTo}`);
 
-    //clQuestion = quizard[chrono];
+    //clQuestion = quizard[slideNumber];
     var obImgFrom = document.getElementById(idFrom);
     var obImgTo = document.getElementById(idTo);
     

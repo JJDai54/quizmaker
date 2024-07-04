@@ -46,12 +46,12 @@ getInnerHTML(){
         var ans =  this.data.sequence[k];
         //alert('inputs = ' + ans.inputs);
         if (ans.points*1 > 0){
-            var src = `${urlQuizImg}/${ans.image}`;
-            tempImgIdTofind.push(ans.id);
+            var src = `${urlQuizImg}/${ans.image1}`;
+            tempImgIdTofind.push(ans.ansId);
         }else{
             var src = `${urlQuizImg}/${ans.proposition}`;
         }
-        img = `<img id="${ans.id}" src="${src}" title="${ans.proposition}" alt="zzz" height="${imgHeight1}">`;        
+        img = `<img id="${ans.ansId}" src="${src}" title="${ans.proposition}" alt="zzz" height="${imgHeight1}">`;        
         tHtmlSequence.push(img);
     }
     //--------------------------------------------------------------
@@ -63,17 +63,17 @@ getInnerHTML(){
         var seqToFind = currentQuestion.answers[this.data.toFind[j]];
 
           tHtmlSuggestion.push('<hr>');
-          var idFrom = seqToFind.id + "-bis"; //this.getId('suggestion',k);
-          var idTo = seqToFind.id; //this.getId('suggestion',k);
+          var idFrom = seqToFind.ansId + "-bis"; //this.getId('suggestion',k);
+          var idTo = seqToFind.ansId; //this.getId('suggestion',k);
           var onclick = onclickTpl.replace('{idFrom}', idFrom).replace('{idTo}', tempImgIdTofind[j]);
-          tHtmlSuggestion.push(`<img id='${idFrom}' src="${urlQuizImg}/${seqToFind.image}" title="" alt="xxx" height="${imgHeight2}" ${onclick} isselectable>`);
+          tHtmlSuggestion.push(`<img id='${idFrom}' src="${urlQuizImg}/${seqToFind.image1}" title="" alt="xxx" height="${imgHeight2}" ${onclick} isselectable>`);
           tHtmlSuggestion.push(`<img src="${urlPlugin}/img/2points-green.png" title="" alt="xxx" height="${imgHeight2}">`);
           
         var sug = duplicateArray(this.data.suggestion);
         shuffleArrayFY(sug);
           for(var k in sug){
               var ans =  sug[k];
-              var idFrom = ans.id; //this.getId('suggestion',k);
+              var idFrom = ans.ansId; //this.getId('suggestion',k);
               var onclick = onclickTpl.replace('{idFrom}', idFrom);
               var onclick = onclick.replace('{idTo}', this.getId(this.data.toFind[j]) );
               //alert(onclick);
@@ -91,6 +91,7 @@ getInnerHTML(){
 
  prepareData(){
     
+    var currentQuestion = this.question;
     var sequence = [];
     var suggestion = [];
     var substitut = [];
@@ -99,12 +100,12 @@ getInnerHTML(){
     var tPoints = [];
     var tItems = new Object;
     
-    var currentQuestion = this.question;
     var i=-1;
     var arrToFind = [];
     for(var k in currentQuestion.answers){
     //for(var k = 0; k < currentQuestion.answers.length; k++){
-        currentQuestion.answers[k].id = this.getId(k);
+    //alert(currentQuestion.answers[k].ansId);
+        currentQuestion.answers[k].ansId = this.getId(k);
         if(currentQuestion.answers[k].points > 0) arrToFind.push(k);
             
         var inputs = currentQuestion.answers[k].inputs;
@@ -118,7 +119,7 @@ getInnerHTML(){
     var j = currentQuestion.answers.length;
     for(var k=0; k < arrToFind.length; k++){
         var newItem = JSON.parse(JSON.stringify(currentQuestion.answers[arrToFind[k]]));
-        newItem.id = this.getId(k+j);
+        newItem.ansId = this.getId(k+j);
         suggestion.push(newItem);
     }
         
@@ -140,7 +141,7 @@ var points = 0;
       for(var k = 0; k < this.data.sequence.length; k++){
         var ans = this.data.sequence[k];
         if (ans.points*1 > 0){
-          var obImg = document.getElementById(ans.id);
+          var obImg = document.getElementById(ans.ansId);
           //alert(obImg.getAttribute('src') + "\n" + `${quiz_config.urlQuizImg}/${ans.proposition}`);
           if (obImg.getAttribute('src') == `${quiz_config.urlQuizImg}/${ans.proposition}`)        
                 points += ans.points*1;
@@ -175,29 +176,6 @@ computeScoresMinMaxByProposition(){
 
      return true;
 }
-
-/* ******************************************
-
-********************************************* */
-  isInputOk (myQuestions, answerContainer,chrono){
-    
-     var currentQuestion = this.question;
-    if(currentQuestion.options.minReponses == 0) return true;
-    //-------------------------------------------
-    var rep = 0;
-    
-//alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
-      for(var k = 0; k < this.data.sequence.length; k++){
-        var ans = this.data.sequence[k];
-        if (ans.points*1 > 0){
-          var obImg = document.getElementById(ans.id);
-          if (obImg.getAttribute('src') != `${quiz_config.urlQuizImg}/${ans.image}`)        
-                rep++;
-//alert('isInputOk : ' + rep + "\n" + obImg.getAttribute('src') + "\n" + "../images/substitut/" + ans.image);
-        }
-    }
-    return (rep > currentQuestion.options.minReponses) ;
- }
 
 /* **************************************************
 
@@ -248,7 +226,7 @@ getAllReponses (flag = 0){
         var ans = this.data.sequence[k];
 //        alert(`propo = ${ans.proposition} - points = ${ans.points}` );
           if (ans.points*1 > 0){
-            var obImg = document.getElementById(ans.id);
+            var obImg = document.getElementById(ans.ansId);
 //            alert(obImg.getAttribute('src'));
             obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${ans.proposition}`);
           } 
@@ -270,8 +248,8 @@ getAllReponses (flag = 0){
         var ans = this.data.sequence[k];
 //        alert(`propo = ${ans.proposition} - points = ${ans.points}` );
           if (ans.points*1 > 0){
-            var idFrom = rnd(this.data.suggestion.length -1);
-            var obImg = document.getElementById(ans.id);
+            var idFrom = getRandom(this.data.suggestion.length -1);
+            var obImg = document.getElementById(ans.ansId);
 //            alert(obImg.getAttribute('src'));
             obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${this.data.suggestion[idFrom].proposition}` );
           } 

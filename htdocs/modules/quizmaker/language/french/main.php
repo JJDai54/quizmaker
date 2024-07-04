@@ -82,6 +82,7 @@ define('_MA_QUIZMAKER_RESULT_1', "peut mieux faire");
 define('_MA_QUIZMAKER_RESULT_3', "Quelques progrès à faire");
 define('_MA_QUIZMAKER_SELECTION', "Sélection");
 define('_MA_QUIZMAKER_QUIZ_PROPOSED_BY', "Quiz proposé par");
+define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>Vous n'avez pas encore le droit de voir les solutions pour ce quiz.<br>Vous devez y avoir participé en étant enregisté et être connecté sur le site.</span>");
 
 
 ?>

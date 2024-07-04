@@ -10,18 +10,10 @@ name = 'imagesDaDMatchItems';
 * ******** */
 build (){
 
-    this.boolDog = true;
-    return this.getInnerHTML();
- }
-
-
-/* ************************************
-*
-* **** */
-build (){
     this.boolDog = false;
     return this.getInnerHTML();
  }
+
 
 /* ************************************
 *
@@ -35,7 +27,10 @@ getInnerHTML(bShuffle = true){
     }
 }
 /* ************************************
-*
+* cas N° 1 il n'y a qu'un div et on affiche pas les silhouettes
+* mais on mélange les titres sous les images
+* toutes les propositions doivent avoir un nombre de points >= 1
+* si points == 0 même à leur place elles ne compteront pas
 * **** */
 getInnerHTML_1(bShuffle = true){
     var currentQuestion = this.question;
@@ -44,7 +39,6 @@ getInnerHTML_1(bShuffle = true){
     var img = '';
     var caption = "";
     var src = "";
-//alert('imagesLocal : execution = ' + quiz_execution + ' - quiz.url = ' + quiz.url);   
  
 var eventImgToStyle   =`style="height:${currentQuestion.options.imgHeight1}px;"`;
 var eventImgFromStyle =`style="height:${currentQuestion.options.imgHeight2}px;"`;
@@ -60,25 +54,27 @@ style="height:${currentQuestion.options.imgHeight1}px;"
 onDragStart="dad_start(event);"`;
     
    
-    //on place unioquement les silhouette des prposition pour points>0
+    //on place uniquement les silhouettes des prpositions pour points > 0
     if(bShuffle){
-        var tShuffleImage   = shuffleArray(currentQuestion.answers);
-        var tShuffleCaption = shuffleArray(currentQuestion.answers);
+        var tAns = shuffleArray(currentQuestion.answers);
+        var tCap = shuffleArray(currentQuestion.answers);
     }else{
-        var tShuffleImage   = currentQuestion.answers;
-        var tShuffleCaption = currentQuestion.answers;
+        var tAns   = currentQuestion.answers;
+        var tCap = currentQuestion.answers;
     }
-    var j = 0;
+
     
-    for(var k in tShuffleImage){
-        var ansImg =  tShuffleImage[k];
-        var ansCap =  tShuffleCaption[k];
+    for(var k in tAns){
+        var ansImg =  tAns[k];
+        var ansCap =  tCap[k];
         
-           var idSequence = this.getId(j++,"sequence");
-           ansImg.idSequence = idSequence;
         src = `${quiz_config.urlQuizImg}/${ansImg.proposition}`;
+        //au cas ou caption n'a pas ete renseigné, affiche le nom de l'image
         caption = (ansCap.caption) ? qbr +  ansCap.caption : ansCap.proposition; 
-        img = `<div><img id="${idSequence}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</div>`;
+        img = `<div>`
+            + `<img id="${ansImg.ansId}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" goodImg='${ansCap.proposition}' title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+            + `<span id=${ansCap.idCaption}>${caption}</span></div>`;
+        
         tHtmlSequence.push(img);
         
     }
@@ -100,8 +96,7 @@ getInnerHTML_2(bShuffle = true){
     var img = '';
     var caption = "";
     var src = "";
-//alert('imagesLocal : execution = ' + quiz_execution + ' - quiz.url = ' + quiz.url);   
- 
+
 var eventImgToStyle   =`style="height:${currentQuestion.options.imgHeight1}px;"`;
 var eventImgFromStyle =`style="height:${currentQuestion.options.imgHeight2}px;"`;
 
@@ -116,33 +111,59 @@ style="height:${currentQuestion.options.imgHeight1}px;"
 onDragStart="dad_start(event);"`;
     
    
-    //on place unioquement les silhouette des prposition pour points>0
+    //on place uniquement les silhouettes des propositions  pour isOk
     var tShuffle = shuffleArray(currentQuestion.answers);
-    var j = 0;
     
-    for(var k in tShuffle){
-        var ans =  tShuffle[k];
-        console.log("ans.idSequence = " + ans.idSequence);
-        if(ans.isOk) {
-            src = `${quiz_config.urlQuizImg}/${ans.image}`;
-           var idSequence = this.getId(j++,"sequence");
-           ans.idSequence = idSequence;
-            caption = (ans.caption) ? qbr + ans.caption : ''; 
-            img = `<div><img id="${idSequence}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>${caption}</div>`;        
-            tHtmlSequence.push(img);
+    // si bShuffle on melange tout sinon on présente la bonne solution
+    if(bShuffle){
+        for(var k in tShuffle){
+            var ans =  tShuffle[k];
+            //console.log("ans.idImg = " + ans.idImg);
+            if(ans.isOk) {
+                src = `${quiz_config.urlQuizImg}/${ans.image1}`;
+                caption = (ans.caption) ? qbr + ans.caption : ''; 
+                img = `<div>`
+                    + `<img id="${ans.ansId}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+                    + `<span>${caption}</span></div>`;        
+                tHtmlSequence.push(img);
+            }
+        }
+    }else{
+        for(var k in tShuffle){
+            var ans =  tShuffle[k];
+            //console.log("ans.idImg = " + ans.idImg);
+            if(ans.image1) {
+                src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
+                caption = (ans.caption) ? qbr + ans.caption : ''; 
+                img = `<div>`
+                    + `<img id="${ans.ansId}" etat="2"  class='imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+                    + `<span>${caption}</span></div>`;        
+                tHtmlSequence.push(img);
+            }
         }
     }
     
-    //on remelange et on place les images a replacer au bon endroit
+    
+    //on remelange et on place les images a remplacer au bon endroit
     var tShuffle = shuffleArray(currentQuestion.answers);
     var j = 0;
         
+    // si bShuffle on melange tout sinon on présenteque les images sans silhouette donc non affectée
+    //ces images doivent avoir points=0
     for(var k in tShuffle){
         var ans =  tShuffle[k];
-        console.log("ans.idSequence = " + ans.idSequence);
-        src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
-        img = `<img id="${ans.id}" etat="0" class='imagesDaDMatchItems_myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title=""  ${eventImgFromStyle} alt="xxx"  ${eventImgFrom}>`;
-        tHtmlSuggestion.push(img);
+        if(!ans.image1 || bShuffle){
+            var idBasket = this.getId('basket',k);
+            // a propos de etat : 
+            // etat = 0 : valeur quand tout est mélangé. affecte l'image dorine à la destination et supprime l'image d'origine
+            // etat = 1 : etat de départ des images de destination
+            // etat = 2 : indique que la destination a déjà été affecté une fois au moins, et fait un swap des images
+            var etat = (bShuffle) ? 0 : 1;
+            //console.log("ans.idImg = " + ans.idImg);
+            src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
+            img = `<img id="${idBasket}" etat="${etat}" class='imagesDaDMatchItems_myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title=""  ${eventImgFromStyle} alt=""  ${eventImgFrom}>`;
+            tHtmlSuggestion.push(img);
+        }
     }
     //---------------------------------------------------------------------
     var tpl = this.getDisposition(currentQuestion.options.disposition, currentQuestion.options.directive)
@@ -159,18 +180,13 @@ onDragStart="dad_start(event);"`;
     this.data.masks = 0;
 
     for(var k in currentQuestion.answers){
-        currentQuestion.answers[k].id = this.getId(k,"ans");
-        currentQuestion.answers[k].idSequence = "";
-        if(currentQuestion.answers[k].points > 0){
-            currentQuestion.answers[k].isOk = true;
+        var ans = currentQuestion.answers[k];
+        ans.idCaption = this.getId("img",k);
+        if(ans.isOk){
             this.data.masks += 1;
-            
-         }else{
-            currentQuestion.answers[k].isOk = false;
-        } 
+         } 
     }   
-    this.data.urlCommonImg = quiz_config.urlCommonImg;
-        
+
 }
 
 /* **************************************************
@@ -180,42 +196,21 @@ getScoreByProposition (answerContainer){
 var points = 0;
 
     var currentQuestion = this.question;
-      for(var k = 0; k < currentQuestion.answers.length; k++){
-        var ans = currentQuestion.answers[k];
-        var idSequence = ans.idSequence;
-        if (ans.points*1 > 0){
-          var obSequence = document.getElementById(ans.idSequence);
-          if (obSequence.getAttribute('src') == `${quiz_config.urlQuizImg}/${ans.proposition}`)        
-                points += ans.points*1;
-        }      
-                    
+    for(var k = 0; k < currentQuestion.answers.length; k++){
+      var ans = currentQuestion.answers[k];
+      var obImg = document.getElementById(ans.ansId);
+  
+      if(obImg){
+      this.blob(`getScoreByProposition [${k}]: ${getShortName(obImg.getAttribute('src'))} <===> ${getShortName(obImg.getAttribute('goodImg'))}`);
+      
+      
+      if(getShortName(obImg.getAttribute('src'))  == getShortName(obImg.getAttribute('goodImg'))){
+              points += ans.points*1;
+      }
+      }
+      
     }
     return points;
-}
-
-//---------------------------------------------------
-computeScoresMinMaxByProposition(){
-    var currentQuestion = this.question;
-    var score = {min:0, max:0};
-
-
-     var nbItemTofind = 0;
-     var arrMinus = [];
-      for(var k in currentQuestion.answers){
-          var points = currentQuestion.answers[k].points;  
-          if (points > 0){
-            this.scoreMaxiBP += parseInt(points)*1;
-            nbItemTofind++;
-          } 
-          if (points < 0) arrMinus.push(points);
-      }
-      arrMinus.sort().reverse();
-      if (nbItemTofind > arrMinus.length) nbItemTofind = arrMinus.length;
-      //alert ("nbItemTofind = " + nbItemTofind + " -  arrMinus: " + arrMinus.length);
-      for(var k = 0; k < nbItemTofind; k++)
-          this.scoreMiniBP += parseInt(arrMinus[k])*1;
-
-     return true;
 }
 
 /* **************************************************
@@ -247,69 +242,6 @@ getAllReponses (flag = 0){
 
     return formatArray0(tReponses, "=>");
 }
-
-/* ***************************************
-*
-* *** */
-
- showGoodAnswers()
-  {
-      document.getElementById(this.divMainId).innerHTML = this.getInnerHTML_1(false);
-      
-//     var currentQuestion = this.question;
-//     var j = 0;
-// 
-//     this.reloadQuestion(false);
-     return true;
-  } 
- showGoodAnswers2()
-  {
-    var currentQuestion = this.question;
-    var j = 0;
-
-      for(var k = 0; k < currentQuestion.answers.length; k++){
-        var ans = currentQuestion.answers[k];
-        var idSequence = this.getId(k,"sequence");
-
-          if (ans.points*1 > 0){
-            var obImg = document.getElementById(ans.idSequence);
-            obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${ans.proposition}`);
-            document.getElementById(ans.id).setAttribute('src', `${quiz_config.urlQuizImg}/${ans.image}`);
-          }else{
-             document.getElementById(ans.id).setAttribute('src', `${quiz_config.urlQuizImg}/${ans.proposition}`);
-          } 
-      }
-
-     return true;
-  } 
-
-/* ***************************************
-*
-* *** */
-
- showBadAnswers()
-  {
-    var currentQuestion = this.question;
-    this.reloadQuestion();
-    
-    var tShuffle = [];
-    for (var h = 0; h < currentQuestion.answers.length; h++){tShuffle.push(h);}
-    tShuffle = shuffleArray(tShuffle);
-
-    var tAnsAlea = shuffleArray(currentQuestion.answers);
-
-    for(var k = 0; k < this.data.masks; k++){
-        var idSequence = this.getId(k,"sequence");    
-        var obSequence = document.getElementById(idSequence);
-    
-        var idAns = tAnsAlea[k].id;
-        var obAns = document.getElementById(idAns);
-        
-        replaceImg(obAns, obSequence);
-    }
-    
-     return true;
-  } 
 
 /* ***************************************
 *
@@ -346,6 +278,13 @@ getDisposition(disposition, directiveExists = false){
                         <td style='width:50%;vertical-align: top;'>{sequence}</td>
                     </tr></table>`;
             break;
+        case 'disposition-21':
+            if (directiveExists) directive= "{directive}<hr>";
+            var tpl = `${directive}<table><tr>
+                        <td style='width:50%;vertical-align: top;'>{sequence}</td>
+                        <td style='width:50%;vertical-align: top;'>{suggestion}</td>
+                    </tr></table>`;
+            break;
     }
     return tpl;
 }
@@ -361,6 +300,7 @@ function imagesDaDMatchItems_start(e, isDiv=false){
     e.dataTransfer.setData("text", e.currentTarget.id);
     console.log("imagesDaDMatchItems_start : " + e.currentTarget.id);
 }
+/* *************************************************** */
 function imagesDaDMatchItems_over(e){
    // if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
     e.currentTarget.classList.remove('imagesDaDMatchItems_myimg1');
@@ -368,12 +308,14 @@ function imagesDaDMatchItems_over(e){
 console.log("===>imagesDaDMatchItems_over : " + e.currentTarget.id);
     return false;
 }
+/* *************************************************** */
 function imagesDaDMatchItems_leave(e){
    e.currentTarget.classList.remove('imagesDaDMatchItems_myimg2');
    e.currentTarget.classList.add('imagesDaDMatchItems_myimg1');
 }
+/* *************************************************** */
 function imagesDaDMatchItems_drop (e, mode=0){
-//alert('dad_drop')
+
     var idFrom = e.dataTransfer.getData("text");
 
     e.currentTarget.classList.remove('imagesDaDMatchItems_myimg2');

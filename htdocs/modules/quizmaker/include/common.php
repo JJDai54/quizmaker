@@ -1,4 +1,5 @@
 <?php
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -46,13 +47,17 @@ define('QUIZMAKER_FLD_PLUGINS_JS', '/plugins');
 define('QUIZMAKER_FLD_PLUGINS_PHP', '/plugins');
 define('QUIZMAKER_FLD_LANGUAGE_JS', '/language');
 
+define('QUIZMAKER_FLD_EXPORT', '/export');
+define('QUIZMAKER_FLD_IMPORT', '/import');
+define('QUIZMAKER_FLD_IMPORT_BATCH', '/import_batch');
 
 //-------------- path ------------------------------
 define('QUIZMAKER_PATH_MODULE', XOOPS_ROOT_PATH . QUIZMAKER_FLD_MODULE);
-define('QUIZMAKER_PATH_PLUGINS_PHP', QUIZMAKER_PATH_MODULE .'/plugins');
+define('QUIZMAKER_PATH_PLUGINS_PHP', QUIZMAKER_PATH_MODULE . QUIZMAKER_FLD_PLUGINS_PHP);
 define('QUIZMAKER_PATH_UPLOAD', XOOPS_UPLOAD_PATH.'/'.QUIZMAKER_DIRNAME);
-define('QUIZMAKER_PATH_UPLOAD_EXPORT', QUIZMAKER_PATH_UPLOAD.'/export');
-define('QUIZMAKER_PATH_UPLOAD_IMPORT', QUIZMAKER_PATH_UPLOAD.'/import');
+define('QUIZMAKER_PATH_UPLOAD_EXPORT', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_EXPORT);
+define('QUIZMAKER_PATH_UPLOAD_IMPORT', QUIZMAKER_PATH_UPLOAD. QUIZMAKER_FLD_IMPORT);
+define('QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH', QUIZMAKER_PATH_UPLOAD.QUIZMAKER_FLD_IMPORT_BATCH);
 define('QUIZMAKER_PATH_UPLOAD_QUIZ', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_UPLOAD_QUIZ_JS);
 
 //-------------- url ------------------------------
@@ -86,15 +91,6 @@ if ($quizmakerHelper->getConfig('use_js_minified')){
     define('QUIZMAKER_URL_QUIZ_JS',  QUIZMAKER_URL_MODULE  .  QUIZMAKER_QUIZ_JS_TO_RUN);
 }
 
-
-/*
-echo "<hr>" . (($quizmakerHelper->getConfig('use_js_minified')) ? "minified" : "not minified")
-   . "<br>QUIZMAKER_QUIZ_JS_TO_RUN<br>" . QUIZMAKER_QUIZ_JS_TO_RUN 
-   . "<br>QUIZMAKER_PATH_QUIZ_JS<br>" . QUIZMAKER_PATH_QUIZ_JS 
-   . "<br>QUIZMAKER_URL_PLUGINS_JS<br>" . QUIZMAKER_URL_PLUGINS_JS 
-   . "<br>QUIZMAKER_URL_QUIZ_JS<br>" . QUIZMAKER_URL_QUIZ_JS . "<hr>";
-*/
-
 /***
  * $folder : sous dossier
  * $protocole : P pour path ou U pour url, F pou folder
@@ -123,6 +119,8 @@ return $root . $fld;
 
 define('QUIZMAKER_SELECT_ONCHANGE', 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
 define('QUIZMAKER_ADD_ID', true);
+define('QUIZMAKER_NEW', '__NEW__');
+define('QUIZMAKER_REQUIS', "<span style='color:red;'>*</span>");
 
 define('QUIZMAKER_POINTS_POSITIF', 'blue');
 define('QUIZMAKER_POINTS_NULL', 'black');
@@ -138,13 +136,22 @@ define('QUIZMAKER_TYPE_FORM_GROUP', 2);
 define('QUIZMAKER_TYPE_FORM_END', 3);
 
 define('QUIZMAKER_ALL', '__ALL__');
+define('QUIZMAKER_ALL_SELECTION', '(*) ');
 define('QUIZMAKER_TIMER_MAX', 120);
 define('QUIZMAKER_SHUFFLE_DEFAULT', 0);
 
 define('QUIZMAKER_PREFIX_OPTIONS_NAME', 'quest_options');
-define('QUIZMAKER_NEW', "_NEW_");
 define('QUIZMAKER_PREFIX_CAT', '_QT_QUIZMAKER_CAT_');    
+define('QBR', '<br>');    
     
+define('QUIZMAKER_BG_LIST_CAT', '#FFCC99');    
+define('QUIZMAKER_BG_LIST_QUIZ', '#CCFFFF');    
+define('QUIZMAKER_BG_LIST_QUEST', '#E0FFF0');    
+define('QUIZMAKER_BG_LIST_TYPEQUEST', '#FFFFCC');    
+define('QUIZMAKER_BG_LIST_TYPEIMPORT', '#FFFFCC');    
+define('QUIZMAKER_BG_LIST_GROUP', 'lightblue');    
+define('QUIZMAKER_BG_LIST_POINTS', '#FFCC99');    
+define('QUIZMAKER_BG_LIST_TIMER', '#FFCC99');    
 
 $h = 0;
 define('QUIZMAKER_BIT__ALLOWEDSUBMIT', $h++);
@@ -155,7 +162,7 @@ define('QUIZMAKER_BIT_ALLOWEDPREVIOUS', $h++);
 define('QUIZMAKER_BIT_USETIMER', $h++);
 define('QUIZMAKER_BIT_SHUFFLEQUESTIONS', $h++);
 define('QUIZMAKER_BIT_SHOWRESULTPOPUP', $h++);
-define('QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS', $h++);
+//define('QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS', $h++);
 
 
 $h = 0;
@@ -172,6 +179,7 @@ define('QUIZMAKER_BIT_SHOWREPONSESBOTTOM', $h++);
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';
 $copyright = "<a href='http://oritheque.fr' title='Origami' target='_blank'><img src='".$localLogo."' alt='Origami' /></a>";
+
 
 include_once XOOPS_ROOT_PATH . '/class/xoopsrequest.php';
 include_once QUIZMAKER_PATH_MODULE . '/include/functions.php';

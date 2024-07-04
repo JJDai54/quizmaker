@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
@@ -39,7 +39,8 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 
 // Check permissions
-// if (!$permissionsHandler->getPermGlobalSubmit()) {
+//$permEdit = $permEdit = $clPerms->getPermissionsOld(16,'global_ac');
+// if (!$permEdit) {
 // 	redirect_header('quiz.php?op=list', 3, _NOPERM);
 //}
 // Check params
@@ -106,7 +107,7 @@ if (0 == $quizId) {
 //                    'email' => $xoopsUser->getVar('email', 'e'),
 //                    'ip'   => XoopsUserUtility::getIP(true));
     //$GLOBALS['xoopsTpl']->assign('allParams', $allParams);    
-    $GLOBALS['xoopsTpl']->assign('paramsForQuiz', getParamsForQuiz(0));
+    $GLOBALS['xoopsTpl']->assign('paramsForQuiz', FQUIZMAKER\getParamsForQuiz(0));
     
 //echo "<hr>XoopsUserUtility<pre>" . print_r( XoopsUserUtility::getUnameFromIds(2), true) . "</pre><hr>";    
 ///////////////////////////////////////////////////
@@ -125,12 +126,12 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Keywords
 /*
-quizmakerMetaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
+FQUIZMAKER\metaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 */
 
 // Description
-quizmakerMetaDescription(_MA_QUIZMAKER_QUIZ_DESC);
+FQUIZMAKER\metaDescription(_MA_QUIZMAKER_QUIZ_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/quiz.php');
 $GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 

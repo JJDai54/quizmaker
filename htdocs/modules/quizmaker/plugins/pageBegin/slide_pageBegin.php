@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -136,7 +136,6 @@ class slide_pageBegin extends XoopsModules\Quizmaker\Type_question
 
             $ret = $answersHandler->insert($ansObj);
       }
-//     exit ("<hr>===>saveAnswers<hr>");
     }
 
 }

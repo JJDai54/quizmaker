@@ -39,12 +39,12 @@ build (){
     
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
-        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
+        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
 //alert(currentQuestion.options.groupDefault + "-" + groupIndex);
         //alert ('groupIndex : ' + groupIndex);
         obGroup = obGroups[groupIndex];
-        //alert(ans.id);
-        obGroup.appendChild(document.getElementById(ans.id )); //+ "-div"
+        //alert(ans.ansId);
+        obGroup.appendChild(document.getElementById(ans.ansId )); //+ "-div"
 
     }
 
@@ -89,18 +89,8 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
     
    //repartir les propositions par group
     for(var k in currentQuestion.answers){
-        //index = rnd(nbGroups-1);
-        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
-/*
-        if(nbGroups > 2){
-          //recherche un groupe différent que celui attribué pour mélanger les items 
-          // pas sur que ce soit une bonne idée surtout si il n'y a que deux groupes, il suffit d'inveerser toutes les images
-          while (currentQuestion.answers[k].group == index){
-            index = rnd(nbGroups-1);
-          }      
-        }
-*/        
-
+        //index = getRandom(nbGroups-1);
+        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
         groups[groupIndex].push(currentQuestion.answers[k]);
 
     }
@@ -121,13 +111,11 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
             var backGround = (ans.background) ? `background:${ans.background};` : '';
             //if (!ans.proposition.trim() == '$$$') ans.proposition = '&nbsp;';
             tHtml.push(`
-            <li id='${ans.id}' class='quiz_slist' style='width:${currentQuestion.options.ulWidth}%;${backGround}'>${ans.proposition}</li>
+            <li id='${ans.ansId}' class='quiz_slist' style='width:${currentQuestion.options.ulWidth}%;${backGround}'>${ans.proposition}</li>
             ${captionBottom}`
             );
 
         }
-        //tHtml.push(`</ul>`);
-        //tpl=tpl.replace(`{imgGgroup-${k}}`, tHtml.join("\n"));
         tpl=tpl.replace(`{contentGroup${k}}`, tHtml.join("\n"));        
     }
 
@@ -136,7 +124,7 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
         //tpl=tpl.replace(`{group-${k}}`, this.data.groupsLib[k]);
         tpl=tpl.replace(`{libGroup${k}}`, this.data.groupsLib[k]);        
     }
-    return tpl;
+    return '<center>' + tpl + '</center>';
 }
 //---------------------------------------------------
 initSlide (){
@@ -191,7 +179,7 @@ init_slist (target) {
    //repartir les proposition par group
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
-        ans.id = this.getId('item', k);
+        ans.ansId = this.getId('item', k);
         ans.caption.replace(' ', qbr);
                         
                         
@@ -209,7 +197,6 @@ init_slist (target) {
     }
     
     
-    this.data.urlCommonImg = quiz_config.urlCommonImg;
 }
 
 /* **************************************************
@@ -226,7 +213,7 @@ var idDivGood;
 this.blob('showGoodAnswers -----------------------------------------');
       for(var k = 0; k < currentQuestion.answers.length; k++){
         ans =  currentQuestion.answers[k];
-        obAns = document.getElementById(ans.id);
+        obAns = document.getElementById(ans.ansId);
         idDivGood =  this.getId('group', ans.group);
         //this.blob(`divGood = ${idDivGood} - divFound = ${obAns.parentNode.id}`);
         if (idDivGood == obAns.parentNode.id){
@@ -240,24 +227,6 @@ this.blob('showGoodAnswers -----------------------------------------');
     return points;
 } 
 
-//---------------------------------------------------
-computeScoresMinMaxByProposition(){
-    var currentQuestion = this.question;
-    var score = {min:0, max:0};
-
-      for(var k in currentQuestion.answers){
-          var points = currentQuestion.answers[k].points;  
-          if (points == 0) {points = 1;}        // force les points a une valeur supérieure à zéro
-          if (points > 0){
-            this.scoreMaxiBP += parseInt(points)*1;
-          } 
-          if (points < 0){
-            this.scoreMiniBP += parseInt(points)*1;
-          } 
-      }
-
-     return true;
-}
 
 /* **************************************************
 
@@ -300,7 +269,7 @@ var ImgStyle=`style="height:${divHeight}px;"`;
 
         
         groups[g].push(`
-            <li id='${ans.id}' class='quiz_slist'>${ans.proposition}</li>
+            <li id='${ans.ansId}' class='quiz_slist'>${ans.proposition}</li>
             ${captionBottom}`);
     }
         
@@ -334,7 +303,7 @@ var tHtml = [];
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
         var obGroup = obGroups[ans.group];
-        obGroup.appendChild(document.getElementById(ans.id)); 
+        obGroup.appendChild(document.getElementById(ans.ansId)); 
 
 
     }
@@ -359,13 +328,13 @@ var tHtml = [];
     
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
-        index = rnd(nbGroups-1);
+        index = getRandom(nbGroups-1);
         //alert ('index : ' + index);
         obGroup = obGroups[index];
-        //alert(ans.id);
-        //obGroup.appendChild(document.getElementById(ans.id + "-div")); 
+        //alert(ans.ansId);
+        //obGroup.appendChild(document.getElementById(ans.ansId + "-div")); 
         if(obGroup) {
-            obGroup.appendChild(document.getElementById(ans.id)); 
+            obGroup.appendChild(document.getElementById(ans.ansId)); 
         }
 
     }

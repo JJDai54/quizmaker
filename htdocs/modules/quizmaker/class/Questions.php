@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -63,8 +63,8 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_update', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('quest_weight', XOBJ_DTYPE_INT);
 		$this->initVar('quest_timer', XOBJ_DTYPE_INT);
+		$this->initVar('quest_start_timer', XOBJ_DTYPE_INT);
 		$this->initVar('quest_isQuestion', XOBJ_DTYPE_INT);
-		$this->initVar('quest_visible', XOBJ_DTYPE_INT);
 		$this->initVar('quest_actif', XOBJ_DTYPE_INT);
 	}
 
@@ -136,7 +136,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$inpQuizId = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 		$inpQuizId->addOption('Empty');
 		$inpQuizId->addOptionArray($quizHandler->getListKeyName());
-        $saisissable = true;
+        $saisissable = false;
         if (!$saisissable){ //autorise la selection de quiz_id
             $inpQuizId->setExtra("disabled");
             $form->addElement(new \XoopsFormHidden('quest_quiz_id', $this->getVar('quest_quiz_id')));
@@ -153,7 +153,6 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             $inpTypeQuestion->addOptionArray($type_questionHandler->getListKeyName(null, true));
             $inpTypeQuestion->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\");'");
             $trayTypeQuestion->addElement($inpTypeQuestion);
-            
             $trayTypeQuestion->addElement(new \XoopsFormLabel('', _CO_QUIZMAKER_TYPE_QUESTION_DESC));
           
         }else{
@@ -175,7 +174,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_PARENT, 'quest_parent_id', $parentId);
             $inpParent->addOptionArray($tParent);
             $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
-            
+
         }elseif($clTypeQuestion->typeQuestion == 'pageGroup'){
             $inpParent = new \XoopsFormHidden('quest_parent_id', 0);        
             $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
@@ -241,26 +240,33 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             $inpNumbering = new \XoopsFormHidden('quest_numbering', 0);        
         }
         $form->addElement($inpNumbering);
-
+        
+        //-------------------------------------------------------
+        $trayTimer = new \XoopsFormElementTray(_AM_QUIZMAKER_TIMER, '<br>');
+        
         // Form Text Select questTimer
-        $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, 'quest_timer', 8, 8, $this->getVar('quest_timer'));
-        $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX);
-        $inpTimer->setDescription(_AM_QUIZMAKER_TIMER_DESC);
-		$form->addElement($inpTimer);
+        $inpTimer = new \XoopsFormNumber('', 'quest_timer', 8, 8, $this->getVar('quest_timer'));
+        $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX, _AM_QUIZMAKER_UNIT_SECONDES);
+        $inpTimer->setExtra(getStyle(QUIZMAKER_BG_LIST_TIMER));
+		$trayTimer->addElement($inpTimer);
 
+        $trayTimer->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_TIMER_DESC));
+        
+        // Form quest_start_timer
+		$inpStartTimer = new \XoopsFormRadioYN(_AM_QUIZMAKER_START_TIMER, 'quest_start_timer', $this->getVar('quest_start_timer'));
+        $inpStartTimer->setDescription(_AM_QUIZMAKER_START_TIMER_DESC);
+        $trayTimer->addElement($inpStartTimer);
+        
+        $trayTimer->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_START_TIMER_DESC));
+        
+		$form->addElement($trayTimer);
+        //-------------------------------------------------------
         
 
 		// Form Editor DhtmlTextArea quest_consigne
         $inpConsigne  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_CONSIGNE, 'quest_consigne', $this->getVar('quest_consigne', 'e'), _AM_QUIZMAKER_QUESTIONS_CONSIGNE_DESC, null, $quizmakerHelper);        
 		$form->addElement($inpConsigne);
 		//$form->addElement($fileNameTray);
-        
-        // Form quest_visible
-        /*
-		$inpVisible = new \XoopsFormRadioYN(_AM_QUIZMAKER_VISIBLE, 'quest_visible', $this->getVar('quest_visible'));
-        $inpVisible->setDescription(_AM_QUIZMAKER_VISIBLE_DESC);
-        $form->addElement($inpVisible);
-        */
         
         // Form quest_actif
 		$inpActif = new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'quest_actif', $this->getVar('quest_actif'));
@@ -288,7 +294,10 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             // Form Text quest_points
             // ce champ fait partie de la table question mais il est plus ergonomique de le metre ici
             $inpPoints =   new \XoopsFormNumber('', 'quest_points', 8, 8, $this->getVar('quest_points'));
-            $inpPoints->setMinMax(0, 50);
+            $inpPoints->setMinMax(0, 50, _AM_QUIZMAKER_UNIT_POINTS);
+            $inpPoints->setExtra(getStyle(QUIZMAKER_BG_LIST_TIMER));
+            $inpPoints->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_POINTS));            
+            
             if ($clTypeQuestion->multiPoints){
               $form->addElement($this->TrayMergeFormWithDesc(_AM_QUIZMAKER_QUESTIONS_POINTS, $inpPoints, _AM_QUIZMAKER_QUESTIONS_POINTS_DESC));
             }else{
@@ -304,20 +313,24 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             //if($inpOptions || $clTypeQuestion->hasImageMain) 
 // Image
             if($clTypeQuestion->hasImageMain){
+                
+                
               $image = $this->getVar('quest_image');
-              $inpImage = $clTypeQuestion->getFormImage(_AM_QUIZMAKER_IMAGE, 'quest_image', $image, $folderJS);
-                  $inpImage->setCaption(_AM_QUIZMAKER_IMAGE);
-                  $form->addElement($inpImage, false);
+              $inpImage = $clTypeQuestion->getFormImage(_AM_QUIZMAKER_IMAGE_MAIN, 'quest_image', $image, $folderJS);
+                  $inpImage->setCaption('');
+                  //$form->addElement($inpImage, false);
 
                   $name = 'imgHeight';  
                   $height = ( $this->getVar('quest_height')) ?  $this->getVar('quest_height') : 32;
                   $inpHeight1 = new \XoopsFormNumber('',  "quest_height", 5, 3, $height);
-                  $inpHeight1->setMinMax(32, 300);
-                  $trayHeight1 = new \XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT1, ' ');  
-                  $trayHeight1->addElement($inpHeight1);
-                  $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-                  $form->addElement($trayHeight1);     
-                  
+                  $inpHeight1->setMinMax(32, 500, _AM_QUIZMAKER_UNIT_PIXELS);
+                  //$form->addElement($inpHeight1);     
+
+                  $inpTrayImg = new \XoopsFormElementTray(_AM_QUIZMAKER_IMAGE_MAIN, "-> " . _AM_QUIZMAKER_IMG_HEIGHT1 . " : ");
+                  $inpTrayImg->addElement($inpImage);
+                  $inpTrayImg->addElement($inpHeight1);
+                  $form->addElement($inpTrayImg);     
+
               }
             
             //ajout des options propres au type de question
@@ -327,8 +340,6 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             }
             
         } 
-       
-        //exit("options = " . $this->getVar('quest_options'));
        
         //================================================
         //ajout des propositions de réponses
@@ -411,7 +422,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         
 		$ret['weight']         = $this->getVar('quest_weight');
 		$ret['timer']          = $this->getVar('quest_timer');
-		//$ret['visible']        = $this->getVar('quest_visible');
+		$ret['start_timer']        = $this->getVar('quest_start_timer');
 		$ret['actif']          = $this->getVar('quest_actif');
 		$ret['flags']          = $this->getFlags($ret);
         
@@ -501,4 +512,23 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 
      }
     
-}
+/* ********************************************
+* todo
+*********************************************** */
+  public function moveTo($newQuizId){
+  global $quizHandler;
+    $quizFrom = $quizHandler->get($this->getVar('quest_quiz_id'));
+    $fldFrom = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $quizFrom->getVar('quiz_folderJS');
+    
+    $quizTo = $quizHandler->get($newQuizId);
+    $fldTo = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' .  $quizTo->getVar('quiz_folderJS');
+    
+    echo "<hr>newQuizId : {$newQuizId}<br>From : <br>{$fldFrom}<br>to : <br>{$fldTo}<hr>";
+exit('move');
+   }
+ 
+ 
+}//------------------- FIN DE LA CLASSE ---------------------------------
+
+
+

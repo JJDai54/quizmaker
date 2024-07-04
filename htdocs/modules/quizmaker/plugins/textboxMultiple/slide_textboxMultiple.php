@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -76,7 +76,7 @@ class slide_textboxMultiple extends XoopsModules\Quizmaker\Type_question
       $path = $this->pathArr['img'] . "/dispositions"; 
       $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PATH_PLUGINS_PHP);
       $imgList = XoopsLists::getFileListByExtension($path,  array('jpg','png','gif'), '');
-      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputDisposition->setGridIconNumber(count($imgList),1);
       $trayOptions->addElement($inputDisposition);      
       //--------------------------------------------------------------------           
@@ -105,7 +105,7 @@ class slide_textboxMultiple extends XoopsModules\Quizmaker\Type_question
                 $caption = $answers[$h]->getVar('answer_caption');
                 $inputs  = $answers[$h]->getVar('answer_inputs');
                 $tMots   = explode(',', $answers[$h]->getVar('answer_proposition'));
-                $tPoints = explode(',', trim($answers[$h]->getVar('answer_points')));
+                $tPoints = explode(',', trim($answers[$h]->getVar('answer_buffer')));
                 $weight  = intval(trim($answers[$h]->getVar('answer_weight')));
                 $lastWeight = $weight;
 
@@ -198,12 +198,12 @@ class slide_textboxMultiple extends XoopsModules\Quizmaker\Type_question
                 $tPoints[] = $motValue['points'];
             }
           	$ansObj->setVar('answer_proposition', implode(',', $tMots));
-          	$ansObj->setVar('answer_points', implode(',', $tPoints));
+          	$ansObj->setVar('answer_buffer', implode(',', $tPoints));
       
       	    $ret = $answersHandler->insert($ansObj);
 
 //    echo "<hr>answers.mots <pre>" . print_r($ansValue['mots'], true) . "</pre><hr>";
-//exit;    
+    
         }
     }
 

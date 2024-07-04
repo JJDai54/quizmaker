@@ -21,19 +21,19 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
 
-		$quizObj = $quizHandler->get($quizId);
-		$quizCat_id = $quizObj->getVar('quiz_cat_id');
+        $clPerms->checkAndRedirect('delete_quiz', $quizCat_id,'$quizCat_id', "quiz.php?op=list&cat_id={$quizCat_id}");
+
 		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
 			if (!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 			}
 			if ($quizHandler->delete($quizObj)) {
-				redirect_header('quiz.php', 3, _AM_QUIZMAKER_FORM_DELETE_OK);
+				redirect_header("quiz.php?cat_id={$quizCat_id}", 3, _AM_QUIZMAKER_FORM_DELETE_OK);
 			} else {
 				$GLOBALS['xoopsTpl']->assign('error', $quizObj->getHtmlErrors());
 			}

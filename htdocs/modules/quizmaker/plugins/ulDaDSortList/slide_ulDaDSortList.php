@@ -21,7 +21,7 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
@@ -37,10 +37,11 @@ class slide_ulDaDSortList extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("ulDaDSortList", 0, "dragAndDrop");
-        $this->optionsDefaults = ['ordre'=>'N', 'title'=>'', 
-                                  'liBgDefault' =>'#f5f5f5', 
-                                  'liBgActive'  =>'#ffe7e7', 
-                                  'liBgHover'   =>'#00FF00'];
+        $this->optionsDefaults = ['orderStrict' => 'N', 
+                                  'title'       => '', 
+                                  'liBgDefault' => '#f5f5f5', 
+                                  'liBgActive'  => '#ffe7e7', 
+                                  'liBgHover'   => '#00FF00'];
         $this->maxPropositions = 8; 
     }
 
@@ -179,7 +180,7 @@ class slide_ulDaDSortList extends XoopsModules\Quizmaker\Type_question
         	$ansObj->setVar('answer_points', 0);
         	$ret = $answersHandler->insert($ansObj);
         }
-//exit;    
+   
     }
 /* ********************************************
 *

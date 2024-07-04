@@ -1,0 +1,21 @@
+﻿.textareaMixte select{
+  font-size:1.2em;
+  width:50%;
+  margin:5px 5px 0px 5px;
+}
+.textareaMixte input{
+  font-size:1.2em;
+  width:50%;
+  margin:5px 5px 0px 5px;
+}
+
+.textareaMixte img{
+  border: 0px solid;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -khtml-border-radius:5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin:0px 0px 0px 0px;
+  box-shadow: 8px 8px 5px #444;
+  }
+

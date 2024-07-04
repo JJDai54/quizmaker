@@ -20,8 +20,10 @@ build (){
 * **** */
 getInnerHTML(bShuffle = true){
     if (this.question.options.moveMode == 2){
+        //deplacement des images par survol d'ne autre image
         return this.getInnerHTML_ins(bShuffle);
     }else{
+        //deplacement des images par inserion avec carret
         return this.getInnerHTML_subs(bShuffle);
     }
 
@@ -42,7 +44,8 @@ getInnerHTML_subs(bShuffle = true){
 var posCaption = currentQuestion.options.showCaptions;    
 var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
 var divDirective = (currentQuestion.options.directive) ? `<span class="imagesDaDSortItems_directive">${currentQuestion.options.directive}</span>` : '';
-var tpl =`\n${divDirective}<div id="${this.getId('img')}" class='imagesDaDSortItems_directive' >\n{sequence}\n</div><br>`;
+//var tpl =`{questImage}\n${divDirective}<center><div id="${this.getId('img')}" class='imagesDaDSortItems_directive' >\n{sequence}\n</div></center><br>`;
+var tpl =`{questImage}\n${divDirective}<center><div id="${this.getId('img')}" sequence>\n{sequence}\n</div></center>`;
 
 var eventImgToEvent=`
 onDragStart="imagesDaDSortItems_start(event);"
@@ -75,8 +78,8 @@ onmouseover="testMouseOver(event);"`;
 //         img = `<img id="${this.getId(k)}" class='myimg1' src="${src}" title="" alt="zzz" ${eventImg}>`;     
 //         tHtmlSequence.push(img);
         tHtmlSequence.push(`
-            <div id="${ans.id}-div" class='imagesDaDSortItems_myimg1' draggable='true' ${eventImgToEvent}>${captionTop}
-            <img id="${ans.id}-img"  src="${src}" title="${ans.caption}" ${ImgStyle} alt="" >
+            <div id="${ans.ansId}-div" class='imagesDaDSortItems_myimg1' draggable='true' ${eventImgToEvent}>${captionTop}
+            <img id="${ans.ansId}-img"  src="${src}" title="${ans.caption}" ${ImgStyle} alt="" >
             ${captionBottom}</div>`);
            
     }
@@ -154,10 +157,10 @@ var  tplEncar = `<div id="{id}-encart" encart  class='imagesDaDSortItems_myimg1'
               tHtmlSequence.push(tplEncar.replace("{id}",this.getId(999)));
             }
             tHtmlSequence.push(`
-              <div id="${ans.id}-div" class='imagesDaDSortItems_myimg1' draggable='true' ${eventImgToEvent1}>${captionTop}
-              <img id="${ans.id}-img"  src="${src}" title="${ans.caption}" ${ImgStyle} alt="" >
+              <div id="${ans.ansId}-div" class='imagesDaDSortItems_myimg1' draggable='true' ${eventImgToEvent1}>${captionTop}
+              <img id="${ans.ansId}-img"  src="${src}" title="${ans.caption}" ${ImgStyle} alt="" >
               ${captionBottom}</div>`);
-              tHtmlSequence.push(tplEncar.replace("{id}", ans.id));
+              tHtmlSequence.push(tplEncar.replace("{id}", ans.ansId));
             
            
     }
@@ -198,18 +201,6 @@ var  tplEncar = `<div id="{id}-encart" encart  class='imagesDaDSortItems_myimg1'
         
         
 }
-//---------------------------------------------------
-computeScoresMinMaxByProposition(){
- var currentQuestion = this.question;
- this.scoreMaxiBP = 0;  
- this.scoreMiniBP = 0;  
-   
-    for(var k in currentQuestion.answers){
-        this.scoreMaxiBP++;
-    }
-    
-     return true;
-}
 
 /* **************************************************
 calcul le nombre de points obtenus d'une question/slide
@@ -238,14 +229,6 @@ this.blob((bolOk) ? 'oui' : 'non');
     return  ((bolOk) ? this.scoreMaxiBP : 0);
 }
 
-/* ******************************************
-
-********************************************* */
-  isInputOk (myQuestions, answerContainer,chrono){
-    
-    return 0;
- }
-
 /* **************************************************
 
 ***************************************************** */
@@ -263,7 +246,7 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
     for(var k in this.question.answers){
     //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.question.answers[k];
-          var img = `<div id="${ans.id}-div" ${divStyle}>
+          var img = `<div id="${ans.ansId}-div" ${divStyle}>
             <img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">
             <br>${ans.caption}</div>`;
           tReponses.push (img);
@@ -332,6 +315,7 @@ function imagesDaDSortItems_drop(e, mode=0){
         case 0 : 
         default : 
             imagesDaDSortItems_replaceDivImg(obSource,obDest);
+            //alert('move mode : ' + mode);
             break;
     }
 
@@ -340,25 +324,21 @@ function imagesDaDSortItems_drop(e, mode=0){
     e.stopPropagation();
     return false;
 }
-
 /* ****
  *
  ******************************* */
-function imagesDaDSortItems_replaceDivImg(obSource,obDest){
-//alert(`replaceDivImg : obSource = ${obSource.id}\nobDest = ${obDest.id}`)
-  var obNext = obSource.nextElementSibling; 
-  var obPrevious = obSource.previousElementSibling; 
-  //if(!obNext) obNext = obDest.previousSibling; 
-  
-  obSource.parentNode.insertBefore(obSource, obDest);
- if (obNext){
-    obSource.parentNode.insertBefore(obDest, obNext);
- }else if(obPrevious){
-    obSource.parentNode.insertAfter(obDest);
- }else{
-    obSource.parentNode.appendChild(obDest);
- }
- return false; 
+
+
+// Note: Cloned copy of element1 will be returned to get a new reference back
+function imagesDaDSortItems_replaceDivImg(element1, element2)
+{
+    var clonedElement1 = element1.cloneNode(true);
+    var clonedElement2 = element2.cloneNode(true);
+
+    element2.parentNode.replaceChild(clonedElement1, element2);
+    element1.parentNode.replaceChild(clonedElement2, element1);
+
+    return false;
 }
 
 /* ***

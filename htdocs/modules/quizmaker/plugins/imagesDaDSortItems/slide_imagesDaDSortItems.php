@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -40,7 +40,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 	public function __construct()
 	{
         parent::__construct("imagesDaDSortItems", 0, "dragAndDrop");
-        $this->maxPropositions = 8;	
+        $this->maxPropositions = 14;	
         $this->optionsDefaults = ['imgHeight1'  => 64, 
                                   'moveMode'    => 0, 
                                   'showCaptions'=> 'B',
@@ -87,11 +87,8 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 300);
-      $trayHeight1 = new XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT, $delimeter = ' ');  
-      $trayHeight1->addElement($inpHeight1);
-      $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions ->addElement($trayHeight1);     
+      $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions ->addElement($inpHeight1);     
       
       $name = 'showCaptions';  
       $inputShowCaption = new \XoopsFormRadio(_AM_QUIZMAKER_SHOW_CAPTIONS, "{$optionName}[{$name}]", $tValues[$name], ' ');
@@ -107,7 +104,7 @@ class slide_imagesDaDSortItems extends XoopsModules\Quizmaker\Type_question
       $trayOptions ->addElement($inpMoveMode);     
 
       $name = 'directive';  
-      if ($tValues[$name] == QUIZMAKER_NEW_) $tValues[$name] = _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
+      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      
@@ -216,9 +213,9 @@ public function getFormGroup(&$trayAllAns, $arr,$titleGroup, $firstItem, $maxIte
             $inpProposition = new \XoopsFormHidden($this->getName($i,'proposition'), $proposition);            
             //$libProposition = new \XoopsFormLabel('',  $proposition; // pour le dev
 
-              $inpCaption = new \XoopsFormText(_AM_QUIZMAKER_CAPTION,  $this->getName($i,'caption'), $this->lgMot1, $this->lgMot1, $caption);
+              $inpCaption = new \XoopsFormText(_AM_QUIZMAKER_CAPTION,  $this->getName($i,'caption'), $this->lgMot1, $this->lgMot2, $caption);
               $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
-              $inpWeight->setMinMax(0, 100);
+              $inpWeight->setMinMax(0, 1000);
             
             
               $inpPoints = new \XoopsFormHidden($this->getName($i,'points'), '');   
@@ -277,14 +274,6 @@ public function getFormGroup(&$trayAllAns, $arr,$titleGroup, $firstItem, $maxIte
         
         $quiz = $quizHandler->get($quizId,"quiz_folderJS");
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
-/*
-echo '<hr>saveAnswers - POST : ';
-$this->echoAns ($_POST,'POST', false);    
-echo '<hr>saveAnswers - FILES : ';
-$this->echoAns ($_FILES,'Fichiers', false);    
-echo '<hr>';
-//exit;
-*/
                 
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //$answersHandler->deleteAnswersByQuestId($questId); 
@@ -330,7 +319,7 @@ echo '<hr>';
         $ansObj->setVar('answer_caption', $v['caption']);
         $ansObj->setVar('answer_weight', $v['weight']);
         $ansObj->setVar('answer_points', $v['points']); 
-        $ansObj->setVar('answer_image', $v['image']); 
+        $ansObj->setVar('answer_image1', $v['image']); 
         $ansObj->setVar('answer_quest_id', $questId); 
         $ansObj->setVar('answer_inputs', $v['inputs']); 
         
@@ -342,8 +331,6 @@ echo '<hr>';
      $criteria = new CriteriaCompo(new Criteria('answer_quest_id', $questId, '='));
      $criteria->add(new Criteria('', 0, '=',null,'length(answer_proposition)'),"AND");
      $answersHandler->deleteAll($criteria);
-     //exit ("<hr>===>saveAnswers<hr>" . $criteria->renderWhere() ."<hr>");
-//     exit('fin de saveAnswer');
     }
     
 
@@ -389,8 +376,6 @@ echo '<hr>';
        
     //-------------------------------------------
     $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
-//if(!$boolAllSolutions) exit;    
-//    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;
     $scoreMin = 0;

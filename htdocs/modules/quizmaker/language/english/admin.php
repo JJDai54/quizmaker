@@ -130,6 +130,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Restricted access' );
 \define('_AM_QUIZMAKER_GROUP_ALL', "All groups");
 \define('_AM_QUIZMAKER_ID', "[#]");
 \define('_AM_QUIZMAKER_IMAGE', "Image");
+\define('_AM_QUIZMAKER_IMAGE_MAIN', "Image main");
 \define('_AM_QUIZMAKER_IMG_HEIGHT', "Image height");
 \define('_AM_QUIZMAKER_IMG_HEIGHT1', "Image height");
 \define('_AM_QUIZMAKER_IMG_SUBSTITUT', "Substitute Image");
@@ -182,8 +183,8 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Restricted access' );
 \define('_AM_QUIZMAKER_PERMISSIONS_SUBMIT_DESC', "Submission permissions");
 \define('_AM_QUIZMAKER_PERMISSIONS_VIEW', "View permissions");
 \define('_AM_QUIZMAKER_PERMISSIONS_VIEW_DESC', "View permissions");
-\define('_AM_QUIZMAKER_PIXELS', "px");
-\define('_AM_QUIZMAKER_POINTS', "Points");
+\define('_AM_QUIZMAKER_UNIT_PIXELS', "px");
+\define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 \define('_AM_QUIZMAKER_PROPOSITIONS', "Proposals");
 \define('_AM_QUIZMAKER_PROPOSITIONS_ANSWERS', "Proposed answers");
 \define('_AM_QUIZMAKER_SLIDE_OPTIONS', "Slide options");
@@ -392,9 +393,9 @@ define('_AM_QUIZMAKER_POSITION_BR', "Bottom right");
 define('_AM_QUIZMAKER_POSITION_BL', "Bottom left");
 
 define('_AM_QUIZMAKER_UL_WIDTH', "Item width");
-define('_AM_QUIZMAKER_ALL_GROUPS', "All groups");
+define('_AM_QUIZMAKER_REPARTITION_ALL_GROUPS', "All groups");
 
-define('_AM_QUIZMAKER_DISPOSITION', "Group layout");
+define('_AM_QUIZMAKER_DISPOSITION', "Layout");
 define('_AM_QUIZMAKER_DISPOSITION_DESC', "<b>Important</b>: Select a layout that matches the number of groups that have been defined.");
 define('_AM_QUIZMAKER_COLOR', "Text color");
 define('_AM_QUIZMAKER_BACKGROUND', "Background color");
@@ -446,4 +447,10 @@ define ('_AM_QUIZMAKER_ANSWERS_TOTAL', "Total number of questions");
 
 \define('_AM_QUIZMAKER_MINUSONSHOWGOODANSWERS', "Minor score on \"Correct answer\"");
 \define('_AM_QUIZMAKER_MINUSONSHOWGOODANSWERS_DESC', "In the case where the \"Show correct answers\" button is active and is used, lowers the score");
+\define('_AM_QUIZMAKER_PLAY_QUIZ', "Play the quiz");
+\define('_AM_QUIZMAKER_PLAY', "Play");
+\define('_AM_QUIZMAKER_HELP', "Help");
+\define('_AM_QUIZMAKER_INSTALL', "Installation");
+
+
 ?>

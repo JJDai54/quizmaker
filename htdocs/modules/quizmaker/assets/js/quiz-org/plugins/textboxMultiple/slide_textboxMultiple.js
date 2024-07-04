@@ -70,7 +70,9 @@ getHtmlTextbox(sep){
         
         
         var tWords = currentQuestion.answers[k].proposition.split(",");
-        var tPoints = currentQuestion.answers[k].points.split(",");
+//         alert(currentQuestion.answers[k].points );
+//         alert(currentQuestion.answers[k].points );
+        var tPoints = currentQuestion.answers[k].buffer.split(",");
         tPoints = padArray(tPoints, tWords.length);
         var tSanitysed = []; //currentQuestion.answers[k].proposition.toLowerCase().split(",");        
         for (var h = 0 ; h < tWords.length; h++){
@@ -87,15 +89,15 @@ getHtmlTextbox(sep){
         this.data.subQuestions.push(question); 
         
     }
+    this.initMinMaxQQ(2);
 }
 
 //---------------------------------------------------
 computeScoresMinMaxByProposition(){
     var currentQuestion = this.question;
 
-
      for(var k in this.question.answers){
-        var tPoints = strToArrayNum(this.question.answers[k].points.toString(),",");
+        var tPoints = strToArrayNum(this.question.answers[k].buffer.toString(),",");
         
         tPoints.sort();
         for (var i = 0; i < currentQuestion.answers[k].inputs * 1; i++) {
@@ -109,8 +111,7 @@ computeScoresMinMaxByProposition(){
 
      return true;
  }
-computeScoresMinMaxInd(){
-}
+
 //---------------------------------------------------
 getScoreByProposition (answerContainer){
     var points = 0;
@@ -131,35 +132,6 @@ getScoreByProposition (answerContainer){
 
       return points;
   }
-
-//---------------------------------------------------
-isInputOk (answerContainer){
-      // find selected answer
-      var currentQuestion = this.question;
-      var bolOk = true;
-
-//       const selector = `input[name=question${currentQuestion.chrono}]`;
-//       //var obs = answerContainer.querySelectorAll(selector);
-//       var obs = this.getQuerySelector("input", this.getName(currentQuestion));
-// 
-//        //provisoire a vire des que le transfert de minReponses sera effectif partout
-//        try {
-//            var minReponses = currentQuestion.options.minReponses;
-//        }catch(err) {
-//            var minReponses = 0;
-//        }
-//       
-//       //alert('nb obs ===> ' + obs.length);
-//       //alert('minReponses ===> ' + minReponses  + " | " + currentQuestion.type + " | " + currentQuestion.options.minReponses);
-//       
-//       obs.forEach( (ob, index) => {
-//       //alert(ob.value);
-//         var reponse = ob.value.toLowerCase().trim();
-//         if (reponse.length < minReponses) bolOk = false;
-//       });
-
-      return bolOk;
- }
 
 /* *******************************************
 * getAllReponses : renvoie les réponse à la question
@@ -186,11 +158,6 @@ getAllReponses  (flag=0){
     return formatArray2(tReponses, '=');
 }
 
-//---------------------------------------------------
-  update(nameId, chrono) {
-}
-
- 
 
 /* ************************************
 *

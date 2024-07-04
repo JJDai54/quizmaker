@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -71,20 +71,13 @@ class slide_imagesDaDMatchItems extends XoopsModules\Quizmaker\Type_question
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 128);
-      $trayHeight1 = new \XoopsFormElementTray(_AM_QUIZMAKER_SEQUENCE0, $delimeter = ' ');  
-      $trayHeight1->addElement($inpHeight1);
-      $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions->addElement($trayHeight1);     
-
+      $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions->addElement($inpHeight1);     
 
       $name = 'imgHeight2';  
       $inpHeight2 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight2->setMinMax(32, 128);
-      $trayHeight2 = new \XoopsFormElementTray(_AM_QUIZMAKER_SEQUENCE1, $delimeter = ' ');  
-      $trayHeight2->addElement($inpHeight2);
-      $trayHeight2->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions->addElement($trayHeight2);     
+      $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions->addElement($inpHeight2);     
  
        $name = 'directive';  
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
@@ -161,7 +154,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             if (isset($arr[$k])){
                 $answerId    = $arr[$k]->getVar('answer_id');
                 $proposition = $arr[$k]->getVar('answer_proposition');
-                $image       = $arr[$k]->getVar('answer_image');
+                $image       = $arr[$k]->getVar('answer_image1');
                 $points      = $arr[$k]->getVar('answer_points');
                 $weight      = $weight; // $arr[$i]->getVar('answer_weight');
                 $caption     = $arr[$k]->getVar('answer_caption');
@@ -213,7 +206,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
               $inpCaption = new \XoopsFormText(_AM_QUIZMAKER_CAPTION,  $this->getName($i,'caption'), $this->lgMot1, $this->lgMot1, $caption);
               $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
               $inpWeight->setMinMax(0, 900);
-              $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
+              $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
               $inpPoints->setMinMax(0, 30);
               
 //         $inpImgSubstitut= new \XoopsFormSelect(_AM_QUIZMAKER_IMG_SUBSTITUT, $this->getName($i,'image'),$image);   
@@ -261,12 +254,6 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
 echo '<hr>saveAnswers - POST : ';
 $this->echoAns ($_POST,'POST', false);    
-/*
-echo '<hr>saveAnswers - FILES : ';
-$this->echoAns ($_FILES,'Fichiers', false);    
-echo '<hr>';
-exit;
-*/
                 
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //$answersHandler->deleteAnswersByQuestId($questId); 
@@ -298,11 +285,6 @@ exit;
             $v['image'] = '';  
         }
 
-
-
-
-
-        
         //enregistrement de l'image
         //if($_FILES['answers'][name] != '') 
         //recuperation de l'image pour le champ proposition
@@ -328,41 +310,23 @@ exit;
             if ($v['points'] == 0) $v['points']  = 1;        
         }
 
-        //pad d'image de substitution donc mauvaise reponse on foree les points a 0
-        if($v['image'] == '') $v['points'] = 0;        
-        
-        //Si le champ 'points' est plus petit ou égal à zéro , suppression de l'image de substitution
-//         if (intval($v['points']) == 0){
-//             $ansObj->setVar('answer_image', '');        
-//         }else{
-//         } 
-
-        //if(isset($v['proposition'])) $ansObj->setVar('answer_proposition', $v['proposition']);        
-       // if ($fileImg =! '') $ansObj->setVar('answer_proposition', $fileImg);
-        
         $ansObj->setVar('answer_proposition', $v['proposition']);
         $ansObj->setVar('answer_caption', $v['caption']);
-        $ansObj->setVar('answer_image', $v['image']);
+        $ansObj->setVar('answer_image1', $v['image']);
         $ansObj->setVar('answer_weight', $v['weight']);
         $ansObj->setVar('answer_points', $v['points']); 
         $ansObj->setVar('answer_quest_id', $questId); 
         $ansObj->setVar('answer_inputs', $v['inputs']); 
         
         if ($v['points'] == 0) $v['image'] = '';
-        //else if($v['image'] == '') $v['image'] = 'interrogation-05-bleu.png';
-        
-        //$ansObj->setVar('answer_image', $v['image']); 
-        //$ansObj->setVar('answer_group', $v['group']); 
           
         $answersHandler->insert($ansObj);
      }
-//        exit;
      //suppression des propositions qui n'ont pas d'image de definie
      $criteria = new CriteriaCompo(new Criteria('answer_quest_id', $questId, '='));
      $criteria->add(new Criteria('', 0, '=',null,'length(answer_proposition)'),"AND");
      $answersHandler->deleteAll($criteria);
      //exit ("<hr>===>saveAnswers<hr>" . $criteria->renderWhere() ."<hr>");
-//     exit('fin de saveAnswer');
     }
     
 /* ********************************************
@@ -407,8 +371,6 @@ exit;
        
     //-------------------------------------------
     $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
-//if(!$boolAllSolutions) exit;    
-//    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;
     $scoreMin = 0;

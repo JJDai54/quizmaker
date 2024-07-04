@@ -26,7 +26,7 @@ namespace XoopsModules\Quizmaker;
  * @since        
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
 
 /**

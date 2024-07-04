@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -219,7 +219,6 @@ class MessagesHandler extends \XoopsPersistableObjectHandler
                 $ok = $this->insert($messagesObj);
             }
         }
-//exit;    
     }
 /* ************************************************
 *

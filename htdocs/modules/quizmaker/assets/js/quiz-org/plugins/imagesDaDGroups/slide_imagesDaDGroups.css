@@ -37,6 +37,12 @@
     background-color: transparent;
 }
 
+.imagesDaDGroups div[portrait]{
+  float:left;
+  margin:5px;
+  font-size:0.8em;
+  text-align:center;
+}
   
 
 .imagesDaDGroups div[attSelGroup]{

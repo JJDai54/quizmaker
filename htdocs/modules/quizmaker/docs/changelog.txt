@@ -1,4 +1,84 @@
 ---------------------------------------------------
+2024-06-04a v 5.00 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- version majeure
+- Très gros nettoyage du code (étape 1)
+- refonte de certains plugins tant du côté PHP que JS et CSS
+- refonte complète de l'onglet "Importation"
+- refonte complète de l'onglet "type de question"
+- le framework "jjd-Framework" a été modifié, il faut le réinstaller
+- refonte complète de la gestion des permissions
+- fusion de certain plugins et suppression des fichier devenus inutiles
+
+---------------------------------------------------
+2024-06-04a v 4.14 beta 12 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Class type_question :
+    - creation des fonctions archiveExempleExist() et isBuild()
+      permet d'installer des quiz exemples dans l'onglet "Type de question"
+
+Onglet "type de question"
+    - ajout de l'installation d'une archive d'exemple dans la categorie adoc
+    - ajout de l'exécution d'un exemple du type de question si l'archive a été installée
+    
+Import quiz : 
+    - ajout du passage en force sur les "update" because get error
+    - ajout de l'import par lot dans l'onglet "Import". 
+      Les archives doivent être dans umploads/import_batch
+      
+Onglet questions :
+    - ajout du bouton "Sortir du groupe" a côté de "idParent"
+    - au niveau du groupe le bouton sort toutes les questions du groupe
+    - save : deplacement de la suppression et mise à vide du champ avant l'insertion de la nouvelle image si besoin
+    
+Onglet index :
+    - ajout des traitements (vidage des dossiers import, export, ... dans uploads/quizmaker)    
+    
+Divers corrections :
+    ajout du "ç" dans "regexAllLettersPP"
+    plugin "alphaSimple" prise en compte des propositions avec point < 0 en plus de la liste proposée
+                         suppression des doublons au cas ou.
+                         simplification de getHtml  
+plugin imagesDadSortItems : correction imagesDaDSortItems_replaceDivImg : swap de deux enfans d'un même noeud 
+
+refonte de la strructure du module : 
+    - suppression de quizUtility
+    - ajout des trait : Utilities/ ModuleUtility, Utilities/ QuizBuildUtility et Utilities/ QuizUtility
+    - 
+
+onglet "import" : 
+    - ajout d'une liste de selection pour le type d'import
+    - ajout d'un import de questions dans un quiz existant avec selection du type de question
+    - transfert des form de l'importation dans les fichiers  : import-batch.php, import-file.php, import-quest.php
+
+quiz.js :
+    - suppression de la fonction filtrerQuestion, conbinée avev getHtmlAllSlide
+    - suppression de la fonction computeScoresMinMax remplacée par proto_initSlide 
+      et suppression dans chaque plugin des opération faite dans proto_initSlide:
+      calcul des scores mini et maxi, calcul de l'id principal de la question et de chaque réponses, ...
+           
+---------------------------------------------------
+2024-06-04a v 4.14 beta 10 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Ajout des plugins "pageInfo" et "imageColor"
+function.js->getName() ajout du parametre 'suffix' pour eviter de concatener a chaque fois et inverssion chrono et typeName
+            return `question-${this.chrono}-${this.name}${suffix}`;
+functions.js->GetId : inverssion chrono et typeName 
+comboboxMatchItems : ajout de "disposition-03" avec deux groupes de listes déroulantes.
+                     ajout de "intrus2" pour le deuxième groupe de liste déroulante.
+suppression du dossier assets/images/dispositions. Option propre à chaque plugin
+Affichage des solutions : 
+    - ajout du critere "actif=true"
+    - ajout de l'interdiction de voir les solutions si l'utilisateur n'est pas connecté, qu'il n'y a pas eu de participation et qu'il n'a pas de score superieur à 0
+      pour info : un parcours du quiz sans donner de répponses et avec validation donnerai un score à 0 sans avoir réellement participé et donc avoir triché.
+      ceci dans le cas ou il est permis de participer plusieurs fois.
+Génértion du quiz :
+        Remplacement de :   return mb_convert_encoding($exp, 'UTF-8', mb_list_encodings($exp));
+        par                 return mb_convert_encoding($exp, 'UTF-8', mb_detect_encoding($exp));
+        le caractère "+" n'était pas reconnu correctement, et probableme d'autres caractères aussi.
+      
+                                    
+---------------------------------------------------
 2024-04-23a v 4.14 beta 8 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Ajout de l'édition des scores dans l'admin pour permettre la correction des résultats.

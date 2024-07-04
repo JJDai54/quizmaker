@@ -3,7 +3,9 @@
 <{assign var="fldImg" value="blue"}>
 <{assign var="styleParent" value=""}>
 
+<{$btnInitWeight}>
 <{if $categories_list}>
+
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>

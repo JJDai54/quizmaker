@@ -8,7 +8,7 @@
  * @link            https://xoops.org XOOPS
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 /**
  * Prepares system prior to attempting to uninstall module

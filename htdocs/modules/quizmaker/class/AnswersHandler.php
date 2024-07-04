@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -263,7 +263,6 @@ public function deleteId ($id) {
           $quiz_id = $currentEnr->getVar('answer_quest_id');
           $answer_weight = $currentEnr->getVar('answer_weight');
           
-//exit ("===>answer_id = {$answer_id}");          
          switch ($action){
             case 'up'; 
               $sens =  '<';

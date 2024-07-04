@@ -21,34 +21,33 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 //   echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";
 //
    
-/*
-    exit;
-echo "<hr>questId ===>zzz " . $questId . "<br>"; 
-*/
 		// Security Check
 
 // 		if (!$GLOBALS['xoopsSecurity']->check()) {
 // 			redirect_header('questions.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 // 		}
+        $quizId = Request::getInt('quest_quiz_id', 0);
 		if ($questId > 0) {
 			$questionsObj = $questionsHandler->get($questId);
+            $isNew = false;
 		} else {
 			$questionsObj = $questionsHandler->create();
     		$questionsObj->setVar('quest_creation', \JJD\getSqlDate());
+		    $questionsObj->setVar('quest_quiz_id', $quizId);
+            $isNew = true;
 		}
-		// Set Vars
+        
+        // Set Vars
         $typeQuestion = Request::getString('quest_type_question', '');
 		$questionsObj->setVar('quest_type_question', $typeQuestion);
-        $quizId = Request::getInt('quest_quiz_id', 0);
 		$quest_parent_id = Request::getInt('quest_parent_id', 0);
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
-		$questionsObj->setVar('quest_quiz_id', $quizId);
 		$questionsObj->setVar('quest_question', Request::getString('quest_question', ''));
 		$questionsObj->setVar('quest_identifiant', Request::getString('quest_identifiant', ''));
         
@@ -85,8 +84,8 @@ echo "<hr>questId ===>zzz " . $questId . "<br>";
 /*
 echoArray($options,'options',false);        
 echoArray($_POST,'_POST',false);     
-echoArray($_FILES,'_FILES',true);     
 */        
+//echoArray($_FILES,'_FILES',true);     
    
         
 		//$questionsObj->setVar('quest_options', Request::getString('quest_options', ''));
@@ -102,11 +101,18 @@ echoArray($_FILES,'_FILES',true);
 		$questionsObj->setVar('quest_shuffleAnswers', Request::getInt('quest_shuffleAnswers', 1));
 		$questionsObj->setVar('quest_weight', Request::getInt('quest_weight', 0));
 		$questionsObj->setVar('quest_timer', Request::getInt('quest_timer', 0));
-		//$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
+		$questionsObj->setVar('quest_start_timer', Request::getInt('quest_start_timer', 0));
 		$questionsObj->setVar('quest_actif', Request::getInt('quest_actif', 1));
 		$questionsObj->setVar('quest_update', \JJD\getSqlDate());
 
-//exit ("===> poids = " .+ Request::getInt('quest_weight', 0));
+        //suppression de l'image existant si besoin si la case a ete coche 
+        //ou si le nom de la nouvelle image est différent de l'ancienne
+        $delImage = Request::getInt('del_image', 0);
+        if($delImage == 1){ //    || $questImage
+            $fullName = $path . '/' . $questionsObj->getVar('quest_image');
+            unlink($fullName);
+            $questionsObj->setVar('quest_image', '');
+        }
 
         // --- gestion de limage de la question
         $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
@@ -114,21 +120,12 @@ echoArray($_FILES,'_FILES',true);
         //recupe de la nouvelle image si elle a ete selectionnée
         $questImage = $cls->save_img($ans, 'quest_image', $path, $folderJS, 'question', $nameOrg);
         
-        //suppression de l'image existant si besoin si la case a ete coche 
-        //ou si le nom de la nouvelle image est différent de l'ancienne
-        $delImage = Request::getInt('del_image', 0);
-        if($delImage == 1 || $questImage){
-            $fullName = $path . '/' . $questionsObj->getVar('quest_image');
-            unlink($fullName);
-        }
         //enregistrement de l'image
         if ($questImage) $questionsObj->setVar('quest_image', $questImage);
 
-//exit("{$path} |===> {$questImage} |===> {$nameOrg}");
 		// Insert Data
 		if ($questionsHandler->insert($questionsObj)) {
             $questId = $questionsObj->getVar('quest_id');
-//echo "<hr>questId ===> " . $questId ; exit;
 
             $cls->saveAnswers(Request::getArray('answers', []), $questId, $quizId);
         

@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -38,7 +38,8 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
 	 */
 	public function __construct(\XoopsDatabase $db)
 	{
-		parent::__construct($db, 'quizmaker_questions', Questions::class, 'quest_id', 'quest_quiz_id');
+		parent::__construct($db, 'quizmaker_questions', Questions::class, 'quest_id', 'quest_question');
+        
 	}
 
 	/**
@@ -97,11 +98,24 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return array
 	 */
-	public function getAllQuestions($criteria=null, $start = 0, $limit = 0, $sort = 'quest_id ASC, quest_quiz_id', $order = 'ASC')
+	public function getAllQuestions($crAllQuestions=null, $start = 0, $limit = 0, $sort = 'quest_id ASC, quest_quiz_id', $order = 'ASC')
 	{
-		$crAllQuestions = ($criteria) ? $criteria: new \CriteriaCompo();
+		if(!$crAllQuestions) $crAllQuestions = new \CriteriaCompo();
 		$crAllQuestions = $this->getQuestionsCriteria($crAllQuestions, $start, $limit, $sort, $order);
 		return parent::getAll($crAllQuestions);
+	}
+
+	public function getAllQuestionsArr($crAllQuestions = null, $fields = null)
+	{
+		if(!$crAllQuestions) $crAllQuestions = new \CriteriaCompo();
+        //public function &getAll(CriteriaElement $criteria = null, $fields = null, $asObject = true, $id_as_key = true)
+        //$fldArr = explode(',',$fields);
+        $allQuestions = parent::getAll($crAllQuestions,$fields,false,true);
+        $ret = array();
+        foreach($allQuestions AS $key=>$arr){
+            $ret[$key] = implode('<span style="color:red;"> | </span>', $arr);
+        }
+		return $ret;
 	}
 
 	/**
@@ -128,6 +142,7 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
     public function getListKeyName($quiz_id = 0, $fieldsName = 'quest_question', $addAll=false, $addNull=false)
 
     {
+
         $ret     = array();
         if ($addAll) $ret[0] = "(*)";
 //         if ($addNull) $inpList->addOption('_NULL_', _AM_CARTOUCHES_NULL);
@@ -145,7 +160,6 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
             //$ret[$key] = $obs[$i]->getVar($fieldsName) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
         
         }
-
         return $ret;
     }
 
@@ -238,7 +252,6 @@ __SQL__;
           $quest_weight = $currentEnr->getVar('quest_weight');
           $quest_parent_id  = $currentEnr->getVar('quest_parent_id');
           
-//exit ("===>quest_id = {$quest_id}<br>Action = {$action}");          
          switch ($action){
             case 'up'; 
               $sens =  '<';
@@ -391,7 +404,7 @@ __SQL__;
 //}
     
 /* ******************************
- * renvoie la valeur maxmum d'un champ pour un idParent 
+ * incremente la valeur d'un champ selon le modulo passé en parametre 
  * *********************** */
     public function changeEtat($questId, $field, $modulo = 2, $doItForGroup = false)
     {
@@ -423,6 +436,23 @@ __SQL__;
         }
         return $ret;
     }
+/* ******************************
+ * affecte la valeur d'un champ et du groupoe si besoin
+ * *********************** */
+    public function setValue($questId, $field, $value, $doItForGroup = false)
+    {
+    
+        $questObj = $this->get($questId);
+        $questObj->setVar($field,$value);
+        $idParent = ($questObj->getVar('quest_type_question') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
+        $this->insert($questObj);
+       
+        if($doItForGroup && $idParent > 0){
+              $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_parent_id={$questId};";            
+              $ret = $this->db->queryf($sql);
+        }
+        return $ret;
+    }
 
 /* ********************************
 *
@@ -446,11 +476,11 @@ public function getParents($quizId, $addNone = true){
 /* ********************************
 *
 * ******************************* */
-public function getStatistics($QuizId = 0){
+public function getStatistics($quizId = 0){
 
     $sql = "SELECT quest_quiz_id AS quizId, count(quest_quiz_id) as countQuestions"
          . " FROM ". $this->table . " WHERE quest_isQuestion = 1 GROUP BY quest_quiz_id";
-    if ($QuizId > 0)
+    if ($quizId > 0)
         $sql .= " WHERE quest_quiz_id = {$quizId}";
     $rst = $this->db->query($sql);
     $stat = array ();
@@ -460,5 +490,24 @@ public function getStatistics($QuizId = 0){
 //    echoArray($stat);
     return $stat;
 }
+/* ********************************
+*
+* ******************************* */
+public function getTypeQuestionOf($quizId){
+    $sql = "SELECT DISTINCT quest_type_question"
+         . " FROM ". $this->table 
+         . " WHERE quest_quiz_id = {$quizId}"
+         . " AND quest_type_question<>'pageBegin'"
+         . " AND quest_type_question<>'pageEnd'"
+         . " ORDER BY quest_type_question ASC";
+         
+    $typeQuestion = array ();
+    $rst = $this->db->query($sql);
+    while (false !== ($row = $this->db->fetchArray($rst))) {
+        $typeQuestion[$row['quest_type_question']] =  $row['quest_type_question'];
+    }
+    return $typeQuestion;
+}
+
 
 } //Fin de la classe

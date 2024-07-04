@@ -140,7 +140,7 @@
                 <{/if}>
             <br>
                 <{if $Quiz.publishAnswersOk}>
-                    <a class='run_quiz' href='solutions.php?quiz_id=<{$Quiz.id}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                    <a class='run_quiz' href='solutions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
                         <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='16px'/>
                         <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='16px'/>
                         <{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>

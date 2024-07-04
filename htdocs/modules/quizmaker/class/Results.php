@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -198,6 +198,7 @@ class Results extends \XoopsObject
 
 		$ret['note']             = $this->getVar('result_note');
         $colorNote = round($ret['score_achieved'] / $ret['score_max'] * 5 , 0);
+//echo "<hr>{$ret['score_achieved'] } - {$ret['score_max']} - {$colorNote}<hr>";
         if ($colorNote < 0)  $colorNote = 0;
         //if ($colorNote > 4)  $colorNote = 4;
 		$ret['color']            = str_pad($colorNote, 3, '0', STR_PAD_LEFT) . '.png';

@@ -130,6 +130,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_GROUP_ALL', "Tous les groupes");      
 \define('_AM_QUIZMAKER_ID', "[#]");
 \define('_AM_QUIZMAKER_IMAGE', "Image");
+\define('_AM_QUIZMAKER_IMAGE_MAIN', "Image principale");
 \define('_AM_QUIZMAKER_IMG_HEIGHT', "Hauteur des images");
 \define('_AM_QUIZMAKER_IMG_HEIGHT1', "Hauteur de l'image");
 \define('_AM_QUIZMAKER_IMG_SUBSTITUT', "Image de Substitution");            
@@ -182,8 +183,8 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_PERMISSIONS_SUBMIT_DESC', "Autorisations de soumission");
 \define('_AM_QUIZMAKER_PERMISSIONS_VIEW', "Autorisations de voir");
 \define('_AM_QUIZMAKER_PERMISSIONS_VIEW_DESC', "Autorisations de voir");
-\define('_AM_QUIZMAKER_PIXELS', "px");            
-\define('_AM_QUIZMAKER_POINTS', "Points");            
+\define('_AM_QUIZMAKER_UNIT_PIXELS', "pixels");            
+\define('_AM_QUIZMAKER_UNIT_POINTS', "Points");            
 \define('_AM_QUIZMAKER_PROPOSITIONS', "Propositions");
 \define('_AM_QUIZMAKER_PROPOSITIONS_ANSWERS', "Propositions de réponses");
 \define('_AM_QUIZMAKER_SLIDE_OPTIONS', "Opions du slide");            
@@ -238,7 +239,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 \define('_AM_QUIZMAKER_QUIZ_RESULT_POPUP', "Afficher le résultat dans un popup");
 \define('_AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC', "Afficher le résultat  de la question courante dans un popup lors du passage à la suivante. Permet d'avoir une idée du résultat global au fure et à mesure.");
 \define('_AM_QUIZMAKER_QUIZ_RESULTATS', "Résultats");
-\define('_AM_QUIZMAKER_QUIZ_RESULTATS_DESC', "<ul style='text-align: left;'><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Nombre de r&eacute;ponses faites : {repondu} / {totalQuestions}</span><br /><span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'><strong>Votre score est de {score} / {scoreMaxiQQ}</strong><span style='color: #ff0000;'> (score minimum : {scoreMiniQQ})</span> </span><br /><span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Votre temps de r&eacute;ponse est de {duree}</span></li></ul>");
+\define('_AM_QUIZMAKER_QUIZ_RESULTATS_DESC', "<ul style='text-align: left;'><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Nombre de réponses faites : {repondu} / {totalQuestions}</span><br /><span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'><strong>Votre score est de {score} / {scoreMaxiQQ}</strong><span style='color: #ff0000;'> (score minimum : {scoreMiniQQ})</span> </span><br /><span style='font-size: large; font-family: arial, helvetica, sans-serif;'></span></li><li><span style='font-size: large; font-family: arial, helvetica, sans-serif;'>Votre temps de réponse est de {duree}</span></li></ul>");
 \define('_AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS', "Bouton \"Mauvaises réponses\"");
 \define('_AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC', "Utiliser pour le développement.");
 \define('_AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS', "Bouton \"Réinitialiser\"");
@@ -392,9 +393,9 @@ define('_AM_QUIZMAKER_POSITION_BR', "Bas droite");
 define('_AM_QUIZMAKER_POSITION_BL', "Bas gauche");
 
 define('_AM_QUIZMAKER_UL_WIDTH', "Largeur des items");
-define('_AM_QUIZMAKER_ALL_GROUPS', "Tous les groupes");
+define('_AM_QUIZMAKER_REPARTITION_ALL_GROUPS', "Tous les groupes");
 
-define('_AM_QUIZMAKER_DISPOSITION', "Disposition des groupes");
+define('_AM_QUIZMAKER_DISPOSITION', "Disposition");
 define('_AM_QUIZMAKER_DISPOSITION_DESC', "<b>Important</b> : Sélectionnez une disposition qui corresponde au nombre de groupes qui on été définis.");
 define('_AM_QUIZMAKER_COLOR', "Couleur du texte");
 define('_AM_QUIZMAKER_BACKGROUND', "Couleur du fond");
@@ -446,4 +447,97 @@ define ('_AM_QUIZMAKER_ANSWERS_TOTAL', "Nombre total de questions");
 
 \define('_AM_QUIZMAKER_MINUSONSHOWGOODANSWERS', "Minorer le score sur \"Bonne réponse\"");
 \define('_AM_QUIZMAKER_MINUSONSHOWGOODANSWERS_DESC', "Dans le cas ou le bouton \"Afficher les bonnes réponses\" est actif et est utilisé, minore le score");
+\define('_AM_QUIZMAKER_PLAY_QUIZ', "Exécuter le quiz");
+\define('_AM_QUIZMAKER_PLAY', "Exécuter");
+\define('_AM_QUIZMAKER_HELP', "Aide");
+\define('_AM_QUIZMAKER_INSTALL', "Installer");
+
+define('_AM_QUIZMAKER_CATEGORIE_NOT_EXIST', "La catégorie des exemples n'existe pas.<br>Vous devez Insataller le plugin.");
+define('_AM_QUIZMAKER_QUIZ_NOT_EXIST', "Le quiz n'existe pas.<br>Vous devez Insataller le plugin.");
+define('_AM_QUIZMAKER_QUIZ_NOT_BUILD', "Le quiz n'est pas installé correctement.<br>Vous devez Insataller le plugin.");
+define('_AM_QUIZMAKER_CAT_EXEMPLES', "Exemples de quiz par type de question");
+define('_AM_QUIZMAKER_PLUGIN_EXIST', "Le plugin %s existe déjà.<br>Voulez-vous le réinstaller ?");
+define('_AM_QUIZMAKER_PLUGIN_INSTALL_OK', "Le quiz du plugin a été installé avec succès.");
+define('_AM_QUIZMAKER_PLUGIN_ARCHIVE_EXEMPLE_NOT', "L'archive de l'exemple n'existe pas");
+define('_AM_QUIZMAKER_BATCH_IMPORT', "Importation par lot de quiz");
+define('_AM_QUIZMAKER_BATCH_IMPORT_DESC', "<span style='color:red;'>Pour l'importation par lot les archives \"zip\" doivent être placées dans le dossier uploads/quizmaker/import_batch via FTP.</span>");
+define('_AM_QUIZMAKER_TRAITEMENTS', "Traitements");
+define('_AM_QUIZMAKER_TRUNCAT_FOLDER', "Vider le dossier <span style='color:blue;'>\"uploads/quizmaker%s\"</span> <span style='color:red;'>(%s fichiers)</span>");
+define('_AM_QUIZMAKER_TRUNCAT_OK', "Le dossier <br><span style='color:blue;'>%s</span><br> a été vidé correctement");
+define('_AM_QUIZMAKER_TRUNCAT_CONFIRM', "Voulez-vous vraiment vider le dossier <br><span style='color:blue;'>\"%s\"</span>");
+define('_AM_QUIZMAKER_NO_TRAITEMENT_TODO', "<span style='color:blue;'>Il n'y a aucun traitement à faire</span>");
+define('_AM_QUIZMAKER_IMPORT_QUIZ_OK', "%s quiz importés.");
+define('_AM_QUIZMAKER_OUT_OF_GROUP', "Sortir du groupe");
+define('_AM_QUIZMAKER_CHILDREZN_OUT_OF_GROUP', "Sortir tous les enfants du groupe");
+
+define('_AM_QUIZMAKER_ALL_PLUGIN', "Tous les types de question");
+define('_AM_QUIZMAKER_QUIZ_TO', "Quiz de destination");
+//define('_AM_QUIZMAKER_QUIZ_TO_DESC', "Les questions seront importées dans le quiz sélectionné sans les pages \"begin\" et \"end\"");
+define('_AM_QUIZMAKER_QUIZ_TO_DESC', "Les questions seront importées dans le quiz sélectionné sans les pages begin et end");
+define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1', "Avertissement");
+define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2', "Sélectionez d'abord le quie de destination, et le type de question à importer,<br>puis le fichier à importer");
+
+define('_AM_QUIZMAKER_QUIZ_FROM', "Quiz d'origine");
+define('_AM_QUIZMAKER_QUIZ_FROM_DESC', "Selectionner le quiz d'ou il faut importer les questions");
+define('_AM_QUIZMAKER_QUIZ_ORDER_BY', "Trier par");
+define('_AM_QUIZMAKER_QUIZ_ORDER_BY_TYPE_QUESTION', "Type de question (plugin)");
+define('_AM_QUIZMAKER_QUIZ_ORDER_BY_QUESTION', "Questions");
+define('_AM_QUIZMAKER_QUIZ_ORDER_BY_ID', "Identifiant");
+define('_AM_QUIZMAKER_QUIZ_ORDER_BY_WEIGHT', "Poids");
+define('_AM_QUIZMAKER_GROUP_TO', "Groupe");
+define('_AM_QUIZMAKER_GROUP_TO_DESC', "Optionel, permet d'ajouter les questions dans un nouveau groupe.");
+
+\define('_AM_QUIZMAKER_REQUIRED', "Requis");
+\define('_AM_QUIZMAKER_OPTIONAL', "Optionnel");
+define('_AM_QUIZMAKER_REPARTITION_ONLY_GROUP0', "Affiche que le groupe 0");
+define('_AM_QUIZMAKER_REPARTITION_DESC', "Les propositions seront réparties selon le choix fait.<br>Pour l'option <b>\"Affiche que le groupe 0\"</b> une seule liste sera affichée avec tous les items, mais il faut quand même créer deux groupes un pour les bonnes raponses et un pour les mauvaises réponses.");
+\define('_AM_QUIZMAKER_PAGEBEGIN_DEFAULT1', "Ce quiz est noté sur {scoreMaxiQQ} points pour {totalQuestions}. questions.");
+\define('_AM_QUIZMAKER_PAGEEND_DEFAULT1', "- Nombre de réponses faites : {repondu} / {totalQuestions}<br />- Votre score est de {score} / {scoreMaxiQQ} (score minimum : {scoreMiniQQ}) <br />- Votre temps de réponse est de {duree}");
+
+
+\define('_AM_QUIZMAKER_PERMIT_CATMAN', "Gérer les catégories");
+\define('_AM_QUIZMAKER_PERMIT_CATMAN_DESC', "Gérer les catégories");
+\define('_AM_QUIZMAKER_PERMIT_IMPORTG', "Importer des quiz");
+\define('_AM_QUIZMAKER_PERMIT_IMPORTG_DESC', "Importer des quiz");
+\define('_AM_QUIZMAKER_PERMIT_IMPORTA', "Importations avancées");
+\define('_AM_QUIZMAKER_PERMIT_IMPORTA_DESC', "Importations avancées");
+\define('_AM_QUIZMAKER_PERMIT_EXPORT', "Exporter");
+\define('_AM_QUIZMAKER_PERMIT_EXPORT_DESC', "Exporter");
+\define('_AM_QUIZMAKER_PERMIT_RESULT', "Gérer les résultats");
+\define('_AM_QUIZMAKER_PERMIT_RESULT_DESC', "Gérer les résultats");
+\define('_AM_QUIZMAKER_PERMIT_MINIFY', "Minifier le JS");
+\define('_AM_QUIZMAKER_PERMIT_MINIFY_DESC', "Minifier le JS");
+\define('_AM_QUIZMAKER_PERMIT_MESSAGEJS', "Gérer les messages JS");
+\define('_AM_QUIZMAKER_PERMIT_MESSAGEJS_DESC', "Gérer les messages JS");
+\define('_AM_QUIZMAKER_PERMIT_CLONE', "Cloner le module");
+\define('_AM_QUIZMAKER_PERMIT_CLONE_DESC', "Cloner le module");
+\define('_AM_QUIZMAKER_PERMIT_PERMISSIONS', "Gérer les permissions");
+\define('_AM_QUIZMAKER_PERMIT_PERMISSIONS_DESC', "Cloner le module");
+
+define('_AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC', "Autorisations globales");
+define('_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS', "Autorisations de voir les catégories");
+define('_AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ', "Autorisations de voir les quiz");
+define('_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ', "Autorisations de créer des quiz");
+define('_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ', "Autorisations d'éditer des quiz");
+define('_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ', "Autorisations de supprimer des quiz");
+define('_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ', "Autorisations d'importer des quiz");
+define('_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ', "Autorisations d'importer des questions");
+define('_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ', "Autorisations d'exporter des quiz");
+
+define('_AM_QUIZMAKER_PERMISSIONS_DESC', "Défini les autorisations d'accès pour les diférents groupes");
+define('_AM_QUIZMAKER_QUEST_OPTIONS', "Options spécifiques de la question:");
+define('_AM_QUIZMAKER_START_TIMER', "Forcer le chronomètre");
+define('_AM_QUIZMAKER_START_TIMER_DESC', "<b>Oui</b> : Force le lancement du chronomètre pour ce slide.<br><b>Non</b> : Utilise le paramètre défini au niveau du quiz.");
+define('_AM_QUIZMAKER_UNIT_SECONDES', "Secondes");    
+    
+        
+// define ('_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS', "Voir la catégorie");
+// define ('_AM_QUIZMAKER_PERMISSIONS_VIEW', "Voir les quiz");
+// define ('_AM_QUIZMAKER_PERMISSIONS_CREATE', "Créer des quiz dans la catégorie");
+// define ('_AM_QUIZMAKER_PERMISSIONS_EDIT', "Editer des quiz dans  la catégorie");
+// define ('_AM_QUIZMAKER_PERMISSIONS_DELETE', "Supprimer des quiz dans la catégorie");
+// define ('_AM_QUIZMAKER_PERMISSIONS_IMPORT', "Importer des quiz dans la catégorie");
+// define ('_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST', "Importer des questions dans la catégorie");
+// define ('_AM_QUIZMAKER_PERMISSIONS_EXPORT', "Exporter des quiz dans la catégorie");
+
 ?>

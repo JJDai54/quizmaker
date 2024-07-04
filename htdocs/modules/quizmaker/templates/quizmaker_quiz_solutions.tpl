@@ -177,16 +177,16 @@ window.scroll(0, window.scrollY + offsetV);
           <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">
               <{$question.solutions.libScoreMax}>
           </div>
-          <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:10px 50px 5px 50px;">
-            <{$question.solutions.answers}>
-          </div>
-          
           <{if $question.explanation}>
             <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:5px 50px 5px 50px;">
               <hr class='default-hr-style-one'>
               <span style="color:blue;font-style:oblique;"><{$question.explanation}></span>
             </div>
           <{/if}>
+          <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:10px 50px 5px 50px;">
+            <{$question.solutions.answers}>
+          </div>
+          
           
           <{if $question.learn_more OR $question.see_also}>
               <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:5px 50px 5px 50px;">

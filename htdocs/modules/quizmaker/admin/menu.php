@@ -19,6 +19,7 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 $dirname       = basename(dirname(__DIR__));
 $moduleHandler = xoops_getHandler('module');
@@ -27,16 +28,27 @@ $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 
+include_once(XOOPS_ROOT_PATH . '/Frameworks/JJD-Framework/class/permissions.php');
+include_once(XOOPS_ROOT_PATH . '/modules/quizmaker/include/permissions.php');
+
+$clPerms = new jjdPermissions('quizmaker');
+$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
+
+
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU1,
 	'link' => 'admin/index.php',
 	'icon' => $sysPathIcon32.'/dashboard.png',
 ];
+
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_CATMAN)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU2,
 	'link' => 'admin/categories.php',
 	'icon' => 'assets/icons/32/block.png',
 ];
+}
+
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU3,
 	'link' => 'admin/quiz.php',
@@ -60,48 +72,62 @@ $adminmenu[] = [
 	'icon' => 'assets/icons/32/wizard.png',
 ];
 
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_EXPORT)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_EXPORT,
 	'link' => 'admin/export.php',
 	'icon' => $sysPathIcon32 . '/upload.png',
 ];
+}
 
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_IMPORT,
 	'link' => 'admin/import.php?op=list',
 	'icon' => $sysPathIcon32 . '/download.png',
 ];
+}
 
-if ($quizmakerHelper->getConfig('use_js_minified')){
-  $adminmenu[] = [
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)
+    && $quizmakerHelper->getConfig('use_js_minified')){
+$adminmenu[] = [
   	'title' => _MI_QUIZMAKER_MINIFY,
   	'link' => 'admin/minify.php',
   	'icon' => $sysPathIcon32.'/discount.png',
   ];
 }
 
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_RESULT)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU8,
 	'link' => 'admin/results.php',
 	'icon' => 'assets/icons/32/calculator.png',
 ];
+}
+
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_PERMISSIONS, true)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU9,
 	'link' => 'admin/permissions.php',
 	'icon' => $sysPathIcon32.'/permissions.png',
 ];
+}
 
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MESSAGEJS)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU11,
 	'link' => 'admin/messages.php',
 	'icon' => $sysPathIcon32.'/translations.png',
 ];
+}
 
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_CLONE)){
 $adminmenu[] = [
     'title' => _MI_QUIZMAKER_ADMENU_CLONE,
     'link' => 'admin/clone.php',
     'icon' => $sysPathIcon32.'/page_copy.png',
 ];
+}
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU10,

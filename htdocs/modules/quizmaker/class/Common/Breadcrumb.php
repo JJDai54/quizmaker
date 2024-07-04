@@ -28,7 +28,7 @@ namespace XoopsModules\Quizmaker\Common;
  * echo $breadcrumb->render();
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Common;
 
 defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');

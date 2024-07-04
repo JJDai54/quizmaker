@@ -94,4 +94,7 @@ define('_CO_QUIZMAKER_LIB_END', "Bouton du dernier slide");
 define('_CO_QUIZMAKER_LIB_END_DEFAULT', "Validez votre score pour voir les réponses");
 define('_CO_QUIZMAKER_LIB_END_DESC', "Libellé du bouton du dernier slide du quiz");
 
+define('_CO_QUIZMAKER_NO_PERM', "Vous n'avez pas les permissions pour accéder à cette fonctionalité !");
+//define('_CO_QUIZMAKER_NO_PERM2', "Vous n'avez pas les permissions pour accéder à cette fonctionalité !<br>Permission=\"%s\" - %s=\"%s\" ");
+define('_CO_QUIZMAKER_NO_PERM2', "Vous n'avez pas les permissions pour accéder à cette fonctionalité !<br>Permission=%s ===> %s=%s");
 ?>

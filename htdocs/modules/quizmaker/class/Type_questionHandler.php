@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -112,13 +112,15 @@ class Type_questionHandler
 /* ***********************
 
 ************************** */
-public function getListKeyName($category = null, $boolCode = false){
+public function getListKeyName($category = null, $boolShowCode = false, $addPagesBeginEnd = false){
         $listTQ = $this->getAll($category);
         $ret = array();
 
         
         foreach ($listTQ as $key=>$arr){
-              $ret[$arr['type']] = (($boolCode) ? $arr['type'] . ' : ' : '') . $arr['name'];  
+           if($arr['obsolette']) continue;
+           if (!$addPagesBeginEnd && ($key == "pageBegin" || $key == "pageEnd")) continue;
+           $ret[$arr['type']] = (($boolShowCode) ? $arr['type'] . ' : ' : '') . $arr['name'];  
         }
 
        //tri sur le poids poids 
@@ -252,9 +254,6 @@ public function getNewTypeQuestion(&$typeQuestion){
         case 'imagesDaDBasket' :
             $typeQuestion = 'imagesDaDGroups'; 
             break;
-        case 'matchItems' :
-            $typeQuestion = 'comboboxMatchItems'; 
-            break;
         case 'textarea' :
             $typeQuestion = 'textareaSimple'; 
             break;
@@ -269,6 +268,23 @@ public function getNewTypeQuestion(&$typeQuestion){
             break;
         case 'imagesDaDSortItemsIns' :
             $typeQuestion = 'imagesDaDSortItems'; 
+            break;
+        case 'textareaSimple' :
+        case 'textareaListbox' :
+        case 'textareaInput' :
+            $typeQuestion = 'textareaMixte'; 
+            break;
+        case 'comboboxMatchItems' :
+        case 'textboxMatchItems' :
+            $typeQuestion = 'matchItems'; 
+            break;
+        case 'checkboxSimple' :
+        case 'radioSimple' :
+            $typeQuestion = 'choiceSimple'; 
+            break;
+        case 'comboboxSortItems' :
+        case 'listboxSortItems' :
+            $typeQuestion = 'sortItems'; 
             break;
   }
 }
@@ -306,6 +322,7 @@ public function getAllPlugins($category=null, $bolKeyType = false){
           else
             $ret[] = $cls->getValuesType_question();
         }
+        
     }
 //echoArray($ret, 'getPluginPath');   
     return $ret;     
@@ -336,7 +353,7 @@ public function getAllPluginsPath(){
     foreach($allPluginsName as $key=>$typeQuestion){   
         $ret[$typeQuestion] = $this->getPluginPath($typeQuestion); 
     }
-//echoArray($ret, 'getPluginPath');   
+//echoArray($ret, 'getPluginPath');  exit; 
     return $ret;     
 }
 /* ****************************************************

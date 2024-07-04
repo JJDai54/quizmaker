@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 		$templateMain = 'quizmaker_admin_questions.tpl';
@@ -29,6 +29,7 @@ use XoopsModules\Quizmaker\Constants;
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUESTIONS, 'questions.php?op=new', 'add');
 		$adminObject->addItemButton(_AM_QUIZMAKER_QUESTIONS_LIST, 'questions.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		// Get Form
 		$questionsObj = $questionsHandler->get($questId);
 		$form = $questionsObj->getFormQuestions();

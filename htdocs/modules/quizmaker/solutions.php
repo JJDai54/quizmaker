@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
@@ -33,6 +33,7 @@ $quizId = Request::getInt('quiz_id', 0);
 $start = 0; //Request::getInt('start', 0);
 $limit = 0; //Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 $resultId = Request::getInt('result_id', 0);
+$catId = Request::getInt('cat_id');
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
@@ -43,13 +44,11 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 
 // Check permissions
-// if (!$permissionsHandler->getPermGlobalSubmit()) {
+//$permEdit = $clPerms->getPermissionsOld(16,'global_ac');
+
 // 	redirect_header('quiz.php?op=list', 3, _NOPERM);
 //}
 // Check params
-if (0 == $quizId) {
-	redirect_header('categories.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
-}
 ///////////////////////////////////////////////////
 //     $rootApp = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js";
 //     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";
@@ -64,7 +63,30 @@ if (0 == $quizId) {
 //     //insertion du prototype des tpl
 //     $xoTheme->addScript($urlApp . '/' . 'slide__prototype.js');    
 
+        // interdiction de voir les solution si il n'y a pas de connexion
+        if (0 == $quizId) {
+              $bolOk = false;
+        }else if ($GLOBALS['xoopsUser']){
+          /*
+            //verifie que l'utilisateur à bien fait le quiz siono pas de solutions, non mais !!!
+            $criteria = new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId));
+            //echo "eee : " . $criteria->renderWhere() . '<br>';
+            $criteria->add(new \Criteria('result_uid', $GLOBALS['xoopsUser']->getVar('uid')));
+            $nbParticipations = $resultsHandler->getCountResults($criteria);
+          */
+            
+            $scoreMax = $resultsHandler->getScoreMax($quizId, $GLOBALS['xoopsUser']->getVar('uid'));
+            $bolOk = ($scoreMax > 0);
 
+        }else{
+              // l'utilisateur n'est pas connecté, pas droit de voir les solutions
+              $bolOk = false;
+        }
+
+        if (!$bolOk){
+              redirect_header("categories.php?op=list&cat_id={$catId}", 5, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
+        }
+        //----------------------------------------------------------------------
 		$quizObj = $quizHandler->get($quizId);
         $quiz = $quizObj->getValuesQuiz();
         $catId = $quizObj->getVar('quiz_cat_id');
@@ -72,6 +94,7 @@ if (0 == $quizId) {
         //Recupe des questions du quiz
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('quest_quiz_id',$quizId, "="));
+        $criteria->add(new \Criteria('quest_actif',true, "="));
         
         $questionsCount = $questionsHandler->getCountQuestions($criteria);
         //ça ne devrait pas arrivé mais au cas ou, pas de question retour aux categories
@@ -123,7 +146,7 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS];
     }else{$tResult = null;}
 	$xoopsTpl->assign('result', $tResult);        
 //echo "<hr>Result <pre>" . print_r($tResult, true) . "</pre><hr>";
-//exit;
+
 //----------------------------------------------------
 
 

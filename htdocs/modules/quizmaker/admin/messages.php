@@ -21,10 +21,13 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_MESSAGEJS,'QUIZMAKER_PERMIT_MESSAGEJS', "index.php");
+
+
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request msg_id

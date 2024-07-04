@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 
 /**
@@ -34,7 +34,7 @@ use XoopsModules\Quizmaker;
  * @return mixed $itemIds
  */
 function quizmaker_search($queryarray, $andor, $limit, $offset, $userid)
-{
+{return false;
 	$ret = [];
 	$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 	// search in table quiz

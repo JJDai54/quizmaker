@@ -22,7 +22,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 //echo "<hr>class : Type_question<hr>";
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -71,6 +71,10 @@ var $obsolette = false;
 var $pathArr = false; 
 var $prefix = '_QT_QUIZMAKER_';
 
+const bgColor1 = '#CCFFFF';
+const bgColor2 = '#FFCC99';
+const bgColor3 = '#FFFFCC';
+
 	/**
 	 * Constructor 
 	 *
@@ -86,7 +90,6 @@ var $prefix = '_QT_QUIZMAKER_';
         $this->typeQuestion = $typeQuestion;
         $this->questId = $parentId;
         $this->category = $cat;
-//exit("ici<hr>");        
         switch($typeQuestion){
         case 'pageBegin' : $this->typeForm = QUIZMAKER_TYPE_FORM_BEGIN;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_INTRO;    break;
         case 'pageGroup' : $this->typeForm = QUIZMAKER_TYPE_FORM_GROUP;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_GROUP;    break;
@@ -163,22 +166,24 @@ var $prefix = '_QT_QUIZMAKER_';
 		$utility = new \XoopsModules\Quizmaker\Utility();
         
         $ret = array();
-        $ret['type'] = $this->type;
-        $ret['name'] = $this->name;
-        $ret['category'] = $this->category;
-        $ret['obsolette'] = $this->obsolette;
+        $ret['type']        = $this->type;
+        $ret['name']        = $this->name;
+        $ret['category']    = $this->category;
+        $ret['obsolette']   = $this->obsolette;
         $ret['categoryLib'] = $this->categoryLib;
-        $ret['short_type'] = substr($this->type, strlen($this->category)) ;
+        $ret['short_type']  = substr($this->type, strlen($this->category)) ;
         $ret['description'] = $this->description;
-        $ret['consigne'] = $this->getConsigne();
-        $ret['isQuestion'] = $this->isQuestion;
-        $ret['canDelete'] = $this->canDelete;
+        $ret['consigne']    = $this->getConsigne();
+        $ret['isQuestion']  = $this->isQuestion;
+        $ret['canDelete']   = $this->canDelete;
         //$ret['image_fullName'] = QUIZMAKER_MODELES_IMG . "/slide_" . $this->type . '-00.jpg';
-        $ret['modeles'] = $this->pathArr['snapshoot_url'];
+        $ret['modeles']     = $this->pathArr['snapshoot_url'];
 
          //echoArray($ret['modeles']);
         //echo "<hr>Modeles : <pre>" . print_r($ret['modeles'], true) . "</pre><hr>";
         $ret['modelesHtml'] =  $this->getHtmlImgModeles();
+        $ret['isArchive']   =  $this->archiveExempleExist();
+        $ret['isBuild']     =  $this->isBuild();
         return $ret;
 	}
     
@@ -300,13 +305,18 @@ global $xoopDB;
 * *********************************************************** */
  	public function getOptions($jsonValues, $optionsDefaults=null)
  	{
+    global $myts;
      //echo "<hr>{$jsonValues}<hr>";
        if(is_null($optionsDefaults)) $optionsDefaults = $this->optionsDefaults;
      
        if($jsonValues){
             $tValues = json_decode($jsonValues, true);
             foreach($optionsDefaults as $key=>$default){
-                if(!isset($tValues[$key])) $tValues[$key] = $default;
+                if(!isset($tValues[$key])) {
+                    $tValues[$key] = $myts->htmlSpecialChars($default);
+                }else{
+                    $tValues[$key] = $myts->htmlSpecialChars($tValues[$key]);
+                }
             }
        }else if($optionsDefaults){
             $tValues = $optionsDefaults;
@@ -330,7 +340,6 @@ global $xoopDB;
 * *********************************************************** */
  	public function getViewType_question($addSnapShoot = 1)
  	{
-    //exit("c'est bien la");
         return $this->getInpHelp($addSnapShoot)->render();
 	}
 /* **********************************************************
@@ -677,7 +686,6 @@ global $quizmakerHelper, $quizUtility;
         // ou l'image sélectionée dans la liste
         //$slidesObj->setVar('sld_image', Request::getString('sld_image'));
         $savedFilename = '';
-        exit("save_img");
     }
     return $savedFilename;
 }
@@ -690,9 +698,6 @@ function nameOrgParse($nameOrg, &$prefix){
     $nameOrg = substr($ansObj->getVar('answer_proposition'), strlen($prefix)+1);
     $h= strrpos($nameOrg,'.');
     return str_replace('_', ' ', substr($nameOrg, $i, $h));
-
-    //echo "<hr>{$nameOrg}-{$i}-{$h}|{$prefix}|{$v['caption']}<hr>";exit;
-
 }
 /* *************************************************
 
@@ -802,7 +807,7 @@ global $answersHandler;
 *************************************************** */
 function delete_image($imgName, $path){
 global $answersHandler;
-    echo "<hr>delete_image - {$path} | {$imgName}<br>";
+//    echo "<hr>delete_image - {$path} | {$imgName}<br>";
     if(!$imgName)  return false;
     $f = $path . '/' . $imgName;
     if (file_exists($f)) unlink ($f);
@@ -915,6 +920,7 @@ public function getAnswerValues(&$ans, &$weight){
     if (isset($ans)){
       $tVal['answerId']  = $ans->getVar('answer_id');
       $tVal['proposition']  = $ans->getVar('answer_proposition');
+      $tVal['buffer']  = $ans->getVar('answer_buffer');
       $tVal['image1']  = $ans->getVar('answer_image1');
       $tVal['image2']  = $ans->getVar('answer_image2');
       $tVal['points']  = $ans->getVar('answer_points');
@@ -923,6 +929,7 @@ public function getAnswerValues(&$ans, &$weight){
     }else{
       $tVal['answerId']  = 0;
       $tVal['proposition']  = '';
+      $tVal['buffer']  = '';
       $tVal['image1']  = '';
       $tVal['image2']  = '';
       $tVal['points']  = 0;
@@ -961,7 +968,7 @@ public function getAnswerInp(&$ans, &$i, $inputs, $path){
 
     $tInp['inpWeight'] = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
     $tInp['inpWeight']->setMinMax(0, 900);
-    $tInp['inpPoints'] = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
+    $tInp['inpPoints'] = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
     $tInp['inpPoints']->setMinMax(0, 30);
            
             
@@ -988,5 +995,123 @@ public function getAnswerInp(&$ans, &$i, $inputs, $path){
     return $tInp;
 }     
 
+/* ****************************************************
+
+******************************************************* */
+public function playQuizExemple($plugin, $bolOk = false){
+global $quizUtility, $quizHandler, $categoriesHandler;
+    //verifier si il est déjà installer
+    
+    
+    $url = "type_question.php?op=list";
+    
+    $catId = $categoriesHandler->getId(_AM_QUIZMAKER_CAT_EXEMPLES);
+
+    if ($catId == 0){
+      redirect_header($url, 5,  _AM_QUIZMAKER_CATEGORIE_NOT_EXIST);
+    }
+    
+    $quizName = "Slide_" . $plugin;
+    $quizId = $quizHandler->getId($quizName, $catId);
+    if ($quizId == 0){
+      redirect_header($url, 5,  _AM_QUIZMAKER_QUIZ_NOT_EXIST);
+    }
+    
+    $quiz = $quizHandler->get($quizId);
+    $quizValues = $quiz->getValuesQuiz();
+    $url = $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1);      
+    
+      redirect_header($url, 5,  _AM_QUIZMAKER_QUIZ_NOT_BUILD);
+}
+/* ****************************************************
+
+******************************************************* */
+public function confirmInstallQuizExemple($plugin, $bolDelete = false){
+}
+/* ****************************************************
+
+******************************************************* */
+public function installQuizExemple($plugin, $bolDelete = false){
+global $quizUtility, $quizHandler, $categoriesHandler;
+$quizUtility = new \XoopsModules\Quizmaker\Utility();
+
+
+    $quizName = "slide_" . $plugin;
+    $fullName = QUIZMAKER_PATH_PLUGINS_PHP . "/{$plugin}/{$quizName}.zip";
+    if(!file_exists($fullName)){
+        return 2;
+    }
+    
+    $catId = $categoriesHandler->getId(_AM_QUIZMAKER_CAT_EXEMPLES);
+    $oldQuizId = $quizHandler->getId($quizName, $catId);
+    if ($oldQuizId > 0){
+        if($bolDelete){
+        	$quizHandler->delete($oldQuizId, true);
+        }else{
+            return 1;
+            //redirect_header("type_question.php", 5,  "le quiz existe déjà");
+        }
+    }
+
+
+
+    
+    //nom complet de l'archive dans le dossier du plugin
+//echo "archive : {$fullName}<br>";
+    //dossier provisoir pour decompresser l'archive
+    $newFldImport = "/files_new_quiz" ;  
+    $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
+    chmod($fullName, 0666);
+    chmod($pathImport, 0777);
+    \JJD\unZipFile($fullName, $pathImport);
+    \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
+    
+      $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
+ //sleep(int $seconds)      
+      $quizUtility::buildQuiz($newQuizId);
+ /*
+      $quiz = $quizHandler->get($newQuizId);
+      $quizValues = $quiz->getValuesQuiz();
+            
+      $url = $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1);      
+ */     
+
+    return 0;
+}
+   
+    
+/* ****************************************************
+D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/htdocs/modules/quizmaker/plugins/alphaSimple/slide_alphaSimple.zip
+D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\plugins\alphaSimple\slide_alphaSimple.zip
+******************************************************* */
+public function archiveExempleExist(){
+     $quizName = "slide_" . $this->typeQuestion;
+     $fullName = QUIZMAKER_PATH_PLUGINS_PHP . "/{$this->typeQuestion}/{$quizName}.zip";
+     //echo $fullName. '===>' .((file_exists($fullName)) ? 'ok' : 'non') . "<br>";
+     return file_exists($fullName);  
+}
+    
+/* ****************************************************
+    //verifier si il est déjà installer
+"D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\uploads\quizmaker\quiz-js\slide_alphaSimple-5681\js\quiz-questions.js"
+******************************************************* */
+public function isBuild(){
+global $quizUtility, $quizHandler, $categoriesHandler;
+
+    $catId = $categoriesHandler->getId(_AM_QUIZMAKER_CAT_EXEMPLES);
+
+    if ($catId == 0) return false;
+    
+    $quizName = "Slide_" . $this->typeQuestion;
+    $quizId = $quizHandler->getId($quizName, $catId);
+    if ($quizId == 0) return false;
+    
+    $quiz = $quizHandler->get($quizId);
+    $quizValues = $quiz->getValuesQuiz();
+    //echo $quizValues['quiz_html_path']. '===>' .((file_exists($quizValues['quiz_html_path'])) ? 'ok' : 'non') . "<br>";
+    
+    return file_exists($quizValues['quiz_html_path']);    
+  
+}
 
 } // fin de la classe

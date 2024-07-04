@@ -42,5 +42,11 @@
   border: 1px solid #ffa5a5;
   background: #00FF00;      /* background de l'item survole avant drag on drop*/
 }
+
+.ulDaDSortList_slist li{background:#aaffff;}
+.ulDaDSortList_slist li.hint{background:#aaffff;}
+.ulDaDSortList_slist li.active{background:#ffe7e7;}
+.ulDaDSortList_slist li.hover{background:#00ff00;}
+
 /*
 */

@@ -20,7 +20,7 @@ getInnerHTML(){
     var tWords = [];
     var tPoints = [];
     var tItems = new Object;
-    var img = '';
+    //var img = '';
     var src = '';
     var captionTop='';
     var captionBottom = '';    
@@ -28,7 +28,7 @@ getInnerHTML(){
     //var tpl = "<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td>{suggestion}</td></tr></table>";
 var divHeight = currentQuestion.options.imgHeight1*1+12;  
 var posCaption = currentQuestion.options.showCaptions;    
-var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
+//var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 //var divStyle=`style="overflow-y: scroll;overflow: hidden;"`;
 
 var ImgStyle=`style="height:${divHeight}px;"`;
@@ -57,18 +57,18 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
     
    //repartir les propositions par group
     for(var k in currentQuestion.answers){
-        index = rnd(nbGroups-1);
+        index = (currentQuestion.options.groupDefault >= 0) ? currentQuestion.options.groupDefault : getRandom(nbGroups-1);
 
         if(nbGroups > 2){
           //recherche un group différent que celui attribué pour mélanger les items 
           // pas sur que ce soit une bonne idée surtout si il n'y a que deux groupes, il suffit d'inveerser toutes les images
           while (currentQuestion.answers[k].group == index){
-            index = rnd(nbGroups-1);
+            index = getRandom(nbGroups-1);
           }      
         }
         //if(!groups[index]) groups[index] = [];
         groups[index].push(currentQuestion.answers[k]);
-        //alert("rnd : " + k + " | " + index);
+        //alert("getRandom : " + k + " | " + index);
     }
    
     for(var k = 0; k < nbGroups; k++){
@@ -83,8 +83,8 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
             }
 
             tHtmlImgs.push(`
-            <div id="${ans.id}-div" ${divStyle} draggable='true' >${captionTop}
-            <img id="${ans.id}-img" src="${src}"  draggable='true' title="${ans.caption}" ${ImgStyle} alt="" >
+            <div id="${ans.ansId}-div"  portrait draggable='true' >${captionTop}
+            <img id="${ans.ansId}-img" src="${src}"  draggable='true' title="${ans.caption}" ${ImgStyle} alt="" >
             ${captionBottom}</div>`
             
             );
@@ -100,81 +100,60 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
     }
     return tpl;
 }
-/* *********************************************************
-*
-* ********************************************************** */
-initSlide(){
-    this.reloadQuestion();
-}
 
 /* *********************************************************
 *
 * ********************************************************** */
  prepareData(){
+ var pointsMaxi = 0;
     
     var currentQuestion = this.question;
     var groups = [];
     groups[0] = [];
+ 
+ //       index = (currentQuestion.options.groupDefault >= 0) ? currentQuestion.options.groupDefault : getRandom(nbGroups-1);
    
    //repartir les proposition par group
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
-        ans.id = this.getId('img', k);
+        
+        
+        
+        //ans.ansId = this.getId('img', k);
         ans.caption = ans.caption.replace(' ',qbr).replace('/',qbr);
+        var groupIdx = ans.group*1;
         
         if(ans.points <= 0) {ans.points = 1;}
-        if(!groups[ans.group*1]) groups[ans.group*1] = [];
-        groups[ans.group*1].push(ans);
+        if(currentQuestion.options.groupDefault < 0){
+            pointsMaxi += ans.points*1;
+        }else if(groupIdx != currentQuestion.options.groupDefault){
+        //alert(`${groupIdx}-${currentQuestion.options.groupDefault}`);
+            pointsMaxi += ans.points*1;
+        }
+        if(!groups[groupIdx]) {groups[groupIdx] = []};
+        groups[groupIdx].push(ans);
     }   
+
+    this.scoreMaxiBP = pointsMaxi;
+    //si c'est le score de la question qui prime
+    if(currentQuestion.points > 0){
+          this.scoreMaxiQQ = currentQuestion.points;
+    }else{
+          this.scoreMaxiQQ = this.scoreMaxiBP;
+    }     
     
     this.data.groups = groups;
+
     
     this.data.groupsLib=[];
     for(var k = 0; k <= 3; k++){
         var key = 'group' + k;
-        if(currentQuestion.options[key]) {this.data.groupsLib.push(currentQuestion.options[key]);}
-    }
-    
-    
-    this.data.urlCommonImg = quiz_config.urlCommonImg;
-}
-/* ************************************
-*
-* **** */
- reloadQuestion() {
-    var currentQuestion = this.question;
-/*    
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML();
-    return true;
- */
-
-    var obGroups= [];
-    var obGroup;
-    var nbGroups = this.data.groupsLib.length;
-    var groupIndex = -1; //groupe de destination aleatoire
-    
-    for(k = 0; k < this.data.groupsLib.length; k++){
-        obGroups[k] = document.getElementById(this.getId('group',k));
-        //alert(k + " : " + obGroups[k].id);
-    }
-    
-    for(var k in currentQuestion.answers){
-        var ans =  currentQuestion.answers[k];
-        groupIndex = (currentQuestion.options.groupDefault < 0)  ? rnd(nbGroups-1) : currentQuestion.options.groupDefault;
-        //alert ('groupIndex : ' + groupIndex);
-        obGroup = obGroups[groupIndex];
-        //alert(ans.id + "-img");
-        var obChild = document.getElementById(ans.id + "-div"); 
-        if(obGroup && obChild){
-        obGroup.appendChild(obChild); 
+        if(currentQuestion.options[key]) {
+            this.data.groupsLib.push(currentQuestion.options[key]);
         }
-
     }
-
-     return true;
+    
+    
 }
 
 /* **************************************************
@@ -185,80 +164,40 @@ var points = 0;
 var ans;
 var obImg;
 var idDivGood;
-/*
-*/
     var currentQuestion = this.question;
-this.blob('showGoodAnswers -----------------------------------------');
+this.blob('getScoreByProposition -----------------------------------------');
       for(var k = 0; k < currentQuestion.answers.length; k++){
         ans =  currentQuestion.answers[k];
-console.log("getScoreByProposition.obImg" + ans.id + "-img");         
-        obImg = document.getElementById(ans.id + "-img"); //
+console.log("getScoreByProposition.obImg" + ans.ansId + "-img");         
+        obImg = document.getElementById(ans.ansId + "-img"); //
         idDivGood =  this.getId('group', ans.group);
-//        this.blob(`divGood = ${idDivGood} - divFound = ${obImg.parentNode.id}`);
-//         if (idDivGood == obImg.parentNode.id && ans.group != currentQuestion.options.groupDefault && currentQuestion.options.groupDefault>=0){
-//             points += ans.points*1;
-//         alert("plus : " + ans.group + " - " + currentQuestion.options.groupDefault + " -> " + ans.points);
-//         }else if(idDivGood != obImg.parentNode.id && ans.group != currentQuestion.options.groupDefault){
-//         alert("moins : " + ans.group + " - " + currentQuestion.options.groupDefault + " -> " + ans.points);
-//             points -= ans.points*1;
-//         }            
-var obGroup = obImg.parentNode;
-var numGroup = obGroup.getAttribute("numGroup")*1;    
+
+        var obGroup = obImg.parentNode.parentNode;
+        var numGroup = obGroup.getAttribute("numGroup")*1;    
          //alert("groupe de l'image : " + numGroup);
                 
         if (currentQuestion.options.groupDefault < 0){
-         //alert("pas de groupe par defaut : " + ans.group + " - " + currentQuestion.options.groupDefault + " -> " + ans.points);
-            if (idDivGood == obImg.parentNode.id){
+            //i n'y a pas de groupe par defaut, les proposition sont répartie sur tous les groupes
+         console.log("pas de groupe par defaut : ans.group=" + ans.group + " - groupDefault=" + currentQuestion.options.groupDefault + " -> ans.points=" + ans.points + ' - total points=' + points);
+         console.log(`===>idDivGood = ${idDivGood}\n===>obImg.parentNode.id = ${obImg.parentNode.parentNode.id}`);
+            if (idDivGood == obImg.parentNode.parentNode.id){
                 points += ans.points*1;
             }else{
-                points -= ans.points*1;
+                //points -= ans.points*1;
             }
         }else if(numGroup != currentQuestion.options.groupDefault) {
+            //il y a un groupe par defaut tous les proposition sont mises dedans au depart
          //alert("il y a un groupe par defaut : " + ans.group + " - " + currentQuestion.options.groupDefault + " -> " + ans.points);
-            if (idDivGood == obImg.parentNode.id){
+            if (idDivGood == obImg.parentNode.parentNode.id){
               points += ans.points*1;
             }else{
-                points -= ans.points*1;
+                //points -= ans.points*1;
             }
         }            
     }
     //return ((currentQuestion.points > 0) ? currentQuestion.points : points);
     return points;
 } 
-
-//---------------------------------------------------
-computeScoresMinMaxByProposition(){
-    var ans;
-    var currentQuestion = this.question;
-    var score = {min:0, max:0};
-
-      for(var k in currentQuestion.answers){
-        ans =  currentQuestion.answers[k];
-        var points = ans.points*1;
-          
-        if(currentQuestion.options.groupDefault < 0){
-            //if (points == 0) {points = 1;}        // force les points a une valeur supérieure à zéro
-            if (points > 0){
-              this.scoreMaxiBP += parseInt(points)*1;
-            } 
-            if (points < 0){
-              this.scoreMiniBP += parseInt(points)*1;
-            } 
-        }else if (ans.group !=  currentQuestion.options.groupDefault) {
-            //if (points == 0) {points = 1;}        // force les points a une valeur supérieure à zéro
-            if (points > 0){
-              this.scoreMaxiBP += parseInt(points)*1;
-            } 
-            if (points < 0){
-              this.scoreMiniBP += parseInt(points)*1;
-            } 
-        }
-        
-        
-      }
-
-     return true;
-}
 
 /* **************************************************
 
@@ -301,8 +240,8 @@ var ImgStyle=`style="height:${divHeight}px;"`;
 
         
         groups[g].push(`
-            <div id="${ans.id}-div" ${divStyle} >${captionTop}
-            <img id="${ans.id}-img" src="${src}" title="${ans.caption}" ${ImgStyle} alt="" >
+            <div id="${ans.ansId}-div" ${divStyle} >${captionTop}
+            <img id="${ans.ansId}-img" src="${src}" title="${ans.caption}" ${ImgStyle} alt="" >
             ${captionBottom}</div>`);
     }
         
@@ -335,8 +274,8 @@ var tHtml = [];
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
         obGroup = obGroups[ans.group];
-        //alert(ans.id);
-        obGroup.appendChild(document.getElementById(ans.id + "-div")); 
+        //alert(ans.ansId);
+        obGroup.appendChild(document.getElementById(ans.ansId + "-div")); 
 
     }
 
@@ -361,11 +300,11 @@ var tHtml = [];
     
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
-        index = rnd(nbGroups-1);
+        index = getRandom(nbGroups-1);
         //alert ('index : ' + index);
         obGroup = obGroups[index];
-        //alert(ans.id);
-        obGroup.appendChild(document.getElementById(ans.id + "-div")); 
+        //alert(ans.ansId);
+        obGroup.appendChild(document.getElementById(ans.ansId + "-div")); 
 
     }
 
@@ -387,11 +326,12 @@ onDragLeave  = "return imagesDaDGroups_leave(event);"
 onDragEnd    = "return imagesDaDGroups_end(event);"`;
  
 //var dataSource = "<input type="hidden" name="action" value="results">"
-
+console.log ('===> disposition : ' + disposition);
   var tdStyle = 'width:100%;';
   var tpl = '';
   var groupes = [];
 
+//préparation des libellé des groupes repris dans les templates
 for (var h = 0; h < 4; h++){
     var bg = currentQuestion.options[`bgGroup${h}`];
     var id = this.getId('group', h); 
@@ -441,12 +381,12 @@ for (var h = 0; h < 4; h++){
         tpl = `<table  class='${tableId}'>    
                 <tbody>
                   <tr>
-                    <td colspan="2" rowspan="1" '${tdStyle}'>
+                    <td colspan="2" rowspan="1" style='${tdStyle}'>
                         ${groupes[0]}                   
                     </td>
                   </tr>
                   <tr>
-                    <td style='${tdStyle}'
+                    <td style='${tdStyle}'>
                         ${groupes[1]}                   
                     </td>
                     <td style='${tdStyle}'>
@@ -461,7 +401,7 @@ for (var h = 0; h < 4; h++){
         tpl = `<table  class='${tableId}'>    
                 <tbody>
                   <tr>
-                    <td colspan="3" rowspan="1" style='${tdStyle}'
+                    <td colspan="3" rowspan="1" style='${tdStyle}'>
                         ${groupes[0]}                   
                     </td>
                   </tr>

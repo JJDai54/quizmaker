@@ -14,7 +14,7 @@
 
 
 <{* ===============================================*}>
-<{$highslide}>
+
 <script>const quiz_execution=<{$quiz_execution}> </script>
     <script src="<{$quizUrl}>/js/quiz-consignes.js"></script>
 <script src="<{$quizUrl}>/js/<{$options}>.js"></script>

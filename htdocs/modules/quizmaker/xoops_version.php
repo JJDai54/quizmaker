@@ -28,9 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 4.14,
-	'module_status'       => 'Beta 8',
-	'release_date'        => '2024/05/04',
+	'version'             => 5.00,
+	'module_status'       => 'Beta 1',
+	'release_date'        => '2024/06/25',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -481,6 +481,8 @@ $modversion['config'][] = [
     'options'     => $optionMaxsize,
 ];
 //////////////////////////////////////////////////////
+
+/*
 // Admin framework highslide
 $modversion['config'][] = [
     'name'        => 'highslide',
@@ -490,6 +492,7 @@ $modversion['config'][] = [
     'valuetype'   => 'string',
     'default'     => 'highslide-5.0.0',
 ];
+*/
 
 // Use tag
 // $modversion['config'][] = [
@@ -551,6 +554,7 @@ $modversion['config'][] = [
 	'valuetype'   => 'text',
 	'default'     => '',
 ];
+/*
 // Bookmarks
 $modversion['config'][] = [
 	'name'        => 'bookmarks',
@@ -560,6 +564,7 @@ $modversion['config'][] = [
 	'valuetype'   => 'int',
 	'default'     => 0,
 ];
+*/
 // Make Sample button visible?
 // $modversion['config'][] = [
 // 	'name'        => 'displaySampleButton',
@@ -589,14 +594,14 @@ $modversion['config'][] = [
 ];
 
 // Use tag
-$modversion['config'][] = [
-	'name'        => 'perm_by_quiz',
-	'title'       => '_MI_QUIZMAKER_APLY_PERM_CAT',
-	'description' => '_MI_QUIZMAKER_APLY_PERM_CAT_DESC',
-	'formtype'    => 'yesno',
-	'valuetype'   => 'int',
-	'default'     => 0,
-];
+// $modversion['config'][] = [
+// 	'name'        => 'perm_by_quiz',
+// 	'title'       => '_MI_QUIZMAKER_APLY_PERM_CAT',
+// 	'description' => '_MI_QUIZMAKER_APLY_PERM_CAT_DESC',
+// 	'formtype'    => 'yesno',
+// 	'valuetype'   => 'int',
+// 	'default'     => 0,
+// ];
 
 // help type de question
 $modversion['config'][] = [

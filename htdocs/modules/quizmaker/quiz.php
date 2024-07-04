@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
@@ -41,9 +41,23 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 $keywords = [];
 
-$permEdit = $permissionsHandler->getPermGlobalSubmit();
+//$permEdit = getPermissionsOld(8, 'global_ac')
 $GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $quizId > 0);
+
+///--------------------------------------------
+recherche de cat_id pour gerer les permissions
+if ($quizId > 0) {
+  $quizObj = $quizHandler->get($quizId);
+  $quizCat_id = $quizObj->getVar('quiz_cat_id');
+
+}else{
+  $quizObj = null;
+  $quizCat_id = 0;
+}
+//---------------------------------------------
+
+
  	
 switch($op) {
 	case 'show':
@@ -84,7 +98,7 @@ switch($op) {
 			redirect_header('quiz.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 		}
 		// Check permissions
-		if (!$permissionsHandler->getPermGlobalSubmit()) {
+		if (!$clPerms->getPermissionsOld(8,'global_ac')) {
 			redirect_header('quiz.php?op=list', 3, _NOPERM);
 		}
 		if ($quizId > 0) {
@@ -129,29 +143,6 @@ switch($op) {
 		// Insert Data
 		if ($quizHandler->insert($quizObj)) {
 			$newQuizId = $quizId > 0 ? $quizId : $quizObj->getNewInsertedIdQuiz();
-			$grouppermHandler = xoops_getHandler('groupperm');
-			$mid = $GLOBALS['xoopsModule']->getVar('mid');
-			// Permission to view_quiz
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_view_quiz', $newQuizId);
-			if (isset($_POST['groups_view_quiz'])) {
-				foreach($_POST['groups_view_quiz'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_view_quiz', $newQuizId, $onegroupId, $mid);
-				}
-			}
-			// Permission to submit_quiz
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_submit_quiz', $newQuizId);
-			if (isset($_POST['groups_submit_quiz'])) {
-				foreach($_POST['groups_submit_quiz'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_submit_quiz', $newQuizId, $onegroupId, $mid);
-				}
-			}
-			// Permission to approve_quiz
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_approve_quiz', $newQuizId);
-			if (isset($_POST['groups_approve_quiz'])) {
-				foreach($_POST['groups_approve_quiz'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_approve_quiz', $newQuizId, $onegroupId, $mid);
-				}
-			}
 			// Handle notification
 			$quizCat_id = $quizObj->getVar('quiz_cat_id');
 			$tags = [];
@@ -180,7 +171,7 @@ switch($op) {
 	break;
 	case 'new':
 		// Check permissions
-		if (!$permissionsHandler->getPermGlobalSubmit()) {
+		if (!$clPerms->getPermissionsOld(8,'global_ac')) {
 			redirect_header('quiz.php?op=list', 3, _NOPERM);
 		}
 		// Form Create
@@ -190,7 +181,7 @@ switch($op) {
 	break;
 	case 'edit':
 		// Check permissions
-		if (!$permissionsHandler->getPermGlobalSubmit()) {
+		if (!$clPerms->getPermissionsOld(8,'global_ac')) {
 			redirect_header('quiz.php?op=list', 3, _NOPERM);
 		}
 		// Check params
@@ -204,15 +195,12 @@ switch($op) {
 	break;
 	case 'delete':
 		// Check permissions
-		if (!$permissionsHandler->getPermGlobalSubmit()) {
-			redirect_header('quiz.php?op=list', 3, _NOPERM);
-		}
+		if (!$clPerms->getPermissions('delete_quiz', $quizCat_id)) exit;
+			redirect_header('quiz.php?op=list', 5, _NOPERM);
 		// Check params
-		if (0 == $quizId) {
+		if ($quizId == 0) 
 			redirect_header('quiz.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
-		}
-		$quizObj = $quizHandler->get($quizId);
-		$quizCat_id = $quizObj->getVar('quiz_cat_id');
+		//---------------------------------------------------
 		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
 			if (!$GLOBALS['xoopsSecurity']->check()) {
 				redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -238,11 +226,11 @@ switch($op) {
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
 
 // Keywords
-quizmakerMetaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
+FQUIZMAKER\metaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description
-quizmakerMetaDescription(_MA_QUIZMAKER_QUIZ_DESC);
+FQUIZMAKER\metaDescription(_MA_QUIZMAKER_QUIZ_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/quiz.php');
 $GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 

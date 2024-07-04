@@ -21,30 +21,43 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
-
 require __DIR__ . '/header.php';
+//recherche des categories autorisées
+$clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
+$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+
+$catId  = Request::getInt('cat_id', array_key_first($catArr));
+
+//echoArray($catArr,"===>catId = {$catId}");
+
+
+
+//if ($catId == 0 || !isset($catArr[$catId])) $catId = array_key_first($catArr);
+//echoArray($catArr);
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request quest_id
+
+//utiliser pour rediriger directement sur l'ajout d'une question du même type
 $addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
+
 //echo "<hr>addNew = " . (($addNew) ? ' ajout ok' : 'pas d ajout') . "-{$addNew}<hr>";
 
 $sender  = Request::getString('sender', '');
-$catId   = Request::getInt('cat_id', 0);
 if ($sender == 'cat_id') {
     $quizId = $quizHandler->getFirstIdOfParent($catId);
 }else{
   $quizId  = Request::getInt('quiz_id', 1);
 }
-
-
 $questId = Request::getInt('quest_id', 0);
 $quest_type_question = Request::getString('quest_type_question', '');
 
-//  $gp = array_merge($_GET, $_POST);
-//  echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
+
+//   $gp = array_merge($_GET, $_POST);
+//   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
 function getParams2list($quizId, $quest_type_question, $sender = "", $quest_parent_id=0){
 global $quizHandler;
@@ -83,12 +96,11 @@ switch($op) {
         $questionsHandler->updateWeight($questId, $action);
         $questionsHandler->incrementeWeight($quizId);
         $url = "questions.php?op=list&" . getParams2list($quizId, $quest_type_question)."#question-{$questId}";
-        //echo "<hr>{$url}<hr>";exit;
         \redirect_header($url, 0, "");
         break;
 
 	case 'build_quiz':
-        $quizUtility::build_quiz($quizId);
+        $quizUtility::buildQuiz($quizId);
         //$utility::export_questions2Jason($quizId);
         redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_type_question), 5, "Export effectue");
 		//redirect_header('questions.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -101,15 +113,20 @@ switch($op) {
         $questionsHandler->changeEtat($questId, $field, $modulo, $doItForGroup);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
 	break;
+    
+	case 'set_value':
+        $field = Request::getString('field');
+        $value = Request::getString('value', '0');
+        $doItForGroup = Request::getInt('doItForGroup', 0);
+        $questionsHandler->setValue($questId, $field, $value, $doItForGroup);
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
+	break;
     //------------------------------------------------------
 	case 'export_quiz':
-        $quizUtility::exportQuiz($quizId);
+        $quizUtility::quiz_export($quizId);
         $op = 'list';
         $download = 1;
         include_once("questions-{$op}.php");
-//        $quizUtility->saveDataKeepId($quizId);
-        //$quizUtility->saveData($quizId);
-//         $quizHandler->changeEtat($quizId, $field);
         //redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Export effectué");
 	break;
     
@@ -121,16 +138,13 @@ switch($op) {
 
 	break;
     
-	case 'restor_quiz':
-        //$quizUtility->loadData($quizId);
-        $quizUtility->loadData($quizId);
-//         $quizHandler->changeEtat($quizId, $field);
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
-	break;
+// 	case 'restor_quiz':
+//         $quizUtility->quiz_loadData($quizId);
+//         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
+// 	break;
     
-	case 'import_quiz':
-        //$quizUtility->loadData($quizId);
-        $quizUtility->import_quiz($quizId);
+	case 'quiz_importFromYml':
+        $quizUtility->quiz_importFromYml($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
 	break;
@@ -141,18 +155,14 @@ switch($op) {
     
 	case 'update_list':
   $gp = array_merge($_GET, $_POST);
-    $list = Request::getArray('quest_list');
-  //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
-//  echo "<hr>quest_timer<pre>" . print_r($list, true) . "</pre><hr>";
-    foreach($list AS $id => $arr){
-        $criteria = new Criteria('quest_id', $id, "=");
-        $questionsHandler->updateAll('quest_timer', $arr['timer'], $criteria, $force = false);
-        $questionsHandler->updateAll('quest_points', $arr['points'], $criteria, $force = false);
-    }
-//       exit('update_list');
-        //$quizUtility->loadData($quizId);
-
-//         $quizHandler->changeEtat($quizId, $field);
+        $list = Request::getArray('quest_list');
+        //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
+        //  echo "<hr>quest_timer<pre>" . print_r($list, true) . "</pre><hr>";
+        foreach($list AS $id => $arr){
+            $criteria = new Criteria('quest_id', $id, "=");
+            $questionsHandler->updateAll('quest_timer', $arr['timer'], $criteria, $force = false);
+            $questionsHandler->updateAll('quest_points', $arr['points'], $criteria, $force = false);
+        }
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
 	break;
     } // fin du switch maitre

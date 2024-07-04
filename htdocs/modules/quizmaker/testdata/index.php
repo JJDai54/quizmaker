@@ -14,7 +14,7 @@
  * @author          Michael Beck (aka Mamba)
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Common;
 use XoopsModules\Quizmaker\Utility;
 

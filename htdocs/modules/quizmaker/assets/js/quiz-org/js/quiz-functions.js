@@ -1,30 +1,11 @@
 
-/*
-Construit le code html de chaque question/slide.
-function build_ (currentQuestion, index){
-}
 
-calcul le nombre de points obtenus d'une question/slide
-function getScore_ (){
-}
-
-Renvois vrai ou faux selon que l'utilisateur a répondu ou non à la question/slide
-la valeur de retour peut tenir compte du minReponses si il est défini dans les options des propositions
-function isInputOk_ (){
-}
-
-renvois toutes les réponses valide d'un question/slide
-utilisé uniquement pour de le developpement et les faciliter les tests
-function getAllReponses_ (){
-}
-
-*/
 var boolDog = true; 
 var quizIsStarted = false;
 
 const statsTotal = {
-      quiz_score_max:   0,
-      quiz_score_min:   0,
+      quiz_score_maxi:   0,
+      quiz_score_mini:   0,
       quiz_questions:   0,
       cumul_questions:  0,
       cumul_max:        0,
@@ -36,22 +17,6 @@ const statsTotal = {
       question_min:     0,
       question_points:  0
   };
-  /*
-const statsTotal = {
-      .quiz_score_max:   0,
-      .quiz_score_min:   0,
-      .quiz_questions:   0;
-      .cumul_questions:  0;
-      .cumul_max:        0,
-      .cumul_min:        0,
-      .cumul_score:      0,
-      .cumul_timer:      0,
-      .question_number:   0,
-      .question_max:     0,
-      .question_min:     0,
-      .question_points:  0
-  };
-  */
   
 /*
 const quiz_bit = {
@@ -90,14 +55,20 @@ function getVersion(){
 function alertId(currentQuestion, msg = ""){
 alert(`${currentQuestion.quizId} / ${currentQuestion.questId}`  + " - " + msg);
 }
- /*******************************************************************
-  *                     
-  * *****************************************************************/
-function rnd(max = 99, min = 0){
-    //return Math.floor((Math.random() * max) + min);
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min +1)) + min;    
+/* *******************************
+* On renvoie un entier aléatoire entre une valeur mini (incluse)
+* et une valeur maxi (incluse).
+* *** */
+
+function getRandom(maxi, mini=0) {
+//console.log(`+++ maxi = ${maxi} - mini = ${mini}`);
+  var mini = Math.ceil(mini);
+  var maxi = Math.floor(maxi)+1; // 
+  return Math.floor(Math.random() * (maxi - mini)) + mini;
+}
+function getRandomArray(arr) {
+    var index = getRandom(arr.length-1, 0);
+    return arr[index];
 }
 
 /**
@@ -282,7 +253,7 @@ function shuffleNewArray (arraySource) {
 
     // Pick a remaining element...
     //randomIndex = Math.floor(Math.random() * currentIndex);
-    randomIndex = getRandomInt(currentIndex);
+    randomIndex = getRandom(currentIndex);
     currentIndex -= 1;
 
     // And swap it with the current element.
@@ -294,16 +265,6 @@ function shuffleNewArray (arraySource) {
   return array;
 }
 
-/* *******************************
-* On renvoie un entier aléatoire entre une valeur min (incluse)
-* et une valeur max (incluse).
-* *** */
-
-function getRandomInt(max, min=0) {
-  min = Math.ceil(min);
-  max = Math.floor(max)+1;
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
   function formatChrono (chrono, tplFormatChrono = "{minutes}:{secondes}"){
         var minutes = Math.floor(chrono/60);
@@ -330,6 +291,54 @@ function completeArrWithwordList(words, lstWordsToAdd = "", sep = ","){
   
 }
 
+/* *******************************
+*
+* *** */
+function transformTextWithMask(exp, mask){
+var ret = {textOk:'', text:'', words:[], nbRows:0};
+
+    ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
+    exp = exp.replaceAll("\n", qbr); //avec mise en forme de crlf
+    textOk = exp.replaceAll('{','').replaceAll('}','');
+
+
+    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+    var regex = quiz_config.regexAllLettersPP;
+
+    
+    var tWordsA = exp.match(regex);
+    //alert (tWordsA.join('|'));
+    tWordsA = [...new Set(tWordsA)]; // elimine les doublons
+//    alert(tWordsA.join('|'));
+//----------------------------------------------
+    //remplacement des mots entre accolade par le mask defini dans options
+    var exp2 = exp.replaceAll(qbr, "\n");
+    ret.nbRows = exp2.split("\n").length; //nombre de lignes du texte
+//    exp = exp.replaceAll("\n","<br>");
+
+
+
+    for (var i in tWordsA) {
+//alert (`${tWordsA[i]} ===> ${mask}`) ;   
+        //replacement des mots entre accolade par le mask
+        exp2 = exp2.replaceAll(tWordsA[i], mask);
+        
+        //suppression des accolades dans le tableau des mots
+        tWordsA[i] = tWordsA[i].replace("{","").replace("}","");
+    }
+
+
+
+//------------------------------------------------------------------
+        
+    ret.text   = exp2;      //texte avec mask
+    ret.words  = tWordsA;   //tableau des mots trouvés
+    ret.textOk = textOk;    //text sans les accolades
+    // blob(ret.textOk);
+    return ret;
+//-------------------------------------------------
+
+}  
 
 /* *******************************
 *
@@ -339,7 +348,9 @@ var ret = {textOk:'', text:'', words:[], nbRows:0};
 var textOk = '';
 
     ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
-    exp = exp.replaceAll("\n","<br>"); //avec mise en formede crlf
+    exp = exp.replaceAll("\n", qbr); //avec mise en forme de crlf
+    textOk = exp.replaceAll('{','').replaceAll('}','');
+    
     //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
     var regex = quiz_config.regexAllLettersPP;
     
@@ -361,11 +372,12 @@ var textOk = '';
         
     tWordsA[i] = tWordsA[i].replace("{","").replace("}","");
     }
-    textOk = exp2;
-    for (var i in tWordsA) {
-        var token = "{" + (i*1+1) + "}";
-        textOk = textOk.replaceAll(token, tWordsA[i]);
-    }
+    
+//     textOk = exp2;
+//     for (var i in tWordsA) {
+//         var token = "{" + (i*1+1) + "}";
+//         textOk = textOk.replaceAll(token, tWordsA[i]);
+//     }
 
 
 //------------------------------------------------------------------
@@ -395,51 +407,6 @@ var ret = {textOk:'', text:'', words:[], nbRows:0};
     return tWordsA;
 }  
 
-/* *******************************
-*
-* *** */
-function transformTextWithMask(exp, mask){
-var ret = {textOk:'', text:'', words:[], nbRows:0};
-var textOk = '';
-
-    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
-    var regex = quiz_config.regexAllLettersPP;
-
-    
-    var tWordsA = exp.match(regex);
-    //alert (tWordsA.join('|'));
-    tWordsA = [...new Set(tWordsA)]; // elimine les doublons
-//    alert(tWordsA.join('|'));
-//----------------------------------------------
-    //remplacement des mots entre accolade par le mask defini dans options
-    var exp2 = exp.replaceAll(qbr, "\n");
-    ret.nbRows = exp2.split("\n").length; //nombre de lignes du texte
-//    exp = exp.replaceAll("\n","<br>");
-
-
-
-    for (var i in tWordsA) {
-//alert (`${tWordsA[i]} ===> ${mask}`) ;   
-        //replacement des mots entre accolade par le mask
-        exp2 = exp2.replaceAll(tWordsA[i], mask);
-        
-        //suppression des accolades dans le tableau des mots
-        tWordsA[i] = tWordsA[i].replace("{","").replace("}","");
-    }
-
-    var textOk = exp.replaceAll('{', '').replaceAll('}','');
-
-
-//------------------------------------------------------------------
-        
-    ret.text   = exp2;      //texte avec mask
-    ret.words  = tWordsA;   //tableau des mots trouvés
-    ret.textOk = textOk;    //text sans les accolades
-    // blob(ret.textOk);
-    return ret;
-//-------------------------------------------------
-
-}  
 
 /*********************************************
  * extra a utiiser avec checked par exemple  
@@ -486,8 +453,7 @@ function getObjectValueByName(name, balise, typeObj = "", extra="")
 }
 function getObjectById(id)
 { 
-    var ob = document.getElementById(id);    
-    return ob;
+    return document.getElementById(id);
 }
 //-------------------------------------------------
 
@@ -510,7 +476,6 @@ function getHtmlCombobox(name, id, tItems, extra="", addBlank=false){
     var tHtml = [];
     tHtml.push(`<SELECT id="${id}" name="${name}" ${extra}>`);
                                                                   
-//         tHtml.push(`<SELECT id="${name}{${k}" name="${name}" class="question-textareaListbox" onclick="quiz_textareaListbox_event('update','${id}','${name}',${questionNumber})">`);        
     if (addBlank)  
         {tHtml.push(`<OPTION VALUE="">`)}
     else
@@ -519,9 +484,7 @@ function getHtmlCombobox(name, id, tItems, extra="", addBlank=false){
     for (var j=0; j < tItems.length; j++){
         tHtml.push(`<OPTION VALUE="${tItems[j]}">${tItems[j]}`);
     }
-  
     tHtml.push(`</SELECT>`);
-
     return tHtml.join("\n");
 
 }
@@ -892,17 +855,10 @@ const sep = "_$_";
 
 
 }
-/* *********************************************
-* renvoie un entier aléatoire entre une valeur min (incluse)
-* et une valeur max (incluse).
-* *********************************************** */
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min +1)) + min;
+
+function strip_tag(string) {
+    return string.replace(/(<([^>]+)>)/gi, "");
 }
-
-
 /* *********************************************
 * prépare un texte pour une comparaison avec un autre texte saisi
 * - supprime les "<br>" et les  "|n"
@@ -914,34 +870,35 @@ var regAccent;
 var car2rep;
 
     if (bolToLower){exp = exp.toLowerCase();}
+    exp = strip_tag(exp);
     var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").trim(); //.replaceAll(" ","")
     
-    var cars2del = new RegExp('[\'\.\!\?\,\;-]', 'gi');
+    var cars2del = new RegExp('[\ \'\.\!\?\,\;-@]', 'gi');
     //var cars2del = new RegExp('[ \'\.\!\?\,\;-]', 'gi');
   //var cars2del = new RegExp('[ \'\.\!\?\,\;\-\_\/]', 'gi');
         
-    reponse = reponse.replace(cars2del, "");
+    reponse = reponse.replaceAll(cars2del, "");
     
     regAccent = new RegExp('[àâä]', 'gi');
     car2rep = 'a';
-    reponse = reponse.replace(regAccent, car2rep);
+    reponse = reponse.replaceAll(regAccent, car2rep);
     
     
     regAccent = new RegExp('[éèêë]', 'gi');
     car2rep = 'e';
-    reponse = reponse.replace(regAccent, car2rep);
+    reponse = reponse.replaceAll(regAccent, car2rep);
     
     regAccent = new RegExp('[îï]', 'gi');
     car2rep = 'i';
-    reponse = reponse.replace(regAccent, car2rep);
-    
-    regAccent = new RegExp('[ùüü]', 'gi');
-    car2rep = 'u';
-    reponse = reponse.replace(regAccent, car2rep);
+    reponse = reponse.replaceAll(regAccent, car2rep);
     
     regAccent = new RegExp('[ôö]', 'gi');
     car2rep = 'o';
-    reponse = reponse.replace(regAccent, car2rep);
+    reponse = reponse.replaceAll(regAccent, car2rep);
+    
+    regAccent = new RegExp('[ùüü]', 'gi');
+    car2rep = 'u';
+    reponse = reponse.replaceAll(regAccent, car2rep);
     
     return reponse;
 }
@@ -995,23 +952,24 @@ function requestGetPost(){
 * *********************************************** */
 function replaceBalisesByValues(exp, questId = 0)
 {
-    var newExp = exp.replace("{repondu}", statsTotal.cumul_questions);
-    newExp = newExp.replace("{totalQuestions}", statsTotal.quiz_questions);
-    newExp = newExp.replace("{score}", statsTotal.cumul_score);
-    newExp = newExp.replace("{scoreMaxiQQ}", statsTotal.quiz_score_max);
-    newExp = newExp.replace("{scoreMiniQQ}", statsTotal.quiz_score_min);
-    newExp = newExp.replace("{scoreMaxi}", statsTotal.quiz_score_max);
-    newExp = newExp.replace("{scoreMini}", statsTotal.quiz_score_min);
-    newExp = newExp.replace("{duree}",  formatChrono(statsTotal.cumul_timer, "{minutes} minutes et {secondes} secondes"));
+    var newExp = exp.replaceAll("{repondu}", statsTotal.cumul_questions)
+                    .replaceAll("{totalQuestions}", statsTotal.quiz_questions)
+                    .replaceAll("{score}", statsTotal.cumul_score)
+                    .replaceAll("{scoreMaxiQQ}", statsTotal.quiz_score_maxi)
+                    .replaceAll("{scoreMiniQQ}", statsTotal.quiz_score_mini)
+                    .replaceAll("{scoreMaxi}", statsTotal.quiz_score_maxi)
+                    .replaceAll("{scoreMini}", statsTotal.quiz_score_mini)
+                    .replaceAll("{duree}",  formatChrono(statsTotal.cumul_timer, "{minutes} minutes et {secondes} secondes"));
     
     quiz_request_keys.forEach((key) => {
         //alert(key + " = " + quiz_rgp[key]);
-        newExp = newExp.replace(`{${key}}`, quiz_rgp[key]);
+        newExp = newExp.replaceAll(`{${key}}`, quiz_rgp[key]);
     });
-    if (newExp.search('{sommaire}') >= 0) {newExp = newExp.replace("{sommaire}", get_sommaire(0));}
-    if (newExp.search('{groups}') >= 0) {newExp = newExp.replace("{groups}", get_sommaire(1));}
-    if (newExp.search('{allquestions}') >= 0) {newExp = newExp.replace("{allquestions}", get_sommaire(2,0));}
-    if (newExp.search('{questions}') >= 0) {newExp = newExp.replace("{questions}", get_sommaire(2, questId));}
+    
+    if (newExp.search('{sommaire}') >= 0)     {newExp = newExp.replaceAll("{sommaire}", get_sommaire(0));}
+    if (newExp.search('{groups}') >= 0)       {newExp = newExp.replaceAll("{groups}", get_sommaire(1));}
+    if (newExp.search('{allquestions}') >= 0) {newExp = newExp.replaceAll("{allquestions}", get_sommaire(2,0));}
+    if (newExp.search('{questions}') >= 0)    {newExp = newExp.replaceAll("{questions}", get_sommaire(2, questId));}
    
     return newExp;
     
@@ -1051,84 +1009,11 @@ var tRet = [];
             tRet.push(link);
          }
     
-        //numSlide++;
-        //clQuestion.initSlide ();
       });
 
     console.log(tRet.join("<br>\n"));
     return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
 }
-/* ******************************************
-*
-* ******************************************** */
-function get_sommaire2(groupOnly = true, questId = 0){
-var isGroup = false;
-//var numSlide = 0;
-var bolOk = true;
-var tRet = [];
-
-    quizard.forEach((clQuestion, numSlide) => {
-        isGroup = (clQuestion.question.typeQuestion == 'pageBegin')
-               || (clQuestion.question.typeQuestion == 'pageEnd')
-               || (clQuestion.question.typeQuestion == 'pageGroup');
-        
-        console.log ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
-        bolOk = ((groupOnly && isGroup) || !groupOnly);
-        if ((isGroup || !groupOnly) || !groupOnly){
-            var onClick = `onClick="gotoSlideNum(${numSlide});"`;
-            var exp = `${numSlide}-${clQuestion.question.typeQuestion }-${clQuestion.sanityse_question()}`;
-            
-            if(isGroup){
-                var link =`<h1 ${onClick}>${exp}</h1>` 
-            }else{
-                var link =`<h2 ${onClick}>${exp}</h2>` 
-            } 
-            tRet.push(link);
-         }
-    
-        //numSlide++;
-        //clQuestion.initSlide ();
-      });
-
-    console.log(tRet.join("<br>\n"));
-    return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
-}
-/* ******************************************
-*
-* ******************************************** */
-function get_sommaire_old(groupOnly = true){
-var isGroup = false;
-//var numSlide = 0;
-var bolOk = true;
-var tRet = [];
-
-    quizard.forEach((clQuestion, numSlide) => {
-        isGroup = (clQuestion.question.typeQuestion == 'pageBegin')
-               || (clQuestion.question.typeQuestion == 'pageEnd')
-               || (clQuestion.question.typeQuestion == 'pageGroup');
-        
-        console.log ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
-        bolOk = ((groupOnly && isGroup) || !groupOnly);
-        if ((isGroup || !groupOnly) || !groupOnly){
-            var onClick = `onClick="gotoSlideNum(${numSlide});"`;
-            var exp = `${numSlide}-${clQuestion.question.typeQuestion }-${clQuestion.sanityse_question()}`;
-            
-            if(isGroup){
-                var link =`<div class='quiz_sommaire_group' ${onClick}>${exp}</div>` 
-            }else{
-                var link =`<div class='quiz_sommaire_question' ${onClick}>${exp}</div>` 
-            } 
-            tRet.push(link);
-         }
-    
-        //numSlide++;
-        //clQuestion.initSlide ();
-      });
-
-    console.log(tRet.join("<br>\n"));
-    return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
-}
-
 
 //function getMarginStyle(nbItems, min=5, max=12, numStyle=0, extra=''){
 function getMarginStyle(nbItems, numStyle=0, extra='', min=2, max=8){
@@ -1263,7 +1148,7 @@ function get_highslide_a(imgUrl, width = '', height = '', path = '', lettrine = 
     }
     
     var html = `<div class='highslide-gallery' ${divStyle}>`  
-             + `<a href='${imgUrl}' class='highslide' onclick='return hs.expand(this);'>`
+             + `<a href='http://127.0.0.16/uploads/quizmaker/quiz-js/QuizFevier2024-v02-5784/${imgUrl}' class='highslide' onclick='return hs.expand(this);'>`
              + `<img src='${imgUrl}'  alt='' ${style}/>`
              + `</a></div>`;
     return html; 
@@ -1417,6 +1302,13 @@ function quiz_init_slist (target) {
 /* *********************************
 *
 * */
+  function getShortName(fullName) {
+    var pos = fullName.lastIndexOf('/');
+    return (pos >= 0) ? fullName.substring(pos+1) :  fullName;
+  }
+/* *********************************
+*
+* */
 function strToArrayNum(strExp, sep=","){
     var strArr = strExp.split(sep);
     var intArr = new Int8Array(strArr.length);
@@ -1442,4 +1334,51 @@ function arrayToArrayNum(strArr){
 function isBitOk(numBit, value){
     return  ((value & Math.pow(2, numBit)) > 0) ? 1 : 0 ;
 
+}
+
+function rgbToHex(rgb) {
+    var rgbRegex = /^rgb\(\s*(-?\d+)(%?)\s*,\s*(-?\d+)(%?)\s*,\s*(-?\d+)(%?)\s*\)$/;
+    var result, r, g, b, hex = "";
+    if ( (result = rgbRegex.exec(rgb)) ) {
+        r = componentFromStr(result[1], result[2]);
+        g = componentFromStr(result[3], result[4]);
+        b = componentFromStr(result[5], result[6]);
+
+        hex = "#" + (0x1000000 + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+    return hex;
+}
+
+function componentFromStr(numStr, percent) {
+    var num = Math.max(0, parseInt(numStr, 10));
+    return percent ?
+        Math.floor(255 * Math.min(100, num) / 100) : Math.min(255, num);
+}
+ function modifCSSRule(sChemin, sPropriete, sVal){
+  var bFind = false;
+  var aStyleSheets = document.styleSheets;
+  var exp_reg =  new RegExp(sChemin,"gi");
+  // si la css est externe et d'un autre nom de domaine
+  // cssRules: lève une DOMException: "The operation is insecure."
+  // code: 18 
+  // message: "The operation is insecure."
+  // name: "SecurityError"
+  //
+  for(var i = 0; i < aStyleSheets.length; ++i){
+  //console.log(aStyleSheets[i].cssRules);
+    try{
+      var aCssRules =  aStyleSheets[i].cssRules;
+      for(var j = 0; j < aCssRules.length; ++j){   
+        if(exp_reg.test(aCssRules[j].selectorText)){ 
+          aCssRules[j].style[sPropriete]= sVal;
+          bFind = true;
+        }//if
+      }//for
+    }catch(error) {
+      //cssRules: lève une DOMException: "The operation is insecure."
+      console.log(error);
+      continue
+    }
+  }
+  return bFind; 
 }

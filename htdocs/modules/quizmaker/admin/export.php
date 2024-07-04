@@ -21,11 +21,18 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
 require __DIR__ . '/header.php';
+//-----------------------------------------------------------
+//recherche des categories autorisées
+$clPerms->addPermissions($criteriaCatAllowed, 'export_quiz', 'cat_id');
+$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+
+
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request quiz_id
@@ -40,7 +47,8 @@ $templateMain = 'quizmaker_admin_export.tpl';
 list_on_errors:        
 switch($op) {
 	case 'export_ok':
-        if ($quizId > 0) $quizUtility::exportQuiz($quizId);
+        $clPerms->checkAndRedirect('export_quiz', $catId,'$catId', "index.php");
+        if ($quizId > 0) $quizUtility::quiz_export($quizId);
         
     case 'export':
     case 'list':
@@ -58,11 +66,6 @@ switch($op) {
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}
-		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
-		// Permissions for uploader
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-		$permissionUpload = $grouppermHandler->checkRight('upload_groups', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
 		
         
         // Title
@@ -76,12 +79,13 @@ switch($op) {
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
-        $catArr = $categoriesHandler->getListKeyName(null, false, false, null);
         if ($catId == 0) $catId = array_key_first($catArr);        
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra("onchange=\"document.form_export.op.value='list';document.form_export.sender.value=this.name;document.form_export.submit();\"");
+        $inpCategory->setExtra("onchange=\"document.form_export.op.value='list';document.form_export.sender.value=this.name;document.form_export.submit();\"".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
   	    $form->addElement($inpCategory);
+    
+
 
         $quizArr = $quizHandler->getListKeyName($catId);        
         if ($quizId == 0 || !$quiz) {
@@ -92,6 +96,7 @@ switch($op) {
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
         //$inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpQuiz->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
   	    $form->addElement($inpQuiz);
         
         //-----------------------------------------------$caption, $name, $value = '', $type = 'button'
@@ -101,8 +106,6 @@ switch($op) {
         
 /////////////////////////////////////////        
 
-
-    
     break;
     
 

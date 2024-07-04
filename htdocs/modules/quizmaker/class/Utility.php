@@ -26,7 +26,7 @@ namespace XoopsModules\Quizmaker;
  * @since        
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
 
 /**
@@ -35,10 +35,16 @@ use Xmf\Request;
 class Utility
 {
     use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
-
     use Common\ServerStats; // getServerStats Trait
-
     use Common\FilesManagement; // Files Management Trait
+
+    use Utilities\ModuleUtility;  
+    use Utilities\QuizBuildUtility; 
+    use Utilities\QuizUtility; 
+ 
+    
+
+
 
     /**
      * truncateHtml can truncate a string up to a number of characters while preserving whole words and HTML tags
@@ -147,13 +153,13 @@ class Utility
     }
 
     /**
-     * @param \Xmf\Module\Helper $quizmakerHelper
+     * @param \Xmf\Module\Helper $helper
      * @param array|null         $options
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
-    public static function getEditor($quizmakerHelper = null, $options = null)
+    public static function getEditor($helper = null, $options = null)
     {
-        /** @var Quizmaker\Helper $quizmakerHelper */
+        /** @var Quizmaker\Helper $helper */
         if (null === $options) {
             $options           = [];
             $options['name']   = 'Editor';
@@ -164,13 +170,13 @@ class Utility
             $options['height'] = '400px';
         }
         
-        $isAdmin = $quizmakerHelper->isUserAdmin();
+        $isAdmin = $helper->isUserAdmin();
 
         if (class_exists('XoopsFormEditor')) {
             if ($isAdmin) {
-                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $quizmakerHelper->getConfig('editor_admin'), $options, $nohtml = false, $onfailure = 'textarea');
+                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editor_admin'), $options, $nohtml = false, $onfailure = 'textarea');
             } else {
-                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $quizmakerHelper->getConfig('editor_user'), $options, $nohtml = false, $onfailure = 'textarea');
+                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editor_user'), $options, $nohtml = false, $onfailure = 'textarea');
             }
         } else {
             $descEditor = new \XoopsFormDhtmlTextArea(ucfirst($options['name']), $options['name'], $options['value'], '100%', '100%');
@@ -253,27 +259,5 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
     {
         return ucfirst(mb_strtolower(trim($str)));
     }
-
-
-
-	/**
-     * Fonction qui liste les categories et des quiz qui respectent la permission demandée
-     * @param string   $permtype	Type de permission
-     * @return array   $cat		    Liste des catégorie qui correspondent à la permission
-     */
-// 	public static function getPermissions()
-//     {
-//         global $xoopsUser;
-//         $tPerms = array();
-//         $quizmakerHelper = Helper::getHelper('quizmaker');
-//         $moduleHandler = $quizmakerHelper->getModule();
-//         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-//         $gpermHandler = xoops_getHandler('groupperm');
-//         $tPerms['cat'] = $gpermHandler->getItemIds('quizmaker_view_categories', $groups, $moduleHandler->getVar('mid'));
-//         $tPerms['quiz'] = $gpermHandler->getItemIds('quizmaker_view_quiz', $groups, $moduleHandler->getVar('mid'));
-// 
-//         return $tPerms;
-//     }
-
 
 }  //fin de la classe

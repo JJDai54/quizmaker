@@ -24,7 +24,7 @@
 require_once __DIR__ . '/header.php';
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
@@ -34,16 +34,38 @@ use XoopsModules\Quizmaker\Utility;
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request quiz_id
-$catId  = Request::getInt('cat_id', 1);
 $quizId = Request::getInt('quiz_id');
 $sender = Request::getString('');
+//-----------------------------------------------------------
+//recherche des categories autorisées
+$clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+$catId  = Request::getInt('cat_id', array_key_first($catArr));
+
+//echoArray($catArr,'',true);
+//echoarray($catArr);
+//recheche du quiz pour les opération individuelle : edit, save, delete, ...
+if($quizId > 0 && $sender != 'cat_id'){
+  $quizObj = $quizHandler->get($quizId);
+  $quizCat_id = $quizObj->getVar('quiz_cat_id');
+  $catId  = $quizCat_id;
+  if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
+}
+//-----------------------------------------------------------
+//echoArray("gp");
 
 $utility = new \XoopsModules\Quizmaker\Utility();  
 //   $gp = array_merge($_GET, $_POST);
 //   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
 //echo "quizId = {$quizId}<br>sender = {$sender}";
-
+function checkRightEditQuiz($permName, $catId){
+global $clPerms;
+  if (!$clPerms->getPermissions($permName, $catId))  
+      redirect_header("quiz.php?op=list&cat_id={$catId}", 5, _CO_QUIZMAKER_NO_PERM);
+}
+//--------------------------------------------------------
 switch($op) {
 	default:
         $op = 'list';
@@ -56,14 +78,15 @@ switch($op) {
 	   break;
     
 	case 'build_quiz':
-        $quizUtility::build_quiz($quizId);
+        checkRightEditQuiz('edit_quiz',$catId);
+        $quizUtility::buildQuiz($quizId);
 		//redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Export effectue");
 	   break;    
         
 	case 'export_quiz':
-        //exit(_AM_QUIZMAKER_EXPORT_QUIZ);
-        $quizUtility::exportQuiz($quizId);
+        checkRightEditQuiz('export_quiz',$catId);
+        $quizUtility::quiz_export($quizId);
         $op = 'list';
         include_once("quiz-{$op}.php");
 
@@ -73,6 +96,7 @@ switch($op) {
 	break;
         
 	case 'change_etat':
+        checkRightEditQuiz('edit_quiz',$catId);
         $field = Request::getString('field');
         $modulo = Request::getInt('modulo', 2);
         $quizHandler->changeEtat($quizId, $field, $modulo);
@@ -80,11 +104,11 @@ switch($op) {
 	break;
 
 	case 'set_bit':
+        checkRightEditQuiz('edit_quiz',$catId);
         $field = Request::getString('field');
         $bitIndex = Request::getInt('bitIndex');
         $newValue = Request::getInt('newValue', -1);
         $quizHandler->setBitOn($quizId, $field, $bitIndex, $newValue);
-//        exit;
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
 	break;
 // 	case 'config_options':
@@ -105,7 +129,6 @@ switch($op) {
         $quizHandler->updateWeight($quizId, $action);
         //$quizHandler->incrementeWeight($quizId);
         $url = "quiz.php?op=list&quiz_id={$quizId}";            // ."#question-{$catId}";
-        //echo "<hr>{$url}<hr>";exit;
         \redirect_header($url, 0, "");
         break;
 

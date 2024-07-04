@@ -25,7 +25,7 @@ getInnerHTML(){
     var captionTop='';
     var captionBottom = '';   
     var tHtml = [];   
-
+    var styleDiv = '' ;
     
       var lWidth = (90 / this.data.groups.length);
       var nbRows = 8;
@@ -33,19 +33,28 @@ getInnerHTML(){
    
     for(var i=0; i < this.data.groups.length; i++) {
         var idFrom = this.data.groups[i].id;
-        if(this.data.groups.length > 1){
-            var indexTo = (i+1) % this.data.groups.length;
-            var onClick = `${click}="quiz_basculeValue('${idFrom}','${this.data.groups[indexTo].id}');"`;
-        }else{
-            var onClick = `${click}="quiz_deleteValue('${idFrom}');"`;
-        }
-      var attId  = (this._id) ? `id="${this._id}" name="${this._id}"` : ''; 
+//         if(this.data.groups.length > 1){
+//             var indexTo = (i+1) % this.data.groups.length;
+//             var onClick = `${click}="quiz_basculeValue('${idFrom}','${this.data.groups[indexTo].id}');"`;
+//         }else{
+//             var onClick = `${click}="quiz_deleteValue('${idFrom}');"`;
+//         }
+        var indexTo = (i+1) % this.data.groups.length;
+        var onClick = `${click}="quiz_basculeValue('${idFrom}','${this.data.groups[indexTo].id}');"`;
+
+        var attId  = (this._id) ? `id="${this._id}" name="${this._id}"` : ''; 
       
-      tHtml.push(`<div style='width:${lWidth}%;'>` ); 
-      tHtml.push(`<span>${this.data.groups[i].libelle}</span><br>`); 
-      tHtml.push(`<SELECT id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick}>`);
-      tHtml.push('</select>'); 
-      tHtml.push('</div>'); 
+        if(currentQuestion.options.groupDefault == -2){
+          styleDiv = (i > 0) ? "display:none;": `width:90%;margin:auto;` ;
+        }else{
+          styleDiv = `width:${lWidth}%;margin:auto;`;
+        }
+        tHtml.push(`<div style='text-align:center;${styleDiv}' >` ); 
+        tHtml.push(`<span>${this.data.groups[i].libelle}</span><br>`); 
+        tHtml.push(`<SELECT id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick}>`);
+        tHtml.push(`<SELECT id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick}>`);
+        tHtml.push('</select>'); 
+        tHtml.push('</div>'); 
     }
  
     return tHtml.join("\n"); 
@@ -83,22 +92,14 @@ getInnerHTML(){
         var ans = currentQuestion.answers[k];
         ans.index = k;
         
-        //on foce le nombre de popints dans le cas de plusiers groupes
         //au cas ou cela n'aurait été oublié lors de la création
-        if(ans.points == 0 && this.data.nbGroups > 1) {ans.points = 1;}
+        if(ans.points <= 0) {ans.points = 1;}
         //if(!groupsArr[ans.group*1]) groupsArr[ans.group*1] = [];
         groupsArr[ans.group*1].propositions.push(ans);
     }   
     
-
     //identification des groupes
-
-    
-    
     this.data.groups = groupsArr;
-    
-
-    this.data.urlCommonImg = quiz_config.urlCommonImg;
 }
 /* *********************************************************
 *
@@ -125,10 +126,16 @@ loadAlllistBox(goodAnswers = false){
     var currentQuestion = this.question;
     var randGrp = 0;
     var mode = 0; //random sur tous les groupes
+    
+    
+    
     if(goodAnswers)  mode = 1; //bonnes réponses
     else if(currentQuestion.options.groupDefault >= 0)  {
         mode = 2; //tous les items dans le groupe par defaut
         var groupDefault = (this.data.groups.length == 1) ? 0 : currentQuestion.options.groupDefault;
+    }else if(currentQuestion.options.groupDefault == -2){
+        mode = 2; //tous les items dans le groupe par defaut
+        var groupDefault = 0;
     }
  
 //alert(`${mode} | ${groupDefault} | ${currentQuestion.options.groupDefault} | ${currentQuestion.question}`);    
@@ -149,9 +156,9 @@ loadAlllistBox(goodAnswers = false){
         switch(mode){
             case 1:   randGrp = ans.group; break;
             case 2:   randGrp = groupDefault; break;
-            default : randGrp = getRandomIntInclusive(0, obLists.length-1) ; break;
+            default : randGrp = getRandom(obLists.length-1) ; break;
         }
-        //var randGrp = (isRandom) ? getRandomIntInclusive(0, obLists.length-1) : ans.group;
+        //var randGrp = (isRandom) ? getRandom(obLists.length-1) : ans.group;
         
 //        alert(randGrp + "-" + ans.proposition);
 
@@ -160,7 +167,7 @@ loadAlllistBox(goodAnswers = false){
             var option = document.createElement("option");
             option.value = ans.proposition;
             option.text = ans.proposition;
-            option.id = ans.id;
+            option.id = ans.ansId;
             option.setAttribute('ansKey', ans.index);
             obLists[randGrp].appendChild(option);
         }
@@ -169,34 +176,6 @@ loadAlllistBox(goodAnswers = false){
 }
         
 
-/* *************************************
-*
-* ******** */
-computeScoresMinMaxByProposition (){
-    var currentQuestion = this.question;
-    this.scoreMaxiBP = 0;
-    this.scoreMiniBP = 0;
-    console.log (`===> ${currentQuestion.question}`);
-
-    var tGroups = [];
-    var htmlArr = [];
-//alert('nbgroupe = ' + this.data.groups.length);
-    htmlArr.push("<table><tr>");
-    for(var i=0; i < this.data.groups.length; i++) {
-    var tAns = [];
-        var GroupId = this.data.groups[i].id;
-
-                              
-        for(var k = 0; k < this.data.groups[i].propositions.length; k++){
-            var ans =  this.data.groups[i].propositions[k]; 
-            var points = ans.points*1;
-            if (points > 0) this.scoreMaxiBP += points;
-            if (points < 0) this.scoreMiniBP += points;
-        }
-    }
-    
-     return true;
-  }
 
 
 /* *************************************
@@ -221,11 +200,12 @@ var isScoreOk = 1; //si une reponse a un nombre de points egal à zéro le score
             var ansKey = items[h].getAttribute('ansKey')*1;
             var points = currentQuestion.answers[ansKey].points*1;
             if(currentQuestion.answers[ansKey].group == i) {
-                if (points == 0) {isScoreOk = 0;}
                  score += points; 
-            }else{
-                // score -= points; 
-                isScoreOk = 0;
+//                 if (points == 0) {isScoreOk = 0;}
+//                  score += points; 
+//             }else{
+//                 // score -= points; 
+//                 isScoreOk = 0;
                  
             }
     //alert("getScoreByProposition : " + GroupId + "\nisScoreOk= " + isScoreOk + "\npoints = " + points);
@@ -236,42 +216,9 @@ var isScoreOk = 1; //si une reponse a un nombre de points egal à zéro le score
     }
     
 
-    return score * isScoreOk;
+    //return score * isScoreOk;
+    return score;
   }
-
-/* *************************************
-*
-* ******** */
-isInputOk ( answerContainer){
-return true;
-    var currentQuestion = this.question;
-
-var bolOk = true;
-/*
-return bolOk;
-    var id1 = `${this.getName()}-1`;
-    var ob1 = getObjectById(id1);
-
-       var tOptions = ob1.options;
-       var minReponses = currentQuestion.options.minReponses;
-       var nbRep = currentQuestion.answers[0].keys.length - tOptions.length;
-
-       if (minReponses == 0 && nbRep > 0){
-         bolOk = (nbRep > 0);
-       }else{
-         bolOk = (nbRep >= minReponses);
-       }
-
-
-
-      return bolOk;
-*/
-
- }
-
-/* *************************************
-*
-* ******** */
 
 /* *************************************
 *
@@ -306,9 +253,13 @@ getAllReponses (flag = 0){
 
  }
 
-//---------------------------------------------------
-update(nameId, chrono) {
-}
+/* ************************************
+*
+* **** */
+showGoodAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
+  {
+    this.loadAlllistBox(true);
+  } 
 
 /* ************************************
 *

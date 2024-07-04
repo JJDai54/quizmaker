@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -73,7 +73,7 @@ var $maxGroups = 4;
     
       $name = 'ulWidth';  
       $inpUlWidth = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpUlWidth->setMinMax(20, 100);
+      $inpUlWidth->setMinMax(20, 100, 'pixels');
       $trayUlWidth = new XoopsFormElementTray(_AM_QUIZMAKER_UL_WIDTH, $delimeter = ' ');  
       $trayUlWidth->addElement($inpUlWidth);
       $trayUlWidth->addElement(new \XoopsFormLabel(' ', '%'));
@@ -223,8 +223,8 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             $inpChrono = new \XoopsFormHidden($this->getName($i,'chrono'), $i+1);    
             $inpProposition = new \XoopsFormText('',  $this->getName($i,'proposition'), $this->lgProposition, $this->lgProposition, $proposition);
             $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
-            $inpWeight->setMinMax(0, 900);
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
+            $inpWeight->setMinMax(0, 900, 'pixels');
+            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
             $inpPoints->setMinMax(1, 30);
             $inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
             $inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2, '3'=>$libGroup3]);
@@ -274,10 +274,6 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
         $quiz = $quizHandler->get($quizId,"quiz_folderJS");
         //$path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
 
-/*
-echoArray ($_POST,'saveAnswers', true);    
-exit;
-*/
                 
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //$answersHandler->deleteAnswersByQuestId($questId); 
@@ -332,15 +328,9 @@ exit;
         $ansObj->setVar('answer_group', $v['group']); 
         $ansObj->setVar('answer_background', ($v['isBackground'] == 1) ? $v['background'] : ''); 
         
-        //if ($v['points'] == 0) $v['image'] = '';
-        //else if($v['image'] == '') $v['image'] = 'interrogation-05-bleu.png';
-        
-        //$ansObj->setVar('answer_image', $v['image']); 
-        //$ansObj->setVar('answer_group', $v['group']); 
-          
         $answersHandler->insert($ansObj);
      }
-//        exit;
+
     }
 
 /* ********************************************

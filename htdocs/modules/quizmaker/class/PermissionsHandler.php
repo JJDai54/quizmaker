@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -40,7 +40,6 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 	public function __construct()
 	{
 	}
-
 	/**
 	 * @public function permGlobalApprove
 	 * returns right for global approve
@@ -48,7 +47,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 	 * @param null
 	 * @return bool
 	 */
-	public function getPermGlobalApprove()
+	public function getPermGlobal($itemId, $name ='quizmaker_ac')
 	{
 		global $xoopsUser, $xoopsModule;
 		$currentuid = 0;
@@ -66,10 +65,22 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 		} else {
 			$my_group_ids = $memberHandler->getGroupsByUser($currentuid);;
 		}
-		if ($grouppermHandler->checkRight('quizmaker_ac', 4, $my_group_ids, $mid)) {
+		if ($grouppermHandler->checkRight($name, $itemId, $my_group_ids, $mid)) {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @public function permGlobalApprove
+	 * returns right for global approve
+	 *
+	 * @param null
+	 * @return bool
+	 */
+	public function getPermGlobalApprove()
+	{
+        return $this->getPermGlobal(4);
 	}
 
 	/**
@@ -81,29 +92,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 	 */
 	public function getPermGlobalSubmit()
 	{
-		global $xoopsUser, $xoopsModule;
-		$currentuid = 0;
-		if (isset($xoopsUser) && is_object($xoopsUser)) {
-			if ($xoopsUser->isAdmin($xoopsModule->mid())) {
-				return true;
-			}
-            $currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;
-		}
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$mid = $xoopsModule->mid();
-		$memberHandler = xoops_getHandler('member');
-		if (0 == $currentuid) {
-			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
-		} else {
-			$my_group_ids = $memberHandler->getGroupsByUser($currentuid);;
-		}
-		if ($this->getGlobalApprove()) {
-			return true;
-		}
-		if ($grouppermHandler->checkRight('quizmaker_ac', 8, $my_group_ids, $mid)) {
-			return true;
-		}
-		return false;
+        return $this->getPermGlobal(8);
 	}
 
 	/**
@@ -115,35 +104,31 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 	 */
 	public function getPermGlobalView()
 	{
-		global $xoopsUser, $xoopsModule;
-		$currentuid = 0;
-        /*
-		if (isset($xoopsUser) && is_object($xoopsUser)) {
-			if ($xoopsUser->isAdmin($xoopsModule->mid())) {
-				return true;
-			}
-        $currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;
-		}
-        */
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$mid = $xoopsModule->mid();
-		$memberHandler = xoops_getHandler('member');
-		if (0 == $currentuid) {
-			$my_group_ids = [XOOPS_GROUP_ANONYMOUS];
-		} else {
-			$my_group_ids = $memberHandler->getGroupsByUser($currentuid);;
-		}
-		if ($this->getGlobalApprove()) {
-			return true;
-		}
-		if ($this->getGlobalSubmit()) {
-			return true;
-		}
-		if ($grouppermHandler->checkRight('quizmaker_ac', 16, $my_group_ids, $mid)) {
-			return true;
-		}
-		return false;
+        return $this->getPermGlobal(16);
 	}
     
+	/**
+	 * @public function getPermForm
+	 * returns form for perm
+	 *
+	 * @param $formTitle Titre du formulaire
+	 * @param $permName  Nom des permissions
+	 * @param $permDesc  Description des permissions
+	 * @param $permArr   Tableau itemId/name des permission
+	 * @return XoopsGroupPermForm
+	 */
+     
+	public function getPermForm($formTitle, $permName, $permDesc, $permArr)
+	{
+    global $xoopsModule;
+		$permName = $xoopsModule->getVar('dirname') . '_' . $permName;
+		//$handler = $quizmakerHelper->getHandler('quiz');
+        $moduleId = $xoopsModule->getVar('mid');
+        $permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php');
+    	foreach($permArr as $permId => $permName) {
+    		$permform->addItem($permId, $permName);
+    	}
+        return $permform;
+	}
 }
 

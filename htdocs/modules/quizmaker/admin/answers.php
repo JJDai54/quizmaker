@@ -21,10 +21,17 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
+$clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
+$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+$catId  = Request::getInt('cat_id', array_key_first($catArr));
+
+
+
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request answer_id
@@ -87,20 +94,19 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
         // ----- Listes de selection pour filtrage -----  
-        $cat = $categoriesHandler->getListKeyName(null, false, false,null);
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
-        $inpCategory->addOptionArray($cat);
-        $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE . " style='background:cyan'");
+        $inpCategory->addOptionArray($catArr);
+        $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT) );
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-        
+
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE . " style='background:cyan'");
+        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
         
         $inpQuest = new \XoopsFormSelect(_AM_QUIZMAKER_QUESTION, 'quest_id', $questId);
         $inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));
-        $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE . " style='background:#FFCCCC;'");
+        $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
   	    $GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
         
        // ----- /Listes de selection pour filtrage -----
@@ -117,8 +123,8 @@ switch($op) {
         //options de la question - tableau json
         if($questId > 0){
             $obQuest = $questionsHandler->get($questId);
-            echo "<hr>" . $obQuest->getVar('quest_options') . "<hr>";
-        }
+		    $GLOBALS['xoopsTpl']->assign('questOptions', $obQuest->getVar('quest_options'));
+        }  
         //--------------------------------------------
         
 		// Table view answers
@@ -186,7 +192,6 @@ switch($op) {
 		$answersObj->setVar('answer_weight', Request::getInt('answer_weight', 0));
 		$answersObj->setVar('answer_inputs', Request::getInt('answer_inputs', 1));
 		$answersObj->setVar('answer_group',  Request::getInt('answer_group', 1));
-		$answersObj->setVar('answer_image',  Request::getString('answer_image', ''));
 		$answersObj->setVar('answer_image1', Request::getString('answer_image1', ''));
 		$answersObj->setVar('answer_image2', Request::getString('answer_image2', ''));
         

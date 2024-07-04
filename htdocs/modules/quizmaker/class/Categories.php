@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -144,24 +144,49 @@ class Categories extends \XoopsObject
         // Permissions
 		$memberHandler = xoops_getHandler('member');
 		$groupList = $memberHandler->getGroupList();
-		$grouppermHandler = xoops_getHandler('groupperm');
 		$fullList[] = array_keys($groupList);
         
-		if (!$this->isNew()) {
-			$groupsIdsApprove = $grouppermHandler->getGroupIds('quizmaker_approve_categories', $this->getVar('cat_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsApprove[] = array_values($groupsIdsApprove);
-			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_categories[]', $groupsIdsApprove);
-			$groupsIdsSubmit = $grouppermHandler->getGroupIds('quizmaker_submit_categories', $this->getVar('cat_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
-			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_categories[]', $groupsIdsSubmit);
-			$groupsIdsView = $grouppermHandler->getGroupIds('quizmaker_view_categories', $this->getVar('cat_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-			$groupsIdsView[] = array_values($groupsIdsView);
-			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_categories[]', $groupsIdsView);
-		} else {
-			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_categories[]', $fullList);
-			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_categories[]', $fullList);
-			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_categories[]', $fullList);
-		}
+		$grouppermHandler = xoops_getHandler('groupperm');
+//$groupsIdsEdit = getCheckboxByGroup($label, $name, $itemId, $fullList, $permName, $isNew)
+//echoArray($fullList);
+//echoArray($groupList);
+$name = 'groups_edit_categories[]';
+$catId = $this->getVar('cat_id');
+// $groupsIdsEdit = getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_EDIT, $name, $catId, $fullList, $groupList, 'edit_quiz', $this->isNew());
+// $form->addElement($groupsIdsEdit);
+$perm = new \jjdPermissions();
+
+// $name = 'groups_view_quiz[]';
+// $groupsIdsEdit = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ, $name, $catId, 'viex_quiz', $this->isNew());
+// $form->addElement($groupsIdsEdit);
+
+$name = 'groups_edit_quiz[]';
+$groupsIdsEdit = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ, $name, $catId, 'edit_quiz', $this->isNew());
+$form->addElement($groupsIdsEdit);
+
+$name = 'groups_create_quiz[]';
+$groupsIdsCreate = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ, $name, $catId, 'create_quiz', $this->isNew());
+$form->addElement($groupsIdsCreate);
+
+$name = 'groups_delete_quiz[]';
+$groupsIdsDelete = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ, $name, $catId, 'delete_quiz', $this->isNew());
+$form->addElement($groupsIdsDelete);
+
+
+$name = 'groups_import_quiz[]';
+$groupsIdsImport = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ, $name, $catId, 'import_quiz', $this->isNew());
+$form->addElement($groupsIdsImport);
+
+$name = 'groups_importquest_quiz[]';
+$groupsIdsImportquest = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ, $name, $catId, 'importquest_quiz', $this->isNew());
+$form->addElement($groupsIdsImportquest);
+
+$name = 'groups_export_quiz[]';
+$groupsIdsImport = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ, $name, $catId, 'export_quiz', $this->isNew());
+$form->addElement($groupsIdsImport);
+
+
+/*
 		// To Approve
 		$groupsCanApproveCheckbox->addOptionArray($groupList);
 		$form->addElement($groupsCanApproveCheckbox);
@@ -171,6 +196,7 @@ class Categories extends \XoopsObject
 		// To View
 		$groupsCanViewCheckbox->addOptionArray($groupList);
 		$form->addElement($groupsCanViewCheckbox);
+*/        
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
 		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));

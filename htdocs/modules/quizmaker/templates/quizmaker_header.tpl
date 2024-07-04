@@ -3,6 +3,9 @@
 <{/if}>
 <{include file='db:quizmaker_breadcrumbs.tpl' }>
 
+<{*
 <{if $ads != ''}>
 	<div class='center'><{$ads}></div>
 <{/if}>
+*}>
+

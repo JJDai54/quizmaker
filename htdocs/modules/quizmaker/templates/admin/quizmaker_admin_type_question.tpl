@@ -23,7 +23,10 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_TYPE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_SHORTDESC}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_ACTIONS}></th>
+				<th class="center"><{$smarty.const._EDIT}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_INSTALL}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_PLAY}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_HELP}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_IMAGE}></th>
 
 			</tr>
@@ -38,9 +41,40 @@
 				<td class='left'><{$TypeDeQuestion.type}></td>
 				<td class='left'><{$TypeDeQuestion.name}></td>
 				<td class='left width50'><{$TypeDeQuestion.description}></td>
+                
+				<td class='center'>
+                    <{if $TypeDeQuestion.quiz_id <> 0}> 
+                      <a href='questions.php?op=list&quiz_id=<{$TypeDeQuestion.quiz_id}>'>
+            			<img src="<{$modPathIcon32}>/edit-ok.png" alt="Play quiz" title='<{$smarty.const._EDIT}>' />
+                      </a>
+                    <{else}>
+            			<img src="<{$modPathIcon32}>/edit-no.png" alt="Play quiz" title='<{$smarty.const._EDIT}>' />
+                    <{/if}>
+                </td>  
+                
+                
+                
+				<td class='center'>
+                    <{if $TypeDeQuestion.isArchive}> 
+                      <a href='type_question.php?op=install&plugin=<{$TypeDeQuestion.type}>&catTypeQuestion=<{$catTypeQuestion}>'>
+            			<img src="<{$modPathIcon32}>/install-red.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
+                      </a>
+                    <{else}>
+            			<img src="<{$modPathIcon32}>/install-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
+                    <{/if}>
+                </td>  
+				<td class='center'>
+                    <{if $TypeDeQuestion.isBuild}> 
+                      <a href='type_question.php?op=play&plugin=<{$TypeDeQuestion.type}>&catTypeQuestion=<{$catTypeQuestion}>' target='blank'>
+            			<img src="<{$modPathIcon32}>/play-green.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
+                      </a>
+                    <{else}>
+            			<img src="<{$modPathIcon32}>/play-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
+                    <{/if}>
+                </td>   
 				<td class='center'>
                     <a href='' onclick="javascript:openWithSelfMain('<{$smarty.const.XOOPS_URL}>/modules/quizmaker/admin/type_question_help.php?op=view&plugin=<{$TypeDeQuestion.type}>','<{$TypeDeQuestion.type}>',680,600);return false;">
-          				<img src="<{xoModuleIcons32}>faq.png" alt="Add Question" title='<{$smarty.const._AM_QUIZMAKER_ADD_NEW_QUESTION}>' />
+          				<img src="<{xoModuleIcons32}>faq.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_HELP}>' />
                     </a>
                 </td>   
                     
@@ -71,7 +105,7 @@
 
 <script>
 tth_set_value('last_asc', true);
-tth_trierTableau('quiz_type_question_list', 5, "1,2,3,4,5");  
+tth_trierTableau('quiz_type_question_list', 2, "1,2,3,4");  
 </script>
 
 <{* 

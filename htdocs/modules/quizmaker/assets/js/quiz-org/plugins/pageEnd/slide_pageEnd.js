@@ -20,31 +20,28 @@ getInnerHTML (){
 var currentQuestion=this.question;
 var name = this.getName();
 
-      const answers = [];
-      
-    if(currentQuestion.image){
-        var imageMain = `<div><img src="${ quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.options.imgHeight}px"></div>`;
-        answers.push(imageMain);
+    const htmlArr = [];
+    htmlArr.push(this.getImage());
+    
+    for(var k in currentQuestion.answers){
+      var id = this.getId(k);
+      if(currentQuestion.answers[k].proposition == '') continue;
+      console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+      //Les div seront remplis dazns le update
+      htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);
+        
     }
+    htmlArr.push(this.buildFormSubmitAnswers());
 
-      for(var k in currentQuestion.answers){
-        var id = this.getId(k);
-        if(currentQuestion.answers[k].proposition == '') continue;
-            console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-            var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
-            answers.push(
-                `<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled>${exp}</div>
-                `);
-          
-      }
-      //answers.push(`<br><button id="quiz_btn_endQuiz"  name="quiz_btn_endQuiz" class="${quiz_css.buttons}" style="font-size:1.8em;visibility: visible; display: inline-block;">${quiz_messages.btnEndQuiz}</button>`);      
-      //if(this.typeForm == 3){
-          answers.push(this.buildFormSubmitAnswers());
-      //}
-//alert(answers);
-      return answers.join("\n");
+
+    htmlArr.push(qbr);
+    return htmlArr.join("\n");
 
   }
+//---------------------------------------------------
+isInputOk (answerContainer){
+    return false;
+ }
 
 //---------------------------------------------------
 buildFormSubmitAnswers(){
@@ -67,15 +64,14 @@ buildFormSubmitAnswers(){
 submitAnswers(){
 console.log("submitAnswers begin");
     //---------------------------------------------
-    //alert('submitAnswers in pageinfo - typeForm = ' + this.typeForm);
     document.form_submit_quizmaker.quiz_id.value = quiz.quizId;
     document.form_submit_quizmaker.uid.value = 0;// quiz.uid;
     document.form_submit_quizmaker.answers_total.value = statsTotal.quiz_questions;
     
     document.form_submit_quizmaker.answers_achieved.value = statsTotal.cumul_questions;
     document.form_submit_quizmaker.score_achieved.value = statsTotal.cumul_score;
-    document.form_submit_quizmaker.score_max.value = statsTotal.quiz_score_max;
-    document.form_submit_quizmaker.score_min.value = statsTotal.quiz_score_min;
+    document.form_submit_quizmaker.score_max.value = statsTotal.quiz_score_maxi;
+    document.form_submit_quizmaker.score_min.value = statsTotal.quiz_score_mini;
     document.form_submit_quizmaker.duration.value = statsTotal.cumul_timer;
     
     document.form_submit_quizmaker.isAnonymous.value = quiz_rgp.isAnonymous;
@@ -83,39 +79,23 @@ console.log("submitAnswers begin");
 
     //---------------------------------
     document.form_submit_quizmaker.submit();
-alert("submitAnswers end");
+    //pas utile mais evite un bug inhérent au language
+    alert("submitAnswers end");
 }
 
-//---------------------------------------------------
-isQuestion (){
-              
-    return false;         
-}
+/* *********************************************
+Mise à jour de l'affichage des scores pour cette page intermédiaire
+************************************************ */
+onEnter() {
+    var currentQuestion=this.question;  
 
-//---------------------------------------------------
-  getScoreByProposition (answerContainer){
-    return 0;
-  }
-  
-//---------------------------------------------------
-  isInputOk(currentQuestion, answerContainer,chrono){
-    return false;
-  }
-  
-//---------------------------------------------------
-  getAllReponses  (currentQuestion){
-      return "";
-  }
-  
-//---------------------------------------------------
-  getGoodReponses (currentQuestion){
-      return '';
-  }
-  
-  
- 
-//---------------------------------------------------
-  update(nameId, chrono) {
+    for(var k in currentQuestion.answers){
+      var id = this.getId(k);
+      if(currentQuestion.answers[k].proposition == '') continue;
+      console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
+        document.getElementById(id).innerHTML = exp;
+    }
   }
 
 } // ----- fin de la classe ------

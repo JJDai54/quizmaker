@@ -31,6 +31,10 @@ getInnerHTML(){
     }
 
     const html = [];
+//     html.push("<hr>ca commence ici<pre><code>");
+//     html.push(this.initStyleCss());
+//     html.push("</code></pre><hr>");
+//  alert(this.initStyleCss());   
     if (currentQuestion.options.title) html.push(`<span>${currentQuestion.options.title}</span><br>`);
     html.push(`<center><div id='${this.getId('main')}'>`);
     html.push(`<ul id="${id}" >`);
@@ -46,20 +50,41 @@ getInnerHTML(){
     return html.join("\n");
 }
 //---------------------------------------------------
-initSlide (){
+initStyleCss (){
   var currentQuestion = this.question;
-    //alert ("===> initSlide : " + this.question.typeQuestion  + " - " + this.question.question + " \n->" + this.getName());
-    ulDaDSortList_init_slist(document.getElementById(this.getName()));
+  var cssArr=[];
+  
+  cssArr.push("<style>");
+  cssArr.push(`.${this.name}_slist li{background:${currentQuestion.options.liBgDefault};}`);
+  cssArr.push(`.${this.name}_slist li.hint{background:${currentQuestion.options.liBgDefault};}`);
+  cssArr.push(`.${this.name}_slist li.active{background:${currentQuestion.options.liBgActive};}`);
+  cssArr.push(`.${this.name}_slist li.hover{background:${currentQuestion.options.liBgHover};}`);
+  cssArr.push("</style>");
+    
+    return cssArr.join("\n");
+ }
+initSlide (){
+//   var currentQuestion = this.question;
+    this.ulDaDSortList_init_slist(document.getElementById(this.getName()));
+    return true;
+ }
 
+/* **********************************
+Mise à jour des couleurs de fond différentes pour chaque question
+************************************* */
+onEnter() {
+   var currentQuestion = this.question;
+//     //alert ("===> initSlide : " + this.question.typeQuestion  + " - " + this.question.question + " \n->" + this.getName());
+//     this.ulDaDSortList_init_slist(document.getElementById(this.getName()));
+
+// a deplacer dans le getInnerHTML et creer une balise style propre au slide
   modifCSSRule(".ulDaDSortList_slist li", "background", currentQuestion.options.liBgDefault) ;
   modifCSSRule(".ulDaDSortList_slist li.hint", "background", currentQuestion.options.liBgDefault) ;
 
   modifCSSRule(".ulDaDSortList_slist li.active", "background", currentQuestion.options.liBgActive) ;
   modifCSSRule(".ulDaDSortList_slist li.hover", "background", currentQuestion.options.liBgHover) ;
 
-    return true;
- }
-
+}
 
 /* *************************************
 *
@@ -79,23 +104,12 @@ var tItems = [];
     for(var k=0; k < currentQuestion.answers.length; k++){
         tWords.push(currentQuestion.answers[k].proposition); 
     }
+
     
     this.data.words = tWords;  
+    this.initMinMaxQQ(1);    
 } 
 
-/* *************************************
-*
-* ******** */
-computeScoresMinMaxByProposition(){
-
-    var currentQuestion = this.question;
-    
-    this.scoreMaxiBP = currentQuestion.points;
-    this.scoreMiniBP = 0;
-    
-     return true;
- }
- 
 /* *************************************
 *
 * ******** */
@@ -207,13 +221,7 @@ showBadAnswers()
     this.reloadQuestion();
 }
   
- 
-} // ----- fin de la classe ------
-
-/*
-https://code-boxx.com/drag-drop-sortable-list-javascript/
-*/
-function ulDaDSortList_init_slist (target) {
+ ulDaDSortList_init_slist (target) {
   // (A) SET CSS + GET ALL LIST ITEMS
   target.classList.add("ulDaDSortList_slist");
   let items = target.getElementsByTagName("li"), current = null;
@@ -268,31 +276,11 @@ function ulDaDSortList_init_slist (target) {
       computeAllScoreEvent();
     };
   }
-}
- function modifCSSRule(sChemin, sPropriete, sVal){
-  var bFind = false;
-  var aStyleSheets = document.styleSheets;
-  var exp_reg =  new RegExp(sChemin,"gi");
-  // si la css est externe et d'un autre nom de domaine
-  // cssRules: lève une DOMException: "The operation is insecure."
-  // code: 18 
-  // message: "The operation is insecure."
-  // name: "SecurityError"
-  //
-  for(var i = 0; i < aStyleSheets.length; ++i){
-    try{
-      var aCssRules =  aStyleSheets[i].cssRules;
-      for(var j = 0; j < aCssRules.length; ++j){   
-        if(exp_reg.test(aCssRules[j].selectorText)){ 
-          aCssRules[j].style[sPropriete]= sVal;
-          bFind = true;
-        }//if
-      }//for
-    }catch(error) {
-      //cssRules: lève une DOMException: "The operation is insecure."
-      console.log(error);
-      continue
-    }
-  }
-  return bFind; 
-}
+} 
+} // ----- fin de la classe ------
+
+/*
+https://code-boxx.com/drag-drop-sortable-list-javascript/
+*/
+
+

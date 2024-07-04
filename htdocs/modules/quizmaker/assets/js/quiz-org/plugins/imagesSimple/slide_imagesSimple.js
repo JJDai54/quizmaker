@@ -57,7 +57,7 @@ getInnerHTML(){
             var src = `${urlQuizImg}/${ans.proposition}`;
 
         }
-        img = `<img id="${ans.id}" src="${src}" title="${ans.proposition}" alt="zzz" height="${imgHeight1}">`;        
+        img = `<img id="${ans.ansId}" src="${src}" title="${ans.proposition}" alt="zzz" height="${imgHeight1}">`;        
         tHtmlSequence.push(img);
     }
     //--------------------------------------------------------------
@@ -68,7 +68,7 @@ getInnerHTML(){
     shuffleArrayFY(sug);
       for(var k in sug){
           var ans =  sug[k];
-          var idFrom = ans.id; //this.getId('suggestion',k);
+          var idFrom = ans.ansId; //this.getId('suggestion',k);
           var ev = evTpl.replace('{idFrom}', idFrom);
           var ev = ev.replace('{idTo}',this.data.idSelection);
           img = `<img id="${idFrom}" src="${urlQuizImg}/${ans.proposition}" ${ev} title="${ans.proposition}" alt="" selectable height="${imgHeight2}">`;
@@ -97,16 +97,17 @@ getInnerHTML(){
     var arrIdToFind = [];
     
     for(var k in currentQuestion.answers){
+        var ans = currentQuestion.answers[k];
     //for(var k = 0; k < currentQuestion.answers.length; k++){
-        currentQuestion.answers[k].id = this.getId(k);
-        if(currentQuestion.answers[k].points > 0){
+        ans.id = this.getId(k);
+        if(ans.isOk){
          arrIdToFind.push(k);
         }else{
-          var inputs = currentQuestion.answers[k].inputs;
+          var inputs = ans.inputs;
           if(inputs == 0 ){
-              sequence.push(currentQuestion.answers[k]);
+              sequence.push(ans);
           }else{
-              suggestion.push(currentQuestion.answers[k]); 
+              suggestion.push(ans); 
           }
         }
             
@@ -131,31 +132,9 @@ getInnerHTML(){
 
     this.data.idSelection = this.getId('selection');
     this.data.idSuggestion = this.getId('suggestion');
-        
+    this.initMinMaxQQ(2);    
         
 }
-
-/* **************************************************
-calcul le nombre de points obtenus d'une question/slide
-**************************************************** */ 
-getScoreByProposition (answerContainer){
-var points = 0;
-var bolOk = true;
-    var currentQuestion = this.question;
-
-      for(var k in this.data.suggestion){
-          var ans =  this.data.suggestion[k];
-          var idParent = document.getElementById(ans.id).parentNode.id;
-          if(idParent == this.data.idSelection){
-            points += ans.points*1;
-            if(ans.points*1 == 0) bolOk = false;
-          }
-      }
-
-
-    return (bolOk) ? points : 0;
-}
-
 //---------------------------------------------------
 computeScoresMinMaxByProposition(){
     var currentQuestion = this.question;
@@ -173,37 +152,35 @@ computeScoresMinMaxByProposition(){
           if (points < 0) arrMinus.push(points);
       }
       arrMinus.sort().reverse();
-      if (nbItemTofind > arrMinus.length) nbItemTofind = arrMinus.length;
+      if (nbItemTofind > arrMinus.length) {nbItemTofind = arrMinus.length;}
       //alert ("nbItemTofind = " + nbItemTofind + " -  arrMinus: " + arrMinus.length);
-      for(var k = 0; k < nbItemTofind; k++)
+      for(var k = 0; k < nbItemTofind; k++){
           this.scoreMiniBP += parseInt(arrMinus[k])*1;
+      }
 
      return true;
 }
 
-/* ******************************************
+/* **************************************************
+calcul le nombre de points obtenus d'une question/slide
+**************************************************** */ 
+getScoreByProposition (answerContainer){
+var points = 0;
+var bolOk = true;
+    var currentQuestion = this.question;
 
-********************************************* */
-  isInputOk (myQuestions, answerContainer,chrono){
-    
-     var currentQuestion = this.question;
-    if(currentQuestion.options.minReponses == 0) return true;
-    //-------------------------------------------
-    //- todo : a revoir
-    var rep = 0;
-    
-//alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
-      for(var k = 0; k < this.data.sequence.length; k++){
-        var ans = this.data.sequence[k];
-        if (ans.points*1 > 0){
-          var obImg = document.getElementById(ans.id);
-          if (obImg.getAttribute('src') != `${quiz_config.urlCommonImg}/substitut/${ans.image}`)        
-                rep++;
-//alert('isInputOk : ' + rep + "\n" + obImg.getAttribute('src') + "\n" + "../images/substitut/" + ans.image);
-        }
-    }
-    return (rep > currentQuestion.options.minReponses) ;
- }
+      for(var k in this.data.suggestion){
+          var ans =  this.data.suggestion[k];
+          var idParent = document.getElementById(ans.ansId).parentNode.id;
+          if(idParent == this.data.idSelection){
+            points += ans.points*1;
+            if(ans.points*1 == 0) bolOk = false;
+          }
+      }
+
+
+    return (bolOk) ? points : 0;
+}
 
 /* **************************************************
 
@@ -245,9 +222,9 @@ getAllReponses (flag = 0){
       for(var k in sug){
           var ans =  sug[k];
           if(ans.points > 0)
-          {moveToNewParent(ans.id, this.data.idSelection , this.data.idSuggestion);}   
+          {moveToNewParent(ans.ansId, this.data.idSelection , this.data.idSuggestion);}   
           else
-          {moveToNewParent(ans.id, this.data.idSuggestion , this.data.idSelection)};   
+          {moveToNewParent(ans.ansId, this.data.idSuggestion , this.data.idSelection)};   
       }
      return true;
   } 
@@ -262,10 +239,10 @@ getAllReponses (flag = 0){
     shuffleArrayFY(sug);
       for(var k in sug){
           var ans =  sug[k];
-          if(rnd(2,0) == 1){
-            moveToNewParent(ans.id, this.data.idSuggestion , this.data.idSelection);   
+          if(getRandom(2,0) == 1){
+            moveToNewParent(ans.ansId, this.data.idSuggestion , this.data.idSelection);   
           }else{
-            moveToNewParent(ans.id, this.data.idSelection, this.data.idSuggestion );   
+            moveToNewParent(ans.ansId, this.data.idSelection, this.data.idSuggestion );   
           }
       }
      return true;

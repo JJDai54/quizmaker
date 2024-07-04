@@ -22,17 +22,18 @@
 
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
-
+        
+        $clPerms->checkAndRedirect('edit_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
+    
 		$templateMain = 'quizmaker_admin_quiz.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('quiz.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, 'quiz.php?op=new', 'add');
 		$adminObject->addItemButton(_AM_QUIZMAKER_QUIZ_LIST, 'quiz.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Get Form
-		$quizObj = $quizHandler->get($quizId);
 		$form = $quizObj->getFormQuiz();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());

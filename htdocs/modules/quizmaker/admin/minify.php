@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 use Common\FilesManagement; // Files Management Trait
@@ -29,6 +29,8 @@ use Common\FilesManagement; // Files Management Trait
 //-----------------------------------------------
 
 require __DIR__ . '/header.php';
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_MINIFY,'QUIZMAKER_PERMIT_MINIFY', "index.php");
+
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 if (isset($_POST['submit'])){
@@ -38,12 +40,6 @@ if (isset($_POST['submit'])){
     $op = 'list';
     $select = 'none';
 } 
-
-//------------------------------------------------------
-// $tr = "<pre>" . print_r($_POST, true) . "</pre>";
-// echo "<hr>{$op} - {$select}<pre>" . print_r($_POST, true) . "</pre><hr>";
-//exit;
-//------------------------------------------------------
 
 // Request quiz_id
 $catId  = Request::getInt('cat_id', 0);
@@ -88,7 +84,6 @@ global $objError;
 
     Utility::deleteDirectory($min);
     Utility::recurseCopy($org, $min);  
-   // exit;
 }
 /* ***
 *
@@ -157,7 +152,6 @@ global $objError;
         if(\file_put_contents($to, $newContent) === false)
             $objError->setErrors("no minification <br>de ===> {$from}<br>vers ===> {$to}");  ;
     }
-    //exit;        
 }
 
 function folder_is_minified($folder = ''){

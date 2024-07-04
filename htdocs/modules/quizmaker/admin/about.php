@@ -20,7 +20,7 @@ namespace XoopsModules\Quizmaker;
  * @min_xoops      2.5.9
  * @author         JJDai - Email:<jjdelalandre@orange.fr> - Website:<http://jubile.fr>
  */
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Helper;
 use XoopsModules\Quizmaker\Constants;
 

@@ -40,7 +40,7 @@ define('_QT_QUIZMAKER_CAT_BASIC', "Basic questions");
 define('_QT_QUIZMAKER_CAT_TEXT', "Texts");
 define('_QT_QUIZMAKER_CAT_DRAGANDDROP', "Click and drop");
 define('_QT_QUIZMAKER_CAT_OTHER', "Other question types");
-define('_QT_QUIZMAKER_CAT_IMAGES', "Easy clickable images");
+define('_QT_QUIZMAKER_CAT_IMAGES', "Easy images");
 
 
 // image

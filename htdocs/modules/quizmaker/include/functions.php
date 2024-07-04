@@ -1,4 +1,5 @@
 <?php
+namespace XoopsModules\Quizmaker;
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -19,7 +20,8 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
- 
+ use XoopsModules\Quizmaker AS FQUIZMAKER;
+
  
 /**
  * function add selected cats to block
@@ -31,7 +33,7 @@ function quizmaker_utf8_encode($exp)
  {
 // utf8_encode is deprecated
 //$consigne = utf8_encode(\JJD\FSO\loadtextFile($this->pathArr['consigne_path']));
-    return mb_convert_encoding($exp, 'UTF-8', mb_list_encodings());
+    return mb_convert_encoding($exp, 'UTF-8', mb_detect_encoding($exp));//mb_list_encodings
  }
  
  
@@ -42,7 +44,22 @@ function quizmaker_utf8_encode($exp)
  * @param  $cats 
  * @return string
  */
-function quizmaker_block_addCatSelect($cats)
+function getStyle($background='', $color='')
+{
+    $style = " style='";
+    if ($background) $style .= "background:{$background};";
+    if ($color) $style .= "color:{$color};";
+    $style .= "'";
+    return $style;
+}
+
+/**
+ * function add selected cats to block
+ *
+ * @param  $cats 
+ * @return string
+ */
+function block_addCatSelect($cats)
 {
 	$cat_sql = '(';
 	if (is_array($cats)) {
@@ -63,7 +80,7 @@ function quizmaker_block_addCatSelect($cats)
  * @param  $dirname 
  * @return mixed $itemIds
  */
-function quizmakerGetMyItemIds($permtype, $dirname)
+function getMyItemIds($permtype, $dirname)
 {
 	global $xoopsUser;
 	static $permissions = [];
@@ -86,7 +103,7 @@ function quizmakerGetMyItemIds($permtype, $dirname)
  * @param $cid
  * @return int
  */
-function quizmakerNumbersOfEntries($mytree, $results, $entries, $cid)
+function numbersOfEntries($mytree, $results, $entries, $cid)
 {
     $count = 0;
     if(in_array($cid, $results)) {
@@ -111,10 +128,10 @@ function quizmakerNumbersOfEntries($mytree, $results, $entries, $cid)
  * @return void
  */
 
-function quizmakerMetaKeywords($content)
+function metaKeywords($content)
 {
     global $xoopsTpl, $xoTheme;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $content= $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if(isset($xoTheme) && is_object($xoTheme)) {
         $xoTheme->addMeta( 'meta', 'keywords', strip_tags($content));
@@ -129,10 +146,10 @@ function quizmakerMetaKeywords($content)
  * @return void
  */
  
-function quizmakerMetaDescription($content)
+function metaDescription($content)
 {
     global $xoopsTpl, $xoTheme;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
     if(isset($xoTheme) && is_object($xoTheme)) {
         $xoTheme->addMeta( 'meta', 'description', strip_tags($content));
@@ -169,7 +186,7 @@ function quizmaker_RewriteUrl($module, $array, $type = 'content')
     if (isset($array['topic_alias']) && $array['topic_alias']) {
         $topic_name = $array['topic_alias'];
     } else {
-        $topic_name = quizmaker_Filter(xoops_getModuleOption('static_name', $module));
+        $topic_name = FQUIZMAKER\sanityse_url(xoops_getModuleOption('static_name', $module));
     }
 
     switch ($rewrite_url) {
@@ -237,7 +254,7 @@ function quizmaker_RewriteUrl($module, $array, $type = 'content')
  * @param string $type     string replacement for any blank case
  * @return string $url
  */
-function quizmaker_Filter($url, $type = '') {
+function sanityse_url($url, $type = '') {
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
     $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
@@ -274,14 +291,14 @@ global $xoopsUser;
         'uname' => $xoopsUser->getVar('uname', 'e'),
         'name' => $xoopsUser->getVar('name', 'e'),
         'email' => $xoopsUser->getVar('email', 'e'),
-        'ip'   => XoopsUserUtility::getIP(true));
+        'ip'   => \XoopsUserUtility::getIP(true));
     }else{
         $currentuid = 2;        
         $allParams = array('uid'  => 2,
         'uname' => 'Anonymous',
         'name' => 'Anonymous',
         'email' => 'anonymous@orange.fr',
-        'ip'   => XoopsUserUtility::getIP(true));
+        'ip'   => \XoopsUserUtility::getIP(true));
     }     
     $allParams['resultId'] = $resultId;   
     //-------------------------------------------

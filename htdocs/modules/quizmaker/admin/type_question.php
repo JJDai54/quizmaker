@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 //use JJD;
 
@@ -34,21 +34,7 @@ $typeId = Request::getInt('type_id');
 
 
 $sender  = Request::getString('sender', '');
-$catId   = Request::getInt('cat_id', 0);
 $catTypeQuestion   = Request::getString('catTypeQuestion', QUIZMAKER_ALL);
-
-$catArray = $categoriesHandler->getListKeyName();  
-if ($sender == 'cat_id'){
-    $quizId = $quizHandler->getFirstIdOfParent($catId);
-}else{
-    $quizId  = Request::getInt('quiz_id', 0);
-}
-
-//    $gp = array_merge($_GET, $_POST);
-//    echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
-
-
-
 
 
 switch($op) {
@@ -68,16 +54,29 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('type_question_count', $type_questionCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
+		$GLOBALS['xoopsTpl']->assign('catTypeQuestion', $catTypeQuestion);
         
         // ----- Listes de selection pour filtrage des type de questions par categorie-----  
         //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
         //$cat = $categoriesHandler->getListKeyName(null, false, false);
         $inpCatTQ = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'catTypeQuestion', $catTypeQuestion);
         $inpCatTQ->addOptionArray($type_questionHandler->getCategories(true));
-        $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . " style='background:#FFCCCC'");
+        $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
   	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
+
+        $catId = $categoriesHandler->getId(_AM_QUIZMAKER_CAT_EXEMPLES);
+        $allQuiz = $quizHandler->getKeysByCat($catId, 'quiz_name');
+        //echoArray($allQuiz,"=========================================");
         
+        //recuperation du quiz si il existe
+        foreach($type_questionAll AS $key=>$tQuestions){
+             $plugin = 'slide_' . $type_questionAll[$key]['type'];
+             if (isset($allQuiz[$plugin])){
+                 $type_questionAll[$key]['quiz_id'] =  $allQuiz[$plugin];    
+             }else{$type_questionAll[$key]['quiz_id'] = 0;}
+        }        
 		$GLOBALS['xoopsTpl']->assign('type_question_list', $type_questionAll);
+        //echoArray($type_questionAll);
                         
 \JJD\include_highslide();
 	break;
@@ -102,6 +101,59 @@ http://127.0.0.16/modules/quizmaker/plugins/alphaSimple/language/french/help.htm
         
         break;
 
+	case 'play':
+    echoGPF();
+      $plugin = Request::getString('plugin', '');
+      //$ok = Request::getString('ok', 0);
+      $clsTypeQuestion = $type_questionHandler->getTypeQuestion($plugin);
+        $clsTypeQuestion->playQuizExemple($plugin);
+//       
+//       
+//       if($ok){
+//         $clsTypeQuestion->installQuizExemple($plugin);
+//       }else{
+//         $clsTypeQuestion->playQuizExemple($plugin);
+//       }
+      
+      break;
+      
+	case 'install':
+      $plugin = Request::getString('plugin', '');
+      $ok = Request::getString('ok', 0);
+      //$clsTypeQuestion = $type_questionHandler->getTypeQuestion($plugin);
+      //$clsTypeQuestion->installQuizExemple($plugin, $ok);
+      
+      
+      $url = "type_question.php?catTypeQuestion={$catTypeQuestion}";
+      $clsTypeQuestion = $type_questionHandler->getTypeQuestion($plugin);
+      switch($clsTypeQuestion->installQuizExemple($plugin, $ok)){
+        case 1: // demande de confirmqtion
+            $msg = sprintf(_AM_QUIZMAKER_PLUGIN_EXIST, $plugin);
+            xoops_confirm(['ok' => 1, 'plugin' => $plugin, 'op' => 'install'], $url, $msg);//$_SERVER['REQUEST_URI']
+            break;
+        case 2: // l'archive n'existe pas
+            redirect_header($url, 5, _AM_QUIZMAKER_PLUGIN_ARCHIVE_EXEMPLE_NOT);
+            break;
+        
+        case 0:
+        default: //tout va bien
+            redirect_header($url, 5, _AM_QUIZMAKER_PLUGIN_INSTALL_OK);
+        
+        break;
+      }
+      
+      
+      
+      
+      break;
+
+	case 'edit':
+      $plugin = Request::getString('plugin', '');
+      //$criteria = new CriteriaCompo(new Criteria('quiz_name', '', "="))
+      $quizId = Request::getInt('quiz_id', '');
+      $url = "suestions.php?quiz_id={$quizId}";
+      redirect_header($url, 0, '');
+    break;
 
 }
 require __DIR__ . '/footer.php';

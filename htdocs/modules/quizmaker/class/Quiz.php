@@ -23,7 +23,7 @@ namespace XoopsModules\Quizmaker;
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use JJD;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -259,7 +259,7 @@ class Quiz extends \XoopsObject
         $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHUFFLEQUESTIONS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC) ) ;
         $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOWRESULTPOPUP,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC) ) ;
 		$form->addElement($inpOptionsIhm);
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS, _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS_DESC) ) ;
+        //$inpOptionsIhm->addOption(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS, _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS_DESC) ) ;
         
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_DEV . '</div></center>');
@@ -282,38 +282,6 @@ class Quiz extends \XoopsObject
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_PERMISSIONS . '</div></center>');
         //========================================================
         
-		// Permissions si  'perm_by_quiz') est défini sur oui
-        if ($quizmakerHelper->getConfig('perm_by_quiz')){
-    		$memberHandler = xoops_getHandler('member');
-    		$groupList = $memberHandler->getGroupList();
-    		$grouppermHandler = xoops_getHandler('groupperm');
-    		$fullList[] = array_keys($groupList);
-    		if (!$this->isNew()) {
-    			$groupsIdsApprove = $grouppermHandler->getGroupIds('quizmaker_approve_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-    			$groupsIdsApprove[] = array_values($groupsIdsApprove);
-    			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_quiz[]', $groupsIdsApprove);
-    			$groupsIdsSubmit = $grouppermHandler->getGroupIds('quizmaker_submit_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-    			$groupsIdsSubmit[] = array_values($groupsIdsSubmit);
-    			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_quiz[]', $groupsIdsSubmit);
-    			$groupsIdsView = $grouppermHandler->getGroupIds('quizmaker_view_quiz', $this->getVar('quiz_id'), $GLOBALS['xoopsModule']->getVar('mid'));
-    			$groupsIdsView[] = array_values($groupsIdsView);
-    			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_quiz[]', $groupsIdsView);
-    		} else {
-    			$groupsCanApproveCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_APPROVE, 'groups_approve_quiz[]', $fullList);
-    			$groupsCanSubmitCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_SUBMIT, 'groups_submit_quiz[]', $fullList);
-    			$groupsCanViewCheckbox = new \XoopsFormCheckBox( _AM_QUIZMAKER_PERMISSIONS_VIEW, 'groups_view_quiz[]', $fullList);
-    		}
-    		// To Approve
-    		$groupsCanApproveCheckbox->addOptionArray($groupList);
-    		$form->addElement($groupsCanApproveCheckbox);
-    		// To Submit
-    		$groupsCanSubmitCheckbox->addOptionArray($groupList);
-    		$form->addElement($groupsCanSubmitCheckbox);
-    		// To View
-    		$groupsCanViewCheckbox->addOptionArray($groupList);
-    		$form->addElement($groupsCanViewCheckbox);
-        }     
-                      
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
 		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
@@ -414,7 +382,7 @@ class Quiz extends \XoopsObject
         $flags['useTimer']          = quizFlagAscii(isBitOk(QUIZMAKER_BIT_USETIMER, $optionsIhm), "T");        
         $flags['shuffleQuestions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHUFFLEQUESTIONS, $optionsIhm), "M"); 
         $flags['showResultPopup']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWRESULTPOPUP, $optionsIhm), "Popup");
-        $flags['minusOnShowGoodAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS, $optionsIhm), "Minus");
+        //$flags['minusOnShowGoodAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS, $optionsIhm), "Minus");
 
         $optionsDev = $ret['optionsDev'];
         $flags['showTypeQuestion']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOWTYPEQUESTION, $optionsDev), "TQ");
@@ -503,7 +471,7 @@ class Quiz extends \XoopsObject
     //--------------------------------------------------
     //Liste des images dans la table answers du quiz
     $quizTblImg = array();
-    $sql = "SELECT tq.quest_quiz_id, ta.answer_proposition, ta.answer_image, ta.answer_image1, ta.answer_image2"
+    $sql = "SELECT tq.quest_quiz_id, ta.answer_proposition, ta.answer_image1, ta.answer_image2"
      . " FROM " . $xoopsDB->prefix('quizmaker_answers') . " ta"
      . " LEFT JOIN " . $xoopsDB->prefix('quizmaker_questions') ." tq"
      . " ON ta.answer_quest_id = tq.quest_id"
@@ -511,9 +479,7 @@ class Quiz extends \XoopsObject
      
      $result = $xoopsDB->query($sql);
      while ($row = $xoopsDB->fetchArray($result)){
-        //echo "purger images : {$row['answer_proposition']}/{$row['answer_image']}/{$row['answer_image1']}<br>";
         if ($row['answer_proposition']) $quizTblImg[] = $row['answer_proposition'];
-        if ($row['answer_image']) $quizTblImg[] = $row['answer_image'];
         if ($row['answer_image1']) $quizTblImg[] = $row['answer_image1'];
         if ($row['answer_image2']) $quizTblImg[] = $row['answer_image2'];
      }
@@ -557,8 +523,6 @@ class Quiz extends \XoopsObject
 //         if(!in_array($file, $imgList)) {
 //             $sql = "update " . $xoopsDB->prefix('quizmaker_answers') . "SET answer_proposition = '' WHERE answer_proposition LIKE {$file}";
 //             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('answer_image') . "SET answer_proposition = '' WHERE answer_image LIKE {$file}";
-//             echo "{$sql}<br>";
 //             $sql = "update " . $xoopsDB->prefix('answer_image1') . "SET answer_proposition = '' WHERE answer_image1 LIKE {$file}";
 //             echo "{$sql}<br>";
 //             $sql = "update " . $xoopsDB->prefix('answer_image2') . "SET answer_proposition = '' WHERE answer_image2 LIKE {$file}";
@@ -568,7 +532,6 @@ class Quiz extends \XoopsObject
 //         }
 //     }
     
-    //exit;
     return $nbImgDeleted;
  }
 

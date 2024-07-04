@@ -21,16 +21,18 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_PERMISSIONS,'QUIZMAKER_PERMIT_PERMISSIONS', "index.php",true);
 
 // Template Index
 $templateMain = 'quizmaker_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('permissions.php'));
+//echoArray("gp");
 
-$op = Request::getCmd('op', 'global');
+$op = Request::getCmd('op', 'global_ac');
 
 // Get Form
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
@@ -38,92 +40,60 @@ xoops_load('XoopsFormLoader');
 $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new \XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
-$formSelect->addOption('global', _AM_QUIZMAKER_PERMISSIONS_GLOBAL);
-$formSelect->addOption('approve_quiz', _AM_QUIZMAKER_PERMISSIONS_APPROVE . ' Quiz');
-$formSelect->addOption('submit_quiz', _AM_QUIZMAKER_PERMISSIONS_SUBMIT . ' Quiz');
-$formSelect->addOption('view_quiz', _AM_QUIZMAKER_PERMISSIONS_VIEW . ' Quiz');
-$formSelect->addOption('approve_categories', _AM_QUIZMAKER_PERMISSIONS_APPROVE . ' Categories');
-$formSelect->addOption('submit_categories', _AM_QUIZMAKER_PERMISSIONS_SUBMIT . ' Categories');
-$formSelect->addOption('view_categories', _AM_QUIZMAKER_PERMISSIONS_VIEW . ' Categories');
+
+$formSelect->addOption('global_ac',         _AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC);
+$formSelect->addOption('view_cats',         _AM_QUIZMAKER_PERMISSIONS_VIEW_CATS);
+//$formSelect->addOption('view_quiz',         _AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ);
+$formSelect->addOption('create_quiz',       _AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ);
+$formSelect->addOption('edit_quiz',         _AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ);
+$formSelect->addOption('delete_quiz',       _AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ);
+$formSelect->addOption('import_quiz',       _AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ);
+$formSelect->addOption('importquest_quiz',  _AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ);
+$formSelect->addOption('export_quiz',       _AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ);
+
 $permTableForm->addElement($formSelect);
 $permTableForm->display();
-switch($op) {
-	case 'global':
+
+
+$domaines = explode('_', $op . '__');
+/*
+echo '===>' . $op . '--->' . '_AM_QUIZMAKER_PERMISSIONS_' . strtoupper($domaines[0]). '<br>';
+*/
+	$formTitle = constant('_AM_QUIZMAKER_PERMISSIONS_' . strtoupper($domaines[0] . '_' . strtoupper($domaines[1]))) ;
+	$permName = $op; 
+    //$cst = strtoupper('_AM_QUIZMAKER_PERMISSIONS_' . strtoupper($domaines[0]));   // ."_DESC"
+	$permDesc = $formTitle;
+	$permFound = true;
+    
+//exit;
+switch($domaines[1]) {
+	case 'ac':
+		$permArr = array(QUIZMAKER_PERMIT_CATMAN    => _AM_QUIZMAKER_PERMIT_CATMAN, 
+                         QUIZMAKER_PERMIT_IMPORTG   => _AM_QUIZMAKER_PERMIT_IMPORTG, 
+                         QUIZMAKER_PERMIT_IMPORTA   => _AM_QUIZMAKER_PERMIT_IMPORTA,
+                         QUIZMAKER_PERMIT_EXPORT    => _AM_QUIZMAKER_PERMIT_EXPORT,
+                         QUIZMAKER_PERMIT_RESULT    => _AM_QUIZMAKER_PERMIT_RESULT,
+                         QUIZMAKER_PERMIT_MINIFY    => _AM_QUIZMAKER_PERMIT_MINIFY,
+                         QUIZMAKER_PERMIT_MESSAGEJS => _AM_QUIZMAKER_PERMIT_MESSAGEJS,
+                         QUIZMAKER_PERMIT_CLONE     => _AM_QUIZMAKER_PERMIT_CLONE, 
+                         QUIZMAKER_PERMIT_PERMISSIONS => _AM_QUIZMAKER_PERMIT_PERMISSIONS); 
+                         
+        break;
+	case 'cats':
+	case 'quiz':
+        $permArr = $categoriesHandler->getList();
+        break;
 	default:
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_GLOBAL;
-		$permName = 'quizmaker_ac';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_GLOBAL_DESC;
-		$globalPerms = array( '4' => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_4, '8' => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_8, '16' => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_16 );
-	break;
-	case 'approve_quiz':
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_APPROVE;
-		$permName = 'quizmaker_approve_quiz';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_APPROVE_DESC . ' Quiz';
-		$handler = $quizmakerHelper->getHandler('quiz');
-	break;
-	case 'submit_quiz':
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_SUBMIT;
-		$permName = 'quizmaker_submit_quiz';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_SUBMIT_DESC . ' Quiz';
-		$handler = $quizmakerHelper->getHandler('quiz');
-	break;
-	case 'view_quiz':
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_VIEW;
-		$permName = 'quizmaker_view_quiz';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_VIEW_DESC . ' Quiz';
-		$handler = $quizmakerHelper->getHandler('quiz');
-	break;
-	case 'approve_categories':
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_APPROVE;
-		$permName = 'quizmaker_approve_categories';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_APPROVE_DESC . ' Categories';
-		$handler = $quizmakerHelper->getHandler('categories');
-	break;
-	case 'submit_categories':
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_SUBMIT;
-		$permName = 'quizmaker_submit_categories';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_SUBMIT_DESC . ' Categories';
-		$handler = $quizmakerHelper->getHandler('categories');
-	break;
-	case 'view_categories':
-		$formTitle = _AM_QUIZMAKER_PERMISSIONS_VIEW;
-		$permName = 'quizmaker_view_categories';
-		$permDesc = _AM_QUIZMAKER_PERMISSIONS_VIEW_DESC . ' Categories';
-		$handler = $quizmakerHelper->getHandler('categories');
-	break;
+	$permFound = false;
 }
-$moduleId = $xoopsModule->getVar('mid');
-$permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php');
-$permFound = false;
-if ('global' === $op) {
-	foreach($globalPerms as $gPermId => $gPermName) {
-		$permform->addItem($gPermId, $gPermName);
-	}
-	$GLOBALS['xoopsTpl']->assign('form', $permform->render());
-	$permFound = true;
-}
-if ($op === 'approve_quiz' || $op === 'submit_quiz' || $op === 'view_quiz') {
-	$quizCount = $quizHandler->getCountQuiz();
-	if ($quizCount > 0) {
-		$quizAll = $quizHandler->getAllQuiz(0, 'quiz_cat_id');
-		foreach(array_keys($quizAll) as $i) {
-			$permform->addItem($quizAll[$i]->getVar('quiz_id'), $quizAll[$i]->getVar('quiz_name'));
-		}
-		$GLOBALS['xoopsTpl']->assign('form', $permform->render());
-	}
-	$permFound = true;
-}
-if ($op === 'approve_categories' || $op === 'submit_categories' || $op === 'view_categories') {
-	$categoriesCount = $categoriesHandler->getCountCategories();
-	if ($categoriesCount > 0) {
-		$categoriesAll = $categoriesHandler->getAllCategories(0, 'cat_name');
-		foreach(array_keys($categoriesAll) as $i) {
-			$permform->addItem($categoriesAll[$i]->getVar('cat_id'), $categoriesAll[$i]->getVar('cat_name'));
-		}
-		$GLOBALS['xoopsTpl']->assign('form', $permform->render());
-	}
-	$permFound = true;
-}
+
+//echoArray($permArr, "op= {$op} - domaine={$domaine}");
+//echo "formTitle : {$formTitle}<br>permName : {$permName}<br>permDesc : {$permDesc}<hr>";
+    $permform = $clPerms->getPermissionsForm($formTitle, $permName, _AM_QUIZMAKER_PERMISSIONS_DESC, $permArr);
+    //$permform->addElement(new XoopsFormHidden('op','edit_quiz'));
+    $GLOBALS['xoopsTpl']->assign('form', $permform->render());
+
+
 unset($permform);
 if (true !== $permFound) {
 	redirect_header('permissions.php', 3, _AM_QUIZMAKER_NO_PERMISSIONS_SET);

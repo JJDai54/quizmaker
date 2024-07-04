@@ -16,13 +16,12 @@ function addNewChild(parentId){
 <{* <{assign var='download' value=0}> *}>
 <{include file='db:quizmaker_admin_download.tpl' }>
 
-<{if $questions_list}>
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='questions.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
 <input type="hidden" name="sender" value="0" />
 <input type="hidden" name="quest_parent_id" value="0" />
-
+<div>
 <div class="floatleft">
 
       <{* ======================================================== *}> 
@@ -71,6 +70,7 @@ function addNewChild(parentId){
    color:blue;
  }
  </style>   
+<{if $questions_list}>
   
 <form name='quizmaker_list' id='quizmaker_list' action='questions.php' method='post' enctype=''>
 <input type="hidden" name="op"       value="update_list" />
@@ -131,7 +131,24 @@ function addNewChild(parentId){
                 <{/if}>
                 
 				<td class='center' <{$styleParent}> ><a name='question-<{$Questions.id}>' /><{$Questions.id}></td>
-				<td class='center' <{$styleParent}> ><{$Questions.parent_id}></td>
+				<td class='center' <{$styleParent}> ><{$Questions.parent_id}>
+                    <{if $Questions.parent_id > 0}>
+    					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_OUT_OF_GROUP}>">
+                            <img src="<{$modPathIcon16}>/out_of_group-green.png" alt="questions" />
+                            </a>
+                    <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
+    					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=1" title="<{$smarty.const._AM_QUIZMAKER_CHILDREZN_OUT_OF_GROUP}>">
+                            <img src="<{$modPathIcon16}>/out_of_group-red.png" alt="questions" />
+                            </a>
+                    <{else $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
+                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                    <{/if}>              
+
+
+
+
+                </td>
 				<td class='center' <{$styleParent}> ><{$Questions.quiz_id}></td>
 				<td class='left' <{$styleParent}> ><{$Questions.type_question}></td>
 				<td class='left' <{$styleParent}> ><{$Questions.typeForm_lib}></td>
@@ -188,9 +205,12 @@ function addNewChild(parentId){
 				</td>
                 
 				<td class="center width10" <{$styleParent}> >
+                    <{if $Questions.type_question <> 'pageBegin'}>
+
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
-        				 <img src="<{xoModuleIcons16}><{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+        				 <img src="<{$modPathIcon16}>actif-<{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
                         </a>
+                    <{/if}>              
                         
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16}>/edit.png" alt="questions" />

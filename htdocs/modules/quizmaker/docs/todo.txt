@@ -1,3 +1,17 @@
+2024-07-04a :
+2024-06-25a
+ALTER TABLE `x2511_quizmaker_questions` CHANGE `quest_visible` `quest_start_timer` TINYINT(1) NOT NULL DEFAULT '0' AFTER `quest_timer`; 
+ALTER TABLE `x2511_quizmaker_answers ADD answer_buffer` VARCHAR(2024)`; 
+UPDATE `x2511_quizmaker_answers` set `answer_image1`=`answer_buffer` WHERE `answer_buffer`<>''; 
+
+
+DELETE FROM `x2511_quizmaker_answers` ;
+DELETE FROM `x2511_quizmaker_questions` ;
+DELETE FROM `x2511_quizmaker_quiz` ;
+DELETE FROM `x2511_quizmaker_categories` ;
+
+
+
 
 not minified
 QUIZMAKER_QUIZ_JS_TO_RUN

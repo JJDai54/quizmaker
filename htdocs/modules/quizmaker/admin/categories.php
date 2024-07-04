@@ -21,10 +21,12 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CATMAN,'QUIZMAKER_PERMIT_CATMAN', "index.php");
+
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request cat_id
@@ -37,14 +39,20 @@ switch($op) {
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_categories.tpl';
-	$adminObject->displayNavigation('categories.php');
+        
+       $adminObject->displayNavigation('categories.php');
+
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_CATEGORIES, 'categories.php?op=new', 'add');
+		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'categories.php?op=init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png");
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        
 		$GLOBALS['xoopsTpl']->assign('form', '');
 		$GLOBALS['xoopsTpl']->assign('error', '');
         
-		$categoriesCount = $categoriesHandler->getCountCategories();
-		$categoriesAll = $categoriesHandler->getAllCategories($start, $limit, 'cat_weight,cat_name');
+        $clPerms->addPermissions($criteria, 'view_cats', 'cat_id'); 
+         
+		$categoriesCount = $categoriesHandler->getCountCategories($criteria);
+		$categoriesAll = $categoriesHandler->getAllCategories($criteria, $start, $limit, 'cat_weight,cat_name');
 		$GLOBALS['xoopsTpl']->assign('categories_count', $categoriesCount);   
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
@@ -110,31 +118,19 @@ switch($op) {
         
 		// Insert Data
 		if ($categoriesHandler->insert($categoriesObj)) {
+            // ----- sauvegarde des permissions
 			$newCatId = $categoriesObj->getNewInsertedIdCategories();
 			$permId = isset($_REQUEST['cat_id']) ? $catId : $newCatId;
-			$grouppermHandler = xoops_getHandler('groupperm');
-			$mid = $GLOBALS['xoopsModule']->getVar('mid');
-			// Permission to view_categories
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_view_categories', $permId);
-			if (isset($_POST['groups_view_categories'])) {
-				foreach($_POST['groups_view_categories'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_view_categories', $permId, $onegroupId, $mid);
-				}
-			}
-			// Permission to submit_categories
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_submit_categories', $permId);
-			if (isset($_POST['groups_submit_categories'])) {
-				foreach($_POST['groups_submit_categories'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_submit_categories', $permId, $onegroupId, $mid);
-				}
-			}
-			// Permission to approve_categories
-			$grouppermHandler->deleteByModule($mid, 'quizmaker_approve_categories', $permId);
-			if (isset($_POST['groups_approve_categories'])) {
-				foreach($_POST['groups_approve_categories'] as $onegroupId) {
-					$grouppermHandler->addRight('quizmaker_approve_categories', $permId, $onegroupId, $mid);
-				}
-			}
+            
+            $clPerm = new jjdPermissions();
+            //$clPerm->savePermission('view_quiz', $permId, $_POST['groups_view_quiz']);
+            $clPerm->savePermission('edit_quiz', $permId, $_POST['groups_edit_quiz']);
+            $clPerm->savePermission('create_quiz', $permId, $_POST['groups_create_quiz']);
+            $clPerm->savePermission('delete_quiz', $permId, $_POST['groups_delete_quiz']);
+            $clPerm->savePermission('import_quiz', $permId, $_POST['groups_import_quiz']);
+            $clPerm->savePermission('importquest_quiz', $permId, $_POST['groups_importquest_quiz']);
+            $clPerm->savePermission('export_quiz', $permId, $_POST['groups_export_quiz']);
+
 			redirect_header('categories.php?op=list', 2, _AM_QUIZMAKER_FORM_OK);
 		}
 		// Get Form
@@ -159,6 +155,12 @@ switch($op) {
             $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $categoriesObj->getVar('cat_id'), $categoriesObj->getVar('cat_name'));
 			xoops_confirm(['ok' => 1, 'cat_id' => $catId, 'op' => 'delete'], $_SERVER['REQUEST_URI'],$msg);
 		}
+	break;
+
+    case 'init_weight':
+        $categoriesHandler->incrementeWeight();
+        $url = "categories.php?op=list";
+        \redirect_header($url, 0, "");
 	break;
 
     case 'weight':

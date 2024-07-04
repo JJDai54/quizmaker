@@ -3,11 +3,12 @@
   * *****************************************************************/
 class quizPrototype{
 name = "quizPrototype";  
+isQuestion = true;
 divMainId = "";
 question = Object;
 typeName = '';
-chrono = 0;    
-slideNumber = 0;
+slideNumber = 0;     // numero du slide y compris les pageBegin, pageEnd, pageGroup et page Info
+questionNumber  = 0; //numero desslide question uniquement
 timer = 0;
 scoreMiniBP = 0;
 scoreMaxiBP = 0;
@@ -17,7 +18,6 @@ isAntiseche = false;
 data  = [];
 focusId = '';
 boolDog = false;
-questionNumber  = 0;
 
 stats = {
       scoreMin:  0,
@@ -25,20 +25,24 @@ stats = {
       score:     0
     };
 //---------------------------------------------------
- constructor(question = null, chrono = 0) {
+ constructor(question = null, slideNumber = 0) {
 
     this.name = question.type;
     this.question = question;
     this.typeName = question.type;
     this.typeQuestion = question.type;
-    this.typeForm = question.typeForm;
-    this.chrono = chrono;
-    this.divMainId =  this.getId('main');//lais apres affectation de chrono si même id    
+//  this.typeForm = question.typeForm;//numerique equivalent a type qui est une chaiine
+    this.isQuestion = (question.type.substring(0, 4) != 'page');         
+//alert(`constructor - ${question.type} - ` + ((this.isQuestion) ? 'oui' : 'non'));    
+
+    this.slideNumber = slideNumber;
+    this.divMainId =  this.getId('main');//mais apres affectation de slideNumber si même id    
 // this.blob("dans la classe ---> " + question.type)
 
     this.getOptionsDefaults();
+    this.proto_initSlide();
     this.prepareData();
-    this.computeScoresMinMax();
+//    this.computeScoresMinMax();
     
     //uniquement pour palier un changement d'orientation quand a la gestion de ce parametre
     // a virer quand les quiz existants auront  ete mis a jour
@@ -47,15 +51,128 @@ stats = {
     }
 
   
-//---------------------------------------------------
- build (){}
-  
+/* **********************************************************
+Initialise toutes les données communes à tous les plugins
+************************************************************* */
+proto_initSlide (){
+
+    var currentQuestion = this.question;
+    var ans = null;
+    var points = 0;
+    
+    //calcul des poins min et max standarts
+    for(var k in currentQuestion.answers){
+        ans = currentQuestion.answers[k]
+        //identifiant global du slide , contient le nom du plugin et le numero du slide tout slide compris 
+        //pour eviter tout conflit entre slide
+        ans.ansId = this.getId("ans",k);
+        ans.name  = this.getName('ans');
+        ans.points = ans.points*1;
+        
+        //recupe des points pour chaque propositions et s'assure que c'est un numérique
+        points = (ans.points) ? ans.points*1 : 0;    
+        if(points > 0){
+            ans.isOk = true;
+            this.scoreMaxiBP += points;
+            
+         }else{
+            ans.isOk = false;
+            this.scoreMiniBP -= points;
+        } 
+
+        //decodage de chaque proposition (answer)                
+        ans.proposition = decodeHTMLEntities(ans.proposition);
+    }   
+
+    this.initMinMaxQQ(0);
+    this.blob(`===>computeScoresMinMax BP [1] - ${this.getName()}: ${this.scoreMaxiBP}   - ${this.scoreMiniBP}`, true);
+    this.blob(`===>computeScoresMinMax QQ [2] - ${this.getName()}: ${this.scoreMaxiQQ} - ${this.scoreMiniQQ}`, true);
+    return true;
+
+}
+/* **********************************************************
+Initialise toutes les données communes à tous les plugins
+modeDeCalcul:
+0 : mode standart
+1 : force les points défini au niveau de la question plutot qu'au niveau des propositions
+2 : force le cacul spécifique défini dans le plugin
+************************************************************* */
+initMinMaxQQ (modeDeCalcul = 0){
+    var currentQuestion = this.question;
+    
+    switch(modeDeCalcul){
+    
+        //les propositions n'ont pas de points attribué,
+        //on recupere le nombre de points attribué à la question
+        case 1 :
+            this.scoreMaxiBP = currentQuestion.points;
+            this.scoreMiniBP = 0;
+            break;
+            
+        //le plugin a un mode de calcul spécifique,
+        //on appelle la fonction computeScoresMinMaxByProposition du plugin
+        case 2 :
+            this.computeScoresMinMaxByProposition();
+            break;
+            
+        //dans tous les autres cas on utilise le calcul fait dans proto_initSlide    
+        default: break;
+    }
+    
+
+    //si c'est le score de la question qui prime
+    if(currentQuestion.points > 0){
+          this.scoreMaxiQQ = currentQuestion.points;
+          this.scoreMiniQQ = 0;
+    }else{
+          this.scoreMaxiQQ = this.scoreMaxiBP;
+          this.scoreMiniQQ = this.scoreMiniBP;
+    }     
+}
+
 /* **********************************************************
 
 ************************************************************* */
 getObDivMain (){
     return document.getElementById(this.divMainId);
 }
+
+/* *******************************************
+* getName : renvoi le nom utiliser pour l'attribut name des objets du dom
+* @ return: nom pour l'attribut "name"
+* ********** */
+getName (suffix1 = null, suffix2 = null){
+    var idn = `question-${this.slideNumber}`;    //  -${this.name}
+    if (suffix1 != null)  {idn += '-' + suffix1};
+    if (suffix2 != null)  {idn += '-' + suffix2};
+    return idn;
+}
+
+/* *******************************************
+* getId : renvoi un id unique composé de getName et d'un index pour l'attribut id des objets du dom
+* @index : string
+* @ indexElement : integer // permet d'identifier des sous élément d'un ensemble ex: image d'un div principal
+* @ return : string pour l'attribut "id"
+* ********** */
+getId (uid, indexElement = null){
+    return this.getName(uid, indexElement);
+}
+
+/* *******************************************
+*
+* ********** */
+getScoreInfos (){
+    return {'question_min': this.scoreMiniBP, 
+            'question_max': this.scoreMaxiBP, 
+            'question_points': this.this.getScoreByProposition(0), 
+            'quiz_nb_answers' : 0,
+            'quiz_nb_questions' : 0,
+            'quiz_score': 0,
+             };
+}
+//---------------------------------------------------
+ build (){}
+  
 /* **********************************************************
 
 ************************************************************* */
@@ -123,53 +240,25 @@ getOptionsDefaults (){
     return true;
  }
 //---------------------------------------------------
-initSlide (){
-    return false;
- }
+initSlide (){return false;}
 //---------------------------------------------------
 build_footer (){
     return "<center>construction du footer</center>";
  }
 //---------------------------------------------------
-submitAnswers(){ 
-    return false;
-}
-/* *******************************************
-* isQuestion : permet d'activer ou désactiver le bouton suivant notamment
-* @ return: bool : valeur par defaut surchargée pour l'intro les encart et le resultat
-* ********** */
-isQuestion (){
-              
-    return true;         
-}
-
-/* *******************************************
-* getName : renvoi le nom utiliser pour l'attribut name des objets du dom
-* @ return: nom pour l'attribut "name"
-* ********** */
-getName (){
-              
-    return `question-${this.name}-${this.chrono}`;         
-}
-
-/* *******************************************
-* getId : renvoi un id unique composé de getName et d'un index pour l'attribut id des objets du dom
-* @index : string
-* @ indexElement : integer // permet d'identifier des sous élément d'un ensemble ex: image d'un div principal
-* @ return : string pour l'attribut "id"
-* ********** */
-getId (index, indexElement = null){
-    var id = `question-${this.name}-${this.chrono}-${index}`;      
-    if (indexElement != null)   {id += '-' + indexElement};
-    return id;
-}
+submitAnswers(){return false;}
 
 /* *******************************************
 * prepareData : prépare les données dns le tableau data pour faciliter les traitements
 * @ return: null
 * ********** */
-prepareData(){
-}
+prepareData(){}
+
+/* *******************************************
+* computeScoresMinMaxByProposition : calcul les scores minimum et maximum dans min et max
+* @ return: null
+* ********** */
+computeScoresMinMaxByProposition(){return 0;}
 
 /* ***************************************
 *
@@ -178,7 +267,8 @@ getImage(){
     var name = this.getName();
     var currentQuestion = this.question;
     if (currentQuestion.image) {
-        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
+        //return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
+        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" style="height:${currentQuestion.height}px;max-width:800px"></center>`;
     }else{
         return "";
     }
@@ -191,7 +281,9 @@ setFocus(){
     //alert("setFocus");
     if(this.focusId != ''){
         try{
-        document.getElementById(this.focusId).focus({focusVisible:false});
+        document.getElementById(this.focusId).focus({focusVisible:true});
+        //document.getElementById(this.focusId).value='zzzzz';
+        console.log('===>setFocus : ' + this.focusId + " = " + document.getElementById(this.focusId).value);
         }catch{}
     }
 }
@@ -233,38 +325,35 @@ setFocus(){
     
     return arr;
  }
+/* *******************************************
+* shuffleArr :  Mélanges les propositions de réponse si this.shuffle_answers est vrai
+* @ arr : tableau à mélanger
+* @ return: le tableau mélangé
+* ********** */
+ shuffleAnswers(){
+    //this.blob (this.name + ' ===> shuffleArrayKeys = ' + this.question.options.shuffleAnswers)
+    
+    var arr = this.question.answers;
+    
+    try{
+      if(this.question.options.shuffleAnswers == 1){
+         arr = shuffleArray(this.question.answers);
+      }else{
+          arr = this.question.answers;
+      }
+    }catch{
+      if(this.question.shuffleAnswers == 1){
+          //arr = shuffleArrayKeys(this.question.answers);
+          arr = this.question.answers;
+      }
+    }
+    
+    return arr;
+ }
+
 
 /* *******************************************
-* computeScoresMinMax : calcul les scores minimum et maximum dans min et max
-* @ return: null
-* ********** */
-computeScoresMinMax(){
-    var currentQuestion = this.question;   
-    
-    this.computeScoresMinMaxByProposition();
-    
-    //si c'est le score de la question qui prime
-    if(currentQuestion.points > 0){
-          this.scoreMaxiQQ = currentQuestion.points;
-          this.scoreMiniQQ = 0;
-    }else{
-          this.scoreMaxiQQ = this.scoreMaxiBP;
-          this.scoreMiniQQ = this.scoreMiniBP;
-    }     
-    this.blob(`computeScoresMinMax BP [1] - ${this.getName()}: ${this.scoreMaxiBP}   - ${this.scoreMiniBP}`);
-    this.blob(`computeScoresMinMax QQ [2] - ${this.getName()}: ${this.scoreMaxiQQ} - ${this.scoreMiniQQ}`);
-        return true;
-}
-
-/* *******************************************
-* computeScoresMinMax : calcul les scores minimum et maximum dans min et max
-* @ return: null
-* ********** */
-computeScoresMinMaxByProposition(){
-    return 0;
-}
-/* *******************************************
-* isInputOk : renvoie le nombre de points obtenu pour la question
+* getScore : renvoie le nombre de points obtenu pour la question
 * @ return: nombre de poits obtenus
 * ********** */
 getScore (answerContainer){
@@ -272,7 +361,8 @@ var points = 0;
 
     var currentQuestion = this.question;
     var score = this.getScoreByProposition(answerContainer);
-    this.blob(`getScore - ${this.getName()} : ${score} - ${this.scoreMaxiBP} - ${this.scoreMaxiQQ}`);
+    //alert('currentQuestion.question : ' + score);
+    this.blob(`===> getScore : ${this.getName()} : score=${score} - scoreMaxiBP=${this.scoreMaxiBP} - scoreMaxiQQ=${this.scoreMaxiQQ}`);
     
     if(currentQuestion.points > 0 && score == this.scoreMaxiBP){
         return currentQuestion.points
@@ -281,19 +371,13 @@ var points = 0;
     }else{return score;}
 }
 
-getScoreInfos (){
-    return {'question_min': this.scoreMiniBP, 
-            'question_max': this.scoreMaxiBP, 
-            'question_points': this.this.getScoreByProposition(0), 
-            'quiz_nb_answers' : 0,
-            'quiz_nb_questions' : 0,
-            'quiz_score': 0,
-             };
-}
+//---------------------------------------------------
+  getScoreByProposition (answerContainer){return 0;}
 
 /* *******************************************
 * isInputOk : renvoie vrai si reponsemin = 0 ou si le nombre minimum de réponse requise est atteint
 * @ answerContainer: tableau des réponses/propositions
+* function obsolette
 * ********** */
 isInputOk (answerContainer){
     return true;
@@ -303,8 +387,7 @@ isInputOk (answerContainer){
 * getAllReponses : renvoie les réponse à la question
 * @ flag int: 0 = toutes les réponses / 1 = que les bonnes réponses
 * ********** */
-getAllReponses (flag=0){
- }
+getAllReponses (flag=0){return "";}
 
 //---------------------------------------------------
 getGoodReponses (){
@@ -317,20 +400,17 @@ getGoodReponses (){
 getScoreMinMax (){
     return {'min':this.scoreMiniBP, 'max': this.scoreMaxiBP};
  }
-//---------------------------------------------------
-static  update(nameId, chrono) {
-}
 
-//---------------------------------------------------
-   incremente_question(nbQuestions)
-  {
-    //return nbQuestions+1;
-    if (this.question.isQuestion == 1){
-        return nbQuestions+1;
-    }else{
-        return nbQuestions;
-    }
-  } 
+/* ************************************************
+Appelé aux modifications du contenu d'un slide
+*************************************************** */
+onUpdate() {}
+
+/* ************************************************
+Appelé au moment de l'affiche d'un nouveau slide
+*************************************************** */
+onEnter() {}
+
 //---------------------------------------------------
 getDisposition(disposition, tableId=null){}  
 //---------------------------------------------------
@@ -339,8 +419,7 @@ balises2Values(exp, bReplaceSlash = false)
     var newExp = exp.replaceAll("{scoreMaxiQQ}", this.scoreMaxiQQ);
         newExp = newExp.replaceAll("{timer}", this.question.timer);
         
-    newExp = newExp.replaceAll('{', '');
-    newExp = newExp.replaceAll('}', '');
+    newExp = newExp.replaceAll('{', '').replaceAll('}', '');
     if (bReplaceSlash) {newExp = newExp.replaceAll('/', qbr);}
 
     return newExp;
@@ -359,6 +438,8 @@ sanityse_question(bReplaceSlash = false)
 reloadQuestion(bShuffle = true)
   {
     document.getElementById(this.divMainId).innerHTML = this.getInnerHTML(bShuffle);
+    this.initSlide();
+    this.setFocus();
   } 
   
 /* ************************************
@@ -366,7 +447,7 @@ reloadQuestion(bShuffle = true)
 * **** */
 showGoodAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
   {
-    alert(currentQuestion.type + ".showAntiSeche(currentQuestion, , quizDivAllSlides){}\n===> Fonction à developper")
+    this.reloadQuestion(false);
   } 
   
 /* ************************************
@@ -374,7 +455,7 @@ showGoodAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
 * **** */
 showBadAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
   {
-    alert(currentQuestion.type + ".showAntiSeche(currentQuestion, , quizDivAllSlides){}\n===> Fonction à developper")
+    this.reloadQuestion(true);
   } 
 //---------------------------------------------------
 toString()
@@ -383,9 +464,9 @@ toString()
   } 
 
 //---------------------------------------------------
-blob(message)
+blob(message, bForcer=false)
   {//return true;
-    if(!this.boolDog) return;
+    if(!this.boolDog && !bForcer) return;
     if(Array.isArray(message)){
         console.log(`......................`);
         for(var i = 0; i < t.length; i++){

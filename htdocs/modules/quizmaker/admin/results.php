@@ -21,13 +21,15 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 //$resultId = Request::getInt('result_id');
 
 
 require __DIR__ . '/header.php';
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_RESULT,'QUIZMAKER_PERMIT_RESULT', "index.php");
+
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
 // Request quest_id
@@ -52,11 +54,6 @@ if ($sender == 'cat_id') {
 //$gp = array_merge($_GET, $_POST);
 //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
-
-
-
-
-
 switch($op) {
 	case 'list':
 	default:
@@ -75,13 +72,13 @@ switch($op) {
         }
         
         // ----- Listes de selection pour filtrage -----  
-        $catArr = $categoriesHandler->getListKeyName(null, false, false);
+        $catArr = $categoriesHandler->getListKeyName();
         if ($catId == 0) $catId = array_key_first($catArr);
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-        
+       
         $quizArr = $quizHandler->getListKeyName($catId);
         if ($quizId == 0 || !$quiz) {
             $quizId = array_key_first($quizArr);
@@ -89,12 +86,10 @@ switch($op) {
         }
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizArr);
-        $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
        // ----- /Listes de selection pour filtrage -----    
         $btn['razResults'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RAZ_RESULTS, 'delete_all', QUIZMAKER_URL_ICONS."/16/delete.png",  _AM_QUIZMAKER_RAZ_RESULTS);
-        //$btn['importQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_IMPORT_YML, 'import_quiz', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_IMPORT_QUIZ_YML);
-        //$btn['restorQuiz'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RESTOR_YML, 'restor_quiz', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_RESTOR_QUIZ_YML);
 
         //---------------------------------------------------
 		$GLOBALS['xoopsTpl']->assign('btn', $btn);
@@ -234,12 +229,6 @@ switch($op) {
             
             $ret = $resultsHandler->deleteAll($criteria);
 			redirect_header("results.php?quiz_id={$quizId}", 3, _AM_QUIZMAKER_DELETE_RESULTS_OK);
-// 			if ($resultsHandler->deleteAll($criteria)) {
-// 				redirect_header("results.php?quiz_id={$quizId}", 3, _AM_QUIZMAKER_FORM_DELETE_OK);
-//             exit;
-// 			} else {
-// 				//$GLOBALS['xoopsTpl']->assign('error', $resultsObj->getHtmlErrors());
-// 			}
 		} else {
             $quiz = $quizHandler->get($quizId);
             //$quizValues = $quiz->getValuesQuiz();

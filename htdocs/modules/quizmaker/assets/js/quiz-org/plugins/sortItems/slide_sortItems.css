@@ -1,0 +1,76 @@
+﻿
+.sortItems{
+  width:100%;
+  text-align: right; 
+  border:0px solid blue;
+  cellpadding:2:
+  cellspacing:2;
+  /* background:blue; */
+}
+
+.sortItems table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+  width:80%;
+  font-size:1.0em;
+  cellpadding:2:
+  cellspacing:2;
+  text-align: center; 
+}
+
+.sortItems td{
+    text-align:center;
+}
+
+.sortItems td[listbox]{
+  font-size:1.1em;
+  color:blue;
+  font-weight:bold;
+  /* background:blue; */
+}
+
+.sortItems td[buttons]{
+    vertical-align: middle;
+    width:180px;
+}
+
+.sortItems span{
+    font-size: 1.4em;
+    font-weight:bold;
+}
+
+.sortItems img{
+	border:none;
+    margin-top:10px;
+}
+
+
+.sortItems img:hover{
+    -moz-transform: translate(+3px, +3px);
+    -ms-transform: translate(+3px, +3px);
+    -o-transform: translate(+3px, +3px);
+    -webkit-transform: translate(+3px, +3px);
+    transform: translate(+3px, +3px);
+    -webkit-filter: brightness(1.1);
+    -moz-filter: brightness(1.1);
+    -o-filter: brightness(1.1);
+    -ms-filter: brightness(1.1);    
+}
+
+
+
+.sortItems select{
+  font-size:1.2em;
+  width:100%;
+}
+.sortItems td{
+  text-align:center;
+  border: 0px solid black;
+}
+ 
+.sortItems span{
+    font-size:1.2em;
+    font-weight:bold;
+ }          
+          

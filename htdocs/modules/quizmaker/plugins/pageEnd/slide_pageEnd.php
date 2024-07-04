@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -75,11 +75,8 @@ class slide_pageEnd extends XoopsModules\Quizmaker\Type_question
       //--------------------------------------------------------------------           
       $name = 'imgHeight';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 300);
-      $trayHeight1 = new \XoopsFormElementTray(_AM_QUIZMAKER_IMG_HEIGHT1, $delimeter = ' ');  
-      $trayHeight1->addElement($inpHeight1);
-      $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions->addElement($trayHeight1);     
+      $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions->addElement($inpHeight1);     
       
       //--------------------------------------------------------------------           
       
@@ -143,7 +140,6 @@ class slide_pageEnd extends XoopsModules\Quizmaker\Type_question
 
             $ret = $answersHandler->insert($ansObj);
       }
-//     exit ("<hr>===>saveAnswers<hr>");
     }
 
 }

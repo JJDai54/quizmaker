@@ -21,7 +21,7 @@
  */
             
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
@@ -44,7 +44,7 @@ $GLOBALS['xoopsTpl']->assign('modUrlImg', QUIZMAKER_URL_IMAGE);
 
 $keywords = [];
 
-$permEdit = $permissionsHandler->getPermGlobalSubmit();
+$permEdit = $clPerms->getPermissionsOld(8,'global_ac');
 $GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
 //echoArray($permEdit, 'Permissions', true);
@@ -52,7 +52,7 @@ $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
 
 $mid = $GLOBALS['xoopsModule']->getVar('mid');   
 $utility = new \XoopsModules\Quizmaker\Utility();
-//$tPerms = $utility::getPermissions();
+//$tPerms = $utility::getPermissionsOld();
 //echoArray($tPerms, "Permissions mid : {$mid}", true);    
 
 		$crCategories = new \CriteriaCompo();
@@ -103,11 +103,11 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES];
 
 // Keywords
-quizmakerMetaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
+FQUIZMAKER\metaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
 unset($keywords);
 
 // Description
-quizmakerMetaDescription(_MA_QUIZMAKER_CATEGORIES_DESC);
+FQUIZMAKER\metaDescription(_MA_QUIZMAKER_CATEGORIES_DESC);
 $GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/categories.php');
 $GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 

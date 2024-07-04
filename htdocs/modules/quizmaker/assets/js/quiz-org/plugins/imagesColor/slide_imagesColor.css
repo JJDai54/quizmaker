@@ -1,0 +1,79 @@
+﻿/* (A) LIST STYLES :first-child */
+
+.imagesColor{
+ width:100%;
+ min-height:150px;
+ border:0px solid red;
+ }
+ 
+.imagesColor div{
+    position : relative;
+    width:auto;
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    border: 0px solid transparent;
+display:inline-block;    
+margin-top:8px; 
+    
+    /*background-color:rgb(204,255,255);*/
+    background-color: transparent;
+}
+.imagesColor img{
+
+    width:auto;
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    border: 0px solid red;
+     
+    
+    /*background-color:rgb(204,255,255);*/
+
+}
+.imagesColor select{
+
+    font-size:1.2em;
+    color:transparent;
+}
+
+.imagesColor select.option:checked, select.option:hover{
+ box-shadow: 0 0 10px 100px #000 inset;
+background-color: #000 !important;
+    color:transparent;
+}
+.imagesColor div[picker]{
+    display:none;
+
+    z-index:999;
+    position:absolute;
+    background: silver;
+
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+    padding:5px;
+}
+.imagesColor div[gridColor]{
+    margin: 0px 5px 0px 0px;
+    padding:0px;
+    -moz-border-radius: 0px 0px 0px 0px;
+    -webkit-border-radius: 0px 0px 0px 0px;
+    -khtml-border-radius: 0px 0px 0px 0px;
+    border-radius: 0px 0px 0px 0px;
+    border: 0px solid transparent;
+    cursor:pointer;
+    
+/*
+.imagesColor option:checked, option:hover{
+
+background-color: green;
+select.decorated option:hover {
+    box-shadow: 0 0 10px 100px #1882A8 inset;
+}
+}
+*/
+ 
+

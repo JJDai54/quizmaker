@@ -23,24 +23,33 @@
 
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JJD;
 
+
+//recheche des categories autorisées
+//echoArray($catArr,'',true);
+//echoarray($catArr);
 if($quizId > 0 && $sender != 'cat_id'){
   $quiz = $quizHandler->get($quizId);
   $catId = $quiz->getVar('quiz_cat_id');
+echo "ooooo:" . $catId;
+  if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
 }else{
-    $quizId = $quizHandler->getFirstIdOfParent($catId);    
+    $quizId = array_key_first($catArr);    
 }
+        $clPerms->checkAndRedirect('view_cats',$catId,'$catId',"categories.php?op=list&cat_id={$catId}");
+
+        
 		// Define Stylesheet
 		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_quiz.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('quiz.php'));
-		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, 'quiz.php?op=new', 'add');
+		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, "quiz.php?op=new&cat_id={$catId}", 'add');
         
 		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, "quiz.php?op=init_weight&cat_id={$catId}", 'update');
         
@@ -64,19 +73,19 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
       // ----- Listes de selection pour filtrage -----  
-      //$cat = $categoriesHandler->getListKeyName(null, true, false);
-      $cat = $categoriesHandler->getList();
+      //echo "<hr>===>addPermissions => " . $criteriaCatAllowed->renderWhere(). "<hr>";      exit;
       $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
-      $inpCategory->addOptionArray($cat);
-      $inpCategory->setExtra('onchange="document.quizmaker_select_filter.submit()"' . " style='background:cyan'");
+      $inpCategory->addOptionArray($catArr);
+      $inpCategory->setExtra('onchange="document.quizmaker_select_filter.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
 	  $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-       
+
+
      // ----- /Listes de selection pour filtrage -----        
 	  //pour affichage de la categorie dans la liste
-      $GLOBALS['xoopsTpl']->assign('cat', $cat);
+      $GLOBALS['xoopsTpl']->assign('cat', $catArr);
 
       $GLOBALS['xoopsTpl']->assign('allCategories', $catId == 0);
-//exit('ici - ' . $quizCount) ;       
+       
         // Table view quiz
 		if ($quizCount > 0) {
 			foreach(array_keys($quizAll) as $i) {

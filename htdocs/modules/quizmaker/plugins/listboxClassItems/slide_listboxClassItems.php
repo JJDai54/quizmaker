@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -32,6 +32,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class slide_listboxClassItems extends XoopsModules\Quizmaker\Type_question
 {
+var $maxGroups = 3;
      
 	/**
 	 * Constructor 
@@ -64,7 +65,7 @@ class slide_listboxClassItems extends XoopsModules\Quizmaker\Type_question
 *
 * *********************************************************** */
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
- 	{
+ 	{global $myts;
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
 
@@ -80,25 +81,47 @@ class slide_listboxClassItems extends XoopsModules\Quizmaker\Type_question
       $inputMouseClick->addOption(1, _AM_QUIZMAKER_CLICK_SIMPLE);            
       $trayOptions->addElement($inputMouseClick);     
 
-      $name = 'group0';
-      $inpGoup0 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 0',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-      $trayOptions ->addElement($inpGoup0);     
+      for($h = 0; $h < $this->maxGroups; $h++){
+        $name = 'group' . $h;
+        $requis = ($h < 2);
+        
+        $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . $h . (($requis)?QUIZMAKER_REQUIS:''),  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+        if($requis){
+          $inpGoup->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
+        }else{
+          $inpGoup->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
+        }
+        $trayOptions->addElement($inpGoup);     
+      }
       
-      $name = 'group1';
-      $inpGoup1 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 1',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-      $trayOptions ->addElement($inpGoup1);     
       
-      $name = 'group2';
-      $inpGoup2 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 2',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-      $trayOptions ->addElement($inpGoup2);  
-         
+      
+      
+//       $name = 'group0';
+//       $inpGoup0 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 0',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+//       $inpGoup0->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
+//       $trayOptions->addElement($inpGoup0);     
+//       
+//       $name = 'group1';
+//       $inpGoup1 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 1',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2,$tValues[$name]);
+//       $inpGoup1->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
+//       $trayOptions->addElement($inpGoup1);     
+//       
+//       $name = 'group2';
+//       $inpGoup2 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 2',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+//       $inpGoup2->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
+//       $trayOptions->addElement($inpGoup2);  
+//          
       $name = 'groupDefault';  
       $inputGroupDefault = new XoopsFormRadio(_AM_QUIZMAKER_REPARTITION, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_ALL_GROUPS);  
+      $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_REPARTITION_ALL_GROUPS);  
+      $inputGroupDefault->addOption(-2, _AM_QUIZMAKER_REPARTITION_ONLY_GROUP0);  
       for($h=0; $h<3; $h++){
         $inputGroupDefault->addOption($h, (($tValues["group{$h}"]) ? $tValues["group{$h}"] : _AM_QUIZMAKER_GROUP . " {$h}"));            
       } 
+      $inputGroupDefault->setDescription(_AM_QUIZMAKER_REPARTITION_DESC);  
       $trayOptions->addElement($inputGroupDefault);     
+      $trayOptions->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_REPARTITION_DESC));     
            
 //       $name = 'minReponses';  
 //       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
@@ -208,9 +231,9 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             $inpChrono = new \XoopsFormHidden($this->getName($i,'chrono'), $i+1);    
             $inpProposition = new \XoopsFormText('',  $this->getName($i,'proposition'), $this->lgProposition, $this->lgProposition, $proposition);
             $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
-            $inpWeight->setMinMax(0, 900);
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
-            $inpPoints->setMinMax(0, 30);
+            $inpWeight->setMinMax(0, 900, 'pixels');
+            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
+            $inpPoints->setMinMax(1, 30);
             $inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
             $inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2]);
             
@@ -249,7 +272,6 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
 
 /*
 echoArray ($_POST,'saveAnswers', true);    
-exit;
 */
                 
         //$this->echoAns ($answers, $questId, $bExit = false);    
@@ -304,15 +326,8 @@ exit;
         $ansObj->setVar('answer_quest_id', $questId); 
         $ansObj->setVar('answer_group', $v['group']); 
         
-        //if ($v['points'] == 0) $v['image'] = '';
-        //else if($v['image'] == '') $v['image'] = 'interrogation-05-bleu.png';
-        
-        //$ansObj->setVar('answer_image', $v['image']); 
-        //$ansObj->setVar('answer_group', $v['group']); 
-          
         $answersHandler->insert($ansObj);
      }
-//        exit;
     }
 
 /* ********************************************

@@ -20,7 +20,7 @@
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com> XOOPS Project (www.xoops.org) $
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Common;
 
 /**
@@ -138,6 +138,5 @@ echo $sql_queries;
     $grouppermHandler->addRight('quizmaker_view_categories', $catId, $groupId, $mid);    
     $grouppermHandler->addRight('quizmaker_submit_categories', $catId, $groupId, $mid);    
     
-//exit;
     return true;
 }

@@ -1,0 +1,55 @@
+﻿.comboboxMatchItems table td{
+/*     
+border:1px solid red; 
+*/
+}
+
+.matchItems table{
+    width:100%;
+}
+
+.matchItems td[left]{
+  text-align:left;
+  width:50%;
+}
+.matchItems td[right]{
+  text-align:right;
+  width:50%;
+
+}
+
+
+.matchItems select{
+  font-size:1.2em;
+  width:90%;
+  margin:0px 5px 0px 5px;
+}
+.matchItems select[left]{
+  text-align:left;
+  align-items: left;
+}
+
+.matchItems select[right]{
+  text-align:right;
+  align-items: right;
+
+}
+
+.matchItems input{
+  font-size:1.2em;
+  margin:0px 5px 0px 5px;
+
+  width:90%;
+}
+.matchItems input[left]{
+  text-align:left;
+  margin:0px 5px 0px 5px;
+}
+.matchItems input[right]{
+  text-align:right;
+  margin:0px 5px 0px 5px;
+  }
+
+
+
+

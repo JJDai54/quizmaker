@@ -24,6 +24,8 @@
 use Xmf\Request;
 
 require __DIR__ . '/header.php';
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CLONE,'QUIZMAKER_PERMIT_CLONE', "index.php");
+
 // It recovered the value of argument op in URL$
 $op = Request::getString('op', 'list');
 

@@ -82,6 +82,6 @@ define('_MA_QUIZMAKER_RESULT_1', "can do better");
 define('_MA_QUIZMAKER_RESULT_3', "Some progress to be made");
 define('_MA_QUIZMAKER_SELECTION', "Selection");
 define('_MA_QUIZMAKER_QUIZ_PROPOSED_BY', "Quiz proposed by");
-
+define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>You are not yet allowed to see the solutions for this quiz.<br>You must have participated by being registered and be logged in to the site.</span>");
 
 ?>

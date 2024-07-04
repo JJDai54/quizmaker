@@ -21,7 +21,7 @@ namespace XoopsModules\Quizmaker\Common;
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 
 //defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 

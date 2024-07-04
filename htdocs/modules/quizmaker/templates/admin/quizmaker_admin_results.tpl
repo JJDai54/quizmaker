@@ -16,7 +16,6 @@
 <div class="floatright">
     <div class="xo-buttons">
         <{$initWeight}>
-        <{$expQuiz}>
         <{$btn.imgTest}>
         
     </div>

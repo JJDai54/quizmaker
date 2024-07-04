@@ -22,7 +22,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
@@ -72,21 +72,15 @@ var $maxGroups = 4;
       //Taille des images à regrouper
       $name = 'imgHeight1';
       $inpHeight0 = new \XoopsFormNumber(_AM_QUIZMAKER_SIZE0,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight0->setMinMax(32, 128);
-      $trayHeight0 = new XoopsFormElementTray('', $delimeter = ' ');      
-      $trayHeight0->addElement($inpHeight0);
-      $trayHeight0->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions ->addElement($trayHeight0);     
+      $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions ->addElement($inpHeight0);     
 
 /* pas vraiment utile
       //Taille des images à qui sont regroupées
       $name = 'imgHeight2';
       $inpHeight1 = new \XoopsFormNumber(_AM_QUIZMAKER_SIZE1,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 128);
-      $trayHeight1 = new XoopsFormElementTray('', $delimeter = ' ');      
-      $trayHeight1->addElement($inpHeight1);
-      $trayHeight1->addElement(new \XoopsFormLabel(' ', _AM_QUIZMAKER_PIXELS));
-      $trayOptions ->addElement($trayHeight1);     
+      $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions ->addElement($inpHeight1);     
 */      
         
       $name = 'showCaptions';  
@@ -107,9 +101,14 @@ var $maxGroups = 4;
       // groupes
       for($h = 0; $h < $this->maxGroups; $h++){
           $trayGroup = new XoopsFormElementTray('', $delimeter = ' ');  
-          
+          $requis = ($h < 2);
           $name = 'group' . $h;
-          $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' ' .  $h,  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+          $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' ' .  $h . (($requis)?QUIZMAKER_REQUIS:''),  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+          if($requis){
+            $inpGoup->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
+          }else{
+            $inpGoup->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
+          }
           $trayGroup->addElement($inpGoup);     
           $options["group{$h}"] = $tValues[$name];  
 
@@ -275,7 +274,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             $inpWeight->setMinMax(0, 900);
 //             $inpWeight->setExtra('style="margin:15px;"');
 //             $inpWeight->setClass('togodo');
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
+            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
             $inpPoints->setMinMax(1, 30);
             //$inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
             //$inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2, '3'=>$libGroup3]);
@@ -318,15 +317,6 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
         
         $quiz = $quizHandler->get($quizId,"quiz_folderJS");
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
-/*
-echo '<hr>saveAnswers - POST : ';
-$this->echoAns ($_POST,'POST', false);    
-echo '<hr>saveAnswers - FILES : ';
-$this->echoAns ($_FILES,'Fichiers', false);    
-echo '<hr>';
-exit;
-*/
-                
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------       
@@ -364,37 +354,21 @@ exit;
         }else{
             $ansObj->setVar('answer_proposition', $newImg);        
         if(!$v['caption']) $v['caption'] = $nameOrg;
-        //exit ($nameOrg);
         }
         
-        //SSi le champ 'points' est plus petit que zéro on le force à 1
-        //if (intval($v['points']) == 0) $v['points'] = 1;
-
-        //if(isset($v['proposition'])) $ansObj->setVar('answer_proposition', $v['proposition']);        
-       // if ($fileImg =! '') $ansObj->setVar('answer_proposition', $fileImg);
-        
-
         $ansObj->setVar('answer_caption', $v['caption']);
         $ansObj->setVar('answer_weight', $v['weight']);
         $ansObj->setVar('answer_points', $v['points']); 
         $ansObj->setVar('answer_quest_id', $questId); 
         $ansObj->setVar('answer_group', $v['group']); 
-        
-        //if ($v['points'] == 0) $v['image'] = '';
-        //else if($v['image'] == '') $v['image'] = 'interrogation-05-bleu.png';
-        
-        //$ansObj->setVar('answer_image', $v['image']); 
-        //$ansObj->setVar('answer_group', $v['group']); 
           
         $answersHandler->insert($ansObj);
      }
-//        exit;
      //suppression des propositions qui n'ont pas d'image de definie
      $criteria = new CriteriaCompo(new Criteria('answer_quest_id', $questId, '='));
      $criteria->add(new Criteria('', 0, '=',null,'length(answer_proposition)'),"AND");
      $answersHandler->deleteAll($criteria);
      //exit ("<hr>===>saveAnswers<hr>" . $criteria->renderWhere() ."<hr>");
-//     exit('fin de saveAnswer');
     }
 
 /* ********************************************
@@ -439,8 +413,6 @@ exit;
        
     //-------------------------------------------
     $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
-//if(!$boolAllSolutions) exit;    
-//    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;
     $scoreMin = 0;

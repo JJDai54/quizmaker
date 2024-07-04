@@ -20,30 +20,29 @@ getInnerHTML (){
     var id = this.getId(0);
     var name = this.getName();
 
-    const html = [];
+    const htmlArr = [];
     
     if(currentQuestion.image){
-        var imageMain = `<div style='margin-bottom:5px;'><img src="${ quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.imgHeight}px"></div>`;
-        html.push(imageMain);
+        htmlArr.push(this.getImage());
     }
     if(currentQuestion.options.directive){
-        html.push(`<span>${currentQuestion.options.directive}</span>`);
+        htmlArr.push(`<span>${currentQuestion.options.directive}</span>`);
     }
      
-    html.push(`<div id="${this.getName()}">`);
+    htmlArr.push(`<div id="${this.getName()}">`);
       //var newAns = shuffleArray(currentQuestion.ans2) ;     
       var newAns = currentQuestion.ans2;   
       //alert(currentQuestion.options.orientation)  
       if (currentQuestion.options.orientation == "vertical"){
-          html.push(this.getInnerHTML_vertical (newAns, this.getName())) ;
+          htmlArr.push(this.getInnerHTML_vertical (newAns, this.getName())) ;
       }else{
-          html.push(this.getInnerHTML_horizontal (newAns, this.getName())) ;
+          htmlArr.push(this.getInnerHTML_horizontal (newAns, this.getName())) ;
       }
   
-    html.push(`</div>`);
+    htmlArr.push(`</div>`);
 
     this.focusId = name + "-" + "0";      
-    return html.join("\n");
+    return htmlArr.join("\n");
 
  }
 
@@ -56,45 +55,29 @@ getInnerHTML_horizontal (answers, tblId){
     var currentQuestion = this.question;
     var id = this.getId(0);
     var name = this.getName();
-//alert('getInnerHTML_horizontal');
-      const html = [];
 
-//  background-color: lightgrey;
+      const htmlArr = [];
 
-      html.push(`<table>`);
-      //html.push(`<tr><td colspan='3'>-${sens}-getInnerHTML_horizontal</td></tr>`);
+      htmlArr.push(`<table>`);
 
      for(var k in answers){
-      html.push(`<tr>`);
-
-        //var tWords = answers[k].proposition.split(",");
-        //answers[k].words = duplicateArray(tWords);
-        //var tWords = duplicateArray(answers[k].words);
-        //this.shuffleArray(tWords);
+      htmlArr.push(`<tr>`);
 
         var tWords = shuffleArray(answers[k].words);
 
-//alert(tWords);
-        //html.push(`<td>`);
-
         for (var i = 0; i < tWords.length; i++){
-          html.push(
+          htmlArr.push(
             `<td class='radioMultiple_radio_H'><label>
               <input type="radio" id="${name}-${k}" name="${name}-${k}" value="${tWords[i]}" ${this.data.attributeSens}>
               ${tWords[i]}
             </label></td>`
           );
         }
-       // html.push(`</td>`);
-      html.push(`</tr>`);
-      //html.push(`<tr><td colspan='${tWords.length}'><hr></td></tr>`);
-
+      htmlArr.push(`</tr>`);
      }
 
-      html.push(`</table>`);
-
-//alert(answers);
-      return html.join("\n");
+      htmlArr.push(`</table>`);
+      return htmlArr.join("\n");
 }
 
  /*******************************************************************
@@ -105,37 +88,31 @@ getInnerHTML_vertical (answers, tblId){
     var id = this.getId(0);
     var name = this.getName();
 
-      const html = [];
+      const htmlArr = [];
 
       const tAns = [];
       for(var k in answers){
-//        var tWords = duplicateArray(answers[k].words);
-//        this.shuffleArray(tWords);
         var tWords = shuffleArray(answers[k].words);
         tAns.push(duplicateArray(tWords));
-    }
+      }
       //----------------------------------------------------------  
-      html.push(`<table>`);
-      //html.push(`<tr><td colspan='3}'>-${sens}-build_vertical</td></tr>`);
+      htmlArr.push(`<table>`);
   
       var nbWords = tAns[0].length;  
       for (var i=0; i<nbWords; i++){
-        html.push(`<tr>`);
+        htmlArr.push(`<tr>`);
         
         for(var k in tAns){
-          html.push(
+          htmlArr.push(
             `<td class='radioMultiple_radio_V'><label>
              <input type="radio" name="${name}-${k}" value="${tAns[k][i]}" ${this.getName()}="${currentQuestion.options.orientation}">
              ${tAns[k][i]}
              </label></td>`);
          }
-        html.push(`</tr>`);
+        htmlArr.push(`</tr>`);
       }
-      html.push(`</table>`);
-
-
-//alert(answers);
-      return html.join("\n");
+      htmlArr.push(`</table>`);
+      return htmlArr.join("\n");
 }
 //---------------------------------------------------
 prepareData(){
@@ -146,6 +123,7 @@ prepareData(){
 
     //var currentQuestion = this.question;
     this.transposeArray();
+    this.initMinMaxQQ(2)    
 }
 
 /* *************************************
@@ -186,26 +164,27 @@ var ans2 = [];
 
     currentQuestion.ans2 = ans2;
 } 
+
 //---------------------------------------------------
 computeScoresMinMaxByProposition(){
     var currentQuestion = this.question;
 var maxPoints = 0;
 var minPoints = 99999;
+var ans = null;
 
     for  (var k in currentQuestion.answers){
-        if (maxPoints < currentQuestion.answers[k].points*1){
-            maxPoints = currentQuestion.answers[k].points*1;
+        ans = currentQuestion.answers[k];
+        if (maxPoints < ans.points*1){
+            maxPoints = ans.points*1;
         }
-        if (minPoints > currentQuestion.answers[k].points*1){
-            minPoints = currentQuestion.answers[k].points*1;
+        if (minPoints > ans.points*1){
+            minPoints = ans.points*1;
         }
     }
 
-
      this.scoreMaxiBP = maxPoints ;
      this.scoreMiniBP = minPoints;
- 
-      return true;
+     return true;
 }
 
 
@@ -254,30 +233,6 @@ var nbExp2Found = 0 ;
 
 
 //---------------------------------------------------
-isInputOk (currentQuestion, answerContainer,chrono){
-var selector = ``;
-
-    var currentQuestion = this.question;
-
-
-    //console.clear();
-    //// this.blob(chrono + " : " + currentQuestion.question);
-
-//    var id = this.getName(currentQuestion);
-     
-//     selector = "input[type=radio]:checked";
-//     var obs = answerContainer.querySelectorAll(selector);
-    //var obs = this.getQuerySelector('radio', ``, 'input', `${this.getName()} checked`);
-    var obs = this.getQuerySelector('radio', '', 'input', `[${this.data.attributeSens}]:checked`);
-                                                          
-    if (obs){
-    return (obs.length == currentQuestion.answers[0].words.length) ? 1 :  0;
-    }
-
- }
-
-
-//---------------------------------------------------
 getAllReponses (flag = 0){
     var currentQuestion = this.question;
    // var tReponses = [];
@@ -301,13 +256,6 @@ var tReponses = [];
 
 }
 
-
-//---------------------------------------------------
-  update(nameId, questionNumber) {
-}
-
- 
- 
 /* *************************************
 *
 * ******** */

@@ -21,7 +21,7 @@
  */
 
 use Xmf\Request;
-use XoopsModules\Quizmaker;
+use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utlity;
 
@@ -29,6 +29,11 @@ require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'quizmaker_results_list.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
+$clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+$catId  = Request::getInt('cat_id', array_key_first($catArr));
+//echoArray($catArr);
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
@@ -45,7 +50,6 @@ if($quizId > 0 && $sender =='quiz_id'){
     $quizObj = $quizHandler->get($quizId);
     $catId = $quizObj->getVar('quiz_cat_id');
 }else{
-    $catId = Request::getInt('cat_id', 1);
     $quizId=$quizHandler->getFirstIdOfParent($catId);
     $quizObj = $quizHandler->get($quizId);
 }
@@ -64,9 +68,8 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 //$catPerm = $utility::getPermissionCat();        
 
 //----------------------------------------------------
-$permEdit = $permissionsHandler->getPermGlobalView();
+//$permEdit = $clPerms->getPermissionsOld(16,'global_ac');
 //echoArray($permEdit);
-$GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL_MODULE . '/'];
 
@@ -78,9 +81,8 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
         // ----- Listes de selection pour filtrage -----  
         $selector = array();
         $style="style='width:80%;'";
-        $cat = $categoriesHandler->getListKeyName(null, false, false);
         $inpCategory = new \XoopsFormSelect(_MA_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
-        $inpCategory->addOptionArray($cat);
+        $inpCategory->addOptionArray($catArr);
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
         $selector['inpCategory'] = $inpCategory->render();
@@ -88,30 +90,19 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
         $catObj = $categoriesHandler->get($catId);
 		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
         //-------------------------------------
-        
+        $allQuiz = $quizHandler->getAllQuizAllowed($catId,true);   
+        $quizCount = count($allQuiz);  
         $inpQuiz = new \XoopsFormSelect(_MA_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
-        $tQuiz = $quizHandler->getListKeyName($catId,null,null,'view');
-        $inpQuiz->addOptionArray($tQuiz);
+        $inpQuiz->addOptionArray($allQuiz);
+        
+        
         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
         $selector['inpQuiz'] = $inpQuiz->render();
   	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
         // ----- /Listes de selection pour filtrage -----   
 
-/* ***************************************
-SELECT `result_quiz_id`,`result_uid`,`result_uname`,
-avg(`result_answers_achieved`) AS answers_achieved,
-avg(`result_answers_total`) AS answers_total,
-round(avg(`result_score_achieved`),2) AS score_achieved,
-round(max(`result_score_max`),2) AS score_max,
-avg(`result_note`) AS note
-
-FROM `x251_quizmaker_results` 
- WHERE result_quiz_id=5
- GROUP BY `result_quiz_id`,`result_uid`
-****************************************** */        
-//$stat = $resultsHandler->getStatistics();         
-//$stat = $quizHandler->getStatistics();   
+        // recherche des résultats
         $criteria= new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId, '=')); 
 //        $criteria->add(new \Criteria('result_uid', 3, '<>'));     
         $resultsCount = $resultsHandler->getCount($criteria);
@@ -124,7 +115,7 @@ FROM `x251_quizmaker_results`
         
   	    $GLOBALS['xoopsTpl']->assign('resultsCount', $resultsCount);
 
-        if($resultsCount > 0 && count($tQuiz) > 0){
+        if($resultsCount > 0 && count($allQuiz) > 0){
           $chrono = $start + 1;
   		    foreach(array_keys($resulstAll) as $i) {
               //if (!in_array($i, $catPerm)) continue;
@@ -152,43 +143,5 @@ FROM `x251_quizmaker_results`
 //echoArray($categories);    
 		unset($categories);
 ////////////////////////////////////////////////////////////
-
-
-/*
-
-	$crCategories = new \CriteriaCompo();
-	if ($catId > 0) {
-		$crCategories->add( new \Criteria( 'cat_id', $catId ) );
-	}
-	$categoriesCount = $categoriesHandler->getCount($crCategories);
-	$GLOBALS['xoopsTpl']->assign('categoriesCount', $categoriesCount);
-	$crCategories->setStart( $start );
-	$crCategories->setLimit( $limit );
-	$categoriesAll = $categoriesHandler->getAll($crCategories);
-	if ($categoriesCount > 0) {
-		$categories = [];
-		// Get All Categories
-		foreach(array_keys($categoriesAll) as $i) {
-			$categories[$i] = $categoriesAll[$i]->getValuesCategories();
-			$keywords[$i] = $categoriesAll[$i]->getVar('cat_name');
-		}
-		$GLOBALS['xoopsTpl']->assign('categories', $categories);
-		unset($categories);
-		// Display Navigation
-		if ($categoriesCount > $limit) {
-			include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-			$pagenav = new \XoopsPageNav($categoriesCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-			$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-		}
-		$GLOBALS['xoopsTpl']->assign('type', $quizmakerHelper->getConfig('table_type'));
-		$GLOBALS['xoopsTpl']->assign('divideby', $quizmakerHelper->getConfig('divideby'));
-		$GLOBALS['xoopsTpl']->assign('numb_col', $quizmakerHelper->getConfig('numb_col'));
-	}
-      
-      
-*/
-        
-        
-        
         
 require __DIR__ . '/footer.php';
