@@ -30,6 +30,7 @@ $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
+$quizId  = Request::getInt('quiz_id', 0);
 
 //echoArray($catArr,"===>catId = {$catId}");
 
@@ -47,11 +48,15 @@ $addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
 //echo "<hr>addNew = " . (($addNew) ? ' ajout ok' : 'pas d ajout') . "-{$addNew}<hr>";
 
 $sender  = Request::getString('sender', '');
-if ($sender == 'cat_id') {
+// if ($sender == 'cat_id') {
+//     $quizId = $quizHandler->getFirstIdOfParent($catId);
+// }else{
+//   $quizId  = Request::getInt('quiz_id', 0);
+// }
+if ($quizId == 0) {
     $quizId = $quizHandler->getFirstIdOfParent($catId);
-}else{
-  $quizId  = Request::getInt('quiz_id', 1);
 }
+
 $questId = Request::getInt('quest_id', 0);
 $quest_type_question = Request::getString('quest_type_question', '');
 
@@ -154,7 +159,8 @@ switch($op) {
 	break;
     
 	case 'update_list':
-  $gp = array_merge($_GET, $_POST);
+echoArray('gp', "===>quizId = {$quizId}");
+
         $list = Request::getArray('quest_list');
         //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
         //  echo "<hr>quest_timer<pre>" . print_r($list, true) . "</pre><hr>";
@@ -162,6 +168,8 @@ switch($op) {
             $criteria = new Criteria('quest_id', $id, "=");
             $questionsHandler->updateAll('quest_timer', $arr['timer'], $criteria, $force = false);
             $questionsHandler->updateAll('quest_points', $arr['points'], $criteria, $force = false);
+            $startTimer = (isset($arr['startTimer']) ? 1 : 0);
+            $questionsHandler->updateAll('quest_start_timer', $startTimer, $criteria, $force = false);
         }
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
 	break;

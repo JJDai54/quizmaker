@@ -11,7 +11,7 @@
 <div class="floatleft">
 <{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
 <{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
-<{$smarty.const._AM_QUIZMAKER_QUESTION}> : <{$inpQuest}>
+<br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$inpPreviousQuestion}> <{$inpNextQuestion}> <b><{$quesTypeQuestion}></b> <{$inpQuest}> 
 </div>
 
 <{* 
@@ -143,6 +143,15 @@
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>
 <{/if}>
-
+<script>
+    function showNexQuestion(increment){
+      var obList = document.getElementById('quest_id');
+      //alert(obList.selectedIndex);
+      var newIndex = ( (obList.selectedIndex + increment) % obList.options.length);
+      obList.selectedIndex = newIndex;
+      obList.onchange();
+      //document.quizmaker_select_filter.submit();
+    }
+</script>
 <!-- Footer -->
 <{include file='db:quizmaker_admin_footer.tpl' }>

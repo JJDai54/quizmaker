@@ -290,7 +290,7 @@ for($h=0; $h<strlen($values['options']); $h++){
 //        $tQuest['shuffleAnswers'] = $values['shuffleAnswers'];
         $tQuest['isQuestion']     = $values['isQuestion'];
         $tQuest['timer']          = $values['timer'];
-        $tQuest['start_timer']    = $values['start_timer'];
+        $tQuest['startTimer']     = $values['start_timer'];
         $tQuest['timestamp']      = date("H:i:s");
         $tQuest['urlPlugin']      = QUIZMAKER_URL_PLUGINS_JS . '/' . $values['type_question'];
     

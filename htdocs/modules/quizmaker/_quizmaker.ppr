@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quizmaker
 	+quizmaker
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -55,7 +55,7 @@ _quizmaker
 			admin\traitements.php
 			admin\type_question.php
 			admin\type_question_help.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -184,7 +184,7 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
+			+js
 				-quiz-org
 					-css
 						-infobulle
@@ -469,7 +469,7 @@ _quizmaker
 				class\Common\Resizer.php
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
-			-Utilities
+			+Utilities
 				class\Utilities\ModuleUtility.php
 				class\Utilities\QuestionsUtility.php
 				class\Utilities\QuizBuildUtility.php
@@ -529,7 +529,7 @@ _quizmaker
 			include\update.php
 			include\xoops_version.inc.php
 		+language
-			-english
+			+english
 				-help
 					language\english\help\help.html
 					language\english\help\index.html
@@ -1119,11 +1119,11 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		+sql
+		-sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
+		+templates
 			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
@@ -1206,19 +1206,25 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=admin\menu.php
-1=categories.php
-2=admin\categories.php
-3=admin\quiz-list.php
-4=language\french\common.php
-5=admin\permissions.php
-6=admin\questions.php
-7=admin\questions-list.php
+0=docs\changelog.txt
+1=admin\menu.php
+2=categories.php
+3=admin\categories.php
+4=admin\quiz-list.php
+5=language\french\common.php
+6=admin\questions-list.php
+7=admin\questions.php
+8=templates\admin\quizmaker_admin_categories.tpl
+9=templates\admin\quizmaker_admin_quiz.tpl
+10=assets\js\admin.js
 [Selected Project Files]
 Main=
-Selected=admin\questions-list.php
+Selected=assets\js\admin.js
+[docs\changelog.txt]
+TopLine=1
+Caret=1,10
 [admin\menu.php]
-TopLine=85
+TopLine=66
 Caret=28,108
 [categories.php]
 TopLine=63
@@ -1230,14 +1236,20 @@ Caret=1,29
 TopLine=1
 Caret=1,1
 [language\french\common.php]
-TopLine=45
-Caret=1,99
-[admin\permissions.php]
-TopLine=1
-Caret=118,28
-[admin\questions.php]
-TopLine=23
-Caret=1,57
+TopLine=9
+Caret=1,96
 [admin\questions-list.php]
-TopLine=1
-Caret=3,32
+TopLine=11
+Caret=3,26
+[admin\questions.php]
+TopLine=28
+Caret=1,59
+[templates\admin\quizmaker_admin_categories.tpl]
+TopLine=57
+Caret=1,1
+[templates\admin\quizmaker_admin_quiz.tpl]
+TopLine=209
+Caret=124,230
+[assets\js\admin.js]
+TopLine=17
+Caret=5,38

@@ -190,7 +190,7 @@ function addNewChild(parentId){
 				<td class='center' <{$styleParent}> ><{$Questions.inpPoints}>
 				
                 <td class='center' <{$styleParent}> >
-                      <{$Questions.inpTimer}>
+                      <{$Questions.inpTimer}><{$Questions.inpStartTimer}>
                 </td>
                 
 				<{* <td class='center' <{$styleParent}> ><{$Questions.creation}></td> *}>

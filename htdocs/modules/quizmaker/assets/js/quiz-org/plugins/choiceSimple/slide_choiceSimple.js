@@ -38,7 +38,7 @@ get_optionsList(){
 //alert("image : " + currentQuestion.image);
     const htmlArr = [];
     this.data.styleCSS = getMarginStyle(currentQuestion.answers.length);
-    htmlArr.push(`<div id="${name}-famille" style="text-align:left;margin-left:100px;">`);
+    htmlArr.push(`<div id="${name}-famille" style="text-align:left;margin-left:10px;">`);
     htmlArr.push(this.getHtmlInputKeys(name, this.data.inputType, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));  
     htmlArr.push(`</div>`);
 
@@ -91,7 +91,7 @@ var disposition = ((bolImage) ? "image" : "")
     switch(disposition){
     case "image-familyWords":
             var tpl = 
-`<table class='${this.typeName}'>
+`<table>
 <tr>
     <td colspan='2'>{image}</td>
     <td familyWords>{familyWords}</td>
@@ -101,7 +101,7 @@ var disposition = ((bolImage) ? "image" : "")
 
     case "image":
         var tpl = 
-`<table class='${this.typeName}'>
+`<table>
 <tr>
     <td>{image}</td>
     <td>{optionsList}</td>
@@ -110,7 +110,7 @@ var disposition = ((bolImage) ? "image" : "")
 
     case "familyWords":
         var tpl = 
-`<table class='${this.typeName}'>
+`<table>
 <tr>
     <td familyWords>{familyWords}</td>
     <td>{optionsList}</td>
@@ -119,7 +119,7 @@ var disposition = ((bolImage) ? "image" : "")
 
     default:
             var tpl = 
-`<table class='${this.typeName}'>
+`<table>
 <tr>
     <td>{optionsList}</td>
 </tr>

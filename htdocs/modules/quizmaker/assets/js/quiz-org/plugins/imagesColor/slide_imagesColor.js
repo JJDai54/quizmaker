@@ -29,7 +29,7 @@ getInnerHTML_combobox(){
     var currentQuestion = this.question;
    
     
-    
+// alert('startTimer : ' + currentQuestion.timer);   
 var TplColors = `<select name='{name}' id='{id}' onChange="imagesColor_onchange(event,'{idImg}','{idSelectColor}');">${this.data.colorsOptions}</select>`;    
 var tplDiv = `<div id={divImg}><img src='{src}' name='{name}' id='{id}' alt='' title='' style='height:${currentQuestion.options.imgHeight1}px;background:${currentQuestion.options.colorDefault};' ><br>{selectColor}</div>`;
 var tHtmlImgs = [];

@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 
-<script type="text/javascript">
+/*
 $(document).ready(function(){
 //alert("show_hide");
    $('.show_hide').showHide({
@@ -37,7 +37,8 @@ $(document).ready(function(){
 
 }); 
 //alert("ici");
-</script> 
+*/
+ 
 
 function reloadImgModeles(divId, imgHeight=80){
     //alert('reloadImgModeles : ' + divId);

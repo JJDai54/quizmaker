@@ -109,6 +109,15 @@ switch($op) {
         $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
   	    $GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
         
+        $inpNextQuestion = new XoopsFormButton('', 'btnNextQuestion', _AM_QUIZMAKER_NEXT_QUESTION);
+        $inpNextQuestion->setExtra("onclick='showNexQuestion(1);'");
+  	    $GLOBALS['xoopsTpl']->assign('inpNextQuestion', $inpNextQuestion->render());
+        
+        $inpNextQuestion = new XoopsFormButton('', 'btnPrevioustQuestion', _AM_QUIZMAKER_PREVIOUS_QUESTION);
+        $inpNextQuestion->setExtra("onclick='showNexQuestion(-1);'");
+  	    $GLOBALS['xoopsTpl']->assign('inpPreviousQuestion', $inpNextQuestion->render());
+        
+
        // ----- /Listes de selection pour filtrage -----
 /*
         $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
@@ -124,6 +133,7 @@ switch($op) {
         if($questId > 0){
             $obQuest = $questionsHandler->get($questId);
 		    $GLOBALS['xoopsTpl']->assign('questOptions', $obQuest->getVar('quest_options'));
+		    $GLOBALS['xoopsTpl']->assign('quesTypeQuestion', $obQuest->getVar('quest_type_question'));
         }  
         //--------------------------------------------
         

@@ -106,23 +106,23 @@ _quiz-org
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\slide_alphaSimple.css
 				plugins\alphaSimple\slide_alphaSimple.js
-			-choiceSimple
+			+choiceSimple
 				plugins\choiceSimple\index.html
 				plugins\choiceSimple\slide_choiceSimple.css
 				plugins\choiceSimple\slide_choiceSimple.js
-			-imagesColor
+			+imagesColor
 				plugins\imagesColor\index.html
 				plugins\imagesColor\slide_imagesColor.css
 				plugins\imagesColor\slide_imagesColor.js
-			-imagesDaDGroups
+			+imagesDaDGroups
 				plugins\imagesDaDGroups\index.html
 				plugins\imagesDaDGroups\slide_imagesDaDGroups.css
 				plugins\imagesDaDGroups\slide_imagesDaDGroups.js
-			-imagesDaDMatchItems
+			+imagesDaDMatchItems
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
 				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
-			+imagesDaDSortItems
+			-imagesDaDSortItems
 				plugins\imagesDaDSortItems\index.html
 				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
 				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
@@ -148,7 +148,7 @@ _quiz-org
 				plugins\matchItems\slide_matchItems.css
 				plugins\matchItems\slide_matchItems.js
 				plugins\matchItems\slide_matchItems.zip
-			+pageBegin
+			-pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\slide_pageBegin.css
 				plugins\pageBegin\slide_pageBegin.js
@@ -276,45 +276,37 @@ _quiz-org
 		index.html
 [Open project files]
 0=js\slide__prototype.js
-1=plugins\sortItems\slide_sortItems.js
-2=plugins\textareaMixte\slide_textareaMixte.js
-3=plugins\sortItems\slide_sortItems.css
-4=js\quiz-main.js
-5=plugins\pageEnd\slide_pageEnd.js
-6=js\quiz-functions.js
-7=plugins\pageGroup\slide_pageGroup.js
-8=plugins\pageBegin\slide_pageBegin.js
-9=plugins\pageInfo\slide_pageInfo.js
+1=js\quiz-main.js
+2=plugins\choiceSimple\slide_choiceSimple.css
+3=plugins\imagesColor\slide_imagesColor.js
+4=plugins\imagesDaDGroups\slide_imagesDaDGroups.css
+5=plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
+6=css\infobulle\infobulle.css
+7=plugins\choiceSimple\slide_choiceSimple.js
 [Selected Project Files]
 Main=
-Selected=plugins\pageInfo\slide_pageInfo.js
+Selected=plugins\choiceSimple\slide_choiceSimple.js
 [js\slide__prototype.js]
 TopLine=361
 Caret=10,382
-[plugins\sortItems\slide_sortItems.js]
-TopLine=110
-Caret=1,137
-[plugins\textareaMixte\slide_textareaMixte.js]
-TopLine=91
-Caret=1,118
-[plugins\sortItems\slide_sortItems.css]
-TopLine=15
-Caret=10,15
 [js\quiz-main.js]
-TopLine=536
-Caret=1,557
-[plugins\pageEnd\slide_pageEnd.js]
-TopLine=13
-Caret=1,45
-[js\quiz-functions.js]
-TopLine=35
-Caret=1,56
-[plugins\pageGroup\slide_pageGroup.js]
-TopLine=17
-Caret=1,45
-[plugins\pageBegin\slide_pageBegin.js]
-TopLine=21
-Caret=1,52
-[plugins\pageInfo\slide_pageInfo.js]
-TopLine=9
-Caret=1,44
+TopLine=843
+Caret=1,869
+[plugins\choiceSimple\slide_choiceSimple.css]
+TopLine=1
+Caret=14,23
+[plugins\imagesColor\slide_imagesColor.js]
+TopLine=1
+Caret=10,27
+[plugins\imagesDaDGroups\slide_imagesDaDGroups.css]
+TopLine=1
+Caret=1,1
+[plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css]
+TopLine=3
+Caret=16,30
+[css\infobulle\infobulle.css]
+TopLine=114
+Caret=1,135
+[plugins\choiceSimple\slide_choiceSimple.js]
+TopLine=7
+Caret=81,41

@@ -23,13 +23,12 @@
 use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
-
+//echoArray('gp',$quizId);
         $quizArr = $quizHandler->getListKeyName($catId);
         if ($quizId == 0 ) {
             $quizId = array_key_first($quizArr);
             $quiz = $quizHandler->get($quizId);
         }
-//echoArray('gp', "===>quizId = {$quizId}");
 		$templateMain = 'quizmaker_admin_questions.tpl';
   	    $GLOBALS['xoopsTpl']->assign('buttons', '');
   	    $GLOBALS['xoopsTpl']->assign('form', '');
@@ -174,6 +173,10 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                 $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, "quest_list[{$Questions['quest_id']}][timer]", 6, 6, $Questions['quest_timer']);
                 $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX);
                 $Questions['inpTimer'] = $inpTimer->render();
+                
+                $inpStartTimer = new \XoopsFormCheckbox('', "quest_list[{$Questions['quest_id']}][startTimer]",1);
+                $inpStartTimer->addOption($Questions['quest_start_timer'],  ' ');
+                $Questions['inpStartTimer'] = $inpStartTimer->render();
                 
 				$GLOBALS['xoopsTpl']->append('questions_list', $Questions);
 				unset($Questions);

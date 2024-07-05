@@ -74,7 +74,7 @@ var $maxGroups = 4;
       //Taille des images à regrouper
       $name = 'imgHeight1';
       $inpHeight0 = new \XoopsFormNumber(_QT_QUIZMAKER_IMAGESCOLOR_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS128);
+      $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions ->addElement($inpHeight0);     
 
         

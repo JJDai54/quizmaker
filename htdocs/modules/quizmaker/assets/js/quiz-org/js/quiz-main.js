@@ -592,7 +592,7 @@ var answerContainer;
 //     let numPoints = 0;
 //     let points = 0;
 
-alert("showResults");
+//alert("showResults");
     var results = getAllScores();
     var currentQuestion = quizard[currentSlide];
     if(currentQuestion.isQuestion){
@@ -778,6 +778,7 @@ function reloadQuestion() {
 * */
 
   function showSlide_new (offset=0) {
+  moveWindowPosTo('quiz_div_module_xoops');
   console.log("===>showSlide_new - offset=" + offset);
     //affichage du popup des solutions si osset > 0 uniquement
     if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
@@ -815,17 +816,17 @@ function reloadQuestion() {
     var secondSlide = (currentSlide === 1); //en realité la premiere question normalement
     var isQuestion  = (quizard[currentSlide].isQuestion);  
 
-
-var consigne = quizard[currentSlide].question['consigne'];
-if(!consigne) consigne = quiz_consignes[quizard[currentSlide].question['type']];
+var currentQuestion = quizard[currentSlide].question;
+var consigne = currentQuestion['consigne'];
+if(!consigne) consigne = quiz_consignes[currentQuestion['type']];
 enableButton(btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3));    
 var obHelp = document.getElementById("quiz_consignes");
 if(obHelp) obHelp.innerHTML = consigne;
       
     //est-que le quizTimer est activé et y-a-il un timer sur le slide;
-    if (quizard[currentSlide].question.timer > 0 && idSlideTimer == 0 && quiz.useTimer && !lastSlide){
-    //alert("start slide timer : |" + quizard[currentSlide].question.timer + "|");
-        statsTotal.slideTimer = quizard[currentSlide].question.timer;
+    if (currentQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || currentQuestion.startTimer) && !lastSlide){
+    //alert("start slide timer : |" + currentQuestion.timer + "|");
+        statsTotal.slideTimer = currentQuestion.timer;
         btnNextSlide.innerHTML = `${quiz_messages.btnNext} (${statsTotal.slideTimer})`;
         idSlideTimer = setInterval(updateSlideTimer, 1000);
     }
@@ -859,6 +860,19 @@ if(obHelp) obHelp.innerHTML = consigne;
   //if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
    }
    
+/* ******************************************
+
+********************************************* */   
+  function moveWindowPosTo (objId) {
+  
+var container = document.getElementById(objId);
+        var newPos = container.offsetTop;
+        console.log('===> moveWindowPosTo : ' + newPos);
+        window.scroll(0, newPos);
+  }
+  
+
+
 /* ******************************************
 
 ********************************************* */   

@@ -1,4 +1,13 @@
 ---------------------------------------------------
+2024-07-04a v 5.00 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Suppression des constantes de langues inutiles
+- Correction calcul du score sur e dernier slide "show_all_scores"
+- Mise en service du champ quest_start_timer 
+  permert de forcer ponctuelement l'affichage d'un slide pendant une durée déterminée
+  sans activer l'option dans les parametres du quiz.
+
+---------------------------------------------------
 2024-06-04a v 5.00 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - version majeure
