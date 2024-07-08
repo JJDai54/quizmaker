@@ -456,7 +456,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		-class
+		+class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -504,7 +504,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 080.jpg
@@ -516,7 +516,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -528,7 +528,7 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
+		-language
 			+english
 				-help
 					language\english\help\help.html
@@ -580,8 +580,8 @@ _quizmaker
 				language\french\modinfo.php
 				language\french\type_questions.php
 			language\index.html
-		-plugins
-			-alphaSimple
+		+plugins
+			+alphaSimple
 				-img
 					-dispositions
 						plugins\alphaSimple\img\dispositions\disposition-01.png
@@ -599,12 +599,12 @@ _quizmaker
 						plugins\alphaSimple\img\dispositions\dispositions.svg
 						plugins\alphaSimple\img\dispositions\index.html
 					plugins\alphaSimple\img\index.html
-				-language
+				+language
 					-english
 						plugins\alphaSimple\language\english\constants.php
 						plugins\alphaSimple\language\english\help.html
 						plugins\alphaSimple\language\english\index.html
-					-french
+					+french
 						plugins\alphaSimple\language\french\constants.php
 						plugins\alphaSimple\language\french\help.html
 						plugins\alphaSimple\language\french\index.html
@@ -635,32 +635,14 @@ _quizmaker
 					plugins\choiceSimple\snapshoot\snapshoot-003.jpg
 				plugins\choiceSimple\index.html
 				plugins\choiceSimple\slide_choiceSimple.php
-			+comboboxSortItems
-				-language
-					-english
-						plugins\comboboxSortItems\language\english\constants.php
-						plugins\comboboxSortItems\language\english\help.html
-						plugins\comboboxSortItems\language\english\index.html
-					-french
-						plugins\comboboxSortItems\language\french\constants.php
-						plugins\comboboxSortItems\language\french\help.html
-						plugins\comboboxSortItems\language\french\index.html
-					plugins\comboboxSortItems\language\index.html
-				-snapshoot
-					plugins\comboboxSortItems\snapshoot\index.html
-					plugins\comboboxSortItems\snapshoot\snapshoot-000.jpg
-					plugins\comboboxSortItems\snapshoot\snapshoot-001.jpg
-				plugins\comboboxSortItems\index.html
-				plugins\comboboxSortItems\slide_comboboxSortItems.php
-				plugins\comboboxSortItems\slide_comboboxSortItems.zip
-			-imagesColor
+			+imagesColor
 				-img
 				-language
 					-english
 						plugins\imagesColor\language\english\constants.php
 						plugins\imagesColor\language\english\help.html
 						plugins\imagesColor\language\english\index.html
-					-french
+					+french
 						plugins\imagesColor\language\french\constants.php
 						plugins\imagesColor\language\french\help.html
 						plugins\imagesColor\language\french\index.html
@@ -1206,50 +1188,58 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=docs\changelog.txt
-1=admin\menu.php
-2=categories.php
-3=admin\categories.php
-4=admin\quiz-list.php
-5=language\french\common.php
-6=admin\questions-list.php
-7=admin\questions.php
-8=templates\admin\quizmaker_admin_categories.tpl
-9=templates\admin\quizmaker_admin_quiz.tpl
-10=assets\js\admin.js
+0=xoops_version.php
+1=language\french\modinfo.php
+2=docs\changelog.txt
+3=admin\menu.php
+4=language\french\help\help.html
+5=language\french\help\install.tpl
+6=language\french\help\architecture_plugin.html
+7=language\french\help\create_quiz.html
+8=language\french\help\create_category.html
+9=class\Categories.php
+10=class\Quiz.php
+11=plugins\alphaSimple\language\french\constants.php
+12=Nouveau1.php
 [Selected Project Files]
 Main=
-Selected=assets\js\admin.js
+Selected=Nouveau1.php
+[xoops_version.php]
+TopLine=138
+Caret=72,185
+[language\french\modinfo.php]
+TopLine=119
+Caret=41,171
 [docs\changelog.txt]
 TopLine=1
-Caret=1,10
+Caret=7,10
 [admin\menu.php]
 TopLine=66
 Caret=28,108
-[categories.php]
-TopLine=63
-Caret=59,88
-[admin\categories.php]
-TopLine=23
-Caret=1,29
-[admin\quiz-list.php]
+[language\french\help\help.html]
+TopLine=1
+Caret=82,2
+[language\french\help\install.tpl]
+TopLine=1
+Caret=1,2
+[language\french\help\architecture_plugin.html]
+TopLine=1
+Caret=1,2
+[language\french\help\create_quiz.html]
+TopLine=19
+Caret=30,46
+[language\french\help\create_category.html]
+TopLine=1
+Caret=64,1
+[class\Categories.php]
+TopLine=109
+Caret=1,130
+[class\Quiz.php]
+TopLine=132
+Caret=1,160
+[plugins\alphaSimple\language\french\constants.php]
+TopLine=1
+Caret=4,22
+[Nouveau1.php]
 TopLine=1
 Caret=1,1
-[language\french\common.php]
-TopLine=9
-Caret=1,96
-[admin\questions-list.php]
-TopLine=11
-Caret=3,26
-[admin\questions.php]
-TopLine=28
-Caret=1,59
-[templates\admin\quizmaker_admin_categories.tpl]
-TopLine=57
-Caret=1,1
-[templates\admin\quizmaker_admin_quiz.tpl]
-TopLine=209
-Caret=124,230
-[assets\js\admin.js]
-TopLine=17
-Caret=5,38

@@ -1,32 +1,39 @@
-<html lang="fr-fr">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-    <title>alphaSimple : Question de caractères</title>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="fr-fr"><head>
+  
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"><title>alphaSimple : Question de caractères</title>    
+    
     <meta name="author" content="JJDai - jjdelalandre@orange.fr">
-    <meta name="description" content="aide du plugin">
-  </head>
-  <body>
+    <meta name="description" content="aide du plugin"></head><body>
     <h1>alphaSimple : Question de caractères</h1>
     <h3>Description :</h3>
     <ul>
       <li>une question qui porte sur des caractères alphanumériques ou des
         expressions. </li>
-      <li>Les mots qui portent sur la question peuvent entre accolade. Dans ce
-        cas ils seront repris dans le slide selon le template sélectionné. Les
+      
+  <li>Les mots qui portent sur la question peuvent entre accolade dans le libellé de la question. <br>
+Ils seront repris dans le slide selon le template sélectionné. <br>
+Les
         accolades seront automatiquement supprimées.</li>
+
       <li>une image (optionnelle)</li>
       <li>une directive pour aider l'utilisateur</li>
       <li>une liste de caractères alphanumériques ou de plusieurs expressions
-        cliquables</li>
+        cliquables.</li>
     </ul>
     <h3>Objectif : </h3>
     Il faut sélectionner un ou plusieurs caractères alphanumériques ou
     expression qui correspondent à la question<br>
     <h3>Options : </h3>
     <ul>
-      <li>points : Si (points == 0) alors c'est le nombre de points affectés aux
-        bonnes et mauvaises réponses qui seront comptées. Si points &gt; 0,
-        c'est cette valeur qui sera utilisée pour le score.</li>
+      <li>points : cette valeur est peut être définie à deux endroits:<br>
+au niveau de la question :&nbsp; Si la valeur est supérieure à zéro,
+c'est valeur qui sera comptée en cas de bonne répopnses sinon ce sont
+les points définis pour chaque proposition qui sera pris en compte.<br>
+au niveau des propositions : les bonnes réponses doivent avoir une
+valeur supérieure à zéro. Le mauvaises réponse peuvent aavoir une
+valeur égal ou inférieure à zéro. <br>
+</li>
       <li>dans tous les cas il faut affecter un nombre de points aux bonnes
         réponses pour les identifier et calculer le bon score.</li>
       <li>images (optionnelle): vous pouvez associer une image qui sera affichée
@@ -37,14 +44,14 @@
         expression sera mélangée à chaque lancement du quiz..</li>
       <li>directive (optionnelle): un texte court pour indiquer à l'utilisateur
         ce qu'il doit faire</li>
-      <li>propositions : Liste de caractères alphanumériques ou expressions
-        cliquable. Chaque caractère ou expression doit être séparé par un tiret
-        "-". Pour forcer un retour à la ligne dans la suite de caractère ou
-        expression il suffit de doubler le séparateur.</li>
+      <li>propositions : Liste de caractères alphanumériques ou expressions séparé par un tiret
+        "-". <br>
+Pour forcer un retour à la ligne dans la suite de caractère ou
+        expressions il suffit de doubler le séparateur.</li>
       <li>bouton "X" :&nbsp;&nbsp; Efface le champ proposition </li>
-      <li>bouton "@" : Affecte au champ proposition une des caractères
+      <li>bouton "@" : Affecte au champ proposition une liste des caractères
         alphabétiques</li>
-      <li>bouton "#" : Affecte au champ proposition une des caractères
+      <li>bouton "#" : Affecte au champ proposition une liste des caractères
         numériques</li>
       <li>bouton "@#" : Affecte au champ proposition une liste des caractères
         alphabétiques et numériques</li>
@@ -60,13 +67,12 @@
         </ul>
       </li>
     </ul>
-    <h3>Propositions :</h3>
-    Liste de bonnes réponses. Chaque réponse doit avoir un nombre de points
-    supérieure à zéro.<br>
-    Il est possible, bien que pas conseillé, d'ajouter des mauvaises réponses
-    avec un nombre de points négatif.<br>
+    
+<h3>Propositions :</h3>
+
+    Liste de bonnes réponses : Chaque réponse doit avoir un nombre de points
+    supérieur à zéro.<br>Liste de mauvaise réponses : Chaque mauvaise répponses doit avoi un nombre de points égal ou inférieur à zééro.<br>
     <p> Le poids permet de réordonner la liste sans devoir faire des couper /
-      coller. Si l'option "Mélanger les propositions" a été cochées l'ordre des
-      réponses à peu d'importance.</p>
-  </body>
-</html>
+      coller.<br>
+Si l'option "Mélanger les propositions" a été cochées l'ordre des propositions n'a pas d'importance.</p>
+  </body></html>

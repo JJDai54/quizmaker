@@ -160,6 +160,20 @@ if ($currdirname == $moduleDirName) {
 		'url'  => 'results.php',
 	];
 }
+
+// ------------------- Help files ------------------- //
+$modversion['helpsection'] = [
+    ['name' => _MI_QUIZMAKER_HELP_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_QUIZMAKER_HELP_INSTALL, 'link' => 'page=install'],
+    ['name' => _MI_QUIZMAKER_HELP_CREATE_CATEGORY, 'link' => 'page=create_category'],
+    ['name' => _MI_QUIZMAKER_HELP_CREATE_QUIZ, 'link' => 'page=create_quiz'],
+    ['name' => _MI_QUIZMAKER_HELP_ADD_QUESTIONS, 'link' => 'page=add_questions'],
+    ['name' => _MI_QUIZMAKER_HELP_PLUGINS, 'link' => 'page=plugins'],
+    ['name' => _MI_QUIZMAKER_HELP_ARCHITECTURE_MODULE, 'link' => 'page=architecture_module'],
+    ['name' => _MI_QUIZMAKER_HELP_ARCHITECTURE_PLUGIN, 'link' => 'page=architecture_plugin'],
+];
+
+
 // Entries last
 $modversion['blocks'][] = [
     'file'        => 'categories.php',

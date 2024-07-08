@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>
+<h4 class="odd">Créer unQuiz</h4>
+Créer une catégorie dans l'onglet "Catégories" et donner les
+permissions adéquat. Les permissions d'une catégories sont appliquées à
+tous les quiz de la même catégories.<br>
+Lors de la création deux slide sont automatiquement créés "pageBegin" et "pageEnd", ils sont obligatoires et non suprimables.<br>
+Lors de l'ajout de nouveaux slides il resteront respectivement en première et dernière position.<br>
+Toutefois ils peuvent être modifié à volonté.<br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td colspan="2" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Description des options principales<br>
+      </td>
+      
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Nom du quiz<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Catégorie<br>
+      </td>
+      <td style="vertical-align: top;">Il est possible à tout moment de changer le quiz de catégorie.<br>
+Par exemple il est conseillée d'avoir une catégorie "test" avec des
+permissions restreintes, et une ou plusieurs autres caétégories pour
+les mettre en production.<br>
+La catégorie "Exemples de quiz par type de question" est crée
+automatiquement et est utilisée notamment dant l'onglet "Type de
+questions" pour aidée l'utilsatuer dans le choix des slides.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Fichier Java script</td>
+      <td style="vertical-align: top;">Ce champ est obligatoire et doit
+être différent pour chaque quiz. C'est dans ce dossier que sont générés
+les fichiers propres à l'exécution du quiz.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Poids<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Dates de début et de fin<br>
+      </td>
+      <td style="vertical-align: top;">Il est possible de déterminer une période d'affichage du quiz, ce qui permet de le préparer à l'avance si besoin.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Publication du quiz</td>
+      <td style="vertical-align: top;">Le quiz peut être exécuté dans
+l'interface du site, ou dans page seul. Le première option permet à
+l'utilisateur d'acéder au reste du site, au risque de ne pas finir le
+quiz.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Publier les résultats</td>
+      <td style="vertical-align: top;">Oui : les résultats sont accessibles à l'utilisateur même s'il n'a pas joué ce dernier<br>
+Non : les résultats ne sont jamais accessibles<br>
+Automatiquement : Les résultats sont accessibles si l'utilisateur a joué au moins une faois le quiz<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Publier les réponses</td>
+      <td style="vertical-align: top;">Oui : les résultats sont accessibles à l'utilisateur même s'il n'a pas joué ce dernier<br>
+
+Non : les résultats ne sont jamais accessibles<br>
+
+Automatiquement : Les résultats sont accessibles si l'utilisateur a joué au moins une faois le quiz</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Thème<br>
+      </td>
+      <td style="vertical-align: top;">Plusiseurs thèmes de couleurs sont proposés. Par défaut c'est celui défini dans la catégorie qui est repris.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Bouton du premier slide</td>
+      <td style="vertical-align: top;">Défini le libellé du bouton sur le premier slide qui lance le quiz.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Bouton du dernier slide</td>
+      <td style="vertical-align: top;">Défini le libellé du bouton sur le dernier slide qui valide le résultat.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Position du commentaire de la question</td>
+      <td style="vertical-align: top;">Affiche l'icone : <img style="width: 32px; height: 32px;" src="../quizmaker/language/french/help/img/quiz-1.png" alt=""> sur chaque slide du quiz. Il permet d'afficher une aide succinte destnée à l'utilisateur.<br>
+Par défaut le texte affiché est celui défini par la constante "_QT_QUIZMAKER_NOMDUMODULE_CONSIGNE" propre à chaque plugin.<br>
+Ce texte peut être remplacé par un auttre texte défini pour pour chaque slide (voir le chapitre "Créer une question").<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Options d'interface</td>
+      <td style="vertical-align: top;">Ces options définissent le comportement du quiz lors de son exécution.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Options de développement</td>
+      <td style="vertical-align: top;">Ces options définissent le comportement du quiz pour en faciliter la préparation et le tester<br>
+Par exemple il es possible d'afficher les boutons <img style="width: 43px; height: 44px;" src="../quizmaker/language/french/help/img/good_answers.jpg" alt=""> et <img style="width: 43px; height: 43px;" src="../quizmaker/language/french/help/img/bad_answerq.jpg" alt=""> qui permettent de tester les bonnes réponses et les mauvaises réponses. <br>
+Il est conseillé de décocher toutes ces options lors de la mise en production du quiz.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+Ensuite dans l'onglet "Questions" ajouter les questions selon le type
+désiré. Pour en savoir plus voir l'onglet "Type de questions" pour
+faire le bon choix ou obtenir des idées de questions.
+
+</body></html>

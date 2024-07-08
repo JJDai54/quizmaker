@@ -157,8 +157,7 @@ class Quiz extends \XoopsObject
 		$form->addElement($editDescription, true);
         */
             
-            
-        
+
 		// Form Check Box quiz_actif
 		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
 		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);

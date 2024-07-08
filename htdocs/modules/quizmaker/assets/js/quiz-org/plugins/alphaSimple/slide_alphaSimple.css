@@ -1,15 +1,15 @@
 ﻿/* (A) LIST STYLES :first-child */
+.alphaSimple{
+  width:100%;
+  text-align:center;
+  border: 0px solid red;
+ }
 
 .alphaSimple_global div{
  width:100%;
  margin:0px;
  padding:0px;   
 
- }
-.alphaSimple{
-  width:100%;
-  text-align:center;
-  border: 0px solid red;
  }
  
 .alphaSimple_words {

@@ -1,10 +1,10 @@
-﻿.choiceSimple table td{
-    border: 0px solid #FFAD33;
-}
-.choiceSimple {
+﻿.choiceSimple {
     border: 0px solid #FFAD33;
     width 100%;
     font-size:1.1em;    
+}
+.choiceSimple table td{
+    border: 0px solid #FFAD33;
 }
 .choiceSimple table{
   margin-top:0px;

@@ -6,7 +6,9 @@
 - Mise en service du champ quest_start_timer 
   permert de forcer ponctuelement l'affichage d'un slide pendant une durée déterminée
   sans activer l'option dans les parametres du quiz.
-
+ -remplacemene dans les fichier help.html 
+  de  : <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+  par : <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 ---------------------------------------------------
 2024-06-04a v 5.00 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------

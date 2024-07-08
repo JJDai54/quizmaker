@@ -126,12 +126,12 @@ class Categories extends \XoopsObject
         //$cat_weight = $this->isNew() ? '0' : $this->getVar('cat_weight');
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'cat_weight', 20, 50,  $this->getVar('cat_weight')) );
 		
+/*
         // Form Text Select questTimer
         $inpTimer = new \XoopsFormText( _AM_QUIZMAKER_TIMER, 'quest_timer', 20, 50,  $this->getVar('quest_timer'));
         $inpTimer->setDescription(_AM_QUIZMAKER_TIMER_DESC);
 		$form->addElement($inpTimer);
 
-/*
         // Form Text Date Select catCreation
 		$catCreation = $this->isNew() ? 0 : $this->getVar('cat_creation');
 		$form->addElement(new \XoopsFormDateTime( _AM_QUIZMAKER_CREATION, 'cat_creation', '', $catCreation ) );

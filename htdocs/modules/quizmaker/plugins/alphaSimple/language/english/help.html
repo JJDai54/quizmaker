@@ -1,68 +1,95 @@
-<html lang="fr-fr">
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-    <title>alphaSimple: Character question</title>
-    <meta name="author" content="JJDai - jjdelalandre@orange.fr">
-    <meta name="description" content="plugin help">
-  </head>
-  <body>
-    <h1>alphaSimple: Character question</h1>
-    <h3>Description:</h3>
-    <ul>
-      <li>a question that asks about alphanumeric characters or expressions. </li>
-      <li>Words that relate to the question can be enclosed in braces. In this
-        case they will be included in the slide according to the selected
-        template. THE braces will be automatically removed.</li>
-      <li>an image (optional)</li>
-      <li>a directive to help the user</li>
-      <li>a list of alphanumeric characters or several expressions clickable</li>
-    </ul>
-    <h3>Objective: </h3>
-    You must select one or more alphanumeric characters or expression that
-    matches the question<br>
-    <h3>Options: </h3>
-    <ul>
-      <li>points: If (points == 0) then this is the number of points allocated
-        to good and bad answers which will be counted. If points &gt; 0, it is
-        this value which will be used for the score.</li>
-      <li>in all cases it is necessary to assign a number of points to the
-        correct ones answers to identify them and calculate the correct score.</li>
-      <li>images (optional): you can associate an image that will be displayed
-        depending on the template that will be selected</li>
-      <li>image height: Defines the size of the image by the height, Be careful
-        with images that are too wide.</li>
-      <li>mix the propositions: the list of alphanumeric characters or
-        expression will be mixed each time the quiz is launched.</li>
-      <li>directive (optional): a short text to indicate to the user what he
-        should do </li>
-      <li>proposals: List of alphanumeric characters or expressions clickable.
-        Each character or expression must be separated by a hyphen "-". To force
-        a newline in the sequence of characters or expression just double the
-        separator.</li>
-      <li>“X” button:&nbsp;&nbsp; Clear the proposal field </li>
-      <li>“@” button: Assigns one of the characters to the proposal field
-        alphabetical</li>
-      <li>“#” button: Assigns one of the characters to the proposal field
-        digital</li>
-      <li>"@#" button: Assigns a list of characters to the proposal field
-        alphabetical and numerical</li>
-      <li role="checkbox">Template: the slide offers several layouts:
-        <ul>
-          <li>the three short lines and&nbsp; black represent the words between
-            braces included in the question</li>
-          <li>the red shape represents the answer(s) clicked by the user</li>
-          <li>The blue shape represents the image</li>
-          <li>the three long lines represent the character proposal alphanumeric</li>
-        </ul>
-      </li>
-    </ul>
-    <h3>Proposals:</h3>
-    List of correct answers. Each answer must have a number of points greater
-    than zero.<br>
-    It is possible, although not recommended, to add wrong answers with a
-    negative number of points.<br>
-    The weight allows you to reorder the list without having to cut / stick. If
-    the "Mix proposals" option was checked, the order of the answers of little
-    importance.
-  </body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="fr-fr"><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>alphaSimple: Character question</title>
+
+
+  <meta name="author" content="JJDai - jjdelalandre@orange.fr">
+
+  <meta name="description" content="plugin help">
+
+</head><body>
+<h1>alphaSimple: Character question</h1>
+
+<h3>Description:</h3>
+
+<ul>
+
+<li>a question that asks about alphanumeric characters or
+expressions. </li>
+<li>Words that relate to the question can be enclosed in braces in
+the wording of the question. <br>
+They will be included in the slide according to the selected template. <br>
+The braces will be automatically removed.</li>
+<li>an image (optional)</li>
+<li>a directive to help the user</li>
+<li>a list of alphanumeric characters or several
+clickable expressions.</li>
+</ul>
+
+<h3>Objective: </h3>
+
+You must select one or more alphanumeric characters or
+expression that matches the question<br>
+
+<h3>Options: </h3>
+
+<ul>
+
+<li>points: this value can be defined in two places:<br>
+at the question level:&nbsp; If the value is greater than zero,
+This is the value that will be counted in the event of a correct response, otherwise these are
+the points defined for each proposal which will be taken into account.<br>
+at the level of the propositions: the correct answers must have a
+value greater than zero. The wrong answer may have a
+value equal to or less than zero. <br>
+</li>
+<li>in all cases it is necessary to assign a number of points to the correct ones
+answers to identify them and calculate the correct score.</li>
+<li>images (optional): you can associate an image which will be
+displayed according to the template that will be selected</li>
+<li>image height: Defines the size of the image by the height,
+Be careful with images that are too wide.</li>
+<li>mix the propositions: the list of characters
+alphanumeric or expression will be mixed each time the quiz is launched.</li>
+<li>directive (optional): a short text to indicate to
+the user what to do</li>
+<li>proposals: List of alphanumeric characters or expressions
+separated by a hyphen "-". <br>
+To force a newline in the sequence of characters or
+expressions just double the separator.</li>
+<li>“X” button:&nbsp;&nbsp; Clear the proposal field </li>
+<li>"@" button: Assigns to the proposal field a list of
+alphabetic characters</li>
+<li>"#" button: Assigns to the proposal field a list of
+numeric characters</li>
+<li>button "@#": Assigns to the proposal field a list of
+alphabetic and numeric characters</li>
+<li role="checkbox">Template: the slide offers several
+provisions:
+<ul>
+<li>the three short lines and&nbsp; black represents the words
+in curly brackets included in the question</li>
+<li>the red shape represents the answer(s) clicked by
+the user</li>
+<li>The blue shape represents the image</li>
+<li>the three long lines represent the proposition of
+alphanumeric characters</li>
+</ul>
+</li>
+</ul>
+
+<h3>Proposals:</h3>
+
+List of correct answers: Each answer must have a number of
+points greater than zero.<br>
+
+List of wrong answers: Each wrong answer must have a
+number of points equal to or less than zero.<br>
+
+<p> The weight allows you to reorder the list without having to cut
+/ paste.<br>
+If the “Mix proposals” option was checked, the order of the
+proposals do not matter.</p>
+
+</body></html>

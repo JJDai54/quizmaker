@@ -339,7 +339,7 @@ define('_AM_QUIZMAKER_QUIZ_NAME', "Nom");
 define('_AM_QUIZMAKER_QUIZ_NOT_BUILD', "Le quiz n'est pas installé correctement.<br>Vous devez Insataller le plugin.");
 define('_AM_QUIZMAKER_QUIZ_NOT_EXIST', "Le quiz n'existe pas.<br>Vous devez Insataller le plugin.");
 define('_AM_QUIZMAKER_QUIZ_ONCLICK', "Action sur clique souris");
-define('_AM_QUIZMAKER_QUIZ_OPTIONS_DEV', "Option de développement");
+define('_AM_QUIZMAKER_QUIZ_OPTIONS_DEV', "Options de développement");
 define('_AM_QUIZMAKER_QUIZ_OPTIONS_DEV_DESC', "Utilisées pour la mise au point du quiz, laissez ces options sur \"Non\" en production<br>");
 define('_AM_QUIZMAKER_QUIZ_OPTIONS_IHM', "Options d'interface");
 define('_AM_QUIZMAKER_QUIZ_OPTIONS_IHM_DESC', "Ces options modifient le comportement du quiz");

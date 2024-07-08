@@ -161,4 +161,13 @@ define('_MI_QUIZMAKER_USE_TAG_DESC', "Si vous utilisez le module tag, cochez cet
 define('_MI_QUIZMAKER_USER_PAGER', "Nombre d'item par page côté utilisateur");
 define('_MI_QUIZMAKER_USER_PAGER_DESC', "Pagination des listes dans l'interface utilisateur");
 
+define('_MI_QUIZMAKER_HELP_OVERVIEW', "Vue d'ensemble");
+define('_MI_QUIZMAKER_HELP_INSTALL', "Installation");
+define('_MI_QUIZMAKER_HELP_CREATE_QUIZ', "Créer un quiz");
+define('_MI_QUIZMAKER_HELP_CREATE_CATEGORY', "Créer une catégorie");
+define('_MI_QUIZMAKER_HELP_ARCHITECTURE_MODULE', "Architecture du module");
+define('_MI_QUIZMAKER_HELP_ARCHITECTURE_PLUGIN', "Architecture d'un plugin");
+define('_MI_QUIZMAKER_HELP_PLUGINS', "Plugins");
+define('_MI_QUIZMAKER_HELP_ADD_QUESTIONS', "Ajouter des questions");
+
 ?>
