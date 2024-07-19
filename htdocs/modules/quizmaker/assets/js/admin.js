@@ -43,21 +43,21 @@ $(document).ready(function(){
 function reloadImgModeles(divId, imgHeight=80){
     //alert('reloadImgModeles : ' + divId);
     var obDivImg = document.getElementById(divId);
-    var obInpTypeQuestion = document.getElementById('quest_type_question');
+    var obInpTypeQuestion = document.getElementById('quest_plugin');
     var tOptions = obInpTypeQuestion.options;
     //alert(tOptions + '===>' + tOptions.length);
     
-    var typeQuestion = obInpTypeQuestion.options[obInpTypeQuestion.selectedIndex].value;
+    var pluginName = obInpTypeQuestion.options[obInpTypeQuestion.selectedIndex].value;
     var btnAddQuestion = document.getElementById('btnAddQuestion');
 
-    if(typeQuestion[0] == '>'){
+    if(pluginName[0] == '>'){
         btnAddQuestion.style.display = 'none';
         obDivImg.innerHTML = `<div style="height:${imgHeight}px"></div>`;    
     }else{
         if (btnAddQuestion) btnAddQuestion.style.display = 'block';
         var tImg = [];
         for(var i=0; i<3; i++){
-            var url = `../plugins/${typeQuestion}/snapshoot/snapshoot-00${i}.jpg`;
+            var url = `../plugins/${pluginName}/snapshoot/snapshoot-00${i}.jpg`;
             tImg.push(`<a href='${url}' class='highslide' onclick='return hs.expand(this);' >
                       <img src="${url}" alt="" style="max-height:${imgHeight}px" />
                    </a>`)
@@ -67,7 +67,7 @@ function reloadImgModeles(divId, imgHeight=80){
     
     
 
-    //alert('reloadImgModeles : ' + divId + " / " + typeQuestion); //obInpTypeQuestion.value
+    //alert('reloadImgModeles : ' + divId + " / " + pluginName); //obInpTypeQuestion.value
     
 function imageExists(image_url){
 

@@ -121,7 +121,7 @@ global $utility, $xoopsConfig;
     //insertion du prototype des tpl
     $urlApp = QUIZMAKER_URL_QUIZ_JS. "";    
     $urlPlugins = QUIZMAKER_URL_QUIZ_JS.QUIZMAKER_FLD_PLUGINS_JS;    
-    $tpl->assign('prototype', 'slide__prototype.js');
+    $tpl->assign('prototype', 'plugin_prototype.js');
     
     
     //----------------------------------------------
@@ -153,6 +153,7 @@ global $utility, $xoopsConfig;
     $tpl->assign('quiz_functions', 'quiz-functions');
     $tpl->assign('quiz_events', 'quiz-events');
     $tpl->assign('quiz_main', 'quiz-main');
+    $tpl->assign('timer', 'timer');
 
     //-------------------------------------------------
     $tpl->assign('outline', true);
@@ -195,6 +196,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['onClickSimple']            = $quizValues['onClickSimple'];
     $optionsArr['questPosComment1']         = $quizValues['questPosComment1'];
     $optionsArr['showConsigne']             = $quizValues['showConsigne'];
+    $optionsArr['showTimer']                = $quizValues['quiz_showTimer'];
     //$optionsArr['minusOnShowGoodAnswers']   = $quizValues['minusOnShowGoodAnswers'];
     $optionsArr['build']                    = $quizValues['quiz_build'];
     $optionsArr['folderJS']                 = $quizValues['folderJS'];
@@ -237,7 +239,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
 *
 * ************************************************* */
 public static function export_questions2Jason($quizId, $path, &$typesQuestionsArr){
-global $quizHandler, $questionsHandler, $answersHandler, $utility,$type_questionHandler;
+global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandler;
     
     $questionsArr = array();
     $typesQuestionsArr = array();
@@ -251,15 +253,15 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$type_question
 //    echoArray($questions,'',true);
     foreach (array_keys($questions) as $i) {
         $values=$questions[$i]->getValuesQuestions();
-        $clTypeQuestion = $type_questionHandler->getTypeQuestion($values['type_question']);
-        $typesQuestionsArr[] = $values['type_question'];  
+        $clTypeQuestion = $pluginsHandler->getPlugin($values['plugin']);
+        $typesQuestionsArr[] = $values['plugin'];  
               
         $tQuest = array();
         $tQuest['quizId']         = $quizId;
         $tQuest['questId']        = $values['quest_id'];
         $tQuest['parentId']       = $values['quest_parent_id'];
-        $tQuest['type']           = $values['type_question'];
-        $tQuest['typeQuestion']   = $values['type_question'];
+        $tQuest['type']           = $values['plugin'];
+        $tQuest['pluginName']   = $values['plugin'];
         $tQuest['typeForm']       = $values['typeForm'];
         $tQuest['question']       = self::sanitise($values['quest_question']);
         $tQuest['identifiant']    = self::sanitise($values['identifiant']);
@@ -292,7 +294,7 @@ for($h=0; $h<strlen($values['options']); $h++){
         $tQuest['timer']          = $values['timer'];
         $tQuest['startTimer']     = $values['start_timer'];
         $tQuest['timestamp']      = date("H:i:s");
-        $tQuest['urlPlugin']      = QUIZMAKER_URL_PLUGINS_JS . '/' . $values['type_question'];
+        $tQuest['urlPlugin']      = QUIZMAKER_URL_PLUGINS_JS . '/' . $values['plugin'];
     
         $tQuest['answers']        = self::exportAnswers2Jason($values['id']);
         $questionsArr[] = $tQuest;
@@ -318,7 +320,7 @@ for($h=0; $h<strlen($values['options']); $h++){
     //$exp ="var myQuestions = JSON.parse('" .  json_encode($questionsArr) . "');";
     //$path = QUIZMAKER_PATH_UPLOAD . "/quiz-questions-01.js";
     //$path = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js/data/quiz-questions-01.js";
-//    $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/togodo/quiz-questions.js";
+//    $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/quizmaker/quiz-questions.js";
     $fileName = $path . "/js/quiz-questions.js";
     
 //    echo "Export ===>{$path}<br>";
@@ -368,9 +370,9 @@ global $quizHandler, $questionsHandler, $answersHandler;
 *
 * ************************************************* */
 public static function export_consignes($path){
-global $type_questionHandler;
+global $pluginsHandler;
     
-    $allPlugins =  $type_questionHandler->getAllPlugins();
+    $allPlugins =  $pluginsHandler->getAllPlugins();
     
     $consignes = array();
     foreach($allPlugins as $key=>$plugin){

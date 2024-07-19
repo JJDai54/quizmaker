@@ -32,7 +32,7 @@ interface Constants
 	const TABLE_QUIZ = 0;
 	const TABLE_QUESTIONS = 1;
 	const TABLE_CATEGORIES = 2;
-	const TABLE_TYPE_QUESTION = 3;
+	const TABLE_PLUGINS = 3;
 	const TABLE_ANSWERS = 4;
 	const TABLE_RESULTS = 5;
 	const TABLE_MESSAGES = 6;

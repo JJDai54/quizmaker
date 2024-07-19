@@ -28,4 +28,8 @@ define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS', "Replacer les images à leur place")
 define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_DESC', "Ce slide est composé d'images et de titres. Il faut replacer les images sur les bons titres.");
 define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_CONSIGNE', "Consigne à complèter");
 
+define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_BG_SILOUHETTE', "Couleur de fond des silouhette");
+define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_BG_SOURCE', "Couleur de fond des images à replacer");
+define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT', "La couleur de fond des silouhettes n'est utilisée que dans les dispositions à deux zones");
+define('_QT_QUIZMAKER_IMAGESDADMATCHITEMS_MOVEALLOW', "Mouvements autorisés après positionement (disposition avec 2 zones)");
 ?>

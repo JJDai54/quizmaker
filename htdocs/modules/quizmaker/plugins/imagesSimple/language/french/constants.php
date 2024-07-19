@@ -38,4 +38,10 @@ define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SELECTED_HEIGHT', "Hauteur des images sé
 define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET', "Images du panier");
 define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET_DESC', "Cette image apparaitra en tête du panier des images non sélectionnées par l'utilisateur");
 define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET_HEIGHT', "Hauteur des images du panier");
+
+define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SIZE_GROUP0', "Hauteur des images du premier groupe : images de la liste modèle");
+define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SIZE_GROUP1', "Hauteur des images du deuxième groupe : images sélectionées");
+define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SIZE_GROUP2', "Hauteur des images du troisième groupe : images proposées");
+
+
 ?>

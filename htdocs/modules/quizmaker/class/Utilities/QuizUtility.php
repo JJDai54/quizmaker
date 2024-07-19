@@ -55,7 +55,7 @@ $tblAns   =  $xoopsDB->prefix('quizmaker_answers');
     if($groupTo){
 		$questionsObj = $questionsHandler->create();
         $questionsObj->setVar('quest_quiz_id', $quizIdTo);
-        $questionsObj->setVar('quest_type_question', 'pageGroup');
+        $questionsObj->setVar('quest_plugin', 'pageGroup');
         $questionsObj->setVar('quest_question', $groupTo);
         $questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizIdTo)+10);
         
@@ -130,7 +130,7 @@ $tblAns   =  $xoopsDB->prefix('quizmaker_answers');
 /* ***********************
 
 ************************** */
-public static function quiz_export($quizId){
+public static function quiz_export($quizId, $modeName = 0, $suffix = 0){
 global $quizHandler;
 //echo "<hr>quiz_export - quizId = {$quizId}<hr>";
 
@@ -138,14 +138,20 @@ global $quizHandler;
         $quizHandler->purgerImages($quizId);
         
         $quiz = $quizHandler->get($quizId);
-        $folder = $quiz->getVar('quiz_folderJS');    
-        $name = $folder . '-' . date("Y-m-d_H-m-s");    
         self::quiz_exportToYml($quizId);
         
-\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);        
-        $sourcePath = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$folder}/export/";
-        $outZipPath = QUIZMAKER_PATH_UPLOAD_EXPORT . "/{$name}.zip";
-        $outZipUrl = QUIZMAKER_URL_UPLOAD_EXPORT . "/{$name}.zip";
+\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);     
+        $folderJS = $quiz->getVar('quiz_folderJS');    
+        $expName = ($modeName == 1) ? $folderJS : $quiz->getVar('quiz_name');    
+        
+        switch($suffix){
+        case 1:  $expName .= '-' . date("Y-m-d_H-m-s"); break;
+        case 2:  $expName .= '-' . rand(10000,99999);   break;
+        }   
+        
+        $sourcePath = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$folderJS}/export/";
+        $outZipPath = QUIZMAKER_PATH_UPLOAD_EXPORT . "/{$expName}.zip";
+        $outZipUrl = QUIZMAKER_URL_UPLOAD_EXPORT . "/{$expName}.zip";
         
         //\JJD\zipSimpleDir($sourcePath, $outZipPath);   
         \JJD\ZipReccurssiveDir($sourcePath, $outZipPath);   
@@ -160,7 +166,7 @@ chmod ($outZipPath , 0666);
 /**************************************************************
  * 
  * ************************************************************/
-public static function quiz_exportToYml($quizId)
+public static function quiz_exportToYml($quizId, $modeName = 0)
 {
     global $xoopsConfig, $quizHandler, $xoopsDB;
     
@@ -323,20 +329,30 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
     \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
     //echoArray($row, 'quiz_import_quiz',true);
 
+
+    //correction de la valeur des champs `quiz_optionsIhm` et `quiz_optionsDev`
+    //xoops considere que ce sot des chaines alors que ce sont des valeurs binaires
+    //du coup par exemple la valeur binaire 95 devient 14645, pas bon du tout
+    $quiz = $quizHandler->get($newQuizId);
+    $quiz->setVar('quiz_optionsIhm', $row['quiz_optionsIhm']);
+    $quiz->setVar('quiz_optionsDev', $row['quiz_optionsDev']);
+    $quizHandler->insert($quiz);
+    
+
     return $newQuizId;
 }    
 
 /**************************************************************
  * 
  * ************************************************************/
-public static function quiz_import_quest($pathSource, $newQuizId, $typeQuestionYes= null, $typeQuestionNo = null)
+public static function quiz_import_quest($pathSource, $newQuizId, $pluginNameYes= null, $pluginNameNo = null)
 {global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
 
-    if (is_string($typeQuestionYes) && $typeQuestionYes == 'null') $typeQuestionYes = null;  
-    if (is_string($typeQuestionYes)) $typeQuestionYes = array($typeQuestionYes);  
-    if (is_string($typeQuestionNo)) $typeQuestionNo = array($typeQuestionNo);  
-// echoArray($typeQuestionYes,'ok');
-// echoArray($typeQuestionNo, 'exclus');
+    if (is_string($pluginNameYes) && $pluginNameYes == 'null') $pluginNameYes = null;  
+    if (is_string($pluginNameYes)) $pluginNameYes = array($pluginNameYes);  
+    if (is_string($pluginNameNo)) $pluginNameNo = array($pluginNameNo);  
+// echoArray($pluginNameYes,'ok');
+// echoArray($pluginNameNo, 'exclus');
    
     $questShortName = 'questions';
     $tblQuest     = 'quizmaker_' . $questShortName;
@@ -350,21 +366,29 @@ public static function quiz_import_quest($pathSource, $newQuizId, $typeQuestionY
     //lecture du fichier et chargement dans un tableau
     $tabledata = \Xmf\Yaml::readWrapped($pathSource . "/". $questShortName . '.yml');
     //modificaion des champs
-//$typeQuestionYes = array('listboxIntruders1','listboxSortItems','textboxMultiple');    
-//$typeQuestionNo = array('listboxIntruders1','listboxSortItems','textboxMultiple','pageGroup');    
-//echoArray($typeQuestionYes,"typeQuestionFilter");
+//$pluginNameYes = array('listboxIntruders1','listboxSortItems','textboxMultiple');    
+//$pluginNameNo = array('listboxIntruders1','listboxSortItems','textboxMultiple','pageGroup');    
+//echoArray($pluginNameYes,"pluginNameFilter");
     //balayage de toutes les questions
     $newTblData = array(); //table filtrée
     foreach ($tabledata as $index => $row) {
-        //$bolok = ( in_array($row['quest_type_question'], $typeQuestionYes)) ? 'ok' : 'no';
-        //echo "{$bolok}===> {$typeQuestionYes} === {$row['quest_type_question']}<br>";    
-        if ((is_null($typeQuestionYes) ||  in_array($row['quest_type_question'], $typeQuestionYes))
-        &&  (is_null($typeQuestionNo)  || !in_array($row['quest_type_question'], $typeQuestionNo))){
+        //$bolok = ( in_array($row['quest_plugin'], $pluginNameYes)) ? 'ok' : 'no';
+        //echo "{$bolok}===> {$pluginNameYes} === {$row['quest_plugin']}<br>";    
+        if ((is_null($pluginNameYes) ||  in_array($row['quest_plugin'], $pluginNameYes))
+        &&  (is_null($pluginNameNo)  || !in_array($row['quest_plugin'], $pluginNameNo))){
 
             $row['quest_quiz_id'] = $newQuizId;    
+ 
             
             //champs obsolettes
+            if(isset($row['quest_type_question'])){
+                if($row['quest_type_question']!='')
+                    $row['quest_plugin'] = $row['quest_type_question']    ;
+                //dans tous les cas ce champ est obsolette
+                self::delFiledsObsolettes($row,'quest_type_question');           
+            }
             self::delFiledsObsolettes($row,'quest_minReponse');           
+            self::delFiledsObsolettes($row,'quest_type_form');           
             
             //recupe de l'ancien ID dans la champ FLAG
             //il sera utile pour les enfants de la table answers
@@ -383,7 +407,7 @@ public static function quiz_import_quest($pathSource, $newQuizId, $typeQuestionY
 //echo "2b===>quizId = {$newQuizId}<br>";
    
     //--------------------------------------------------------------
-    //mise à jour du champ parent_id pour recreer les groupes (type_question = pageGroup)
+    //mise à jour du champ parent_id pour recreer les groupes (plugin = pageGroup)
     //--------------------------------------------------------------
     $criteria = new \criteriaCompo(new \Criteria('quest_quiz_id',  $newQuizId, '='));
     $criteria->add(new \Criteria('quest_flag',  0, '>'));
@@ -402,7 +426,8 @@ public static function quiz_import_quest($pathSource, $newQuizId, $typeQuestionY
 // echo "quizId = {$newQuizId}<br>{$pathSource}<br>";
 // echoArray($tabledata, 'tabledata');    
 // echoArray($newTblData, 'newTblData',true);    
-
+    
+    
     return $newQuizId;
 }
 
@@ -508,14 +533,14 @@ public static function quiz_importFromYml($pathSource, $catId = 0)
  * 
  * ************************************************************/
  
-public static function quiz_importOnlyQuestFromYml($pathSource, $newQuizId, $typeQuestionYes= null, $typeQuestionNo = null)
+public static function quiz_importOnlyQuestFromYml($pathSource, $newQuizId, $pluginNameYes= null, $pluginNameNo = null)
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
     
     //--------------------------------------------------------
     // chargement de la table questions
     //--------------------------------------------------------
-    self::quiz_import_quest($pathSource, $newQuizId, $typeQuestionYes, $typeQuestionNo);
+    self::quiz_import_quest($pathSource, $newQuizId, $pluginNameYes, $pluginNameNo);
 
     //--------------------------------------------------------
     // chargement de la table answers
@@ -574,17 +599,17 @@ public static function quiz_getTypeQuestionFromYML($pathSource)
 {global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
 
     $questShortName = 'questions';
-    $typeQuestion = array();
+    $pluginName = array();
 
     //lecture du fichier et chargement dans un tableau
     $tabledata = \Xmf\Yaml::readWrapped($pathSource . "/". $questShortName . '.yml');
 
     foreach ($tabledata as $index => $row) {
-        if(!isset($typeQuestion[$row['quest_type_question']]))
-            $typeQuestion[$row['quest_type_question']] = $row['quest_type_question'];
+        if(!isset($pluginName[$row['quest_plugin']]))
+            $pluginName[$row['quest_plugin']] = $row['quest_plugin'];
     }
 
-    return $typeQuestion;
+    return $pluginName;
 }
 
 }  //fin de la classe

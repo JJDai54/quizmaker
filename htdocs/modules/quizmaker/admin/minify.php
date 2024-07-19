@@ -238,9 +238,9 @@ $pathDest   = QUIZMAKER_PATH_QUIZ_MIN;
                     );
                     
         //recupe de tous les plugins pour les traiter un par un
-		$type_questionAll = $type_questionHandler->getAll();
-        //echoArray($type_questionAll);
-        foreach($type_questionAll as $k=>$plugin){
+		$pluginAll = $pluginsHandler->getAll();
+        //echoArray($pluginAll);
+        foreach($pluginAll as $k=>$plugin){
             //$actions_list[$plugin['name']] = $plugin['description'];
             $actions_list[$plugin['type']] = ['desc' => $plugin['name'], 'isMinified'=> folder_is_minified("plugins/" . $plugin['type'])];
         }                    

@@ -31,8 +31,8 @@ function xoops_module_pre_install_quizmaker(\XoopsModule $module)
 {
 
     require dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Quizmaker\Utility $utility */
-    $utility = new Quizmaker\Utility();
+    /** @var FQUIZMAKER\Utility $utility */
+    $utility = new FQUIZMAKER\Utility();
 
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -60,11 +60,11 @@ global $xoopsDB;
 
     require dirname(__DIR__) . '/preloads/autoloader.php';
 
-    /** @var Quizmaker\Helper $quizmakerHelper */ 
-    /** @var Quizmaker\Utility $utility */
+    /** @var FQUIZMAKER\Helper $quizmakerHelper */ 
+    /** @var FQUIZMAKER\Utility $utility */
     /** @var Common\Configurator $configurator */
-    $quizmakerHelper       = Quizmaker\Helper::getInstance();
-    $utility      = new Quizmaker\Utility();
+    $quizmakerHelper       = FQUIZMAKER\Helper::getInstance();
+    $utility      = new FQUIZMAKER\Utility();
     $configurator = new Common\Configurator();
 
     // Load language files

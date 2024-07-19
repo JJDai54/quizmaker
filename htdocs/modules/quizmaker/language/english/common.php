@@ -88,9 +88,9 @@ define('_CO_QUIZMAKER_SOMMAIRE', "Summary of questions");
 define('_CO_QUIZMAKER_SPHPINI', "<span style='font-weight: bold;'>Information extracted from the PHP ini file:</span>");
 define('_CO_QUIZMAKER_SUMMARY', "Summary of questions");
 define('_CO_QUIZMAKER_TIME', "Date/Time");
-define('_CO_QUIZMAKER_TYPE_QUESTION', "Question type");
-define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type of question to add");
-define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "You can change the type of question but be careful not all types are compatible<br>For example the radioSimple type is not compatible with the textboxSimple type.<br>The risk when changing the type is to lose the answers and having to re-enter them.");
+define('_CO_QUIZMAKER_PLUGIN', "Question type");
+define('_CO_QUIZMAKER_PLUGIN_2_ADD', "Type of question to add");
+define('_CO_QUIZMAKER_PLUGIN_DESC', "You can change the type of question but be careful not all types are compatible<br>For example the radioSimple type is not compatible with the textboxSimple type.<br>The risk when changing the type is to lose the answers and having to re-enter them.");
 define('_CO_QUIZMAKER_UPLOADPATHDSC', "Note. The upload path *MUST* contain the full server path of your upload folder.");
 
 ?>

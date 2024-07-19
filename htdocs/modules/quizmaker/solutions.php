@@ -43,25 +43,6 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 
 
-// Check permissions
-//$permEdit = $clPerms->getPermissionsOld(16,'global_ac');
-
-// 	redirect_header('quiz.php?op=list', 3, _NOPERM);
-//}
-// Check params
-///////////////////////////////////////////////////
-//     $rootApp = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js";
-//     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";
-// 
-//     //insertion des CSS
-//     $tCss = \JJD\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
-//     $urlCss = QUIZMAKER_URL_QUIZ_JS. "/quiz-js/css";
-//     foreach($tCss as $css){
-// 		$GLOBALS['xoTheme']->addStylesheet($urlCss .'/'. $css , null );    
-//     }
-//     //----------------------------------------------
-//     //insertion du prototype des tpl
-//     $xoTheme->addScript($urlApp . '/' . 'slide__prototype.js');    
 
         // interdiction de voir les solution si il n'y a pas de connexion
         if (0 == $quizId) {

@@ -197,7 +197,7 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
 
     {
         $sql = "SELECT max({$field}) AS valueMax FROM {$this->table}"
-        . " WHERE quest_type_question <> 'pageBegin' AND quest_type_question <> 'pageEnd'";
+        . " WHERE quest_plugin <> 'pageBegin' AND quest_plugin <> 'pageEnd'";
         if($quiz_id > 0) $sql .= " AND quest_quiz_id = {$quiz_id}";
         
         $rst = $this->db->query($sql);
@@ -233,11 +233,11 @@ __SQL__;
     //return $result;
 
     $sql = "update {$this->table} SET quest_weight = -99999 WHERE quest_quiz_id='{$quiz_id}'"
-         . " AND quest_type_question='pageBegin';";    
+         . " AND quest_plugin='pageBegin';";    
     $result = $this->db->queryf($sql);
 
     $sql = "update {$this->table} SET quest_weight = 99999 WHERE quest_quiz_id='{$quiz_id}'"
-         . " AND quest_type_question='pageEnd';";    
+         . " AND quest_plugin='pageEnd';";    
     $result = $this->db->queryf($sql);
 
    
@@ -364,11 +364,11 @@ __SQL__;
         
         
         $questId = $object->getVar("quest_id");
-        $typeQuestion =  $object->getVar("quest_type_question");   
+        $pluginName =  $object->getVar("quest_plugin");   
         $criteria = new \CriteriaCompo(new \Criteria("quest_id", $questId, '='));
         //ajout des enfants si c'est une page de groupe
-        if($typeQuestion == 'pageGroup'){
-//echo "<hr>type question : {$typeQuestion}";
+        if($pluginName == 'pageGroup'){
+//echo "<hr>Plugin : {$plugins}";
             $criteria->add(new \Criteria("quest_Parent_id", $questId, '='),'OR');
         }    
         $rstQuestions = $this->getAll($criteria,null,true);
@@ -421,13 +421,13 @@ __SQL__;
             $questObj = $this->get($questId);
             $etat =  $questObj->getVar($field); //$questObj->getVar($field)+1 % $modulo;
 
-            if($questObj->getVar('quest_type_question') == 'pageBegin'){
+            if($questObj->getVar('quest_plugin') == 'pageBegin'){
               // si c'est le slide d'introduction, change l'état de toutes les questions du quiz
               //$etat =  mod($questObj->getVar($field)+1, $modulo);
               $quizId = $questObj->getVar('quest_quiz_id');
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_quiz_id={$quizId};";            
               $ret = $this->db->queryf($sql);
-            }elseif($questObj->getVar('quest_type_question') == 'pageGroup'){
+            }elseif($questObj->getVar('quest_plugin') == 'pageGroup'){
               // si c'est un slide "pageGroup" , change l'état de toutes les questions du groupe
               //$etat =  mod($questObj->getVar($field)+1, $modulo);
               $sql = "UPDATE " . $this->table . " SET {$field} = {$etat} WHERE quest_parent_id={$questId};";            
@@ -444,7 +444,7 @@ __SQL__;
     
         $questObj = $this->get($questId);
         $questObj->setVar($field,$value);
-        $idParent = ($questObj->getVar('quest_type_question') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
+        $idParent = ($questObj->getVar('quest_plugin') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
         $this->insert($questObj);
        
         if($doItForGroup && $idParent > 0){
@@ -460,7 +460,7 @@ __SQL__;
 public function getParents($quizId, $addNone = true){
     $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
     $criteria->add(new \Criteria('quest_parent_id', 0, '='));
-    $criteria->add(new \Criteria('quest_type_question', 'pageGroup', '='));    
+    $criteria->add(new \Criteria('quest_plugin', 'pageGroup', '='));    
     $criteria->setOrder('ASC');
     $criteria->setSort('quest_weight,quest_question');
     $rst = $this->getAll($criteria);
@@ -494,19 +494,19 @@ public function getStatistics($quizId = 0){
 *
 * ******************************* */
 public function getTypeQuestionOf($quizId){
-    $sql = "SELECT DISTINCT quest_type_question"
+    $sql = "SELECT DISTINCT quest_plugin"
          . " FROM ". $this->table 
          . " WHERE quest_quiz_id = {$quizId}"
-         . " AND quest_type_question<>'pageBegin'"
-         . " AND quest_type_question<>'pageEnd'"
-         . " ORDER BY quest_type_question ASC";
+         . " AND quest_plugin<>'pageBegin'"
+         . " AND quest_plugin<>'pageEnd'"
+         . " ORDER BY quest_plugin ASC";
          
-    $typeQuestion = array ();
+    $pluginName = array ();
     $rst = $this->db->query($sql);
     while (false !== ($row = $this->db->fetchArray($rst))) {
-        $typeQuestion[$row['quest_type_question']] =  $row['quest_type_question'];
+        $pluginName[$row['quest_plugin']] =  $row['quest_plugin'];
     }
-    return $typeQuestion;
+    return $pluginName;
 }
 
 

@@ -88,9 +88,9 @@ define('_CO_QUIZMAKER_SOMMAIRE', "Sommaire des questions");
 define('_CO_QUIZMAKER_SPHPINI', "<span style='font-weight: bold;'>Informations extraites du fichier ini PHP :</span>");
 define('_CO_QUIZMAKER_SUMMARY', "Summary of questions");
 define('_CO_QUIZMAKER_TIME', "Date/Heure");
-define('_CO_QUIZMAKER_TYPE_QUESTION', "Type de question");
-define('_CO_QUIZMAKER_TYPE_QUESTION_2_ADD', "Type de question à ajouter");
-define('_CO_QUIZMAKER_TYPE_QUESTION_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir les ressaisir.");
+define('_CO_QUIZMAKER_PLUGIN', "Type de question");
+define('_CO_QUIZMAKER_PLUGIN_2_ADD', "Type de question à ajouter");
+define('_CO_QUIZMAKER_PLUGIN_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir les ressaisir.");
 define('_CO_QUIZMAKER_UPLOADPATHDSC', "Noter. Le chemin de téléchargement *DOIT* contenir le chemin complet du serveur de votre dossier de téléchargement.");
 
 ?>

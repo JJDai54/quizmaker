@@ -97,10 +97,10 @@ use XoopsModules\Quizmaker\Utility;
   	    $form->addElement($inpQuiz);
 
         //Liste des types de question
-        $inpCheckbox = new \XoopsFormCheckboxAll(_CO_QUIZMAKER_TYPE_QUESTION, 'types_question_selected', 1, '<br>');
-        $inpCheckbox->addOptionChecboxkAll('all_types_question_selected', 'Tous les types de question', -1);
+        $inpCheckbox = new \XoopsFormCheckboxAll(_CO_QUIZMAKER_PLUGIN, 'plugins_selected', 1, '<br>');
+        $inpCheckbox->addOptionChecboxkAll('all_plugins_selected', 'Tous les types de question', -1);
         $inpCheckbox->setColorCheckAll('red');
-        $inpCheckbox->addOptionArray($type_questionHandler->getListKeyName(null, true));    
+        $inpCheckbox->addOptionArray($pluginsHandler->getListKeyName(null, true));    
         $form->addElement($inpCheckbox);
 
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     

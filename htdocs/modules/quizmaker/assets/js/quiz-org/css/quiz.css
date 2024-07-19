@@ -129,7 +129,7 @@ position:relative;
 
 
 /* ----- opjets contenu dans gigi_div_body ----- */
-.quiz_div_slide_main{         /* pour tous les slides */
+.quiz_div_plugin_main{         /* pour tous les slides */
   display : none;
     /* 
     display: flex;
@@ -147,21 +147,21 @@ position:relative;
 /* overflow: auto; */
 }
 
-.quiz_div_slide_begin{         /* pour pageBegin */
+.quiz_div_plugin_begin{         /* pour pageBegin */
     min-height : 50px; /* body - buttons*/
     height : 600px; /* body sans tenir compte de button*/
     display: flex;
     flex-direction: column;
     position:relative;
 }
-.quiz_div_slide_end{         /* pour pageEnd */
+.quiz_div_plugin_end{         /* pour pageEnd */
     min-height : 50px; /* body - buttons*/
     height : 500px; /* body sans tenir compte de button*/
     display: flex;
     flex-direction: column;
     position:relative;
 }
-.quiz_div_slide_question1{         /* pour tous les slides contenant une question ou pageGroup*/
+.quiz_div_plugin_question1{         /* pour tous les slides contenant une question ou pageGroup*/
     min-height : 50px; /* body - buttons*/
     height : 500px; /* body - buttons*/
     background:rgb(204,153,255);
@@ -170,7 +170,7 @@ position:relative;
     position:relative;
 }
 
-.quiz_div_slide_question0{         /* pour tous les slides contenant une question ou pageGroup*/
+.quiz_div_plugin_question0{         /* pour tous les slides contenant une question ou pageGroup*/
     min-height : 50px; /* body - buttons*/
     height : 550px; /* body - buttons*/
     background:rgb(204,153,255);
@@ -270,7 +270,7 @@ label{
 
 
 /* --- style des slides --- */
-.quiz_slide_main{
+.quiz_plugin_main{
   /* position: absolute; */
   top: 0px;
   width: 100%;
@@ -283,13 +283,13 @@ label{
   margin: auto;
 }
 
-.quiz_slide_main_active{
+.quiz_plugin_main_active{
   opacity: 1;
   z-index: 2;
   display : inline;
 }
 
-.quiz_slide_question_main{
+.quiz_plugin_question_main{
 min-height:150px;
   font-size: 1.0em;
   margin-itemRound-bottom: 0px;
@@ -298,7 +298,7 @@ min-height:150px;
   width:100%;
       overflow-y: auto;
 }
-.quiz_slide_propositions{
+.quiz_plugin_propositions{
   font-size: 1.0em;
   margin-itemRound-bottom: 0px;
   padding-top: 10px;
@@ -309,19 +309,19 @@ min-height:150px;
     flex-direction: column;
 }
 
-label.div.quiz_slide_question_main{
+label.div.quiz_plugin_question_main{
 cursor: pointer;
 }
 
 
-.quiz_slide_question{
+.quiz_plugin_question{
   font-size: 1.5em;
   margin-itemRound-bottom: 0px;
   padding-top: 0px;
   padding-itemRound-bottom: 0px;
 }
 
-.quiz_slide_comment1{
+.quiz_plugin_comment1{
   font-size: 1.0em;
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 10px 0px;

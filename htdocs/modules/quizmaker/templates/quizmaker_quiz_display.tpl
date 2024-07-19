@@ -3,7 +3,7 @@
 <{/if}>
 <{include file='db:quizmaker_header.tpl' }>
 
-<!-- ----- togodo ----- -->
+<!-- ----- quizmaker ----- -->
 <{foreach item=param from=$paramsForQuiz name=quiz  key=index}>
 <input type="hidden" id="user.<{$index}>" name="user.<{$index}>" value="<{$param}>" />
 <{/foreach}>

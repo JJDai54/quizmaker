@@ -34,7 +34,7 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL_MODU
 $quizHandler = $quizmakerHelper->getHandler('Quiz');
 $questionsHandler = $quizmakerHelper->getHandler('Questions');
 $categoriesHandler = $quizmakerHelper->getHandler('Categories');
-$type_questionHandler = $quizmakerHelper->getHandler('Type_question');
+$pluginsHandler = $quizmakerHelper->getHandler('Plugins');
 $answersHandler = $quizmakerHelper->getHandler('Answers');
 $resultsHandler = $quizmakerHelper->getHandler('Results');
 $messagesHandler = $quizmakerHelper->getHandler('Messages');
@@ -53,7 +53,7 @@ $modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
 xoops_loadLanguage('main', $moduleDirName);
 xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
-xoops_loadLanguage('type_questions', $moduleDirName);
+xoops_loadLanguage('plugins', $moduleDirName);
 
 include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
 //\jjd\load_trierTableauHTML();

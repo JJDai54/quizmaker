@@ -38,6 +38,8 @@ $op = Request::getCmd('op', 'list');
 // Request quiz_id
 $catId  = Request::getInt('cat_id', 0);
 $quizId = Request::getInt('quiz_id', 0);
+$modeName = Request::getInt('mode_name', 0);
+$suffix = Request::getInt('suffix', 0);
 
 $objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
@@ -48,7 +50,7 @@ list_on_errors:
 switch($op) {
 	case 'export_ok':
         $clPerms->checkAndRedirect('export_quiz', $catId,'$catId', "index.php");
-        if ($quizId > 0) $quizUtility::quiz_export($quizId);
+        if ($quizId > 0) $quizUtility::quiz_export($quizId, $modeName, $suffix);
         
     case 'export':
     case 'list':
@@ -98,7 +100,18 @@ switch($op) {
         //$inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
         $inpQuiz->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
   	    $form->addElement($inpQuiz);
+
+        $inpModeName = new \XoopsFormRadio(_AM_QUIZMAKER_FILE_NAME, 'mode_name', $modeName, '<br>');
+        $inpModeName->addOption(0, _AM_QUIZMAKER_FILE_NAME_QUIZ_NAME);     
+        $inpModeName->addOption(1, _AM_QUIZMAKER_FILE_NAME_FOLDERJS_NAME);        
+  	    $form->addElement($inpModeName);
         
+        $inpSuffix = new \XoopsFormRadio(_AM_QUIZMAKER_FILE_SUFFIX, 'suffix', $suffix, '<br>');
+        $inpSuffix->addOption(0, _AM_QUIZMAKER_FILE_NAME_KEEP_NAME);     
+        $inpSuffix->addOption(1, _AM_QUIZMAKER_FILE_NAME_ADD_TIMESTAMP);        
+        $inpSuffix->addOption(2, _AM_QUIZMAKER_FILE_NAME_ADD_RANDOM);     
+  	    $form->addElement($inpSuffix);
+           
         //-----------------------------------------------$caption, $name, $value = '', $type = 'button'
 		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_EXPORTER, 'submit'));
 //echo $form->render()  ;      
@@ -107,7 +120,9 @@ switch($op) {
 /////////////////////////////////////////        
 
     break;
-    
+
+
+
 
 }
 /////////////////////////////////////////   

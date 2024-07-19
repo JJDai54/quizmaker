@@ -76,6 +76,7 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_optionsDev',        Request::getInt('quiz_optionsDev', 0));
 		$quizObj->setVar('quiz_actif',             Request::getInt('quiz_actif', 1));
 		$quizObj->setVar('quiz_showConsigne',      Request::getInt('quiz_showConsigne', 0)) ;
+		$quizObj->setVar('quiz_showTimer',         Request::getInt('quiz_showTimer', 0)) ;
 		$quizObj->setVar('quiz_libBegin',          Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
 		$quizObj->setVar('quiz_libEnd',            Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 
@@ -94,7 +95,7 @@ use XoopsModules\Quizmaker\Utility;
              // page de présentation
              $questionsObj = $questionsHandler->create();
              $questionsObj->setVar('quest_quiz_id', $quizId);
-             $questionsObj->setVar('quest_type_question', 'pageBegin');
+             $questionsObj->setVar('quest_plugin', 'pageBegin');
              //$questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
              $questionsObj->setVar('quest_weight', -99999);
              $questionsObj->setVar('quest_timer', 0);
@@ -117,7 +118,7 @@ use XoopsModules\Quizmaker\Utility;
              //--------------------------             
              $questionsObj = $questionsHandler->create();
              $questionsObj->setVar('quest_quiz_id', $quizId);
-             $questionsObj->setVar('quest_type_question', 'pageEnd');
+             $questionsObj->setVar('quest_plugin', 'pageEnd');
              //$questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizId) + 10);
              $questionsObj->setVar('quest_weight', 9999);
              $questionsObj->setVar('quest_timer', 0);

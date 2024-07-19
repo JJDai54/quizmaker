@@ -34,11 +34,11 @@ function xoops_module_uninstall_quizmaker(\XoopsModule $module)
 
     $moduleDirName      = basename(dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-    /** @var Quizmaker\Helper $quizmakerHelper */
-    $quizmakerHelper = Quizmaker\Helper::getInstance();
+    /** @var FQUIZMAKER\Helper $quizmakerHelper */
+    $quizmakerHelper = FQUIZMAKER\Helper::getInstance();
 
-    /** @var Quizmaker\Utility $utility */
-    $utility = new Quizmaker\Utility();
+    /** @var FQUIZMAKER\Utility $utility */
+    $utility = new FQUIZMAKER\Utility();
 
     $success = true;
     $quizmakerHelper->loadLanguage('admin');

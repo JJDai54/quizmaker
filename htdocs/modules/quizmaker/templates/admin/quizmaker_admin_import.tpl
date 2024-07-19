@@ -19,7 +19,7 @@
     <INPUT TYPE='hidden' name='from_quiz_id' id='from_quiz_id' VALUE=''>
     <INPUT TYPE='hidden' name='to_cat_id' id='to_cat_id' VALUE=''>
     <INPUT TYPE='hidden' name='to_quiz_id' id='to_quiz_id' VALUE=''>
-    <INPUT TYPE='hidden' name='from_type_question' id='from_type_question' VALUE=''>
+    <INPUT TYPE='hidden' name='from_plugin' id='from_plugin' VALUE=''>
     <INPUT TYPE='hidden' name='order_by' id='order_by' VALUE=''>
     <INPUT TYPE='hidden' name='group_to' id='group_to' VALUE=''>
                                                   
@@ -35,7 +35,7 @@ function quizmaker_reload_import(ev){
  var prefix = 'select_';
  var catId = 'from_cat_id'
  var quizId = 'from_quiz_id'
- var typeQuestionId = 'from_type_question'
+ var pluginNameId = 'from_plugin'
  var id = '';
 
     //alert('ev.currentTarget.id : ' + ev.currentTarget.id);
@@ -58,7 +58,7 @@ function quizmaker_reload_import(ev){
     //alert('quizmaker_reload_import_quest : ' +  document.getElementById(name2).value);
     
 
-    //document.getElementById('type_question').value = document.getElementById('quest_type_question').value;
+    //document.getElementById('plugin').value = document.getElementById('quest_plugin').value;
     document.quizmaker_select_import.submit();
 }
 
@@ -67,13 +67,13 @@ function quizmaker_reload_import_quest(ev, type_import, quizId=0){
     var catId = ev.currentTarget.value;
     document.getElementById('cat_id').value = ev.currentTarget.value;
     document.getElementById('quiz_id').value = quizId;
-    //document.getElementById('type_question').value = document.getElementById('quest_type_question').value;
+    //document.getElementById('plugin').value = document.getElementById('quest_plugin').value;
     document.quizmaker_select_import.submit();
 }
 function quizmaker_setValue(ev, id){
 
     document.getElementById(id).value = ev.currentTarget.value;
-    //document.getElementById('type_question').value = ev.currentTarget.value;
+    //document.getElementById('plugin').value = ev.currentTarget.value;
     alert( document.getElementById(id).value + "=" +  ev.currentTarget.value);
     return false;
     }

@@ -35,7 +35,7 @@ function addNewChild(parentId){
       </table>
       <table>
         <tr>
-          <td class='right'><{$smarty.const._CO_QUIZMAKER_TYPE_QUESTION}> : </td>
+          <td class='right'><{$smarty.const._CO_QUIZMAKER_PLUGIN}> : </td>
           <td><{$inpTypeQuest}></td>
           <td><div id='btnAddQuestion' class="xo-buttons"><{$btnNewQuestion}></div></td>
           <td><div style="height:55px;"><{$imgModelesHtml}></div></td>
@@ -85,7 +85,7 @@ function addNewChild(parentId){
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PARENT_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_QUIZ_ID}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_TYPE_QUESTION}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_PLUGIN}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_FORM_TYPE_SHORT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_QUESTION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
@@ -150,7 +150,7 @@ function addNewChild(parentId){
 
                 </td>
 				<td class='center' <{$styleParent}> ><{$Questions.quiz_id}></td>
-				<td class='left' <{$styleParent}> ><{$Questions.type_question}></td>
+				<td class='left' <{$styleParent}> ><{$Questions.plugin}></td>
 				<td class='left' <{$styleParent}> ><{$Questions.typeForm_lib}></td>
                 
                 
@@ -189,7 +189,7 @@ function addNewChild(parentId){
                 
 				<td class='center' <{$styleParent}> ><{$Questions.inpPoints}>
 				
-                <td class='center' <{$styleParent}> >
+                <td class='center width10' <{$styleParent}> >
                       <{$Questions.inpTimer}><{$Questions.inpStartTimer}>
                 </td>
                 
@@ -205,7 +205,7 @@ function addNewChild(parentId){
 				</td>
                 
 				<td class="center width10" <{$styleParent}> >
-                    <{if $Questions.type_question <> 'pageBegin'}>
+                    <{if $Questions.plugin <> 'pageBegin'}>
 
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
         				 <img src="<{$modPathIcon16}>actif-<{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
@@ -222,7 +222,7 @@ function addNewChild(parentId){
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
                             </a>
 *}>                     
-    					<a href="questions.php?op=delete&amp;quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
+    					<a href="questions.php?op=delete&quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
                             <img src="<{xoModuleIcons16}>/delete.png" alt="questions" />
                             </a>
                     <{else}>
@@ -230,7 +230,7 @@ function addNewChild(parentId){
                           <img src="<{$modPathIcon16}>/blank.png" alt="" />
                     <{/if}>              
 
-                    <{if $Questions.type_question == 'pageGroup' || $Questions.type_question == 'pageBegin'}>
+                    <{if $Questions.plugin == 'pageGroup' || $Questions.plugin == 'pageBegin'}>
     					<a  title="<{$smarty.const._ADD}>" onclick="addNewChild(<{$Questions.id}>);" >
                           <img src="<{xoModuleIcons16}>/add.png" alt="_ADD" />
                           </a>
@@ -262,10 +262,13 @@ document.scrollTop = -100;
 window.scroll(0, window.scrollY + offsetV);
 //alert('scrollWin');
 }
+
 qm_scrollWin();
+reloadImgModeles("modelesTypeQuestionId");
 
 tth_set_value('last_asc', true);
 tth_trierTableau('quiz_question_list', 8);  
+
 </script>
 
 <{/if}>

@@ -24,11 +24,7 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 //echoArray('gp',$quizId);
-        $quizArr = $quizHandler->getListKeyName($catId);
-        if ($quizId == 0 ) {
-            $quizId = array_key_first($quizArr);
-            $quiz = $quizHandler->get($quizId);
-        }
+
 		$templateMain = 'quizmaker_admin_questions.tpl';
   	    $GLOBALS['xoopsTpl']->assign('buttons', '');
   	    $GLOBALS['xoopsTpl']->assign('form', '');
@@ -42,16 +38,17 @@ use XoopsModules\Quizmaker\Constants;
         //----------------------------------------------
         //recupe du quiz a afficher
         $quiz = $quizHandler->get($quizId);
-        if ($quiz) {
-            $quizValues = $quiz->getValuesQuiz();
-            $catId = $quiz->getVar('quiz_cat_id');
-        }
+        $quizValues = $quiz->getValuesQuiz();
         
+//  echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";     
+//  echo "<br>quiz->gerVar('quiz_id') = " .  $quiz->getVar('quiz_id') . "<br>";
         // ----- Listes de selection pour filtrage -----  
+
         $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
+        
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizArr);
         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
@@ -65,20 +62,22 @@ use XoopsModules\Quizmaker\Constants;
         //---------------------------------------------        
         //Liste des types de question
         $imgModelesHeight = 50;
-        if (!$quest_type_question) $quest_type_question = 'checkboxSimple';
-        $inpTypeQuest = new \XoopsFormSelect(_CO_QUIZMAKER_TYPE_QUESTION, 'quest_type_question', $quest_type_question);
-        $inpTypeQuest->addOptionArray($type_questionHandler->getListByGroup(true));
+        if (!$quest_plugin) $quest_plugin = 'checkboxSimple';
+        $inpTypeQuest = new \XoopsFormSelect(_CO_QUIZMAKER_PLUGIN, 'quest_plugin', $quest_plugin);
+        $inpTypeQuest->addOptionArray($pluginsHandler->getListByGroup(true));
         $inpTypeQuest->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\",{$imgModelesHeight});'".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
         $GLOBALS['xoopsTpl']->assign('inpTypeQuest', $inpTypeQuest->render());
 \JJD\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //liste des images de type de question - a faire
-        global $quizUtility, $type_questionHandler;
+        global $quizUtility, $pluginsHandler;
         // recupe de la classe du type de question
-        $clTypeQuestion = $type_questionHandler->getTypeQuestion($quest_type_question);
+        $clTypeQuestion = $pluginsHandler->getPlugin($quest_plugin);
         if($clTypeQuestion){
           $imgModelesHtml = new \XoopsFormLabel('', $clTypeQuestion->getHtmlImgModeles($imgModelesHeight));  
           $GLOBALS['xoopsTpl']->assign('imgModelesHtml', $imgModelesHtml->render());
+        }else{
+          $GLOBALS['xoopsTpl']->assign('imgModelesHtml', "");
         }
 
         
@@ -105,19 +104,23 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //export jSon : génération du quiz en Html
         $btnBuildHtml = $quizUtility->getNewBtn(_AM_QUIZMAKER_BUILD_QUIZ, 'build_quiz', QUIZMAKER_URL_ICONS."/16/film.png",  _AM_QUIZMAKER_BUILD_QUIZ);
 		$GLOBALS['xoopsTpl']->assign('btnBuildHtml', $btnBuildHtml);
+        
         //---------------------------------------------        
         //test du quiz : affiche l'icone avec un "?" bleu si le quiz a ete générérer, permet de le tester
-        if($quiz && isset($quizValues["quiz_html"])){
+        if($quiz && $quizValues["quiz_html"] != ''){
             $lib =  _AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'];
-            if($quizValues["quiz_html"] != '' ){
-                $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1) );
-            }else{
-                $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
-            } 
+            $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1) );
             $imgTestHtml->setExtra("target='blank'");
-            //$btn['imgTest'] = $imgTest->render();
-  		    $GLOBALS['xoopsTpl']->assign('imgTestHtml', $imgTestHtml->render());
-        }
+        }else{
+              $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
+        }        
+  		$GLOBALS['xoopsTpl']->assign('imgTestHtml', $imgTestHtml->render());
+        
+        
+        
+        
+        
+        
         
         $btnPurgerImg = $quizUtility->getNewBtn(_AM_QUIZMAKER_PURGER_IMAGES, 'purger_images', QUIZMAKER_URL_ICONS."/16/delete.png",  _AM_QUIZMAKER_QUIZ_PURGER_IMAGES);
 		$GLOBALS['xoopsTpl']->assign('btnPurgerImg', $btnPurgerImg);

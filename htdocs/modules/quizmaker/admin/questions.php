@@ -24,50 +24,58 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 require __DIR__ . '/header.php';
+//------------------------------------------------------------
 //recherche des categories autorisées
 $clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 
-$catId  = Request::getInt('cat_id', array_key_first($catArr));
+$catId  = Request::getInt('cat_id', 0);
 $quizId  = Request::getInt('quiz_id', 0);
+$questId  = Request::getInt('quest_id', 0);
 
-//echoArray($catArr,"===>catId = {$catId}");
+if($quizId > 0 && $catId == 0){
+    $quiz = $quizHandler->get($quizId);
+    $catId = $quiz->getVar('quiz_cat_id');
+}
+
+//recherche de catId
+if($catId == 0 || !isset($catArr[$catId]))
+    $catId = array_key_first($catArr);
+
+//recherche de quizId
+$quizArr = $quizHandler->getListKeyName($catId);
+
+if ($quizId == 0  || !isset($quizArr[$quizId])) 
+    $quizId = array_key_first($quizArr);
+
+//$quiz = $quizHandler->get($quizId);
+// echoArray('gp');
+// echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";
 
 
 
-//if ($catId == 0 || !isset($catArr[$catId])) $catId = array_key_first($catArr);
-//echoArray($catArr);
-// It recovered the value of argument op in URL$
+
+
+
 $op = Request::getCmd('op', 'list');
-// Request quest_id
 
 //utiliser pour rediriger directement sur l'ajout d'une question du même type
 $addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
 
 //echo "<hr>addNew = " . (($addNew) ? ' ajout ok' : 'pas d ajout') . "-{$addNew}<hr>";
 
+
 $sender  = Request::getString('sender', '');
-// if ($sender == 'cat_id') {
-//     $quizId = $quizHandler->getFirstIdOfParent($catId);
-// }else{
-//   $quizId  = Request::getInt('quiz_id', 0);
-// }
-if ($quizId == 0) {
-    $quizId = $quizHandler->getFirstIdOfParent($catId);
-}
-
-$questId = Request::getInt('quest_id', 0);
-$quest_type_question = Request::getString('quest_type_question', '');
 
 
-//   $gp = array_merge($_GET, $_POST);
-//   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
 
-function getParams2list($quizId, $quest_type_question, $sender = "", $quest_parent_id=0){
+$quest_plugin = Request::getString('quest_plugin', '');
+
+function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0){
 global $quizHandler;
     $catId = $quizHandler->getParentId($quizId);
-    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_type_question={$quest_type_question}&quest_parent_id={$quest_parent_id}";
+    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}";
 }
 
 //////////////////////////////////////////////
@@ -92,7 +100,7 @@ switch($op) {
     
     case 'init_weight':
         $questionsHandler->incrementeWeight($quizId);
-        $url = "questions.php?op=list&" . getParams2list($quizId, $quest_type_question)."#question-{$questId}";
+        $url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
         \redirect_header($url, 0, "");
 	break;
     
@@ -100,14 +108,14 @@ switch($op) {
         $action = Request::getString('sens', "down") ;
         $questionsHandler->updateWeight($questId, $action);
         $questionsHandler->incrementeWeight($quizId);
-        $url = "questions.php?op=list&" . getParams2list($quizId, $quest_type_question)."#question-{$questId}";
+        $url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
         \redirect_header($url, 0, "");
         break;
 
 	case 'build_quiz':
         $quizUtility::buildQuiz($quizId);
         //$utility::export_questions2Jason($quizId);
-        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_type_question), 5, "Export effectue");
+        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, "Export effectue");
 		//redirect_header('questions.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
 	break;
         

@@ -67,16 +67,14 @@ $quizUtility = new \XoopsModules\Quizmaker\Utility();
 include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
 \jjd\loadAllXForms();   
 \jjd\load_trierTableauHTML();
-$clPerms = new jjdPermissions();
+$clPerms = new \jjdPermissions();
 //include_once(JJD_PATH_XFORMS . '/formtabletray.php');        
 // include_once dirname(__DIR__) . '/class/xoopsform/formnumber.php';
 // include_once dirname(__DIR__) . '/class/xoopsform/formimg.php';
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
 //$moduleDirName      = 'quizmaker';
-xoops_loadLanguage('slide', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
-xoops_loadLanguage('quiz_JS', $moduleDirName);
-xoops_loadLanguage('type_questions', $moduleDirName);
+xoops_loadLanguage('plugins', $moduleDirName);
 
 // Get instance of module
 // $mid = $GLOBALS['xoopsModule']->getVar('mid');
@@ -84,7 +82,7 @@ xoops_loadLanguage('type_questions', $moduleDirName);
 $quizHandler = $quizmakerHelper->getHandler('Quiz');
 $questionsHandler = $quizmakerHelper->getHandler('Questions');
 $categoriesHandler = $quizmakerHelper->getHandler('Categories');
-$type_questionHandler = $quizmakerHelper->getHandler('Type_question');
+$pluginsHandler = $quizmakerHelper->getHandler('Plugins');
 $answersHandler = $quizmakerHelper->getHandler('Answers');
 $resultsHandler = $quizmakerHelper->getHandler('Results');
 $messagesHandler = $quizmakerHelper->getHandler('Messages');

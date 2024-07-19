@@ -49,7 +49,7 @@ if ($sender == 'cat_id') {
 //  $quizId  = Request::getInt('quiz_id', 1);
 
 // $questId = Request::getInt('quest_id', 0);
-// $quest_type_question = Request::getString('quest_type_question', '');
+// $quest_plugin = Request::getString('quest_plugin', '');
 
 //$gp = array_merge($_GET, $_POST);
 //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";

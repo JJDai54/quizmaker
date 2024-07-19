@@ -68,7 +68,7 @@ $adminmenu[] = [
 ];
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU6,
-	'link' => 'admin/type_question.php',
+	'link' => 'admin/plugins.php',
 	'icon' => 'assets/icons/32/wizard.png',
 ];
 

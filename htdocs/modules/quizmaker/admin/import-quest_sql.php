@@ -79,7 +79,7 @@ use XoopsModules\Quizmaker\Utility;
   	    $form->addElement(new XoopsFormLabel(_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1,_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2));
         
         //-----------------Quiz source ------------------------------
-        define('_AM_QUIZMAKER_SELECT_QUIZ_FROM', "Selection du quiz source");
+
         $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SELECT_QUIZ_FROM . "</center></div>");
         
         // ----- Listes de selection pour filtrage -----  
@@ -100,9 +100,9 @@ use XoopsModules\Quizmaker\Utility;
         $inpQuiz->setExtra("onchange='quizmaker_reload_import(event);'" . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
   	    $form->addElement($inpQuiz);
         
-        if(!$orderBy) $orderBy = 'quest_type_question';
+        if(!$orderBy) $orderBy = 'quest_plugin';
         $inpOrderBy = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_ORDER_BY, 'select_order_by', $orderBy);
-        $inpOrderBy->addOptionArray(['quest_type_question'=> _AM_QUIZMAKER_QUIZ_ORDER_BY_TYPE_QUESTION,
+        $inpOrderBy->addOptionArray(['quest_plugin'=> _AM_QUIZMAKER_QUIZ_ORDER_BY_PLUGINS,
                                      'quest_weight'       => _AM_QUIZMAKER_QUIZ_ORDER_BY_WEIGHT,
                                      'quest_question'     => _AM_QUIZMAKER_QUIZ_ORDER_BY_QUESTION,
                                      'quest_id'           => _AM_QUIZMAKER_QUIZ_ORDER_BY_ID]);
@@ -113,9 +113,9 @@ use XoopsModules\Quizmaker\Utility;
         /* a garder - un jour peut-etre filtrage sur type de question
         if($fromQuizId){
         //Liste des types de question
-        $inpCheckbox = new \XoopsFormCheckboxAll(_CO_QUIZMAKER_TYPE_QUESTION, 'types_question_selected', 1, '<br>');
+        $inpCheckbox = new \XoopsFormCheckboxAll(_CO_QUIZMAKER_PLUGIN, 'plugins_selected', 1, '<br>');
         $inpCheckbox->addOptionArray($questionsHandler->getTypeQuestionOf($fromQuizId));    
-        $idCheckAllTypeQuestion = $inpCheckbox->addOptionChecboxkAll('all_types_question_selected', 'Tous les types de question', -1, true);
+        $idCheckAllTypeQuestion = $inpCheckbox->addOptionChecboxkAll('all_plugins_selected', 'Tous les types de question', -1, true);
         $inpCheckbox->setColorCheckAll('red');
         $form->addElement($inpCheckbox);
         //echo "<hr>idCheckAllTypeQuestion = {$idCheckAllTypeQuestion}<hr>";
@@ -124,11 +124,11 @@ use XoopsModules\Quizmaker\Utility;
         */
         
         $criteria = new CriteriaCompo(new Criteria('quest_quiz_id',  $fromQuizId,'='));
-        $criteria->add(new Criteria('quest_type_question',  'pageBegin','<>'));
-        $criteria->add(new Criteria('quest_type_question',  'pageEnd','<>'));
+        $criteria->add(new Criteria('quest_plugin',  'pageBegin','<>'));
+        $criteria->add(new Criteria('quest_plugin',  'pageEnd','<>'));
         $criteria->setSort("{$orderBy},quest_id");
         $criteria->setOrder('ASC');
-        //$allQuestions = $questionsHandler->getAllQuestionsArr($criteria,array('quest_type_question','quest_question'));
+        //$allQuestions = $questionsHandler->getAllQuestionsArr($criteria,array('quest_plugin','quest_question'));
         
         switch($orderBy){
             case 'quest_weight': 
@@ -144,22 +144,22 @@ use XoopsModules\Quizmaker\Utility;
 
             
             default;
-            case 'quest_type_question': 
+            case 'quest_plugin': 
                 $lib = '<span style="color:red;">%3$s</span> <span style="color:%4$s;">%2$s</span> [<span style="color:blue;">#%1$s</span>]';
                 break;
         }
                 //$lib = "[<span style='color:blue;'>#%1$s</span>] <span style='color:red;'>%3$s</span> : <span style='color:%4$s;'>%2$s'</span>'";
-        $allQuestions = $questionsHandler->getAll($criteria,array('quest_type_question','quest_question'),false,true);
+        $allQuestions = $questionsHandler->getAll($criteria,array('quest_plugin','quest_question'),false,true);
         
         $options = array();
         $sep1 = '';
         foreach($allQuestions AS $key=>$arr){
-            $colorQuest = ($arr['quest_type_question'] == 'pageGroup') ? 'blue': 'black';
+            $colorQuest = ($arr['quest_plugin'] == 'pageGroup') ? 'blue': 'black';
             
             $strId = str_pad($key,5,'0',STR_PAD_LEFT);
-            //$options[$key] = "<span style='color:{$colorQuest};'>{$arr['quest_question']}'</span>' [<span style='color:blue;'>#{$key}</span>] <span style='color:red;'>{$arr['quest_type_question']}</span>";
-            $options[$key] = "[<span style='color:blue;'>#{$strId}</span>] <span style='color:red;'>{$arr['quest_type_question']}</span> : <span style='color:{$colorQuest};'>{$arr['quest_question']}'</span>'  ";
-            $options[$key] = sprintf($lib, $strId, $arr['quest_question'], $arr['quest_type_question'], $colorQuest);
+            //$options[$key] = "<span style='color:{$colorQuest};'>{$arr['quest_question']}'</span>' [<span style='color:blue;'>#{$key}</span>] <span style='color:red;'>{$arr['quest_plugin']}</span>";
+            $options[$key] = "[<span style='color:blue;'>#{$strId}</span>] <span style='color:red;'>{$arr['quest_plugin']}</span> : <span style='color:{$colorQuest};'>{$arr['quest_question']}'</span>'  ";
+            $options[$key] = sprintf($lib, $strId, $arr['quest_question'], $arr['quest_plugin'], $colorQuest);
         }
 
         if($fromQuizId){
@@ -176,7 +176,6 @@ use XoopsModules\Quizmaker\Utility;
         
        
         //-----------------Quiz de destination------------------------------
-        define('_AM_QUIZMAKER_SELECT_QUIZ_DEST', "Selection du quiz de destination");
         $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SELECT_QUIZ_DEST . "</center></div>");
         // ----- Listes de selection pour filtrage -----  
         $inpToCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'select_to_cat_id', $toCatId);

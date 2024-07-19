@@ -21,14 +21,14 @@ Pour les exemples le mot "nomDuPlugin" a été utilisé et doit être remplacé 
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top;">slide_nomDuPlugin.php</td>
-      <td style="vertical-align: top;">C'est une classe héritée de "Type_question".<br>
+      <td style="vertical-align: top;">nomDuPlugin.php</td>
+      <td style="vertical-align: top;">C'est une classe héritée de "Plugin".<br>
 Elle gère toute l'administration du plugin et doit contenir à minima :<br>
 use XoopsModules\Quizmaker AS FQUIZMAKER;<br>
-include_once QUIZMAKER_PATH_MODULE . "/class/Type_question.php";<br>
+include_once QUIZMAKER_PATH_MODULE . "/class/Plugins.php";<br>
 defined('XOOPS_ROOT_PATH') || die('Restricted access');<br>
       <br>
-class slide_nomDuModule extends XoopsModules\Quizmaker\Type_question<br>
+class Plugin_nomDuModule extends XoopsModules\Quizmaker\Plugins<br>
 {<br>
 &nbsp;&nbsp;&nbsp; public function __construct()<br>
 &nbsp;&nbsp;&nbsp; {<br>
@@ -71,7 +71,7 @@ etc.];<br>
       <br>
 &nbsp;&nbsp;&nbsp;&nbsp; public function saveAnswers($answers, $questId, $quizId)<br>
 &nbsp;&nbsp;&nbsp;&nbsp; {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; global $utility, $answersHandler, $type_questionHandler;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; global $utility, $answersHandler, $pluginsHandler;<br>
 &nbsp;&nbsp;&nbsp; }<br>
 &nbsp;&nbsp;&nbsp; <br>
 &nbsp;&nbsp;&nbsp; public function getSolutions($questId, $boolAllSolutions = true){<br>
@@ -144,12 +144,12 @@ par exemple le plugin "imagesDaDGroups".<br>
       <td colspan="2" rowspan="1" style="vertical-align: top;">\quizmaker\assets\js\quiz-org\plugins\nomDuPlugin/</td>
     </tr>
     <tr>
-      <td style="vertical-align: top;">slide_nomDuPlugin.js<br>
+      <td style="vertical-align: top;">nomDuPlugin.js<br>
       </td>
-      <td style="vertical-align: top;">ce fichier hérite de la classe "/quizmaker/assets/js/quiz-org\js/slide__prototype.js"<br>
+      <td style="vertical-align: top;">ce fichier hérite de la classe "/quizmaker/assets/js/quiz-org/js/plugin_prototype.js"<br>
 ce fichier doit contenir à minima les déclarations et fonctions suivantes : <br>
 **********************************/<br>
-class nomDuPlugin extends quizPrototype{<br>
+class nomDuPlugin extends Plugin_Prototype{<br>
 name = 'nomDuPlugin';<br>
       <br>
 &nbsp;build (){ return this.getInnerHTML(); }<br>
@@ -163,7 +163,7 @@ name = 'nomDuPlugin';<br>
       </td>
     </tr>
     <tr>
-      <td style="vertical-align: top;">slide_nomDuPlugin.css<br>
+      <td style="vertical-align: top;">nomDuPlugin.css<br>
       </td>
       <td style="vertical-align: top;">Ce fichier contient les déclaration de style propre au plugin.<br>
 Il doivent être préfixés avec le nom du plugin, exemple :<br>

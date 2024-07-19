@@ -37,5 +37,6 @@ define('_QT_QUIZMAKER_TEXTAREAMIXTE_CONSIGNE', "Consigne à complèter");
 \define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON_0', "Comparaison strict (Mot exact avec accents)");
 \define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON_1', "Comparaison avec Accents optionnels (ex: \"sérénade\" équivalent à \"serênade\" équivalent à \"serenade\")");
 \define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON_2', "Comparaison souple (Mot contenu avec ou sans accents (ex: \"sérénade\", \"serênade\" sont équivalents à \"serenade\")");
+\define('_QT_QUIZMAKER_TEXTAREAMIXTE_SCORE_BY_WORD', "Nombre de points par mot trouvé");
 
 ?>

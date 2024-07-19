@@ -139,6 +139,7 @@ switch($op) {
 		$quizObj->setVar('quiz_optionsDev', Request::getInt('quiz_optionsDev', 0));
 		$quizObj->setVar('quiz_actif', Request::getInt('quiz_actif', 1));
 		$quizObj->setVar('quiz_showConsigne', Request::getInt('quiz_showConsigne', 0));
+		$quizObj->setVar('quiz_showTimer', Request::getInt('quiz_showTimer', 0));
         
 		// Insert Data
 		if ($quizHandler->insert($quizObj)) {

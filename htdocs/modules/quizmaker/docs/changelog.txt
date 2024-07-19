@@ -1,30 +1,42 @@
 ---------------------------------------------------
+2024-07-18a v 5.00 beta 3 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- renommage de "type_question" en "plugin" (classes, fichiers, tables, ...)
+- onglet "Questions", synchronisation des sélecteurs 'categorie" et "quiz" et des permissions 
+- Onglet export : ajout du choix du nom pour l'export
+- suppression du champ quest_type_question remplacer par quest_plugin
+- ajout du champ quiz_show_timer
+
+---------------------------------------------------
 2024-07-04a v 5.00 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-- Suppression des constantes de langues inutiles
-- Correction calcul du score sur e dernier slide "show_all_scores"
-- Mise en service du champ quest_start_timer 
-  permert de forcer ponctuelement l'affichage d'un slide pendant une durée déterminée
+- Suppression des constantes de langues inutiles.
+- Correction calcul du score sur e dernier slide "show_all_scores".
+- Mise en service du champ quest_start_timer :
+  permet de forcer ponctuelement l'affichage d'un slide pendant une durée déterminée
   sans activer l'option dans les parametres du quiz.
- -remplacemene dans les fichier help.html 
-  de  : <meta http-equiv="content-type" content="text/html; charset=windows-1252">
-  par : <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+ -remplacemene dans les fichier help.html .
+  de  : <meta http-equiv="content-type" content="text/html; charset=windows-1252">.
+  par : <meta http-equiv="content-type" content="text/html; charset=UTF-8" />.
+- Correction plugin textareaMixte : "score by good word".
+- Plugin imagesDaDItems : Ajout des couleurs de fond pour silouhatte et source.
+
 ---------------------------------------------------
 2024-06-04a v 5.00 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-- version majeure
-- Très gros nettoyage du code (étape 1)
-- refonte de certains plugins tant du côté PHP que JS et CSS
-- refonte complète de l'onglet "Importation"
-- refonte complète de l'onglet "type de question"
-- le framework "jjd-Framework" a été modifié, il faut le réinstaller
-- refonte complète de la gestion des permissions
-- fusion de certain plugins et suppression des fichier devenus inutiles
+- version majeure.
+- Très gros nettoyage du code (étape 1).
+- refonte de certains plugins tant du côté PHP que JS et CSS.
+- refonte complète de l'onglet "Importation".
+- refonte complète de l'onglet "type de question".
+- le framework "jjd-Framework" a été modifié, il faut le réinstaller.
+- refonte complète de la gestion des permissions.
+- fusion de certains plugins et suppression des fichiers devenus inutiles.
 
 ---------------------------------------------------
 2024-06-04a v 4.14 beta 12 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-Class type_question :
+Class plugin :
     - creation des fonctions archiveExempleExist() et isBuild()
       permet d'installer des quiz exemples dans l'onglet "Type de question"
 
@@ -131,7 +143,7 @@ onglet "Type de question" :
     
 - correction JS : 
     - reloadImgModeles, verif de l'existence de l'objet "btnAddQuestion"
-    - refonte de la fonction type_questionHandler->getListByGroup()
+    - refonte de la fonction pluginsHandler->getListByGroup()
     - correction imgasDadSortItem remplacement de '//' par '/'+'/' que le minificateur n'aime pas
     - Transfert de la génération des fichiers minifiés dans le dossier "upload/quizmaker/quiz-min"
       ces fichiers sont générés lors de la construction du quiz quand l'option "use_js_minified" est utilisée.
@@ -196,10 +208,10 @@ onglet "Type de question" :
 ---------------------------------------------------
 2023-03-08 - v 3.08 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-Restructuration de l'arborescence sous forme de plugins..
-Centralisation des fichiers de chaque type de question dans un dossier par type
+Restructuration de l'arborescence sous forme de plugins.
+Centralisation des fichiers de chaque plugin dans un dossier par type
 le tout dans un même dossier:
-    - plugins_questions
+    - plugins
         - checkboxLogical
             - img
                 - snapshoot-000.jpg
@@ -212,8 +224,8 @@ le tout dans un même dossier:
                 - french
                     - constants.php
                     - help.html
-            - slide_checkboxLogical.js                         
-            - slide_checkboxLogical.php
+            - checkboxLogical.js                         
+            - checkboxLogical.php
             
         - comboboxMatchItems  ...
                           

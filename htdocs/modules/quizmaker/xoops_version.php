@@ -29,8 +29,8 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
 	'version'             => 5.00,
-	'module_status'       => 'Beta 1',
-	'release_date'        => '2024/06/25',
+	'module_status'       => 'Beta 3',
+	'release_date'        => '2024/07/18',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -80,7 +80,7 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_quiz.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_questions.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
-	['file' => 'quizmaker_admin_type_question.tpl', 'description' => '', 'type' => 'admin'],
+	['file' => 'quizmaker_admin_plugins.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_answers.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_results.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_messages.tpl', 'description' => '', 'type' => 'admin'],
@@ -95,8 +95,7 @@ $modversion['templates'] = [
     ['file' => 'quizmaker_admin_clone.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
-    ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
-    ['file' => 'quizmaker_admin_type_question_help.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_plugins_help.tpl', 'description' => '', 'type' => 'admin'],
 
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
@@ -126,10 +125,11 @@ $modversion['tables'] = [
 	'quizmaker_quiz',
 	'quizmaker_questions',
 	'quizmaker_categories',
-	'quizmaker_type_question',
+	'quizmaker_plugins',
 	'quizmaker_answers',
 	'quizmaker_results',
 	'quizmaker_messages',
+	'quizmaker_data',
 ];
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
@@ -410,10 +410,10 @@ $modversion['config'][] = [
 // create increment steps for file size
 include_once __DIR__ . '/include/xoops_version.inc.php';
 
-$iniPostMaxSize       = quizmakerReturnBytes(\ini_get('post_max_size'));
-$iniUploadMaxFileSize = quizmakerReturnBytes(\ini_get('upload_max_filesize'));
+$iniPostMaxSize       = quizmaker_returnBytes(\ini_get('post_max_size'));
+$iniUploadMaxFileSize = quizmaker_returnBytes(\ini_get('upload_max_filesize'));
 $maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
-//echo quizmakerReturnBytes(\ini_get('post_max_size')) . "---" . quizmakerReturnBytes(\ini_get('upload_max_filesize')) . "---" . $maxSize;
+//echo quizmaker_returnBytes(\ini_get('post_max_size')) . "---" . quizmaker_returnBytes(\ini_get('upload_max_filesize')) . "---" . $maxSize;
 
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
@@ -619,9 +619,9 @@ $modversion['config'][] = [
 
 // help type de question
 $modversion['config'][] = [
-	'name'        => 'display_slide_help',
-	'title'       => '_MI_QUIZMAKER_DISPLAY_SLIDE_HELP',
-	'description' => '_MI_QUIZMAKER_DISPLAY_SLIDE_HELP_DESC',
+	'name'        => 'display_plugin_help',
+	'title'       => '_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP',
+	'description' => '_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP_DESC',
 	'formtype'    => 'yesno',
 	'valuetype'   => 'int',
 	'default'     => 1,

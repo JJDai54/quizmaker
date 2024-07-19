@@ -98,6 +98,9 @@ function getNumAlpha(index, mode=0, offset=0){
     case 3:         //renvoi la numerotation en lettre minuscule "a b c ..."
         return String.fromCharCode((index*1)+65+offset).toLowerCase() + quiz_messages.twoPoints; 
         break;
+    case 4:         // renvoi l'index tel que
+        return '{' + ((index*1)+1+offset) + '}' + quiz_messages.twoPoints;
+        break;
     case 0:         //pas de numérotation, a utiliser de préférence avec ldes images par exemple
     default:         
         return "";
@@ -997,9 +1000,9 @@ var tRet = [];
             break;
         }
         if (bolOk){
-            console.log ("===> test : " + clQuestion.question.typeQuestion  + " - " + clQuestion.question.question);
+            console.log ("===> test : " + clQuestion.question.pluginName  + " - " + clQuestion.question.question);
             var onClick = `onClick="gotoSlideNum(${numSlide});"`;
-            var exp = `${numSlide}-${clQuestion.question.typeQuestion }-${clQuestion.sanityse_question()}`;
+            var exp = `${numSlide}-${clQuestion.question.pluginName }-${clQuestion.sanityse_question()}`;
             
             if( clQuestion.question.isQuestion){
                 var link =`<h2 ${onClick}>${exp}</h2>` 
@@ -1368,6 +1371,7 @@ function componentFromStr(numStr, percent) {
   //console.log(aStyleSheets[i].cssRules);
     try{
       var aCssRules =  aStyleSheets[i].cssRules;
+      console.log("modifCSSRule===> aCssRules : " + aCssRules)
       for(var j = 0; j < aCssRules.length; ++j){   
         if(exp_reg.test(aCssRules[j].selectorText)){ 
           aCssRules[j].style[sPropriete]= sVal;
@@ -1381,4 +1385,12 @@ function componentFromStr(numStr, percent) {
     }
   }
   return bFind; 
+}
+
+ function setStyleAttribute(id, sAttribut, sVal){
+    var ob = document.getElementById(id); 
+    if(ob) {
+        ob.setAttribute("style", sAttribut + ':' + sVal);
+        //obSilouhette.style.background=currentQuestion.options.bgSilhouette;
+    }
 }

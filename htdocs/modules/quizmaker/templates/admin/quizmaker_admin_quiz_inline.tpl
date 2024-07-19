@@ -28,8 +28,8 @@
     <script src="<{$urlApp}>/js/<{$prototype}>"></script>
     <!-- Insertion des classes et des css des plugins -->
     <{foreach item=pluginJS from=$allPlugins name=tpljsName}>
-        <script src="<{$urlPlugins}>/<{$pluginJS}>/slide_<{$pluginJS}>.js"></script>
-        <link rel="stylesheet" href="<{$urlPlugins}>/<{$pluginJS}>/slide_<{$pluginJS}>.css" type="text/css" />
+        <script src="<{$urlPlugins}>/<{$pluginJS}>/<{$pluginJS}>.js"></script>
+        <link rel="stylesheet" href="<{$urlPlugins}>/<{$pluginJS}>/<{$pluginJS}>.css" type="text/css" />
     <{/foreach}>
 
     <{* ========================================== *}> 
@@ -84,6 +84,7 @@
 
 <script src="<{$urlApp}>/js/<{$quiz_functions}>.js"></script>
 <script src="<{$urlApp}>/js/<{$quiz_events}>.js"></script>
+<script src="<{$urlApp}>/js/<{$timer}>.js"></script>
 <script src="<{$urlApp}>/js/<{$quiz_main}>.js"></script>
 
 <{if $outline}>

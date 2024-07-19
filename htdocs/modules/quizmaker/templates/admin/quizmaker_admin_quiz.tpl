@@ -38,6 +38,7 @@ img{
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_OPTIONS_IHM}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_OPTIONS_DEV}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 			</tr>
 		</thead>
 		<{if $quiz_count}>
@@ -142,10 +143,10 @@ img{
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT__ALLOWEDSUBMIT}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT}>' >
                         <{$Quiz.flags.allowedSubmit}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWSCOREMINMAX}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_SCOREMINMAX}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX}>' >
                         <{$Quiz.flags.showScoreMinMax}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWALLSOLUTIONS}>"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_ALLSOLUTIONS}>"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' >
                         <{$Quiz.flags.showAllSolutions}>
                         </a>|
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ANSWERBEFORENEXT}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT}>' >
@@ -160,7 +161,7 @@ img{
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHUFFLEQUESTIONS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION}>' >
                         <{$Quiz.flags.shuffleQuestions}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWRESULTPOPUP}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_RESULT_POPUP}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_RESULTPOPUP}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_RESULT_POPUP}>' >
                         <{$Quiz.flags.showResultPopup}>
                         </a>|
                 </td>
@@ -169,28 +170,28 @@ img{
 				<td class='center' >
                    <{assign var="urlOptionsDev" value="quiz.php?op=set_bit&cat_id=`$Quiz.cat_id`&quiz_id=`$Quiz.id`&field=quiz_optionsDev"}>
 
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWTYPEQUESTION}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_TYPE_QUESTION}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_PLUGIN}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_PLUGIN}>' >
                         <{$Quiz.flags.showTypeQuestion}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWRELOADANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_RELOAD_ANSWERS}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_RELOADANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_RELOAD_ANSWERS}>' >
                         <{$Quiz.flags.showReloadAnswers}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWGOTOSLIDE}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOTO_SLIDE}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_GOTOSLIDE}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOTO_SLIDE}>' >
                         <{$Quiz.flags.showGoToSlide}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWGOODANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_GOODANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS}>' >
                         <{$Quiz.flags.showGoodAnswers}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWBADANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_BADANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS}>' >
                         <{$Quiz.flags.showBadAnswers}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWLOG}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWLOG}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_LOG}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWLOG}>' >
                         <{$Quiz.flags.showLog}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWRESULTALLWAYS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_RESULTALLWAYS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS}>' >
                         <{$Quiz.flags.showResultAllways}>
                         </a>|
-                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOWREPONSESBOTTOM}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWREPONSES}>' >
+                   <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_REPONSESBOTTOM}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOWREPONSES}>' >
                         <{$Quiz.flags.showReponsesBottom}>
                         </a>
                         
@@ -245,6 +246,7 @@ img{
 
 
 				</td>
+				<td class='center'><{$Quiz.id}></td>
 			</tr>
 			<{/foreach}>
 		</tbody>

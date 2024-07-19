@@ -120,7 +120,7 @@ switch($op) {
     case 'init_weight':
         $quizHandler->incrementeWeight($catId);
         $url = "quiz.php?op=list&cat_id={$catId}";
-        //$url = "questions.php?op=list&" . getParams2list($quizId, $quest_type_question)."#question-{$questId}";
+        //$url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
         \redirect_header($url, 0, "");
 	break;
 

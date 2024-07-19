@@ -48,8 +48,8 @@ define('_MI_QUIZMAKER_BOOKMARKS_DESC', "Show social bookmarks on a single page")
 define('_MI_QUIZMAKER_CATEGORIES_BLOCK', "Category block");
 define('_MI_QUIZMAKER_CATEGORIES_BLOCK_DESC', "Category block description");
 define('_MI_QUIZMAKER_DESC', "This module allows you to create quizzes and multiple choice questions");
-define('_MI_QUIZMAKER_DISPLAY_SLIDE_HELP', "Slide help");
-define('_MI_QUIZMAKER_DISPLAY_SLIDE_HELP_DESC', "Allows you to display the description of the slide with its options when editing questions.<br>If you master the module it is possible to hide this help to reduce the display when editing editing questions.");
+define('_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP', "Slide help");
+define('_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP_DESC', "Allows you to display the description of the slide with its options when editing questions.<br>If you master the module it is possible to hide this help to reduce the display when editing editing questions.");
 define('_MI_QUIZMAKER_DIVIDEBY', "Divide by");
 define('_MI_QUIZMAKER_DIVIDEBY_DESC', "Divide by the number of columns.");
 define('_MI_QUIZMAKER_EDITOR_ADMIN', "Editor administrator");
@@ -160,5 +160,14 @@ define('_MI_QUIZMAKER_USE_TAG', "Use TAG");
 define('_MI_QUIZMAKER_USE_TAG_DESC', "If you use the tag module, check this option yes");
 define('_MI_QUIZMAKER_USER_PAGER', "Number of items per page on user side");
 define('_MI_QUIZMAKER_USER_PAGER_DESC', "Paging lists in the user interface");
+
+define('_MI_QUIZMAKER_HELP_OVERVIEW', "Vue d'ensemble");
+define('_MI_QUIZMAKER_HELP_INSTALL', "Installation");
+define('_MI_QUIZMAKER_HELP_CREATE_QUIZ', "Créer un quiz");
+define('_MI_QUIZMAKER_HELP_CREATE_CATEGORY', "Créer une catégorie");
+define('_MI_QUIZMAKER_HELP_ARCHITECTURE_MODULE', "Architecture du module");
+define('_MI_QUIZMAKER_HELP_ARCHITECTURE_PLUGIN', "Architecture d'un plugin");
+define('_MI_QUIZMAKER_HELP_PLUGINS', "Plugins");
+define('_MI_QUIZMAKER_HELP_ADD_QUESTIONS', "Ajouter des questions");
 
 ?>

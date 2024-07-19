@@ -43,6 +43,7 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_publishAnswers` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_questPosComment1` tinyint NOT NULL DEFAULT '1',
   `quiz_showConsigne` tinyint(1) NOT NULL DEFAULT '1',
+  `quiz_showTimer` tinyint(1) NOT NULL DEFAULT '1',
   `quiz_dateBegin` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_dateEnd` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_dateBeginOk` tinyint(1) NOT NULL DEFAULT '0',
@@ -75,8 +76,7 @@ CREATE TABLE `quizmaker_questions` (
   `quest_identifiant` varchar(50) NOT NULL DEFAULT '',
   `quest_comment1` text NOT NULL,
   `quest_posComment1` tinyint(1) NOT NULL DEFAULT '0',
-  `quest_type_question` varchar(30) NOT NULL DEFAULT '',
-  `quest_type_form` tinyint(1) NOT NULL DEFAULT '0',
+  `quest_plugin` varchar(30) NOT NULL DEFAULT '',
   `quest_explanation` text NOT NULL,
   `quest_consigne` text NOT NULL,
   `quest_learn_more` varchar(255) NOT NULL DEFAULT '',
@@ -121,10 +121,10 @@ CREATE TABLE `quizmaker_answers` (
 ) ENGINE=InnoDB;
 
 #
-# Structure table for `quizmaker_type_question` 4
+# Structure table for `quizmaker_plugin` 4
 #
 
-CREATE TABLE `quizmaker_type_question` (
+CREATE TABLE `quizmaker_plugin` (
   `type_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `type_name` varchar(255) NOT NULL DEFAULT '',
   `type_description` text NOT NULL,
@@ -168,6 +168,18 @@ CREATE TABLE `quizmaker_results` (
   PRIMARY KEY (`result_id`)
 ) ENGINE=InnoDB;
 
+
+#
+# Structure table for `quizmaker_questions` 9
+#
+
+CREATE TABLE `quizmaker_data` (
+  `data_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `data_flag` int(8) NOT NULL,
+  `data_name` varchar(80) NOT NULL DEFAULT '',
+  `data_expressions` text NOT NULL,
+  PRIMARY KEY (`data_id`)
+) ENGINE=InnoDB;
 
 INSERT INTO quizmaker_categories( `cat_name`, `cat_description`,  `cat_theme`, `cat_weight`) VALUES 
 ('Test', 'Catégorie de test', 'default', 0);

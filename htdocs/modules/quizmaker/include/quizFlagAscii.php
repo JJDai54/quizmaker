@@ -44,7 +44,7 @@ function smarty_function_quizFlagAscii($flag, $argStr, $color0='red', $color1='g
 {
     $color = ($flag) ? $color0 : $color1;
     $fontSize = '12px';
-    echo "togodo";
+    echo "quizmaker";
     echo "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
@@ -56,7 +56,7 @@ function smarty_function_quizFlagAscii($args, &$smarty)
     $exp = $args['exp'];
     $color = $tColors[$args['flag']];
     $fontSize = '16px';
-    //echo "togodo";
+    //echo "quizmaker";
     echo "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
@@ -77,9 +77,9 @@ function quizFlagAscii($flag, $exp, $color = QUIZMAKER_FLAGS_COLORS)
     //if (!$flag) $flag=3;
     $tColors = (isset($colors)) ? explode('|',$colors) : explode('|', QUIZMAKER_FLAGS_COLORS);
     //$exp = implode('|', $exp);
-    $color = $tColors[$flag];
+    $color = (isset($tColors[$flag])) ? $tColors[$flag] : 'magenta';
     $fontSize = '16px';
-    //echo "togodo";
+    //echo "quizmaker";
     return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
@@ -90,7 +90,7 @@ function quizFlagAlpha($flag, $exps, $colors = QUIZMAKER_FLAGS_COLORS)
     $tColors = (isset($colors)) ? explode('|',$colors) : explode('|', QUIZMAKER_FLAGS_COLORS);
 
     $exp = $tExp [$flag];
-    $color = $tColors[$flag];
+    $color = (isset($tColors[$flag])) ? $tColors[$flag] : 'magenta';
     $fontSize = '16px';
     return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
 }

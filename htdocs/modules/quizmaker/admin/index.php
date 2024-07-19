@@ -34,7 +34,7 @@ $countCategories = $categoriesHandler->getCount();
 $countQuiz = $quizHandler->getCount();
 $countQuestions = $questionsHandler->getCount();
 $countAnswers = $answersHandler->getCount();
-$countType_question = $type_questionHandler->getCount();
+$countPlugin = $pluginsHandler->getCount();
 $countMessages = $messagesHandler->getCount();
 $countResults = $resultsHandler->getCount();
 
@@ -46,7 +46,7 @@ $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_CATEGORIE
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_QUIZ.'</label>', $countQuiz));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_QUESTIONS.'</label>', $countQuestions));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_ANSWERS.'</label>', $countAnswers));
-$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_TYPE_QUESTION.'</label>', $countType_question));
+$adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_PLUGINS.'</label>', $countPlugin));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_MESSAGES.'</label>', $countMessages));
 $adminObject->addInfoBoxLine(sprintf( '<label>'._AM_QUIZMAKER_THEREARE_RESULTS.'</label>', $countResults));
 

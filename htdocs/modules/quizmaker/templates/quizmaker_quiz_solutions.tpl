@@ -128,7 +128,7 @@ window.scroll(0, window.scrollY + offsetV);
                   <td style="text-align:right;width:50px;"><{$question.numQuestion}>&nbsp;-&nbsp;</td>
                   <td>
                     <a href='#slide-<{$question.id}>' onclick='qm_scrollWin();'> 
-                         <{$question.question}><{if $admin}>  (#<{$question.id}> / <{$question.type_question}>)<{/if}>
+                         <{$question.question}><{if $admin}>  (#<{$question.id}> / <{$question.plugin}>)<{/if}>
                     </a>
                   </td>
                   <td>
@@ -145,7 +145,7 @@ window.scroll(0, window.scrollY + offsetV);
               <tr>
                   <td colspan="3"><center><b>
                         <a href='#slide-<{$question.id}>' onclick='qm_scrollWin();'> 
-                             <{$question.question}><{if $admin}>  (#<{$question.id}> / <{$question.type_question}>)<{/if}>
+                             <{$question.question}><{if $admin}>  (#<{$question.id}> / <{$question.plugin}>)<{/if}>
                         </a>
                   </b></center></td>
                     <tr><td colspan="3"><hr class='default-hr-style-one'></td></tr>
@@ -170,7 +170,7 @@ window.scroll(0, window.scrollY + offsetV);
         
         <{if $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_QUESTION}>        
           <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">
-              <b><{$question.numQuestion}><{if $admin}> - <{$question.question}> (#<{$question.id}> / <{$question.type_question}>)<{/if}>
+              <b><{$question.numQuestion}><{if $admin}> - <{$question.question}> (#<{$question.id}> / <{$question.plugin}>)<{/if}>
               <a href='#slide-sommaire' class='sommaire' onclick='qm_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
 
           </div>
@@ -204,7 +204,7 @@ window.scroll(0, window.scrollY + offsetV);
             <div class="item-round-top <{$quiz.theme_ok}>-item-head" style='margin-top:0px;'><center>...</center><br></div>      
             <{*
             <div class="item-round-top <{$quiz.theme_ok}>-item-head" style="padding:0px 50px 0px 50px;">
-                <b><{$question.question}><{if $admin}> (#<{$question.id}> / <{$question.type_question}>)<{/if}>
+                <b><{$question.question}><{if $admin}> (#<{$question.id}> / <{$question.plugin}>)<{/if}>
                 <a href='#slide-sommaire' class='sommaire' onclick='qm_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
             </div>
             *}>

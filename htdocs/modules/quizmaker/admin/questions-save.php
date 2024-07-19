@@ -44,8 +44,8 @@ use XoopsModules\Quizmaker\Constants;
 		}
         
         // Set Vars
-        $typeQuestion = Request::getString('quest_type_question', '');
-		$questionsObj->setVar('quest_type_question', $typeQuestion);
+        $pluginName = Request::getString('quest_plugin', '');
+		$questionsObj->setVar('quest_plugin', $pluginName);
 		$quest_parent_id = Request::getInt('quest_parent_id', 0);
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 		$questionsObj->setVar('quest_question', Request::getString('quest_question', ''));
@@ -58,7 +58,7 @@ use XoopsModules\Quizmaker\Constants;
         $quiz = $quizHandler->get($quizId);
         $folderJS = $quiz->getVar('quiz_folderJS');
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";  
-        $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
+        $cls = $pluginsHandler->getClassPlugin($pluginName);
         //********************************************************
         //gesion des images du form "options" spécifique a chaque type de question
         // recherche des imges de prefix quest_options
@@ -115,7 +115,7 @@ echoArray($_POST,'_POST',false);
         }
 
         // --- gestion de limage de la question
-        $cls = $type_questionHandler->getClassTypeQuestion($typeQuestion);
+        $cls = $pluginsHandler->getClassPlugin($pluginName);
         
         //recupe de la nouvelle image si elle a ete selectionnée
         $questImage = $cls->save_img($ans, 'quest_image', $path, $folderJS, 'question', $nameOrg);
@@ -130,15 +130,15 @@ echoArray($_POST,'_POST',false);
             $cls->saveAnswers(Request::getArray('answers', []), $questId, $quizId);
         
        
-//echo "<hr>" .  getParams2list($quizId, $quest_type_question); exit;
+//echo "<hr>" .  getParams2list($quizId, $quest_plugin); exit;
          $questionsHandler->incrementeWeight($quizId);
 //=============================================================================
           if ($addNew)
-			redirect_header('questions.php?op=new&' . getParams2list($quizId, $quest_type_question, "", $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
-          else if ($sender == 'type_question_list')
-			redirect_header('type_question.php?op=list&' . getParams2list($quizId, $quest_type_question, $sender, $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
+			redirect_header('questions.php?op=new&' . getParams2list($quizId, $quest_plugin, "", $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
+          else if ($sender == 'plugin_list')
+			redirect_header('plugins.php?op=list&' . getParams2list($quizId, $quest_plugin, $sender, $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
           else
-			redirect_header('questions.php?op=list&' . getParams2list($quizId, $quest_type_question, "", $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
+			redirect_header('questions.php?op=list&' . getParams2list($quizId, $quest_plugin, "", $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
 
             
 		}

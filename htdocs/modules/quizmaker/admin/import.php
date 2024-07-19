@@ -30,8 +30,18 @@ $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_IMPORTG,'QUIZMAKER_PERM
 //recherche des categories autorisées
 $clPerms->addPermissions($criteriaCatAllowed, 'export_quiz', 'cat_id');
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
-if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
-    
+//if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+$fromCatId  = Request::getInt('from_cat_id', array_key_first($catArr));
+if($fromCatId <= 0) $fromCatId = array_key_first($catArr);
+
+$toCatId  = Request::getInt('to_cat_id', array_key_first($catArr));
+if($toCatId <= 0) $toCatId = array_key_first($catArr);
+
+$catId  = Request::getInt('cat_id', array_key_first($catArr));
+if($catId <= 0) $catId = array_key_first($catArr);
+
+
+
 //use JJD;
 /*
 $pg = array_merge($_GET, $_POST);
@@ -46,16 +56,16 @@ $templateMain = 'quizmaker_admin_import.tpl';
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'zzz');
 // Request quiz_id
-$catId  = Request::getInt('cat_id', -1);
 $quizId = Request::getInt('quiz_id');
 $typeImport = Request::getString('type_import','file');
-$typeQuestion = Request::getString('type_question','');
+$pluginName = Request::getString('plugin','');
 
-$fromCatId  = Request::getInt('from_cat_id', -1);
+
+//echoArray($catArr,array_key_first($catArr));
+//echo "<hr>fromCatId = {$fromCatId}<hr>";
 $fromQuizId = Request::getInt('from_quiz_id');
-$toCatId  = Request::getInt('to_cat_id', -1);
 $toQuizId = Request::getInt('to_quiz_id');
-$orderBy = Request::getString('order_by','quest_type_question');
+$orderBy = Request::getString('order_by','quest_plugin');
 $groupTo = Request::getString('group_to','');
 
 //echoGPF();
@@ -171,9 +181,9 @@ switch($op) {
     case 'quest_import':
        //echoGPF("GPF","quest_import",true);
         if (loadFile2Import()){
-            $typeQuestionSelected = Request::getArray('types_question_selected',null);
+            $pluginNameSelected = Request::getArray('plugins_selected',null);
 
-            $newQuizId = $quizUtility::quiz_importOnlyQuestFromYml($pathImport, $quizId, $typeQuestionSelected, array('pageBegin','pageEnd'));                      
+            $newQuizId = $quizUtility::quiz_importOnlyQuestFromYml($pathImport, $quizId, $pluginNameSelected, array('pageBegin','pageEnd'));                      
 
             $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
             $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
@@ -208,12 +218,6 @@ switch($op) {
     case 'import':
     case 'list':
         // ----- selection du type d'importation -----  
-        define('_AM_QUIZMAKER_TYPE_IMPORT',"Type d'importation");
-        define('_AM_QUIZMAKER_TYPE_IMPORT_FILE',"Importation d'un quiz unique");
-        define('_AM_QUIZMAKER_TYPE_IMPORT_BATCH',"Importation d'un lot de quiz");
-        define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST',"Importation des questions uniquement");
-        define('_AM_QUIZMAKER_TYPE_IMPORT_MOD',"Importation des questions d'un autre quiz");
-        
         
         $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, 'type_import', $typeImport);
         $inpTypeImport->addOption('file',  _AM_QUIZMAKER_TYPE_IMPORT_FILE);

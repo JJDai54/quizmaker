@@ -59,7 +59,7 @@ if (0 == $quizId) {
 //     }
 //     //----------------------------------------------
 //     //insertion du prototype des tpl
-//     $xoTheme->addScript($urlApp . '/' . 'slide__prototype.js');    
+  
 
 
 		$quizObj = $quizHandler->get($quizId);

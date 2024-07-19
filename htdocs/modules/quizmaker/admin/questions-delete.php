@@ -29,10 +29,10 @@ use XoopsModules\Quizmaker\Constants;
   
   if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
   	if (!$GLOBALS['xoopsSecurity']->check()) {
-  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_type_question), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
   	}
   	if ($questionsHandler->deleteCascade($questionsObj)) {
-  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_type_question), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
+  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
   	} else {
   		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());
   	}

@@ -133,7 +133,7 @@ switch($op) {
         if($questId > 0){
             $obQuest = $questionsHandler->get($questId);
 		    $GLOBALS['xoopsTpl']->assign('questOptions', $obQuest->getVar('quest_options'));
-		    $GLOBALS['xoopsTpl']->assign('quesTypeQuestion', $obQuest->getVar('quest_type_question'));
+		    $GLOBALS['xoopsTpl']->assign('quesTypeQuestion', $obQuest->getVar('quest_plugin'));
         }  
         //--------------------------------------------
         

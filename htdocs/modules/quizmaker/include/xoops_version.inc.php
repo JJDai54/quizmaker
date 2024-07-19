@@ -22,7 +22,7 @@
  * @param $val
  * @return float|int
  */
-function quizmakerReturnBytes($val)
+function quizmaker_returnBytes($val)
 {
     switch (mb_substr($val, -1)) {
         case 'K':

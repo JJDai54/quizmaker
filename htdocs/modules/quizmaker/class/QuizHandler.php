@@ -429,6 +429,7 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
         switch ($config){
         case 1:
         $tField = array('quiz_showConsigne'         => '1',
+                        'quiz_showTimer'            => '0',
                         'quiz_optionsIhm'           => '0',
                         'quiz_optionsDev'           => '0',
                         'quiz_actif'                => '0');
@@ -436,6 +437,7 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
             
         default :
         $tField = array('quiz_showConsigne'         => '1',
+                        'quiz_showTimer'            => '0',
                         'quiz_optionsIhm'           => '0',
                         'quiz_optionsDev'           => '0',
                         'quiz_actif'                => '1');
