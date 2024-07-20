@@ -442,6 +442,7 @@ class Quiz extends \XoopsObject
     $criteria->add( new \Criteria("quest_plugin",  'pageBegin', "<>"));
     $criteria->add( new \Criteria("quest_plugin",  'pageEnd', "<>"));
     $criteria->add( new \Criteria("quest_plugin",  'pageGroup', "<>"));
+    $criteria->add( new \Criteria("quest_plugin",  'pageInfo', "<>"));
     $count = $questionsHandler->getCount($criteria);
     return $count;
     }

@@ -30,6 +30,7 @@ _quizmaker
 			admin\import.php
 			admin\import-batch.php
 			admin\import-file.php
+			admin\import-plugin.php
 			admin\import-quest.php
 			admin\import-quest_sql.php
 			admin\index.html
@@ -55,7 +56,7 @@ _quizmaker
 			admin\quiz-save.php
 			admin\results.php
 			admin\traitements.php
-		+assets
+		-assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -188,7 +189,7 @@ _quizmaker
 				assets\images\solution-02.png
 				assets\images\solution-03.png
 			-js
-				+quiz-org
+				-quiz-org
 					-css
 						-infobulle
 							-images
@@ -262,7 +263,7 @@ _quizmaker
 						assets\js\quiz-org\images\Help.png
 						assets\js\quiz-org\images\Hint.png
 						assets\js\quiz-org\images\index.html
-					+js
+					-js
 						assets\js\quiz-org\js\index.html
 						assets\js\quiz-org\js\plugin_prototype.js
 						assets\js\quiz-org\js\quiz-events.js
@@ -273,8 +274,8 @@ _quizmaker
 						assets\js\quiz-org\language\index.html
 						assets\js\quiz-org\language\quiz-english.js
 						assets\js\quiz-org\language\quiz-french.js
-					+plugins
-						+alphaSimple
+					-plugins
+						-alphaSimple
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.css
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.js
 							assets\js\quiz-org\plugins\alphaSimple\index.html
@@ -422,7 +423,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\sortItems\index.html
 							assets\js\quiz-org\plugins\sortItems\sortItems.css
 							assets\js\quiz-org\plugins\sortItems\sortItems.js
-						-textÿ ea ?? e
+						-textareaMixte
 							assets\js\quiz-org\plugins\textareaMixte\index.html
 							assets\js\quiz-org\plugins\textareaMixte\textareaMixte.css
 							assets\js\quiz-org\plugins\textareaMixte\textareaMixte.js
@@ -451,7 +452,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -511,7 +512,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -524,8 +525,8 @@ _quizmaker
 			include\uninstall.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
-			+english
+		-language
+			-english
 				-help
 					-img
 						language\english\help\img\_barre_de_dev.jpg
@@ -586,7 +587,8 @@ _quizmaker
 				language\english\index.html
 				language\english\main.php
 				language\english\modinfo.php
-			+french
+				language\english\plugins.php
+			-french
 				-help
 					-img
 						language\french\help\img\_barre_de_dev.jpg
@@ -647,8 +649,9 @@ _quizmaker
 				language\french\index.html
 				language\french\main.php
 				language\french\modinfo.php
+				language\french\plugins.php
 			language\index.html
-		+plugins
+		-plugins
 			-alphaSimple
 				-img
 					-dispositions
@@ -683,9 +686,29 @@ _quizmaker
 					plugins\alphaSimple\snapshoot\snapshoot-001.jpg
 					plugins\alphaSimple\snapshoot\snapshoot-002.jpg
 				plugins\alphaSimple\alphaSimple.php
-				plugins\alphaSimple\alphaSimple.zip
 				plugins\alphaSimple\index.html
+				plugins\alphaSimple\plugin_alphaSimple.zip
 			-choiceSimple
+				-choiceSimple
+					-images
+						plugins\choiceSimple\choiceSimple\images\index.html
+						plugins\choiceSimple\choiceSimple\images\question6617ebc9a4eaa.jpg
+						plugins\choiceSimple\choiceSimple\images\question6617edf554c0f.jpg
+						plugins\choiceSimple\choiceSimple\images\question6617efa22bb40.jpg
+						plugins\choiceSimple\choiceSimple\images\question6617f06ced1af.jpg
+						plugins\choiceSimple\choiceSimple\images\question6617f1d5824aa.jpg
+						plugins\choiceSimple\choiceSimple\images\question665adc95685fd.png
+						plugins\choiceSimple\choiceSimple\images\question665ade078062c.png
+						plugins\choiceSimple\choiceSimple\images\question665adf6d0967a.png
+						plugins\choiceSimple\choiceSimple\images\question665ae13c21bd7.png
+						plugins\choiceSimple\choiceSimple\images\question665ae2cf288aa.png
+						plugins\choiceSimple\choiceSimple\images\quiz-825-136381094904855.jpeg
+						plugins\choiceSimple\choiceSimple\images\quiz-830-76383e290e5603.jpeg
+						plugins\choiceSimple\choiceSimple\images\quiz-830-76383ebcf4c4d3.jpeg
+					plugins\choiceSimple\choiceSimple\answers.yml
+					plugins\choiceSimple\choiceSimple\categories.yml
+					plugins\choiceSimple\choiceSimple\questions.yml
+					plugins\choiceSimple\choiceSimple\quiz.yml
 				-language
 					-english
 						plugins\choiceSimple\language\english\constants.php
@@ -702,8 +725,8 @@ _quizmaker
 					plugins\choiceSimple\snapshoot\snapshoot-001.jpg
 					plugins\choiceSimple\snapshoot\snapshoot-002.jpg
 				plugins\choiceSimple\choiceSimple.php
-				plugins\choiceSimple\choiceSimple.zip
 				plugins\choiceSimple\index.html
+				plugins\choiceSimple\plugin_choiceSimple.zip
 			-imagesColor
 				-img
 				-language
@@ -722,64 +745,9 @@ _quizmaker
 					plugins\imagesColor\snapshoot\snapshoot-001.jpg
 					plugins\imagesColor\snapshoot\snapshoot-002.jpg
 				plugins\imagesColor\imagesColor.php
-				plugins\imagesColor\imagesColor.zip
 				plugins\imagesColor\index.html
+				plugins\imagesColor\plugin_imagesColor.zip
 			-imagesDaDGroups
-				-imagesDaDGroups
-					-images
-						plugins\imagesDaDGroups\imagesDaDGroups\images\index.html
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-106380ddc40ce12.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-116380ddc40d130.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-1638109d535270.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-2638109d5358aa.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-3638109d535cbd.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-4638109d5360c7.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-5638109d5364e5.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-6638109d53693c.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-7638109d536c89.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-86380a6dd08d31.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-86380ddc40c801.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-8638109d53706c.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-96380ddc40cb3a.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-824-9638109d537486.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-825-1263810949044de.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-825-136381094904855.jpeg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-825-146381094904af1.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-16383e8fceefc0.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-26383eb2c01d91.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-36383eb4cad5be.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-46383eb4cad9f8.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-56383eb6ca379d.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-66383eb6ca3d1a.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-829-76383eb6ca40f8.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-106383ebcf4d328.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-16383ebcf4a6dd.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-26383ebcf4ad21.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-36383ebcf4b258.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-46383ebcf4b701.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-56383ebcf4bb73.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-66383ebcf4bfc0.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-76383e290e5603.jpeg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-76383ebcf4c4d3.jpeg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-86383ebcf4c943.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-830-96383ebcf4ce3c.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-866-163a8872e9594c.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-866-263a886d428a20.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-866-363a886d428ea9.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-866-463a886d4293d5.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-866-563a886d42991c.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-866-663a886d429d2e.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-870-8638538dd6f35c.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-942-165da225fd04af.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-942-265da225fd0a0d.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-942-365da225fd0e53.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-942-465da5f4d1d7f4.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-942-565da5f4d1dcae.jpg
-						plugins\imagesDaDGroups\imagesDaDGroups\images\quiz-942-665da5f4d1e0a5.jpg
-					plugins\imagesDaDGroups\imagesDaDGroups\answers.yml
-					plugins\imagesDaDGroups\imagesDaDGroups\categories.yml
-					plugins\imagesDaDGroups\imagesDaDGroups\questions.yml
-					plugins\imagesDaDGroups\imagesDaDGroups\quiz.yml
 				-img
 					-dispositions
 						plugins\imagesDaDGroups\img\dispositions\disposition-02.png
@@ -808,8 +776,8 @@ _quizmaker
 					plugins\imagesDaDGroups\snapshoot\snapshoot-001.jpg
 					plugins\imagesDaDGroups\snapshoot\snapshoot-002.jpg
 				plugins\imagesDaDGroups\imagesDaDGroups.php
-				plugins\imagesDaDGroups\imagesDaDGroups.zip
 				plugins\imagesDaDGroups\index.html
+				plugins\imagesDaDGroups\plugin_imagesDaDGroups.zip
 			-imagesDaDMatchItems
 				-img
 					-dispositions
@@ -837,8 +805,8 @@ _quizmaker
 					plugins\imagesDaDMatchItems\snapshoot\snapshoot-002.jpg
 				plugins\imagesDaDMatchItems\help.html.lnk
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.php
-				plugins\imagesDaDMatchItems\imagesDadMatchItems.zip
 				plugins\imagesDaDMatchItems\index.html
+				plugins\imagesDaDMatchItems\plugin_imagesDaDMatchItems.zip
 			-imagesDaDSortItems
 				-language
 					-english
@@ -856,8 +824,8 @@ _quizmaker
 					plugins\imagesDaDSortItems\snapshoot\snapshoot-001.jpg
 					plugins\imagesDaDSortItems\snapshoot\snapshoot-002.jpg
 				plugins\imagesDaDSortItems\imagesDaDSortItems.php
-				plugins\imagesDaDSortItems\imagesDaDSortItems.zip
 				plugins\imagesDaDSortItems\index.html
+				plugins\imagesDaDSortItems\plugin_imagesDaDSortItems.zip
 			-imagesLogical
 				-language
 					-english
@@ -875,8 +843,8 @@ _quizmaker
 					plugins\imagesLogical\snapshoot\snapshoot-001.jpg
 					plugins\imagesLogical\snapshoot\snapshoot-002.jpg
 				plugins\imagesLogical\imagesLogical.php
-				plugins\imagesLogical\imagesLogical.zip
 				plugins\imagesLogical\index.html
+				plugins\imagesLogical\plugin_imagesLogical.zip
 			-imagesSimple
 				-img
 					-dispositions
@@ -885,12 +853,12 @@ _quizmaker
 						plugins\imagesSimple\img\dispositions\dispositions.svg
 						plugins\imagesSimple\img\dispositions\index.html
 					plugins\imagesSimple\img\index.html
-				+language
+				-language
 					-english
 						plugins\imagesSimple\language\english\constants.php
 						plugins\imagesSimple\language\english\help.html
 						plugins\imagesSimple\language\english\index.html
-					+french
+					-french
 						plugins\imagesSimple\language\french\constants.php
 						plugins\imagesSimple\language\french\help.html
 						plugins\imagesSimple\language\french\index.html
@@ -900,8 +868,8 @@ _quizmaker
 					plugins\imagesSimple\snapshoot\snapshoot-000.jpg
 					plugins\imagesSimple\snapshoot\snapshoot-001.jpg
 				plugins\imagesSimple\imagesSimple.php
-				plugins\imagesSimple\imagesSimple.zip
 				plugins\imagesSimple\index.html
+				plugins\imagesSimple\plugin_imagesSimple.zip
 			-listboxClassItems
 				-language
 					-english
@@ -922,7 +890,7 @@ _quizmaker
 					plugins\listboxClassItems\snapshoot\snapshoot-002.jpg
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.php
-				plugins\listboxClassItems\listboxClassItems.zip
+				plugins\listboxClassItems\plugin_listboxClassItems.zip
 			-matchItems
 				-img
 					-dispositions
@@ -949,7 +917,7 @@ _quizmaker
 					plugins\matchItems\snapshoot\snapshoot-002.jpg
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.php
-				plugins\matchItems\matchItems.zip
+				plugins\matchItems\plugin_matchItems.zip
 			-pageBegin
 				-language
 					-english
@@ -1039,8 +1007,8 @@ _quizmaker
 					plugins\radioMultiple\snapshoot\snapshoot-001.jpg
 					plugins\radioMultiple\snapshoot\snapshoot-002.jpg
 				plugins\radioMultiple\index.html
+				plugins\radioMultiple\plugin_radioMultiple.zip
 				plugins\radioMultiple\radioMultiple.php
-				plugins\radioMultiple\radioMultiple.zip
 			-sortItems
 				-img
 					-dispositions
@@ -1064,8 +1032,8 @@ _quizmaker
 					plugins\sortItems\snapshoot\snapshoot-001.jpg
 					plugins\sortItems\snapshoot\snapshoot-002.jpg
 				plugins\sortItems\index.html
+				plugins\sortItems\plugin_sortItems.zip
 				plugins\sortItems\sortItems.php
-				plugins\sortItems\sortItems.zip
 			-textareaMixte
 				-img
 					-dispositions
@@ -1089,8 +1057,8 @@ _quizmaker
 					plugins\textareaMixte\snapshoot\snapshoot-001.jpg
 					plugins\textareaMixte\snapshoot\snapshoot-002.jpg
 				plugins\textareaMixte\index.html
+				plugins\textareaMixte\plugin_textareaMixte.zip
 				plugins\textareaMixte\textareaMixte.php
-				plugins\textareaMixte\textareaMixte.zip
 			-textboxMultiple
 				-img
 					-dispositions
@@ -1119,8 +1087,8 @@ _quizmaker
 					plugins\textboxMultiple\snapshoot\snapshoot-001.jpg
 					plugins\textboxMultiple\snapshoot\snapshoot-002.jpg
 				plugins\textboxMultiple\index.html
+				plugins\textboxMultiple\plugin_textboxMultiple.zip
 				plugins\textboxMultiple\textboxMultiple.php
-				plugins\textboxMultiple\textboxMultiple.zip
 			-ulDaDGroups
 				-img
 					-dispositions
@@ -1151,9 +1119,9 @@ _quizmaker
 					plugins\ulDaDGroups\snapshoot\snapshoot-001.jpg
 					plugins\ulDaDGroups\snapshoot\snapshoot-002.jpg
 				plugins\ulDaDGroups\index.html
+				plugins\ulDaDGroups\plugin_ulDaDGroups.zip
 				plugins\ulDaDGroups\ulDaDGroups.php
-				plugins\ulDaDGroups\ulDaDGroups.zip
-			+ulDaDSortList
+			-ulDaDSortList
 				-language
 					-english
 						plugins\ulDaDSortList\language\english\constants.php
@@ -1170,11 +1138,10 @@ _quizmaker
 					plugins\ulDaDSortList\snapshoot\snapshoot-001.jpg
 					plugins\ulDaDSortList\snapshoot\snapshoot-002.jpg
 				plugins\ulDaDSortList\index.html
+				plugins\ulDaDSortList\plugin_ulDaDSortList.zip
 				plugins\ulDaDSortList\ulDaDSortList.php
-				plugins\ulDaDSortList\ulDaDSortList.zip
 			plugins\_modeles.lnk
 			plugins\_ScreenShoot-PickPick - Raccourci.lnk
-			plugins\_slide_help.lnk
 			plugins\index.html
 			plugins\plugins.lnk
 		-preloads
@@ -1185,7 +1152,7 @@ _quizmaker
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
+		+templates
 			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_about.tpl
@@ -1268,78 +1235,70 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=docs\todo.txt
-1=docs\changelog.txt
-2=language\english\common.php
-3=language\french\common.php
-4=language\english\feedback.php
-5=language\french\feedback.php
-6=language\english\main.php
-7=language\french\main.php
-8=language\french\modinfo.php
-9=language\english\modinfo.php
-10=language\english\plugins.php
-11=language\french\plugins.php
-12=admin\header.php
-13=class\Plugins.php
-14=xoops_version.php
-15=sql\mysql.sql
-16=class\Utilities\QuizUtility.php
-17=class\Questions.php
+0=solutions.php
+1=sql\mysql.sql
+2=language\french\admin.php
+3=class\PluginsHandler.php
+4=admin\import-plugin.php
+5=admin\import-file.php
+6=admin\import.php
+7=admin\import-batch.php
+8=admin\import-quest.php
+9=admin\import-quest_sql.php
+10=include\common.php
+11=class\UtilityImport.php
+12=class\Utility.php
+13=class\Utilities\ModuleUtility.php
+14=class\Common\FilesManagement.php
+15=docs\changelog.txt
 [Selected Project Files]
 Main=
 Selected=docs\changelog.txt
-[docs\todo.txt]
+[solutions.php]
 TopLine=1
-Caret=1,13
+Caret=44,4
+[sql\mysql.sql]
+TopLine=1
+Caret=13,19
+[language\french\admin.php]
+TopLine=488
+Caret=101,529
+[class\PluginsHandler.php]
+TopLine=182
+Caret=44,196
+[admin\import-plugin.php]
+TopLine=86
+Caret=65,107
+[admin\import-file.php]
+TopLine=28
+Caret=1,28
+[admin\import.php]
+TopLine=68
+Caret=20,80
+[admin\import-batch.php]
+TopLine=41
+Caret=37,53
+[admin\import-quest.php]
+TopLine=57
+Caret=55,76
+[admin\import-quest_sql.php]
+TopLine=42
+Caret=1,76
+[include\common.php]
+TopLine=51
+Caret=35,89
+[class\UtilityImport.php]
+TopLine=1
+Caret=1,1
+[class\Utility.php]
+TopLine=1
+Caret=1,1
+[class\Utilities\ModuleUtility.php]
+TopLine=45
+Caret=1,63
+[class\Common\FilesManagement.php]
+TopLine=180
+Caret=28,189
 [docs\changelog.txt]
 TopLine=1
-Caret=33,8
-[language\english\common.php]
-TopLine=55
-Caret=1,1
-[language\french\common.php]
-TopLine=55
-Caret=1,1
-[language\english\feedback.php]
-TopLine=1
-Caret=84,42
-[language\french\feedback.php]
-TopLine=1
-Caret=1,1
-[language\english\main.php]
-TopLine=47
-Caret=3,88
-[language\french\main.php]
-TopLine=47
-Caret=3,88
-[language\french\modinfo.php]
-TopLine=132
-Caret=1,172
-[language\english\modinfo.php]
-TopLine=131
-Caret=1,172
-[language\english\plugins.php]
-TopLine=1
-Caret=1,1
-[language\french\plugins.php]
-TopLine=1
-Caret=31,31
-[admin\header.php]
-TopLine=57
-Caret=1,77
-[class\Plugins.php]
-TopLine=73
-Caret=52,105
-[xoops_version.php]
-TopLine=1
-Caret=38,33
-[sql\mysql.sql]
-TopLine=41
-Caret=1,80
-[class\Utilities\QuizUtility.php]
-TopLine=370
-Caret=51,391
-[class\Questions.php]
-TopLine=26
-Caret=1,47
+Caret=26,2

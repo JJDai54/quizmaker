@@ -25,8 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
-    switch($op){
-    case 'getform':
+
         if(!isset($errors)) {
           if($objError->getErrors())
               $errors = $objError->getHtmlErrors();
@@ -73,8 +72,7 @@ use XoopsModules\Quizmaker\Utility;
 		$form = new \XoopsThemeForm($title, 'form_import', 'import.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// To Save
-		$form->addElement(new \XoopsFormHidden('op', 'import'));
-        $form->addElement(new \XoopsFormHidden('type_import', 'quest_import'));
+		$form->addElement(new \XoopsFormHidden('op', 'quest_import'));
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
   	    $form->addElement(new XoopsFormLabel(_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1,_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2));
@@ -119,29 +117,4 @@ use XoopsModules\Quizmaker\Utility;
 		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_IMPORTER, 'submit'));
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
         
-        break;
-    
-    case 'confirm':
-        break;
-        
-    case 'import':
-       //echoGPF("GPF","quest_import",true);
-        if (loadFile2Import()){
-            $pluginNameSelected = Request::getArray('plugins_selected',null);
-
-            $newQuizId = $quizUtility::quiz_importOnlyQuestFromYml($pathImport, $quizId, $pluginNameSelected, array('pageBegin','pageEnd'));                      
-
-            $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
-            $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
-        }else{
-            //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
-            $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
-            $url = "import.php?op=error&numerr=1";
-        }
-//  exit("{$msg}<br>{$url}");
-            redirect_header($url, 5, $msg);
-        break;
-    default : break;
-    }
-
 

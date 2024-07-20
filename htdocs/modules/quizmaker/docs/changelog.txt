@@ -6,6 +6,9 @@
 - Onglet export : ajout du choix du nom pour l'export
 - suppression du champ quest_type_question remplacer par quest_plugin
 - ajout du champ quiz_show_timer
+- onlet import : 
+    - restructuration du code par type d'import
+    - Ajout de l'import de plugin en prévision de mise à jour o de nouveau plugins
 
 ---------------------------------------------------
 2024-07-04a v 5.00 beta 2 - JJDai - jjdelalandre@orange.fr

@@ -14,6 +14,7 @@
 	<div class='text-center bold'><a href='<{$admin}>'><{$smarty.const._MA_QUIZMAKER_ADMIN}></a></div>
 <{/if}>
 
+<{* 
 <{if $comment_mode}>
 	<div class='pad2 marg2'>
 		<{if $comment_mode == "flat"}>
@@ -25,4 +26,5 @@
 		<{/if}>
 	</div>
 <{/if}>
+ *}>
 <{include file='db:system_notification_select.tpl' }>

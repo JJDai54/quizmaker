@@ -10,7 +10,7 @@
 <{/if}>
 
 <form name='quizmaker_select_import' id='quizmaker_select_import' action='import.php?op=list' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
-    <input type="hidden" name="op" value="list" />
+    <input type="hidden" name="op" value="getform" />
     <{$smarty.const._AM_QUIZMAKER_TYPE_IMPORT}> : <{$inpTypeImport}>
     <INPUT TYPE='hidden' name='cat_id' id='cat_id' VALUE=''>
     <INPUT TYPE='hidden' name='quiz_id' id='quiz_id' VALUE=''>

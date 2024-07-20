@@ -147,7 +147,7 @@ define('_AM_QUIZMAKER_IMPORT', "Import");
 define('_AM_QUIZMAKER_IMPORT_ERROR_01', "Import failed.<br>Check that the file size is less than %s.<br>Check the import parameters (config.php, Xoops and module)");
 define('_AM_QUIZMAKER_IMPORT_OK', "Import Ok in quiz_id=%s");
 define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1', "Warning");
-define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2', "First select the destination quie, and the type of question to import,<br>then the file to import");
+define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2', "First select the destination quiz, and the type of question to import,<br>then the file to import");
 define('_AM_QUIZMAKER_IMPORT_QUIZ_OK', "%s imported quizzes.");
 define('_AM_QUIZMAKER_IMPORT_QUIZ_YML', "YML quiz import");
 define('_AM_QUIZMAKER_IMPORT_YML', "Import YML");

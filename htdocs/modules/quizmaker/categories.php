@@ -84,7 +84,7 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 
 //-----------------------------------------------------------
     
-    $catObj = $categoriesHandler->get($catId);
+    //$catObj = $categoriesHandler->get($catId);
     $allQuiz = $quizHandler->getAllQuizAllowed($catId);    
     $quizCount = count($allQuiz);  
    
@@ -110,6 +110,8 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         $i=0;
         //mis dans un tableau pour compatibilite quand toutes les categories puvaient etre affichées.
         //a modifier à l'ocation en assignat le tableau des quiz directement
+        $catObj = $categoriesHandler->get($catId);
+        $categories[$i] = $catObj->getValuesCategoriesLight();
         $categories[$i]['quiz'] = $quizArr;
     }
     

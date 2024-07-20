@@ -147,7 +147,7 @@ define('_AM_QUIZMAKER_IMPORT', "Importation");
 define('_AM_QUIZMAKER_IMPORT_ERROR_01', "Echec de l'importation.<br>Vérifiez que le poids du fichier est inférieur à %s.<br>Vérifier les parametres d'importations (config.php, Xoops et module)");
 define('_AM_QUIZMAKER_IMPORT_OK', "Importation Ok dans quiz_id=%s");
 define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1', "Avertissement");
-define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2', "Sélectionez d'abord le quie de destination, et le type de question à importer,<br>puis le fichier à importer");
+define('_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2', "Sélectionez d'abord le quiz de destination, et le type de question à importer,<br>puis le fichier à importer");
 define('_AM_QUIZMAKER_IMPORT_QUIZ_OK', "%s quiz importés.");
 define('_AM_QUIZMAKER_IMPORT_QUIZ_YML', "Import YML du quiz");
 define('_AM_QUIZMAKER_IMPORT_YML', "Import YML");
@@ -522,7 +522,13 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST',"Importation des questions uniquement")
 define('_AM_QUIZMAKER_TYPE_IMPORT_MOD',"Importation des questions d'un autre quiz");
 define('_AM_QUIZMAKER_SELECT_QUIZ_FROM', "Selection du quiz source");
 define('_AM_QUIZMAKER_SELECT_QUIZ_DEST', "Selection du quiz de destination");
+define('_AM_QUIZMAKER_TYPE_IMPORT_PLUGIN',"Importation d'un plugin");
+define('_AM_QUIZMAKER_PLUGIN_TO_INSTALL',"Plugin à installer");
+define('_AM_QUIZMAKER_PLUGIN_TO_INSTALL_DESC',"Si le plugin existe  déjà il vous sera demandé une confirmation");
+define('_AM_QUIZMAKER_IMPORT_PLUGIN_OK',"L'importation du plugin <span style='color:red;'>%s</span> a été exécuté avec succes");
+define('_AM_QUIZMAKER_IMPORT_PLUGIN_ERR',"L'importation du plugin <span style='color:red;'>%s</span> a rencontré un problème,<br>il n'est peut être pas installé correctement.<br>Consultez la documentation pout plus d'information");
                 
+define('_AM_QUIZMAKER_IMPORT_PLUGIN_CONFIRM_NEW',"Le plugin %s existe déjà !<br>Voulez vous installer cette nouvelle version ?");
                         
 
 

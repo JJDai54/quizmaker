@@ -83,7 +83,7 @@ $adminmenu[] = [
 if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG)){
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_IMPORT,
-	'link' => 'admin/import.php?op=getform',
+	'link' => 'admin/import.php?op=list',
 	'icon' => $sysPathIcon32 . '/download.png',
 ];
 }

@@ -26,6 +26,8 @@ use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
 
+    switch($op){
+    case 'getform':
         if(!isset($errors)) {
           if($objError->getErrors())
               $errors = $objError->getHtmlErrors();
@@ -43,7 +45,7 @@ use XoopsModules\Quizmaker\Utility;
         $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
         $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
         $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz/images");                      
-        
+       
         $utility = new FQuizmaker\Utility();
         //$utility::rrmdir($pathImport . '/images');
         $utility::clearFolder($pathImport . '/images');
@@ -72,8 +74,9 @@ use XoopsModules\Quizmaker\Utility;
 		$form = new \XoopsThemeForm($title, 'form_import', 'import.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// To Save
-		$form->addElement(new \XoopsFormHidden('op', 'import_file'));
-		$form->addElement(new \XoopsFormHidden('sender', ''));
+		$form->addElement(new \XoopsFormHidden('op', 'import'));
+        $form->addElement(new \XoopsFormHidden('type_import', 'file'));
+        $form->addElement(new \XoopsFormHidden('sender', ''));
 
         
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     
@@ -92,5 +95,27 @@ use XoopsModules\Quizmaker\Utility;
         //----------------------------------------------- 
 		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_IMPORTER, 'submit'));
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
+        break;
+        
+    case 'confirm':
+        break;
+        
+    case 'import':
+        if (loadFileTo("files_new_quiz", $pathImport, $savedFilename)){
+            $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
+            $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
+            $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
+        }else{
+            //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
+            $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
+            $url = "import.php?op=error&numerr=1";
+        }
+//  exit("{$msg}<br>{$url}");
+            redirect_header($url, 5, $msg);
+    
+        break;
+    default : break;
+    }
+
         
 

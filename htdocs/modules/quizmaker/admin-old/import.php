@@ -40,6 +40,8 @@ if($toCatId <= 0) $toCatId = array_key_first($catArr);
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
 if($catId <= 0) $catId = array_key_first($catArr);
 
+
+
 //use JJD;
 /*
 $pg = array_merge($_GET, $_POST);
@@ -50,7 +52,10 @@ $pg = array_merge($_GET, $_POST);
 */
 
 $templateMain = 'quizmaker_admin_import.tpl';
-$op = Request::getCmd('op', 'getform');
+
+// It recovered the value of argument op in URL$
+$op = Request::getCmd('op', 'zzz');
+// Request quiz_id
 $quizId = Request::getInt('quiz_id');
 $typeImport = Request::getString('type_import','file');
 $pluginName = Request::getString('plugin','');
@@ -75,14 +80,12 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
 if (!is_dir(QUIZMAKER_PATH_UPLOAD_IMPORT)) mkdir(QUIZMAKER_PATH_UPLOAD_IMPORT);
 if (!is_dir($pathImport)) mkdir($pathImport);
 
-
 ////////////////////////////////////////////////////////////////////////
-function loadFileTo($fldImportDest, &$pathImport, &$savedFilename){
-global $upload_size;
+function loadFile2Import(){
 //exit('case = import_ok');                      
 $bolOk = true;
-
-$pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
+$newFldImport = "/files_new_quiz" ; //. rand(1,1000);
+$pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
     \JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_IMPORT, true);
 
     include_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -94,14 +97,14 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
                 array('application/x-gzip','application/zip', 'text/plain','application/gzip','application/x-compressed','application/x-zip-compressed'), 
                 $upload_size, null, null);
      $uploaderErrors = $uploader->getErrors();
-     //echo "<hr>01-Errors upload : {$uploaderErrors}<hr>";
+     echo "<hr>01-Errors upload : {$uploaderErrors}<hr>";
           
             
                                                       
       if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
 //  exit("ici");
           $h= strlen($filename) - strrpos($filename, '.');  
-          $fileName = $fldImportDest; 
+          $fileName = "new-quiz"; 
               $uploader->setPrefix($fileName . "-");
               $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
               if (!$uploader->upload()) {
@@ -113,6 +116,7 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
                   
                   $fullName =  QUIZMAKER_PATH_UPLOAD_IMPORT . "/". $savedFilename;
 
+                  
                   chmod($fullName, 0666);
                   chmod($pathImport, 0777);
                   \JJD\unZipFile($fullName, $pathImport);
@@ -124,12 +128,95 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
 //  exit("{$msg}<br>{$url}");
         return $bolOk;
 }
+////////////////////////////////////////////////////////////////////////
+list_on_errors:        
+switch($op) {
+	case 'import_file':
+        if (loadFile2Import()){
+            $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
+            $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
+            $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
+        }else{
+            //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
+            $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
+            $url = "import.php?op=error&numerr=1";
+        }
+//  exit("{$msg}<br>{$url}");
+            redirect_header($url, 5, $msg);
+    break;
+    
+
+    case 'batch_import':
+        $filesOk = $op = Request::getArray('zipFiles');
+        $allFiles = $op = Request::getArray('fullName');
+        
+        foreach($filesOk as $key=>$name){
+            echo $allFiles[$name] . "<br>";
+            $fullName = $allFiles[$name];
+          //dossier provisoir pour decompresser l'archive
+          $newFldImport = "/files_new_quiz" ;  
+          $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
+          chmod($fullName, 0666);
+          chmod($pathImport, 0777);
+          \JJD\unZipFile($fullName, $pathImport);
+          \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
+          $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
+          //sleep(int $seconds)      
+          //exit;
+          $quizUtility::buildQuiz($newQuizId);
+        }
+        
+        redirect_header("quiz.php", 3, sprintf(_AM_QUIZMAKER_IMPORT_QUIZ_OK, count($filesOk)));
+       
+    
+    //nom complet de l'archive dans le dossier du plugin
+//echo "archive : {$fullName}<br>";
+    
+/*
+
+*/       
+        
+    break;
+
+    case 'quest_import':
+       //echoGPF("GPF","quest_import",true);
+        if (loadFile2Import()){
+            $pluginNameSelected = Request::getArray('plugins_selected',null);
+
+            $newQuizId = $quizUtility::quiz_importOnlyQuestFromYml($pathImport, $quizId, $pluginNameSelected, array('pageBegin','pageEnd'));                      
+
+            $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
+            $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
+        }else{
+            //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
+            $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
+            $url = "import.php?op=error&numerr=1";
+        }
+//  exit("{$msg}<br>{$url}");
+            redirect_header($url, 5, $msg);
+    break;
+    
+    case 'quest_sql_import':
+//echoGPF();
+        //$quest_Ids = explode(",","5182,5183,5184,5185");
+        $quest_Ids = Request::getArray('questions_selected');
+        $quizIdTo = Request::getInt('select_to_quiz_id');
+        $quizIdFrom = Request::getInt('select_from_quiz_id');
+        $groupTo = Request::getString('select_group_to');
+        //$orderBy = Request::getInt('select_order_by');
+        $quizUtility->quiz_import_sql($quest_Ids, $quizIdFrom, $quizIdTo,$groupTo);
 
 
-
-// It recovered the value of argument op in URL$
-list_on_errors:
-
+            //$url = "import.php?op=list&type_import={$typeImport}";
+            $url = "questions.php?op=list&quiz_id={$quizIdTo}";
+            $msg = "Importation ok!";
+            redirect_header($url, 5, $msg);
+    break;
+    
+    case 'error':
+        $errors = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko"); 
+    case 'import':
+    case 'list':
         // ----- selection du type d'importation -----  
         
         $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, 'type_import', $typeImport);
@@ -138,37 +225,42 @@ list_on_errors:
         if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG, true)){
           $inpTypeImport->addOption('quest', _AM_QUIZMAKER_TYPE_IMPORT_QUEST);
           $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_MOD);
-          $inpTypeImport->addOption('plugin', _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN);
         }
         $inpTypeImport->setExtra('onchange="document.quizmaker_select_import.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEIMPORT));
               
 		$GLOBALS['xoopsTpl']->assign('inpTypeImport', $inpTypeImport->render());
+        
 
-//echoArray('gp',"ici->$typeImport");exit;
+//echoGPF();
         switch($typeImport){
-            case 'error':
-                $errors = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko"); 
-                break;
-
             case 'batch':
                 include_once "import-batch.php";
                 break;
             case 'quest':
                 include_once "import-quest.php";
                 break;
-            case 'quest_sql': 
-
+            case 'quest_sql':
                 include_once "import-quest_sql.php";
                 break;
-            case 'plugin':
-                include_once "import-plugin.php";
-                break;
-            case 'file':
+            case 'batch':
             default:
                 include_once "import-file.php";
                 break;
         }
         
+        //----------------------------------------------- 
+        //affichage des imports par lot
+        //----------------------------------------------- 
+
+    
+    break;
+    
+	default:
+        exit('case = default');
+    break;
+    
+
+}
 
 /////////////////////////////////////////   
 if($objError->getErrors()){

@@ -71,7 +71,7 @@ define('QUIZMAKER_URL_UPLOAD', XOOPS_UPLOAD_URL.'/'.QUIZMAKER_DIRNAME);
 define('QUIZMAKER_URL_UPLOAD_EXPORT', QUIZMAKER_URL_UPLOAD.'/export');
 define('QUIZMAKER_URL_UPLOAD_QUIZ',  QUIZMAKER_URL_UPLOAD  . QUIZMAKER_FLD_UPLOAD_QUIZ_JS);
 
-//-------------- path et url poour quie_org ou quiz_min ------------------------------
+//-------------- path et url poour quiz_org ou quiz_min ------------------------------
 /*
 $useJsMinified = $quizmakerHelper->getConfig('use_js_minified');
 define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_JS . (($useJsMinified) ? QUIZMAKER_FLD_QUIZ_MIN : QUIZMAKER_FLD_QUIZ_ORG)) ;

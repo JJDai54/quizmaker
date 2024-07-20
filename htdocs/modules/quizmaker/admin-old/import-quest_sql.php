@@ -25,8 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
-    switch($op){
-    case 'getform':
+
         if(!isset($errors)) {
           if($objError->getErrors())
               $errors = $objError->getHtmlErrors();
@@ -72,9 +71,9 @@ use XoopsModules\Quizmaker\Utility;
 		//xoops_load('XoopsFormLoader');
 		$form = new \XoopsThemeForm($title, 'form_import', 'import.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
-		// To Save                        
-		$form->addElement(new \XoopsFormHidden('type_import', 'quest_sql'));
-		$form->addElement(new \XoopsFormHidden('op', 'import'));
+		// To Save
+		$form->addElement(new \XoopsFormHidden('type_Import', $typeImport));
+		$form->addElement(new \XoopsFormHidden('op', 'quest_sql_import'));
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
   	    $form->addElement(new XoopsFormLabel(_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1,_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2));
@@ -207,29 +206,4 @@ use XoopsModules\Quizmaker\Utility;
 		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_IMPORTER, 'submit'));
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
         
-        break;
-        
-    case 'confirm':
-        break;
-        
-    case 'import':
-//echoGPF();
-
-        //$quest_Ids = explode(",","5182,5183,5184,5185");
-        $quest_Ids = Request::getArray('questions_selected');
-        $quizIdTo = Request::getInt('select_to_quiz_id');
-        $quizIdFrom = Request::getInt('select_from_quiz_id');
-        $groupTo = Request::getString('select_group_to');
-        //$orderBy = Request::getInt('select_order_by');
-        $quizUtility->quiz_import_sql($quest_Ids, $quizIdFrom, $quizIdTo,$groupTo);
-
-
-        //$url = "import.php?op=list&type_import={$typeImport}";
-        $url = "questions.php?op=list&quiz_id={$quizIdTo}";
-        $msg = "Importation ok!";
-        redirect_header($url, 5, $msg);
-        break;
-    default : break;
-    }
-
 

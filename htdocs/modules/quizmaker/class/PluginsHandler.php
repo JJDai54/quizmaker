@@ -174,11 +174,45 @@ public function getClassPlugin($pluginName){
 /****************************************************************************
  * 
  ****************************************************************************/
-
 public function exists($pluginName){
     $clsName = "Plugin_" . $pluginName;   
     $f = QUIZMAKER_PATH_PLUGINS_PHP . "/{$pluginName}/{$pluginName}.php";  
     return file_exists($f);
+}
+/****************************************************************************
+ * 
+ ****************************************************************************/
+public function install($pluginName, $fullPath){
+global $quizUtility;
+    if(!$pluginName) return false;
+    
+$pluginPhpPath = QUIZMAKER_PATH_PLUGINS_PHP . "/" . $pluginName;
+$pluginJsPath  = QUIZMAKER_PATH_QUIZ_JS . "/plugins/" . $pluginName;
+echo "<hr>pluginHandler->install {$pluginName}<br>{$pluginPhpPath}<br>{$pluginJsPath}<br>{$fullPath}<hr>";
+
+    \JJD\FSO\setChmodRecursif($pluginPhpPath, 0777);
+    $quizUtility::deleteDirectory($pluginPhpPath);                      
+
+    \JJD\FSO\setChmodRecursif($pluginJsPath, 0777);
+    $quizUtility::deleteDirectory($pluginJsPath); 
+                         
+//exit('pluginHandler->install');    
+//exit('pluginHandler->install');    
+    //copie des fichiers plugins/js et suppression de ces fichiers source
+    $source = "{$fullPath}/{$pluginName}/js";
+    $dest =  QUIZMAKER_PATH_QUIZ_JS . "/plugins";
+    $quizUtility->copyFolder($source, $dest); 
+    $quizUtility::deleteDirectory($source);    
+echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
+    
+                      
+    //copie des fichiers plugins/php                      
+    $source = "{$fullPath}/{$pluginName}";
+    $dest =  QUIZMAKER_PATH_PLUGINS_PHP . '/' . $pluginName;
+    $quizUtility->copyFolder($source, $dest); 
+echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
+//exit('pluginHandler->install');    
+    return true;
 }
 
 

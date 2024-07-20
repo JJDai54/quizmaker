@@ -92,7 +92,7 @@
                   <{if $Quiz.author <> ''}><br><{$smarty.const._MA_QUIZMAKER_QUIZ_PROPOSED_BY}> : <{$Quiz.author}><{/if}>
             </td>
             <td class='center' width="20px">
-                <{$Quiz.stat.countQuestions}>  
+                <{$Quiz.countQuestions}>  
             </td>
             <{* =========================================================== *}>
             <{if $Quiz.stat.statOk}>

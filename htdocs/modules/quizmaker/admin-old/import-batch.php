@@ -36,16 +36,16 @@ $pg = array_merge($_GET, $_POST);
 
 
 ////////////////////////////////////////////////////////////////////////
-    switch($op){
-    case 'getform':
+
+
+
         //----------------------------------------------- 
         //affichage des imports par lot
         //----------------------------------------------- 
           $form_batchIimport = new \XoopsThemeForm(_AM_QUIZMAKER_BATCH_IMPORT, 'form_import_batch', 'import.php', 'post', true);
           $form_batchIimport->setExtra('enctype="multipart/form-data"');
           // To Save
-          $form_batchIimport->addElement(new \XoopsFormHidden('op', 'import'));
-          $form_batchIimport->addElement(new \XoopsFormHidden('type_import', 'batch'));
+          $form_batchIimport->addElement(new \XoopsFormHidden('op', 'batch_import'));
           $form_batchIimport->addElement(new \XoopsFormHidden('sender', ''));
           $form_batchIimport->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_BATCH_IMPORT_DESC));
           
@@ -83,38 +83,6 @@ $pg = array_merge($_GET, $_POST);
         }
 		$GLOBALS['xoopsTpl']->assign('form', $form_batchIimport->render()); 
 //echoArray($ret, 'getPluginPath');   
-        break;
-    case 'confirm':
-        break;
-        
-    case 'import':
-        $filesOk = Request::getArray('zipFiles');
-        $allFiles = Request::getArray('fullName');
-        
-        foreach($filesOk as $key=>$name){
-            echo $allFiles[$name] . "<br>";
-            $fullName = $allFiles[$name];
-          //dossier provisoir pour decompresser l'archive
-          $newFldImport = "/files_new_quiz" ;  
-          $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
-          chmod($fullName, 0666);
-          chmod($pathImport, 0777);
-          \JJD\unZipFile($fullName, $pathImport);
-          \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
-          $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
-          //sleep(int $seconds)      
-          //exit;
-          $quizUtility::buildQuiz($newQuizId);
-        }
-        
-        redirect_header("quiz.php", 3, sprintf(_AM_QUIZMAKER_IMPORT_QUIZ_OK, count($filesOk)));
-       
-        break;
-    default : break;
-    }
-
-
-
      
     
 
