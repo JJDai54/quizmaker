@@ -42,15 +42,15 @@ use XoopsModules\Quizmaker\Utility;
     
         //$quizUtility::deleteTree($pathImport);                      
         //$quizUtility::rmAllDir($pathImport);     exit;  
-        $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
-        $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
-        $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz/images");                      
+//         $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
+//         $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz");                      
+//         $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_quiz/images");                      
        
-        $utility = new FQuizmaker\Utility();
-        //$utility::rrmdir($pathImport . '/images');
-        $utility::clearFolder($pathImport . '/images');
-        $utility::clearFolder($pathImport );
-    
+//         $utility = new FQuizmaker\Utility();
+//         //$utility::rrmdir($pathImport . '/images');
+//         $utility::clearFolder($pathImport . '/images');
+//         $utility::clearFolder($pathImport );
+//     
         /** @var Quizmaker\Utility $utility */
     
 
@@ -102,16 +102,24 @@ use XoopsModules\Quizmaker\Utility;
         
     case 'import':
         if (loadFileTo("files_new_quiz", $pathImport, $savedFilename)){
-            $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
-            $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
-            $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
+            $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
+            // exit($ret .  '===>' . $pathImport);
+            if($ret == 0){
+              $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
+              $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
+            }else{
+              $msg = _AM_QUIZMAKER_IMPORT_ERROR_02;
+              //$url = "import.php?op=error&numerr=2";
+              $url = "import.php?=type_import={$type_import}&cat_id={$catId}";
+            }
+            
         }else{
             //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
             $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
             $url = "import.php?op=error&numerr=1";
         }
 //  exit("{$msg}<br>{$url}");
-            redirect_header($url, 5, $msg);
+        redirect_header($url, 5, $msg);
     
         break;
     default : break;

@@ -70,15 +70,15 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 
 $upload_size = $quizmakerHelper->getConfig('maxsize_import'); //$upload_size = 12000000; 
 //echo  "<hr>{$upload_size}<hr>"; exit;
-$newFldImport = "/files_new_quiz" ; //. rand(1,1000);
-$pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
+ $newFldImport = "/files_new_quiz" ; //. rand(1,1000);
+ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
 if (!is_dir(QUIZMAKER_PATH_UPLOAD_IMPORT)) mkdir(QUIZMAKER_PATH_UPLOAD_IMPORT);
 if (!is_dir($pathImport)) mkdir($pathImport);
 
 
 ////////////////////////////////////////////////////////////////////////
-function loadFileTo($fldImportDest, &$pathImport, &$savedFilename){
-global $upload_size;
+function loadFileTo($fldImportDest, &$pathImport, &$savedFilename, $clearFldBefore=true, $deleteArchivesImported=true){
+global $upload_size, $quizUtility;
 //exit('case = import_ok');                      
 $bolOk = true;
 
@@ -115,8 +115,10 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
 
                   chmod($fullName, 0666);
                   chmod($pathImport, 0777);
+                  if ($clearFldBefore) $quizUtility::deleteDirectory($pathImport);
                   \JJD\unZipFile($fullName, $pathImport);
                   \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
+                  if ($deleteArchivesImported) unlink($fullName);
               }
             }else{
                   $bolOk = false;
@@ -133,11 +135,11 @@ list_on_errors:
         // ----- selection du type d'importation -----  
         
         $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, 'type_import', $typeImport);
-        $inpTypeImport->addOption('file',  _AM_QUIZMAKER_TYPE_IMPORT_FILE);
+        $inpTypeImport->addOption('quiz',  _AM_QUIZMAKER_TYPE_IMPORT_QUIZ);
         $inpTypeImport->addOption('batch', _AM_QUIZMAKER_TYPE_IMPORT_BATCH);
         if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG, true)){
           $inpTypeImport->addOption('quest', _AM_QUIZMAKER_TYPE_IMPORT_QUEST);
-          $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_MOD);
+          $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_LOCAL);
           $inpTypeImport->addOption('plugin', _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN);
         }
         $inpTypeImport->setExtra('onchange="document.quizmaker_select_import.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEIMPORT));
@@ -163,9 +165,9 @@ list_on_errors:
             case 'plugin':
                 include_once "import-plugin.php";
                 break;
-            case 'file':
+            case 'quiz':
             default:
-                include_once "import-file.php";
+                include_once "import-quiz.php";
                 break;
         }
         

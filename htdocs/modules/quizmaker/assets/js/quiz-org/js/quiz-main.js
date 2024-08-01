@@ -813,10 +813,12 @@ function reloadQuestion() {
         }
     //----------------------------------------------
     // pour faciliter la lecture du code    
-    var firstSlide  = (currentSlide === 0);
-    var lastSlide   = (currentSlide === (objAllSlides.length-1));
+    //var firstSlide  = (currentSlide === 0);
+    //var lastSlide   = (currentSlide === (objAllSlides.length-1));
     var secondSlide = (currentSlide === 1); //en realité la premiere question normalement
     var isQuestion  = (quizard[currentSlide].isQuestion);  
+    //var startTimer  = (quizard[currentSlide].name != 'pageBegin');  
+    var bStopTimer  = (currentSlide === (objAllSlides.length-1) && !quizard[currentSlide].isQuestion);  
 
 var currentQuestion = quizard[currentSlide].question;
 var consigne = currentQuestion['consigne'];
@@ -826,7 +828,7 @@ var obHelp = document.getElementById("quiz_consignes");
 if(obHelp) obHelp.innerHTML = consigne;
       
     //est-que le quizTimer est activé et y-a-il un timer sur le slide;
-    if (currentQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || currentQuestion.startTimer) && !lastSlide){
+    if (currentQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || currentQuestion.startTimer) && !bStopTimer){
     //alert("start slide timer : |" + currentQuestion.timer + "|");
         statsTotal.slideTimer = currentQuestion.timer;
         btnNextSlide.innerHTML = `${quiz_messages.btnNext} (${statsTotal.slideTimer})`;
@@ -843,15 +845,15 @@ if(obHelp) obHelp.innerHTML = consigne;
     showDivById('quiz_div_start',  false);
     showDivById('quiz_div_message', quiz.showResultAllways);
 
-    if(firstSlide){
-        showSlide_first(newSlide);  
-    }else if(lastSlide){
-        showSlide_last(newSlide);   
-    }else if(!isQuestion){                   
-        showSlide_group(newSlide,firstSlide,allowedGotoNextslide);   
+    if(quizard[currentSlide].name == 'pageBegin'){
+        showSlide_pageBegin(newSlide);  
+    }else if(quizard[currentSlide].name == 'pageEnd'){
+        showSlide_pageEnd(newSlide);   
+    }else if(!isQuestion){  //c'est donc une pageGroup ou pageInfo                  
+        showSlide_group(newSlide,allowedGotoNextslide,bStopTimer);   
 
-    }else{
-        showSlide_question(newSlide,secondSlide,allowedGotoNextslide);   
+    }else{  //c'est une question
+        showSlide_question(newSlide,allowedGotoNextslide,bStopTimer);   
     }
     currentQuestion = quizard[currentSlide];
     currentQuestion.onUpdate(); 
@@ -879,7 +881,7 @@ var container = document.getElementById(objId);
 /* ******************************************
 
 ********************************************* */   
-  function showSlide_first (newSlide) {
+  function showSlide_pageBegin (newSlide) {
 //        objAllSlides[currentSlide].classList.remove('quiz_div_plugin_question');
     objAllSlides[newSlide].classList.add('quiz_div_plugin_begin');
         
@@ -905,7 +907,7 @@ var container = document.getElementById(objId);
 /* ******************************************
 
 ********************************************* */   
-  function showSlide_last (newSlide) {
+  function showSlide_pageEnd (newSlide) {
         objAllSlides[newSlide].classList.add('quiz_div_plugin_begin');
     
         //c'est le dernier slide
@@ -927,24 +929,23 @@ var container = document.getElementById(objId);
 /* ******************************************
 
 ********************************************* */   
-  function showSlide_group(newSlide,firstSlide,allowedGotoNextslide) {
+  function showSlide_group(newSlide,allowedGotoNextslide,bStopTimer) {
 
         objAllSlides[newSlide].classList.add('quiz_div_plugin_question' + quiz.showResultAllways);
 
         showDivById('quiz_div_navigation', true);       
-        if(!firstSlide){
 
-            //alert("premiser slide");
-            //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
-            //au cas ou le bouton précédent est ctivé evite de ralancer le chrono
-            if (idQuizTimer == 0 ) startTimer();
-        }
+        //alert("premiser slide");
+        //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
+        //au cas ou le bouton précédent est ctivé evite de ralancer le chrono
+        if (idQuizTimer == 0 ) startTimer();
+
         
 
-       enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer)?1:0));
+        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0));
          //enableButton(btnPreviousSlide, ((quiz.allowedPrevious)?1:0));
 
-        enableButton(btnNextSlide, ((allowedGotoNextslide) ? 1 : 0));
+        enableButton(btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0));        
         //enableButton(btnSubmit, 3);
         
         enableButton(btnReloadAnswers, (quiz.showReloadAnswers ? 0 : 3));        
@@ -953,25 +954,23 @@ var container = document.getElementById(objId);
         enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
         enableButton(btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3));        
        
-        
+        if(bStopTimer){stopTimer();}
         
   }
-  function showSlide_question(newSlide,secondSlide,allowedGotoNextslide) {
+  function showSlide_question(newSlide,allowedGotoNextslide,bStopTimer) {
         objAllSlides[newSlide].classList.add('quiz_div_plugin_question' + quiz.showResultAllways);
         //au cas ou l'appel aurait été fait pa l'appel de gotoSlide externe à l'objet
         showDivById('quiz_div_navigation', true);       
 
-        if(secondSlide){
- 
-            //alert("premiser slide");
-            //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
-            //au cas ou le bouton précédent est activé evite de ralancer le chrono
-            if (idQuizTimer == 0 ) startTimer();
-        }
+        //alert("premiser slide");
+        //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
+        //au cas ou le bouton précédent est activé evite de ralancer le chrono
+        if (idQuizTimer == 0 ) startTimer();
+
              
         //enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0));
-        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
-        enableButton(btnNextSlide, ((allowedGotoNextslide) ? 1 : 0));
+        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer && currentSlide != 0) ? 1 : 0));
+        enableButton(btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0));
         //enableButton(btnSubmit, 3);
 
         enableButton(btnReloadAnswers, (quiz.showReloadAnswers ? 1 : 3));        
@@ -980,6 +979,7 @@ var container = document.getElementById(objId);
         enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
         enableButton(btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3));        
         
+        if(bStopTimer){stopTimer();}
 //alert("showSlide_question : " + newSlide);        
   }
 

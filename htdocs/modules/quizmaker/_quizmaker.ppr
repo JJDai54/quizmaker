@@ -33,6 +33,7 @@ _quizmaker
 			admin\import-plugin.php
 			admin\import-quest.php
 			admin\import-quest_sql.php
+			admin\import-quiz.php
 			admin\index.html
 			admin\index.php
 			admin\menu.php
@@ -452,7 +453,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		-class
+		+class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -512,7 +513,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -1177,7 +1178,6 @@ _quizmaker
 				templates\admin\quizmaker_admin_quiz_inline-old.tpl
 				templates\admin\quizmaker_admin_quiz_outline.tpl
 				templates\admin\quizmaker_admin_results.tpl
-				templates\admin\quizmaker_admin_type_new_question.tpl
 			-blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
@@ -1235,70 +1235,38 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=solutions.php
-1=sql\mysql.sql
-2=language\french\admin.php
-3=class\PluginsHandler.php
-4=admin\import-plugin.php
-5=admin\import-file.php
-6=admin\import.php
-7=admin\import-batch.php
-8=admin\import-quest.php
-9=admin\import-quest_sql.php
-10=include\common.php
-11=class\UtilityImport.php
-12=class\Utility.php
-13=class\Utilities\ModuleUtility.php
-14=class\Common\FilesManagement.php
-15=docs\changelog.txt
+0=templates\admin\quizmaker_admin_questions.tpl
+1=admin\questions.php
+2=class\Utilities\QuizUtility.php
+3=docs\todo.txt
+4=docs\changelog.txt
+5=xoops_version.php
+6=class\Questions.php
+7=..\_old\quizmaker-2024-06-17ad\class\Questions.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
-[solutions.php]
-TopLine=1
-Caret=44,4
-[sql\mysql.sql]
-TopLine=1
-Caret=13,19
-[language\french\admin.php]
-TopLine=488
-Caret=101,529
-[class\PluginsHandler.php]
-TopLine=182
-Caret=44,196
-[admin\import-plugin.php]
-TopLine=86
-Caret=65,107
-[admin\import-file.php]
-TopLine=28
-Caret=1,28
-[admin\import.php]
-TopLine=68
-Caret=20,80
-[admin\import-batch.php]
-TopLine=41
-Caret=37,53
-[admin\import-quest.php]
-TopLine=57
-Caret=55,76
-[admin\import-quest_sql.php]
-TopLine=42
-Caret=1,76
-[include\common.php]
-TopLine=51
-Caret=35,89
-[class\UtilityImport.php]
+Selected=templates\admin\quizmaker_admin_questions.tpl
+[templates\admin\quizmaker_admin_questions.tpl]
+TopLine=36
+Caret=4,47
+[admin\questions.php]
+TopLine=101
+Caret=1,1
+[class\Utilities\QuizUtility.php]
+TopLine=253
+Caret=52,309
+[docs\todo.txt]
 TopLine=1
 Caret=1,1
-[class\Utility.php]
-TopLine=1
-Caret=1,1
-[class\Utilities\ModuleUtility.php]
-TopLine=45
-Caret=1,63
-[class\Common\FilesManagement.php]
-TopLine=180
-Caret=28,189
 [docs\changelog.txt]
 TopLine=1
-Caret=26,2
+Caret=1,1
+[xoops_version.php]
+TopLine=1
+Caret=34,32
+[class\Questions.php]
+TopLine=185
+Caret=101,204
+[..\_old\quizmaker-2024-06-17ad\class\Questions.php]
+TopLine=192
+Caret=1,204

@@ -180,15 +180,38 @@ public function exists($pluginName){
     return file_exists($f);
 }
 /****************************************************************************
- * 
+ * isValid : verifie la validité d'un pluging
+ * retour err bool:
+ *  err 0 : le plugin est valid et a ete installé avec succes
+ *  err 1 : le plugin n'est pas valid
+ ****************************************************************************/
+public function isValid($pluginName, $fullPath){
+global $quizUtility;
+    //verification, est-ce un plugin valide ?
+    $source = "{$fullPath}/{$pluginName}"; 
+    $f1 = "{$source}/{$pluginName}.php"; 
+    $f2 = "{$source}/js/{$pluginName}/{$pluginName}.js"; 
+    
+    return (file_exists($f1) && file_exists($f2));
+   }
+/****************************************************************************
+ * retour err int:
+ * err 0 : le plugin est valid et a ete installé avec succes
+ * err 1 : le plugin n'est pas valid
  ****************************************************************************/
 public function install($pluginName, $fullPath){
 global $quizUtility;
-    if(!$pluginName) return false;
+    $ret = 2;
+    if(!$pluginName) return $ret;
     
 $pluginPhpPath = QUIZMAKER_PATH_PLUGINS_PHP . "/" . $pluginName;
 $pluginJsPath  = QUIZMAKER_PATH_QUIZ_JS . "/plugins/" . $pluginName;
 echo "<hr>pluginHandler->install {$pluginName}<br>{$pluginPhpPath}<br>{$pluginJsPath}<br>{$fullPath}<hr>";
+
+    //verification, est-ce un plugin valide ?
+    if (!$this->isValid($pluginName, $fullPath)) return 1;
+    //--------------------------------------------
+
 
     \JJD\FSO\setChmodRecursif($pluginPhpPath, 0777);
     $quizUtility::deleteDirectory($pluginPhpPath);                      
@@ -212,7 +235,7 @@ echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destinat
     $quizUtility->copyFolder($source, $dest); 
 echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
 //exit('pluginHandler->install');    
-    return true;
+    return 0;
 }
 
 

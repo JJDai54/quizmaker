@@ -44,8 +44,8 @@ use XoopsModules\Quizmaker\Utility;
       
           //$quizUtility::deleteTree($pathImport);                      
           //$quizUtility::rmAllDir($pathImport);     exit;  
-          $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_plugin");                      
-          $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_plugin");                      
+//           $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_plugin");                      
+//           $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_plugin");                      
                       
   //  exit(QUIZMAKER_PATH_UPLOAD_IMPORT);       
           $utility = new FQuizmaker\Utility();
@@ -93,14 +93,15 @@ use XoopsModules\Quizmaker\Utility;
         
     case 'import':
 		if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
+            //le plugin existe déjà la confirmation de suppressioins de l'ancien plugin est ok
             echoArray('gp');
             $pluginName = Request::getString('pluginName','');
             $fullPath = Request::getString('fullPath','');
             $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . "new_plugin";
             
-            $bolOk = $pluginsHandler->install($pluginName, $pathImport);
-            $msg = ($bolOk) ? _AM_QUIZMAKER_IMPORT_PLUGIN_OK : _AM_QUIZMAKER_IMPORT_PLUGIN_ERR;
-            redirect_header('import.php?type_import=plugin&op=getform', 5, sprintf($msg,$pluginName));
+            $ret = $pluginsHandler->install($pluginName, $pathImport);
+            $msg = constant('_AM_QUIZMAKER_IMPORT_PLUGIN_ERR_' . $ret);
+            redirect_header('import.php?type_import=plugin&op=getform', 8, sprintf($msg, $ret, $pluginName));
             //    exit("===>confirmed import du plugin : {$newPlugin}");
                 
 		} else {
@@ -113,52 +114,16 @@ use XoopsModules\Quizmaker\Utility;
                 xoops_confirm(['ok' => 1, 'plugin' => $plugin, 'op' => 'import', 'type_import' => 'plugin' , 'pluginName' => $pluginName,'fullPath'=>$fullPath], $_SERVER['REQUEST_URI'], $msg);
                 //exit("===>confirm import du plugin : {$pluginName$pluginName}");
             }else{
+                //le plugin ,n'existe pas il est installé directement
                 $fullPath = Request::getString('fullPath','');
                 $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . "new_plugin";
-                $bolOk = $pluginsHandler->install($pluginName, $pathImport);
-                $msg = ($bolOk) ? _AM_QUIZMAKER_IMPORT_PLUGIN_OK : _AM_QUIZMAKER_IMPORT_PLUGIN_ERR;
-                redirect_header('import.php?type_import=plugin&op=getform', 5, sprintf($msg,$pluginName));
-                
-                //exit("===>install du plugin : {$pluginName}");
+
+                $ret = $pluginsHandler->install($pluginName, $pathImport);
+            $msg = constant('_AM_QUIZMAKER_IMPORT_PLUGIN_ERR_' . $ret);
+            redirect_header('import.php?type_import=plugin&op=getform', 8, sprintf($msg, $ret, $pluginName));
             }
 		}
-        
-        
-        
-        
-        
-
-////////////////////////////////////
-/*
-		$answerQuestion_id = $answersObj->getVar('answer_quest_id');
-		if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
-			if (!$GLOBALS['xoopsSecurity']->check()) {
-				redirect_header('answers.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-			}
-			if ($answersHandler->delete($answersObj)) {
-				redirect_header('answers.php', 3, _AM_QUIZMAKER_FORM_DELETE_OK);
-			} else {
-				$GLOBALS['xoopsTpl']->assign('error', $answersObj->getHtmlErrors());
-			}
-		} else {
-            $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $answerId, $answersObj->getVar('answer_proposition'));
-			xoops_confirm(['ok' => 1, 'answer_id' => $answerId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
-		}
-*/
-/////////////////////////////////////          
-        //exit("===>nom du plugin : {$newPlugin}");
-        /*
-        if (loadFile2Import()){
-            //$newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
-            $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
-            $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";
-        }else{
-            //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
-            $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
-            $url = "import.php?op=error&numerr=1";
-        }
-        */
-        
+                
         break;
     default : break;
     }

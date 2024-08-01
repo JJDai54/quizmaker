@@ -13,12 +13,11 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
-HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
-		+css
+		-css
 			-infobulle
 				-images
 					css\infobulle\images\Award.png
@@ -93,82 +92,81 @@ _quiz-org
 			images\index.html
 		+js
 			js\index.html
+			js\plugin_prototype.js
 			js\quiz-events.js
 			js\quiz-functions.js
 			js\quiz-main.js
-			js\slide__prototype.js
 			js\timer.js
 		-language
 			language\index.html
 			language\quiz-english.js
 			language\quiz-french.js
-		-plugins
-			-alphaSimple
+		+plugins
+			+alphaSimple
+				plugins\alphaSimple\alphaSimple.css
+				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-				plugins\alphaSimple\slide_alphaSimple.css
-				plugins\alphaSimple\slide_alphaSimple.js
 			-choiceSimple
+				plugins\choiceSimple\choiceSimple.css
+				plugins\choiceSimple\choiceSimple.js
 				plugins\choiceSimple\index.html
-				plugins\choiceSimple\slide_choiceSimple.css
-				plugins\choiceSimple\slide_choiceSimple.js
 			-imagesColor
+				plugins\imagesColor\imagesColor.css
+				plugins\imagesColor\imagesColor.js
 				plugins\imagesColor\index.html
-				plugins\imagesColor\slide_imagesColor.css
-				plugins\imagesColor\slide_imagesColor.js
 			-imagesDaDGroups
+				plugins\imagesDaDGroups\imagesDaDGroups.css
+				plugins\imagesDaDGroups\imagesDaDGroups.js
 				plugins\imagesDaDGroups\index.html
-				plugins\imagesDaDGroups\slide_imagesDaDGroups.css
-				plugins\imagesDaDGroups\slide_imagesDaDGroups.js
 			-imagesDaDMatchItems
+				plugins\imagesDaDMatchItems\imagesDaDMatchItems.css
+				plugins\imagesDaDMatchItems\imagesDaDMatchItems.js
 				plugins\imagesDaDMatchItems\index.html
-				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.css
-				plugins\imagesDaDMatchItems\slide_imagesDaDMatchItems.js
 			-imagesDaDSortItems
+				plugins\imagesDaDSortItems\imagesDaDSortItems.css
+				plugins\imagesDaDSortItems\imagesDaDSortItems.js
 				plugins\imagesDaDSortItems\index.html
-				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.css
-				plugins\imagesDaDSortItems\slide_imagesDaDSortItems.js
 			-imagesLogical
 				-img
 					plugins\imagesLogical\img\2points-green.png
 					plugins\imagesLogical\img\2points-grey.png
 					plugins\imagesLogical\img\2points-red.png
 					plugins\imagesLogical\img\index.html
+				plugins\imagesLogical\imagesLogical.css
+				plugins\imagesLogical\imagesLogical.js
 				plugins\imagesLogical\index.html
-				plugins\imagesLogical\slide_imagesLogical.css
-				plugins\imagesLogical\slide_imagesLogical.js
 			-imagesSimple
+				plugins\imagesSimple\imagesSimple.css
+				plugins\imagesSimple\imagesSimple.js
 				plugins\imagesSimple\index.html
-				plugins\imagesSimple\slide_imagesSimple.css
-				plugins\imagesSimple\slide_imagesSimple.js
 			-listboxClassItems
 				plugins\listboxClassItems\index.html
-				plugins\listboxClassItems\slide_listboxClassItems.css
-				plugins\listboxClassItems\slide_listboxClassItems.js
+				plugins\listboxClassItems\listboxClassItems.css
+				plugins\listboxClassItems\listboxClassItems.js
 			-matchItems
 				plugins\matchItems\index.html
-				plugins\matchItems\slide_matchItems.css
-				plugins\matchItems\slide_matchItems.js
-				plugins\matchItems\slide_matchItems.zip
+				plugins\matchItems\matchItems.css
+				plugins\matchItems\matchItems.js
 			-pageBegin
 				plugins\pageBegin\index.html
-				plugins\pageBegin\slide_pageBegin.css
-				plugins\pageBegin\slide_pageBegin.js
+				plugins\pageBegin\pageBegin.css
+				plugins\pageBegin\pageBegin.js
 			-pageEnd
 				plugins\pageEnd\index.html
-				plugins\pageEnd\slide_pageEnd.css
-				plugins\pageEnd\slide_pageEnd.js
+				plugins\pageEnd\pageEnd.css
+				plugins\pageEnd\pageEnd.js
 			-pageGroup
 				plugins\pageGroup\index.html
-				plugins\pageGroup\slide_pageGroup.css
-				plugins\pageGroup\slide_pageGroup.js
+				plugins\pageGroup\pageGroup.css
+				plugins\pageGroup\pageGroup.js
 			-pageInfo
 				plugins\pageInfo\index.html
-				plugins\pageInfo\slide_pageInfo.css
-				plugins\pageInfo\slide_pageInfo.js
+				plugins\pageInfo\pageInfo.css
+				plugins\pageInfo\pageInfo.js
 			-radioMultiple
 				plugins\radioMultiple\index.html
-				plugins\radioMultiple\slide_radioMultiple.css
-				plugins\radioMultiple\slide_radioMultiple.js
+				plugins\radioMultiple\radioMultiple.css
+				plugins\radioMultiple\radioMultiple.js
 			-sortItems
 				-img
 					-buttons
@@ -250,56 +248,36 @@ _quiz-org
 						plugins\sortItems\img\buttons\index.html
 					plugins\sortItems\img\index.html
 				plugins\sortItems\index.html
-				plugins\sortItems\slide_sortItems.css
-				plugins\sortItems\slide_sortItems.js
+				plugins\sortItems\sortItems.css
+				plugins\sortItems\sortItems.js
 			-textareaMixte
 				plugins\textareaMixte\index.html
-				plugins\textareaMixte\slide_textareaMixte.css
-				plugins\textareaMixte\slide_textareaMixte.js
+				plugins\textareaMixte\textareaMixte.css
+				plugins\textareaMixte\textareaMixte.js
 			-textboxMultiple
 				plugins\textboxMultiple\index.html
-				plugins\textboxMultiple\slide_textboxMultiple.css
-				plugins\textboxMultiple\slide_textboxMultiple.js
+				plugins\textboxMultiple\textboxMultiple.css
+				plugins\textboxMultiple\textboxMultiple.js
 			-ulDaDGroups
 				plugins\ulDaDGroups\index.html
-				plugins\ulDaDGroups\slide_ulDaDGroups.css
-				plugins\ulDaDGroups\slide_ulDaDGroups.js
+				plugins\ulDaDGroups\ulDaDGroups.css
+				plugins\ulDaDGroups\ulDaDGroups.js
 			-ulDaDSortList
 				plugins\ulDaDSortList\index.html
-				plugins\ulDaDSortList\slide_ulDaDSortList.css
-				plugins\ulDaDSortList\slide_ulDaDSortList.js
+				plugins\ulDaDSortList\ulDaDSortList.css
+				plugins\ulDaDSortList\ulDaDSortList.js
 			plugins\index.html
-		-textareaMixte - Copie
-			textareaMixte - Copie\index.html
-			textareaMixte - Copie\slide_textareaMixte.css
-			textareaMixte - Copie\slide_textareaMixte.js
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=js\timer.js
+0=plugins\alphaSimple\alphaSimple.js
 1=js\quiz-main.js
-2=..\..\..\..\..\..\..\ressources\QuizMaker\Timer\Timer-01\timer.html
-3=css\quiz.css
-4=css\timer.css
-5=js\quiz-events.js
 [Selected Project Files]
 Main=
 Selected=js\quiz-main.js
-[js\timer.js]
-TopLine=51
-Caret=19,75
+[plugins\alphaSimple\alphaSimple.js]
+TopLine=1
+Caret=5,6
 [js\quiz-main.js]
-TopLine=748
-Caret=5,784
-[..\..\..\..\..\..\..\ressources\QuizMaker\Timer\Timer-01\timer.html]
-TopLine=1
-Caret=94,14
-[css\quiz.css]
-TopLine=1
-Caret=13,23
-[css\timer.css]
-TopLine=1
-Caret=3,12
-[js\quiz-events.js]
-TopLine=1
-Caret=1,1
+TopLine=932
+Caret=133,945

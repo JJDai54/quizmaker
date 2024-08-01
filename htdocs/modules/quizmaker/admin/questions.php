@@ -157,6 +157,7 @@ switch($op) {
 // 	break;
     
 	case 'quiz_importFromYml':
+    exit('===>quiz_importFromYml');
         $quizUtility->quiz_importFromYml($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");

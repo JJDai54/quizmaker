@@ -247,6 +247,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
     $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
     //double emploi avec actif, champ inutile a virer
     $criteria->add(new \Criteria('quest_actif', 1, '='));
+    $criteria->add(new \Criteria('quest_visible', 1, '='));
     $criteria->setsort("quest_weight");
     $criteria->setOrder("ASC");
     $questions = $questionsHandler->getObjects($criteria);

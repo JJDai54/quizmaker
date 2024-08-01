@@ -44,7 +44,7 @@ function addNewChild(parentId){
     </div>
 </div>
 <{* ======================================================== *}> 
-
+<br>
 <div class="floatright">
     <div class="xo-buttons">
         <{$btnEditQuiz}>
@@ -212,12 +212,16 @@ function addNewChild(parentId){
                         </a>
                     <{/if}>              
                         
+                    <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' >
+        				 <img src="<{$modPathIcon16}>visible-<{$Questions.visible}>.png" alt="visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' />
+                        </a>
+                                                     
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16}>/edit.png" alt="questions" />
                         </a>
                         
                     <{if $Questions.canDelete}>
-<{* action du clone a revoir : probleme : copie de la table enfant au détriment de la quastionsource
+<{* action du clone a revoir : probleme : copie de la table enfant au détriment de la questionsource
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
                             </a>

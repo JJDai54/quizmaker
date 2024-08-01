@@ -516,10 +516,10 @@ define('_AM_QUIZMAKER_FILE_NAME_FOLDERJS_NAME',"Javascript folder name");
 define('_AM_QUIZMAKER_FILE_SUFFIX',"Suffix added to the name of the exported file");
 
 define('_AM_QUIZMAKER_TYPE_IMPORT',"Import Type");
-define('_AM_QUIZMAKER_TYPE_IMPORT_FILE',"Importing a single quiz");
+define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ',"Importing a single quiz");
 define('_AM_QUIZMAKER_TYPE_IMPORT_BATCH',"Importing a batch of quizzes");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST',"Import questions only");
-define('_AM_QUIZMAKER_TYPE_IMPORT_MOD',"Importing questions from another quiz");
+define('_AM_QUIZMAKER_TYPE_IMPORT_LOCAL',"Importing questions from another quiz");
 define('_AM_QUIZMAKER_SELECT_QUIZ_FROM', "Selection of source quiz");
 define('_AM_QUIZMAKER_SELECT_QUIZ_DEST', "Destination quiz selection");
 ?>

@@ -101,7 +101,7 @@ $pg = array_merge($_GET, $_POST);
           chmod($pathImport, 0777);
           \JJD\unZipFile($fullName, $pathImport);
           \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
-          $newQuizId = $quizUtility::quiz_importFromYml($pathImport, $catId);
+          $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
           //sleep(int $seconds)      
           //exit;
           $quizUtility::buildQuiz($newQuizId);

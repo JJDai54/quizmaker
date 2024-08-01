@@ -669,5 +669,21 @@ $fldMasterId =  "quiz_cat_id";
     
     return $quizId;    
     }
+    
+/****************************************************************************
+ * isValid : verifie la validité d'un quiz
+ * retour err bool:
+ ****************************************************************************/
+public function isValid($fullPath){
+global $quizUtility;
+    
+    $filesArr = ['categories.yml','quiz.yml','questions.yml','answers.yml'];
+    for($h = 0; $h < count($filesArr); $h++){
+        $f1 = "{$fullPath}/{$filesArr[$h]}"; 
+        echo "<br>isValid ===> {$f1}<br>";
+        if (!file_exists($f1)) return false;
+    }
+    return true;
+   }
  
 } // Fin de la classe

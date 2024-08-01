@@ -58,13 +58,14 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_points', XOBJ_DTYPE_INT);
 		$this->initVar('quest_numbering', XOBJ_DTYPE_INT);
 		$this->initVar('quest_shuffleAnswers', XOBJ_DTYPE_INT);
-		$this->initVar('quest_creation', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
-		$this->initVar('quest_update', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('quest_weight', XOBJ_DTYPE_INT);
 		$this->initVar('quest_timer', XOBJ_DTYPE_INT);
 		$this->initVar('quest_start_timer', XOBJ_DTYPE_INT);
 		$this->initVar('quest_isQuestion', XOBJ_DTYPE_INT);
-		$this->initVar('quest_actif', XOBJ_DTYPE_INT);
+		$this->initVar('quest_visible', XOBJ_DTYPE_INT);		
+        $this->initVar('quest_actif', XOBJ_DTYPE_INT);
+		$this->initVar('quest_creation', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
+		$this->initVar('quest_update', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 	}
 
 	/**
@@ -200,7 +201,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         
 		// Form Text quest_identifiant
         //$this->setVar('quest_identifiant', $this->getVar('quest_question') ); 
-        if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', slide_rand(10000,100000)); 
+        if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', 'slide_' . rand(10000,99999));        
         $inpIdentifiant = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', 120, 255, $this->getVar('quest_identifiant') );
         $inpIdentifiant->setDescription(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
 		$form->addElement($inpIdentifiant, false);
@@ -266,6 +267,12 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $inpConsigne  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_CONSIGNE, 'quest_consigne', $this->getVar('quest_consigne', 'e'), _AM_QUIZMAKER_QUESTIONS_CONSIGNE_DESC, null, $quizmakerHelper);        
 		$form->addElement($inpConsigne);
 		//$form->addElement($fileNameTray);
+        
+        // Form quest_visible
+
+		$inpVisible = new \XoopsFormRadioYN(_AM_QUIZMAKER_VISIBLE, 'quest_visible', $this->getVar('quest_visible'));
+        $inpVisible->setDescription(_AM_QUIZMAKER_VISIBLE_DESC);
+        $form->addElement($inpVisible);
         
         // Form quest_actif
 		$inpActif = new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'quest_actif', $this->getVar('quest_actif'));
@@ -421,7 +428,8 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         
 		$ret['weight']         = $this->getVar('quest_weight');
 		$ret['timer']          = $this->getVar('quest_timer');
-		$ret['start_timer']        = $this->getVar('quest_start_timer');
+		$ret['start_timer']    = $this->getVar('quest_start_timer');
+		$ret['visible']        = $this->getVar('quest_visible');
 		$ret['actif']          = $this->getVar('quest_actif');
 		$ret['flags']          = $this->getFlags($ret);
         

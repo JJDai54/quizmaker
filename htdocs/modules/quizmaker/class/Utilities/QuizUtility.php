@@ -497,10 +497,11 @@ public static function quiz_copy_images($pathSource, $newQuizId)
 /**************************************************************
  * 
  * ************************************************************/
-public static function quiz_importFromYml($pathSource, $catId = 0)
+public static function quiz_importFromYml($pathSource, &$catId, &$newQuizId)
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
     
+    if(!$quizHandler->isValid($pathSource)) return 2;
     //--------------------------------------------------------
     //Recherche de la catégorie par son nom ou création si $catId == 0
     //--------------------------------------------------------
@@ -526,7 +527,7 @@ public static function quiz_importFromYml($pathSource, $catId = 0)
     //--------------------------------------------------------
     self::quiz_copy_images($pathSource, $newQuizId);
     
-    return $newQuizId;
+    return 0;
    
 }
 /**************************************************************

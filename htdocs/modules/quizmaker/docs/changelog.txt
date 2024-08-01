@@ -1,4 +1,11 @@
 ---------------------------------------------------
+2024-08-01a v 5.00 beta 4 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+- Vérification de la présence de certains fichiers lors des imports
+    - plugins : verifie la présence des fichiers nomDuPlugin.php et js/nomDuPlugin/nomDuPlugin.js
+    - Quiz : Verifie la présence des fichiers YML du nom des tables (cateories,quiz,questions et answers)
+     
+---------------------------------------------------
 2024-07-18a v 5.00 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - renommage de "type_question" en "plugin" (classes, fichiers, tables, ...)
@@ -129,7 +136,6 @@ champs "quiz_optionsIhm" et "quiz_optionsDev";
     - modif des appels pour les champs supprimés "chage_etat remplacé par "set_binOn"
     
 Table "questions" : 
-    - suppression du champs "quest_visible" qui faisait double emloi avec "ques_actif"
     - modification du termplate de l'admin
     - transfert de la fonction purger_images de "quizHandler" dans la clas "quiz"
     
