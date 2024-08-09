@@ -9,7 +9,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORIES_ID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORIES_THEME}></th>
@@ -85,7 +85,7 @@
                         <img src="<{xoModuleIcons16}>/warning.png" alt="categories" title="<{$smarty.const._AM_QUIZMAKER_CAT_NOT_EMPTY}>"/>
                     <{/if}>
 					<img src="<{$modPathIcon16}>/blank-16.png" alt="" />
-					<a href="quiz.php?op=list&cat_id=<{$cat.id}>&sender='cat_id'" title="<{$smarty.const._AM_QUIZMAKER_QUIZ}>">
+					<a href="quiz.php?op=list&cat_id=<{$cat.id}>&sender='cat_id'" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}>">
                         <img src="<{xoModuleIcons16}>/inserttable.png" alt="Quiz" />
                         </a>
 				</td>

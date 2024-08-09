@@ -24,15 +24,15 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_IMAGESCOLOR', "Retrouver la bonne couleur");
-define('_QT_QUIZMAKER_IMAGESCOLOR_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
-define('_QT_QUIZMAKER_IMAGESCOLOR_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESCOLOR', "Retrouver la bonne couleur");
+define('_LG_PLUGIN_IMAGESCOLOR_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
+define('_LG_PLUGIN_IMAGESCOLOR_CONSIGNE', "Consigne à complèter");
 
-define('_QT_QUIZMAKER_IMAGESCOLOR_HEIGHT', "Hauteur des images");
-define('_QT_QUIZMAKER_IMAGESCOLOR_NBIMGBYROW', "Nombre d'images par ligne");
-define('_QT_QUIZMAKER_IMAGESCOLOR_SHUFFLE_IMG', "Melanger les images");
-define('_QT_QUIZMAKER_IMAGESCOLOR_SELECT_MODE', "Mode de sélection de la couleurs");
-define('_QT_QUIZMAKER_IMAGESCOLOR_SELECT_MODE_LIST', "Liste déroulante");
-define('_QT_QUIZMAKER_IMAGESCOLOR_SELECT_MODE_GRID', "Grille");
+define('_LG_PLUGIN_IMAGESCOLOR_HEIGHT', "Hauteur des images");
+define('_LG_PLUGIN_IMAGESCOLOR_NBIMGBYROW', "Nombre d'images par ligne");
+define('_LG_PLUGIN_IMAGESCOLOR_SHUFFLE_IMG', "Melanger les images");
+define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE', "Mode de sélection de la couleurs");
+define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST', "Liste déroulante");
+define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID', "Grille");
 
 ?>

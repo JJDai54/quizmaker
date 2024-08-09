@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_IMAGESDADGROUPS', "Regrouper les images");
-define('_QT_QUIZMAKER_IMAGESDADGROUPS_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
-define('_QT_QUIZMAKER_IMAGESDADGROUPS_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESDADGROUPS', "Regrouper les images");
+define('_LG_PLUGIN_IMAGESDADGROUPS_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
+define('_LG_PLUGIN_IMAGESDADGROUPS_CONSIGNE', "Consigne à complèter");
 
 ?>

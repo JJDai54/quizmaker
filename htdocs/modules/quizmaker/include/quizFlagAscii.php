@@ -78,9 +78,10 @@ function quizFlagAscii($flag, $exp, $color = QUIZMAKER_FLAGS_COLORS)
     $tColors = (isset($colors)) ? explode('|',$colors) : explode('|', QUIZMAKER_FLAGS_COLORS);
     //$exp = implode('|', $exp);
     $color = (isset($tColors[$flag])) ? $tColors[$flag] : 'magenta';
-    $fontSize = '16px';
+    $fontSize = '12px';
     //echo "quizmaker";
-    return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
+    //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
+    return "<span style='font-family: Arial; font-size:{$fontSize}; color: {$color};'>{$exp}</span>";
     //return "<span style='font-family: Arial Rounded MT Bold; font-size:{$fontSize}; color: {$color};'>{$argStr}</span>";
 }
 

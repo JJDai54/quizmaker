@@ -59,12 +59,12 @@ switch($op) {
         // ----- Listes de selection pour filtrage des type de questions par categorie-----  
         //if ($catId == 0) $catId = $quiz->getVar('quiz_cat_id');
         //$cat = $categoriesHandler->getListKeyName(null, false, false);
-        $inpCatTQ = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'catPlugins', $catPlugins);
+        $inpCatTQ = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'catPlugins', $catPlugins);
         $inpCatTQ->addOptionArray($pluginsHandler->getCategories(true));
         $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
   	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
 
-        $catId = $categoriesHandler->getId(_AM_QUIZMAKER_CAT_EXEMPLES);
+        $catId = $categoriesHandler->getId($quizmakerHelper->getConfig('cat_name_plugin'), true,true);
         $allQuiz = $quizHandler->getKeysByCat($catId, 'quiz_name');
 //        echoArray($allQuiz,"=========================================");
         
@@ -101,19 +101,10 @@ http://127.0.0.16/modules/quizmaker/plugins/alphaSimple/language/french/help.htm
         break;
 
 	case 'play':
-//    echoGPF();
       $plugin = Request::getString('plugin', '');
       //$ok = Request::getString('ok', 0);
       $clsPlugin = $pluginsHandler->getPlugin($plugin);
         $clsPlugin->playQuizExemple($plugin);
-//       
-//       
-//       if($ok){
-//         $clsPlugin->installQuizExemple($plugin);
-//       }else{
-//         $clsPlugin->playQuizExemple($plugin);
-//       }
-      
       break;
       
 	case 'install':
@@ -122,12 +113,12 @@ http://127.0.0.16/modules/quizmaker/plugins/alphaSimple/language/french/help.htm
       //$clsPlugin = $pluginsHandler->getPlugin($plugin);
       //$clsPlugin->installQuizExemple($plugin, $ok);
       
-      
-      $url = "plugins.php?catPlugins={$catPlugins}";
+      $url = "plugins.php?catPlugins={$catPlugins}#signet-{$plugin}";
       $clsPlugin = $pluginsHandler->getPlugin($plugin);
+      
       switch($clsPlugin->installQuizExemple($plugin, $ok)){
         case 1: // demande de confirmqtion
-            $msg = sprintf(_AM_QUIZMAKER_PLUGIN_EXIST, $plugin);
+            $msg = sprintf(_AM_QUIZMAKER_PLUGIN_EXAMPLE_EXIST, $plugin);
             xoops_confirm(['ok' => 1, 'plugin' => $plugin, 'op' => 'install'], $url, $msg);//$_SERVER['REQUEST_URI']
             break;
         case 2: // l'archive n'existe pas

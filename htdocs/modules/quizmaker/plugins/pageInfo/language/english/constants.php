@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_PAGEINFO', "Page de regroupement de questions");
-define('_QT_QUIZMAKER_PAGEINFO_DESC', "Ce slide permet de regrouper plusieur questions. Il peut être invisible. Il permet notamment de déplacer un groupe de question. s'il est visible il permet de présenter le groupe de questions.");
-define('_QT_QUIZMAKER_PAGEINFO_CONSIGNE', "");
+define('_LG_PLUGIN_PAGEINFO', "Page de regroupement de questions");
+define('_LG_PLUGIN_PAGEINFO_DESC', "Ce slide permet de regrouper plusieur questions. Il peut être invisible. Il permet notamment de déplacer un groupe de question. s'il est visible il permet de présenter le groupe de questions.");
+define('_LG_PLUGIN_PAGEINFO_CONSIGNE', "");
 
 ?>

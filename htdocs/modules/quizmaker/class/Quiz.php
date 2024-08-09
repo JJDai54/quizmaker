@@ -129,7 +129,7 @@ class Quiz extends \XoopsObject
         
 		
         // Form Text quizName
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
         
         // Form Text quiz_author
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_AUTHOR, 'quiz_author', 50, 255, $this->getVar('quiz_author') ), false);
@@ -139,7 +139,7 @@ class Quiz extends \XoopsObject
 		// Form Text quiz_folderJS
         $inpFileName = new \XoopsFormText('' , 'quiz_folderJS', 50, 255, $this->getVar('quiz_folderJS'));
         $inpFileName->setDescription(_AM_QUIZMAKER_FILE_NAME_JS_DESC);
-		$fileNameTray->addElement($inpFileName, true);
+		$fileNameTray->addElement($inpFileName, false);
         
 		// Form number quiz_build
 		$build = $this->isNew() ? 0 : $this->getVar('quiz_build');
@@ -257,15 +257,8 @@ class Quiz extends \XoopsObject
 		// Form CheckBoxBin quiz_optionsIhm
         $inpOptionsIhm = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM . "[{$this->getVar('quiz_optionsIhm')}]", 'quiz_optionsIhm', $this->getVar('quiz_optionsIhm'),1,true);
         $inpOptionsIhm->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM_DESC);
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOW_SCOREMINMAX,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX, _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX_DESC) ) ;
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOW_ALLSOLUTIONS,sprintf("%s (%s)", _AM_QUIZMAKER_VIEW_ALL_SOLUTIONS, _AM_QUIZMAKER_SHOW_ALL_SOLUTIONS_DESC) ) ;
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_ANSWERBEFORENEXT,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT, _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC) ) ;
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_ALLOWEDPREVIOUS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS, _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC) ) ;
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_USETIMER,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_USE_TIMER, _AM_QUIZMAKER_QUIZ_USE_TIMER_DESC) ) ;
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHUFFLEQUESTIONS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC) ) ;
-        $inpOptionsIhm->addOption(QUIZMAKER_BIT_SHOW_RESULTPOPUP,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC) ) ;
+        $inpOptionsIhm->addOptionArray(getBinOptionsArr('ihm'));
 		$form->addElement($inpOptionsIhm);
-        //$inpOptionsIhm->addOption(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS, _AM_QUIZMAKER_MINUSONSHOWGOODANSWERS_DESC) ) ;
         
         //========================================================
         $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_DEV . '</div></center>');
@@ -273,14 +266,7 @@ class Quiz extends \XoopsObject
 		// Form CheckBoxBin quiz_optionsDev
         $inpOptionsDev = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV . "[{$this->getVar('quiz_optionsDev')}]", 'quiz_optionsDev', $this->getVar('quiz_optionsDev'),1,true);
         $inpOptionsDev->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV_DESC);
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_PLUGIN,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_PLUGIN, _AM_QUIZMAKER_QUIZ_SHOW_PLUGIN_DESC) ) ;
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_RELOADANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS_DESC) );
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_GOTOSLIDE, sprintf("%s (%s)", _AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE, _AM_QUIZMAKER_SHOW_BTN_GOTO_PLUGIN_DESC));
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_GOODANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS_DESC) );
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_BADANSWERS,sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC) );
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_LOG, sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOWLOG, _AM_QUIZMAKER_QUIZ_SHOWLOG_DESC));
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_RESULTALLWAYS, sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS, _AM_QUIZMAKER_QUIZ_SHOWRESULTALLWAYS_DESC) );
-        $inpOptionsDev->addOption(QUIZMAKER_BIT_SHOW_REPONSESBOTTOM, sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOWREPONSES_BOTTOM, _AM_QUIZMAKER_QUIZ_SHOWREPONSES_BOTTOM_DESC));
+        $inpOptionsDev->addOptionArray(getBinOptionsArr('dev'));
 		$form->addElement($inpOptionsDev);
 
 
@@ -377,30 +363,11 @@ class Quiz extends \XoopsObject
         $flags['showConsigne']      = quizFlagAscii($ret['showConsigne'], "?");
         $flags['publishResults']    = quizFlagAscii($ret['publishResults'], "R");
         $flags['publishAnswers']    = quizFlagAscii($ret['publishAnswers'], "S");
-               
-        //$flags['onClickSimple']     = quizFlagAlpha($ret['onClickSimple'], "Dk|Sk"); //basculé dans les options du slide
-        
-        $optionsIhm = $ret['optionsIhm'];
-        $flags['allowedSubmit']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT__ALLOWEDSUBMIT, $optionsIhm), "Sb"); 
-        $flags['showScoreMinMax']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_SCOREMINMAX, $optionsIhm), "Smm"); 
-        $flags['showAllSolutions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_ALLSOLUTIONS, $optionsIhm), "Vas"); 
-        $flags['answerBeforeNext']  = quizFlagAlpha(isBitOk(QUIZMAKER_BIT_ANSWERBEFORENEXT, $optionsIhm), "Ro|Ro");
-        $flags['allowedPrevious']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_ALLOWEDPREVIOUS, $optionsIhm), "Pr"); 
-        $flags['useTimer']          = quizFlagAscii(isBitOk(QUIZMAKER_BIT_USETIMER, $optionsIhm), "T");        
-        $flags['shuffleQuestions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHUFFLEQUESTIONS, $optionsIhm), "M"); 
-        $flags['showResultPopup']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTPOPUP, $optionsIhm), "Popup");
-        //$flags['minusOnShowGoodAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS, $optionsIhm), "Minus");
 
-        $optionsDev = $ret['optionsDev'];
-        $flags['showTypeQuestion']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_PLUGIN, $optionsDev), "TQ");
-        $flags['showReloadAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RELOADANSWERS, $optionsDev), "Rl");
-        $flags['showGoToSlide']     = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_GOTOSLIDE, $optionsDev), "Go");
-        $flags['showGoodAnswers']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_GOODANSWERS, $optionsDev), "Ga"); 
-        $flags['showBadAnswers']    = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_BADANSWERS, $optionsDev), "Ba"); 
-        $flags['showLog']           = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_LOG, $optionsDev), "Log"); 
-        $flags['showResultAllways'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTALLWAYS, $optionsDev), "Ra"); 
-        $flags['showReponsesBottom']= quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_REPONSESBOTTOM, $optionsDev), "Rb"); 
-        
+        $flags = array_merge($flags,
+                 getBinOptionsFlagsArr('ihm', $ret['optionsIhm']),
+                 getBinOptionsFlagsArr('dev', $ret['optionsDev']));
+
         return $flags;
 }                                      
 

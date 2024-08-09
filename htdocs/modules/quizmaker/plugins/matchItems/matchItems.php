@@ -76,50 +76,50 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
       $trayOptions = new XoopsFormElementTray($caption, '<br>');  
       //--------------------------------------------------------------------    
       
-      $trayOptions ->addElement(new XoopsFormLabel('<hr>', _QT_QUIZMAKER_MATCHITEMS_LEFT_LIST . '<br>'));   
+      $trayOptions ->addElement(new XoopsFormLabel('<hr>', _LG_PLUGIN_MATCHITEMS_LEFT_LIST . '<br>'));   
       
       $name = 'list1_type';  
-      $inpList1 = new \XoopsFormRadioYN(_QT_QUIZMAKER_MATCHITEMS_LEFT_TYPE, "{$optionName}[{$name}]", $tValues[$name], ' ');   
-      $inpList1->addOption(0, _QT_QUIZMAKER_MATCHITEMS_LABEL);
-      $inpList1->addOption(1, _QT_QUIZMAKER_MATCHITEMS_LISTBOX);
-      $inpList1->addOption(2, _QT_QUIZMAKER_MATCHITEMS_TEXTBOX);
+      $inpList1 = new \XoopsFormRadioYN(_LG_PLUGIN_MATCHITEMS_LEFT_TYPE, "{$optionName}[{$name}]", $tValues[$name], ' ');   
+      $inpList1->addOption(0, _LG_PLUGIN_MATCHITEMS_LABEL);
+      $inpList1->addOption(1, _LG_PLUGIN_MATCHITEMS_LISTBOX);
+      $inpList1->addOption(2, _LG_PLUGIN_MATCHITEMS_TEXTBOX);
       $trayOptions ->addElement($inpList1);   
       
       $name = 'list1_intrus'; 
-      $inputIntrus1 = new \XoopsFormText(_QT_QUIZMAKER_MATCHITEMS_INTRUS1, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
-      $inputIntrus1->setDescription(_QT_QUIZMAKER_MATCHITEMS_INTRUS1_DESC);
+      $inputIntrus1 = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS1, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $inputIntrus1->setDescription(_LG_PLUGIN_MATCHITEMS_INTRUS1_DESC);
       $inputIntrus1->setExtra("style='background:" . self::bgColor1 . ";'");
       $trayOptions->addElement($inputIntrus1);
-      $trayOptions->addElement(new \XoopsFormLabel('',_QT_QUIZMAKER_MATCHITEMS_INTRUS1_DESC . '<br>'));
+      $trayOptions->addElement(new \XoopsFormLabel('',_LG_PLUGIN_MATCHITEMS_INTRUS1_DESC . '<br>'));
       
       //------------------------------------------------------------
-      $trayOptions ->addElement(new XoopsFormLabel('<hr>',_QT_QUIZMAKER_MATCHITEMS_RIGHT_LIST  . '<br>'));      
+      $trayOptions ->addElement(new XoopsFormLabel('<hr>',_LG_PLUGIN_MATCHITEMS_RIGHT_LIST  . '<br>'));      
 
       $name = 'list2_type';  
-      $inpList2 = new \XoopsFormRadioYN(_QT_QUIZMAKER_MATCHITEMS_RIGHT_TYPE, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inpList2->addOption(0, _QT_QUIZMAKER_MATCHITEMS_LABEL);
-      $inpList2->addOption(1, _QT_QUIZMAKER_MATCHITEMS_LISTBOX);
-      $inpList2->addOption(2, _QT_QUIZMAKER_MATCHITEMS_TEXTBOX);
+      $inpList2 = new \XoopsFormRadioYN(_LG_PLUGIN_MATCHITEMS_RIGHT_TYPE, "{$optionName}[{$name}]", $tValues[$name], ' ');
+      $inpList2->addOption(0, _LG_PLUGIN_MATCHITEMS_LABEL);
+      $inpList2->addOption(1, _LG_PLUGIN_MATCHITEMS_LISTBOX);
+      $inpList2->addOption(2, _LG_PLUGIN_MATCHITEMS_TEXTBOX);
       $trayOptions ->addElement($inpList2);   
   
       $name = 'list2_intrus'; 
-      $inputIntrus2 = new \XoopsFormText(_QT_QUIZMAKER_MATCHITEMS_INTRUS1, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
-      $inputIntrus2->setDescription(_QT_QUIZMAKER_MATCHITEMS_INTRUS1_DESC);
+      $inputIntrus2 = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS1, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $inputIntrus2->setDescription(_LG_PLUGIN_MATCHITEMS_INTRUS1_DESC);
       $inputIntrus2->setExtra("style='background:" . self::bgColor1 . ";'");
       $trayOptions->addElement($inputIntrus2);
-      $trayOptions->addElement(new \XoopsFormLabel('',_QT_QUIZMAKER_MATCHITEMS_INTRUS2_DESC . '<br>'));
+      $trayOptions->addElement(new \XoopsFormLabel('',_LG_PLUGIN_MATCHITEMS_INTRUS2_DESC . '<br>'));
       //------------------------------------------------------------
      
              
       //------------------------------------------------------------
-      $trayOptions ->addElement(new XoopsFormLabel('<hr>',_QT_QUIZMAKER_MATCHITEMS_GLOBALS_OPTIONS  . '<br>'));    
+      $trayOptions ->addElement(new XoopsFormLabel('<hr>',_LG_PLUGIN_MATCHITEMS_GLOBALS_OPTIONS  . '<br>'));    
 
       $name = 'conjonction'; 
-      $inputConjonction = new \XoopsFormText(_QT_QUIZMAKER_MATCHITEMS_CONJONCTION, "{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);
-      $inputConjonction->setDescription(_QT_QUIZMAKER_MATCHITEMS_CONJONCTION_DESC);
+      $inputConjonction = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_CONJONCTION, "{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);
+      $inputConjonction->setDescription(_LG_PLUGIN_MATCHITEMS_CONJONCTION_DESC);
       $inputConjonction->setExtra("style='background:" . self::bgColor3 . ";'");
       $trayOptions->addElement($inputConjonction);
-      $trayOptions->addElement(new \XoopsFormLabel('', _QT_QUIZMAKER_MATCHITEMS_CONJONCTION_DESC. '<br>'));
+      $trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_MATCHITEMS_CONJONCTION_DESC. '<br>'));
         
       $name = 'shuffleAnswers';  
       $inputShuffleAnsweres = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name], ' ');

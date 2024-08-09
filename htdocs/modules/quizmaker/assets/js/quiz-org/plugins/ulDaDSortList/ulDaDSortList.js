@@ -114,7 +114,7 @@ var tItems = [];
 *
 * ******** */
 
-getScore ( answerContainer){
+getScoreByProposition ( answerContainer){
 var bolOk = true;
 
     var currentQuestion = this.question;
@@ -131,7 +131,6 @@ var bolOk = true;
         this.blob("===> getScore-listSortItems : " + options[i].innerHTML + " == " + i + " => " + tItems[i]);
         tRep.push(options[i].innerHTML) 
     }
-    
     var bolOk = this.isListSorted(tRep);
     return (bolOk) ? currentQuestion.points : 0;
   }

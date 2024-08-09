@@ -10,7 +10,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_ID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_CODE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_LANGUAGE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_MESSAGES_MESSAGE}></th>

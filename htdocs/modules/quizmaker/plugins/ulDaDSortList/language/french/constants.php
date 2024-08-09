@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_ULDADSORTLIST', "Trier une liste de termes");
-define('_QT_QUIZMAKER_ULDADSORTLIST_DESC', "Ce slide est composé d'une liste qu'il faut trier.<br>Le tri peut être inverse.");
-define('_QT_QUIZMAKER_ULDADSORTLIST_CONSIGNE', "Vous devez réordonner cette liste.<br>Cliquez et déplacez les items pour remettre la liste dans le bon ordre.<br>Vérifier le tri peut être strict ou double, c'est dire qu'il peut être inverse.<br>L'indication doit être précisé dans la question.");
+define('_LG_PLUGIN_ULDADSORTLIST', "Trier une liste de termes");
+define('_LG_PLUGIN_ULDADSORTLIST_DESC', "Ce slide est composé d'une liste qu'il faut trier.<br>Le tri peut être inverse.");
+define('_LG_PLUGIN_ULDADSORTLIST_CONSIGNE', "Vous devez réordonner cette liste.<br>Cliquez et déplacez les items pour remettre la liste dans le bon ordre.<br>Vérifier le tri peut être strict ou double, c'est dire qu'il peut être inverse.<br>L'indication doit être précisé dans la question.");
 
 ?>

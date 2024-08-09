@@ -2,19 +2,38 @@
 .imagesSimple div{
     border: none;
     text-align:left;
+  overflow-block: visible;
 }
  
 .imagesSimple img{
     margin:2px;
     border: 3px solid transparent;
+    transition: transform 0.5s;
+    z-index:99999;
+    -moz-border-radius: 8px 8px 8px 8px;
+    -webkit-border-radius: 8px 8px 8px 8px;
+    -khtml-border-radius: 8px 8px 8px 8px;
+    border-radius: 8px 8px 8px 8px;
 }
+
+.imagesSimple img:hover{
+  -ms-transform: scale(1.8); /* IE 9 */
+  -webkit-transform: scale(1.8); /* Safari 3-8 */
+   transform: scale(1.8)  translateY(-10px); 
+  
+<{*   transform: scale(1.8) rotate(360deg) translateY(-10px); *}> 
+}
+
+
+
 
 .imagesSimple img[selectable]{
     margin:2px;
     cursor:pointer; 
+    transition: transform 1s;
 }
+
 .imagesSimple img[selectable]:hover{
     border: 3px solid red;
 }
-
-
+ 

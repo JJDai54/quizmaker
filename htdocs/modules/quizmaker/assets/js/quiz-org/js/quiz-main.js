@@ -25,7 +25,9 @@ const quiz_config = {
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
     urlCommonImg : (quiz_execution == 1) ? `${quiz.url}/images` : `../images`,
     regexAllLetters : /\{[\w+\0123456789 àéèêëîïôöûüù]*\}/gi,
-    regexAllLettersPP : /\{[\w+\0123456789 àéèêëîïôöûüùç,\;\-\?\!\.\_\=\/]*\}/gi, //PP pour plus ponctuation
+    //regexAllLettersPP : /\{[\w+\0123456789 àéèêëîïôöûüùç,\;\-\?\!\.\_\=\/]*\}/gi, //PP pour plus ponctuation
+    regexAllLettersPP : /{[^{}]+}/gi,           //PP pour plus ponctuation
+    
     dad_flip_img  :  0, //echange des deux images par l'attribut src
     dad_shift_img :  1, // decalage d'image par remplacement successif
     dad_move_img  :  2, // deplace l'image et changement de div contenair

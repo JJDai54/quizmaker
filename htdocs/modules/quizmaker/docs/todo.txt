@@ -1,3 +1,29 @@
+DELETE FROM `x252_quizmaker_answers` WHERE 1;
+DELETE FROM `x252_quizmaker_questions` WHERE 1;
+DELETE FROM `x252_quizmaker_quiz` WHERE 1;
+------------------------------------------
+
+CREATE TABLE `x2511_quizmaker_options` (
+  `opt_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `opt_name` varchar(30) NOT NULL DEFAULT '',
+  `opt_icone` varchar(30) NOT NULL DEFAULT '',
+  `opt_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
+  `opt_optionsDev` bit(16) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`opt_id`)
+) ENGINE=InnoDB;
+
+
+TRUNCATE TABLE `x2511_quizmaker_options`;
+INSERT INTO `x2511_quizmaker_options` (`opt_id`, `opt_name`, `opt_icone`, `opt_optionsIhm`, `opt_optionsDev`) VALUES
+(1, 'Production simple', 'binoption-01.png', b'0000000000000011', b'0000000000000000'),
+(2, 'Production + timer', 'binoption-02.png', b'0000000000100110', b'0000000000000000'),
+(3, 'Production + timer + popup', 'binoption-03.png', b'0000000000100110', b'0000000000000000'),
+(4, 'Developpement', 'binoption-04.png', b'0000000000010110', b'0000000001011111'),
+(5, 'No options', 'binoption-05.png', b'0000000000000000', b'0000000000000000'),
+(6, 'All options', 'binoption-06.png', b'0000000011111110', b'0000000011111111'),
+(7, 'Personal 1', 'binoption-07.png', b'0000000011111110', b'0000000011111111'),
+(8, 'Personal 2', 'binoption-08.png', b'0000000011111110', b'0000000011111111');
+
 ========================================================================
 a conserver:
 ============
@@ -135,9 +161,9 @@ _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX
 _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX_DESC
 _AM_QUIZMAKER_VIEW_ALL_SOLUTIONS
 _AM_QUIZMAKER_SHOW_ALL_SOLUTIONS_DESC        
-_AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT        
+_AM_QUIZMAKER_QUIZ_ANSWER_BEFORENEXT        
 _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC        
-_AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS
+_AM_QUIZMAKER_QUIZ_ALLOWED_PREVIOUS
 _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC
 _AM_QUIZMAKER_QUIZ_USE_TIMER
 _AM_QUIZMAKER_QUIZ_USE_TIMER_DESC        

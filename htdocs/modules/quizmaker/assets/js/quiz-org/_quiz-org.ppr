@@ -6,7 +6,7 @@ Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
 Compilator.LogType=0
 Compilator.LogEncoding=0
-DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org
+DefaultDir=D:\JJD-Workspace-D\WampServeur\sites\xoops512a\htdocs\modules\quizmaker\assets\js\quiz-org
 DefaultCP=0
 LogtoEnd=1
 DontOpen=0
@@ -102,7 +102,7 @@ _quiz-org
 			language\quiz-english.js
 			language\quiz-french.js
 		+plugins
-			+alphaSimple
+			-alphaSimple
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
@@ -258,11 +258,11 @@ _quiz-org
 				plugins\textboxMultiple\index.html
 				plugins\textboxMultiple\textboxMultiple.css
 				plugins\textboxMultiple\textboxMultiple.js
-			-ulDaDGroups
+			+ulDaDGroups
 				plugins\ulDaDGroups\index.html
 				plugins\ulDaDGroups\ulDaDGroups.css
 				plugins\ulDaDGroups\ulDaDGroups.js
-			-ulDaDSortList
+			+ulDaDSortList
 				plugins\ulDaDSortList\index.html
 				plugins\ulDaDSortList\ulDaDSortList.css
 				plugins\ulDaDSortList\ulDaDSortList.js
@@ -270,14 +270,18 @@ _quiz-org
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=plugins\alphaSimple\alphaSimple.js
-1=js\quiz-main.js
+0=js\quiz-functions.js
+1=plugins\ulDaDSortList\ulDaDSortList.js
+2=plugins\ulDaDGroups\ulDaDGroups.js
 [Selected Project Files]
 Main=
-Selected=js\quiz-main.js
-[plugins\alphaSimple\alphaSimple.js]
-TopLine=1
-Caret=5,6
-[js\quiz-main.js]
-TopLine=932
-Caret=133,945
+Selected=plugins\ulDaDSortList\ulDaDSortList.js
+[js\quiz-functions.js]
+TopLine=1396
+Caret=26,1429
+[plugins\ulDaDSortList\ulDaDSortList.js]
+TopLine=109
+Caret=22,117
+[plugins\ulDaDGroups\ulDaDGroups.js]
+TopLine=183
+Caret=22,205

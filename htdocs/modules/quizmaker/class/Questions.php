@@ -193,6 +193,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		// Form Text questQuestion
         $inpQuestion = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_QUESTION, 'quest_question', 120, 255, $this->getVar('quest_question') );
 		$inpQuestion->setDescription(_AM_QUIZMAKER_QUESTIONS_QUESTION_DESC);
+        $inpQuestion->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
         $form->addElement($inpQuestion, true);
 		
 		// Form Editor DhtmlTextArea questComment1

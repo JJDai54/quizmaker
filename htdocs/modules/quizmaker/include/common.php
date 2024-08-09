@@ -113,7 +113,7 @@ function getQMPath($fld, $protocole='P' , $cible = 'M'){
 return $root . $fld;
 }
 ///--------------Obsolete----------------------
-//define('QUIZMAKER_MODELES_IMG', QUIZMAKER_URL_MODULE . "/assets/images/modeles");
+
 //-------------- autres constantes ------------------------------
 
 
@@ -128,7 +128,6 @@ define('QUIZMAKER_POINTS_NEGATIF', 'red');
 
 define('QUIZMAKER_FORMAT_DATE_SQL', 'Y-m-d h:i:s');
 define('QUIZMAKER_FORMAT_DATE', 'd-m-Y h:i:s');
-//define('XOBJ_DTYPE_DATETIME', 99); //XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 
 define('QUIZMAKER_TYPE_FORM_QUESTION',   0);
 define('QUIZMAKER_TYPE_FORM_BEGIN',  1);
@@ -141,7 +140,7 @@ define('QUIZMAKER_TIMER_MAX', 240);
 define('QUIZMAKER_SHUFFLE_DEFAULT', 0);
 
 define('QUIZMAKER_PREFIX_OPTIONS_NAME', 'quest_options');
-define('QUIZMAKER_PREFIX_CAT', '_QT_QUIZMAKER_CAT_');    
+define('QUIZMAKER_PREFIX_CAT', '_AM_QUIZMAKER_PLUGIN_CAT_');    
 define('QBR', '<br>');    
     
 define('QUIZMAKER_BG_LIST_CAT', '#FFCC99');    
@@ -154,7 +153,7 @@ define('QUIZMAKER_BG_LIST_POINTS', '#FFCC99');
 define('QUIZMAKER_BG_LIST_TIMER', '#FFCC99');    
 
 $h = 0;
-define('QUIZMAKER_BIT__ALLOWEDSUBMIT', $h++);
+define('QUIZMAKER_BIT_ALLOWEDSUBMIT', $h++);
 define('QUIZMAKER_BIT_SHOW_SCOREMINMAX', $h++);
 define('QUIZMAKER_BIT_SHOW_ALLSOLUTIONS', $h++);
 define('QUIZMAKER_BIT_ANSWERBEFORENEXT', $h++);
@@ -162,8 +161,6 @@ define('QUIZMAKER_BIT_ALLOWEDPREVIOUS', $h++);
 define('QUIZMAKER_BIT_USETIMER', $h++);
 define('QUIZMAKER_BIT_SHUFFLEQUESTIONS', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTPOPUP', $h++);
-//define('QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS', $h++);
-
 
 $h = 0;
 define('QUIZMAKER_BIT_SHOW_PLUGIN', $h++);
@@ -175,6 +172,23 @@ define('QUIZMAKER_BIT_SHOW_LOG', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTALLWAYS', $h++);
 define('QUIZMAKER_BIT_SHOW_REPONSESBOTTOM', $h++);
 
+define('QUIZMAKER_CONFIG_IHM_PROD1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
+                                   | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX));
+define('QUIZMAKER_CONFIG_DEV_PROD1', 0);
+
+define('QUIZMAKER_CONFIG_IHM_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_ALLSOLUTIONS)
+                                  | pow(2, QUIZMAKER_BIT_ALLOWEDPREVIOUS));
+
+define('QUIZMAKER_CONFIG_DEV_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_PLUGIN)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_RELOADANSWERS)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_GOTOSLIDE)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_GOODANSWERS)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_BADANSWERS)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_RESULTALLWAYS));
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';

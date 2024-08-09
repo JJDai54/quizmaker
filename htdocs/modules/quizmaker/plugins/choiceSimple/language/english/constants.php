@@ -24,8 +24,11 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_CHOICESIMPLE', "Question à réponses multiples");
-define('_QT_QUIZMAKER_CHOICESIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs cases à cocher.");
-define('_QT_QUIZMAKER_CHOICESIMPLE_CONSIGNE', "Vous devez cocher une ou plusieurs options qui correspondent à la question.<br>Important : Selon les option choisies le nombre de points peut augmenter ou diminuer selon les bonnes ou mauvaises options.");
+define('_LG_PLUGIN_CHOICESIMPLE', "Question à réponses multiples");
+define('_LG_PLUGIN_CHOICESIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs cases à cocher.");
+define('_LG_PLUGIN_CHOICESIMPLE_CONSIGNE', "Vous devez cocher une ou plusieurs options qui correspondent à la question.<br>Important : Selon les options choisies le nombre de points peut augmenter ou diminuer selon les bonnes ou mauvaises options.");
+
+define('_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE', "Choix multiple");
+define('_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE_DESC', "Oui : Cases à cocher - Non : Boutons radio");
 
 ?>

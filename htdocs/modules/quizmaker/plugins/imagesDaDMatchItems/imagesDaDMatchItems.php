@@ -88,19 +88,19 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
 
 
       $name = 'moveAllow';  
-	  $inpMoveAllow = new \XoopsFormRadioYN(_QT_QUIZMAKER_IMAGESDADMATCHITEMS_MOVEALLOW , "{$optionName}[{$name}]", $tValues[$name]);
+	  $inpMoveAllow = new \XoopsFormRadioYN(_LG_PLUGIN_IMAGESDADMATCHITEMS_MOVEALLOW , "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions ->addElement($inpMoveAllow);      
       
       
           $name = 'bgSource';  
-          $inpBgSource = new XoopsFormColorPicker(QBR ._QT_QUIZMAKER_IMAGESDADMATCHITEMS_BG_SOURCE, "{$optionName}[{$name}]", $tValues[$name]);
+          $inpBgSource = new XoopsFormColorPicker(QBR ._LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SOURCE, "{$optionName}[{$name}]", $tValues[$name]);
           $trayOptions->addElement($inpBgSource);     
 
           $name = 'bgSilhouette';  
-          $inpBgSilhouette = new XoopsFormColorPicker(_QT_QUIZMAKER_IMAGESDADMATCHITEMS_BG_SILOUHETTE, "{$optionName}[{$name}]", $tValues[$name]);
+          $inpBgSilhouette = new XoopsFormColorPicker(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SILOUHETTE, "{$optionName}[{$name}]", $tValues[$name]);
           $trayOptions->addElement($inpBgSilhouette);     
 
-          $trayOptions->addElement(new XoopsFormLabel('',_QT_QUIZMAKER_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT . QBR));     
+          $trayOptions->addElement(new XoopsFormLabel('',_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT . QBR));     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
@@ -190,7 +190,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             }
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
-//define('', "");            
+            
             $inpAnswerId = new \XoopsFormHidden($this->getName($i,'id'), $answerId);            
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);            
             $libChrono = new \XoopsFormLabel('', $i+1); // . "[{$answerId}]"

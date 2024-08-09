@@ -399,8 +399,11 @@ function getExpInAccolades(exp){
 var ret = {textOk:'', text:'', words:[], nbRows:0};
 
     //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+//    var regex = /{[^{}]+}/gi ;                //quiz_config.regexAllLettersPP;
     var regex = quiz_config.regexAllLettersPP;
+
     var tWordsA = exp.match(regex);
+    //alert( tWordsA.join('-')) ;
     tWordsA = [...new Set(tWordsA)]; // elimine les doublons
     
     for (var i in tWordsA) {
@@ -548,8 +551,7 @@ function getHtmlListbox(name, id, tItems, nbRows, itemDefault = -1, numerotation
     return tHtml.join("\n");
 }
 function getHtmlTextbox(name, txtClass = "", numerotation, offset, extra=""){
-    var tHtml = [];
-    
+  
     
     for (var j=0; j < tItems.length; j++){
  
@@ -881,14 +883,19 @@ var car2rep;
   //var cars2del = new RegExp('[ \'\.\!\?\,\;\-\_\/]', 'gi');
         
     reponse = reponse.replaceAll(cars2del, "");
-    
+    reponse = sanityseAccents(reponse);
+/*
     regAccent = new RegExp('[àâä]', 'gi');
     car2rep = 'a';
     reponse = reponse.replaceAll(regAccent, car2rep);
     
     
-    regAccent = new RegExp('[éèêë]', 'gi');
+    regAccent = new RegExp('[éèêë]', 'g');
     car2rep = 'e';
+    reponse = reponse.replaceAll(regAccent, car2rep);
+    
+    regAccent = new RegExp('[ÉÈÊË]', 'g');
+    car2rep = 'E';
     reponse = reponse.replaceAll(regAccent, car2rep);
     
     regAccent = new RegExp('[îï]', 'gi');
@@ -902,7 +909,46 @@ var car2rep;
     regAccent = new RegExp('[ùüü]', 'gi');
     car2rep = 'u';
     reponse = reponse.replaceAll(regAccent, car2rep);
+*/    
     
+    return reponse;
+}
+
+/* *********************************************
+* prépare un texte pour une comparaison avec un autre texte saisi
+* - supprime les "<br>" et les  "|n"
+* - supprime les caractères de poncuation
+* - remplace les caractères accetués
+* *********************************************** */
+function sanityseAccents(exp, setCasse=0){
+var regAccent;
+var car2rep;
+var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü');
+var reponse = '';
+    
+    if(setCasse > 0){
+        reponse = exp.toUpperCase();
+    }else if (setCasse < 0){
+        reponse = exp.toLowerCase();
+    }else{
+        reponse = exp;
+    }
+    //var globalParam = (ignoreCasse) ?  'gi' : 'g';
+    var globalParam = 'g';
+    
+    for(var h = 0; h < arrExp1.length;  h++){
+        regAccent = new RegExp('[' + arrExp1[h].substring(1) + ']', globalParam);
+        car2rep = arrExp1[h][0];
+        //console.log('sanityseAccents : ' + regAccent + "--->" + car2rep)
+        reponse = reponse.replaceAll(regAccent, car2rep);
+        
+        regAccent = new RegExp('[' + arrExp1[h].substring(1).toUpperCase() + ']', globalParam);
+        car2rep = arrExp1[h][0].toUpperCase();
+        //console.log('sanityseAccents : ' + regAccent + "--->" + car2rep)
+        reponse = reponse.replaceAll(regAccent, car2rep);
+
+       //if(!ignoreCasse)
+    }
     return reponse;
 }
 
@@ -1015,7 +1061,7 @@ var tRet = [];
       });
 
     console.log(tRet.join("<br>\n"));
-    return "<div name='quiz_div_sommaire' class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
+    return "<div name='quiz_div_sommaire' sommaire class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
 }
 
 //function getMarginStyle(nbItems, min=5, max=12, numStyle=0, extra=''){
@@ -1380,7 +1426,7 @@ function componentFromStr(numStr, percent) {
       }//for
     }catch(error) {
       //cssRules: lève une DOMException: "The operation is insecure."
-      console.log(error);
+      console.log('error');
       continue
     }
   }

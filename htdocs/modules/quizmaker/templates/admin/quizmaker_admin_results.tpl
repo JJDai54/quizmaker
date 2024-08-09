@@ -7,8 +7,8 @@
 
 <div class="floatleft">
     <div class="xo-buttons">
-<{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
-<{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
+<{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}> : <{$inpCategory}>
+<{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}> : <{$inpQuiz}>
 <{$btn.razResults}>        
     </div>
     </div>
@@ -28,7 +28,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_ID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_QUIZ_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE}></th>

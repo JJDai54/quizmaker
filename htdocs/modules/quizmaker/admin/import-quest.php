@@ -80,7 +80,7 @@ use XoopsModules\Quizmaker\Utility;
   	    $form->addElement(new XoopsFormLabel(_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1,_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2));
         
         // ----- Listes de selection pour filtrage -----  
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
         //$inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
         $inpCategory->addOptionArray($catArr);
         //$inpCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);

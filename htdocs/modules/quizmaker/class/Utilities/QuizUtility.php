@@ -140,9 +140,11 @@ global $quizHandler;
         $quiz = $quizHandler->get($quizId);
         self::quiz_exportToYml($quizId);
         
-\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);     
+\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);  
+        $name = $quiz->getVar('quiz_name');
         $folderJS = $quiz->getVar('quiz_folderJS');    
-        $expName = ($modeName == 1) ? $folderJS : $quiz->getVar('quiz_name');    
+        $expName = ($modeName == 1) ? $folderJS : \JJD\sanityseNameForFile($name);    
+//echo "<hr>quiz_export->expName : {$expName}<hr>";    
         
         switch($suffix){
         case 1:  $expName .= '-' . date("Y-m-d_H-m-s"); break;
@@ -225,34 +227,35 @@ public static function quiz_exportToYml($quizId, $modeName = 0)
 public static function quiz_import_category($pathSource, $catId = 0)
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
-    
+//    exit;
+ //echo "===>quiz_import_category : catId = {$catId}<br>"  ; 
     //--------------------------------------------------------
     //Recherche de la catégorie par son nom ou création si $catId == 0
     //--------------------------------------------------------
     if($catId == 0){
         $shortName = "categories";
         $table     = 'quizmaker_' . $shortName;
-        $tabledata = \Xmf\Yaml::readWrapped($pathSource . "/". $shortName . '.yml');      
-//echo "<hr>categories<pre>" . print_r($tabledata, true) . "</pre><hr>";
-        //$tabledata[0]['cat_name'] = str_replace("''","'",$tabledata[0]['cat_name']);
-        $catName = str_replace(chr(39),"_",$tabledata[0]['cat_name']);
-      
-        $criteria = new \Criteria("cat_name", $catName, 'LIKE');
-        $catFound = $categoriesHandler->getAll($criteria);
+        //Chargement de du fichier yml
+        $tabledata = \Xmf\Yaml::readWrapped($pathSource . "/". $shortName . '.yml'); 
+        $catId = $categoriesHandler->getId($tabledata[0]['cat_name'],false,false);
+//echoArray($tabledata,"===>tabledata");
 //echo "<hr>found<pre>" . print_r($catFound, true) . "</pre><hr>";
-        if (count($catFound) > 0) {
-            $cat = array_shift($catFound);
-            $catId = $cat->getVar('cat_id');
-        }else{
-            $catId  = $categoriesHandler->getMax()+1;        
-            $tabledata[0]['cat_id'] = $catId;
+        if ($catId == 0) {
+            unset($tabledata['cat_id']);
             \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
+            //$catId = $categoriesObj->getNewInsertedIdCategories();
+            $catId = $categoriesHandler->getId($tabledata[0]['cat_name'],false,true);
         }   
 //echo "<hr>name = {$catName}<br>catId = {$catId}<hr>";
     }
+//    exit("quiz_import_category : catId = {$catId} - name = {$tabledata[0]['cat_name']}");
     return $catId;
     
 }
+
+/**************************************************************
+ * 
+ * ************************************************************/
 public static function delFiledsObsolettes (&$dataArr)
 {
     $numargs = func_num_args();
@@ -271,7 +274,7 @@ public static function delFiledsObsolettes (&$dataArr)
 /**************************************************************
  * 
  * ************************************************************/
-public static function quiz_import_quiz($pathSource, $catId)
+public static function quiz_import_quiz($pathSource, $catId, $folderJS=null)
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
     
@@ -316,12 +319,15 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
 
     //affectation du nouvel ID
     // stockage de l'ancien ID dans le champs flag pour permettre la mise à jour des enfants   
-    $row['quiz_flag'] = $row['quiz_id'];    
+    $row['quiz_flag'] = $row['quiz_id']; 
+       
     //modification du nom du fichier et dossier du quiz pour ne pas surcharger l'original si il existe
     //cette modification consiste juste à ajouter un nombre aléatoir a la fin du nom original
     //il pourra être modifier une fois l'importation terminé
-    $quizFileName = $row['quiz_folderJS'] . "-" . rand(1000, 9999);        
-    $row['quiz_folderJS'] = $quizFileName;
+    if(!$folderJS){
+        $folderJS = $row['quiz_folderJS'] . "-" . rand(1000, 9999);        
+    }
+    $row['quiz_folderJS'] = $folderJS;
     //affectation de la nouvelle catégorie pour ce quiz    
     //unset($row['quiz_id']);    
     
@@ -452,7 +458,7 @@ public static function quiz_import_answers($pathSource, $newQuizId)
         self::delFiledsObsolettes($tabledata[$index],'answer_bouquet');
     
         $tabledata[$index]['answer_flag'] = $tabledata[$index]['answer_quest_id'];    
-        unset($tabledata[$index]['answer_id']);    
+        unset($tabledata[$index]['answer_id']);  //suppression de l'id d'origine pour eviter les doublons  
     }
     //chargement du tableau dans la table
     \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
@@ -464,7 +470,9 @@ public static function quiz_import_answers($pathSource, $newQuizId)
          . " ON ta.answer_flag = tq.quest_flag"
          . " SET ta.answer_quest_id = tq.quest_id"
          . " WHERE ta.answer_flag > 0;";
-    $ret = $xoopsDB->query($sql);
+    $ret = $xoopsDB->queryf($sql);
+    echo "<hr>quiz_import_answers : {$sql}<hr>";
+    return $ret;
 }
 
 /**************************************************************
@@ -497,11 +505,13 @@ public static function quiz_copy_images($pathSource, $newQuizId)
 /**************************************************************
  * 
  * ************************************************************/
-public static function quiz_importFromYml($pathSource, &$catId, &$newQuizId)
+public static function quiz_importFromYml($pathSource, &$catId = null, &$newQuizId = null, $folderJS=null)
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
+
     
     if(!$quizHandler->isValid($pathSource)) return 2;
+
     //--------------------------------------------------------
     //Recherche de la catégorie par son nom ou création si $catId == 0
     //--------------------------------------------------------
@@ -510,7 +520,7 @@ public static function quiz_importFromYml($pathSource, &$catId, &$newQuizId)
     //--------------------------------------------------------
     //Recherche de la catégorie par son nom ou création si $catId == 0
     //--------------------------------------------------------
-    $newQuizId = self::quiz_import_quiz($pathSource, $catId );
+    $newQuizId = self::quiz_import_quiz($pathSource, $catId, $folderJS );
     
     //--------------------------------------------------------
     // chargement de la table questions
@@ -527,7 +537,7 @@ public static function quiz_importFromYml($pathSource, &$catId, &$newQuizId)
     //--------------------------------------------------------
     self::quiz_copy_images($pathSource, $newQuizId);
     
-    return 0;
+    return 0; //return l'erreur si besoin
    
 }
 /**************************************************************

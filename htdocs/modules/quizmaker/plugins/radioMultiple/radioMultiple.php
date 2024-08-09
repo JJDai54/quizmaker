@@ -69,24 +69,24 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
       //--------------------------------------------------------------------           
       
       $name = 'directive';  
-      if (!$tValues[$name]) $tValues[$name] = _AM_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      if (!$tValues[$name]) $tValues[$name] = _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
-//      $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_RADIOMULTIPLE_DIRECTIVE_DESC));    
+//      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC));    
         
 //       $labTitle = new \XoopsFormLabel('', _AM_QUIZMAKER_ORIENTATION . ' : ');
 //       $labTitle->setDescription ('blablabla');      
 //       $trayOptions->addElement($labTitle);     
 
 //       $name = 'orientation';  
-//       $inputOrientation = new \XoopsFormRadio(_QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION, "{$optionName}[{$name}]", $tValues[$name], ' ');
-//       $inputOrientation->addOption("H", _QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION_H);            
-//       $inputOrientation->addOption("V", _QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION_V);            
+//       $inputOrientation = new \XoopsFormRadio(_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION, "{$optionName}[{$name}]", $tValues[$name], ' ');
+//       $inputOrientation->addOption("H", _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_H);            
+//       $inputOrientation->addOption("V", _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_V);            
 //       $trayOptions->addElement($inputOrientation);     
 
       $name = 'orientation'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputOrientation = new \XoopsFormIconeSelect("<br>" . _QT_QUIZMAKER_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputOrientation = new \XoopsFormIconeSelect("<br>" . _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputOrientation->setGridIconNumber(2,1);
       $trayOptions->addElement($inputOrientation);     
       

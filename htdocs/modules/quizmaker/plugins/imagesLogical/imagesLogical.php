@@ -194,7 +194,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             }
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
-//define('', "");            
+            
             $inpAnswerId = new \XoopsFormHidden($this->getName($i,'id'), $answerId);            
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);            
             $libChrono = new \XoopsFormLabel('', $i+1); // . "[{$answerId}]"

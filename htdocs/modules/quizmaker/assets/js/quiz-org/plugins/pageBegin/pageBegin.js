@@ -36,7 +36,7 @@ var name = this.getName();
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
       console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-      //Les div seront remplis dazns le update
+      //Les div seront remplis dans le update
       htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);
         
     }

@@ -122,19 +122,6 @@ CREATE TABLE `quizmaker_answers` (
 ) ENGINE=InnoDB;
 
 #
-# Structure table for `quizmaker_plugin` 4
-#
-
-CREATE TABLE `quizmaker_plugin` (
-  `type_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `type_name` varchar(255) NOT NULL DEFAULT '',
-  `type_description` text NOT NULL,
-  `type_shortdesc` varchar(255) NOT NULL DEFAULT '',
-  `type_weight` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB;
-
-#
 # Structure table for `quizmaker_messages` 3
 #
 
@@ -174,14 +161,26 @@ CREATE TABLE `quizmaker_results` (
 # Structure table for `quizmaker_questions` 9
 #
 
-CREATE TABLE `quizmaker_data` (
-  `data_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `data_flag` int(8) NOT NULL,
-  `data_name` varchar(80) NOT NULL DEFAULT '',
-  `data_expressions` text NOT NULL,
-  PRIMARY KEY (`data_id`)
+CREATE TABLE `quizmaker_options` (
+  `opt_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `opt_name` varchar(30) NOT NULL DEFAULT '',
+  `opt_icone` varchar(30) NOT NULL DEFAULT '',
+  `opt_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
+  `opt_optionsDev` bit(16) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`opt_id`)
 ) ENGINE=InnoDB;
 
-INSERT INTO quizmaker_categories( `cat_name`, `cat_description`,  `cat_theme`, `cat_weight`) VALUES 
+INSERT INTO quizmaker_options (opt_id, opt_name, opt_icone, opt_optionsIhm, opt_optionsDev) VALUES
+(1, 'Production simple', 'binoption-01.png', b'0000000000000011', b'0000000000000000'),
+(2, 'Production + timer', 'binoption-02.png', b'0000000000100011', b'0000000000000000'),
+(3, 'Production + timer + popup', 'binoption-03.png', b'0000000010100011', b'0000000000000000'),
+(4, 'Developpement', 'binoption-04.png', b'0000000000010111', b'0000000001011111'),
+(5, 'No options', 'binoption-05.png', b'0000000000000000', b'0000000000000000'),
+(6, 'All options', 'binoption-06.png', b'0000000011111111', b'0000000011111111'),
+(7, 'Personal 1', 'binoption-07.png', b'0000000000100111', b'0000000000000000'),
+(8, 'Personal 2', 'binoption-08.png', b'0000000011110111', b'0000000000000000');
+
+
+INSERT INTO quizmaker_categories( cat_name, cat_description,  cat_theme, cat_weight) VALUES 
 ('Test', 'Catégorie de test', 'default', 0);
 

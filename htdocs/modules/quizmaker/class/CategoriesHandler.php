@@ -374,23 +374,67 @@ public function getNewCat($name){
 /* ******************************
  *  
  * *********************** */
-    public function getId($name, $create = false){
-    global $xoopsDB;
+public function getId($catName, $create = false, $setPermsToGroups = false){
+global $xoopsDB;
+    //recherche la catégorie par son nom
+    $criteria = new \Criteria("cat_name", $xoopsDB->escape($catName), 'LIKE');
+    $rst = $this->getAll($criteria);
+
+    if (count($rst) > 0) {
+        $catArr = array_shift($rst);
+        $catId = $catArr->getVar('cat_id');
+        if($setPermsToGroups) $this->setPermsToCurrentGroups($catId);
+    }else{
+        $catId  = 0;        
+    }  
+    //la categorie a été trouvée , retour de l'id
+    if($catId > 0 || $create == false) return $catId;
+    //--------------------------------------------------
+    //La catégorie n'a pas été trouvée, on continue si $creat ok
+  
+    $categoriesObj = $this->create();
+	// Set Vars
+	$categoriesObj->setVar('cat_name', $catName);
+	$categoriesObj->setVar('cat_description', '');
+	$categoriesObj->setVar('cat_weight',  0);
+	$categoriesObj->setVar('cat_theme', 'default');
+    $categoriesObj->setVar('cat_creation', \JJD\getSqlDate());
+	$categoriesObj->setVar('cat_update', \JJD\getSqlDate());
+
+	// Insert Data et recupe de l'id
+	$ret = $this->insert($categoriesObj);
+    $catId = $categoriesObj->getNewInsertedIdCategories();
+    //$catId = $this->getId($catName);
+    //if($setPermsToGroups) $this->setPermsToCurrentGroups($catId);
+  
+return $catId;    
+}
+/* ******************************
+ *  
+ * *********************** */
+public function setPermsToCurrentGroups($catId){
+global $xoopsDB, $xoopsUser,$xoopsModule;
+    if ($catId == 0) return false;
+    // ----- affectation des permissions
+    //recheche des groupes de l'utilisateur les droits seront à tous les groupes du user courant
+	//$isAdmin = $xoopsUser->isAdmin($xoopsModule->mid());    
+	//$grouppermHandler = xoops_getHandler('groupperm');
+	$groups = $xoopsUser->getGroups();    
     
-        $criteria = new \Criteria("cat_name", $xoopsDB->escape($name), 'LIKE');
-        $rst = $this->getAll($criteria);
     
-        if (count($rst) > 0) {
-            $cat = array_shift($rst);
-            $catId = $cat->getVar('cat_id');
-        }else if($create){
-            $cat = $this->getNewCat($name);    
-        }else{
-            $catId  = 0;        
-        }   
+    $clPerm = new \jjdPermissions();
+    $clPerm->addRight('view_cats',        $catId, $groups);
+
+    $clPerm->addRight('view_quiz',        $catId, $groups);
+    $clPerm->addRight('edit_quiz',        $catId, $groups);
+    $clPerm->addRight('create_quiz',      $catId, $groups);
+    $clPerm->addRight('delete_quiz',      $catId, $groups);
+    $clPerm->addRight('import_quiz',      $catId, $groups);
+    $clPerm->addRight('importquest_quiz', $catId, $groups);
+    $clPerm->addRight('export_quiz',      $catId, $groups);
     
-    return $catId;    
-    }
+    return true;
+}
 
 /* ******************************
  * Incremente weight

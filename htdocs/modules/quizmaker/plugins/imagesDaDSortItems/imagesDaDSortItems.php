@@ -100,14 +100,14 @@ class Plugin_imagesDaDSortItems extends XoopsModules\Quizmaker\Plugins
       
       $name = 'moveMode';  
       $inpMoveMode = new \xoopsFormRadio(_AM_QUIZMAKER_MOVE_MODE, "{$optionName}[{$name}]" ,$tValues[$name] , ' ');
-      $inpMoveMode->addOptionArray(['0'=>_QT_QUIZMAKER_IMAGESDADSORTITEMS_FLIP, "1"=>_QT_QUIZMAKER_IMAGESDADSORTITEMS_INSERT, "2"=>_QT_QUIZMAKER_IMAGESDADSORTITEMS_CARRET]);
+      $inpMoveMode->addOptionArray(['0'=>_LG_PLUGIN_IMAGESDADSORTITEMS_FLIP, "1"=>_LG_PLUGIN_IMAGESDADSORTITEMS_INSERT, "2"=>_LG_PLUGIN_IMAGESDADSORTITEMS_CARRET]);
       $trayOptions ->addElement($inpMoveMode);     
 
       $name = 'directive';  
-      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      
+      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      
      
       //--------------------------------------------------------------------           
      
@@ -202,7 +202,7 @@ public function getFormGroup(&$trayAllAns, $arr,$titleGroup, $firstItem, $maxIte
             
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
-//define('', "");            
+            
             $inpAnswerId = new \XoopsFormHidden($this->getName($i,'id'), $answerId);            
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);            
             $libChrono = new \XoopsFormLabel('', $i+1); // . "[{$answerId}]"

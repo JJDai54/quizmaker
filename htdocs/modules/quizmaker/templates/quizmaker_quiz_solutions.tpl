@@ -4,16 +4,6 @@
 
 <{include file='db:quizmaker_header.tpl' }>
 
-<script>
-function qm_scrollWin(offsetV = -50){
-var intervalID = setTimeout(qm_scrollWin2, 80, offsetV);
-}
-function qm_scrollWin2(offsetV){
-document.scrollTop = -100;
-window.scroll(0, window.scrollY + offsetV);
-//alert('scrollWin');
-}
-</script>
 <style>
 .sommaire {
     position:absolute;
@@ -127,12 +117,12 @@ window.scroll(0, window.scrollY + offsetV);
               <tr>
                   <td style="text-align:right;width:50px;"><{$question.numQuestion}>&nbsp;-&nbsp;</td>
                   <td>
-                    <a href='#slide-<{$question.id}>' onclick='qm_scrollWin();'> 
+                    <a href='#slide-<{$question.id}>' onclick='quizmaker_scrollWin();'> 
                          <{$question.question}><{if $admin}>  (#<{$question.id}> / <{$question.plugin}>)<{/if}>
                     </a>
                   </td>
                   <td>
-                    <a href='#slide-<{$question.id}>' onclick='qm_scrollWin();'> 
+                    <a href='#slide-<{$question.id}>' onclick='quizmaker_scrollWin();'> 
                         <img src='<{$modPathArrows}>/goto.png' title='<{$smarty.const._CO_QUIZMAKER_SEE_ANSWER}>'>                         
                     </a>
                   </td>
@@ -144,7 +134,7 @@ window.scroll(0, window.scrollY + offsetV);
             <{elseif $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>        
               <tr>
                   <td colspan="3"><center><b>
-                        <a href='#slide-<{$question.id}>' onclick='qm_scrollWin();'> 
+                        <a href='#slide-<{$question.id}>' onclick='quizmaker_scrollWin();'> 
                              <{$question.question}><{if $admin}>  (#<{$question.id}> / <{$question.plugin}>)<{/if}>
                         </a>
                   </b></center></td>
@@ -171,7 +161,7 @@ window.scroll(0, window.scrollY + offsetV);
         <{if $question.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_QUESTION}>        
           <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">
               <b><{$question.numQuestion}><{if $admin}> - <{$question.question}> (#<{$question.id}> / <{$question.plugin}>)<{/if}>
-              <a href='#slide-sommaire' class='sommaire' onclick='qm_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
+              <a href='#slide-sommaire' class='sommaire' onclick='quizmaker_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
 
           </div>
           <div class="item-round-none <{$quiz.theme_ok}>-item-info" style="padding:0px 50px 0px 50px;">
@@ -205,7 +195,7 @@ window.scroll(0, window.scrollY + offsetV);
             <{*
             <div class="item-round-top <{$quiz.theme_ok}>-item-head" style="padding:0px 50px 0px 50px;">
                 <b><{$question.question}><{if $admin}> (#<{$question.id}> / <{$question.plugin}>)<{/if}>
-                <a href='#slide-sommaire' class='sommaire' onclick='qm_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
+                <a href='#slide-sommaire' class='sommaire' onclick='quizmaker_scrollWin(-80);'><img src='<{$modPathArrows}>/sommaire.png' title='<{$smarty.const._CO_QUIZMAKER_SOMMAIRE}>'></a></b>
             </div>
             *}>
         
@@ -246,6 +236,7 @@ window.scroll(0, window.scrollY + offsetV);
 tth_set_value('last_asc', true);
 tth_trierTableau('quiz_question_list', 7);  
 </script>
+
 <style>
 .quiz_legend img{
     text-align: center;

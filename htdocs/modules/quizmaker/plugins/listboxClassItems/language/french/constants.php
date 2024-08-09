@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_LISTBOXCLASSITEMS', "Regrouper les items ou chasser les intrus");
-define('_QT_QUIZMAKER_LISTBOXCLASSITEMS_DESC', "Ce slide est composé de deux listes.<br>Il faut écarter les intrus dans la deuxième liste.<br>Il est possible de corriger et de réintégrer les termes écartés.");
-define('_QT_QUIZMAKER_LISTBOXCLASSITEMS_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS', "Regrouper les items ou chasser les intrus");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS_DESC', "Ce slide est composé de deux listes.<br>Il faut écarter les intrus dans la deuxième liste.<br>Il est possible de corriger et de réintégrer les termes écartés.");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS_CONSIGNE', "Consigne à complèter");
 
 ?>

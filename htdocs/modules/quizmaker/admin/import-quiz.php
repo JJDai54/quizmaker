@@ -25,6 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
+//echoArray('gp',"ici->$typeImport");exit;
 
     switch($op){
     case 'getform':
@@ -75,7 +76,7 @@ use XoopsModules\Quizmaker\Utility;
 		$form->setExtra('enctype="multipart/form-data"');
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'import'));
-        $form->addElement(new \XoopsFormHidden('type_import', 'file'));
+        $form->addElement(new \XoopsFormHidden('type_import', 'quiz'));
         $form->addElement(new \XoopsFormHidden('sender', ''));
 
         
@@ -84,7 +85,7 @@ use XoopsModules\Quizmaker\Utility;
         $form->addElement($uploadTray, true);
 
         // ----- Listes de selection pour filtrage -----  
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
         $inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
         $inpCategory->addOptionArray($catArr);
         $inpCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);
@@ -101,6 +102,8 @@ use XoopsModules\Quizmaker\Utility;
         break;
         
     case 'import':
+    $catId  = Request::getInt('cat_id', 0);
+   echoArray('gpf',"import : catId = {$catId}");
         if (loadFileTo("files_new_quiz", $pathImport, $savedFilename)){
             $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
             // exit($ret .  '===>' . $pathImport);
@@ -122,7 +125,9 @@ use XoopsModules\Quizmaker\Utility;
         redirect_header($url, 5, $msg);
     
         break;
-    default : break;
+    default : 
+        echoArray('gpf','import',true);
+        break;
     }
 
         

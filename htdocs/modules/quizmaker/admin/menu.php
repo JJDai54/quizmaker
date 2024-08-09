@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
 use XoopsModules\Quizmaker AS FQUIZMAKER;
-
+include_once("../class/Helper.php");
 $dirname       = basename(dirname(__DIR__));
 $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = XoopsModule::getByDirname($dirname);
@@ -128,6 +128,12 @@ $adminmenu[] = [
     'icon' => $sysPathIcon32.'/page_copy.png',
 ];
 }
+
+$adminmenu[] = [
+	'title' => _MI_QUIZMAKER_ADMENU12,
+	'link' => 'admin/options.php',
+	'icon' => 'assets/icons/32/index.png',
+];
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU10,

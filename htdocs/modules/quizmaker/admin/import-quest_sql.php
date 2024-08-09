@@ -84,7 +84,7 @@ use XoopsModules\Quizmaker\Utility;
         $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SELECT_QUIZ_FROM . "</center></div>");
         
         // ----- Listes de selection pour filtrage -----  
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'select_from_cat_id', $fromCatId);
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'select_from_cat_id', $fromCatId);
         //$inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
         $inpCategory->addOptionArray($catArr);
         //$inpCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);
@@ -179,7 +179,7 @@ use XoopsModules\Quizmaker\Utility;
         //-----------------Quiz de destination------------------------------
         $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_SELECT_QUIZ_DEST . "</center></div>");
         // ----- Listes de selection pour filtrage -----  
-        $inpToCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'select_to_cat_id', $toCatId);
+        $inpToCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'select_to_cat_id', $toCatId);
         //$inpToCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
         $inpToCategory->addOptionArray($catArr);
         //$inpToCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);

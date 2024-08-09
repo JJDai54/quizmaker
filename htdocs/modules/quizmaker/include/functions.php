@@ -311,3 +311,71 @@ global $xoopsUser;
         return $allParams;
     }
 }
+
+/**********************************************************************
+*
+* **********************************************************************/
+function getBinOptionsArr ($binName){
+    switch(strtolower($binName)){
+    case 'ihm':
+$arr = array(
+QUIZMAKER_BIT_ALLOWEDSUBMIT     => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_ALLOWEDSUBMIT, _AM_QUIZMAKER_QUIZ_SHOW_ALLOWEDSUBMIT_DESC),
+QUIZMAKER_BIT_SHOW_SCOREMINMAX  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX, _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX_DESC),
+QUIZMAKER_BIT_SHOW_ALLSOLUTIONS => sprintf("%s (%s)", _AM_QUIZMAKER_VIEW_ALL_SOLUTIONS, _AM_QUIZMAKER_SHOW_ALL_SOLUTIONS_DESC),
+QUIZMAKER_BIT_ANSWERBEFORENEXT  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ANSWER_BEFORENEXT, _AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC),
+QUIZMAKER_BIT_ALLOWEDPREVIOUS   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ALLOWED_PREVIOUS, _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC),
+QUIZMAKER_BIT_USETIMER          => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_USE_TIMER, _AM_QUIZMAKER_QUIZ_USE_TIMER_DESC),
+QUIZMAKER_BIT_SHUFFLEQUESTIONS  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC),
+QUIZMAKER_BIT_SHOW_RESULTPOPUP  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC));
+        break;
+        
+    case 'dev':
+$arr = array(
+QUIZMAKER_BIT_SHOW_PLUGIN           => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_PLUGIN, _AM_QUIZMAKER_QUIZ_SHOW_PLUGIN_DESC),
+QUIZMAKER_BIT_SHOW_RELOADANSWERS    => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS_DESC),
+QUIZMAKER_BIT_SHOW_GOTOSLIDE        => sprintf("%s (%s)", _AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE, _AM_QUIZMAKER_SHOW_BTN_GOTO_PLUGIN_DESC),
+QUIZMAKER_BIT_SHOW_GOODANSWERS      => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS_DESC),
+QUIZMAKER_BIT_SHOW_BADANSWERS       => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC),
+QUIZMAKER_BIT_SHOW_LOG              => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_LOG, _AM_QUIZMAKER_QUIZ_SHOW_LOG_DESC),
+QUIZMAKER_BIT_SHOW_RESULTALLWAYS    => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_RESULT_ALLWAYS, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES),
+QUIZMAKER_BIT_SHOW_REPONSESBOTTOM   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM_DESC));
+        break;
+    }
+    
+    return $arr;
+}
+
+/**********************************************************************
+*
+* **********************************************************************/
+function getBinOptionsFlagsArr ($binName, $binOptions){
+    $flags = array();
+
+    switch(strtolower($binName)){
+    case 'ihm':
+        $flags['allowedSubmit']     = quizFlagAscii(isBitOk(QUIZMAKER_BIT_ALLOWEDSUBMIT, $binOptions), "Sb"); 
+        $flags['showScoreMinMax']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_SCOREMINMAX, $binOptions), "Smm"); 
+        $flags['showAllSolutions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_ALLSOLUTIONS, $binOptions), "Vas"); 
+        $flags['answerBeforeNext']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_ANSWERBEFORENEXT, $binOptions), "Ro");
+        $flags['allowedPrevious']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_ALLOWEDPREVIOUS, $binOptions), "Pr"); 
+        $flags['useTimer']          = quizFlagAscii(isBitOk(QUIZMAKER_BIT_USETIMER, $binOptions), "T");        
+        $flags['shuffleQuestions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHUFFLEQUESTIONS, $binOptions), "M"); 
+        $flags['showResultPopup']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTPOPUP, $binOptions), "PU");
+        //$flags['minusOnShowGoodAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_MINUSONSHOWGOODANSWERS, $binOptions), "Minus");
+        break;
+        
+    case 'dev':
+        $flags['showTypeQuestion']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_PLUGIN, $binOptions), "TQ");
+        $flags['showReloadAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RELOADANSWERS, $binOptions), "Rl");
+        $flags['showGoToSlide']     = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_GOTOSLIDE, $binOptions), "Go");
+        $flags['showGoodAnswers']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_GOODANSWERS, $binOptions), "Ga"); 
+        $flags['showBadAnswers']    = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_BADANSWERS, $binOptions), "Ba"); 
+        $flags['showLog']           = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_LOG, $binOptions), "Log"); 
+        $flags['showResultAllways'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTALLWAYS, $binOptions), "Ra"); 
+        $flags['showReponsesBottom']= quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_REPONSESBOTTOM, $binOptions), "Rb"); 
+        break;
+    }
+
+    return $flags;
+}
+

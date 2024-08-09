@@ -27,9 +27,9 @@ function addNewChild(parentId){
       <{* ======================================================== *}> 
       <table>
         <tr>
-          <td class='right'><{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : </td>
+          <td class='right'><{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}> : </td>
           <td><{$inpCategory}></td>
-          <td class='right'><{$smarty.const._AM_QUIZMAKER_QUIZ}> : </td>
+          <td class='right'><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}> : </td>
           <td><{$inpQuiz}></td>
         </tr>
       </table>
@@ -82,7 +82,7 @@ function addNewChild(parentId){
 		<thead>
 			<tr class='head'>
 				<th class="center">*</th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_ID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PARENT_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_QUIZ_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_PLUGIN}></th>
@@ -258,16 +258,20 @@ function addNewChild(parentId){
 </form>
 <script>
 
-function qm_scrollWin(offsetV = -100){
-var intervalID = setTimeout(qm_scrollWin2, 80, offsetV);
+function disabledItemParent(){
+//alert('disabledItemParent');
+  //var options = document.forms['aForm']['quest_plugin'].options;
+  var options = document.getElementById('quest_plugin');
+  for (var i=0, iLen=options.length; i<iLen; i++) {
+  console.log('disabledItemParent : ' + i + '-' + options[i].innerHTML);
+    if(options[i].innerHTML.substring(0,3) != "---"){
+        options[i].disabled = true; 
+    }
+  }
 }
-function qm_scrollWin2(offsetV){
-document.scrollTop = -100;
-window.scroll(0, window.scrollY + offsetV);
-//alert('scrollWin');
-}
+disabledItemParent();
 
-qm_scrollWin();
+quizmaker_scrollWin();
 reloadImgModeles("modelesTypeQuestionId");
 
 tth_set_value('last_asc', true);

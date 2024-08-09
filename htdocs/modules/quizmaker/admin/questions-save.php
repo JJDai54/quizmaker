@@ -26,7 +26,7 @@ use XoopsModules\Quizmaker\Constants;
 
 //   echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";
 //
-   
+  
 		// Security Check
 
 // 		if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -53,13 +53,24 @@ use XoopsModules\Quizmaker\Constants;
         
         $options = Request::getArray(QUIZMAKER_PREFIX_OPTIONS_NAME, null);
 		//$questionsObj->setVar('quest_options', implode('|', $options));
-        
         //--------------------------------------------------------
         $quiz = $quizHandler->get($quizId);
         $folderJS = $quiz->getVar('quiz_folderJS');
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";  
         $cls = $pluginsHandler->getClassPlugin($pluginName);
         //********************************************************
+        //suppression des images si il y en  de définies dans les options du plugins
+        if(isset($options['delete'])){
+            foreach($options['delete'] AS $name=>$value){
+                $f = "{$path}/{$options[$name]}";
+                //echo "{$Name}-{$value}<br>{$f}<br>";
+                unlink($f);
+                $options[$name] = '';
+            }
+        }
+        
+//echoArray($options,'options',true);        
+        
         //gesion des images du form "options" spécifique a chaque type de question
         // recherche des imges de prefix quest_options
         $prefix = "quiz-{$questId}-";
@@ -82,7 +93,7 @@ use XoopsModules\Quizmaker\Constants;
 		$questionsObj->setVar('quest_options', json_encode($options));
         //********************************************************
 /*
-echoArray($options,'options',false);        
+echoArray('gpf','options',true);       
 echoArray($_POST,'_POST',false);     
 */        
 //echoArray($_FILES,'_FILES',true);     

@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_PAGEBEGIN', "Page de présentation du quiz");
-define('_QT_QUIZMAKER_PAGEBEGIN_DESC', "Ce slide permet de présenter le quiz; Il est obligatoire et doit être placé en premier.<br>Il est automatiquement ajouté lors de la création d'un nouveau quiz");
-define('_QT_QUIZMAKER_PAGEBEGIN_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_PAGEBEGIN', "Page de présentation du quiz");
+define('_LG_PLUGIN_PAGEBEGIN_DESC', "Ce slide permet de présenter le quiz; Il est obligatoire et doit être placé en premier.<br>Il est automatiquement ajouté lors de la création d'un nouveau quiz");
+define('_LG_PLUGIN_PAGEBEGIN_CONSIGNE', "Consigne à complèter");
 
 ?>

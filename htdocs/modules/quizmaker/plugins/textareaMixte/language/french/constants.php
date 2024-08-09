@@ -24,19 +24,19 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_TEXTAREAMIXTE', "Corriger le texte");
-define('_QT_QUIZMAKER_TEXTAREAMIXTE_DESC', "Ce slide est composé d'une zone de texte qu'il faut corriger directement.");
-define('_QT_QUIZMAKER_TEXTAREAMIXTE_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_TEXTAREAMIXTE', "Corriger le texte");
+define('_LG_PLUGIN_TEXTAREAMIXTE_DESC', "Ce slide est composé d'une zone de texte qu'il faut corriger directement.");
+define('_LG_PLUGIN_TEXTAREAMIXTE_CONSIGNE', "Consigne à complèter");
 
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_PRESENTATION', "Présentation");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_PRESENTATION_TEXTAREA', "Zone de Texte simple à modifier directement");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_PRESENTATION_TEXTBOX', "Zone de texte avec autant de zones de saisies que de mots entre accolades");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_PRESENTATION_LISTBOX', "Zone de texte avec autant de listes déroulantes que de mots entre accolades avec en plus une liste de mots erronés.");
+define('_LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION', "Présentation");
+define('_LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_TEXTAREA', "Zone de Texte simple à modifier directement");
+define('_LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_TEXTBOX', "Zone de texte avec autant de zones de saisies que de mots entre accolades");
+define('_LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_LISTBOX', "Zone de texte avec autant de listes déroulantes que de mots entre accolades avec en plus une liste de mots erronés.");
 
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON', "Comparaison");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON_0', "Comparaison strict (Mot exact avec accents)");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON_1', "Comparaison avec Accents optionnels (ex: \"sérénade\" équivalent à \"serênade\" équivalent à \"serenade\")");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_COMPARAISON_2', "Comparaison souple (Mot contenu avec ou sans accents (ex: \"sérénade\", \"serênade\" sont équivalents à \"serenade\")");
-\define('_QT_QUIZMAKER_TEXTAREAMIXTE_SCORE_BY_WORD', "Nombre de points par mot trouvé");
+define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON', "Comparaison");
+define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_0', "Comparaison strict (Mot exact avec accents)");
+define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_1', "Comparaison avec Accents optionnels (ex: \"sérénade\" équivalent à \"serênade\" équivalent à \"serenade\")");
+define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_2', "Comparaison souple (Mot contenu avec ou sans accents (ex: \"sérénade\", \"serênade\" sont équivalents à \"serenade\")");
+define('_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD', "Nombre de points par mot trouvé");
 
 ?>

@@ -27,6 +27,9 @@ include_once QUIZMAKER_PATH_MODULE . "/class/Plugins.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
+define('_ALPHASIMPLE_ALPHABET', "A-B-C-D-E-F-G-H-I-J-K-L-M--N-O-P-Q-R-S-T-U-V-W-X-Y-Z");
+define('_ALPHASIMPLE_NUMBER_LG_PLUGIN_ALPHASIMPLE_NUMBER', "0-1-2-3-4-5-6-7-8-9");
+
 /**
  * Class Object Answers
  */
@@ -44,7 +47,8 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
                                   'imgHeight'      => '80', 
                                   'directive'      => QUIZMAKER_NEW, 
                                   'propositions'   => '', 
-                                  'disposition'    => ''];
+                                  'disposition'    => '',
+                                  'ignoreAccents'  => 0];
         $this->hasImageMain = true;
         $this->multiPoints = true;
     }
@@ -84,20 +88,26 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));      
       
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
+
+      $name = 'ignoreAccents';  
+	  $inpIgnoreAccents = new \XoopsFormRadioYN(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions ->addElement($inpIgnoreAccents);      
+      
+      $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
       $name = 'directive';  
-      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_DESC));      
+      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC));      
       
-      $alphabet = _QT_QUIZMAKER_ALPHASIMPLE_ALPHABET;
-      $number   = _QT_QUIZMAKER_ALPHASIMPLE_NUMBER;
+      $alphabet = _ALPHASIMPLE_ALPHABET;
+      $number   = _ALPHASIMPLE_NUMBER_LG_PLUGIN_ALPHASIMPLE_NUMBER;
  
       $trayPropositions = new \XoopsFormElementTray(_AM_QUIZMAKER_PROPOSITIONS, $delimeter = ' ');  
       $name = 'propositions'; 
-      if(!$tValues[$name] ) $tValues[$name] = $alphabet; 
-      $inputPropositions = new \XoopsFormText(_QT_QUIZMAKER_ALPHASIMPLE_LETTERS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      //if(!$tValues[$name] ) $tValues[$name] = $alphabet; 
+      $inputPropositions = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_LETTERS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayPropositions->addElement($inputPropositions);
       $id = "{$optionName}[{$name}]";
         
@@ -128,17 +138,6 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
    
      // $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
 
-      
-      
-   
-    
-/*
-      $name = 'image';  
-      $path =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images";  
-      //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
-      $inpImage = $this->getXoopsFormImage($tValues[$name], "{$optionName}[{$name}]", $path, 80,'<br>');  
-      $trayOptions ->addElement($inpImage);   
-*/
       
       //--------------------------------------------------------------------           
       

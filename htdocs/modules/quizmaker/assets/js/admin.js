@@ -85,4 +85,18 @@ function setValue2Input(id, exp) {
     document.getElementById(id).value=exp;
   return true;
 }
+/*********************************************
+ *   
+ *********************************************/ 
+function quizmaker_scrollWin(offsetV = -100){
+var intervalID = setTimeout(quizmaker_scrollWin2, 80, offsetV);
+}
+/*********************************************
+ *   
+ *********************************************/ 
+function quizmaker_scrollWin2(offsetV){
+//alert('scrollWin');
+document.scrollTop = -100;
+window.scroll(0, window.scrollY + offsetV);
+}
 

@@ -79,9 +79,11 @@ global $quizHandler, $questionsHandler, $answersHandler;
     self::build_quizinline($quiz, QUIZMAKER_PATH_UPLOAD_QUIZ, $name);
     
 
-    // incrementer la version => quiz_build   
-    $quiz->setVar('quiz_build', $quiz->getVar('quiz_build') + 1);
+    // incrementer la version => quiz_build  
+    $newBuild = $quiz->getVar('quiz_build') + 1; 
+    $quiz->setVar('quiz_build', $newBuild);
     $quizHandler->insert($quiz);
+    return $newBuild;
 }
 
 

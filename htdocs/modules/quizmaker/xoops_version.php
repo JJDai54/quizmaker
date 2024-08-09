@@ -30,7 +30,7 @@ $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
 	'version'             => 5.00,
 	'module_status'       => 'Beta 4',
-	'release_date'        => '2024/08/01',
+	'release_date'        => '2024/08/09',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -96,6 +96,7 @@ $modversion['templates'] = [
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_plugins_help.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_options.tpl', 'description' => '', 'type' => 'admin'],
 
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
@@ -124,12 +125,11 @@ $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 $modversion['tables'] = [
 	'quizmaker_quiz',
 	'quizmaker_questions',
-	'quizmaker_categories',
 	'quizmaker_plugins',
 	'quizmaker_answers',
 	'quizmaker_results',
 	'quizmaker_messages',
-	'quizmaker_data',
+    'quizmaker_options',
 ];
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
@@ -414,7 +414,6 @@ $iniPostMaxSize       = quizmaker_returnBytes(\ini_get('post_max_size'));
 $iniUploadMaxFileSize = quizmaker_returnBytes(\ini_get('upload_max_filesize'));
 $maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
 //echo quizmaker_returnBytes(\ini_get('post_max_size')) . "---" . quizmaker_returnBytes(\ini_get('upload_max_filesize')) . "---" . $maxSize;
-
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
 }
@@ -448,6 +447,8 @@ while ($i * 1048576 <= $maxSize) {
     $optionMaxsize[$i . ' ' . _MI_QUIZMAKER_SIZE_MB] = $i * 1048576;
     $i += $increment;
 }
+//echo "<hr>optionMaxsize = {$optionMaxsize}<pre>" .  print_r($optionMaxsize,true) . "</pre><hr>";
+//exit;
 // Uploads : maxsize of image
 $modversion['config'][] = [
     'name'        => 'maxsize_image',
@@ -597,6 +598,16 @@ $modversion['config'][] = [
 	'valuetype'   => 'text',
 	'default'     => 'https://github.com/JJDai54/quizmaker',
 ];
+
+$modversion['config'][] = [
+	'name'        => 'cat_name_plugin',
+	'title'       => '_MI_QUIZMAKER_CAT_PLUGIN',
+	'description' => '_MI_QUIZMAKER_CAT_PLUGIN_DESC',
+	'formtype'    => 'textbox',
+	'valuetype'   => 'text',
+	'default'     => _MI_QUIZMAKER_CAT_PLUGIN_DEFAULT,
+];
+
 // Jacascript is minified
 $modversion['config'][] = [
 	'name'        => 'use_js_minified',

@@ -9,8 +9,8 @@
 
 
 <div class="floatleft">
-<{$smarty.const._AM_QUIZMAKER_CATEGORIES}> : <{$inpCategory}>
-<{$smarty.const._AM_QUIZMAKER_QUIZ}> : <{$inpQuiz}>
+<{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}> : <{$inpCategory}>
+<{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}> : <{$inpQuiz}>
 <br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$inpPreviousQuestion}> <{$inpNextQuestion}> <b><{$quesTypeQuestion}></b> <{$inpQuest}> 
 </div>
 
@@ -36,7 +36,7 @@
 	<table class='table table-bordered'>
 		<thead>
 			<tr class='head'>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_ID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_QUESTION_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_PROPOSITION}></th>
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_GROUP}></th>

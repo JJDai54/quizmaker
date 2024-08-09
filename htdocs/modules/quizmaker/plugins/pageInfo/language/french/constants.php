@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_PAGEINFO', "Page d'information");
-define('_QT_QUIZMAKER_PAGEINFO_DESC', "Ce slide permet d'afficher des informations intermédiaires, textes ou images, qui pourront servir de support aux questions suivantes.");
-define('_QT_QUIZMAKER_PAGEINFO_CONSIGNE', "");
+define('_LG_PLUGIN_PAGEINFO', "Page d'information");
+define('_LG_PLUGIN_PAGEINFO_DESC', "Ce slide permet d'afficher des informations intermédiaires, textes ou images, qui pourront servir de support aux questions suivantes.");
+define('_LG_PLUGIN_PAGEINFO_CONSIGNE', "");
 
 ?>

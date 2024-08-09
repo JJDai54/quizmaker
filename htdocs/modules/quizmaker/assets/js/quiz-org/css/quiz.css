@@ -18,6 +18,8 @@
 	color: #333;
     margin: 10px 10px 10px 10px;
     padding: 0px 0px 0px 0px;
+     overflow-block: visible;
+    overflow: visible;
 }
 
 #quiz_div_header {
@@ -115,6 +117,9 @@ position:relative;
   text-align:left;
   border:1px solid gray;
   margin-top:5px;	
+    overflow-block: visible;
+    overflow: visible;
+
 }
 
 #quiz_div_consigne{
@@ -144,6 +149,7 @@ position:relative;
   font-size: 1.2em;
   text-align:center;
   padding: 0px 0px 0px 0px;
+   overflow-block: visible;
 /* overflow: auto; */
 }
 

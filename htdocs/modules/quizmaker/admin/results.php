@@ -74,7 +74,7 @@ switch($op) {
         // ----- Listes de selection pour filtrage -----  
         $catArr = $categoriesHandler->getListKeyName();
         if ($catId == 0) $catId = array_key_first($catArr);
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
   	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
@@ -84,7 +84,7 @@ switch($op) {
             $quizId = array_key_first($quizArr);
             $quiz = $quizHandler->get($quizId);
         }
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
+        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizArr);
         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
   	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());

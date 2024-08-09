@@ -24,18 +24,18 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_IMAGESSIMPLE', "Trouver les images de la même famille");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_DESC', "Ce slide est composé d'images dont une ou plusieurs sont masquées.<br>Il faut retrouver les images de la même famille.");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESSIMPLE', "Trouver les images de la même famille");
+define('_LG_PLUGIN_IMAGESSIMPLE_DESC', "Ce slide est composé d'images dont une ou plusieurs sont masquées.<br>Il faut retrouver les images de la même famille.");
+define('_LG_PLUGIN_IMAGESSIMPLE_CONSIGNE', "Click on the images to select them.<br><br>Click again on the selected images to deselect them.");
 
-define('_QT_QUIZMAKER_IMAGESSIMPLE_DIRECTIVE', "Cliquez sur les images ci-dessous pour les sélectionner !");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_FAMILY_HEIGHT', "Hauteur des images modèles");
+define('_LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE', "Cliquez sur les images ci-dessous pour les sélectionner !");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_FAMILY_HEIGHT', "Hauteur des images modèles");
 
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SELECTED', "Images sélectionnée");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SELECTED_DESC', "Cette image apparaitra en tête des images sélectionnées par l'utilisateur");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SELECTED_HEIGHT', "Hauteur des images sélectionnées");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED', "Images sélectionnée");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_DESC', "Cette image apparaitra en tête des images sélectionnées par l'utilisateur");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_HEIGHT', "Hauteur des images sélectionnées");
 
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET', "Images du panier");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET_DESC', "Cette image apparaitra en tête du panier des images non sélectionnées par l'utilisateur");
-define('_QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET_HEIGHT', "Hauteur des images du panier");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET', "Images du panier");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_DESC', "Cette image apparaitra en tête du panier des images non sélectionnées par l'utilisateur");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_HEIGHT', "Hauteur des images du panier");
 ?>

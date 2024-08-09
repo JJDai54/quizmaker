@@ -73,7 +73,7 @@ var $maxGroups = 4;
 //echoArray($tValues);    
       //Taille des images à regrouper
       $name = 'imgHeight1';
-      $inpHeight0 = new \XoopsFormNumber(_QT_QUIZMAKER_IMAGESCOLOR_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESCOLOR_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions ->addElement($inpHeight0);     
 
@@ -86,13 +86,13 @@ var $maxGroups = 4;
       $trayOptions ->addElement($inputShowCaption);     
 
       $name = 'nbImagesByRow';
-      $inpNbImagesByRow = new \XoopsFormNumber(_QT_QUIZMAKER_IMAGESCOLOR_NBIMGBYROW,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpNbImagesByRow = new \XoopsFormNumber(_LG_PLUGIN_IMAGESCOLOR_NBIMGBYROW,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpNbImagesByRow->setMinMax(0, 8);
       $trayOptions ->addElement($inpNbImagesByRow);  
 
 
       $name = 'shuffleAnswers';  
-      $inputShuffleAnswers = new \XoopsFormRadioYN(_QT_QUIZMAKER_IMAGESCOLOR_SHUFFLE_IMG, "{$optionName}[{$name}]", $tValues[$name]);
+      $inputShuffleAnswers = new \XoopsFormRadioYN(_LG_PLUGIN_IMAGESCOLOR_SHUFFLE_IMG, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions ->addElement($inputShuffleAnswers);     
       //$trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));      
       
@@ -104,9 +104,9 @@ var $maxGroups = 4;
       $trayOptions->addElement($inpColorDefault);     
       
       $name = 'colorSelectMode';  
-      $inputDisposition = new \XoopsFormRadio(_QT_QUIZMAKER_IMAGESCOLOR_SELECT_MODE, "{$optionName}[{$name}]", $tValues[$name]);
-      $inputDisposition->addOption(0, _QT_QUIZMAKER_IMAGESCOLOR_SELECT_MODE_LIST);
-      $inputDisposition->addOption(1, _QT_QUIZMAKER_IMAGESCOLOR_SELECT_MODE_GRID);
+      $inputDisposition = new \XoopsFormRadio(_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inputDisposition->addOption(0, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST);
+      $inputDisposition->addOption(1, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID);
       $trayOptions ->addElement($inputDisposition);     
       //--------------------------------------
 

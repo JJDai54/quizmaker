@@ -71,10 +71,10 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
       //--------------------------------------------------------------------           
 //echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
       $name = 'multipleChoice';  
-      $inputShuffleAnswers = new \XoopsFormRadioYN(_QT_QUIZMAKER_CHOICESIMPLE_MULTIPLE_CHOICE, "{$optionName}[{$name}]", $tValues[$name]);
-      $inputShuffleAnswers->setDescription(_QT_QUIZMAKER_CHOICESIMPLE_MULTIPLE_CHOICE_DESC);
+      $inputShuffleAnswers = new \XoopsFormRadioYN(_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inputShuffleAnswers->setDescription(_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE_DESC);
       $trayOptions ->addElement($inputShuffleAnswers);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _QT_QUIZMAKER_CHOICESIMPLE_MULTIPLE_CHOICE_DESC . QBR));      
+      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE_DESC . QBR));      
       
       $name = 'shuffleAnswers';  
       $inputShuffleAnswers = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name]);

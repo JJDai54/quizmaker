@@ -4,7 +4,19 @@
 - Vérification de la présence de certains fichiers lors des imports
     - plugins : verifie la présence des fichiers nomDuPlugin.php et js/nomDuPlugin/nomDuPlugin.js
     - Quiz : Verifie la présence des fichiers YML du nom des tables (cateories,quiz,questions et answers)
-     
+Correction export : utilisation de \JJD\sanityseNameForFile($name) pour avoir une URL correcte
+Ajout constantes de langue
+ajout de la table "quizmaker_options". permet d'affection des modeles d'options au quiz.
+    ajout de tous les fichiers nécéssaires à la gestion de cette table
+Correction suppression des images dans la partie options des plugins
+    parcours du tabbleau delete qui contient le nom du champ image et suppression du fichier
+    modification du champ chkDelete tel que "{$optionName}[delete][nomDuChampImage]"
+plugin alphaSimple : prise en compte des accents pour la comparaison des chaines
+Refonte de la fonction sanityseTextForComparaison et sanityseAccents      
+Correction import des exemples des plugins
+ajout de la fonction adRight dans le frameworks pour eviter  l'erreur: Database updates are not allowed during processing of a GET request
+Nom de la table parametrée dans les paramètres globaux du module, plus facile à changer par l'utilisateur (french english, ...)
+
 ---------------------------------------------------
 2024-07-18a v 5.00 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
@@ -12,8 +24,8 @@
 - onglet "Questions", synchronisation des sélecteurs 'categorie" et "quiz" et des permissions 
 - Onglet export : ajout du choix du nom pour l'export
 - suppression du champ quest_type_question remplacer par quest_plugin
-- ajout du champ quiz_show_timer
-- onlet import : 
+- ajout du champ quiz_showTimer : position du timer des slides (hau/bas , gauche/droite, masqué) 
+- onglet import : 
     - restructuration du code par type d'import
     - Ajout de l'import de plugin en prévision de mise à jour o de nouveau plugins
 

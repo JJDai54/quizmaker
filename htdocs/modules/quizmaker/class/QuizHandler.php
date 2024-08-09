@@ -82,9 +82,9 @@ class QuizHandler extends \XoopsPersistableObjectHandler
 	 * @param string $order 
 	 * @return int
 	 */
-	public function getCountQuiz($criteria=null, $start = 0, $limit = 0, $sort = 'quiz_id ASC, quiz_cat_id', $order = 'ASC')
+	public function getCountQuiz($crCountQuiz=null, $start = 0, $limit = 0, $sort = 'quiz_id ASC, quiz_cat_id', $order = 'ASC')
 	{
-        $crCountQuiz  = ($criteria) ? $criteria: new \CriteriaCompo();
+        if(!$crCountQuiz)  $crCountQuiz = new \CriteriaCompo();
 		$crCountQuiz = $this->getQuizCriteria($crCountQuiz, $start, $limit, $sort, $order);
 		return parent::getCount($crCountQuiz);
 	}
@@ -364,15 +364,17 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 {
     if($bitIndex == -1){
-    
-        if ($newValue == 1){
+        //si bitIndex = -1, change toutes les bit selon $newvalue
+        
+        if ($newValue == 1){                    //mets tous les bits à 1
             $binValue = pow(2, 16)-1;
             $sql = "UPDATE {$this->table} SET {$field} = {$binValue}";
-        }elseif ($newValue == 0){
+        }elseif ($newValue == 0){               //mets tous les bits à 0
             $sql = "UPDATE {$this->table} SET {$field} = 0";
-        }else{
-            $binValue = pow(2, 16)-1;
-            $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ {$binValue}";
+        }else{                                  //config definie dans les constante
+            //$binValue = pow(2, 16)-1;
+            $sql = "UPDATE {$this->table} SET {$field} = {$newValue}";
+            //exit("setBitOn => {$newValue}");
         }
     
         
@@ -395,30 +397,34 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
     return $ret;
 }
 
-// public function setBitOn($quizId, $field, $bitIndex, $newBitValue)
-// {
-//     $binValue = pow(2,$bitIndex);
-//     if($newBitValue){
-//         $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue};";
-//     }else{
-//         $sql = "UPDATE {$this->table} SET {$field} = {$field} & ~{$binValue};";
-//     }
-//     
-//     $ret = $this->db->queryf($sql);
-//     return $ret;
-// }
-// public function setBitXor($quizId, $field, $bitIndex, $newBitValue)
-// {
-//     $binValue = pow(2,$bitIndex);
-//     if($newBitValue){
-//         $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue};";
-//     }else{
-//         $sql = "UPDATE {$this->table} SET {$field} = {$field} xor {$binValue};";
-//     }
-// 
-//     $ret = $this->db->queryf($sql);
-//     return $ret;
-// }
+/* ******************************
+ *  setConfigOptions : defini la configuration IHM et DEV du quiz
+ *  
+ * *********************** */
+public function setConfigOptions($quizId, $newOptionIHM, $newOptionsDev)
+{
+    $sql = "UPDATE {$this->table} SET quiz_optionsIhm = {$newOptionIHM}, quiz_optionsDev = {$newOptionsDev}";
+    $sql .= " WHERE quiz_id={$quizId};";
+    $ret = $this->db->queryf($sql);
+    //exit($sql);
+    return $ret;
+}
+/* ******************************
+ * setBinOptions  : defini la configuration IHM et DEV du quiz
+ *  
+ * *********************** */
+public function setBinOptions($quizId, $optId)
+{   
+    global $optionsHandler;
+    //echo "<hr>setBinOptions : {$quizId}-{$optId}<hr>";
+    $optionObj = $optionsHandler->get($optId);
+    $quizObj=$this->get($quizId);
+    $quizObj->setVar('quiz_optionsIhm', $optionObj->getVar('opt_optionsIhm'));
+    $quizObj->setVar('quiz_optionsDev', $optionObj->getVar('opt_optionsDev'));
+    $this->insert($quizObj);
+
+    return true;
+}
 
 /* ******************************
  * renvoi un jeu de valeurs utilisé dans la liste de l'admin
@@ -681,9 +687,42 @@ global $quizUtility;
     for($h = 0; $h < count($filesArr); $h++){
         $f1 = "{$fullPath}/{$filesArr[$h]}"; 
         echo "<br>isValid ===> {$f1}<br>";
+        //$ok =  file_exists($f1) ;
+        //if(!$ok) exit("isValid file not exixts :<br> {$f1}");
         if (!file_exists($f1)) return false;
     }
+    echo "<br>isValid ===> ok<br>";
+
+    return true;
+   }
+   
+/****************************************************************************
+ * isFolderJSValid : verifie la validité du dossier des JS du quiz
+ * retour err bool:
+ ****************************************************************************/
+public function isFolderJSValid($folderJS){
+//echo "<hr>isFolderJSValid : {$folderJS}<br>";    
+    $criteria = new \Criteria('quiz_folderJS', $folderJS, '=');
+    $count = $this->getCountQuiz($criteria);
+//exit ("isFolderJSValid count : {$count}<br>");
+    if ($count > 0) return false;
+    
+    $path =  QUIZMAKER_PATH_UPLOAD . "/quiz-js/{$folderJS}";
+    if (is_dir($path)) return false;
+//echo "isFolderJSValid : {$path}<hr>";    
     return true;
    }
  
+/****************************************************************************
+ * getFolderJSValid : renvoie un nom de dossier valid pour les JS du quiz
+ * retour err bool:
+ ****************************************************************************/
+public function getFolderJSValid($folderJS){
+
+    $newFolder = $folderJS;
+    while (!$this->isFolderJSValid($newFolder)){
+        $newFolder = $folderJS . '-' . rand(10000,99999);
+    }
+    return $newFolder;
+   }
 } // Fin de la classe

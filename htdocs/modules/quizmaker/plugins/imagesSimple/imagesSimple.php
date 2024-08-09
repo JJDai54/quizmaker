@@ -75,34 +75,47 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       //--------------------------------------------------------------------           
 
       $name = 'imgHeight0';  
-      $inpHeight0 = new \XoopsFormNumber(_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SIZE_GROUP0,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP0,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElement($inpHeight0);     
 
       $name = 'imgHeight1';  
-      $inpHeight1 = new \XoopsFormNumber(_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SIZE_GROUP1,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP1,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElement($inpHeight1);     
 
       $name = 'imgHeight2';  
-      $inpHeight2 = new \XoopsFormNumber(_QT_QUIZMAKER_IMAGESSIMPLE_IMG_SIZE_GROUP2,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP2,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElement($inpHeight2);     
       
       $name = 'imgGreen';  
       $trayOptions ->addElement(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
       //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
-      $inpImgGreen = $this->getXoopsFormImage($tValues[$name], "{$optionName}_{$name}", $path, 50,'<br>',$this->getName($i,"delete_{$name}"), _QT_QUIZMAKER_IMAGESSIMPLE_IMG_SELECTED, _QT_QUIZMAKER_IMAGESSIMPLE_IMG_SELECTED_DESC);  
+      $inpImgGreen = $this->getXoopsFormImage($tValues[$name], 
+                                              "{$optionName}_{$name}", 
+                                              $path, 
+                                              50,
+                                              '<br>',
+                                              "{$optionName}[delete][{$name}]",                   //$this->getName($i,"delete_{$name}"),
+                                              _LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED, 
+                                              _LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_DESC);  
       $trayOptions ->addElement($inpImgGreen);   
 
       $name = 'imgRed';  
       $trayOptions ->addElement(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
       //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
-      $inpImgRed = $this->getXoopsFormImage($tValues[$name], "{$optionName}_{$name}", $path, 50,'<br>',$this->getName($i,"delete_{$name}"), _QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET, _QT_QUIZMAKER_IMAGESSIMPLE_IMG_BASKET_DESC);  
+      $inpImgRed = $this->getXoopsFormImage($tValues[$name], 
+                                            "{$optionName}_{$name}", 
+                                            $path, 
+                                            50,'<br>',
+                                            "{$optionName}[delete][{$name}]",              //$this->getName($i,"delete_{$name}"), 
+                                            _LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET, 
+                                            _LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_DESC);  
       $trayOptions ->addElement($inpImgRed);   
 
       $name = 'directive';  
-      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _QT_QUIZMAKER_IMAGESSIMPLE_DIRECTIVE;
+      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
 
@@ -236,7 +249,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             }
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
-//define('', "");            
+            
             $inpAnswerId = new \XoopsFormHidden($this->getName($i,'id'), $answerId);            
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);            
             $libChrono = new \XoopsFormLabel('', $i+1); // . "[{$answerId}]"
@@ -312,7 +325,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------       
-        
+
         /*
         */ 
        foreach ($answers as $key=>$v){

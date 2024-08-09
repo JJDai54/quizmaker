@@ -24,8 +24,10 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_ULDADGROUPS', "Répartir les propositions dans les groupes");
-define('_QT_QUIZMAKER_ULDADGROUPS_DESC', "Ce slide est composé de plusieurs groupes dans lesquels il faut répartir les propositions.");
-define('_QT_QUIZMAKER_ULDADGROUPS_CONSIGNE', "Cliquer et déplacer les items pour regrouper les bonnes réponses.<br>Certains items peuvent déjà être à la bonne place.");
+define('_LG_PLUGIN_ULDADGROUPS', "Répartir les propositions dans les groupes");
+define('_LG_PLUGIN_ULDADGROUPS_DESC', "Ce slide est composé de plusieurs groupes dans lesquels il faut répartir les propositions.");
+define('_LG_PLUGIN_ULDADGROUPS_CONSIGNE', "Cliquer et déplacer les items pour regrouper les bonnes réponses.<br>Certains items peuvent déjà être à la bonne place.");
+
+define('_LG_PLUGIN_ULDADGROUPS_UL_WIDTH', "Item width");
 
 ?>

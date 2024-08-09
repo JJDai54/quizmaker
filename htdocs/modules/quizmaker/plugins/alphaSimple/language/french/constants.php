@@ -24,16 +24,14 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_QT_QUIZMAKER_ALPHASIMPLE', "Question de lettres");
-define('_QT_QUIZMAKER_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères alpha-nummériques à cocher.");
-define('_QT_QUIZMAKER_ALPHASIMPLE_CONSIGNE', "Vous devez sélectioner un caractère alpha-numérique qui correspond à la question.");
+define('_LG_PLUGIN_ALPHASIMPLE', "Question de lettres");
+define('_LG_PLUGIN_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères alpha-nummériques à cocher.");
 
-define('_QT_QUIZMAKER_ALPHASIMPLE_LETTERS', "Lettres");     
-define('_QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE', "Directive");
-define('_QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_DESC', "Action à faire affichée au dessus des lettres.");
-
-define('_QT_QUIZMAKER_ALPHASIMPLE_DIRECTIVE_LIB', "Cliquez sur une ou plusieurs lettres ou chiffres.");
-define('_QT_QUIZMAKER_ALPHASIMPLE_ALPHABET', "A-B-C-D-E-F-G-H-I-J-K-L-M--N-O-P-Q-R-S-T-U-V-W-X-Y-Z");
-define('_QT_QUIZMAKER_ALPHASIMPLE_NUMBER', "0-1-2-3-4-5-6-7-8-9");
+define('_LG_PLUGIN_ALPHASIMPLE_CONSIGNE', "Vous devez sélectioner un caractère alpha-numérique qui correspond à la question.");
+define('_LG_PLUGIN_ALPHASIMPLE_LETTERS', "Lettres");     
+define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE', "Directive");
+define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC', "Action à faire affichée au dessus des lettres.");
+define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB', "Cliquez sur une ou plusieurs lettres ou chiffres.");
+define('_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS', "Ignorer les accents.");
 
 ?>

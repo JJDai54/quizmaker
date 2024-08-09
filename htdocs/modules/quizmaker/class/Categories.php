@@ -93,7 +93,7 @@ class Categories extends \XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
         //------------------------------------------------------------------------
 		// Form Text catName
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_CATEGORIES_NAME, 'cat_name', 50, 255, $this->getVar('cat_name') ), true);
+		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'cat_name', 50, 255, $this->getVar('cat_name') ), true);
 		// Form Editor DhtmlTextArea catDescription
 		$editorConfigs = [];
 		if ($isAdmin) {
@@ -108,7 +108,7 @@ class Categories extends \XoopsObject
 		$editorConfigs['width'] = '100%';
 		$editorConfigs['height'] = '400px';
 		$editorConfigs['editor'] = $editor;
-		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_CATEGORIES_DESCRIPTION, 'cat_description', $editorConfigs) );
+		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_DESCRIPTION, 'cat_description', $editorConfigs) );
 		
         // Categories Handler
 		$categoriesHandler = $quizmakerHelper->getHandler('Categories');

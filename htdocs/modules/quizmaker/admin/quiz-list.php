@@ -74,7 +74,7 @@ echo "ooooo:" . $catId;
 
       // ----- Listes de selection pour filtrage -----  
       //echo "<hr>===>addPermissions => " . $criteriaCatAllowed->renderWhere(). "<hr>";      exit;
-      $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+      $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
       $inpCategory->addOptionArray($catArr);
       $inpCategory->setExtra('onchange="document.quizmaker_select_filter.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
 	  $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
@@ -86,12 +86,25 @@ echo "ooooo:" . $catId;
 
       $GLOBALS['xoopsTpl']->assign('allCategories', $catId == 0);
        
+       $binOptionsArr = $optionsHandler->getAllOptionsArr($binMerged);
+//echoArray($binOptionsArr);     exit;           
+	   $GLOBALS['xoopsTpl']->assign('binOptions', $binOptionsArr);
+       
         // Table view quiz
 		if ($quizCount > 0) {
 			foreach(array_keys($quizAll) as $i) {
-				$Quiz = $quizAll[$i]->getValuesQuiz();
-				$GLOBALS['xoopsTpl']->append('quiz_list', $Quiz);
-				unset($Quiz);
+				$QuizValues = $quizAll[$i]->getValuesQuiz();
+                
+                //recherche du modele d'options
+                $bin = $QuizValues['optionsIhm'] | $QuizValues['optionsDev'];
+                $id = array_search($bin, $binMerged);
+                if ($id === false) $id = 0;
+                $QuizValues['currentBinOptions'] = $id ;
+
+//echoArray($QuizValues);
+				$GLOBALS['xoopsTpl']->append('quiz_list', $QuizValues);
+                
+				unset($QuizValues);
 			}
 			// Display Navigation
 			if ($quizCount > $limit) {

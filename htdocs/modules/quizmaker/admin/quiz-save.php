@@ -45,9 +45,17 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
 		$quizObj->setVar('quiz_name', Request::getString('quiz_name', ''));
 		$quizObj->setVar('quiz_author', Request::getString('quiz_author', ''));
+        
+        
         $oldFolder = $quizObj->getVar('quiz_folderJS');
         $newFolder = Request::getString('quiz_folderJS', '');
-		$quizObj->setVar('quiz_folderJS',  $newFolder);
+        if($newFolder != $oldFolder || !$newFolder){
+            if(!$newFolder) $newFolder = $quizObj->getVar('quiz_name');
+            $newFolder = \JJD\sanityseNameForFile($newFolder);  
+            $newFolder = $quizHandler->getFolderJSValid($newFolder);
+		    $quizObj->setVar('quiz_folderJS',  $newFolder);
+        }
+        
 		$quizObj->setVar('quiz_description', Request::getText('quiz_description', ''));
 		$quizObj->setVar('quiz_weight', Request::getInt('quiz_weight', 0));
         

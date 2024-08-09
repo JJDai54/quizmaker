@@ -74,7 +74,7 @@ var $maxGroups = 4;
       $name = 'ulWidth';  
       $inpUlWidth = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpUlWidth->setMinMax(20, 100, 'pixels');
-      $trayUlWidth = new XoopsFormElementTray(_AM_QUIZMAKER_UL_WIDTH, $delimeter = ' ');  
+      $trayUlWidth = new XoopsFormElementTray(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH, $delimeter = ' ');  
       $trayUlWidth->addElement($inpUlWidth);
       $trayUlWidth->addElement(new \XoopsFormLabel(' ', '%'));
       $trayOptions ->addElement($trayUlWidth);     

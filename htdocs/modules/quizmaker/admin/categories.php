@@ -124,12 +124,12 @@ switch($op) {
             
             $clPerm = new jjdPermissions();
             //$clPerm->savePermission('view_quiz', $permId, $_POST['groups_view_quiz']);
-            $clPerm->savePermission('edit_quiz', $permId, $_POST['groups_edit_quiz']);
-            $clPerm->savePermission('create_quiz', $permId, $_POST['groups_create_quiz']);
-            $clPerm->savePermission('delete_quiz', $permId, $_POST['groups_delete_quiz']);
-            $clPerm->savePermission('import_quiz', $permId, $_POST['groups_import_quiz']);
+            $clPerm->savePermission('edit_quiz',        $permId, $_POST['groups_edit_quiz']);
+            $clPerm->savePermission('create_quiz',      $permId, $_POST['groups_create_quiz']);
+            $clPerm->savePermission('delete_quiz',      $permId, $_POST['groups_delete_quiz']);
+            $clPerm->savePermission('import_quiz',      $permId, $_POST['groups_import_quiz']);
             $clPerm->savePermission('importquest_quiz', $permId, $_POST['groups_importquest_quiz']);
-            $clPerm->savePermission('export_quiz', $permId, $_POST['groups_export_quiz']);
+            $clPerm->savePermission('export_quiz',      $permId, $_POST['groups_export_quiz']);
 
 			redirect_header('categories.php?op=list', 2, _AM_QUIZMAKER_FORM_OK);
 		}

@@ -82,7 +82,7 @@ switch($op) {
 
         // ----- Listes de selection pour filtrage -----  
         if ($catId == 0) $catId = array_key_first($catArr);        
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
         $inpCategory->setExtra("onchange=\"document.form_export.op.value='list';document.form_export.sender.value=this.name;document.form_export.submit();\"".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
   	    $form->addElement($inpCategory);
@@ -95,7 +95,7 @@ switch($op) {
             $quiz = $quizHandler->get($quizId);
         }
         
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
+        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
         $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
         //$inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
         $inpQuiz->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));

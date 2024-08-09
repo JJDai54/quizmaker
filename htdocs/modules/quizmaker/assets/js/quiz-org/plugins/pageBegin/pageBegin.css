@@ -1,4 +1,11 @@
 ﻿
-.pageBegin div{
+.pageBegin div[sommaire]{
 /* line-height:1.1em; voir quiz_sommaire h1 et h2 */
+/*
+*/
+max-height:200px;
+    overflow-y: scroll;
+
 }
+
+

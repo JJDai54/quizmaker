@@ -93,7 +93,7 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
       $trayOptions->addElement($inputDisposition);     
       
       //options dans le cas d'une liste déroullante
-      $trayOptions->addElement(new XoopsFormLabel('',QBR . _QT_QUIZMAKER_SORTITEMS_OPTIONS_LISTBOX));   
+      $trayOptions->addElement(new XoopsFormLabel('',QBR . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));   
 
       $name = 'btnColor';  
       $btnColors = XoopsLists::getDirListAsArray(QUIZMAKER_PATH_QUIZ_ORG . '/plugins/listboxSortItems/img/buttons', '');

@@ -113,10 +113,11 @@ switch($op) {
         break;
 
 	case 'build_quiz':
-        $quizUtility::buildQuiz($quizId);
+        $build = $quizUtility::buildQuiz($quizId);
         //$utility::export_questions2Jason($quizId);
-        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, "Export effectue");
+        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$build));
 		//redirect_header('questions.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+        
 	break;
         
 	case 'change_etat':

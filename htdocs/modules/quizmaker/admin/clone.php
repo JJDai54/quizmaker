@@ -53,7 +53,7 @@ switch ($op) {
         $clone = Request::getString('clone', '', 'POST');
         //check if name is valid
         if (empty($clone) || \preg_match('/[^a-zA-Z0-9\_\-]/', $clone)) {
-            \redirect_header('clone.php', 3, \sprintf(\_AM_QUIZMAKER_CLONE_INVALIDNAME, $clone));
+            \redirect_header('clone.php', 3, \sprintf(\_AM_QUIZMAKER_CLONE_INVALID_NAME, $clone));
         }
 
         // Check wether the cloned module exists or not

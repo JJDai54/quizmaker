@@ -79,9 +79,9 @@ switch($op) {
     
 	case 'build_quiz':
         checkRightEditQuiz('edit_quiz',$catId);
-        $quizUtility::buildQuiz($quizId);
+        $build = $quizUtility::buildQuiz($quizId);
 		//redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Export effectue");
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$build));
 	   break;    
         
 	case 'export_quiz':
@@ -110,7 +110,24 @@ switch($op) {
         $newValue = Request::getInt('newValue', -1);
         $quizHandler->setBitOn($quizId, $field, $bitIndex, $newValue);
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
+        
+// 	case 'set_config':
+//         checkRightEditQuiz('edit_quiz',$catId);
+//         $newOptionIHM = Request::getInt('newOptionIHM');
+//         $newOptionsDev = Request::getInt('newOptionsDev');
+//         $quizHandler->setConfigOptions($quizId, $newOptionIHM, $newOptionsDev);
+//         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
+// 	break;
+    
+	case 'set_binoptions':
+        checkRightEditQuiz('edit_quiz',$catId);
+        $optId = Request::getInt('opt_id');
+        $quizHandler->setBinOptions($quizId, $optId);
+        $build = $quizUtility::buildQuiz($quizId);
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK,$build));
+
 	break;
+    
 // 	case 'config_options':
 //         $config = Request::getInt('config', 0);
 //         $quizHandler->config_options($quizId, $config);

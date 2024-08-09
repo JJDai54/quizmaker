@@ -28,44 +28,45 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PLAY}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_HELP}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_IMAGE}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 
 			</tr>
 		</thead>
 		<{if $plugin_count}>
 		<tbody><br>      
             <{assign var="index" value="0"}>       
-			<{foreach item=TypeDeQuestion from=$plugin_list}>
+			<{foreach item=Plugin from=$plugin_list}>
              <{assign var=index value=$index+1}>
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$index}></td>
-				<td class='left'><{$TypeDeQuestion.type}></td>
-				<td class='left'><{$TypeDeQuestion.name}></td>
-				<td class='left width50'><{$TypeDeQuestion.description}></td>
+				<td class='left'><a name="signet-<{$Plugin.type}>"><{$Plugin.type}></a></td>
+				<td class='left'><{$Plugin.name}></td>
+				<td class='left width50'><{$Plugin.description}></td>
                 
 				<td class='center'>
-                    <{if $TypeDeQuestion.quiz_id <> 0}> 
-                      <a href='questions.php?op=list&quiz_id=<{$TypeDeQuestion.quiz_id}>'>
-            			<img src="<{$modPathIcon32}>/edit-ok.png" alt="Play quiz" title='<{$smarty.const._EDIT}>' />
+                    <{if $Plugin.isArchive}> 
+                      <a href='plugins.php?op=install&plugin=<{$Plugin.type}>&catPlugins=<{$catPlugins}>#signet-<{$Plugin.type}>'>
+            			<img src="<{$modPathIcon32}>/install-red.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE}>' />
                       </a>
                     <{else}>
-            			<img src="<{$modPathIcon32}>/edit-no.png" alt="Play quiz" title='<{$smarty.const._EDIT}>' />
+            			<img src="<{$modPathIcon32}>/install-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE}>' />
+                    <{/if}>
+                </td>  
+                
+				<td class='center'>
+                    <{if $Plugin.quiz_id <> 0}> 
+                      <a href='questions.php?op=list&quiz_id=<{$Plugin.quiz_id}>'>
+            			<img src="<{$modPathIcon32}>/edit-ok.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_EDIT_QUIZ}>' />
+                      </a>
+                    <{else}>
+            			<img src="<{$modPathIcon32}>/edit-no.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_EDIT_QUIZ}>' />
                     <{/if}>
                 </td>  
                 
                 
-                
 				<td class='center'>
-                    <{if $TypeDeQuestion.isArchive}> 
-                      <a href='plugins.php?op=install&plugin=<{$TypeDeQuestion.type}>&catPlugins=<{$catPlugins}>'>
-            			<img src="<{$modPathIcon32}>/install-red.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
-                      </a>
-                    <{else}>
-            			<img src="<{$modPathIcon32}>/install-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
-                    <{/if}>
-                </td>  
-				<td class='center'>
-                    <{if $TypeDeQuestion.isBuild}> 
-                      <a href='plugins.php?op=play&plugin=<{$TypeDeQuestion.type}>&catPlugins=<{$catPlugins}>' target='blank'>
+                    <{if $Plugin.isBuild}> 
+                      <a href='plugins.php?op=play&plugin=<{$Plugin.type}>&catPlugins=<{$catPlugins}>' target='blank'>
             			<img src="<{$modPathIcon32}>/play-green.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
                       </a>
                     <{else}>
@@ -73,7 +74,7 @@
                     <{/if}>
                 </td>   
 				<td class='center'>
-                    <a href='' onclick="javascript:openWithSelfMain('<{$smarty.const.XOOPS_URL}>/modules/quizmaker/admin/plugins_help.php?op=view&plugin=<{$TypeDeQuestion.type}>','<{$TypeDeQuestion.type}>',680,600);return false;">
+                    <a href='' onclick="javascript:openWithSelfMain('<{$smarty.const.XOOPS_URL}>/modules/quizmaker/admin/plugins_help.php?op=view&plugin=<{$Plugin.type}>','<{$Plugin.type}>',680,600);return false;">
           				<img src="<{xoModuleIcons32}>faq.png" alt="" title='<{$smarty.const._AM_QUIZMAKER_HELP}>' />
                     </a>
                 </td>   
@@ -81,7 +82,7 @@
                 <td class='left width20'>
 <{* 
                     <div class='highslide-gallery'>
-			         <{foreach item=modele from=$TypeDeQuestion.modeles}>    
+			         <{foreach item=modele from=$Plugin.modeles}>    
                         <a href='<{$modele}>' class='highslide' onclick='return hs.expand(this);' >
                             <img src="<{$modele}>" alt="slides" style="max-width:50px" />
                         </a>
@@ -89,10 +90,11 @@
 			         <{/foreach}>
                     </div>
 *}>                 
-                    <{$TypeDeQuestion.modelesHtml}>
+                    <{$Plugin.modelesHtml}>
                                      
                 </td>
 
+				<td class='center'><{$index}></td>
                 
 			</tr>
 			<{/foreach}>
@@ -106,6 +108,7 @@
 <script>
 tth_set_value('last_asc', true);
 tth_trierTableau('quiz_plugin_list', 2, "1,2,3,4");  
+quizmaker_scrollWin();
 </script>
 
 <{* 

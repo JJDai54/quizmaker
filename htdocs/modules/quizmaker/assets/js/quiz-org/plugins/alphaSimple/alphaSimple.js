@@ -24,7 +24,7 @@ var name = this.getName();
 var varByRef = { sep: " - " }; //modifie par getDisposition et utiliser pour aligner les mots h ou v
 
     var name = this.getName();
-    this.idDivReponse = this.getName('-letterSelected');
+    this.idDivReponse = this.getName('letterSelected');
        
     const htmlArr = [];
     htmlArr.push(`<div id="${name}-alpha" style="text-align:left;margin-left:00px;">`);
@@ -95,14 +95,18 @@ get_img(){
     var sep = '|';
     
     this.data.tWords = getExpInAccolades(this.question.question);  
-  
-    var listExp = setAllSepByNewSep(this.question.options.propositions, sep);  
-    var tExp = listExp.split( sep);  
+//alert( this.data.tWords.join('-')) ;  
+    //var listExp = setAllSepByNewSep(this.question.options.propositions, sep);  
+    var tExp =  splitAllSep(this.question.options.propositions, sep);  
     
     var tItems = new Object;
     
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
+        ans.proposition = ans.proposition.toUpperCase();
+        if(currentQuestion.options.ignoreAccents){
+            ans.proposition = sanityseAccents(ans.proposition);
+        }
         var key = sanityseTextForComparaison(ans.proposition);
         //alert (key);
         if ((ans.points*1) > 0 ) {
@@ -110,7 +114,15 @@ get_img(){
         }else{
         }
         
+        console.log('test-sanitise===>' + ans.proposition + '===>' + sanityseAccents(ans.proposition,1));
         if(tExp.indexOf(ans.proposition) == -1){
+//         var test = 'É-é';
+//         console.log('test-sanitise===>' + test + '===>' + sanityseAccents(test,0));
+//         var test = 'É-é';
+//         console.log('test-sanitise===>' + test + '===>' + sanityseAccents(test,-1));
+        
+//        var test = ans.proposition.toUpperCase();
+//        console.log('sanitise===>' + test + '===>' + sanityseAccents(test,false));
             tExp.push(ans.proposition);
         }
 // alert("prepareData : " + tItems[key].word + ' = ' + tItems[key]. points);
@@ -130,19 +142,22 @@ get_img(){
 getScoreByProposition ( answerContainer){
 var points = 0;
 var bolOk = 1;
-
+var idx = 0;
 
     var  currentQuestion = this.question;
-    var tReponses = document.getElementById(this.idDivReponse).innerHTML.split(this.sep);
+    
+    var tReponses = document.getElementById(this.idDivReponse).innerHTML.toLowerCase().split(this.sep);
+
     for(var k in currentQuestion.answers){
-        var rep = currentQuestion.answers[k];
-        if(rep.points > 0) {
-            for(var i in tReponses){
-                if(rep.proposition == tReponses[i]){
-//alert(rep.proposition + " = " + rep.points + " ===> " + points);
-                    points += rep.points*1
-                }
+        var ans = currentQuestion.answers[k];
+        if(ans.points > 0) {
+        idx = tReponses.indexOf(ans.proposition.toLowerCase());
+            //console.log(tReponses.join('-') + '===>' + ans.proposition + '- idx =' + idx + '-' + tReponses.length);
+            if(idx >= 0){
+                tReponses.splice(idx, 1);
+                points += ans.points*1
             }
+        
         }
     }
 
@@ -150,7 +165,7 @@ var bolOk = 1;
     this.points = points;    
     return this.points;
   }
-
+  
 //---------------------------------------------------
 getAllReponses (flag = 0){
     var  currentQuestion = this.question;

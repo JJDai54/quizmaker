@@ -73,7 +73,7 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
         //-------------------------------------
         
-//         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ, 'quiz_id', $quizId);
+//         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
 //         $tQuiz = $quizHandler->getListKeyName($catId,null,null,'view');
 //         $inpQuiz->addOptionArray($tQuiz);
 //         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');

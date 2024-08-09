@@ -52,7 +52,7 @@ $pg = array_merge($_GET, $_POST);
 $templateMain = 'quizmaker_admin_import.tpl';
 $op = Request::getCmd('op', 'getform');
 $quizId = Request::getInt('quiz_id');
-$typeImport = Request::getString('type_import','file');
+$typeImport = Request::getString('type_import','quiz');
 $pluginName = Request::getString('plugin','');
 
 
@@ -63,7 +63,7 @@ $toQuizId = Request::getInt('to_quiz_id');
 $orderBy = Request::getString('order_by','quest_plugin');
 $groupTo = Request::getString('group_to','');
 
-//echoGPF();
+//echoGPF();exit;
 
 $objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
@@ -159,7 +159,6 @@ list_on_errors:
                 include_once "import-quest.php";
                 break;
             case 'quest_sql': 
-
                 include_once "import-quest_sql.php";
                 break;
             case 'plugin':

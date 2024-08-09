@@ -74,7 +74,6 @@ $clPerms = new \jjdPermissions();
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
 //$moduleDirName      = 'quizmaker';
 xoops_loadLanguage('common', $moduleDirName);
-xoops_loadLanguage('plugins', $moduleDirName);
 
 // Get instance of module
 // $mid = $GLOBALS['xoopsModule']->getVar('mid');
@@ -86,6 +85,11 @@ $pluginsHandler = $quizmakerHelper->getHandler('Plugins');
 $answersHandler = $quizmakerHelper->getHandler('Answers');
 $resultsHandler = $quizmakerHelper->getHandler('Results');
 $messagesHandler = $quizmakerHelper->getHandler('Messages');
+$optionsHandler = $quizmakerHelper->getHandler('Options');
+
+$xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
+
+
 $myts = MyTextSanitizer::getInstance();
 //$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
 //echoArray($quizmakerHelper);
