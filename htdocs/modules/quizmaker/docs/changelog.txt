@@ -14,7 +14,7 @@ Correction suppression des images dans la partie options des plugins
 plugin alphaSimple : prise en compte des accents pour la comparaison des chaines
 Refonte de la fonction sanityseTextForComparaison et sanityseAccents      
 Correction import des exemples des plugins
-ajout de la fonction adRight dans le frameworks pour eviter  l'erreur: Database updates are not allowed during processing of a GET request
+ajout de la fonction addRight dans le frameworks pour eviter  l'erreur: Database updates are not allowed during processing of a GET request
 Nom de la table parametrée dans les paramètres globaux du module, plus facile à changer par l'utilisateur (french english, ...)
 
 ---------------------------------------------------

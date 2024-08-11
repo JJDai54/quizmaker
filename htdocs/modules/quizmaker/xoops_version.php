@@ -609,6 +609,8 @@ $modversion['config'][] = [
 ];
 
 // Jacascript is minified
+/*
+*/
 $modversion['config'][] = [
 	'name'        => 'use_js_minified',
 	'title'       => '_MI_QUIZMAKER_USE_JS_MINIFIED',

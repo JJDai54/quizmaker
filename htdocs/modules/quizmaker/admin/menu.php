@@ -26,13 +26,13 @@ $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = XoopsModule::getByDirname($dirname);
 $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
-$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+//$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 
 include_once(XOOPS_ROOT_PATH . '/Frameworks/JJD-Framework/class/permissions.php');
 include_once(XOOPS_ROOT_PATH . '/modules/quizmaker/include/permissions.php');
 
 $clPerms = new jjdPermissions('quizmaker');
-$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
+//$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
 
 
 $adminmenu[] = [
@@ -88,8 +88,9 @@ $adminmenu[] = [
 ];
 }
 
-if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)
-    && $quizmakerHelper->getConfig('use_js_minified')){
+if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)){
+// if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)
+//     && $quizmakerHelper->getConfig('use_js_minified')){
 $adminmenu[] = [
   	'title' => _MI_QUIZMAKER_MINIFY,
   	'link' => 'admin/minify.php',

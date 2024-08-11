@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+  
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>
+<h4 class="odd">Ajouter des questions aux quiz</h4>
+
+Le formulaire d'ajout de questions est composé de trois partie:<br>
+<ul>
+  <li>Les paramètre généraux commun à tous les type de question</li>
+  <li>Les options spécifiques sui peuvent être différentes pour chaque type de question</li>
+  <li>Les propositions de réponses qui elles aussi peuvent être différentes selon le type de question.<br>
+Il peut également y avoir plusieurs groupes de propositions avec des paramètres différents.<br>
+  </li>
+</ul>
+Pour les deux dernières, il faudra se référer à l'aide du plugin pour en savoir d'avantage.<br>
+<br>
+<span style="font-weight: bold;">Entête de l'onglet des questions</span><br>
+<br>
+<img style="width: 1017px; height: 121px;" src="../quizmaker/language/french/help/img/add_question-01.jpg" alt=""><br>
+<ul>
+  <li>Selectionnez la catégorie, liste déroulante en orange</li>
+  <li>Sélectionnez le quiz, liste déroulante en bleu</li>
+  <li>Sélectionnez le type de question, liste déroulante en jaune.<br>
+Important, il faut bien choisir le type de
+question au préqlable, il ne peut pas être modifié à postériori.<br>
+Pour aider l'utilisateur dans son choix, les copies d'écran sont
+actualiser en fonction du type choisi, il est possible de cliquer
+dessus pour agrandir l'image.</li>
+  <li>Cliquer sur "Ajouter" pour accéder au formulaire</li>
+</ul>
+Description des autres boutons de l'onglet "Questions"<br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td colspan="2" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Description des autres boutons de l'onglet "Questions"</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 140px; height: 27px;" src="../quizmaker/language/french/help/img/btn-edit_quiz.jpg" alt=""></td>
+      <td style="vertical-align: top;">Permet d'éditer le quiz directement sans repasser par l'onglet "Quiz"<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 113px; height: 27px;" src="../quizmaker/language/french/help/img/btn-goto%20category.jpg" alt=""></td>
+      <td style="vertical-align: top;">Permet d'accéder à l'onglet des catégorie du quiz courant, dans repasser par l'ongle "Categories"<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 209px; height: 27px;" src="../quizmaker/language/french/help/img/btn_init_weight.jpg" alt=""></td>
+      <td style="vertical-align: top;">Initialise le poids des questions. Cela peut être nécéssaire dans certins cas, après un import de questions par exemple.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 177px; height: 27px;" src="../quizmaker/language/french/help/img/btn-purge_images.jpg" alt=""></td>
+      <td style="vertical-align: top;">A force de modification, il
+arrive que des images devnues inutiles ne soit pas supprimée, notamment
+lors de l'import partiel de question.<br>
+Ce bouton permet de supprimer les images inutiles pour le quiz courant.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 127px; height: 27px;" src="../quizmaker/language/french/help/img/btn-export_quiz.jpg" alt=""></td>
+      <td style="vertical-align: top;">Permet de générer une archive compressée, que l'on pourra importer sur une autre instance de quizmaker voir sur un autre site.<br>
+L'archive contient les tables "category, quiz, questions,answers, ainsi que les images du quiz courant.<br>
+Cette action est aussi possible dans l'onglet "Quiz"<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 156px; height: 27px;" src="../quizmaker/language/french/help/img/btn-build_quiz.jpg" alt=""></td>
+      <td style="vertical-align: top;">Ce bouton permet de générer le
+quiz. Cela consiste à passer toutes les données du quiz aux programme
+JavaScrip via des tableau "json"<br>
+Les fichiers sont générer dans le dossier
+"/uploads/quizmaker/quiz-js/nomDuDossierJS&nbsp; ("nomDuDossierJs" est
+défini dans les paramètre du quiz).<br>
+Cette option est aussi disponible dans l'onglet 'Quiz"<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><img style="width: 38px; height: 24px;" src="../quizmaker/language/french/help/img/2024-07-08%2009%2004%2056.jpg" alt=""></td>
+      <td style="vertical-align: top;">Ce bouton lance le qiz et permet de la tester directement.<br>
+Cette option est aussi disponible dans l'onglet1 "Quiz".<br>
+      <span style="font-weight: bold;">Important</span> : Les
+modification ne sont pas toujours actualisées correctement par le
+navigateur utilisé. Une fois lancé le quiz, il sera parfois nécéssaire
+d'apuyer soir sur la touche "F5" soit sur la combinaison de touches
+"Ctrl+F5". Ces deux raccourcis permette de raffraichir la page
+courante. La deuxième solution est plus efficace car elle réinitialise
+aussi les champs de saisies.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+    <tr>
+      <td colspan="2" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Paramètres
+principaux<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Quiz<br>
+      </td>
+      <td style="vertical-align: top;">Nom du quiz auquel est rattachée la question en édition.<br>
+Ce champ ne peut pas être modifié.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Type de question<br>
+      </td>
+      <td style="vertical-align: top;">Rappel du type de question choisi, avec les copies d'écran pour aider l'utilisateur dans le choix des autres paramètres.<br>
+Bien qu'il soit possible de le modifier, il est fortement conseiller de
+ne pas le faire au risque de perdre des données, notamment dans les
+2ème et 3ème partie du formulaire.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Parent<br>
+      </td>
+      <td style="vertical-align: top;">Il
+es possible de regroupper les questions par thème dans un même quiz.
+Pour cela il faut ajouter au préalable des questions de type
+"pageGroupe", des pages de regroupement.<br>
+Elles apparaitront dans la liste déroulante. Les groupes de questions
+pourront être déplacer, supprimés, désactivés ou réactivé en un seul
+clique sur la page du groupe.<br>
+Le bouton ver t<img style="width: 16px; height: 16px;" src="../quizmaker/language/french/help/img/out_of_group-green.png" alt="">
+qui apparaitra dans certain cas permet de réaffecter la question au
+groupe principal "pageBegin" la page d'introduction du quiz. Il faudra
+réinitialiser le poids pour avoir les
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Question<br>
+      </td>
+      <td style="vertical-align: top;">Libellé de la question ou de la directive dans le cas des slide "pageGroup", "pageInfo", "pageBegin" et "pageEnd"<br>
+Dans le cas des questions un peu longues il est possible de forcer un retour à la ligne en insérant le caractère "/".<br>
+De même dans certains plugin, il est possible d'entourer certains mots aiu espressions avec des acollades. <br>
+Ces mots ou expressions seront repris par le plugin pour être utilisés dans le corps du slide, exemple du mugin "alphaSimple"<br>
+Les accolades seront retirées lors de l'exécution du quiz. <br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Commentaire<br>
+      </td>
+      <td style="vertical-align: top;">Ce commentaire apparaitra sous la question et permet de donner des indication supémentaires à l'utilisateur.<br>
+Toutefois, attention de ne pas mettre un texte trop long, au risque de diminuer la zone des propositions.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">identifiant<br>
+      </td>
+      <td style="vertical-align: top;">Il est possible d'attribuer un identifiant à chaque slide. Le bouton <img style="width: 43px; height: 44px;" src="../quizmaker/language/french/help/img/goto_slide.jpg" alt="">
+s'i il est affiché (voir les paramètres du quiz) permettra d'atteindre
+ce slide directement, soit en saisissant c't identifiant soit en
+saisissant le numéro d'ordre du slide.
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Explication<br>
+<br>
+      </td>
+      <td style="vertical-align: top;">Ce texte
+apparaitra à la fin du quiz, ou en sélection le bouton "Voir les
+solutions" quand cela est possible (voir les paramètre du quiz")<br>
+Il permettra à l'utilisateur de comprendre ou il a fait des erreurs par exemple, ou d'avoir des informations complémentaires.<br>
+<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">En savoir plus<br>
+
+Voir aussi
+      </td>
+      <td style="vertical-align: top;">Liens sur des sites explicatif qui traite de la question.<br>
+Comme pour le champ précédent il apparaitra à la fin du quiz sous les explications.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Position du commentaire de la question<br>
+      </td><td style="vertical-align: top;">
+      Défini la position du commentaire, juste sous la question, ou en t^te de la zone des propositions.<br>
+</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span class="caption-text">Numérotation</span>
+      </td>
+      <td style="vertical-align: top;">Numérote les propositions de la question. Numérique, alaphabètique, majuscle ou minuscule, ...<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span class="caption-text">Chronomètre</span>
+      </td>
+      <td style="vertical-align: top;">Défini un délai d'affichage du slide en seconde. N'est actif que si l'option "timer" du quiz est activée.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><span class="caption-text">Consigne</span>
+      </td>
+      <td style="vertical-align: top;">Position de l'icone <img style="width: 32px; height: 32px;" src="../quizmaker/language/french/help/img/quiz-1.png" alt=""> sur le slide. il permet d'afficher un popup avec une aide ou une consigne pour l'utilisateur.
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Actif<br>
+      </td>
+      <td style="vertical-align: top;">Oui : le slide est générer dans quiz,&nbsp; - non le slide ne sera pas généré et donc non visible par l'utilisateur.<br>
+Utile pendant la mise au point si il y a de nombreuses questions, cela
+évite de retester à chaque fois celles qui sont vérifiées, mais ne pas
+oublier de les réactiver avant la mise en production.<br>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+<br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td colspan="2" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Options propres au plugin - La liste n'est pas exhaustive.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Points<br>
+      </td>
+      <td style="vertical-align: top;">Nombre de points global en cas de bonne réponse.<br>
+Important il faut faire un choix entre deux cas de figures :<br>
+      <ul>
+        <li>un nombre de points global qui sera le même quelque soit la réponse quand elle correcte,</li>
+        <li>un nombre de points dépendant du nombre de points attribués à chaque proposition.</li>
+      </ul>
+Exemple : cas d'un slide "choiceSimple" avec l'option réponses
+multiples. Cela va générer une liste de case à cocher avec plusieur
+réponses valides.<br>
+Supposons 7 propositions dont 3 ont un nombre de points égal à 2 chacune et les autres 0.<br>
+Si le nombre de points global est de 5 et que toutes les cases à cocher sont correctes le score sera de 5<br>
+Si le nombre de points global est de 0 et dque toutes les cases à cocher sont correctes, le score sera de 3 x 2 = 6.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">image<br>
+      </td>
+      <td style="vertical-align: top;">Certain
+plugin permette d'afficher ne image pour agrémenter l'interface.
+L'image peut bien sur être en rapport direct avec la question.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Hauteur de l'image<br>
+      </td>
+      <td style="vertical-align: top;">L'imge peut être redimentionnée en hauteur, la largeur sera automatiquement ajustée en fonction.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mélanger les propositions
+      </td>
+      <td style="vertical-align: top;">Certains
+Slide proposent de mélanger les propositions. A chaque ecécution du
+quiz, les propositions seront mélangée, il ne sera pas possible dans ce
+cas de se référer à la numérotation.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Disposition<br>
+      </td>
+      <td style="vertical-align: top;">Cet option est présentée sous forme d'icones qui représentes succintement la disposition des éléments du slide.<br>
+Important : dans certains slide, la disposition est dépendante du
+nombre de groupe défini par exemple, attention de faire le bon choix.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Directive<br>
+      </td>
+      <td style="vertical-align: top;">Texte
+suplémentaire affiché dans la zone des proposition pour guider
+l'utilsateur, par exemple pour lui expliquer qu'il faut cliquer et
+déplacer une image.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+&nbsp;&nbsp;&nbsp; <br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td colspan="2" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Propositions - La liste n'est pas exhaustive.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mot ou expression<br>
+      </td>
+      <td style="vertical-align: top;">REprésente une proposition bonne ou mauvaise. Dans certain plugin ce pourra être une image.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Poids<br>
+      </td>
+      <td style="vertical-align: top;">Ordre
+de présentatino. Il peut être modifier&nbsp; par le paramètre "Mélanger
+les propositions" sauf dans certain cas ou l'ordre est important comme
+dans le plugin "sortItems" ou l'objectif est de retrouver l'ordre
+défini par le poids.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Points<br>
+      </td>
+      <td style="vertical-align: top;">Certain plugins propose un nombre de points pour chaque proposition.<br>
+Important, ce nombre de points permet de définir les bonnes et les mauivaises rpponses.<br>
+Cependant si le nombre de points global est supérieur à zéro c'est lui
+qui sera utilisé pour calculé le score sinon ce sera en général, mis
+pas forcément, la somme des points des propositions.<br>
+Voir l'aide de chaque plugin pour en savoir plus.<br>
+      </td>
+    </tr>
+<tr>
+      <td style="vertical-align: top;">Titre<br>
+      </td>
+      <td style="vertical-align: top;">Utilisé par fois en association avec des images<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Image<br>
+      </td>
+      <td style="vertical-align: top;">Certains plugins propose une image à la place d'un mot ou d'une expression, exemple de "dadSortItems"<br>
+      </td>
+    </tr><tr>
+      <td style="vertical-align: top;">Couleur<br>
+      </td>
+      <td style="vertical-align: top;">Le plugin "imageColor" propose de choisir une couleur, plutôt q"un mot ou une expression.<br>
+Dans l'exemple à importer Il utilise notamment un slide de type
+"pageInfo" pour présenter une image avec des couleurs., et dans un
+slide plus loin il faut retrouver ces couleurs.<br>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+<br>
+Dans tous les cas il est nécessaire d'en référer à l'aide intégrée du plugin.<br>
+
+</body></html>

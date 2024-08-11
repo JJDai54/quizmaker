@@ -1,0 +1,9 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>
+<h4 class="odd">Installation / Désinstallation</h4>Tout d'abord, il est nécéssaire d'installer le framework&nbsp; <a href="https://github.com/JJDai54/JJD-Framework">https://github.com/JJDai54/JJD-Framework</a><br>
+<p>Ce framework regroupe toute une série de fonctionalités utilisées par les modules que j'ai développés.<br>
+Une fois le frameworl installé, le module s'installe comme tout module
+sous xoops, voir l'ai de xoops pour l'installation de module.</p>
+<p>Récupérer l'archive du module ici : <a href="https://github.com/JJDai54/quizmaker">https://github.com/JJDai54/quizmaker</a><br>
+ET l'installer comme tout module Xoops.<br>
+
+
