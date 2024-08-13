@@ -91,7 +91,6 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 
 
 $myts = MyTextSanitizer::getInstance();
-//$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
 //echoArray($quizmakerHelper);
 /*
 */

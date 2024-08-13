@@ -38,7 +38,7 @@ $pluginsHandler = $quizmakerHelper->getHandler('Plugins');
 $answersHandler = $quizmakerHelper->getHandler('Answers');
 $resultsHandler = $quizmakerHelper->getHandler('Results');
 $messagesHandler = $quizmakerHelper->getHandler('Messages');
-$permissionsHandler = $quizmakerHelper->getHandler('Permissions');
+
 // 
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style

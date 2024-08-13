@@ -55,7 +55,7 @@ $modversion = [
 	'sysicons32'          => '../../Frameworks/moduleclasses/icons/32',
 	'modicons16'          => 'assets/icons/16',
 	'modicons32'          => 'assets/icons/32',
-	'demo_site_url'       => 'http://xmodules.jubile.fr',
+	'demo_site_url'       => 'http://xoops.oritheque.fr',
 	'demo_site_name'      => 'Xmodule',
 	'support_url'         => 'https://www.frxoops.org/modules/newbb/viewforum.php?forum=12',
 	'support_name'        => 'Xoops Support Forum',
@@ -74,7 +74,6 @@ $modversion = [
 // ------------------- Templates ------------------- //
 $modversion['templates'] = [
 	// Admin templates
-	['file' => 'quizmaker_admin_about.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_header.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_index.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_quiz.tpl', 'description' => '', 'type' => 'admin'],
@@ -84,7 +83,6 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_answers.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_results.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_messages.tpl', 'description' => '', 'type' => 'admin'],
-	['file' => 'quizmaker_admin_permissions.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_quiz_include.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_quiz_inline.tpl', 'description' => '', 'type' => 'admin'],
@@ -92,7 +90,6 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_export.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_import.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_type_new_question.tpl', 'description' => '', 'type' => 'admin'],
-    ['file' => 'quizmaker_admin_clone.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_download.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_plugins_help.tpl', 'description' => '', 'type' => 'admin'],
@@ -123,9 +120,9 @@ $modversion['templates'] = [
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
 // Tables
 $modversion['tables'] = [
+	'quizmaker_categories',
 	'quizmaker_quiz',
 	'quizmaker_questions',
-	'quizmaker_plugins',
 	'quizmaker_answers',
 	'quizmaker_results',
 	'quizmaker_messages',

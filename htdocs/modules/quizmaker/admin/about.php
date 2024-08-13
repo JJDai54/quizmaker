@@ -26,7 +26,6 @@ use XoopsModules\Quizmaker\Constants;
 
 //require_once XOOPS_ROOT_PATH . '/modules/quizmaker/admin/header.php';
 require_once 'header.php';
-$templateMain = 'quizmaker_admin_about.tpl';
 
 
 $clAbout = new \About($quizmakerHelper,
@@ -37,7 +36,8 @@ $clAbout = new \About($quizmakerHelper,
 
 /************************************************************************/
 $adminObject->displayNavigation('about.php');
-$GLOBALS['xoopsTpl']->assign('box', $clAbout->getBox());
-$GLOBALS['xoopsTpl']->assign('tplAbout', XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/templates/admin_about.tpl");
-
+// $GLOBALS['xoopsTpl']->assign('box', $clAbout->getBox());
+// //$GLOBALS['xoopsTpl']->assign('tplAbout', XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/templates/admin_about.tpl");
+// $GLOBALS['xoopsTpl']->display(XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/templates/admin_about.tpl");
+$clAbout->display();
 require __DIR__ . '/footer.php';

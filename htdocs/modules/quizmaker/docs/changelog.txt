@@ -6,17 +6,23 @@
     - Quiz : Verifie la présence des fichiers YML du nom des tables (cateories,quiz,questions et answers)
 Correction export : utilisation de \JJD\sanityseNameForFile($name) pour avoir une URL correcte
 Ajout constantes de langue
-ajout de la table "quizmaker_options". permet d'affection des modeles d'options au quiz.
-    ajout de tous les fichiers nécéssaires à la gestion de cette table
+Ajout de la table "quizmaker_options". Permet d'affection des modèles d'options au quiz.
+    Ajout de tous les fichiers nécessaires à la gestion de cette table
 Correction suppression des images dans la partie options des plugins
-    parcours du tabbleau delete qui contient le nom du champ image et suppression du fichier
+    Parcours du tabbleau delete qui contient le nom du champ image et suppression du fichier
     modification du champ chkDelete tel que "{$optionName}[delete][nomDuChampImage]"
-plugin alphaSimple : prise en compte des accents pour la comparaison des chaines
+Plugin alphaSimple : prise en compte des accents pour la comparaison des chaines
 Refonte de la fonction sanityseTextForComparaison et sanityseAccents      
 Correction import des exemples des plugins
-ajout de la fonction addRight dans le frameworks pour eviter  l'erreur: Database updates are not allowed during processing of a GET request
+Ajout de la fonction addRight dans le frameworks pour éviter  l'erreur: Database updates are not allowed during processing of a GET request
 Nom de la table parametrée dans les paramètres globaux du module, plus facile à changer par l'utilisateur (french english, ...)
-
+Onglet clone :
+    - déplacement dans le JJD_Framework afin de mutualise cette fonctionnalité
+    - suppression du template "quizmaker_admin_clone.tpl"
+    - simplification de /admin/clone.php par un appel à la classe CloneModule
+Onglet Permissions : déplacement dans JJD_Framework afinde mutualisée cette fonctionnalité
+    - suppression du template "quizmaker_admin_permissions.tpl"
+         
 ---------------------------------------------------
 2024-07-18a v 5.00 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
@@ -24,7 +30,7 @@ Nom de la table parametrée dans les paramètres globaux du module, plus facile 
 - onglet "Questions", synchronisation des sélecteurs 'categorie" et "quiz" et des permissions 
 - Onglet export : ajout du choix du nom pour l'export
 - suppression du champ quest_type_question remplacer par quest_plugin
-- ajout du champ quiz_showTimer : position du timer des slides (hau/bas , gauche/droite, masqué) 
+- ajout du champ quiz_showTimer : position du timer des slides (haut/bas, gauche/droite, masqué) 
 - onglet import : 
     - restructuration du code par type d'import
     - Ajout de l'import de plugin en prévision de mise à jour o de nouveau plugins
@@ -35,13 +41,13 @@ Nom de la table parametrée dans les paramètres globaux du module, plus facile 
 - Suppression des constantes de langues inutiles.
 - Correction calcul du score sur e dernier slide "show_all_scores".
 - Mise en service du champ quest_start_timer :
-  permet de forcer ponctuelement l'affichage d'un slide pendant une durée déterminée
-  sans activer l'option dans les parametres du quiz.
- -remplacemene dans les fichier help.html .
+  permet de forcer ponctuellement l'affichage d'un slide pendant une durée déterminée
+  sans activer l'option dans les paramètres du quiz.
+ -remplacement dans les fichier help.html .
   de  : <meta http-equiv="content-type" content="text/html; charset=windows-1252">.
   par : <meta http-equiv="content-type" content="text/html; charset=UTF-8" />.
 - Correction plugin textareaMixte : "score by good word".
-- Plugin imagesDaDItems : Ajout des couleurs de fond pour silouhatte et source.
+- Plugin imagesDaDItems : Ajout des couleurs de fond pour silhouette et source.
 
 ---------------------------------------------------
 2024-06-04a v 5.00 beta 1 - JJDai - jjdelalandre@orange.fr
@@ -59,8 +65,8 @@ Nom de la table parametrée dans les paramètres globaux du module, plus facile 
 2024-06-04a v 4.14 beta 12 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Class plugin :
-    - creation des fonctions archiveExempleExist() et isBuild()
-      permet d'installer des quiz exemples dans l'onglet "Type de question"
+    - création des fonctions archiveExempleExist() et isBuild()
+      Permet d'installer des quiz exemples dans l'onglet "Type de question"
 
 Onglet "type de question"
     - ajout de l'installation d'une archive d'exemple dans la categorie adoc
@@ -74,30 +80,30 @@ Import quiz :
 Onglet questions :
     - ajout du bouton "Sortir du groupe" a côté de "idParent"
     - au niveau du groupe le bouton sort toutes les questions du groupe
-    - save : deplacement de la suppression et mise à vide du champ avant l'insertion de la nouvelle image si besoin
+    - save : déplacement de la suppression et mise à vide du champ avant l'insertion de la nouvelle image si besoin
     
 Onglet index :
     - ajout des traitements (vidage des dossiers import, export, ... dans uploads/quizmaker)    
     
 Divers corrections :
-    ajout du "ç" dans "regexAllLettersPP"
-    plugin "alphaSimple" prise en compte des propositions avec point < 0 en plus de la liste proposée
-                         suppression des doublons au cas ou.
-                         simplification de getHtml  
-plugin imagesDadSortItems : correction imagesDaDSortItems_replaceDivImg : swap de deux enfans d'un même noeud 
+    Ajout du "ç" dans "regexAllLettersPP"
+    Plugin "alphaSimple" prise en compte des propositions avec point < 0 en plus de la liste proposée
+                         Suppression des doublons au cas ou.
+                         Simplification de getHtml  
+plugin imagesDadSortItems : correction imagesDaDSortItems_replaceDivImg : swap de deux enfants d'un même nœud 
 
-refonte de la strructure du module : 
+refonte de la structure du module : 
     - suppression de quizUtility
     - ajout des trait : Utilities/ ModuleUtility, Utilities/ QuizBuildUtility et Utilities/ QuizUtility
     - 
 
-onglet "import" : 
-    - ajout d'une liste de selection pour le type d'import
-    - ajout d'un import de questions dans un quiz existant avec selection du type de question
-    - transfert des form de l'importation dans les fichiers  : import-batch.php, import-file.php, import-quest.php
+Onglet "import" : 
+    - ajout d'une liste de sélection pour le type d'import
+    - ajout d'un import de questions dans un quiz existant avec sélection du type de question
+    - transfert des form de l'importation dans les fichiers : import-batch.php, import-file.php, import-quest.php
 
 quiz.js :
-    - suppression de la fonction filtrerQuestion, conbinée avev getHtmlAllSlide
+    - suppression de la fonction filtrerQuestion, conbinée avec getHtmlAllSlide
     - suppression de la fonction computeScoresMinMax remplacée par proto_initSlide 
       et suppression dans chaque plugin des opération faite dans proto_initSlide:
       calcul des scores mini et maxi, calcul de l'id principal de la question et de chaque réponses, ...
@@ -106,21 +112,21 @@ quiz.js :
 2024-06-04a v 4.14 beta 10 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Ajout des plugins "pageInfo" et "imageColor"
-function.js->getName() ajout du parametre 'suffix' pour eviter de concatener a chaque fois et inverssion chrono et typeName
+function.js->getName() ajout du parametre 'suffix' pour eviter de concatener a chaque fois et inversion chrono et typeName
             return `question-${this.chrono}-${this.name}${suffix}`;
-functions.js->GetId : inverssion chrono et typeName 
+functions.js->GetId : inversion chrono et typeName 
 comboboxMatchItems : ajout de "disposition-03" avec deux groupes de listes déroulantes.
                      ajout de "intrus2" pour le deuxième groupe de liste déroulante.
 suppression du dossier assets/images/dispositions. Option propre à chaque plugin
 Affichage des solutions : 
-    - ajout du critere "actif=true"
-    - ajout de l'interdiction de voir les solutions si l'utilisateur n'est pas connecté, qu'il n'y a pas eu de participation et qu'il n'a pas de score superieur à 0
-      pour info : un parcours du quiz sans donner de répponses et avec validation donnerai un score à 0 sans avoir réellement participé et donc avoir triché.
+    - ajout du critère "actif=true"
+    - ajout de l'interdiction de voir les solutions si l'utilisateur n'est pas connecté, qu'il n'y a pas eu de participation et qu'il n'a pas de score supérieur à 0
+      pour info : un parcours du quiz sans donner de réponses et avec validation donnerai un score à 0 sans avoir réellement participé et donc avoir triché.
       ceci dans le cas ou il est permis de participer plusieurs fois.
-Génértion du quiz :
+Génération du quiz :
         Remplacement de :   return mb_convert_encoding($exp, 'UTF-8', mb_list_encodings($exp));
         par                 return mb_convert_encoding($exp, 'UTF-8', mb_detect_encoding($exp));
-        le caractère "+" n'était pas reconnu correctement, et probableme d'autres caractères aussi.
+        le caractère "+" n'était pas reconnu correctement, et probablement d'autres caractères aussi.
       
                                     
 ---------------------------------------------------
@@ -129,10 +135,10 @@ Génértion du quiz :
 Ajout de l'édition des scores dans l'admin pour permettre la correction des résultats.
 relooking du template admin_results.tpl
 Nettoyage de fichiers inutiles
-Ajout des champs quiz_libBegin et quiz_libEnd pour une meilleure personalisation des quiz
+Ajout des champs quiz_libBegin et quiz_libEnd pour une meilleure personnalisation des quiz
     ajout des constantes attenantes
     MAJ du JS        
-table quiz : suppression des champs ci-dessous remplacé par quiz_optionsDev de type binnaire:
+Table quiz : suppression des champs ci-dessous remplacé par quiz_optionsDev de type binnaire:
     quiz_showTypeQuestion
     quiz_showReloadAnswers
     quiz_showGoToSlide
@@ -142,28 +148,28 @@ table quiz : suppression des champs ci-dessous remplacé par quiz_optionsDev de 
     quiz_showResultAllways        
     quiz_showReponsesBottom ...        
 
-champs "quiz_optionsIhm" et "quiz_optionsDev";
+Champs "quiz_optionsIhm" et "quiz_optionsDev";
     - Changement du type de champs en BIT
     - ajout de la fonction "setBinOn' dans quizHandler pour modifier les valeur bit par bit
-    - modif des appels pour les champs supprimés "chage_etat remplacé par "set_binOn"
+    - modification des appels pour les champs supprimés "chage_etat remplacé par "set_binOn"
     
 Table "questions" : 
-    - modification du termplate de l'admin
-    - transfert de la fonction purger_images de "quizHandler" dans la clas "quiz"
+    - modification du template de l'admin
+    - transfert de la fonction purger_images de "quizHandler" dans la classe "quiz"
     
-import : correctioon de la recherche de la categorie, problème des quotes dans le nom "=" remplacé par Like et "'" par "_"
+import : correction de la recherche de la catégorie, problème des quotes dans le nom "=" remplacé par Like et "'" par "_"
 
-onglet "About" : mutualisation afin d'utiliser les fonctions et templates dans d'autres modules
+Onglet "About" : mutualisation afin d'utiliser les fonctions et templates dans d'autres modules
     - transfert des fonctions de l'onglet "About" dans "JJD-Framework"
     - transfert du template dans "JJD-Framework" 
     
-onglet "Type de question" : 
+Onglet "Type de question" : 
     - suppression des listes qui permettaient d'ajouter un type de question à un quiz? option pas pratique
     - Suppression du bouton "+" remplacé par le bouton "?" qui permet d'affiche un popup avec l'aide du plugin.
     - génération du popup qui affiche l'aide d'un plugin en cliquant sur le bouton "?"
     
 - correction JS : 
-    - reloadImgModeles, verif de l'existence de l'objet "btnAddQuestion"
+    - reloadImgModeles, verification de l'existence de l'objet "btnAddQuestion"
     - refonte de la fonction pluginsHandler->getListByGroup()
     - correction imgasDadSortItem remplacement de '//' par '/'+'/' que le minificateur n'aime pas
     - Transfert de la génération des fichiers minifiés dans le dossier "upload/quizmaker/quiz-min"
@@ -178,51 +184,51 @@ onglet "Type de question" :
            2 : le champ comment1 est placé en tête de la zone des propositions
  
 - table "questions" ajout du champ "quest_posComment1" qui détermine la position de comment1.
-  inutilisé pour l'instant, enprévisio d'une individualisation pour chaque question de la position de comment1
+  Inutilisé pour l'instant, en prévision d'une individualisation pour chaque question de la position de comment1
  
            
 ---------------------------------------------------
 2024-04-22a v 4.14 beta 4 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-- correction iomport : ajout de maxsize_import dans les référence et ajout du message d'error de dépassement de taille
+- correction import : ajout de maxsize_import dans les références et ajout du message d'erreur de dépassement de taille
 - plugin : imagesDaDSortItems 
-           fusion avec imagesDaDSortItemsIns et suppression de ce dernier
+           Fusion avec imagesDaDSortItemsIns et suppression de ce dernier
            Ajout d'une image principale
 - plugin : comboboxMatchItems
            Ajout d'une image principale
 - plugin : imagesDadMatchItems 
-           Ajout de plusierus dispositions, verticale, horizontale, multiple ou unique
+           Ajout de plusieurs dispositions, verticale, horizontale, multiple ou unique
 - mise à jour des fichiers d'aide de chaque plugin
-- progressbarre : ajout de l'evenement "onclick" pour atteindre un slide, actif uniquement si "gotoSlide' est actif           
+- progressbarre : ajout de l'évènement "onclick" pour atteindre un slide, actif uniquement si "gotoSlide' est actif           
 - Minification : elle se fait maintenant par dossier et plugins
-                 ajout de la restauration ur le même principe
-                 active uniquement si elle paramettrée dans les préférences du module
-- question : suppression du clonage, probleme de clonage de la table enfant des propositions, a revoir
+                 ajout de la restauration sur le même principe
+                 active uniquement si elle paramétrée dans les préférences du module
+- question : suppression du clonage, problème de clonage de la table enfant des propositions, a revoir
             
 ---------------------------------------------------
 2024-04-10a v 4.12 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - restructuration des plugins dans la partie javascript
-- refonte de la minification des fichier CSS et JS
-- ajout des CSS manquand pour chaque plugin
+- refonte de la minification des fichiers CSS et JS
+- ajout des CSS manquant pour chaque plugin
 - transfert des images propres a un plugins dans le dossier "img" de ce dernier
 - ajout de la propriété "urlPlugin" pour pointer sur les images de ce dernier
 - création du plugin "alphaSimple"
 - fusion et suppression de plugins
-- refonte du popup apres chaque question
+- refonte du pop-up après chaque question
 - nettoyage des fichiers inutiles
-- ajout d'une imageprincipale  pour la question dans certains plugins
+- ajout d'une image principale  pour la question dans certains plugins
 - Gestion de la disposition pour certains plugins (ex : imgDaD Groups, ulDaDGroups, ...)
-- ré écriture des fichier "help.html" 'freench) pour chaque plugin
+- ré écriture des fichiers "help.html" 'freench) pour chaque plugin
 - ajout du bouton "Catégorie" dans l'onglet "questions" pour faciliter la navigation
-- mise en couleur des liste de filtrage dans l'admin (categorie, quiz, question...)
+- mise en couleur des listes de filtrage dans l'admin (catégories, quiz, questions...)
 - onglet "minification" ajout d'un indicateur en couleur : "Point vert" : les fichiers sont minifiés sinon "Point gris" 
 
 ---------------------------------------------------
 2023-11-03a v 4.02 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-- Gestion du popup entre les question pour afficher le résultat au fure et à mesure
-- Correction du numero de question et numero de slide.
+- Gestion du pop-up entre les questions pour afficher le résultat au fur et à mesure
+- Correction du numéro de question et numéro de slide.
   le numero de question ne prend pas en compte les slide pageBegin, pageEnd et pageGroup
 
 
@@ -258,17 +264,17 @@ le tout dans un même dossier:
 ---------------------------------------------------
 2022-12-12 - v 2.94 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-- Ajout des type de question avec images à cliquer
-- Ajout des type de question avec images et Drag and Drop
+- Ajout des types de question avec images à cliquer
+- Ajout des types de question avec images et Drag and Drop
 
 ---------------------------------------------------
 2022-10-25 - v 2.92 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - Ajout du champ quiz_showAllSolutions dans la table quiz
-- Ajout de l'expot dans l'onglet quiz zt question pour plus de paticité
+- Ajout de l'export dans l'onglet « quiz » et « questions » pour plus de praticité
 - Séparation des "page_info" en "pageBegin", "pageEnd" et "pageGroup"
 - Ajout des modèles en image pour faciliter le choix du type de question
-- Ajout de la categorie d'origine lors de l'import (crée ou recherche une categorie de même nom)
+- Ajout de la catégories d'origine lors de l'import (crée ou recherche une catégories de même nom)
 
 
 ---------------------------------------------------
@@ -282,13 +288,12 @@ le tout dans un même dossier:
 2022-04-06 - v 2.6 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - Corrections de bugs
-- modification de l'enchainement à la fin du quiz avec les slutions
-- Modifcation dans l'admin de la gestion des flag, les icones sont remplacer par des espresssions et de la couleur pour faciliter la lecture
-  exemple : N/Y en rouge et vert
+- modification de l'enchainement à la fin du quiz avec les solutions
+- Modification dans l'admin de la gestion des flag, les icones sont remplacer par des expressions et de la couleur pour faciliter la lecture
+  Exemple : N/Y en rouge et vert
 - correction du form about
-- Ajout de pages d'information->encart pour permettre des regrouppements de questions
+- Ajout de pages d'information->encart pour permettre des regroupements de questions
 
 ==============================================================
-Change Log for CreaQuiz - 2020/08/27 12:19:51 Version 1.0
-==============================================================
- - Original release quizmaker (Jean-Jacques Delalandre)
+- Original release quizmaker (Jean-Jacques Delalandre)
+

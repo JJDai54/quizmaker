@@ -71,64 +71,6 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 		return false;
 	}
 
-	/**
-	 * @public function permGlobalApprove
-	 * returns right for global approve
-	 *
-	 * @param null
-	 * @return bool
-	 */
-	public function getPermGlobalApprove()
-	{
-        return $this->getPermGlobal(4);
-	}
 
-	/**
-	 * @public function permGlobalSubmit
-	 * returns right for global submit
-	 *
-	 * @param null
-	 * @return bool
-	 */
-	public function getPermGlobalSubmit()
-	{
-        return $this->getPermGlobal(8);
-	}
-
-	/**
-	 * @public function permGlobalView
-	 * returns right for global view
-	 *
-	 * @param null
-	 * @return bool
-	 */
-	public function getPermGlobalView()
-	{
-        return $this->getPermGlobal(16);
-	}
-    
-	/**
-	 * @public function getPermForm
-	 * returns form for perm
-	 *
-	 * @param $formTitle Titre du formulaire
-	 * @param $permName  Nom des permissions
-	 * @param $permDesc  Description des permissions
-	 * @param $permArr   Tableau itemId/name des permission
-	 * @return XoopsGroupPermForm
-	 */
-     
-	public function getPermForm($formTitle, $permName, $permDesc, $permArr)
-	{
-    global $xoopsModule;
-		$permName = $xoopsModule->getVar('dirname') . '_' . $permName;
-		//$handler = $quizmakerHelper->getHandler('quiz');
-        $moduleId = $xoopsModule->getVar('mid');
-        $permform = new \XoopsGroupPermForm($formTitle, $moduleId, $permName, $permDesc, 'admin/permissions.php');
-    	foreach($permArr as $permId => $permName) {
-    		$permform->addItem($permId, $permName);
-    	}
-        return $permform;
-	}
 }
 

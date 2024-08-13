@@ -28,7 +28,6 @@ require __DIR__ . '/header.php';
 $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_PERMISSIONS,'QUIZMAKER_PERMIT_PERMISSIONS', "index.php",true);
 
 // Template Index
-$templateMain = 'quizmaker_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('permissions.php'));
 //echoArray("gp");
 
@@ -37,20 +36,20 @@ $op = Request::getCmd('op', 'global_ac');
 // Get Form
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 xoops_load('XoopsFormLoader');
+
+$permArr = ['global_ac'         => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC,
+            'view_cats'         =>_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS,
+            'create_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,
+            'edit_quiz'         =>_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,
+            'delete_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,
+            'import_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,
+            'importquest_quiz'  =>_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ,
+            'export_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ];
+            
 $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new \XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
-
-$formSelect->addOption('global_ac',         _AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC);
-$formSelect->addOption('view_cats',         _AM_QUIZMAKER_PERMISSIONS_VIEW_CATS);
-//$formSelect->addOption('view_quiz',         _AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ);
-$formSelect->addOption('create_quiz',       _AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ);
-$formSelect->addOption('edit_quiz',         _AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ);
-$formSelect->addOption('delete_quiz',       _AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ);
-$formSelect->addOption('import_quiz',       _AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ);
-$formSelect->addOption('importquest_quiz',  _AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ);
-$formSelect->addOption('export_quiz',       _AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ);
-
+$formSelect->addOptionArray($permArr);
 $permTableForm->addElement($formSelect);
 $permTableForm->display();
 
@@ -91,7 +90,8 @@ switch($domaines[1]) {
 //echo "formTitle : {$formTitle}<br>permName : {$permName}<br>permDesc : {$permDesc}<hr>";
     $permform = $clPerms->getPermissionsForm($formTitle, $permName, _AM_QUIZMAKER_PERMISSIONS_DESC, $permArr);
     //$permform->addElement(new XoopsFormHidden('op','edit_quiz'));
-    $GLOBALS['xoopsTpl']->assign('form', $permform->render());
+    echo $permform->render();
+    //$GLOBALS['xoopsTpl']->assign('form', $permform->render());
 
 
 unset($permform);

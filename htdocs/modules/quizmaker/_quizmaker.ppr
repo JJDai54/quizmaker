@@ -25,7 +25,7 @@ _quizmaker
 			admin\quiz-list.php
 			templates\admin\quizmaker_admin_options.tpl
 			templates\admin\quizmaker_admin_quiz.tpl
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -490,8 +490,6 @@ _quizmaker
 			class\Messages.php
 			class\MessagesHandler.php
 			class\Minifier.php
-			class\Permissions.php
-			class\PermissionsHandler.php
 			class\Plugins.php
 			class\PluginsHandler.php
 			class\Questions.php
@@ -1143,10 +1141,8 @@ _quizmaker
 		+templates
 			+admin
 				templates\admin\index.html
-				templates\admin\quizmaker_admin_about.tpl
 				templates\admin\quizmaker_admin_answers.tpl
 				templates\admin\quizmaker_admin_categories.tpl
-				templates\admin\quizmaker_admin_clone.tpl
 				templates\admin\quizmaker_admin_download.tpl
 				templates\admin\quizmaker_admin_export.tpl
 				templates\admin\quizmaker_admin_footer.tpl
@@ -1155,7 +1151,6 @@ _quizmaker
 				templates\admin\quizmaker_admin_index.tpl
 				templates\admin\quizmaker_admin_messages.tpl
 				templates\admin\quizmaker_admin_minify.tpl
-				templates\admin\quizmaker_admin_permissions.tpl
 				templates\admin\quizmaker_admin_play_quiz.tpl
 				templates\admin\quizmaker_admin_plugins.tpl
 				templates\admin\quizmaker_admin_plugins_help.tpl
@@ -1223,73 +1218,21 @@ _quizmaker
 		xoops_version.php
 [Open project files]
 0=xoops_version.php
-1=docs\todo.txt
-2=admin\header.php
-3=class\QuizHandler.php
-4=admin\plugins.php
-5=class\Plugins.php
-6=include\functions.php
-7=admin\categories.php
-8=class\CategoriesHandler.php
-9=class\Utilities\QuizUtility.php
-10=class\Answers.php
-11=admin\import-quiz.php
-12=admin\import.php
-13=docs\changelog.txt
-14=admin\menu.php
-15=language\french\modinfo.php
-16=language\english\modinfo.php
+1=admin\about.php
+2=templates\admin\quizmaker_admin_footer.tpl
+3=docs\changelog.txt
 [Selected Project Files]
 Main=
 Selected=docs\changelog.txt
 [xoops_version.php]
-TopLine=143
-Caret=43,166
-[docs\todo.txt]
-TopLine=13
-Caret=1,54
-[admin\header.php]
+TopLine=47
+Caret=21,62
+[admin\about.php]
 TopLine=1
-Caret=21,54
-[class\QuizHandler.php]
-TopLine=660
-Caret=11,691
-[admin\plugins.php]
-TopLine=45
-Caret=1,68
-[class\Plugins.php]
-TopLine=919
-Caret=71,935
-[include\functions.php]
+Caret=1,29
+[templates\admin\quizmaker_admin_footer.tpl]
 TopLine=1
-Caret=1,1
-[admin\categories.php]
-TopLine=109
-Caret=57,132
-[class\CategoriesHandler.php]
-TopLine=398
-Caret=22,426
-[class\Utilities\QuizUtility.php]
-TopLine=231
-Caret=1,273
-[class\Answers.php]
-TopLine=74
-Caret=1,101
-[admin\import-quiz.php]
-TopLine=78
-Caret=42,105
-[admin\import.php]
-TopLine=11
-Caret=1,40
+Caret=7,6
 [docs\changelog.txt]
-TopLine=1
-Caret=24,17
-[admin\menu.php]
-TopLine=65
-Caret=16,101
-[language\french\modinfo.php]
-TopLine=141
-Caret=255,164
-[language\english\modinfo.php]
-TopLine=138
-Caret=232,164
+TopLine=244
+Caret=1,299
