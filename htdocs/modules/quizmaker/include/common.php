@@ -28,10 +28,10 @@ if(isset($quizmakerHelper)){
     define ("QUIZMAKER_SHOW_TPL_NAME", 0);
 }
  
-if (isset($xoopsModuleConfig)) 
-    define('QUIZMAKER_SHOW_TPL_NAME', $xoopsModuleConfig['displayTemplateName']);
-else 
-    define('QUIZMAKER_SHOW_TPL_NAME', 0);
+// if (isset($xoopsModuleConfig)) 
+//     define('QUIZMAKER_SHOW_TPL_NAME', $xoopsModuleConfig['displayTemplateName']);
+// else 
+//     define('QUIZMAKER_SHOW_TPL_NAME', 0);
  
  
  

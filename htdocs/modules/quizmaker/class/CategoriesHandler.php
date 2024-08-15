@@ -422,16 +422,16 @@ global $xoopsDB, $xoopsUser,$xoopsModule;
 	$groups = $xoopsUser->getGroups();    
     
     
-    $clPerm = new \jjdPermissions();
-    $clPerm->addRight('view_cats',        $catId, $groups);
+    $clPerms = new \jjdPermissions();
+    $clPerms->addRight('view_cats',        $catId, $groups);
 
-    $clPerm->addRight('view_quiz',        $catId, $groups);
-    $clPerm->addRight('edit_quiz',        $catId, $groups);
-    $clPerm->addRight('create_quiz',      $catId, $groups);
-    $clPerm->addRight('delete_quiz',      $catId, $groups);
-    $clPerm->addRight('import_quiz',      $catId, $groups);
-    $clPerm->addRight('importquest_quiz', $catId, $groups);
-    $clPerm->addRight('export_quiz',      $catId, $groups);
+    $clPerms->addRight('view_quiz',        $catId, $groups);
+    $clPerms->addRight('edit_quiz',        $catId, $groups);
+    $clPerms->addRight('create_quiz',      $catId, $groups);
+    $clPerms->addRight('delete_quiz',      $catId, $groups);
+    $clPerms->addRight('import_quiz',      $catId, $groups);
+    $clPerms->addRight('importquest_quiz', $catId, $groups);
+    $clPerms->addRight('export_quiz',      $catId, $groups);
     
     return true;
 }

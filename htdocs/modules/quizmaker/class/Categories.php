@@ -150,40 +150,16 @@ class Categories extends \XoopsObject
 //$groupsIdsEdit = getCheckboxByGroup($label, $name, $itemId, $fullList, $permName, $isNew)
 //echoArray($fullList);
 //echoArray($groupList);
-$name = 'groups_edit_categories[]';
-$catId = $this->getVar('cat_id');
-// $groupsIdsEdit = getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_EDIT, $name, $catId, $fullList, $groupList, 'edit_quiz', $this->isNew());
-// $form->addElement($groupsIdsEdit);
-$perm = new \jjdPermissions();
 
-// $name = 'groups_view_quiz[]';
-// $groupsIdsEdit = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ, $name, $catId, 'viex_quiz', $this->isNew());
-// $form->addElement($groupsIdsEdit);
+        $catId = $this->getVar('cat_id');
+        $clPerms = new \jjdPermissions();
 
-$name = 'groups_edit_quiz[]';
-$groupsIdsEdit = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ, $name, $catId, 'edit_quiz', $this->isNew());
-$form->addElement($groupsIdsEdit);
-
-$name = 'groups_create_quiz[]';
-$groupsIdsCreate = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ, $name, $catId, 'create_quiz', $this->isNew());
-$form->addElement($groupsIdsCreate);
-
-$name = 'groups_delete_quiz[]';
-$groupsIdsDelete = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ, $name, $catId, 'delete_quiz', $this->isNew());
-$form->addElement($groupsIdsDelete);
-
-
-$name = 'groups_import_quiz[]';
-$groupsIdsImport = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ, $name, $catId, 'import_quiz', $this->isNew());
-$form->addElement($groupsIdsImport);
-
-$name = 'groups_importquest_quiz[]';
-$groupsIdsImportquest = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ, $name, $catId, 'importquest_quiz', $this->isNew());
-$form->addElement($groupsIdsImportquest);
-
-$name = 'groups_export_quiz[]';
-$groupsIdsImport = $perm->getCheckboxByGroup(_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ, $name, $catId, 'export_quiz', $this->isNew());
-$form->addElement($groupsIdsImport);
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,        'edit_quiz',        $catId, $this->isNew()));
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,      'create_quiz',      $catId, $this->isNew()));
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,      'delete_quiz',      $catId, $this->isNew()));
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,      'import_quiz',      $catId, $this->isNew()));
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ, 'importquest_quiz', $catId, $this->isNew()));
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ,      'export_quiz',      $catId, $this->isNew()));
 
 
 /*

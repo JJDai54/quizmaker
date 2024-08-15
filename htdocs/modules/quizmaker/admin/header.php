@@ -22,7 +22,6 @@
 include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include_once dirname(__DIR__) . '/include/common.php';
-include_once dirname(__DIR__) . '/include/permissions.php';
 
 xoops_load('XoopsFormLoader');
 

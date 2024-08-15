@@ -122,14 +122,14 @@ switch($op) {
 			$newCatId = $categoriesObj->getNewInsertedIdCategories();
 			$permId = isset($_REQUEST['cat_id']) ? $catId : $newCatId;
             
-            $clPerm = new jjdPermissions();
-            //$clPerm->savePermission('view_quiz', $permId, $_POST['groups_view_quiz']);
-            $clPerm->savePermission('edit_quiz',        $permId, $_POST['groups_edit_quiz']);
-            $clPerm->savePermission('create_quiz',      $permId, $_POST['groups_create_quiz']);
-            $clPerm->savePermission('delete_quiz',      $permId, $_POST['groups_delete_quiz']);
-            $clPerm->savePermission('import_quiz',      $permId, $_POST['groups_import_quiz']);
-            $clPerm->savePermission('importquest_quiz', $permId, $_POST['groups_importquest_quiz']);
-            $clPerm->savePermission('export_quiz',      $permId, $_POST['groups_export_quiz']);
+            $clPerms = new jjdPermissions();
+            //$clPerms->savePermission('view_quiz', $permId, $_POST['groups_view_quiz']);
+            $clPerms->savePermission('edit_quiz',        $permId, $_POST['edit_quiz']);
+            $clPerms->savePermission('create_quiz',      $permId, $_POST['create_quiz']);
+            $clPerms->savePermission('delete_quiz',      $permId, $_POST['delete_quiz']);
+            $clPerms->savePermission('import_quiz',      $permId, $_POST['import_quiz']);
+            $clPerms->savePermission('importquest_quiz', $permId, $_POST['importquest_quiz']);
+            $clPerms->savePermission('export_quiz',      $permId, $_POST['export_quiz']);
 
 			redirect_header('categories.php?op=list', 2, _AM_QUIZMAKER_FORM_OK);
 		}
