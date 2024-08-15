@@ -17,7 +17,7 @@ Correction import des exemples des plugins
 Ajout de la fonction addRight dans le frameworks pour éviter  l'erreur: Database updates are not allowed during processing of a GET request
 Nom de la table parametrée dans les paramètres globaux du module, plus facile à changer par l'utilisateur (french english, ...)
 Onglet clone :
-    - déplacement dans le JJD_Framework afin de mutualise cette fonctionnalité
+    - déplacement dans le JJD_Framework afin de mutualiser cette fonctionnalité
     - suppression du template "quizmaker_admin_clone.tpl"
     - simplification de /admin/clone.php par un appel à la classe CloneModule
 Onglet Permissions : déplacement dans JJD_Framework afinde mutualisée cette fonctionnalité

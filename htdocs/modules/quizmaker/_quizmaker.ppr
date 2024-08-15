@@ -25,7 +25,7 @@ _quizmaker
 			admin\quiz-list.php
 			templates\admin\quizmaker_admin_options.tpl
 			templates\admin\quizmaker_admin_quiz.tpl
-		-admin
+		+admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -46,7 +46,6 @@ _quizmaker
 			admin\messages.php
 			admin\minify.php
 			admin\options.php
-			admin\permissions.php
 			admin\plugins.php
 			admin\plugins_help.php
 			admin\questions.php
@@ -526,7 +525,6 @@ _quizmaker
 			include\index.html
 			include\install.php
 			include\notification.inc.php
-			include\permissions.php
 			include\quizFlagAscii.php
 			include\search.inc.php
 			include\uninstall.php
@@ -1221,18 +1219,42 @@ _quizmaker
 1=admin\about.php
 2=templates\admin\quizmaker_admin_footer.tpl
 3=docs\changelog.txt
+4=admin\clone.php
+5=admin\permissions.php
+6=admin\menu.php
+7=include\common.php
+8=admin\header.php
+9=admin\categories.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
+Selected=include\common.php
 [xoops_version.php]
 TopLine=47
 Caret=21,62
 [admin\about.php]
 TopLine=1
-Caret=1,29
+Caret=33,43
 [templates\admin\quizmaker_admin_footer.tpl]
 TopLine=1
 Caret=7,6
 [docs\changelog.txt]
-TopLine=244
+TopLine=243
 Caret=1,299
+[admin\clone.php]
+TopLine=1
+Caret=1,57
+[admin\permissions.php]
+TopLine=47
+Caret=114,92
+[admin\menu.php]
+TopLine=25
+Caret=1,33
+[include\common.php]
+TopLine=68
+Caret=18,90
+[admin\header.php]
+TopLine=47
+Caret=32,70
+[admin\categories.php]
+TopLine=28
+Caret=89,28

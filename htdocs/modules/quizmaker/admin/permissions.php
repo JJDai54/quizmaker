@@ -31,20 +31,21 @@ $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_PERMISSIONS,'QUIZMAKER_
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('permissions.php'));
 //echoArray("gp");
 
-$op = Request::getCmd('op', 'global_ac');
+$op = Request::getCmd('op', '');
+if ($op == '') $op = 'global_ac';
 
 // Get Form
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 xoops_load('XoopsFormLoader');
 
 $permArr = ['global_ac'         => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC,
-            'view_cats'         =>_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS,
-            'create_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,
-            'edit_quiz'         =>_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,
-            'delete_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,
-            'import_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,
-            'importquest_quiz'  =>_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ,
-            'export_quiz'       =>_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ];
+            'view_cats'         => _AM_QUIZMAKER_PERMISSIONS_VIEW_CATS,
+            'create_quiz'       => _AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,
+            'edit_quiz'         => _AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,
+            'delete_quiz'       => _AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,
+            'import_quiz'       => _AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,
+            'importquest_quiz'  => _AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ,
+            'export_quiz'       => _AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ];
             
 $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new \XoopsFormSelect('', 'op', $op);
@@ -63,7 +64,7 @@ echo '===>' . $op . '--->' . '_AM_QUIZMAKER_PERMISSIONS_' . strtoupper($domaines
     //$cst = strtoupper('_AM_QUIZMAKER_PERMISSIONS_' . strtoupper($domaines[0]));   // ."_DESC"
 	$permDesc = $formTitle;
 	$permFound = true;
-    
+//-----------------------------------------------------
 //exit;
 switch($domaines[1]) {
 	case 'ac':
@@ -88,7 +89,7 @@ switch($domaines[1]) {
 
 //echoArray($permArr, "op= {$op} - domaine={$domaine}");
 //echo "formTitle : {$formTitle}<br>permName : {$permName}<br>permDesc : {$permDesc}<hr>";
-    $permform = $clPerms->getPermissionsForm($formTitle, $permName, _AM_QUIZMAKER_PERMISSIONS_DESC, $permArr);
+    $permform = $clPerms->getPermissionsForm($formTitle, $permName, _AM_QUIZMAKER_PERMISSIONS_DESC, $permArr, $op);
     //$permform->addElement(new XoopsFormHidden('op','edit_quiz'));
     echo $permform->render();
     //$GLOBALS['xoopsTpl']->assign('form', $permform->render());

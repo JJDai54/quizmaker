@@ -20,13 +20,21 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
  */
- 
-$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+$isHelper = isset($quizmakerHelper);
+
 if(isset($quizmakerHelper)){
     define ("QUIZMAKER_SHOW_TPL_NAME", $quizmakerHelper->getConfig('displayTemplateName') );
 }else{
     define ("QUIZMAKER_SHOW_TPL_NAME", 0);
 }
+ 
+if (isset($xoopsModuleConfig)) 
+    define('QUIZMAKER_SHOW_TPL_NAME', $xoopsModuleConfig['displayTemplateName']);
+else 
+    define('QUIZMAKER_SHOW_TPL_NAME', 0);
+ 
+ 
+ 
  
 if (!defined('XOOPS_ICONS32_PATH')) {
 	define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
@@ -79,7 +87,7 @@ define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_JS . (($useJsMinified) ? Q
 define('QUIZMAKER_PATH_QUIZ_ORG', QUIZMAKER_PATH_MODULE . QUIZMAKER_FLD_QUIZ_JS . QUIZMAKER_FLD_QUIZ_ORG);
 define('QUIZMAKER_PATH_QUIZ_MIN', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_QUIZ_MIN );
 
-if ($quizmakerHelper->getConfig('use_js_minified')){
+if ($isHelper && $quizmakerHelper->getConfig('use_js_minified')){
     define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_MIN);
     define('QUIZMAKER_PATH_QUIZ_JS', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_QUIZ_JS_TO_RUN);
     define('QUIZMAKER_URL_PLUGINS_JS',   QUIZMAKER_URL_UPLOAD . QUIZMAKER_QUIZ_JS_TO_RUN . QUIZMAKER_FLD_PLUGINS_JS);
@@ -189,6 +197,19 @@ define('QUIZMAKER_CONFIG_DEV_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
                                   | pow(2, QUIZMAKER_BIT_SHOW_GOODANSWERS)
                                   | pow(2, QUIZMAKER_BIT_SHOW_BADANSWERS)
                                   | pow(2, QUIZMAKER_BIT_SHOW_RESULTALLWAYS));
+
+//-----------------------------------------------------
+$h=1;
+define('QUIZMAKER_PERMIT_CATMAN',  $h++);
+define('QUIZMAKER_PERMIT_IMPORTG', $h++);
+define('QUIZMAKER_PERMIT_IMPORTA', $h++);
+define('QUIZMAKER_PERMIT_EXPORT',  $h++);
+define('QUIZMAKER_PERMIT_RESULT',  $h++);
+define('QUIZMAKER_PERMIT_MINIFY',  $h++);
+define('QUIZMAKER_PERMIT_MESSAGEJS',   $h++);
+define('QUIZMAKER_PERMIT_CLONE',       $h++);
+define('QUIZMAKER_PERMIT_PERMISSIONS', $h++);
+
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';
