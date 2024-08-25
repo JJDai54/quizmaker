@@ -27,9 +27,9 @@ xoops_loadLanguage('common', QUIZMAKER_DIRNAME);
 xoops_loadLanguage('plugins', QUIZMAKER_DIRNAME);
 
 xoops_load('XoopsFormLoader');
-include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
-//\JJD\include_highslide(null,"quizmaker");
-//\JJD\include_highslide();
+include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
+//\JANUS\include_highslide(null,"quizmaker");
+//\JANUS\include_highslide();
 
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 	//include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');

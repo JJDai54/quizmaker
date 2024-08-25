@@ -32,7 +32,7 @@ namespace XoopsModules\Quizmaker;
 function quizmaker_utf8_encode($exp)
  {
 // utf8_encode is deprecated
-//$consigne = utf8_encode(\JJD\FSO\loadtextFile($this->pathArr['consigne_path']));
+//$consigne = utf8_encode(\JANUS\FSO\loadtextFile($this->pathArr['consigne_path']));
     return mb_convert_encoding($exp, 'UTF-8', mb_detect_encoding($exp));//mb_list_encodings
  }
  

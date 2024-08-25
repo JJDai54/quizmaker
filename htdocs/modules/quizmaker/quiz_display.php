@@ -52,7 +52,7 @@ if (0 == $quizId) {
 //     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";
 // 
 //     //insertion des CSS
-//     $tCss = \JJD\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
+//     $tCss = \JANUS\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
 //     $urlCss = QUIZMAKER_URL_QUIZ_JS. "/quiz-js/css";
 //     foreach($tCss as $css){
 // 		$GLOBALS['xoTheme']->addStylesheet($urlCss .'/'. $css , null );    

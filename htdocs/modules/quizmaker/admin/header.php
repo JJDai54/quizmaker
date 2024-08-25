@@ -63,11 +63,11 @@ xoops_load('XoopsLists', 'core');
 $utility = new \XoopsModules\Quizmaker\Utility();
 $quizUtility = new \XoopsModules\Quizmaker\Utility();
 
-include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
-\jjd\loadAllXForms();   
-\jjd\load_trierTableauHTML();
-$clPerms = new \jjdPermissions();
-//include_once(JJD_PATH_XFORMS . '/formtabletray.php');        
+include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
+\JANUS\loadAllXForms();   
+\JANUS\load_trierTableauHTML();
+$clPerms = new \JanusPermissions();
+//include_once(JANUS_PATH_XFORMS . '/formtabletray.php');        
 // include_once dirname(__DIR__) . '/class/xoopsform/formnumber.php';
 // include_once dirname(__DIR__) . '/class/xoopsform/formimg.php';
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');

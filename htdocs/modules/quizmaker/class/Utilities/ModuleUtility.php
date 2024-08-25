@@ -28,7 +28,7 @@ namespace XoopsModules\Quizmaker\Utilities;
 
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
-use JJD;
+use JANUS;
 //include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/Utility.php";
                             
 //$utility = new \XoopsModules\Quizmaker\Utility();
@@ -45,9 +45,9 @@ trait ModuleUtility
 public static function create_quiz_arborescense($path){
    // $path = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$folderName}";
 //echo "<hr>{$path}<hr>";  
-\JJD\FSO\isFolder($path, true);  
-\JJD\FSO\isFolder($path . '/js', true);
-\JJD\FSO\isFolder($path . '/images', true);  
+\JANUS\FSO\isFolder($path, true);  
+\JANUS\FSO\isFolder($path . '/js', true);
+\JANUS\FSO\isFolder($path . '/images', true);  
   
 //     if (!is_dir($path))             mkdir($path, 0777, true);
 //     if (!is_dir($path . '/js'))     mkdir($path . '/js', 0777, true);

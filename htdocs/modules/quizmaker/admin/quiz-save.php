@@ -25,7 +25,7 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
-//use JJD;
+//use JANUS;
 
 
 		// Security Check
@@ -38,9 +38,9 @@ use XoopsModules\Quizmaker\Utility;
 		} else {
             $clPerms->checkAndRedirect('create_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 			$quizObj = $quizHandler->create();
-    		$quizObj->setVar('quiz_creation', \JJD\getSqlDate());
+    		$quizObj->setVar('quiz_creation', \JANUS\getSqlDate());
 		}
-		$quizObj->setVar('quiz_update', \JJD\getSqlDate());
+		$quizObj->setVar('quiz_update', \JANUS\getSqlDate());
 		// Set Vars
 		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
 		$quizObj->setVar('quiz_name', Request::getString('quiz_name', ''));
@@ -51,7 +51,7 @@ use XoopsModules\Quizmaker\Utility;
         $newFolder = Request::getString('quiz_folderJS', '');
         if($newFolder != $oldFolder || !$newFolder){
             if(!$newFolder) $newFolder = $quizObj->getVar('quiz_name');
-            $newFolder = \JJD\sanityseNameForFile($newFolder);  
+            $newFolder = \JANUS\sanityseNameForFile($newFolder);  
             $newFolder = $quizHandler->getFolderJSValid($newFolder);
 		    $quizObj->setVar('quiz_folderJS',  $newFolder);
         }
@@ -62,14 +62,14 @@ use XoopsModules\Quizmaker\Utility;
 		$QuizDateBeginArr = Request::getArray('quiz_dateBegin');
 		//$QuizDateBegin = strtotime($QuizDateBeginArr['date']) + (int)$QuizDateBeginArr['time'];
 	    //$quizObj->setVar('quiz_dateBegin', $QuizDateBegin);
-		//$quizObj->setVar('quiz_dateBegin', \JJD\getSqlDate($QuizDateBegin));
-		$quizObj->setVar('quiz_dateBegin', \JJD\getSqlDate($QuizDateBeginArr));
+		//$quizObj->setVar('quiz_dateBegin', \JANUS\getSqlDate($QuizDateBegin));
+		$quizObj->setVar('quiz_dateBegin', \JANUS\getSqlDate($QuizDateBeginArr));
         
 		$QuizDateEndArr = Request::getArray('quiz_dateEnd');
 		//$QuizDateEnd = strtotime($QuizDateEndArr['date']) + (int)$QuizDateEndArr['time'];
 		//$quizObj->setVar('quiz_dateEnd', $QuizDateEnd);
-		//$quizObj->setVar('quiz_dateEnd', \JJD\getSqlDate($QuizDateEnd));
-		$quizObj->setVar('quiz_dateEnd', \JJD\getSqlDate($QuizDateEndArr));
+		//$quizObj->setVar('quiz_dateEnd', \JANUS\getSqlDate($QuizDateEnd));
+		$quizObj->setVar('quiz_dateEnd', \JANUS\getSqlDate($QuizDateEndArr));
                 
 		$quizObj->setVar('quiz_publishResults',    Request::getInt('quiz_publishResults', 0));
 		$quizObj->setVar('quiz_publishAnswers',    Request::getInt('quiz_publishAnswers', 0));

@@ -24,7 +24,7 @@ namespace XoopsModules\Quizmaker;
  */
 
 use XoopsModules\Quizmaker AS FQUIZMAKER;
-use JJD;
+use JANUS;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -166,11 +166,11 @@ class Quiz extends \XoopsObject
         
 
 		// Form Check Box quizDateBegin
-        $quizDateBegin = \JJD\xoopsformDateOkTray(_AM_QUIZMAKER_DATEBEGIN, 'quiz_dateBeginOk', $this->getVar('quiz_dateBeginOk'), 'quiz_dateBegin', $this->getVar('quiz_dateBegin'));
+        $quizDateBegin = \JANUS\xoopsformDateOkTray(_AM_QUIZMAKER_DATEBEGIN, 'quiz_dateBeginOk', $this->getVar('quiz_dateBeginOk'), 'quiz_dateBegin', $this->getVar('quiz_dateBegin'));
 		$form->addElement($quizDateBegin);
         
 		// Form Check Box quizDateEnd
-        $quizDateEnd = \JJD\xoopsformDateOkTray(_AM_QUIZMAKER_DATEEND, 'quiz_dateEndOk', $this->getVar('quiz_dateEndOk'), 'quiz_dateEnd', $this->getVar('quiz_dateEnd'));
+        $quizDateEnd = \JANUS\xoopsformDateOkTray(_AM_QUIZMAKER_DATEEND, 'quiz_dateEndOk', $this->getVar('quiz_dateEndOk'), 'quiz_dateEnd', $this->getVar('quiz_dateEnd'));
 		$form->addElement($quizDateEnd);
         
 		// Form Check Box quiz_publishQuiz
@@ -206,7 +206,7 @@ class Quiz extends \XoopsObject
         $inpTheme = new \XoopsFormSelect(_AM_QUIZMAKER_THEME, 'quiz_theme', $this->getVar('quiz_theme'));
 		$inpTheme->setDescription(_AM_QUIZMAKER_THEME_DESC);
         //$inpTheme->addOptionArray($quizUtility::get_css_color(true));
-        $inpTheme->addOptionArray( \JJD\get_css_color());
+        $inpTheme->addOptionArray( \JANUS\get_css_color());
 		$form->addElement($inpTheme, false);
 
         // Form Text quiz_libBegin
@@ -250,7 +250,7 @@ class Quiz extends \XoopsObject
 		$form->addElement($quizShowTimer);
 /*
         // Form Editor DhtmlTextArea quizLegend
-        $editLegend = \JJD\getformTextarea(_AM_QUIZMAKER_LEGEND, 'quiz_legend', $this->getVar('quiz_legend', 'e'), _AM_QUIZMAKER_LEGEND_DESC);
+        $editLegend = \JANUS\getformTextarea(_AM_QUIZMAKER_LEGEND, 'quiz_legend', $this->getVar('quiz_legend', 'e'), _AM_QUIZMAKER_LEGEND_DESC);
 		$form->addElement($editLegend, false);
 */		
         
@@ -302,15 +302,15 @@ class Quiz extends \XoopsObject
 		$ret['weight']            = $this->getVar('quiz_weight');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
-		$ret['creation']          = \JJD\getDateSql2Str($this->getVar('quiz_creation'));
-		$ret['update']            = \JJD\getDateSql2Str($this->getVar('quiz_update'));
+		$ret['creation']          = \JANUS\getDateSql2Str($this->getVar('quiz_creation'));
+		$ret['update']            = \JANUS\getDateSql2Str($this->getVar('quiz_update'));
 
 // 		$ret['dateBegin']         = formatTimeStamp($this->getVar('quiz_dateBegin'), 'm');
 // 		$ret['dateEnd']           = formatTimeStamp($this->getVar('quiz_dateEnd'), 'm');
         
-		$ret['dateBegin']          = \JJD\getDateSql2Str($this->getVar('quiz_dateBegin'));
-		$ret['dateEnd']            = \JJD\getDateSql2Str($this->getVar('quiz_dateEnd'));
-		$ret['periodeOK']          = \JJD\isDateBetween($this->getVar('quiz_dateBegin'), $this->getVar('quiz_dateEnd'), $this->getVar('quiz_dateBeginOk'), $this->getVar('quiz_dateEndOk'));
+		$ret['dateBegin']          = \JANUS\getDateSql2Str($this->getVar('quiz_dateBegin'));
+		$ret['dateEnd']            = \JANUS\getDateSql2Str($this->getVar('quiz_dateEnd'));
+		$ret['periodeOK']          = \JANUS\isDateBetween($this->getVar('quiz_dateBegin'), $this->getVar('quiz_dateEnd'), $this->getVar('quiz_dateBeginOk'), $this->getVar('quiz_dateEndOk'));
          
 		$ret['publishQuiz']         = $this->getVar('quiz_publishQuiz');
 		$ret['publishQuiz_lib']     = Array(_CO_QUIZMAKER_PUBLISH_NONE,_CO_QUIZMAKER_PUBLISH_INLINE,_CO_QUIZMAKER_PUBLISH_OUTLINE)[$ret['publishQuiz']];

@@ -128,7 +128,7 @@ class Questions extends \XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
         
         $form->addElement(new \XoopsFormHidden('sender', $sender));
-\JJD\include_highslide(null,"quizmaker");     
+\JANUS\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 
        //----------------------------------------------------------
@@ -424,8 +424,8 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 		$ret['points']         = $this->getVar('quest_points');
 		$ret['numbering']      = $this->getVar('quest_numbering');
 		$ret['shuffleAnswers'] = $this->getVar('quest_shuffleAnswers');
-		$ret['creation']       = \JJD\getDateSql2Str($this->getVar('quest_creation'));
-		$ret['update']         = \JJD\getDateSql2Str($this->getVar('quest_update'));
+		$ret['creation']       = \JANUS\getDateSql2Str($this->getVar('quest_creation'));
+		$ret['update']         = \JANUS\getDateSql2Str($this->getVar('quest_update'));
         
 		$ret['weight']         = $this->getVar('quest_weight');
 		$ret['timer']          = $this->getVar('quest_timer');

@@ -96,7 +96,7 @@ switch($op) {
 			$optionsObj = $optionsHandler->get($optId);
 		} else {
 			$optionsObj = $optionsHandler->create();
-    		$optionsObj->setVar('opt_creation', \JJD\getSqlDate());
+    		$optionsObj->setVar('opt_creation', \JANUS\getSqlDate());
 		}
 		// Set Vars
 		$optionsObj->setVar('opt_name', Request::getString('opt_name', ''));

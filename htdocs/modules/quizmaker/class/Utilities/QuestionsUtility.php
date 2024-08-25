@@ -28,7 +28,7 @@ namespace XoopsModules\Quizmaker\Utilities;
 
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
-use JJD;
+use JANUS;
 //include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/Utility.php";
                             
 //$utility = new \XoopsModules\Quizmaker\Utility();

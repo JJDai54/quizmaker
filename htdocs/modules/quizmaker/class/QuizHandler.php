@@ -495,7 +495,7 @@ public function setBinOptions($quizId, $optId)
         $clPerms->addPermissions($criteria, $permName, 'quiz_cat_id');        
         $criteria->add(new \Criteria('quiz_cat_id', $catId, "="));
         //---------------------------------------------------------------
-       $now = \JJD\getSqlDate();
+       $now = \JANUS\getSqlDate();
        $crtDatBegin = new \CriteriaCompo();   
        $crtDatBegin->add(new \Criteria('quiz_dateBegin', $now, "<="));
        $crtDatBegin->add(new \Criteria('quiz_dateBeginOk', 0, "="),'OR');
@@ -543,7 +543,7 @@ public function setBinOptions($quizId, $optId)
         $criteria->add(new \Criteria('quiz_cat_id',"({$idsCat})",'IN'), 'AND');
         
             
-       $now = \JJD\getSqlDate();
+       $now = \JANUS\getSqlDate();
        $crtDatBegin = new \CriteriaCompo();   
        $crtDatBegin->add(new \Criteria('quiz_dateBegin', $now, "<="));
        $crtDatBegin->add(new \Criteria('quiz_dateBeginOk', 0, "="),'OR');

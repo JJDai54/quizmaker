@@ -119,7 +119,7 @@ class Categories extends \XoopsObject
 		$inpTheme = new \XoopsFormSelect( _AM_QUIZMAKER_THEME, 'cat_theme', $this->getVar('cat_theme'));
         $inpTheme->setdescription(_AM_QUIZMAKER_THEME_DEFAULT_CAT);
         //$inpTheme->addOptionArray($quizUtility::get_css_color());
-        $inpTheme->addOptionArray( \JJD\get_css_color());
+        $inpTheme->addOptionArray( \JANUS\get_css_color());
 		$form->addElement($inpTheme );
 
 		// Form Text cat_weight
@@ -152,7 +152,7 @@ class Categories extends \XoopsObject
 //echoArray($groupList);
 
         $catId = $this->getVar('cat_id');
-        $clPerms = new \jjdPermissions();
+        $clPerms = new \JanusPermissions();
 
         $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,        'edit_quiz',        $catId, $this->isNew()));
         $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,      'create_quiz',      $catId, $this->isNew()));
@@ -214,8 +214,8 @@ class Categories extends \XoopsObject
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['theme']             = $this->getVar('cat_theme');
 		$ret['weight']            = $this->getVar('cat_weight');
-		$ret['creation']          = \JJD\getDateSql2Str($this->getVar('cat_creation'));
-		$ret['update']            = \JJD\getDateSql2Str($this->getVar('cat_update'));
+		$ret['creation']          = \JANUS\getDateSql2Str($this->getVar('cat_creation'));
+		$ret['update']            = \JANUS\getDateSql2Str($this->getVar('cat_update'));
         
 		return $ret;
 	}

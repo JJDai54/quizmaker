@@ -28,11 +28,11 @@ $moduleInfo    = $moduleHandler->get($xoopsModule->getVar('mid'));
 $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
 //$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 
-include_once(XOOPS_ROOT_PATH . '/Frameworks/JJD-Framework/class/Permissions.php');
+include_once(XOOPS_ROOT_PATH . '/Frameworks/janus/class/Permissions.php');
 include_once(XOOPS_ROOT_PATH . '/modules/quizmaker/include/common.php');
 
 
-$clPerms = new jjdPermissions('quizmaker');
+$clPerms = new JanusPermissions('quizmaker');
 
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_ADMENU1,

@@ -353,13 +353,13 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
  * *********************** */
 public function getNewCat($name){
     $categoriesObj = $this->create();
-	$categoriesObj->setVar('cat_creation', \JJD\getSqlDate());
+	$categoriesObj->setVar('cat_creation', \JANUS\getSqlDate());
 		
 	$categoriesObj->setVar('cat_name', $name);
     $categoriesObj->setVar('cat_description', '');        
     $categoriesObj->setVar('cat_weight', 0);
     $categoriesObj->setVar('cat_theme', 'default');
-    $categoriesObj->setVar('cat_update', \JJD\getSqlDate());
+    $categoriesObj->setVar('cat_update', \JANUS\getSqlDate());
 
         
 	// Insert Data
@@ -398,8 +398,8 @@ global $xoopsDB;
 	$categoriesObj->setVar('cat_description', '');
 	$categoriesObj->setVar('cat_weight',  0);
 	$categoriesObj->setVar('cat_theme', 'default');
-    $categoriesObj->setVar('cat_creation', \JJD\getSqlDate());
-	$categoriesObj->setVar('cat_update', \JJD\getSqlDate());
+    $categoriesObj->setVar('cat_creation', \JANUS\getSqlDate());
+	$categoriesObj->setVar('cat_update', \JANUS\getSqlDate());
 
 	// Insert Data et recupe de l'id
 	$ret = $this->insert($categoriesObj);
@@ -422,7 +422,7 @@ global $xoopsDB, $xoopsUser,$xoopsModule;
 	$groups = $xoopsUser->getGroups();    
     
     
-    $clPerms = new \jjdPermissions();
+    $clPerms = new \JanusPermissions();
     $clPerms->addRight('view_cats',        $catId, $groups);
 
     $clPerms->addRight('view_quiz',        $catId, $groups);

@@ -24,7 +24,7 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
-//use JJD;
+//use JANUS;
 
         $clPerms->checkAndRedirect('create_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 

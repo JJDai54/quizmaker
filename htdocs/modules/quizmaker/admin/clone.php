@@ -30,7 +30,7 @@ $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CLONE,'QUIZMAKER_PERMIT
 $op = Request::getString('op', 'list');
 $clone = Request::getString('clone', '');
 
-include_once (JJD_PATH . "/class/CloneModule.php");
+include_once (JANUS_PATH . "/class/CloneModule.php");
 $clCloneModule = new CloneModule($quizmakerHelper->getModule());
 
 

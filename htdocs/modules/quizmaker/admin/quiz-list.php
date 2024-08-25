@@ -26,7 +26,7 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
-//use JJD;
+//use JANUS;
 
 
 //recheche des categories autorisées

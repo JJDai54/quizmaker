@@ -37,7 +37,7 @@ $clAbout = new \About($quizmakerHelper,
 /************************************************************************/
 $adminObject->displayNavigation('about.php');
 // $GLOBALS['xoopsTpl']->assign('box', $clAbout->getBox());
-// //$GLOBALS['xoopsTpl']->assign('tplAbout', XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/templates/admin_about.tpl");
-// $GLOBALS['xoopsTpl']->display(XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/templates/admin_about.tpl");
+// //$GLOBALS['xoopsTpl']->assign('tplAbout', XOOPS_ROOT_PATH . "/Frameworks/janus/templates/admin_about.tpl");
+// $GLOBALS['xoopsTpl']->display(XOOPS_ROOT_PATH . "/Frameworks/janus/templates/admin_about.tpl");
 $clAbout->display();
 require __DIR__ . '/footer.php';

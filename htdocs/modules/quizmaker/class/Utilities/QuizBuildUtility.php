@@ -28,7 +28,7 @@ namespace XoopsModules\Quizmaker\Utilities;
 
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
-use JJD;
+use JANUS;
 //include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/Utility.php";
                             
 //$utility = new \XoopsModules\Quizmaker\Utility();
@@ -62,7 +62,7 @@ global $quizHandler, $questionsHandler, $answersHandler;
     // --- copies du dossier des images si il n'existe pas---
     //copie des images utilisées notamment pour pour les liste a trier
     self::copie_ressources_images(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images');
-    \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images', 0777);   
+    \JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images', 0777);   
      
     // --- Génération du fichier d'option ---
     self::export_options2Jason($quiz, $path);
@@ -113,7 +113,7 @@ global $utility, $xoopsConfig;
     $urlApp  = QUIZMAKER_URL_QUIZ_JS  ;
     //----------------------------------------------
     //insertion des CSS
-    $tCss = \JJD\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
+    $tCss = \JANUS\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
 //echo "<hr><pre>CSS : " . print_r($tCss, true) . "</pre><hr>";
     $urlCss = QUIZMAKER_URL_QUIZ_JS. "/css";
     $tpl->assign('urlCss', $urlCss);
@@ -127,7 +127,7 @@ global $utility, $xoopsConfig;
     
     
     //----------------------------------------------
-    $allPlugins = \JJD\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, false);
+    $allPlugins = \JANUS\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, false);
     $tpl->assign('allPlugins', $allPlugins);
     //echoArray($allPlugins, 'plugins', false);
 
@@ -162,14 +162,14 @@ global $utility, $xoopsConfig;
     $tpl->assign('quiz_execution', 2);
     $content = $tpl->fetch('db:quizmaker_admin_quiz_inline.tpl' );    
     $fileName =  "{$path}/{$name}/index.html";
-    \JJD\FSO\saveTexte2File($fileName, $content);   
+    \JANUS\FSO\saveTexte2File($fileName, $content);   
     
     //-------------------------------------------------
     $tpl->assign('outline', false);
     $tpl->assign('quiz_execution', 1);
     $content = $tpl->fetch('db:quizmaker_admin_quiz_inline.tpl' );    
     $fileName =  "{$path}/{$name}/index.tpl";
-    \JJD\FSO\saveTexte2File($fileName, $content);   
+    \JANUS\FSO\saveTexte2File($fileName, $content);   
      
 }
 
@@ -234,7 +234,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     
 //    echo "Export ===>{$path}<br>";
 //    echo "{$exp}";
-    \JJD\FSO\saveTexte2File($fileName, $exp);
+    \JANUS\FSO\saveTexte2File($fileName, $exp);
 
 }
 /* ************************************************
@@ -328,7 +328,7 @@ for($h=0; $h<strlen($values['options']); $h++){
     
 //    echo "Export ===>{$path}<br>";
 //    echo "{$exp}";
-    \JJD\FSO\saveTexte2File($fileName, $exp);
+    \JANUS\FSO\saveTexte2File($fileName, $exp);
 
 //json_encode
 }
@@ -392,7 +392,7 @@ global $pluginsHandler;
       
     $exp = FQUIZMAKER\quizmaker_utf8_encode($exp);
     $fileName = $path . "/js/quiz-consignes.js";
-    \JJD\FSO\saveTexte2File($fileName, $exp);
+    \JANUS\FSO\saveTexte2File($fileName, $exp);
    
 }
 

@@ -27,10 +27,10 @@
     <td  width='20%' >
     <div >
       <a class='masquer' href="" onclick='quizmaker_closeDoc();'>
-        <img  style="float:right;"  src="<{$smarty.const.XOOPS_URL}>/Frameworks/JJD-Framework/images/icons/48/quitter2.png">
+        <img  style="float:right;"  src="<{$smarty.const.XOOPS_URL}>/Frameworks/janus/images/icons/48/quitter2.png">
       </a>
       <a class='masquer' href="" onclick='quizmaker_printDoc();'>
-        <img style="float:right;" src="<{$smarty.const.XOOPS_URL}>/Frameworks/JJD-Framework/images/icons/48/print.png">
+        <img style="float:right;" src="<{$smarty.const.XOOPS_URL}>/Frameworks/janus/images/icons/48/print.png">
       </a>
     </div>
     </td>
@@ -47,10 +47,10 @@
   <!-- avertissement masquer pour l'imression -->
     <div >
       <a class='masquer' href="" onclick='quizmaker_closeDoc();'>
-        <img  style="float:right;"  src="<{$smarty.const.XOOPS_URL}>/Frameworks/JJD-Framework/images/icons/48/quitter2.png">
+        <img  style="float:right;"  src="<{$smarty.const.XOOPS_URL}>/Frameworks/janus/images/icons/48/quitter2.png">
       </a>
       <a class='masquer' href="" onclick='quizmaker_printDoc();'>
-        <img style="float:right;" src="<{$smarty.const.XOOPS_URL}>/Frameworks/JJD-Framework/images/icons/48/print.png">
+        <img style="float:right;" src="<{$smarty.const.XOOPS_URL}>/Frameworks/janus/images/icons/48/print.png">
       </a>
     </div>
 

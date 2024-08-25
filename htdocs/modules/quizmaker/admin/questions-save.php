@@ -38,7 +38,7 @@ use XoopsModules\Quizmaker\Constants;
             $isNew = false;
 		} else {
 			$questionsObj = $questionsHandler->create();
-    		$questionsObj->setVar('quest_creation', \JJD\getSqlDate());
+    		$questionsObj->setVar('quest_creation', \JANUS\getSqlDate());
 		    $questionsObj->setVar('quest_quiz_id', $quizId);
             $isNew = true;
 		}
@@ -115,7 +115,7 @@ echoArray($_POST,'_POST',false);
 		$questionsObj->setVar('quest_start_timer', Request::getInt('quest_start_timer', 0));
 		$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
 		$questionsObj->setVar('quest_actif', Request::getInt('quest_actif', 1));
-		$questionsObj->setVar('quest_update', \JJD\getSqlDate());
+		$questionsObj->setVar('quest_update', \JANUS\getSqlDate());
 
         //suppression de l'image existant si besoin si la case a ete coche 
         //ou si le nom de la nouvelle image est différent de l'ancienne

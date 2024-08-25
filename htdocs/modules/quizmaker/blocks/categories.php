@@ -28,7 +28,7 @@ use XoopsModules\Quizmaker\Helper;
 use XoopsModules\Quizmaker\Constants;
 
 require_once \XOOPS_ROOT_PATH . '/modules/quizmaker/include/common.php';
-include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
+include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
 
 /**
  * Function show block
@@ -93,7 +93,7 @@ function b_quizmaker_categories_show($options)
 
 //echo "<hr>===>block : <pre>". print_r($block, true) ."</pre><hr>";
 
-\JJD\load_css('', false);	
+\JANUS\load_css('', false);	
     return $block;
 
 }
@@ -113,12 +113,12 @@ function b_quizmaker_categories_edit($options)
             
     //--------------------------------------------
     $index=0 ; 
-    $inpNbItems = new \XoopsFormNumber(_CO_JJD_NB_QUIZ_2_list, "options[{$index}]", 5, 5, $options[$index]);
+    $inpNbItems = new \XoopsFormNumber(_CO_JANUS_NB_QUIZ_2_list, "options[{$index}]", 5, 5, $options[$index]);
     $inpNbItems->setMinMax(3, 25);
     $form->addElement($inpNbItems);
     //--------------------------------------------
     $index++;    
-    $inpLgItems = new \XoopsFormNumber(_CO_JJD_NAME_LENGTH, "options[{$index}]", 5, 5, $options[$index]);
+    $inpLgItems = new \XoopsFormNumber(_CO_JANUS_NAME_LENGTH, "options[{$index}]", 5, 5, $options[$index]);
     $inpLgItems->setMinMax(25, 120);
     $form->addElement($inpLgItems);
 
@@ -127,15 +127,15 @@ function b_quizmaker_categories_edit($options)
     $categoriesHandler = $quizmakerHelper->getHandler('Categories');
     $catAll = $categoriesHandler->getAllCategories();
 
-    $inpCat = new \XoopsFormSelect(_CO_JJD_CATEGORIES, "options[{$index}]", $tCat, $size = 5, true);
-    $inpCat->addOption(0, _CO_JJD_ALL_CAT);
+    $inpCat = new \XoopsFormSelect(_CO_JANUS_CATEGORIES, "options[{$index}]", $tCat, $size = 5, true);
+    $inpCat->addOption(0, _CO_JANUS_ALL_CAT);
 	foreach(array_keys($catAll) as $i) {
         $inpCat->addOption($catAll[$i]->getVar('cat_id'), $catAll[$i]->getVar('cat_name'));
 	}
     $form->addElement($inpCat);
     
     $index++;    
-    $inpCaption = new \XoopsFormText(_CO_JJD_BLOCK_TITLE ,  "options[{$index}]", 120, 120, $options[$index]);
+    $inpCaption = new \XoopsFormText(_CO_JANUS_BLOCK_TITLE ,  "options[{$index}]", 120, 120, $options[$index]);
     $form->addElement($inpCaption);
 
     return $form->render();

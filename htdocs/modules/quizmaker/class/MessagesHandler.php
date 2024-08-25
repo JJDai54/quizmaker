@@ -253,7 +253,7 @@ public function buildJsLanguage($language){
     $content = "const quiz_messages = {\n" . implode(",\n", $tDef) . "\n};\n";
     $content = html_entity_decode($content);
     $fileName = QUIZMAKER_PATH_QUIZ_ORG . QUIZMAKER_FLD_LANGUAGE_JS . "/quiz-{$language}.js";
-    \JJD\FSO\saveTexte2File($fileName, $content);
+    \JANUS\FSO\saveTexte2File($fileName, $content);
 
 }
 

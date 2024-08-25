@@ -25,7 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
-//use JJD;
+//use JANUS;
 /*
 $pg = array_merge($_GET, $_POST);
 //echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
@@ -99,8 +99,8 @@ $pg = array_merge($_GET, $_POST);
           $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . $newFldImport;
           chmod($fullName, 0666);
           chmod($pathImport, 0777);
-          \JJD\unZipFile($fullName, $pathImport);
-          \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
+          \JANUS\unZipFile($fullName, $pathImport);
+          \JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
           $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
           //sleep(int $seconds)      
           //exit;

@@ -202,7 +202,7 @@ class Results extends \XoopsObject
         if ($colorNote < 0)  $colorNote = 0;
         //if ($colorNote > 4)  $colorNote = 4;
 		$ret['color']            = str_pad($colorNote, 3, '0', STR_PAD_LEFT) . '.png';
-		$ret['creation']         = \JJD\getDateSql2Str($this->getVar('result_creation'));
+		$ret['creation']         = \JANUS\getDateSql2Str($this->getVar('result_creation'));
 
 		$ret['update']           = $this->getVar('result_update');
 		return $ret;

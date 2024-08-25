@@ -25,7 +25,7 @@ _quizmaker
 			admin\quiz-list.php
 			templates\admin\quizmaker_admin_options.tpl
 			templates\admin\quizmaker_admin_quiz.tpl
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\categories.php
@@ -64,7 +64,7 @@ _quizmaker
 			admin\quiz-save.php
 			admin\results.php
 			admin\traitements.php
-		+assets
+		-assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -460,7 +460,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -531,7 +531,7 @@ _quizmaker
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
+		+language
 			+english
 				-help
 					-img
@@ -594,7 +594,7 @@ _quizmaker
 				language\english\main.php
 				language\english\modinfo.php
 			+french
-				-help
+				+help
 					-img
 						language\french\help\img\_barre_de_dev.jpg
 						language\french\help\img\2024-07-08 09 04 56.jpg
@@ -1196,7 +1196,6 @@ _quizmaker
 		_quiz-org.lnk
 		_quiz-org.ppr.lnk
 		_upload-quiz-js.lnk
-		about.php
 		categories.php
 		comment_delete.php
 		comment_edit.php
@@ -1215,46 +1214,34 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=xoops_version.php
-1=admin\about.php
-2=templates\admin\quizmaker_admin_footer.tpl
-3=docs\changelog.txt
-4=admin\clone.php
-5=admin\permissions.php
-6=class\Categories.php
-7=admin\header.php
-8=admin\categories.php
-9=include\common.php
+0=admin\header.php
+1=admin\quiz-list.php
+2=blocks\quiz.php
+3=admin\menu.php
+4=header.php
+5=docs\changelog.txt
+6=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=admin\categories.php
-[xoops_version.php]
-TopLine=47
-Caret=21,62
-[admin\about.php]
-TopLine=1
-Caret=33,43
-[templates\admin\quizmaker_admin_footer.tpl]
-TopLine=1
-Caret=7,6
-[docs\changelog.txt]
-TopLine=243
-Caret=1,299
-[admin\clone.php]
-TopLine=1
-Caret=1,57
-[admin\permissions.php]
-TopLine=36
-Caret=114,92
-[class\Categories.php]
-TopLine=203
-Caret=13,230
+Selected=xoops_version.php
 [admin\header.php]
+TopLine=40
+Caret=7,68
+[admin\quiz-list.php]
+TopLine=10
+Caret=3,29
+[blocks\quiz.php]
+TopLine=164
+Caret=48,183
+[admin\menu.php]
+TopLine=35
+Caret=33,35
+[header.php]
+TopLine=7
+Caret=9,59
+[docs\changelog.txt]
 TopLine=1
-Caret=1,25
-[admin\categories.php]
-TopLine=111
-Caret=75,127
-[include\common.php]
-TopLine=17
-Caret=32,31
+Caret=1,5
+[xoops_version.php]
+TopLine=1
+Caret=30,31

@@ -28,8 +28,8 @@ $(document).ready(function(){
 		easing: '',  // the animation effect you want. Remove this line if you dont want an effect and if you haven't included jQuery UI
 		changeText: 1, // if you dont want the button text to change, set this to 0
 
-		showText: '<{$smarty.const._CC_MED_AFFICHER}> <img src="<{$smarty.const.JJD_ICO32}>plus.png" width="16px" height="16px" alt="" />',// the button text to show when a div is closed
-		hideText: '<{$smarty.const._CC_MED_CACHER}> <img src="<{$smarty.const.JJD_ICO32}>moins.png"  width="16px" height="16px" alt="" />' // the button text to show when a div is open
+		showText: '<{$smarty.const._CC_MED_AFFICHER}> <img src="<{$smarty.const.JANUS_ICO32}>plus.png" width="16px" height="16px" alt="" />',// the button text to show when a div is closed
+		hideText: '<{$smarty.const._CC_MED_CACHER}> <img src="<{$smarty.const.JANUS_ICO32}>moins.png"  width="16px" height="16px" alt="" />' // the button text to show when a div is open
 
 // 		showText: '<{$smarty.const._MD_MED_AFFICHER}> <img src="<{$smarty.const._MED_URL}>/images/icons/20/view.gif" alt="" />',// the button text to show when a div is closed
 // 		hideText: '<{$smarty.const._MD_MED_CACHER}> <img src="<{$smarty.const._MED_URL}>/images/icons/20/remove.gif" alt="" />' // the button text to show when a div is open

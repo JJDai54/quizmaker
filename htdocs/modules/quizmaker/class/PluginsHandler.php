@@ -213,10 +213,10 @@ echo "<hr>pluginHandler->install {$pluginName}<br>{$pluginPhpPath}<br>{$pluginJs
     //--------------------------------------------
 
 
-    \JJD\FSO\setChmodRecursif($pluginPhpPath, 0777);
+    \JANUS\FSO\setChmodRecursif($pluginPhpPath, 0777);
     $quizUtility::deleteDirectory($pluginPhpPath);                      
 
-    \JJD\FSO\setChmodRecursif($pluginJsPath, 0777);
+    \JANUS\FSO\setChmodRecursif($pluginJsPath, 0777);
     $quizUtility::deleteDirectory($pluginJsPath); 
                          
 //exit('pluginHandler->install');    

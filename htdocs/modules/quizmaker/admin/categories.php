@@ -105,7 +105,7 @@ switch($op) {
 			$categoriesObj = $categoriesHandler->get($catId);
 		} else {
 			$categoriesObj = $categoriesHandler->create();
-    		$categoriesObj->setVar('cat_creation', \JJD\getSqlDate());
+    		$categoriesObj->setVar('cat_creation', \JANUS\getSqlDate());
 		}
 		// Set Vars
 		$categoriesObj->setVar('cat_name', Request::getString('cat_name', ''));
@@ -113,7 +113,7 @@ switch($op) {
 		$categoriesObj->setVar('cat_weight', Request::getString('cat_weight', 0));
 		$categoriesObj->setVar('cat_theme', Request::getString('cat_theme', 'default'));
         
-		$categoriesObj->setVar('cat_update', \JJD\getSqlDate());
+		$categoriesObj->setVar('cat_update', \JANUS\getSqlDate());
 
         
 		// Insert Data
@@ -122,7 +122,7 @@ switch($op) {
 			$newCatId = $categoriesObj->getNewInsertedIdCategories();
 			$permId = isset($_REQUEST['cat_id']) ? $catId : $newCatId;
             
-            $clPerms = new jjdPermissions();
+            $clPerms = new JanusPermissions();
             //$clPerms->savePermission('view_quiz', $permId, $_POST['groups_view_quiz']);
             $clPerms->savePermission('edit_quiz',        $permId, $_POST['edit_quiz']);
             $clPerms->savePermission('create_quiz',      $permId, $_POST['create_quiz']);

@@ -23,7 +23,7 @@
 use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
-//use JJD;
+//use JANUS;
 
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
@@ -78,7 +78,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('plugin_list', $pluginAll);
         //echoArray($pluginAll);
                         
-\JJD\include_highslide();
+\JANUS\include_highslide();
 	break;
 
 	case 'view':

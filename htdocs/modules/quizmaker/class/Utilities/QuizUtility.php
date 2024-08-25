@@ -28,7 +28,7 @@ namespace XoopsModules\Quizmaker\Utilities;
 
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
-use JJD;
+use JANUS;
 //include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/Utility.php";
                             
 //$utility = new \XoopsModules\Quizmaker\Utility();
@@ -140,10 +140,10 @@ global $quizHandler;
         $quiz = $quizHandler->get($quizId);
         self::quiz_exportToYml($quizId);
         
-\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);  
+\JANUS\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);  
         $name = $quiz->getVar('quiz_name');
         $folderJS = $quiz->getVar('quiz_folderJS');    
-        $expName = ($modeName == 1) ? $folderJS : \JJD\sanityseNameForFile($name);    
+        $expName = ($modeName == 1) ? $folderJS : \JANUS\sanityseNameForFile($name);    
 //echo "<hr>quiz_export->expName : {$expName}<hr>";    
         
         switch($suffix){
@@ -155,8 +155,8 @@ global $quizHandler;
         $outZipPath = QUIZMAKER_PATH_UPLOAD_EXPORT . "/{$expName}.zip";
         $outZipUrl = QUIZMAKER_URL_UPLOAD_EXPORT . "/{$expName}.zip";
         
-        //\JJD\zipSimpleDir($sourcePath, $outZipPath);   
-        \JJD\ZipReccurssiveDir($sourcePath, $outZipPath);   
+        //\JANUS\zipSimpleDir($sourcePath, $outZipPath);   
+        \JANUS\ZipReccurssiveDir($sourcePath, $outZipPath);   
 chmod ($outZipPath , 0666);
 
 		$GLOBALS['xoopsTpl']->assign('download', 1);        
@@ -211,10 +211,10 @@ public static function quiz_exportToYml($quizId, $modeName = 0)
     
     //----------------------------------------------------
     //copie du dossier des images
-    //\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", true2);
+    //\JANUS\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", true2);
     $pathSource = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images/";
-    //\JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", 0777);
-    \JJD\FSO\setChmodRecursif($path, 0777);
+    //\JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", 0777);
+    \JANUS\FSO\setChmodRecursif($path, 0777);
     self:: copyFolder ($pathSource,$path . '/images/') ;
 }
  
@@ -492,7 +492,7 @@ public static function quiz_copy_images($pathSource, $newQuizId)
     self::create_quiz_arborescense($pathDest);
     if(is_dir($pathSource . '/images'))    
         self::copyFolder ($pathSource . '/images', $pathDest . '/images');     
-    \JJD\FSO\setChmodRecursif($pathDest . '/images', 0777);
+    \JANUS\FSO\setChmodRecursif($pathDest . '/images', 0777);
     
     //pour finir on supprime les images non référencées dans les réponses 
     // au cas ou la purge n'aurait pas été faite à l'export

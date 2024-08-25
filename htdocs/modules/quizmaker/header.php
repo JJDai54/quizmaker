@@ -55,9 +55,9 @@ xoops_loadLanguage('modinfo', $moduleDirName);
 xoops_loadLanguage('common', $moduleDirName);
 xoops_loadLanguage('plugins', $moduleDirName);
 
-include_once (XOOPS_ROOT_PATH . "/Frameworks/JJD-Framework/load.php");
-//\jjd\load_trierTableauHTML();
-$clPerms = new jjdPermissions();
+include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
+//\JANUS\load_trierTableauHTML();
+$clPerms = new JanusPermissions();
 
 
 

@@ -67,7 +67,7 @@ use XoopsModules\Quizmaker\Constants;
         $inpTypeQuest->addOptionArray($pluginsHandler->getListByGroup(true));
         $inpTypeQuest->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\",{$imgModelesHeight});'".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
         $GLOBALS['xoopsTpl']->assign('inpTypeQuest', $inpTypeQuest->render());
-\JJD\include_highslide(null,"quizmaker");     
+\JANUS\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //liste des images de type de question - a faire
         global $quizUtility, $pluginsHandler;

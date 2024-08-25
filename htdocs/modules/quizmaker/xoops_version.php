@@ -28,9 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 5.00,
-	'module_status'       => 'Beta 4',
-	'release_date'        => '2024/08/09',
+	'version'             => 6.0,
+	'module_status'       => 'Beta 1',
+	'release_date'        => '2024/08/25',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',

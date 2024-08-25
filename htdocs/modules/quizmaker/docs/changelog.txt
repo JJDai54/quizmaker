@@ -1,10 +1,15 @@
 ---------------------------------------------------
+2024-08-01a v 6.00 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Renommage du framework "JJD-Framework" en "janus"
+
+---------------------------------------------------
 2024-08-01a v 5.00 beta 4 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 - Vérification de la présence de certains fichiers lors des imports
     - plugins : verifie la présence des fichiers nomDuPlugin.php et js/nomDuPlugin/nomDuPlugin.js
     - Quiz : Verifie la présence des fichiers YML du nom des tables (cateories,quiz,questions et answers)
-Correction export : utilisation de \JJD\sanityseNameForFile($name) pour avoir une URL correcte
+Correction export : utilisation de \JANUS\sanityseNameForFile($name) pour avoir une URL correcte
 Ajout constantes de langue
 Ajout de la table "quizmaker_options". Permet d'affection des modèles d'options au quiz.
     Ajout de tous les fichiers nécessaires à la gestion de cette table
@@ -17,10 +22,10 @@ Correction import des exemples des plugins
 Ajout de la fonction addRight dans le frameworks pour éviter  l'erreur: Database updates are not allowed during processing of a GET request
 Nom de la table parametrée dans les paramètres globaux du module, plus facile à changer par l'utilisateur (french english, ...)
 Onglet clone :
-    - déplacement dans le JJD_Framework afin de mutualiser cette fonctionnalité
+    - déplacement dans le JANUS_Framework afin de mutualiser cette fonctionnalité
     - suppression du template "quizmaker_admin_clone.tpl"
     - simplification de /admin/clone.php par un appel à la classe CloneModule
-Onglet Permissions : déplacement dans JJD_Framework afinde mutualisée cette fonctionnalité
+Onglet Permissions : déplacement dans JANUS_Framework afinde mutualisée cette fonctionnalité
     - suppression du template "quizmaker_admin_permissions.tpl"
          
 ---------------------------------------------------
@@ -160,8 +165,8 @@ Table "questions" :
 import : correction de la recherche de la catégorie, problème des quotes dans le nom "=" remplacé par Like et "'" par "_"
 
 Onglet "About" : mutualisation afin d'utiliser les fonctions et templates dans d'autres modules
-    - transfert des fonctions de l'onglet "About" dans "JJD-Framework"
-    - transfert du template dans "JJD-Framework" 
+    - transfert des fonctions de l'onglet "About" dans "janus"
+    - transfert du template dans "janus" 
     
 Onglet "Type de question" : 
     - suppression des listes qui permettaient d'ajouter un type de question à un quiz? option pas pratique

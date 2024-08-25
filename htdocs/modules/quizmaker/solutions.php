@@ -101,7 +101,7 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
         
 		//	$GLOBALS['xoopsTpl']->assign('error', _AM_QUIZMAKER_THEREARENT_QUESTIONS);        
 // Define Stylesheet
-\JJD\load_css('', false);
+\JANUS\load_css('', false);
 
 		$xoopsTpl->assign('quiz', $quiz);        
 		$xoopsTpl->assign('questions', $questions);        

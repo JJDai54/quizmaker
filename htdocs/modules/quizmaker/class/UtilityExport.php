@@ -28,7 +28,7 @@ namespace XoopsModules\Quizmaker;
 
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use Xmf\Request;
-use JJD;
+use JANUS;
 //include_once XOOPS_ROOT_PATH . "/modules/quizmaker/class/Utility.php";
                             
 //$utility = new \XoopsModules\Quizmaker\Utility();
@@ -54,13 +54,13 @@ global $quizHandler;
         $name = $folder . '_' . date("Y-m-d_H-m-s");    
         self::saveDataKeepId($quizId);
         
-\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);        
+\JANUS\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);        
         $sourcePath = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$folder}/export/";
         $outZipPath = QUIZMAKER_PATH_UPLOAD_EXPORT . "/{$name}.zip";
         $outZipUrl = QUIZMAKER_URL_UPLOAD_EXPORT . "/{$name}.zip";
         
-        //\JJD\zipSimpleDir($sourcePath, $outZipPath);   
-        \JJD\ZipReccurssiveDir($sourcePath, $outZipPath);   
+        //\JANUS\zipSimpleDir($sourcePath, $outZipPath);   
+        \JANUS\ZipReccurssiveDir($sourcePath, $outZipPath);   
 chmod ($outZipPath , 0666);
 
 		$GLOBALS['xoopsTpl']->assign('download', 1);        
@@ -115,10 +115,10 @@ public static function saveDataKeepId($quizId)
     
     //----------------------------------------------------
     //copie du dossier des images
-    //\JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", true2);
+    //\JANUS\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", true2);
     $pathSource = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images/";
-    //\JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", 0777);
-    \JJD\FSO\setChmodRecursif($path, 0777);
+    //\JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}/images", 0777);
+    \JANUS\FSO\setChmodRecursif($path, 0777);
     self:: CopieRep2 ($pathSource,$path . '/images/') ;
     //exit;
 }

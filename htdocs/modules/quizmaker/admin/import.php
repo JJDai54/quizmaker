@@ -40,7 +40,7 @@ if($toCatId <= 0) $toCatId = array_key_first($catArr);
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
 if($catId <= 0) $catId = array_key_first($catArr);
 
-//use JJD;
+//use JANUS;
 /*
 $pg = array_merge($_GET, $_POST);
 //echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
@@ -83,7 +83,7 @@ global $upload_size, $quizUtility;
 $bolOk = true;
 
 $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
-    \JJD\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_IMPORT, true);
+    \JANUS\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_IMPORT, true);
 
     include_once XOOPS_ROOT_PATH . '/class/uploader.php';
     $filename       = $_FILES['quizmaker_files']['name'];
@@ -116,8 +116,8 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
                   chmod($fullName, 0666);
                   chmod($pathImport, 0777);
                   if ($clearFldBefore) $quizUtility::deleteDirectory($pathImport);
-                  \JJD\unZipFile($fullName, $pathImport);
-                  \JJD\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
+                  \JANUS\unZipFile($fullName, $pathImport);
+                  \JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
                   if ($deleteArchivesImported) unlink($fullName);
               }
             }else{

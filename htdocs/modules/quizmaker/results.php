@@ -56,7 +56,7 @@ if($quizId > 0 && $sender =='quiz_id'){
 $quiz = $quizObj->getValuesQuiz();
 
 // Define Stylesheet
-\JJD\load_css('', false);
+\JANUS\load_css('', false);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);

@@ -346,13 +346,13 @@ class OptionsHandler extends \XoopsPersistableObjectHandler
  * *********************** */
 // public function getNewCat($name){
 //     $optionsObj = $this->create();
-// 	$optionsObj->setVar('opt_creation', \JJD\getSqlDate());
+// 	$optionsObj->setVar('opt_creation', \JANUS\getSqlDate());
 // 		
 // 	$optionsObj->setVar('opt_name', $name);
 //     $optionsObj->setVar('opt_description', '');        
 //     $optionsObj->setVar('opt_weight', 0);
 //     $optionsObj->setVar('opt_theme', 'default');
-//     $optionsObj->setVar('opt_update', \JJD\getSqlDate());
+//     $optionsObj->setVar('opt_update', \JANUS\getSqlDate());
 // 
 //         
 // 	// Insert Data

@@ -27,9 +27,9 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
-//use JJD;
+//use JANUS;
 
-//\JJD\loadAllXForms();
+//\JANUS\loadAllXForms();
 
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
