@@ -128,7 +128,7 @@ public static function rmAllDir($strDirectory){
 public static function getNewBtn($caption, $op, $img,  $title ){
 /*
 <div class="xo-buttons">
-<a class="ui-corner-all tooltip" href="questions.php?op=new" title="Add New Questions"><img src="http://xmodules.jubile.fr/Frameworks/moduleclasses/icons/32/add.png" title="" alt="">Add New Questions</a>
+<a class="ui-corner-all tooltip" href="questions.php?op=new" title="Add New Questions"><img src="https://xoopsfr.kiolo.fr/Frameworks/moduleclasses/icons/32/add.png" title="" alt="">Add New Questions</a>
 &nbsp;</div>
 */
 

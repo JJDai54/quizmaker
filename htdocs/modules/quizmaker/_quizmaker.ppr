@@ -1221,9 +1221,10 @@ _quizmaker
 4=header.php
 5=docs\changelog.txt
 6=xoops_version.php
+7=admin\options.php
 [Selected Project Files]
 Main=
-Selected=xoops_version.php
+Selected=admin\options.php
 [admin\header.php]
 TopLine=40
 Caret=7,68
@@ -1245,3 +1246,6 @@ Caret=1,5
 [xoops_version.php]
 TopLine=1
 Caret=30,31
+[admin\options.php]
+TopLine=1
+Caret=88,20

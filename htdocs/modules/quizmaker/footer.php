@@ -17,7 +17,7 @@
  * @package        quizmaker
  * @since          1.0
  * @min_xoops      2.5.9
- * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<http://xmodules.jubile.fr>
+ * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<https://xoopsfr.kiolo.fr>
  */
 if (count($xoBreadcrumbs) > 1) {
 	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
