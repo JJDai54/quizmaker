@@ -115,7 +115,7 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
 
                   chmod($fullName, 0666);
                   chmod($pathImport, 0777);
-                  if ($clearFldBefore) $quizUtility::deleteDirectory($pathImport);
+                  if ($clearFldBefore) $quizUtility::clearFolder($pathImport);
                   \JANUS\unZipFile($fullName, $pathImport);
                   \JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_IMPORT, 0777);
                   if ($deleteArchivesImported) unlink($fullName);
@@ -123,7 +123,9 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
             }else{
                   $bolOk = false;
             } 
-//  exit("{$msg}<br>{$url}");
+ 
+// exit ("===> savedFilename : {$savedFilename}<br>pathImport : {$pathImport}");
+ // exit("{$msg}<br>{$url}");
         return $bolOk;
 }
 

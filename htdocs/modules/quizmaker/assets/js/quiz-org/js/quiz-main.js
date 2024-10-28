@@ -17,9 +17,9 @@ var qbr =  '<br>' ;
 
 const quiz_config = {
     name : 'Quizmaker',
-    version : "6.00 beta 1",
+    version : "7.00 beta 1",
     date_creation : "25-01-2019",
-    date_release : "16-06-2024",
+    date_release : "26-10-2024",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
@@ -103,6 +103,8 @@ function quizmaker() {
 //    alert ("02 : " + myQuestions);
 
 //alert('===>buildQuiz');    
+getStatAllSlides();
+
 var content = `  
     <div id='quiz_div_main'>
       ${getHtmlHeader()}
@@ -326,15 +328,38 @@ var questionNumber = 0;     //n° du slide hors page_begin, page_end et page_gro
                 clQuestion.question.questionNumber = (clQuestion.isQuestion) ? ++questionNumber : 0;
                 quizard.push(clQuestion);
 
-                statsTotal.quiz_questions  += (clQuestion.isQuestion ? 1 : 0);
-                statsTotal.quiz_score_maxi += clQuestion.scoreMaxiQQ;
-                statsTotal.quiz_score_mini += clQuestion.scoreMiniQQ;
-                
                 output.push(getHtmlSlide (clQuestion));
             }
       }
     });
     return output.join("\n");
+}
+
+/**************************************************************************
+ *   
+ * ************************************************************************/
+function getStatAllSlides(){
+
+var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et pageGroup
+
+//alert ("zz : " + myQuestions.length);
+// alert ("zz : " + myQuestions[0].question);
+
+    myQuestions.forEach((currentQuestion, index) => {
+      if(currentQuestion){
+      
+      //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + " - \n" + currentQuestion.question);
+            // debut du type de slide a traiter
+            var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
+            if(clQuestion){
+                statsTotal.quiz_questions  += (clQuestion.isQuestion ? 1 : 0);
+                statsTotal.quiz_score_maxi += clQuestion.scoreMaxiQQ;
+                statsTotal.quiz_score_mini += clQuestion.scoreMiniQQ;
+                
+
+            }
+      }
+    });
 }
 
 /**************************************************************************
@@ -391,7 +416,7 @@ var questionNumber = 0;     //n° du slide hors page_begin, page_end et page_gro
        //alert(question) ;
          
          
-       var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${slideNumber}${quiz_messages.twoPoints}${question}${comment1}</div>`;
+       var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${slideNumber}/${statsTotal.quiz_questions}${quiz_messages.twoPoints}${question}${comment1}</div>`;
 
         // add this question and its answers to the output    
        var output = [];
@@ -865,6 +890,7 @@ if(obHelp) obHelp.innerHTML = consigne;
   //alert("showSlide_new : " + offset);
   if (quiz.showResultAllways) showResults();
   //if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
+          quizard[currentSlide].onFinalyse();
    }
    
 /* ******************************************

@@ -148,7 +148,7 @@ define('QUIZMAKER_TIMER_MAX', 240);
 define('QUIZMAKER_SHUFFLE_DEFAULT', 0);
 
 define('QUIZMAKER_PREFIX_OPTIONS_NAME', 'quest_options');
-define('QUIZMAKER_PREFIX_CAT', '_AM_QUIZMAKER_PLUGIN_CAT_');    
+define('QUIZMAKER_PREFIX_CAT', '_CO_QUIZMAKER_PLUGIN_CAT_');    
 define('QBR', '<br>');    
     
 define('QUIZMAKER_BG_LIST_CAT', '#FFCC99');    

@@ -207,12 +207,7 @@ define('_AM_QUIZMAKER_PLAY_QUIZ', "Exécuter le quiz");
 define('_AM_QUIZMAKER_PLUGIN', "Plugin");
 define('_AM_QUIZMAKER_PLUGIN_ARCHIVE_EXEMPLE_NOT', "L'archive de l'exemple n'existe pas");
 define('_AM_QUIZMAKER_PLUGIN_CAPTION0', "Titre de la liste");
-define('_AM_QUIZMAKER_PLUGIN_CAT_BASIC', "Questions de base");
-define('_AM_QUIZMAKER_PLUGIN_CAT_DRAGANDDROP', "Cliquer déplacer");
-define('_AM_QUIZMAKER_PLUGIN_CAT_IMAGES', "Images simples");
-define('_AM_QUIZMAKER_PLUGIN_CAT_OTHER', "Autres types de question");
-define('_AM_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages de début, de fin et de regroupement");
-define('_AM_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
+
 define('_AM_QUIZMAKER_PLUGIN_CONSIGNE', "Aide du slide");
 define('_AM_QUIZMAKER_PLUGIN_EXAMPLE_EXIST', "L&apos;exemple du quiz <b>%s</b> existe déjà.<br>Voulez-vous le réinstaller ?");
 define('_AM_QUIZMAKER_PLUGIN_INPUTS', "Entrées");
@@ -427,4 +422,9 @@ define('_AM_QUIZMAKER_VISIBLE', "Visible");
 define('_AM_QUIZMAKER_VISIBLE_DESC', "La question ne sera pas générée dans le quiz.");
 define('_AM_QUIZMAKER_WEIGHT', "Poids");
 define('_AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE', "Installer l&apos;exemple");
+
+
+define('_AM_QUIZMAKER_ANSWER', "Proposition");
+define('_AM_QUIZMAKER_UNIT_PERCENT', "%");
+
 ?>

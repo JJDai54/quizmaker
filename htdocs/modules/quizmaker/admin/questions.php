@@ -169,7 +169,7 @@ switch($op) {
 	break;
     
 	case 'update_list':
-echoArray('gp', "===>quizId = {$quizId}");
+//echoArray('gp', "===>quizId = {$quizId}");
 
         $list = Request::getArray('quest_list');
         //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";

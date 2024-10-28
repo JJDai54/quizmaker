@@ -1,4 +1,15 @@
 ---------------------------------------------------
+2024-10-28a v 6.02 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Ajout du plugin radioQuickImg
+Divers corrections de xoopsFormIconSelect dans le framework Janus
+Correction de la fonction purgerImages
+
+Javascript :
+    - ajout de l'evenement event_finalize appeler à la fin de l'affichage d'un slide
+      permet notamment de désactiver le bouton "nextSlide" dans le plugin "radioQuickImg"
+      
+---------------------------------------------------
 2024-08-01a v 6.00 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Renommage du framework "JJD-Framework" en "janus"
@@ -11,7 +22,7 @@ Renommage du framework "JJD-Framework" en "janus"
     - Quiz : Verifie la présence des fichiers YML du nom des tables (cateories,quiz,questions et answers)
 Correction export : utilisation de \JANUS\sanityseNameForFile($name) pour avoir une URL correcte
 Ajout constantes de langue
-Ajout de la table "quizmaker_options". Permet d'affection des modèles d'options au quiz.
+Ajout de la table "quizmaker_options". Permet l'affection des modèles d'options au quiz.
     Ajout de tous les fichiers nécessaires à la gestion de cette table
 Correction suppression des images dans la partie options des plugins
     Parcours du tabbleau delete qui contient le nom du champ image et suppression du fichier

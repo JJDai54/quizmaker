@@ -76,7 +76,7 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
       $path = $this->pathArr['img'] . "/dispositions"; 
       $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PATH_PLUGINS_PHP);
       $imgList = XoopsLists::getFileListByExtension($path,  array('jpg','png','gif'), '');
-      $inputDisposition = new \XoopsFormIconeSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputDisposition->setGridIconNumber(count($imgList),1);
       $trayOptions->addElement($inputDisposition);      
       //--------------------------------------------------------------------           

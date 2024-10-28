@@ -86,7 +86,7 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
 
       $name = 'orientation'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputOrientation = new \XoopsFormIconeSelect("<br>" . _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputOrientation = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputOrientation->setGridIconNumber(2,1);
       $trayOptions->addElement($inputOrientation);     
       

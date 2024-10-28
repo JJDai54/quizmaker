@@ -82,5 +82,4 @@ define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Merci pour votre participation
 define('_MA_QUIZMAKER_TITLE', "Quiz");
 define('_MA_QUIZMAKER_UNAME', "Pseudo");
 define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>Vous n'avez pas encore le droit de voir les solutions pour ce quiz.<br>Vous devez y avoir participé en étant enregisté et être connecté sur le site.</span>");
-
 ?>

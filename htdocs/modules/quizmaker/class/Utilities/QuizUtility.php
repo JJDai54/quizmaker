@@ -509,6 +509,7 @@ public static function quiz_importFromYml($pathSource, &$catId = null, &$newQuiz
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
 
+echo "<hr>===>pathSource = {$pathSource}<hr>";    
     
     if(!$quizHandler->isValid($pathSource)) return 2;
 
@@ -536,7 +537,7 @@ public static function quiz_importFromYml($pathSource, &$catId = null, &$newQuiz
     // Creation de l'arborescence du quiz et copie du dossier images
     //--------------------------------------------------------
     self::quiz_copy_images($pathSource, $newQuizId);
-    
+//echo "<hr>===>catId = {$catId}<br>newQuizId = {$newQuizId}<hr>";    
     return 0; //return l'erreur si besoin
    
 }

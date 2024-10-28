@@ -73,7 +73,7 @@ define('_CO_QUIZMAKER_ON', "<span style='font-weight: bold;'>OUI</span>");
 define('_CO_QUIZMAKER_PLUGIN', "Type de question");
 define('_CO_QUIZMAKER_PLUGIN_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir les ressaisir.");
 define('_CO_QUIZMAKER_POINTS', "Points");
-define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', 'Cette question comptait pour un score minimum de %1\$s points et un score maximum de %2\$s points.');
+define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', "Cette question comptait pour un score minimum de %1\$s points et un score maximum de %2\$s points.");
 define('_CO_QUIZMAKER_POINTS_UNDER_DEV', "<span style='color:red;'><b>Fonction en cours de développement.</b></span>");
 define('_CO_QUIZMAKER_PUBLISH_INLINE', "Exécution dans le site");
 define('_CO_QUIZMAKER_PUBLISH_NONE', "Pas d'exécution");
@@ -90,4 +90,10 @@ define('_CO_QUIZMAKER_SPHPINI', "<span style='font-weight: bold;'>Informations e
 define('_CO_QUIZMAKER_TIME', "Date/Heure");
 define('_CO_QUIZMAKER_UPLOADPATHDSC', "Noter. Le chemin de téléchargement *DOIT* contenir le chemin complet du serveur de votre dossier de téléchargement.");
 
+define('_CO_QUIZMAKER_PLUGIN_CAT_BASIC', "Questions de base");
+define('_CO_QUIZMAKER_PLUGIN_CAT_DRAGANDDROP', "Cliquer déplacer");
+define('_CO_QUIZMAKER_PLUGIN_CAT_IMAGES', "Images simples");
+define('_CO_QUIZMAKER_PLUGIN_CAT_OTHER', "Autres types de question");
+define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages de début, de fin et de regroupement");
+define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
 ?>

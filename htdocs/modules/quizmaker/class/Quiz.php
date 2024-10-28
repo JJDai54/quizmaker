@@ -451,6 +451,8 @@ class Quiz extends \XoopsObject
     $imgLike = array();
     foreach($tExtImg AS $k=>$ext){
         $imgLike[] = "ta.answer_proposition LIKE '%.{$ext}'";
+        $imgLike[] = "ta.answer_image1 LIKE '%.{$ext}'";
+        $imgLike[] = "ta.answer_image2 LIKE '%.{$ext}'";
     }
     
     
@@ -463,11 +465,15 @@ class Quiz extends \XoopsObject
      
      $result = $xoopsDB->query($sql);
     $quizTblImg = array();
+    
      while ($row = $xoopsDB->fetchArray($result)){
         if ($row['answer_proposition']) $quizTblImg[] = $row['answer_proposition'];
         if ($row['answer_image1']) $quizTblImg[] = $row['answer_image1'];
         if ($row['answer_image2']) $quizTblImg[] = $row['answer_image2'];
      }
+//echoArray($quizTblImg,'');   
+//echo "<hr>{$sql}"; 
+//exit;    
      
     //--------------------------------------------------
      //liste des images dans le champ "image" de la table questions

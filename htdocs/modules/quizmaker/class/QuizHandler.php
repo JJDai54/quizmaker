@@ -494,6 +494,7 @@ public function setBinOptions($quizId, $optId)
         
         $clPerms->addPermissions($criteria, $permName, 'quiz_cat_id');        
         $criteria->add(new \Criteria('quiz_cat_id', $catId, "="));
+        $criteria->add(new \Criteria('quiz_actif', 1, "="));
         //---------------------------------------------------------------
        $now = \JANUS\getSqlDate();
        $crtDatBegin = new \CriteriaCompo();   

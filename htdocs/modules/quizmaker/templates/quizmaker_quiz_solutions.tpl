@@ -169,10 +169,11 @@
           </div>
           <{if $question.explanation}>
             <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:5px 50px 5px 50px;">
-              <hr class='default-hr-style-one'>
               <span style="color:blue;font-style:oblique;"><{$question.explanation}></span>
+              <hr class='default-hr-style-one'>
             </div>
           <{/if}>
+          
           <div class="item-round-none <{$quiz.theme_ok}>-item-body" style="padding:10px 50px 5px 50px;">
             <{$question.solutions.answers}>
           </div>

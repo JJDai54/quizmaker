@@ -90,4 +90,10 @@ define('_CO_QUIZMAKER_SPHPINI', "<span style='font-weight: bold;'>Information ex
 define('_CO_QUIZMAKER_TIME', "Date/Time");
 define('_CO_QUIZMAKER_UPLOADPATHDSC', "Note. The upload path *MUST* contain the full server path of your upload folder.");
 
+define('_CO_QUIZMAKER_PLUGIN_CAT_BASIC', "Basic questions");
+define('_CO_QUIZMAKER_PLUGIN_CAT_DRAGANDDROP', "Click and drop");
+define('_CO_QUIZMAKER_PLUGIN_CAT_IMAGES', "Easy images");
+define('_CO_QUIZMAKER_PLUGIN_CAT_OTHER', "Other question types");
+define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Start, end and grouping pages");
+define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Texts");
 ?>

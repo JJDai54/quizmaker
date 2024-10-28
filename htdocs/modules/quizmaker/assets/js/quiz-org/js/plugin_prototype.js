@@ -273,6 +273,19 @@ getImage(){
         return "";
     }
 }
+/* ***************************************
+*
+* *** */
+getImageAns(img){
+    var name = this.getName();
+    var currentQuestion = this.question;
+    if (currentQuestion.image) {
+        //return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
+        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" style="height:${currentQuestion.height}px;max-width:800px"></center>`;
+    }else{
+        return "";
+    }
+}
 
 /* *******************************************
 * * @ return: null
@@ -407,9 +420,14 @@ Appelé aux modifications du contenu d'un slide
 onUpdate() {}
 
 /* ************************************************
-Appelé au moment de l'affiche d'un nouveau slide
+Appelé au debut de l'affichage d'un nouveau slide
 *************************************************** */
 onEnter() {}
+
+/* ************************************************
+Appelé au debut à la fin de l'affichage d'un nouveau slide
+*************************************************** */
+onFinalyse() {}
 
 //---------------------------------------------------
 getDisposition(disposition, tableId=null){}  

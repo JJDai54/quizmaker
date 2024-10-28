@@ -106,7 +106,7 @@ use XoopsModules\Quizmaker\Utility;
    echoArray('gpf',"import : catId = {$catId}");
         if (loadFileTo("files_new_quiz", $pathImport, $savedFilename)){
             $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
-            // exit($ret .  '===>' . $pathImport);
+//exit($ret .  '===>' . $pathImport);
             if($ret == 0){
               $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
               $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";

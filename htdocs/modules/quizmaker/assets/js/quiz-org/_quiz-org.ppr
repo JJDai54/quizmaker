@@ -6,7 +6,7 @@ Compilator.ProgSaveAll=0
 Compilator.ProgRunSelection=0
 Compilator.LogType=0
 Compilator.LogEncoding=0
-DefaultDir=D:\JJD-Workspace-D\WampServeur\sites\xoops512a\htdocs\modules\quizmaker\assets\js\quiz-org
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org
 DefaultCP=0
 LogtoEnd=1
 DontOpen=0
@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
-		-css
+		+css
 			-infobulle
 				-images
 					css\infobulle\images\Award.png
@@ -107,7 +107,7 @@ _quiz-org
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-			-choiceSimple
+			+choiceSimple
 				plugins\choiceSimple\choiceSimple.css
 				plugins\choiceSimple\choiceSimple.js
 				plugins\choiceSimple\index.html
@@ -119,11 +119,11 @@ _quiz-org
 				plugins\imagesDaDGroups\imagesDaDGroups.css
 				plugins\imagesDaDGroups\imagesDaDGroups.js
 				plugins\imagesDaDGroups\index.html
-			-imagesDaDMatchItems
+			+imagesDaDMatchItems
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.css
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.js
 				plugins\imagesDaDMatchItems\index.html
-			-imagesDaDSortItems
+			+imagesDaDSortItems
 				plugins\imagesDaDSortItems\imagesDaDSortItems.css
 				plugins\imagesDaDSortItems\imagesDaDSortItems.js
 				plugins\imagesDaDSortItems\index.html
@@ -140,7 +140,7 @@ _quiz-org
 				plugins\imagesSimple\imagesSimple.css
 				plugins\imagesSimple\imagesSimple.js
 				plugins\imagesSimple\index.html
-			-listboxClassItems
+			+listboxClassItems
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.css
 				plugins\listboxClassItems\listboxClassItems.js
@@ -148,7 +148,7 @@ _quiz-org
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
-			-pageBegin
+			+pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
@@ -164,10 +164,16 @@ _quiz-org
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
-			-radioMultiple
+			+radioMultiple
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\radioMultiple.css
 				plugins\radioMultiple\radioMultiple.js
+			+radioQuickImg
+				-img
+					plugins\radioQuickImg\img\index.html
+				plugins\radioQuickImg\index.html
+				plugins\radioQuickImg\radioQuickImg.css
+				plugins\radioQuickImg\radioQuickImg.js
 			-sortItems
 				-img
 					-buttons
@@ -263,7 +269,7 @@ _quiz-org
 				plugins\ulDaDGroups\index.html
 				plugins\ulDaDGroups\ulDaDGroups.css
 				plugins\ulDaDGroups\ulDaDGroups.js
-			+ulDaDSortList
+			-ulDaDSortList
 				plugins\ulDaDSortList\index.html
 				plugins\ulDaDSortList\ulDaDSortList.css
 				plugins\ulDaDSortList\ulDaDSortList.js
@@ -271,18 +277,46 @@ _quiz-org
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=js\quiz-functions.js
-1=plugins\ulDaDSortList\ulDaDSortList.js
+0=plugins\radioQuickImg\radioQuickImg.css
+1=plugins\radioQuickImg\radioQuickImg.js
 2=plugins\ulDaDGroups\ulDaDGroups.js
+3=plugins\choiceSimple\choiceSimple.js
+4=..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre.html
+5=..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre-02.html
+6=plugins\listboxClassItems\listboxClassItems.js
+7=plugins\listboxClassItems\listboxClassItems.css
+8=js\quiz-main.js
+9=js\quiz-functions.js
 [Selected Project Files]
 Main=
-Selected=plugins\ulDaDSortList\ulDaDSortList.js
-[js\quiz-functions.js]
-TopLine=1387
-Caret=26,1429
-[plugins\ulDaDSortList\ulDaDSortList.js]
-TopLine=109
-Caret=22,117
+Selected=js\quiz-main.js
+[plugins\radioQuickImg\radioQuickImg.css]
+TopLine=1
+Caret=25,26
+[plugins\radioQuickImg\radioQuickImg.js]
+TopLine=82
+Caret=1,101
 [plugins\ulDaDGroups\ulDaDGroups.js]
-TopLine=183
-Caret=22,205
+TopLine=341
+Caret=1,376
+[plugins\choiceSimple\choiceSimple.js]
+TopLine=208
+Caret=1,243
+[..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre.html]
+TopLine=11
+Caret=1,38
+[..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre-02.html]
+TopLine=15
+Caret=1,37
+[plugins\listboxClassItems\listboxClassItems.js]
+TopLine=1
+Caret=1,1
+[plugins\listboxClassItems\listboxClassItems.css]
+TopLine=1
+Caret=1,1
+[js\quiz-main.js]
+TopLine=11
+Caret=33,14
+[js\quiz-functions.js]
+TopLine=1
+Caret=7,9
