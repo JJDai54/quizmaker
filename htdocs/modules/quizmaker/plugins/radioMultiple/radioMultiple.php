@@ -43,6 +43,7 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
         $this->optionsDefaults = ['orientation' => 'horitontal', 
                                   'directive'   => ''];
         $this->hasImageMain = true;
+        $this->hasShuffleAnswers = true;
     }
 
 	/**

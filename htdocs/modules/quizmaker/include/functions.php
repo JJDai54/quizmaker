@@ -379,3 +379,5 @@ function getBinOptionsFlagsArr ($binName, $binOptions){
     return $flags;
 }
 
+
+

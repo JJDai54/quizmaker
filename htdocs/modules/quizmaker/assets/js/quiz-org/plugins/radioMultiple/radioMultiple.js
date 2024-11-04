@@ -119,7 +119,7 @@ prepareData(){
     var currentQuestion = this.question;
 
     //force l'option de mélange des options sinon aucun intéret
-    currentQuestion.shuffleAnswers = 1;
+//    currentQuestion.shuffleAnswers = 1;
 
     //var currentQuestion = this.question;
     this.transposeArray();

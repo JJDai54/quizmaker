@@ -57,6 +57,7 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
   `quiz_optionsDev` bit(16) NOT NULL DEFAULT b'0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
+  `quiz_delai_cookie` INT NOT NULL DEFAULT '3600',   
   `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   PRIMARY KEY (`quiz_id`)

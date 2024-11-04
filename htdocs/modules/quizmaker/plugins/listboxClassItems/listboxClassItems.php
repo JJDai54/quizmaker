@@ -43,7 +43,6 @@ var $maxGroups = 3;
         parent::__construct("listboxClassItems", 0, "other");
         $this->optionsDefaults = ['group0'=>'', 'group1'=>'', 'group2'=>'', 
                                   'groupDefault'   => '-1', 
-                                  'shuffleAnswers' => 1, 
                                   'mouseClick'     => 1];
     }
 
@@ -70,11 +69,7 @@ var $maxGroups = 3;
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
 
       //--------------------------------------------------------------------           
-      $name = 'shuffleAnswers';  
-      $inputShowCaption = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions ->addElement($inputShowCaption);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC . '<br>'));     
-       
+      
       $name = 'mouseClick';  
       $inputMouseClick = new XoopsFormRadio(_AM_QUIZMAKER_QUIZ_ONCLICK, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputMouseClick->addOption(0, _AM_QUIZMAKER_CLICK_DOUBLE);   
@@ -123,11 +118,6 @@ var $maxGroups = 3;
       $trayOptions->addElement($inputGroupDefault);     
       $trayOptions->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_REPARTITION_DESC));     
            
-//       $name = 'minReponses';  
-//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-//       $inpMinReponses->setMinMax(0, 12);
-//       $trayOptions->addElement($inpMinReponses);     
-      
       return $trayOptions;
     }
 

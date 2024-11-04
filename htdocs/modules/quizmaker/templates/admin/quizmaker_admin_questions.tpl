@@ -42,7 +42,7 @@ function addNewChild(parentId){
         </tr>
       </table>
     </div>
-</div>
+</div><br><br>
 <{* ======================================================== *}> 
 <br>
 <div class="floatright">

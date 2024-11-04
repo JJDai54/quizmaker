@@ -43,14 +43,15 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("alphaSimple", 0, "text");
-        $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
-                                  'imgHeight'      => '80', 
+        $this->optionsDefaults = ['imgHeight'      => '80', 
                                   'directive'      => QUIZMAKER_NEW, 
                                   'propositions'   => '', 
                                   'disposition'    => '',
                                   'ignoreAccents'  => 0];
         $this->hasImageMain = true;
         $this->multiPoints = true;
+        $this->hasShuffleAnswers = true;
+        
     }
 
 	/**
@@ -82,13 +83,6 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
-      $name = 'shuffleAnswers';  
-      $inputShuffleAnswers = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions ->addElement($inputShuffleAnswers);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));      
-      
-      $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
-
       $name = 'ignoreAccents';  
 	  $inpIgnoreAccents = new \XoopsFormRadioYN(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions ->addElement($inpIgnoreAccents);      

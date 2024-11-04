@@ -57,7 +57,10 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style = QUIZMAKER_URL_MODULE . '/assets/css/admin/style.css';
+// $style = QUIZMAKER_URL_MODULE . '/assets/css/admin/style.css';
+// echo "<hr>" . QUIZMAKER_URL_ASSETS . '/css/style.css' . "<hr>";
+// global $xoTheme;
+$xoTheme->addStylesheet(QUIZMAKER_URL_ASSETS . '/css/admin/style.css');
 
 xoops_load('XoopsLists', 'core');
 $utility = new \XoopsModules\Quizmaker\Utility();

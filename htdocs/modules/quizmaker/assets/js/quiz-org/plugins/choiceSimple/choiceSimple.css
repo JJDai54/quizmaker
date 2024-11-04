@@ -24,3 +24,22 @@
     /* padding: 5px 0px 5px 30px; */
     margin: 2px 0px 2px 30px;
 }
+
+.choiceSimple div[nextquestion]{
+    position:absolute;
+    transform:translate(50%,50%);
+    margin:auto;
+    visibility:hidden;
+    padding: 32px;
+    -moz-border-radius:30px;
+    border-radius: 30px;
+
+    border:1px solid gray;
+    background:#FF9900;
+    font-size:1.5em;
+    font-weight:bold;
+    z-index:999;
+    width:40%;
+    box-shadow: 8px 8px 5px #444;
+}
+

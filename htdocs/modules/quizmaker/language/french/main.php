@@ -82,4 +82,14 @@ define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Merci pour votre participation
 define('_MA_QUIZMAKER_TITLE', "Quiz");
 define('_MA_QUIZMAKER_UNAME', "Pseudo");
 define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>Vous n'avez pas encore le droit de voir les solutions pour ce quiz.<br>Vous devez y avoir participé en étant enregisté et être connecté sur le site.</span>");
+
+
+define('_MA_QUIZMAKER_MAX_FLYING_EXCEEDS', "<span style='color:blue;font-weight:bold'>Vous avez déjà joué ou tenté de jouer ce quiz une ou plusieurs fois.<br>Vous avez atteint le maximum d'essais possibles pour ce quiz.<br>il vous faudra attendre <span style='color:red;font-weight:bold'>%1\$s</span> avant de réessayer.</span>");
+
+define('_MA_QUIZMAKER_UNIT_DAYS', "jours");
+define('_MA_QUIZMAKER_UNIT_HOURS', "heures");
+define('_MA_QUIZMAKER_UNIT_MINUTES', "minutes");
+define('_MA_QUIZMAKER_UNIT_SECONDS', "secondes");
+
+
 ?>

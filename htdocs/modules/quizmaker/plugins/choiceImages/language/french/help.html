@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <title>choiceImages : Question à choix unique ou multiple avec images</title>
+
+  
+  
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head><body>
+<h1>choiceImages : Question à choix unique ou multiple avec images<br>
+</h1>
+
+<h3>Description :</h3>
+
+Equivalent au plugin "choiceSimple" à la diffarence que les boutons
+radio et les cases à cocher sont remplacés par des images.<br>
+
+<ul>
+
+  <li>une question dont la réponse peut être unique ou multiple.<br>
+  </li>
+  <li>une liste optionnelle de termes ou d'expressions pour aider au
+choix des réponses</li>
+  <li>une image optionnelle</li>
+  <li>une liste de propositions avec des images<br>
+  </li>
+</ul>
+
+<h3>Objectif : <br>
+</h3>
+
+<p class="MsoNormal"> </p>
+
+<p class="MsoNormal">Cocher une ou plusieurs réponses selon le cas,
+choix unique ou multiple.<br>
+Une liste de termes ou d'expressions peut être définie pour aider
+l'utilisateur (voir "famille de mots").<o:p></o:p></p>
+
+<h3>Options : </h3>
+
+<ul>
+
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">points
+: </span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Si
+(points<b> == 0)</b> alors c'est le nombre de points affectés aux
+bonnes et mauvaises réponses qui seront comptées. Si <b>points &gt; 0</b>,
+c'est cette valeur qui sera utilisée pour le score.<br>
+dans tous les cas il faut affecter un nombre de points aux bonnes
+réponses pour les identifier et calculer le bon score.<o:p></o:p></span></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">images</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
+(optionnelle): vous pouvez associer une image qui sera affichée selon
+le <b>template</b> qui sera sélectionné<o:p></o:p></span></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">hauteur
+de l'image </span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">:
+Défini la taille de l'image par la hauteur, attention aux images trop
+larges.<o:p></o:p></span></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">mélanger
+les propositions</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"> : la
+liste des caractère alphanumériques ou expression sera mélangée à
+chaque lancement du quiz.</span></li>
+  <ul>
+    <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">oui :
+les propositions seront affichées dans un ordre aléatoire à chaque
+exécution du quiz. La numérotation sera donc modifiée.</span></li>
+    <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">non :
+l'ordre des proposition sera toujours le même.<br>
+      </span></li>
+  </ul>
+</ul>
+
+<b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b>
+<ul>
+
+  <br>
+</ul>
+
+<h3>Options spécifiques au plugin:</h3>
+
+<ul>
+
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span style="font-weight: bold;">Type de sélection</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">:&nbsp;</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></li>
+  <ul>
+    <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">choix multiple</span> : plusieurs
+propositions peuvent être sélectionnées à l'instar des cases à cocher.</span></li>
+    <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">choix unique</span> : une seule proposition
+pourra être sélectionnée à l'instar des boutons radio.</span></li>
+    <li><span style="font-weight: bold;">Choix unique et passage au
+slide suivant</span> : <span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
+une seule proposition pourra être sélectionnée et le passage à la
+question suivante sera automatique. Le bouton suivant est désactivé. <br>
+      </span></li>
+  </ul>
+</ul>
+
+<ul>
+
+  <li><span style="font-weight: bold;">Message</span> : utilisé
+uniquement dans le cas ou l'option "choix unique avec passage
+automatique à la question suivante".<br>
+Ce message est affiché avant de passer à la nouvelle question avec un
+petit délai. Cela permet à l'utilisatuer de mieux voir la passage à la
+question suivante</li>
+  <li><span style="font-weight: bold;">Couleur de fond du message</span>
+: voir "Message" juste avant.</li>
+  <li><span style="font-weight: bold;">Hauteur des images des
+propositions</span> : la hauteur défnie en pixels sera la même pour
+toutes les propositions.<br>
+Attention à ne pas mettre une trop grande valeur.</li>
+  <li><span style="font-weight: bold;">Coche</span> : icone affiché en
+bas à droite de chaque image pour indiquer si la proposition est
+selectionnée ou non.</li>
+  <li><span style="font-weight: bold;">Position du libelle en hauteur</span>
+: Position en pourcentage du libellé de la proposition, par rapport à
+l'image.</li>
+  <ul>
+    <li>0% : haut de l'image</li>
+    <li>50% : environ à mi hauteur de l'image.</li>
+    <li>100% : bas de l'image</li>
+  </ul>
+  <li><span style="font-weight: bold;">Taille de la police</span> :
+taille en "em" (relatif à la taille en cours) de la poice du libellé de
+la proposition.<br>
+valeur décimale consilée entre 1.1 et 1.9.</li>
+  <li><span style="font-weight: bold;">Disposition</span> : chaque
+chiffre correspond au nombre de boutons sur chaque ligne, exemple :</li>
+  <ul>
+    <li>123 = 1 bouton sur la première ligne, 2 boutons sur la deuxième
+ligne et 3 boutons sur la troisième ligne.</li>
+    <li>222 = 2 images par lignes sur trois lignes</li>
+    <li>Sil il y a plus de boutons que la somme des chiffres, les
+derniers boutons seront tous sur la dernière ligne.</li>
+  </ul>
+  <li><span style="font-weight: bold;">Disposition</span> : permet de
+préciser la position de l'image principale si il y en a une, et la
+disposition des propositions.<br>
+  </li>
+</ul>
+
+Propositions :
+<p class="MsoNormal">Chaque proposition peut avoir un nombre de points
+inférieur égal ou supérieur à zéro.<br>
+Dans le cas d'un choix unique, plusieurs proposition peuvent avoir un
+nombre de points supérieur à zéro, c'est celle sélectionée qui comptera.</p>
+
+<ul>
+
+  <li><span style="font-weight: bold;">expression</span> : Chaine de
+caractère qui sera affichée&nbsp; <br>
+  </li>
+  <li><span style="font-weight: bold;">image</span> : Deux solution,
+soit une image de la bibliothèque du plugin, soit une image
+téléchargée. C'est la deuxième option qui prime si elle existe.<br>
+  </li>
+  <li><span style="font-weight: bold;">points</span> :</li>
+  <ul>
+    <li>inférieur à zéro : le nombre de points est défalqué du total.</li>
+  </ul>
+  <ul>
+    <li>égal à zéro : le nombre de points total est mis à zéro. Il faut
+donc avoir que de bonnes réponses pour obtenir un score positif.</li>
+    <li>supérieur à zéro : le nombre de points est ajouté au total.</li>
+  </ul>
+</ul>
+
+<ul>
+
+  <li>&nbsp; <span style="font-weight: bold;">poids</span> : permet de
+réordonner la liste sans devoir faire des "couper / coller". <br>
+Si l'option "Mélanger les propositions" a été cochée l'ordre des
+réponses à peu d'importance.</li>
+  <li><span style="font-weight: bold;">Couleur du texte</span> : pour
+certaines images il sera peut-être dificile de distinguer le libellé,
+cette option permet de définir la couleur du libellé de la question
+pour qu'il soit plus visible.<br>
+  </li>
+</ul>
+
+<p class="MsoNormal">dans le cas d'un choix multiple, si le nombre de
+points global (Zones des options) est supérieur à zéro, c'est ce
+dernier qui sera pris en compte sinon ce sera la somme des items
+sélectionnés.<o:p></o:p></p>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+<br>
+
+</body></html>

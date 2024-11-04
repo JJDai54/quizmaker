@@ -88,6 +88,10 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_libBegin',          Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
 		$quizObj->setVar('quiz_libEnd',            Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 
+		$quizObj->setVar('quiz_delai_cookie',      Request::getInt('quiz_delai_cookie', 0));
+		$quizObj->setVar('quiz_max_flying',        Request::getInt('quiz_max_flying', 0));
+        
+//echoGPF();exit;
 		// Insert Data
 		if ($quizHandler->insert($quizObj)) {
     		if ($quizId == 0) {

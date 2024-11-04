@@ -40,9 +40,7 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("matchItems", 0, "other");
-        $this->optionsDefaults = ['shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
-                                  'minReponses'    => 0,
-                                  'disposition'    => 'disposition-01',
+        $this->optionsDefaults = ['disposition'    => 'disposition-01',
                                   'list1_type'    => 0,
                                   'list1_intrus'  => '',
                                   'list2_type'     => '1',
@@ -121,12 +119,6 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
       $trayOptions->addElement($inputConjonction);
       $trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_MATCHITEMS_CONJONCTION_DESC. '<br>'));
         
-      $name = 'shuffleAnswers';  
-      $inputShuffleAnsweres = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $trayOptions ->addElement($inputShuffleAnsweres);     
-      
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC . '<br>'));     
-         
       return $trayOptions;
     }
 

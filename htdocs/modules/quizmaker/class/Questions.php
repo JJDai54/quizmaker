@@ -186,10 +186,9 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         }   
         $form->addElement($inpParent);
 
-
         //----------------------------------------------------------
-        $form->insertBreak("<div style='background:black;color:white;'><center>" . _AM_QUIZMAKER_PARAMETRES . "</center></div>");
-        
+        $form->insertBreak(_AM_QUIZMAKER_PARAMETRES, 'quizmaker_linebreak_' . 'black');
+
 		// Form Text questQuestion
         $inpQuestion = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_QUESTION, 'quest_question', 120, 255, $this->getVar('quest_question') );
 		$inpQuestion->setDescription(_AM_QUIZMAKER_QUESTIONS_QUESTION_DESC);
@@ -285,7 +284,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         // ===================================================================
         if ($quizmakerHelper->getConfig('display_plugin_help')){
           //ajout de l'aide pour ce slide
-          $form->insertBreak("<div style='background:red;color:white;'><center>" . _AM_QUIZMAKER_PLUGIN_CONSIGNE . "</center></div>");
+          $form->insertBreak(_AM_QUIZMAKER_PLUGIN_CONSIGNE, 'quizmaker_linebreak_' . 'red');
           $form->addElement($clTypeQuestion->getSlideHelper());
         }
 
@@ -295,7 +294,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $folderJS = $quiz->getVar('quiz_folderJS');
         //$idQuiz = $this->getVar('quest_quiz_id');
         //echo "<hr>dossier du quiz : {$idQuiz}-{$folderJS}<hr>";        
-        $form->insertBreak("<div style='background:blue;color:white;'><center>" . _AM_QUIZMAKER_PLUGIN_OPTIONS . "</center></div>");
+        //--------------------------------------------------------------  
+        $form->insertBreak(_AM_QUIZMAKER_PLUGIN_OPTIONS, 'quizmaker_linebreak_' . 'blue');
           //--------------------------------------------------------------  
         if($clTypeQuestion->isQuestion()){
             // Form Text quest_points
@@ -312,6 +312,14 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             }
         }else{
             $form->addElement(new \XoopsFormHidden('quest_points', 0));
+        }
+        
+        // Form quest_shuffleAnswers
+        if($clTypeQuestion->hasShuffleAnswers){
+            $name = 'quest_shuffleAnswers';
+            $inpShuffleAnswers = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANSWERS, $name, $this->getVar($name));
+            $inpShuffleAnswers->setDescription(_AM_QUIZMAKER_SHUFFLE_ANSWERS_DESC);
+            $form->addElement($inpShuffleAnswers);
         }
           //--------------------------------------------------------------  
         if ($clTypeQuestion){
@@ -340,7 +348,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 
               }
             
-            //ajout des options propres au type de question
+            // --------- ajout des options propres au plugin -------------------
+            $form->insertBreak(_AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN, 'quizmaker_linebreak_' . 'red');
             $inpOptions = $clTypeQuestion->getFormOptions(_AM_QUIZMAKER_SPECIFIC_OPTIONS, QUIZMAKER_PREFIX_OPTIONS_NAME,  $options, $folderJS);
             if($inpOptions){
                 $form->addElement($inpOptions, false);
@@ -351,12 +360,12 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //================================================
         //ajout des propositions de réponses
         //$titleOptions = new \XoopsFormLabel(null,'Liste des options');
-        $form->insertBreak("<div style='background:green;color:white;'><center>" . _AM_QUIZMAKER_PROPOSITIONS_ANSWERS . "</center></div>");
+        $form->insertBreak(_AM_QUIZMAKER_PROPOSITIONS_ANSWERS, 'quizmaker_linebreak_' . 'green');
         if ($clTypeQuestion)  $form->addElement($clTypeQuestion->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id')));
         
         //================================================
 		// To Save
-        $form->insertBreak("<div style='background:black;color:white;'><center>-----</center></div>");
+        $form->insertBreak('---', 'quizmaker_linebreak_' . 'black');
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
 //		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         

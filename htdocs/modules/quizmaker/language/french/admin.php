@@ -366,8 +366,6 @@ define('_AM_QUIZMAKER_SHOW_CAPTIONS', "Affichage des titres de images");
 define('_AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM', "Au-dessous");
 define('_AM_QUIZMAKER_SHOW_CAPTIONS_NONE', "Aucun");
 define('_AM_QUIZMAKER_SHOW_CAPTIONS_TOP', "Au-dessus");
-define('_AM_QUIZMAKER_SHUFFLE_ANS', "Mélanger les propositions");
-define('_AM_QUIZMAKER_SHUFFLE_ANS_DESC', "Change l'ordre des réponses à chaque fois que le quiz est lancé.<br>Les propositions seront donc numérotées différemment à chaque fois.<br>Attention certains types de questions peuvent ne pas changer l'ordre.");
 define('_AM_QUIZMAKER_SIZE0', "Hauteur des images à regrouper");
 define('_AM_QUIZMAKER_SIZE1', "Hauteur des images dans les groupes");
 define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Options spécifiques");
@@ -426,5 +424,13 @@ define('_AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE', "Installer l&apos;exemple");
 
 define('_AM_QUIZMAKER_ANSWER', "Proposition");
 define('_AM_QUIZMAKER_UNIT_PERCENT', "%");
+define('_AM_QUIZMAKER_DELAI_COOKIE', "Délai du cookie en secondes");
+define('_AM_QUIZMAKER_DELAI_COOKIE_DESC', "L'utiisateur ne pourra pas retenter ce quiz avant la fin du délai du cookie.");
+define('_AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN', "Options spécifiques au plugin");
+
+define('_AM_QUIZMAKER_SHUFFLE_ANSWERS', "Mélanger les propositions");
+define('_AM_QUIZMAKER_SHUFFLE_ANSWERS_DESC', "Les propositions seront mélangées à chaque exécution du quiz.<br><b>Important</b> : La numérotation sera modifiée");
+
+
 
 ?>

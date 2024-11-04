@@ -356,7 +356,6 @@ showBadAnswers()
   var currentQuestion = this.question;   
 
   if(this.question.options.disposition == 'disposition-01'){
-    //var tAns = this.shuffleAnswers();
     var tAns = shuffleArray(this.question.answers);
     var obLists = this.getQuerySelector("select", this.getName(), "");
     for (var k=0; k < tAns.length; k++){

@@ -366,8 +366,6 @@ define('_AM_QUIZMAKER_SHOW_CAPTIONS', "Showing image titles");
 define('_AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM', "Below");
 define('_AM_QUIZMAKER_SHOW_CAPTIONS_NONE', "None");
 define('_AM_QUIZMAKER_SHOW_CAPTIONS_TOP', "Above");
-define('_AM_QUIZMAKER_SHUFFLE_ANS', "Shuffle proposals");
-define('_AM_QUIZMAKER_SHUFFLE_ANS_DESC', "Changes the order of the answers each time the quiz is launched.<br>The propositions will therefore be numbered differently each time.<br>Please note certain types of questions may not change the order.");
 define('_AM_QUIZMAKER_SIZE0', "Height of images to group");
 define('_AM_QUIZMAKER_SIZE1', "Height of images in groups");
 define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Specific options");
@@ -425,4 +423,7 @@ define('_AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE', "Instal example");
 
 define('_AM_QUIZMAKER_ANSWER', "Proposition");
 define('_AM_QUIZMAKER_UNIT_PERCENT', "%");
+define('_AM_QUIZMAKER_SHUFFLE_ANSWERS', "Shuffle proposals");
+define('_AM_QUIZMAKER_SHUFFLE_ANSWERS_DESC', "Changes the order of the answers each time the quiz is launched.<br>The propositions will therefore be numbered differently each time.<br>Please note certain types of questions may not change the order.");
+
 ?>

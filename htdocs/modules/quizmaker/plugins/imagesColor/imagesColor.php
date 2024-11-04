@@ -45,7 +45,6 @@ var $maxGroups = 4;
                                   'showCaptions'=>'B',
                                   'colorSelectMode'=>1,
                                   'nbImagesByRow' => 0,
-                                  'shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
                                   'colorDefault' => '#999999'];
     }
 
@@ -89,15 +88,6 @@ var $maxGroups = 4;
       $inpNbImagesByRow = new \XoopsFormNumber(_LG_PLUGIN_IMAGESCOLOR_NBIMGBYROW,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpNbImagesByRow->setMinMax(0, 8);
       $trayOptions ->addElement($inpNbImagesByRow);  
-
-
-      $name = 'shuffleAnswers';  
-      $inputShuffleAnswers = new \XoopsFormRadioYN(_LG_PLUGIN_IMAGESCOLOR_SHUFFLE_IMG, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions ->addElement($inputShuffleAnswers);     
-      //$trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC));      
-      
-//      $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
-         
 
       $name = 'colorDefault';  
       $inpColorDefault = new XoopsFormColorPicker('', "{$optionName}[{$name}]", $tValues[$name]);

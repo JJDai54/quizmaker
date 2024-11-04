@@ -4,6 +4,7 @@
   * *****************************************************************/
 class choiceSimple extends Plugin_Prototype{
 name = 'choiceSimple';
+delaiNextSlide = 1500;  
   
 /* ***************************************
 *
@@ -19,13 +20,24 @@ build (){
 getInnerHTML(){
     var currentQuestion = this.question;
     var name = this.getName();
+    var msgNextSlide = '';
+    var divNexSlide = '';
     
+    if (currentQuestion.options.msgNextSlide){
+        msgNextSlide = replaceBalisesByValues(currentQuestion.options.msgNextSlide);
+        divNexSlide = `<div id='${this.getId('nextquestion')}' style='background:${currentQuestion.options.msgNextSlideBG}' nextquestion>${msgNextSlide}</div>`;
+    }else{
+        divNexSlide = '';
+    }
+
     var tpl = this.getDisposition(currentQuestion.image, currentQuestion.options.familyWords);
     var html = tpl.replace("{image}", this.getImage())
                   .replace("{familyWords}", this.get_listFamilywords())
-                  .replace("{optionsList}", this.get_optionsList());
+                  .replace("{optionsList}", this.get_optionsList())
+                  .replace('{nextslide}',  divNexSlide);
+
     
-    this.focusId = name + "-" + "0";
+    //this.focusId = name + "-" + "0";
     return html;
 }
 
@@ -49,15 +61,30 @@ get_optionsList(){
 /* ******************************************
 *
 * ******************************************** */
- getHtmlInputKeys(name, typeInp, tItems, numerotation, offset=0, extra="", sep="<br>"){
+ getHtmlInputKeys(name, typeInp2, tItems, numerotation, offset=0, extra="", sep="<br>"){
 var item;
+    var currentQuestion = this.question;
     var keys = Object.keys(tItems);
+    var typeInp = '';
+    var eventOnClick = '';
+    
+    switch(currentQuestion.options.inputType*1){
+        case 0 :
+            typeInp = 'checkbox';
+            break;
+        case 2:
+            eventOnClick = `onclick="choiceSimple_event_gotoNextSlide(event, ${this.delaiNextSlide});"`;
+            // pas de break
+        case 1:
+            typeInp = 'radio';
+        break;
+    }
 
     var tHtml = [];
     for(var j=0; j < keys.length; j++){
         item = tItems[keys[j]];
         tHtml.push(`<label>
-                 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}">
+                 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
                  ${getNumAlpha(j,numerotation,offset)}${item.word}
                  </label>${sep}`);
     
@@ -80,54 +107,23 @@ get_listFamilywords(){
    
     return getHtmlSpan2(name, "familyWords", this.shuffleArray(fw), currentQuestion.numbering, 0, this.data.styleCSSTxt , "<br>");
 }
-/* *************************************
-*
-* ******** */
-getDisposition(bolImage, bolFamilyWords){
-var disposition = ((bolImage) ? "image" : "") 
-                + ((bolImage && bolFamilyWords) ? "-" : "")
-                + ((bolFamilyWords) ? "familyWords" : "");
 
-    switch(disposition){
-    case "image-familyWords":
-            var tpl = 
-`<table>
-<tr>
-    <td colspan='2'>{image}</td>
-    <td familyWords>{familyWords}</td>
-    <td>{optionsList}</td>
-</tr></table>`;
-        break;
+//---------------------------------------------------
+onEnter() {
+    //document.getElementById('quiz_btn_nextSlide').disabled = '';
+    //alert("onEnter");
+}       
+onFinalyse() {
+    var currentQuestion = this.question;
+    if (currentQuestion.options.inputType == 2){
+        //document.getElementById('quiz_btn_nextSlide').setAttribute('disabled','disabled');
+        document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
+        //alert("onEnter");
+    }else{
+        document.getElementById('quiz_btn_nextSlide').disabled = '';
+    }
+}       
 
-    case "image":
-        var tpl = 
-`<table>
-<tr>
-    <td>{image}</td>
-    <td>{optionsList}</td>
-</tr></table>`;
-        break;
-
-    case "familyWords":
-        var tpl = 
-`<table>
-<tr>
-    <td familyWords>{familyWords}</td>
-    <td>{optionsList}</td>
-</tr></table>`;
-        break;
-
-    default:
-            var tpl = 
-`<table>
-<tr>
-    <td>{optionsList}</td>
-</tr>
-</table>`;
-        break;
-    }    
-    return '<center>' + tpl + '</center>';
-}
 /* **********************************************************
 
 ************************************************************* */
@@ -135,32 +131,33 @@ var disposition = ((bolImage) ? "image" : "")
     var currentQuestion = this.question;
 
     var tItems = new Object;
-    
-    for(var k in currentQuestion.answers){
+    var ansArr = this.shuffleAnswers();
         
-        var key = sanityseTextForComparaison(currentQuestion.answers[k].proposition);
+    for(var k in ansArr){
+        var ans = ansArr[k];
+        var key = sanityseTextForComparaison(ans.proposition);
         //alert (key);
         var key = "ans-" + k.padStart(3, '0');
         var tWP = {'key': key,
-                   'word': currentQuestion.answers[k].proposition, 
-                   'points' : currentQuestion.answers[k].points*1};
+                   'word': ans.proposition, 
+                   'points' : ans.points*1};
         tItems[key] = tWP;
 // alert("prepareData : " + tItems[key].word + ' = ' + tItems[key]. points);
 
     }
 
     //pour compatibilité avec checkboxSimple et radioSimple obsolettes
-    if(!currentQuestion.options.multipleChoice){currentQuestion.options.multipleChoice = 0;}
+    if(!currentQuestion.options.inputType){currentQuestion.options.inputType = 0;}
     
     this.data.items = tItems;
-    this.data.inputType = (currentQuestion.options.multipleChoice == 1) ? 'checkbox'  : 'radio';
+    this.data.inputType = (currentQuestion.options.inputType == 0) ? 'checkbox'  : 'radio';
     this.initMinMaxQQ(2);
     
 }
 
 //---------------------------------------------------
 computeScoresMinMaxByProposition(){
-    if(this.question.options.multipleChoice == 1){
+    if(this.question.options.inputType == 0){
         this.computeScoresMinMaxCheckbox();
     }else{
         this.computeScoresMinMaxRadio();
@@ -281,5 +278,106 @@ getAllReponses (flag = 0){
   
   } 
  
+/* *************************************
+*
+* ******** */
+getDisposition(bolImage, bolFamilyWords){
+var disposition = ((bolImage) ? "image" : "") 
+                + ((bolImage && bolFamilyWords) ? "-" : "")
+                + ((bolFamilyWords) ? "familyWords" : "");
+
+    switch(disposition){
+    case "image-familyWords":
+            var tpl = 
+`<table>
+<tr>
+    <td colspan='2'>{image}</td>
+    <td familyWords>{familyWords}</td>
+    <td>{optionsList}</td>
+</tr></table>`;
+        break;
+
+    case "image":
+        var tpl = 
+`<table>
+<tr>
+    <td>{image}</td>
+    <td>{optionsList}</td>
+</tr></table>`;
+        break;
+
+    case "familyWords":
+        var tpl = 
+`<table>
+<tr>
+    <td familyWords>{familyWords}</td>
+    <td>{optionsList}</td>
+</tr></table>`;
+        break;
+
+    default:
+            var tpl = 
+`<table>
+<tr>
+    <td>{optionsList}</td>
+</tr>
+</table>`;
+        break;
+    }    
+
+    return `<div>{nextslide}</div><div id='{contenairId}'><center>${tpl}</center></div><br>`;
+
+}
 
 } // ----- fin de la classe ------
+
+/* *******************************************
+* * Affecte la réponse et passe au slide suivant
+* ********** */
+function choiceSimple_event_gotoNextSlide(ev, delaiNextSlide){
+    console.log("choiceImages_event_gotoNextSlide");
+    
+    
+    //dans tous les cas on reactive le bouton nextSlide
+    idDivNextQuestion = ev.currentTarget.name + '-nextquestion';
+    
+    //document.getElementById(idDivNextQuestion).style.visibility = 'visible';      
+    if(choiceSimple_show_message(idDivNextQuestion)){
+        setTimeout(choiceImages_next_slide, delaiNextSlide, idDivNextQuestion);
+    }else{
+        setTimeout(choiceImages_next_slide, delaiNextSlide/2, idDivNextQuestion);
+    }
+    ev.stopPropagation();
+}
+/* *******************************************
+* * Affecte la réponse et passe au slide suivant
+* ********** */
+function choiceSimple_next_slide(idDivNextQuestion){
+    var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
+        btnNextSlide.disabled = '';   
+        btnNextSlide.click(); 
+    
+   obNextSlide =  document.getElementById(idDivNextQuestion)
+   if(obNextSlide){
+     obNextSlide.style.visibility = 'hidden';
+     obNextSlide.style.opacity = '0';
+     obNextSlide.classList.remove('choiceImages_vignets');        
+   }
+   
+}
+
+/* *******************************************
+* * Affecte la réponse et passe au slide suivant
+* ********** */
+function choiceSimple_show_message(idDivNextQuestion){
+    obNextSlide =  document.getElementById(idDivNextQuestion)
+    if(obNextSlide){
+      obNextSlide.style.visibility = 'visible';        
+      obNextSlide.classList.add('choiceImages_vignets');  
+      return true;      
+    }else{
+        return false;
+    }
+
+}
+

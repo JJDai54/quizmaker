@@ -331,6 +331,9 @@ public function getNewPluginName(&$pluginName){
         case 'listboxSortItems' :
             $pluginName = 'sortItems'; 
             break;
+        case 'radioQuickImg' :
+            $pluginName = 'choiceImages'; 
+            break;
   }
 }
 /* ////////////////////////////////////////////////////////////////////// */

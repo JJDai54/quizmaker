@@ -147,7 +147,7 @@ loadAlllistBox(goodAnswers = false){
         obLists.push(ob);
     }
 
-    var shuffleIndex = shuffleIndexArr(currentQuestion.answers.length, currentQuestion.options.shuffleAnswers);
+    var shuffleIndex = shuffleIndexArr(currentQuestion.answers.length, currentQuestion.shuffleAnswers);
     //--------------------------------------------------------------------
 //alert('parcour des propositions');    
     //for(var k=0; k < currentQuestion.answers.length; k++) {

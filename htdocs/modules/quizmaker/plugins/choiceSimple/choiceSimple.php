@@ -40,12 +40,16 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("choiceSimple", 0, "basic");
-        $this->optionsDefaults = ['multipleChoice' => 0,
-                                  'shuffleAnswers' => QUIZMAKER_SHUFFLE_DEFAULT,
-                                  'imgHeight'      => '80', 
+        
+        $this->optionsDefaults = ['inputType'       => 0, //'multipleChoice' => 0,
+                                  'msgNextSlide'    => _LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1,
+                                  'msgNextSlideBG'  => '#FFCC00',
                                   'familyWords'    => ''];
+
         $this->hasImageMain = true;
         $this->multiPoints = true;
+        $this->hasShuffleAnswers = true;
+
     }
 
 	/**
@@ -69,18 +73,30 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
-//echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
-      $name = 'multipleChoice';  
-      $inputShuffleAnswers = new \XoopsFormRadioYN(_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE, "{$optionName}[{$name}]", $tValues[$name]);
-      $inputShuffleAnswers->setDescription(_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE_DESC);
-      $trayOptions ->addElement($inputShuffleAnswers);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE_DESC . QBR));      
+    
+      $name = 'inputType';  
+      $inpType = new \XoopsFormRadio(_LG_PLUGIN_CHOICESIMPLE_TYPE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpType->addOptionArray([0 => _LG_PLUGIN_CHOICESIMPLE_TYPE_0,
+                                1 => _LG_PLUGIN_CHOICESIMPLE_TYPE_1,
+                                2 => _LG_PLUGIN_CHOICESIMPLE_TYPE_2]);
+      $trayOptions->addElement($inpType);     
+      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_TYPE_DESC . QBR));   
+         
+      $name = 'msgNextSlide';  
+      $inpMsgNextSlide = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE, "{$optionName}[{$name}]",80,80, $tValues[$name]);
+      $inpMsgNextSlide->addBtnClear("X");
+      $inpMsgNextSlide->addList(_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1_OPTIONS);
       
-      $name = 'shuffleAnswers';  
-      $inputShuffleAnswers = new \XoopsFormRadioYN(_AM_QUIZMAKER_SHUFFLE_ANS, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions ->addElement($inputShuffleAnswers);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_SHUFFLE_ANS_DESC . QBR));      
       
+      $trayOptions->addElement($inpMsgNextSlide);     
+      $trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC . QBR));      
+
+      $name = 'msgNextSlideBG';  
+      $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICESIMPLE_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions->addElement($inpMsgBG);     
+
+      $trayOptions->addElement(new \XoopsFormLabel('', ''));      
+    
       $name = 'familyWords';  
       $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
       $trayOptions ->addElement($inputFamilyWords);     

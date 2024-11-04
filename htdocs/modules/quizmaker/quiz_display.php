@@ -47,6 +47,83 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 if (0 == $quizId) {
 	redirect_header('categories.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
 }
+$quizObj = $quizHandler->get($quizId);
+        
+// geestion des cookies pour verifier si k'utilisateur a dé&hà tenter ce quiz sans le valider dans le temps imparti par le cookie
+$maxTentatives = $quizObj->getVar('quiz_max_flying');
+$delai = $quizObj->getVar('quiz_delai_cookie'); //delai du cookie en secondes
+$catId = $quizObj->getVar('quiz_cat_id');
+/*
+*/
+// 
+// if ($maxTentatives > 0){
+//     $coookieName = "quizmaker" . "-" . $quizId;
+//     $tentativesArr =  Request::getInt($coookieName , 1,'COOKIE');
+//     if($tentatives > $maxTentatives) {
+//         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
+//         //setcookie($coookieName, "", time() - 3600);
+//         redirect_header('categories.php?cat_id=' . $catId, 8, _MA_QUIZMAKER_MAX_FLYING_EXCEEDS);
+//         exit;
+//     }
+//     setcookie($coookieName, $tentatives+1, time()+$delai);  /* expire dans 1 heure */
+// }else{
+//     setcookie($coookieName, $tentatives+1, time() - 3600);  /* Suppression Du Cookie */
+// }
+//********************************************************************/
+if ($maxTentatives > 0){
+    $coookieName = "quizmaker" . "-" . $quizId;
+    $cookieArr =  explode('|', Request::getString($coookieName , '','COOKIE'));
+    $tentatives =  intVal($cookieArr[0]) ;
+echoRequest('C',"max = {$maxTentatives} - tentatives = {$cookieArr[0]}");
+    if($cookieArr[0] > $maxTentatives) {
+        //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
+        //setcookie($coookieName, "", time() - 3600);
+        $strDelai = formatDelai($cookieArr[1]);
+        $msg = sprintf(_MA_QUIZMAKER_MAX_FLYING_EXCEEDS, $strDelai);
+        redirect_header('categories.php?cat_id=' . $catId, 8, $msg);
+        exit;
+    }
+    $deadLine = time() + $delai;
+    setcookie($coookieName, ($tentatives+1) . '|' . $deadLine, $deadLine);   
+}else{
+    setcookie($coookieName, 0, time() - 3600);  /* Suppression Du Cookie */
+}
+
+
+
+/**********************************************************************
+*
+* **********************************************************************/
+function formatDelai ($timestamp1, $timestamp2 = null){
+    if($timestamp2){
+        $seconds = $timestamp1 - $timestamp2;
+    }else{
+        $seconds = $timestamp1 - time();
+    }
+    
+    
+    $arr = ['d' => floor($seconds / (3600*24)),
+            'h' => floor(($seconds / 3600) % 24),
+            'm' => floor(($seconds / 60) % 60),
+            's' => $seconds % 60];
+            
+    $expArr = [];
+    if($arr['d'] > 0) $expArr[] = $arr['d'] . " " . _MA_QUIZMAKER_UNIT_DAYS;
+    if($arr['h'] > 0) $expArr[] = $arr['h'] . " " . _MA_QUIZMAKER_UNIT_HOURS;
+    if($arr['m'] > 0) $expArr[] = $arr['m'] . " " . _MA_QUIZMAKER_UNIT_MINUTES;
+    if($arr['s'] > 0) $expArr[] = $arr['s'] . " " . _MA_QUIZMAKER_UNIT_SECONDS;
+
+    $exp =implode(' ', $expArr);    
+    //$exp = ": {$arr['d']} jours {$arr['h']} heures {$arr['m']} minutes {$arr['s']} secondes";        
+// echo "<hr>formatDelai : {$exp}<hr>"; exit;           
+    return $exp;
+}
+
+
+//$diffInSeconds = $date2->getTimestamp() - $date->getTimestamp();
+
+//echoArray($_COOKIE, "===> _COOKIE : {$coookie}");exit;
+
 ///////////////////////////////////////////////////
 //     $rootApp = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js";
 //     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";

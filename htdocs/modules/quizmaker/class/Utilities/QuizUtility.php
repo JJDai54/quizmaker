@@ -337,7 +337,7 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
 
 
     //correction de la valeur des champs `quiz_optionsIhm` et `quiz_optionsDev`
-    //xoops considere que ce sot des chaines alors que ce sont des valeurs binaires
+    //xoops considere que ce sont des chaines alors que ce sont des valeurs binaires
     //du coup par exemple la valeur binaire 95 devient 14645, pas bon du tout
     $quiz = $quizHandler->get($newQuizId);
     $quiz->setVar('quiz_optionsIhm', $row['quiz_optionsIhm']);

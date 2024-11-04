@@ -64,6 +64,8 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_optionsIhm', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_optionsDev', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_actif', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_delai_cookie', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_max_flying', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_showConsigne', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_showTimer', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_dateBeginOk', XOBJ_DTYPE_INT);
@@ -164,6 +166,28 @@ class Quiz extends \XoopsObject
 		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
 		$form->addElement($inpActif);
         
+        //-------------------------------------------------------
+        define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
+        define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
+        define('_AM_QUIZMAKER_MAX_FLYING', "Maximum de tentives");
+        define('_AM_QUIZMAKER_MAX_FLYING_DESC', "0 : pas de limite de tatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
+        
+        // quiz_delai_cookie
+        $name = 'quiz_delai_cookie';
+		$inpDuration = new \XoopsFormDuration( _AM_QUIZMAKER_COOKIE_DURATION, $name, $this->getVar($name));
+        $inpDuration->setDescription(_AM_QUIZMAKER_COOKIE_DURATION_DESC);
+        $inpDuration->setCompteurs("dhms");
+		$form->addElement($inpDuration);
+        
+
+        // quiz_max_flying
+        //Taille des images à regrouper
+        $name = 'quiz_max_flying';
+        $inpMaxFlying = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_FLYING,  $name, 3, 1, $this->getVar($name));
+        $inpMaxFlying->setMinMax(0, 10);
+        $inpMaxFlying->setDescription(_AM_QUIZMAKER_MAX_FLYING_DESC);
+        $form->addElement($inpMaxFlying);     
+        //-------------------------------------------------------
 
 		// Form Check Box quizDateBegin
         $quizDateBegin = \JANUS\xoopsformDateOkTray(_AM_QUIZMAKER_DATEBEGIN, 'quiz_dateBeginOk', $this->getVar('quiz_dateBeginOk'), 'quiz_dateBegin', $this->getVar('quiz_dateBegin'));
@@ -199,7 +223,7 @@ class Quiz extends \XoopsObject
         */
         
         //========================================================
-        $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_QUIZ . '</div></center>');
+        $form->insertBreak(_AM_QUIZMAKER_OPTIONS_FOR_QUIZ, 'quizmaker_linebreak_' . 'black');
         //========================================================
      
         // Form Text quiz_theme
@@ -261,7 +285,7 @@ class Quiz extends \XoopsObject
 		$form->addElement($inpOptionsIhm);
         
         //========================================================
-        $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_OPTIONS_FOR_DEV . '</div></center>');
+        $form->insertBreak(_AM_QUIZMAKER_OPTIONS_FOR_DEV, 'quizmaker_linebreak_' . 'black');
         //========================================================
 		// Form CheckBoxBin quiz_optionsDev
         $inpOptionsDev = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV . "[{$this->getVar('quiz_optionsDev')}]", 'quiz_optionsDev', $this->getVar('quiz_optionsDev'),1,true);
@@ -271,7 +295,7 @@ class Quiz extends \XoopsObject
 
 
         //========================================================
-        $form->insertBreak('<center><div style="background:black;color:white;">' . _AM_QUIZMAKER_PERMISSIONS . '</div></center>');
+        $form->insertBreak(_AM_QUIZMAKER_PERMISSIONS, 'quizmaker_linebreak_' . 'black');
         //========================================================
         
 		// To Save
@@ -336,6 +360,8 @@ class Quiz extends \XoopsObject
 		$ret['optionsIhm']        = $this->getVar('quiz_optionsIhm');
 		$ret['optionsDev']        = $this->getVar('quiz_optionsDev');
 		$ret['actif']             = $this->getVar('quiz_actif');
+		$ret['delai_cookie']      = $this->getVar('quiz_delai_cookie');
+		$ret['max_flying']        = $this->getVar('quiz_max_flying');
 		$ret['showConsigne']      = $this->getVar('quiz_showConsigne');
 		$ret['showTimer']         = $this->getVar('quiz_showTimer');
 

@@ -22,3 +22,26 @@
 img {
 	max-width: 200px;
 }
+.quizmaker_linebreak_black{
+    background:black;
+    color:white;
+    text-align:center;
+}
+.quizmaker_linebreak_blue{
+    background:blue;
+    color:white;
+    text-align:center;
+}.quizmaker_linebreak_green{
+    background:green;
+    color:white;
+    text-align:center;
+}.quizmaker_linebreak_cyan{
+    background:cyan;
+    color:white;
+    text-align:center;
+}
+.quizmaker_linebreak_red{
+    background:red;
+    color:white;
+    text-align:center;
+}

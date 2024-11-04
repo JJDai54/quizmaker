@@ -1,13 +1,32 @@
 ---------------------------------------------------
+2024-10-28a v 6.02 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+plugin choiceSimple
+    - ajout des options : choix multiple, choix unique, choix unique et passage eu slide suivant
+    - ajout d'un timer avec message "question suivante" dans le 3eme cas, choix unique et passage à la question suivante
+    - mise à jour de l'aide du plugin.
+
+plugin choiceImages
+    - ajout des options : choix multiple, choix unique, choix unique et passage eu slide suivant
+    - Ajout des images pour cochers dans le cas de choix multiple ou choix unique
+    - ajout du reglage de la hauteur de la coche
+    - ajout d'un timer avec message "question suivante" dans le 3eme cas, choix unique et passage à la question suivante
+    - mise à jour de l'aide du plugin.
+
+quiz :
+    - Ajout des champ quiz_delai_cookie et quiz_max_flying
+    - gestion des cookies dans display_quiz.php pour empecher les joueur de ne pas valiser et recommencer à l'infini
+    
+---------------------------------------------------
 2024-10-28a v 6.02 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-Ajout du plugin radioQuickImg
+Ajout du plugin choiceImages
 Divers corrections de xoopsFormIconSelect dans le framework Janus
 Correction de la fonction purgerImages
 
 Javascript :
     - ajout de l'evenement event_finalize appeler à la fin de l'affichage d'un slide
-      permet notamment de désactiver le bouton "nextSlide" dans le plugin "radioQuickImg"
+      permet notamment de désactiver le bouton "nextSlide" dans le plugin "choiceImages"
       
 ---------------------------------------------------
 2024-08-01a v 6.00 beta 1 - JJDai - jjdelalandre@orange.fr

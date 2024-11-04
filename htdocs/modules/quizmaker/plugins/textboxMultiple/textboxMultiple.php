@@ -67,11 +67,6 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
 
-//       $name = 'minReponses';  
-//       $inpMinReponses = new XoopsFormNumber(_AM_QUIZMAKER_QUESTIONS_MINREPONSE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-//       $inpMinReponses->setMinMax(0, 12);
-//       $trayOptions->addElement($inpMinReponses);     
-
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PATH_PLUGINS_PHP);

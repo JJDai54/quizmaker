@@ -18,7 +18,7 @@ Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
-		+css
+		-css
 			-infobulle
 				-images
 					css\infobulle\images\Award.png
@@ -91,7 +91,7 @@ _quiz-org
 			images\Help.png
 			images\Hint.png
 			images\index.html
-		+js
+		-js
 			js\index.html
 			js\plugin_prototype.js
 			js\quiz-events.js
@@ -107,6 +107,44 @@ _quiz-org
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
+			+choiceImages
+				-img
+					-buttons
+						plugins\choiceImages\img\buttons\btn_green.png
+						plugins\choiceImages\img\buttons\btn_red.png
+						plugins\choiceImages\img\buttons\Button_Icon_Black.png
+						plugins\choiceImages\img\buttons\Button_Icon_Blue.png
+						plugins\choiceImages\img\buttons\Button_Icon_BlueSky.png
+						plugins\choiceImages\img\buttons\Button_Icon_Brown.png
+						plugins\choiceImages\img\buttons\Button_Icon_Cyan.png
+						plugins\choiceImages\img\buttons\Button_Icon_Fuchsia.png
+						plugins\choiceImages\img\buttons\Button_Icon_Green.png
+						plugins\choiceImages\img\buttons\Button_Icon_GreenBlue.png
+						plugins\choiceImages\img\buttons\Button_Icon_GreenForest.png
+						plugins\choiceImages\img\buttons\Button_Icon_Lime.png
+						plugins\choiceImages\img\buttons\Button_Icon_Orange.png
+						plugins\choiceImages\img\buttons\Button_Icon_Pink.png
+						plugins\choiceImages\img\buttons\Button_Icon_Red.png
+						plugins\choiceImages\img\buttons\Button_Icon_Turquoise.png
+						plugins\choiceImages\img\buttons\Button_Icon_Violet.png
+						plugins\choiceImages\img\buttons\Button_Icon_Yellow.png
+						plugins\choiceImages\img\buttons\index.html
+						plugins\choiceImages\img\buttons\pingouin-bleu.png
+						plugins\choiceImages\img\buttons\pingouin-gris.png
+						plugins\choiceImages\img\buttons\pingouin-marron.png
+						plugins\choiceImages\img\buttons\pingouin-or.png
+						plugins\choiceImages\img\buttons\pingouin-rose.png
+						plugins\choiceImages\img\buttons\pingouin-rouge.png
+						plugins\choiceImages\img\buttons\pingouin-vert.png
+						plugins\choiceImages\img\buttons\pingouin-vertdegris.png
+						plugins\choiceImages\img\buttons\pingouin-violet.png
+					-coches
+						plugins\choiceImages\img\coches\coche_01_no.png
+						plugins\choiceImages\img\coches\coche_01_yes.png
+					plugins\choiceImages\img\index.html
+				plugins\choiceImages\choiceImages.css
+				plugins\choiceImages\choiceImages.js
+				plugins\choiceImages\index.html
 			+choiceSimple
 				plugins\choiceSimple\choiceSimple.css
 				plugins\choiceSimple\choiceSimple.js
@@ -119,11 +157,11 @@ _quiz-org
 				plugins\imagesDaDGroups\imagesDaDGroups.css
 				plugins\imagesDaDGroups\imagesDaDGroups.js
 				plugins\imagesDaDGroups\index.html
-			+imagesDaDMatchItems
+			-imagesDaDMatchItems
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.css
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.js
 				plugins\imagesDaDMatchItems\index.html
-			+imagesDaDSortItems
+			-imagesDaDSortItems
 				plugins\imagesDaDSortItems\imagesDaDSortItems.css
 				plugins\imagesDaDSortItems\imagesDaDSortItems.js
 				plugins\imagesDaDSortItems\index.html
@@ -140,7 +178,7 @@ _quiz-org
 				plugins\imagesSimple\imagesSimple.css
 				plugins\imagesSimple\imagesSimple.js
 				plugins\imagesSimple\index.html
-			+listboxClassItems
+			-listboxClassItems
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.css
 				plugins\listboxClassItems\listboxClassItems.js
@@ -148,7 +186,7 @@ _quiz-org
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
-			+pageBegin
+			-pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
@@ -164,16 +202,10 @@ _quiz-org
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
-			+radioMultiple
+			-radioMultiple
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\radioMultiple.css
 				plugins\radioMultiple\radioMultiple.js
-			+radioQuickImg
-				-img
-					plugins\radioQuickImg\img\index.html
-				plugins\radioQuickImg\index.html
-				plugins\radioQuickImg\radioQuickImg.css
-				plugins\radioQuickImg\radioQuickImg.js
 			-sortItems
 				-img
 					-buttons
@@ -265,7 +297,7 @@ _quiz-org
 				plugins\textboxMultiple\index.html
 				plugins\textboxMultiple\textboxMultiple.css
 				plugins\textboxMultiple\textboxMultiple.js
-			+ulDaDGroups
+			-ulDaDGroups
 				plugins\ulDaDGroups\index.html
 				plugins\ulDaDGroups\ulDaDGroups.css
 				plugins\ulDaDGroups\ulDaDGroups.js
@@ -277,46 +309,26 @@ _quiz-org
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=plugins\radioQuickImg\radioQuickImg.css
-1=plugins\radioQuickImg\radioQuickImg.js
-2=plugins\ulDaDGroups\ulDaDGroups.js
+0=js\plugin_prototype.js
+1=plugins\choiceImages\choiceImages.css
+2=plugins\choiceImages\choiceImages.js
 3=plugins\choiceSimple\choiceSimple.js
-4=..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre.html
-5=..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre-02.html
-6=plugins\listboxClassItems\listboxClassItems.js
-7=plugins\listboxClassItems\listboxClassItems.css
-8=js\quiz-main.js
-9=js\quiz-functions.js
+4=plugins\choiceSimple\choiceSimple.css
 [Selected Project Files]
 Main=
-Selected=js\quiz-main.js
-[plugins\radioQuickImg\radioQuickImg.css]
-TopLine=1
-Caret=25,26
-[plugins\radioQuickImg\radioQuickImg.js]
-TopLine=82
-Caret=1,101
-[plugins\ulDaDGroups\ulDaDGroups.js]
-TopLine=341
-Caret=1,376
+Selected=plugins\choiceImages\choiceImages.js
+[js\plugin_prototype.js]
+TopLine=338
+Caret=31,348
+[plugins\choiceImages\choiceImages.css]
+TopLine=48
+Caret=1,71
+[plugins\choiceImages\choiceImages.js]
+TopLine=296
+Caret=1,313
 [plugins\choiceSimple\choiceSimple.js]
-TopLine=208
-Caret=1,243
-[..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre.html]
-TopLine=11
-Caret=1,38
-[..\..\..\..\..\..\..\..\Ressources\Centrer un image et son ttre\Centrer_img_titre-02.html]
-TopLine=15
-Caret=1,37
-[plugins\listboxClassItems\listboxClassItems.js]
+TopLine=336
+Caret=1,366
+[plugins\choiceSimple\choiceSimple.css]
 TopLine=1
-Caret=1,1
-[plugins\listboxClassItems\listboxClassItems.css]
-TopLine=1
-Caret=1,1
-[js\quiz-main.js]
-TopLine=11
-Caret=33,14
-[js\quiz-functions.js]
-TopLine=1
-Caret=7,9
+Caret=1,28

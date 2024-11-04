@@ -1,3 +1,25 @@
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_default_options_quest` VARCHAR(2048) NOT NULL AFTER `quiz_optionsDev`; 
+
+
+#
+# Structure table for `quizmaker_defaultPluginOptions` 4
+#
+
+CREATE TABLE `quizmaker_defaultPluginOptions` (
+  `dpo_id` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `dpo_quiz_id` int(11) NOT NULL DEFAULT '0',
+  `dpo_plugin` varchar(50) NOT NULL DEFAULT '',
+  `dpo_options varchar(2048) NOT NULL DEFAULT '',
+  PRIMARY KEY (`dpo_id`)
+) ENGINE=InnoDB;
+
+
+time()+60*60*24*30
+
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_delai_cookie` INT NOT NULL DEFAULT '3600' AFTER `quiz_actif`; 
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_max_flying` INT NOT NULL DEFAULT '1' AFTER `quiz_delai_cookie`; 
+
+
 DELETE FROM `x252_quizmaker_answers` WHERE 1;
 DELETE FROM `x252_quizmaker_questions` WHERE 1;
 DELETE FROM `x252_quizmaker_quiz` WHERE 1;

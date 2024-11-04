@@ -44,10 +44,6 @@ stats = {
     this.prepareData();
 //    this.computeScoresMinMax();
     
-    //uniquement pour palier un changement d'orientation quand a la gestion de ce parametre
-    // a virer quand les quiz existants auront  ete mis a jour
-    //if (!this.question.options) this.question.options = [];
-    //if (!this.question.options.minReponses) this.question.options.minReponses = 0;
     }
 
   
@@ -138,7 +134,7 @@ getObDivMain (){
 }
 
 /* *******************************************
-* getName : renvoi le nom utiliser pour l'attribut name des objets du dom
+* getName : renvoi le nom utilisé pour l'attribut name des objets du dom
 * @ return: nom pour l'attribut "name"
 * ********** */
 getName (suffix1 = null, suffix2 = null){
@@ -345,23 +341,38 @@ setFocus(){
 * ********** */
  shuffleAnswers(){
     //this.blob (this.name + ' ===> shuffleArrayKeys = ' + this.question.options.shuffleAnswers)
-    
-    var arr = this.question.answers;
-    
+    var arr = null;    
+//var ok =false;
     try{
-      if(this.question.options.shuffleAnswers == 1){
-         arr = shuffleArray(this.question.answers);
-      }else{
-          arr = this.question.answers;
-      }
+        if(this.question.shuffleAnswers == 1){
+            arr = shuffleArray(this.question.answers);
+//            ok = true;
+        }else{
+            arr = this.question.answers;
+        }
     }catch{
-      if(this.question.shuffleAnswers == 1){
-          //arr = shuffleArrayKeys(this.question.answers);
-          arr = this.question.answers;
-      }
+            arr = this.question.answers;
     }
-    
+//if (ok) alert("melange ok");
     return arr;
+
+
+    
+//     try{
+//         //option remonter au niveau de la question, a supprimer des que possible
+//       if(this.question.options.shuffleAnswers == 1){
+//          arr = shuffleArray(this.question.answers);
+//       }else{
+//           arr = this.question.answers;
+//       }
+//     }catch{
+//       if(this.question.shuffleAnswers == 1){
+//           //arr = shuffleArrayKeys(this.question.answers);
+//           arr = this.question.answers;
+//       }
+//     }
+//     
+//     return arr;
  }
 
 

@@ -138,6 +138,8 @@ switch($op) {
 		$quizObj->setVar('quiz_optionsIhm', Request::getInt('quiz_optionsIhm', 0));
 		$quizObj->setVar('quiz_optionsDev', Request::getInt('quiz_optionsDev', 0));
 		$quizObj->setVar('quiz_actif', Request::getInt('quiz_actif', 1));
+		$quizObj->setVar('quiz_delai_cookie', Request::getInt('quiz_actif', 3600));
+		$quizObj->setVar('quiz_max_flying', Request::getInt('quiz_actif', 1));
 		$quizObj->setVar('quiz_showConsigne', Request::getInt('quiz_showConsigne', 0));
 		$quizObj->setVar('quiz_showTimer', Request::getInt('quiz_showTimer', 0));
         

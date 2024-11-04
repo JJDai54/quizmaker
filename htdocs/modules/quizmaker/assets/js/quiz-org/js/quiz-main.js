@@ -32,6 +32,7 @@ const quiz_config = {
     dad_shift_img :  1, // decalage d'image par remplacement successif
     dad_move_img  :  2, // deplace l'image et changement de div contenair
     dad_flip_div  :  3, //echange des deux div
+    suffixCoche : '-coche',
 };
 
 //alert (`quiz_execution = ${quiz_execution} - urlQuizImg = ${quiz_config.urlQuizImg} - folderJS = ${quiz.folderJS}`);
