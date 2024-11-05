@@ -430,6 +430,11 @@ define('_AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN', "Options spécifiques au plugin");
 
 define('_AM_QUIZMAKER_SHUFFLE_ANSWERS', "Mélanger les propositions");
 define('_AM_QUIZMAKER_SHUFFLE_ANSWERS_DESC', "Les propositions seront mélangées à chaque exécution du quiz.<br><b>Important</b> : La numérotation sera modifiée");
+define('_AM_QUIZMAKER_PLUGIN_HELP', "Aide du plugin");
+define('_AM_QUIZMAKER_PLUGIN_HELP_LIBELLE', "Aide complète du plugin");
+define('_AM_QUIZMAKER_PLUGIN_HELP_CLOSE', "Fermer l'aide du plugin");
+define('_AM_QUIZMAKER_PLUGIN_HELP_HIDE', "Fermer");
+define('_AM_QUIZMAKER_PLUGIN_HELP_SHOW', "Afficher");
 
 
 

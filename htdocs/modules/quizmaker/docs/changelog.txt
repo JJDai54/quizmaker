@@ -1,4 +1,9 @@
 ---------------------------------------------------
+2024-10-28a v 6.02 beta 3 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+utilisation du xoopsFomrShowHide de Janus pour masquer ou afficher l'aide en ligne dans le formulaire des questions.
+
+---------------------------------------------------
 2024-10-28a v 6.02 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 plugin choiceSimple

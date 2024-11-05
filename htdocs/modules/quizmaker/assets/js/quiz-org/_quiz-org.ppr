@@ -316,7 +316,7 @@ _quiz-org
 4=plugins\choiceSimple\choiceSimple.css
 [Selected Project Files]
 Main=
-Selected=plugins\choiceImages\choiceImages.js
+Selected=plugins\choiceSimple\choiceSimple.js
 [js\plugin_prototype.js]
 TopLine=338
 Caret=31,348
@@ -327,8 +327,8 @@ Caret=1,71
 TopLine=296
 Caret=1,313
 [plugins\choiceSimple\choiceSimple.js]
-TopLine=336
-Caret=1,366
+TopLine=112
+Caret=53,137
 [plugins\choiceSimple\choiceSimple.css]
 TopLine=1
 Caret=1,28

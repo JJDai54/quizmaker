@@ -129,10 +129,14 @@ onFinalyse() {
 ************************************************************* */
  prepareData(){
     var currentQuestion = this.question;
-
     var tItems = new Object;
     var ansArr = this.shuffleAnswers();
         
+    // petite verrue pour corriger le changement de comportement de inputType,
+    // il faut forcer "radio" si il y a qu'une seule réponse
+    //ça ne règle pas tous les cas mais la plus part
+    this.countAnsNotNull = 0; 
+    
     for(var k in ansArr){
         var ans = ansArr[k];
         var key = sanityseTextForComparaison(ans.proposition);
@@ -143,15 +147,18 @@ onFinalyse() {
                    'points' : ans.points*1};
         tItems[key] = tWP;
 // alert("prepareData : " + tItems[key].word + ' = ' + tItems[key]. points);
-
+        if((ans.points*1)!=0) this.countAnsNotNull++;
     }
 
     //pour compatibilité avec checkboxSimple et radioSimple obsolettes
     if(!currentQuestion.options.inputType){currentQuestion.options.inputType = 0;}
     
+    if(this.countAnsNotNull == 1) currentQuestion.options.inputType = 1;
+    
     this.data.items = tItems;
     this.data.inputType = (currentQuestion.options.inputType == 0) ? 'checkbox'  : 'radio';
     this.initMinMaxQQ(2);
+    
     
 }
 

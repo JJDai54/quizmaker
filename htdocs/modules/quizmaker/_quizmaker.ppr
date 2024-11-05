@@ -205,8 +205,8 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
-				+quiz-org
+			+js
+				-quiz-org
 					-css
 						-infobulle
 							-images
@@ -619,7 +619,7 @@ _quizmaker
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
+		+language
 			-english
 				-help
 					-img
@@ -1334,24 +1334,30 @@ _quizmaker
 6=docs\todo.txt
 7=class\Plugins.php
 8=sql\mysql.sql
+9=assets\js\quizmaker.js
+10=admin\header.php
+11=class\Questions.php
+12=assets\js\admin.js
+13=language\french\admin.php
+14=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=plugins\choiceSimple\choiceSimple.php
+Selected=docs\changelog.txt
 [plugins\choiceImages\language\french\constants.php]
-TopLine=18
+TopLine=1
 Caret=1,49
 [plugins\choiceSimple\language\french\constants.php]
-TopLine=6
+TopLine=1
 Caret=47,37
 [plugins\choiceImages\choiceImages.php]
 TopLine=69
 Caret=87,91
 [plugins\choiceSimple\choiceSimple.php]
-TopLine=62
+TopLine=32
 Caret=87,86
 [docs\changelog.txt]
 TopLine=1
-Caret=1,15
+Caret=1,5
 [plugins\alphaSimple\alphaSimple.php]
 TopLine=90
 Caret=1,125
@@ -1359,8 +1365,26 @@ Caret=1,125
 TopLine=1
 Caret=1,1
 [class\Plugins.php]
-TopLine=296
-Caret=57,311
+TopLine=122
+Caret=39,150
 [sql\mysql.sql]
 TopLine=87
 Caret=1,102
+[assets\js\quizmaker.js]
+TopLine=1
+Caret=1,3
+[admin\header.php]
+TopLine=49
+Caret=40,94
+[class\Questions.php]
+TopLine=266
+Caret=63,285
+[assets\js\admin.js]
+TopLine=7
+Caret=20,26
+[language\french\admin.php]
+TopLine=402
+Caret=40,435
+[xoops_version.php]
+TopLine=611
+Caret=39,631

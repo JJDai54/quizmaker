@@ -30,7 +30,6 @@ $sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 $modPathIcon16   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
 $modPathIcon32   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
-
 // 
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
 	include_once XOOPS_ROOT_PATH . '/class/template.php';
@@ -69,6 +68,7 @@ $quizUtility = new \XoopsModules\Quizmaker\Utility();
 include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
 \JANUS\loadAllXForms();   
 \JANUS\load_trierTableauHTML();
+$janusPathIco32 = JANUS_ICO32;
 $clPerms = new \JanusPermissions();
 //include_once(JANUS_PATH_XFORMS . '/formtabletray.php');        
 // include_once dirname(__DIR__) . '/class/xoopsform/formnumber.php';
@@ -90,7 +90,6 @@ $messagesHandler = $quizmakerHelper->getHandler('Messages');
 $optionsHandler = $quizmakerHelper->getHandler('Options');
 
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
-
 
 $myts = MyTextSanitizer::getInstance();
 //echoArray($quizmakerHelper);
