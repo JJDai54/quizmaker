@@ -50,6 +50,5 @@ define('_LG_PLUGIN_CHOICEIMAGES_MSG_NEXT_SLIDE_DESC', "Message affiché si c'est
 define('_LG_PLUGIN_CHOICEIMAGES_MSGBG', "Couleur de fond du message.");
 
 define('_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1', "Question suivante");
-define('_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1_OPTIONS', _LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1 . ",Question suivante,On passe à la suite,Persévérez");
-
+define('_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1_OPTIONS', _LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1 . ",On passe à la suite,Persévérez,Score cumulé : {score} / {scoreMaxi}");
 ?>

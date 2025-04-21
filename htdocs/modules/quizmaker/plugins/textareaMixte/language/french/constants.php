@@ -38,5 +38,12 @@ define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_0', "Comparaison strict (Mot exact 
 define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_1', "Comparaison avec Accents optionnels (ex: \"sérénade\" équivalent à \"serênade\" équivalent à \"serenade\")");
 define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_2', "Comparaison souple (Mot contenu avec ou sans accents (ex: \"sérénade\", \"serênade\" sont équivalents à \"serenade\")");
 define('_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD', "Nombre de points par mot trouvé");
+define('_LG_PLUGIN_TEXTAREAMIXTE_ACCOLADES_ERR', "Le nombre des accollades ouvrantes et fermantes est différent.");
+define('_LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ALERT', "Confirmez la suppression de toutes les accolades !");
+define('_LG_PLUGIN_TEXTAREAMIXTE_ADD_ACCOLADES', "Ajouter des acolades autour de la sélection.");
+define('_LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ACCOLADES', "Retirer les accolades autour de la sélection");
+define('_LG_PLUGIN_TEXTAREAMIXTE_CLEAR_ALL_ACCOLADES', "Supprimer toutes les accolades.");
+
+
 
 ?>

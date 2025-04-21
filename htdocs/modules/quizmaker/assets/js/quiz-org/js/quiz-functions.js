@@ -269,16 +269,24 @@ function shuffleNewArray (arraySource) {
 }
 
 
-  function formatChrono (chrono, tplFormatChrono = "{minutes}:{secondes}"){
+/* *******************************
+*
+* *** */
+  function formatChrono (chrono){
         var minutes = Math.floor(chrono/60);
-
         var expMinutes = minutes.toString().padStart(2, '0');
+
         var secondes = chrono - (minutes*60);
         var expSecondes = secondes.toString().padStart(2, '0');
+    
+        if(minutes == 0){
+            var tplFormatChrono = quiz_messages.formarDureeS;
+        }else{
+            var tplFormatChrono = quiz_messages.formarDureeMS;
+        }
 
-        var tplFormatChrono = tplFormatChrono.replace("{minutes}", expMinutes);
-        var tplFormatChrono = tplFormatChrono.replace("{secondes}", expSecondes);
-        return tplFormatChrono;
+        return tplFormatChrono.replace("{minutes}", expMinutes)
+                              .replace("{secondes}", expSecondes);
   }
 
 
@@ -1008,7 +1016,7 @@ function replaceBalisesByValues(exp, questId = 0)
                     .replaceAll("{scoreMiniQQ}", statsTotal.quiz_score_mini)
                     .replaceAll("{scoreMaxi}", statsTotal.quiz_score_maxi)
                     .replaceAll("{scoreMini}", statsTotal.quiz_score_mini)
-                    .replaceAll("{duree}",  formatChrono(statsTotal.cumul_timer, "{minutes} minutes et {secondes} secondes"));
+                    .replaceAll("{duree}",  formatChrono(statsTotal.cumul_timer));
     
     quiz_request_keys.forEach((key) => {
         //alert(key + " = " + quiz_rgp[key]);
@@ -1020,6 +1028,7 @@ function replaceBalisesByValues(exp, questId = 0)
     if (newExp.search('{allquestions}') >= 0) {newExp = newExp.replaceAll("{allquestions}", get_sommaire(2,0));}
     if (newExp.search('{questions}') >= 0)    {newExp = newExp.replaceAll("{questions}", get_sommaire(2, questId));}
    
+    var newExp = newExp.replaceAll('//',  '<br>');
     return newExp;
     
   } 

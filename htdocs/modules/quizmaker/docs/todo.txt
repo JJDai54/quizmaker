@@ -1,3 +1,23 @@
+SELECT * FROM `x2511_quizmaker_answers` as ta, x2511_quizmaker_questions as tq
+WHERE tq.quest_id = ta.answer_quest_id
+AND tq.quest_plugin = 'imagesDaDSortItems'
+
+UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
+SET ta.answer_image1 =  ta.answer_proposition
+WHERE tq.quest_id = ta.answer_quest_id
+AND tq.quest_plugin = 'imagesDaDSortItems'
+
+UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
+SET ta.answer_proposition = ta.answer_caption
+WHERE tq.quest_id = ta.answer_quest_id
+AND tq.quest_plugin = 'imagesDaDSortItems'
+
+UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
+SET ta.answer_caption = ""
+WHERE tq.quest_id = ta.answer_quest_id
+AND tq.quest_plugin = 'imagesDaDSortItems'
+-----------------------------------------
+
 ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_default_options_quest` VARCHAR(2048) NOT NULL AFTER `quiz_optionsDev`; 
 
 

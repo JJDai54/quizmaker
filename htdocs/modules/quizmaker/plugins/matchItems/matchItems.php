@@ -32,7 +32,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
 {
-     
+var $nbMaxList = 5;     
 	/**
 	 * Constructor 
 	 *
@@ -40,14 +40,19 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("matchItems", 0, "other");
-        $this->optionsDefaults = ['disposition'    => 'disposition-01',
-                                  'list1_type'    => 0,
-                                  'list1_intrus'  => '',
-                                  'list2_type'     => '1',
-                                  'list2_intrus'   => '',
-                                  'conjonction'    => ''];
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
+        $this->optionsDefaults = ['nbMaxList' => $this->nbMaxList];
+        for ($h = 0; $h < $this->nbMaxList; $h++){
+          $this->optionsDefaults["list{$h}_type"] = 0;
+          $this->optionsDefaults["list{$h}_title"] = '';
+          $this->optionsDefaults["list{$h}_intrus"] = '';
+          $this->optionsDefaults["list{$h}_width"] = 25;
+          $this->optionsDefaults["list{$h}_textalign"] = 'left';
+        }
                                   
         $this->hasImageMain = true;
+        $this->hasShuffleAnswers = true;
         //$this->multiPoints = true;
 
     }
@@ -72,66 +77,71 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = new XoopsFormElementTray($caption, '<br>');  
+      
+      $typeArr = array(0 => _LG_PLUGIN_MATCHITEMS_LABEL,
+                       1 => _LG_PLUGIN_MATCHITEMS_LISTBOX, 
+                       2 => _LG_PLUGIN_MATCHITEMS_TEXTBOX,
+                       3 => _LG_PLUGIN_MATCHITEMS_CONJONCTION);
+
+      $textalignArr = array ('left'   => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
+                       'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
+                       'right'  => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
+                 
       //--------------------------------------------------------------------    
+      for ($h = 0; $h < $this->nbMaxList; $h++){
+          $j = $h+1;
+          $name = "list{$h}_type";  
+          $inpTypeList = new \XoopsFormRadio(sprintf(_LG_PLUGIN_MATCHITEMS_TYPE_LIST,$j), "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTypeList->addOptionArray($typeArr);
+          $trayOptions ->addElement($inpTypeList);  
+          
+          $name = "list{$h}_textalign";  
+          $inpTextalign = new \XoopsFormRadio(sprintf(_LG_PLUGIN_MATCHITEMS_TEXTALIGN,$j), "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTextalign->addOptionArray($textalignArr);
+          $trayOptions ->addElement($inpTextalign);  
+          
+          $name = "list{$h}_width";  
+          $inpWidth = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+          $inpWidth->setExtra("style='background:#FFCC99;'");
+          $inpWidth->setMinMax(5, 50, _AM_QUIZMAKER_UNIT_PERCENT);
+          $trayOptions ->addElement($inpWidth);  
+          
+          $name = "list{$h}_title"; 
+          $inpµIntrus = new \XoopsFormText(sprintf(_LG_PLUGIN_MATCHITEMS_TITLE_LIST,$j), "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpµIntrus->setExtra("style='background:" . self::bgColor1 . ";'");
+          $trayOptions->addElement($inpµIntrus);
+          
+          $name = "list{$h}_intrus"; 
+          $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpµIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
+          $trayOptions->addElement($inpµIntrus);
+           
+          $trayOptions ->addElement(new XoopsFormLabel('<hr>', ''));   
+      }
       
-      $trayOptions ->addElement(new XoopsFormLabel('<hr>', _LG_PLUGIN_MATCHITEMS_LEFT_LIST . '<br>'));   
       
-      $name = 'list1_type';  
-      $inpList1 = new \XoopsFormRadioYN(_LG_PLUGIN_MATCHITEMS_LEFT_TYPE, "{$optionName}[{$name}]", $tValues[$name], ' ');   
-      $inpList1->addOption(0, _LG_PLUGIN_MATCHITEMS_LABEL);
-      $inpList1->addOption(1, _LG_PLUGIN_MATCHITEMS_LISTBOX);
-      $inpList1->addOption(2, _LG_PLUGIN_MATCHITEMS_TEXTBOX);
-      $trayOptions ->addElement($inpList1);   
-      
-      $name = 'list1_intrus'; 
-      $inputIntrus1 = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS1, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
-      $inputIntrus1->setDescription(_LG_PLUGIN_MATCHITEMS_INTRUS1_DESC);
-      $inputIntrus1->setExtra("style='background:" . self::bgColor1 . ";'");
-      $trayOptions->addElement($inputIntrus1);
-      $trayOptions->addElement(new \XoopsFormLabel('',_LG_PLUGIN_MATCHITEMS_INTRUS1_DESC . '<br>'));
-      
-      //------------------------------------------------------------
-      $trayOptions ->addElement(new XoopsFormLabel('<hr>',_LG_PLUGIN_MATCHITEMS_RIGHT_LIST  . '<br>'));      
-
-      $name = 'list2_type';  
-      $inpList2 = new \XoopsFormRadioYN(_LG_PLUGIN_MATCHITEMS_RIGHT_TYPE, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inpList2->addOption(0, _LG_PLUGIN_MATCHITEMS_LABEL);
-      $inpList2->addOption(1, _LG_PLUGIN_MATCHITEMS_LISTBOX);
-      $inpList2->addOption(2, _LG_PLUGIN_MATCHITEMS_TEXTBOX);
-      $trayOptions ->addElement($inpList2);   
-  
-      $name = 'list2_intrus'; 
-      $inputIntrus2 = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS1, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
-      $inputIntrus2->setDescription(_LG_PLUGIN_MATCHITEMS_INTRUS1_DESC);
-      $inputIntrus2->setExtra("style='background:" . self::bgColor1 . ";'");
-      $trayOptions->addElement($inputIntrus2);
-      $trayOptions->addElement(new \XoopsFormLabel('',_LG_PLUGIN_MATCHITEMS_INTRUS2_DESC . '<br>'));
-      //------------------------------------------------------------
-     
-             
-      //------------------------------------------------------------
-      $trayOptions ->addElement(new XoopsFormLabel('<hr>',_LG_PLUGIN_MATCHITEMS_GLOBALS_OPTIONS  . '<br>'));    
-
-      $name = 'conjonction'; 
-      $inputConjonction = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_CONJONCTION, "{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);
-      $inputConjonction->setDescription(_LG_PLUGIN_MATCHITEMS_CONJONCTION_DESC);
-      $inputConjonction->setExtra("style='background:" . self::bgColor3 . ";'");
-      $trayOptions->addElement($inputConjonction);
-      $trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_MATCHITEMS_CONJONCTION_DESC. '<br>'));
-        
+      $trayOptions->addElement(new \XoopsFormHidden('nbMaxList', $this->nbMaxList));
       return $trayOptions;
     }
-
 
 /* *************************************************
 *
 * ************************************************** */
  	public function getForm($questId, $quizId)
  	{
-        global $utility, $answersHandler;
+        global $utility, $answersHandler, $questionsHandler;
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
+        
+        //recuperation des titres de colonnes
+        $quest =  $questionsHandler->get($questId, 'quest_options');
+        //echoArray($titlesArr);      
+//         
+//         $answers = $answersHandler->getListByParent($questId);
+//         $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
+
+
         //-------------------------------------------------
         //element definissat un objet ou un ensemble
         $weight = 0;
@@ -139,40 +149,53 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
         $tbl->addTdStyle(1, 'text-align:left;width:50px;');
         
+        // titre des colonnes et des listes
+        $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
+        //if(!$options) $options = $this->optionsDefaults;
+          $tbl->addTitle('');        
+          for($h = 0; $h < $this->nbMaxList; $h++){
+              $j = $h+1;
+              $title = (isset($options["list{$h}_title"])) ? $options["list{$h}_title"] : sprintf(_LG_PLUGIN_MATCHITEMS_TITLE_DEFAULT,$j);
+              $tbl->addTitle($title);        
+          }
+          $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_POINTS);        
+          $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_WEIGHT);        
+      
+        
         for($k = 0; $k < $this->maxPropositions; $k++){
         
             if (isset($answers[$k])) {
                 $tExp = explode(',', $answers[$k]->getVar('answer_proposition'));
-                $mot1 = trim($tExp[0]); 
-                $mot2 = trim($tExp[1]); 
                 $points = intval(trim($answers[$k]->getVar('answer_points')));
                 $weight = intval(trim($answers[$k]->getVar('answer_weight')));
             }else{
-                $mot1 = ""; 
-                $mot2 = ""; 
+                $tExp = array('','','','','','');
                 $points = 1;
                 $weight = $k * 10;
             }
             
             
             $inpLab  = new XoopsFormLabel("", $k+1 . " : ");
-            $name = $this->getName($k, 'mot1');
-            $inpMot1 = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT . " 1", $name, $this->lgMot1, $this->lgMot2, $mot1);            
-            $name = $this->getName($k, 'mot2');
-            $inpMot2 = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT . " 2", $name, $this->lgMot1, $this->lgMot2, $mot2);
             
             $name = $this->getName($k, 'points');
-            $inpPoints = new XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS, $name, $this->lgPoints, $this->lgPoints, $points);
+            $inpPoints = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(1, 30);
             
             $name = $this->getName($k, 'weight');
-            $inpWeight = new XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT, $name, $this->lgPoints, $this->lgPoints, $weight);
+            $inpWeight = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 1000);
-            
+
             $col=0;
+
             $tbl->addElement($inpLab, $col++, $k);
-            $tbl->addElement($inpMot1, $col++, $k);
-            $tbl->addElement($inpMot2, $col++, $k);
+            
+            for($h = 0; $h < $this->nbMaxList; $h++){
+              $name = $this->getName($k, "exp", $h); 
+              $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $tExp[$h]);            
+              $tbl->addElement($inpExp, $col++, $k);
+            }
+            
+            
             $tbl->addElement($inpPoints, $col++, $k);
             $tbl->addElement($inpWeight, $col++, $k);
 
@@ -182,79 +205,28 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
         //----------------------------------------------------------
 		return $this->trayGlobal;
 	}
-/* *************************************************
-*
-* ************************************************** */
- 	public function getForm_old($questId, $quizId)
- 	{
-        global $utility, $answersHandler;
 
-        $answers = $answersHandler->getListByParent($questId);
-        $this->initFormForQuestion();
-        //-------------------------------------------------
-        $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');
-        for($h = 0; $h < $this->maxPropositions; $h++){
-        
-            if (isset($answers[$h])) {
-                $tExp = explode(',', $answers[$h]->getVar('answer_proposition'));
-                $mot1 = trim($tExp[0]); 
-                $mot2 = trim($tExp[1]); 
-                $points = intval(trim($answers[$h]->getVar('answer_points')));
-                $weight = intval(trim($answers[$h]->getVar('answer_weight')));
-            }else{
-                $mot1 = ""; 
-                $mot2 = ""; 
-                $points = 0;
-                $weight = $h * 10;
-            }
-            
-            $trayPropo = new XoopsFormElementTray  ('', $delimeter = ' ');  
-            $inpLab  = new XoopsFormLabel("", $h+1 . " : ");
-            $trayPropo->addElement($inpLab);
-            
-            $name = $this->getName($h, 'mot1');
-            $inpMot1 = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT . " 1", $name, $this->lgMot1, $this->lgMot2, $mot1);
-            $trayPropo->addElement($inpMot1);
-            
-            $name = $this->getName($h, 'mot2');
-            $inpMot2 = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT . " 2", $name, $this->lgMot1, $this->lgMot2, $mot2);
-            $trayPropo->addElement($inpMot2);
-            
-            $name = $this->getName($h, 'points');
-            $inpPoints = new XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS, $name, $this->lgPoints, $this->lgPoints, $points);
-            $inpPoints->setMinMax(-30, 30);
-            $trayPropo->addElement($inpPoints);
-            
-            $name = $this->getName($h, 'weight');
-            $inpWeight = new XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT, $name, $this->lgPoints, $this->lgPoints, $weight);
-            $inpWeight->setMinMax(0, 1000);
-            $trayPropo->addElement($inpWeight);
-            
-            $trayAllAns->addElement($trayPropo);
-        }
-        $this->trayGlobal->addElement($trayAllAns);
-
-        //----------------------------------------------------------
-		return $this->trayGlobal;
-	}
-   
 /* *************************************************
 *
 * ************************************************** */
  	public function saveAnswers($answers, $questId, $quizId)
  	{
         global $utility, $answersHandler, $pluginsHandler;
-        //$this->echoAns ($answers, $questId, $bExit = true);    
+        //$this->echoAns ($answers, $questId, $bExit = true); 
         $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
         foreach ($answers as $key=>$value){
-            if ($answers[$key]['mot1'] === '' ||  $answers[$key]['mot2'] === '') continue;
+        
+            for($h = 0; $h < $this->nbMaxList; $h++){
+                $answers[$key]['exp'][$h] = trim($answers[$key]['exp'][$h]);
+            }
+            // si la première expression est vide la proposition n'est pas enregistrée
+            if ($answers[$key]['exp'][0] === '') continue;
             
           	$ansObj = $answersHandler->create();
           	$ansObj->setVar('answer_quest_id', $questId);
-              
-              $propo = trim($value['mot1']) . "," . trim($value['mot2']); 
-          	$ansObj->setVar('answer_proposition', $propo);
+
+          	$ansObj->setVar('answer_proposition', implode(',', $answers[$key]['exp']));
           	$ansObj->setVar('answer_points', intval($value['points']));
           	$ansObj->setVar('answer_weight', intval($value['weight']));
               
@@ -270,6 +242,64 @@ class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
 *
 *********************************************** */
   public function getSolutions($questId, $boolAllSolutions = true){
+  global $answersHandler, $questionsHandler;
+  
+  
+        $quest =  $questionsHandler->get($questId, 'quest_options');
+        $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
+        $globalPoints = $quest->getVar('quest_points');
+//echoArray($options);
+    $scoreMax = 0;
+    $scoreMin = 0;
+
+    $tplnumbering   = "<td style='width:3%;text-align:right;'>{numbering}</td>"; 
+    $tplBasic = "<td style='width:{width}%;' {alignement}>{itemValue}</td>";
+    $tplPoints = "<td style='width:15%;' {alignement}>===>{points} " . _CO_QUIZMAKER_POINTS . "</td>";
+    $tplSep = "<td style='width:10%;text-align:center'>-</td>";
+     
+    $htmlArr = [];
+    $htmlArr[] = '<center><table>';
+
+
+
+    //////////////////////////////////////
+    $answersAll = $answersHandler->getListByParent($questId);
+	foreach(array_keys($answersAll) as $i) {
+		$ans = $answersAll[$i]->getValuesAnswers();
+        $scoreMax += $ans['points'];
+
+        $htmlArr[] = '<tr>';
+        
+        $tExp = explode(',', $ans['proposition']);
+//echo $ans['proposition'] . '<br>';        
+        for($h = 0; $h < count($tExp); $h++){
+            if($tExp[$h]){
+              if( $h > 0 ) $htmlArr[] = $tplSep;
+              $item = str_replace('{itemValue}', $tExp[$h], $tplBasic);
+              $htmlArr[] = $item;
+            }
+        }
+        if($globalPoints == 0){
+            $htmlArr[] = str_replace('{points}', $ans['points'], $tplPoints);
+        }
+        $htmlArr[] = '</tr>';
+        
+    }
+    
+    /////////////////////////////////////
+    $htmlArr[] = '</table></center>';
+   
+    //return "en construction";
+    $ret['answers'] = implode("\n", $htmlArr);
+    $ret['scoreMax'] = ($globalPoints == 0) ? $scoreMax : $globalPoints;
+    $ret['scoreMin'] = $scoreMin;
+    return $ret;
+      
+  }
+/* ********************************************
+*
+*********************************************** */
+  public function getSolutions_old($questId, $boolAllSolutions = true){
   global $answersHandler;
 
     $tpl = "<tr><td><span style='color:%1\$s;'>%2\$s</span></td>" 

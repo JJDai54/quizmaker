@@ -6,12 +6,32 @@
 .choiceSimple table td{
     border: 0px solid #FFAD33;
 }
+.choiceSimple table td[proposition]{
+    border: 0px solid #FFAD33;
+    vertical-align: top;
+    /* margin:0px; */
+    padding:0px;
+}
 .choiceSimple table{
   margin-top:0px;
   border: 0px solid black;
   border-collapse: collapse;
     width 100%;
 }
+.choiceSimple input{
+    margin:5px 5px 0px 0px;
+    padding:2px 0px 0px 0px;
+}
+.choiceSimple label{
+    /* padding: 5px 0px 5px 30px; */
+    margin:0px 0px 0px 0px;
+    padding:0px 2px 0px 0px;
+}
+
+.choiceSimple p{
+ text-indent:-1.5em;
+ margin:0px 0px 0px 1.5em;
+ }
 
 .choiceSimple td[familyWords]{
     text-align:left;
@@ -19,10 +39,6 @@
     font-weight:bold;
     color:blue;
     padding-left:50px;
-}
-.choiceSimple label{
-    /* padding: 5px 0px 5px 30px; */
-    margin: 2px 0px 2px 30px;
 }
 
 .choiceSimple div[nextquestion]{
@@ -39,7 +55,7 @@
     font-size:1.5em;
     font-weight:bold;
     z-index:999;
-    width:40%;
+    width:50%;
     box-shadow: 8px 8px 5px #444;
 }
 

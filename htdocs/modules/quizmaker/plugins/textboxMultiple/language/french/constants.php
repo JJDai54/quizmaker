@@ -25,7 +25,10 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
 define('_LG_PLUGIN_TEXTBOXMULTIPLE', "Questions multiples à réponses multiples.");
-define('_LG_PLUGIN_TEXTBOXMULTIPLE_DESC', "Ce slide est composé d'une ou plusieurs questions.<br>Chaque question peut avoir plusieurs réponses saisissables.");
-define('_LG_PLUGIN_TEXTBOXMULTIPLE_CONSIGNE', "Saisissez pour chaque item une ou plieurs réponses.<br>La saisie est valide avec ou sans accents et majuscules.");
+define('_LG_PLUGIN_TEXTBOXMULTIPLE_DESC', "Ce slide est composé d'une ou plusieurs questions.<br>Chaque question peut avoir plusieurs réponses.");
+define('_LG_PLUGIN_TEXTBOXMULTIPLE_CONSIGNE', "Saisissez pour chaque item une ou plusieures réponses.<br>La saisie est valide avec ou sans accents et majuscules.");
+
+define('_LG_PLUGIN_TEXTBOXMULTIPLE_INP_WIDTH', "Taille des zones d'entrèes en nombre de caractères");
+define('_LG_PLUGIN_TEXTBOXMULTIPLE_INP_WIDTH_DESC', "Nombre de caractères maximum à saisir");
 
 ?>

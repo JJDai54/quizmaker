@@ -40,6 +40,8 @@ var $maxGroups = 4;
 	public function __construct()
 	{
         parent::__construct("imagesDaDGroups", 0, "dragAndDrop");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->maxPropositions = 16;	
         $this->optionsDefaults = ['imgHeight1'=>64,'imgHeight2'=>64,
                                   'group0'=>'Panier','group1'=>'','group2'=>'','group3'=>'',
@@ -257,7 +259,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
             if($addNew){
-              $delProposition = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
+              $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
             }else{
               $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);

@@ -49,7 +49,7 @@ $templateMain = 'quizmaker_admin_export.tpl';
 list_on_errors:        
 switch($op) {
 	case 'export_ok':
-        $clPerms->checkAndRedirect('export_quiz', $catId,'$catId', "index.php");
+        $clPerms->checkAndRedirect('export_quiz', $catId, "{$catId}", "index.php");
         if ($quizId > 0) $quizUtility::quiz_export($quizId, $modeName, $suffix);
         
     case 'export':

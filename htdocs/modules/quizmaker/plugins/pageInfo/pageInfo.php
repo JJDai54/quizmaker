@@ -40,6 +40,8 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("pageInfo", 0, "page");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->optionsDefaults = ['imgHeight'=>80];
         $this->hasImageMain = true;
 

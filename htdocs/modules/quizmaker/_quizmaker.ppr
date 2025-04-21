@@ -58,9 +58,9 @@ _quizmaker
 			admin\quiz-save.php
 			admin\results.php
 			admin\traitements.php
-		-assets
+		+assets
 			+css
-				+admin
+				-admin
 					assets\css\admin\index.html
 					assets\css\admin\style.css
 				assets\css\index.html
@@ -206,7 +206,7 @@ _quizmaker
 				assets\images\solution-02.png
 				assets\images\solution-03.png
 			+js
-				-quiz-org
+				+quiz-org
 					-css
 						-infobulle
 							-images
@@ -280,7 +280,7 @@ _quizmaker
 						assets\js\quiz-org\images\Help.png
 						assets\js\quiz-org\images\Hint.png
 						assets\js\quiz-org\images\index.html
-					-js
+					+js
 						assets\js\quiz-org\js\index.html
 						assets\js\quiz-org\js\plugin_prototype.js
 						assets\js\quiz-org\js\quiz-events.js
@@ -334,7 +334,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\choiceImages\choiceImages.css
 							assets\js\quiz-org\plugins\choiceImages\choiceImages.js
 							assets\js\quiz-org\plugins\choiceImages\index.html
-						-choiceSimple
+						+choiceSimple
 							assets\js\quiz-org\plugins\choiceSimple\choiceSimple.css
 							assets\js\quiz-org\plugins\choiceSimple\choiceSimple.js
 							assets\js\quiz-org\plugins\choiceSimple\index.html
@@ -342,7 +342,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\imagesColor\imagesColor.css
 							assets\js\quiz-org\plugins\imagesColor\imagesColor.js
 							assets\js\quiz-org\plugins\imagesColor\index.html
-						+imagesDaDGroups
+						-imagesDaDGroups
 							assets\js\quiz-org\plugins\imagesDaDGroups\imagesDaDGroups.css
 							assets\js\quiz-org\plugins\imagesDaDGroups\imagesDaDGroups.js
 							assets\js\quiz-org\plugins\imagesDaDGroups\index.html
@@ -371,7 +371,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\listboxClassItems\index.html
 							assets\js\quiz-org\plugins\listboxClassItems\listboxClassItems.css
 							assets\js\quiz-org\plugins\listboxClassItems\listboxClassItems.js
-						-matchItems
+						+matchItems
 							assets\js\quiz-org\plugins\matchItems\index.html
 							assets\js\quiz-org\plugins\matchItems\matchItems.css
 							assets\js\quiz-org\plugins\matchItems\matchItems.js
@@ -520,11 +520,11 @@ _quizmaker
 							assets\js\quiz-org\plugins\textareaMixte\index.html
 							assets\js\quiz-org\plugins\textareaMixte\textareaMixte.css
 							assets\js\quiz-org\plugins\textareaMixte\textareaMixte.js
-						-textboxMultiple
+						+textboxMultiple
 							assets\js\quiz-org\plugins\textboxMultiple\index.html
 							assets\js\quiz-org\plugins\textboxMultiple\textboxMultiple.css
 							assets\js\quiz-org\plugins\textboxMultiple\textboxMultiple.js
-						-ulDaDGroups
+						+ulDaDGroups
 							assets\js\quiz-org\plugins\ulDaDGroups\index.html
 							assets\js\quiz-org\plugins\ulDaDGroups\ulDaDGroups.css
 							assets\js\quiz-org\plugins\ulDaDGroups\ulDaDGroups.js
@@ -545,7 +545,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -560,9 +560,8 @@ _quizmaker
 				class\Common\VersionChecks.php
 			-Utilities
 				class\Utilities\ModuleUtility.php
-				class\Utilities\QuestionsUtility.php
 				class\Utilities\QuizBuildUtility.php
-				class\Utilities\QuizUtility.php
+				class\Utilities\QuizImport.php
 			class\Answers.php
 			class\AnswersHandler.php
 			class\Arbo.php
@@ -586,15 +585,13 @@ _quizmaker
 			class\Results.php
 			class\ResultsHandler.php
 			class\Utility.php
-			class\UtilityExport.php
-			class\UtilityImport.php
 		-config
 			config\admin.yml
 			config\config.php
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\Image 080.jpg
@@ -619,8 +616,8 @@ _quizmaker
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
-			-english
+		-language
+			+english
 				-help
 					-img
 						language\english\help\img\_barre_de_dev.jpg
@@ -739,7 +736,7 @@ _quizmaker
 				language\french\main.php
 				language\french\modinfo.php
 		+plugins
-			+alphaSimple
+			-alphaSimple
 				-img
 					-dispositions
 						plugins\alphaSimple\img\dispositions\disposition-01.png
@@ -786,7 +783,7 @@ _quizmaker
 						plugins\choiceImages\img\dispositions\dispositions.svg.2024_10_26_12_54_19.0.svg
 						plugins\choiceImages\img\dispositions\index.html
 					plugins\choiceImages\img\index.html
-				+language
+				-language
 					-english
 						plugins\choiceImages\language\english\constants.php
 						plugins\choiceImages\language\english\help.html
@@ -804,12 +801,12 @@ _quizmaker
 				plugins\choiceImages\choiceImages.php
 				plugins\choiceImages\index.html
 			+choiceSimple
-				+language
+				-language
 					-english
 						plugins\choiceSimple\language\english\constants.php
 						plugins\choiceSimple\language\english\help.html
 						plugins\choiceSimple\language\english\index.html
-					+french
+					-french
 						plugins\choiceSimple\language\french\constants.php
 						plugins\choiceSimple\language\french\help.html
 						plugins\choiceSimple\language\french\index.html
@@ -842,7 +839,7 @@ _quizmaker
 				plugins\imagesColor\imagesColor.php
 				plugins\imagesColor\index.html
 				plugins\imagesColor\plugin_imagesColor.zip
-			+imagesDaDGroups
+			-imagesDaDGroups
 				-img
 					-dispositions
 						plugins\imagesDaDGroups\img\dispositions\disposition-02.png
@@ -883,12 +880,12 @@ _quizmaker
 						plugins\imagesDaDMatchItems\img\dispositions\disposition-21.png
 						plugins\imagesDaDMatchItems\img\dispositions\dispositions.svg
 						plugins\imagesDaDMatchItems\img\dispositions\index.html
-				-language
+				+language
 					-english
 						plugins\imagesDaDMatchItems\language\english\constants.php
 						plugins\imagesDaDMatchItems\language\english\help.html
 						plugins\imagesDaDMatchItems\language\english\index.html
-					-french
+					+french
 						plugins\imagesDaDMatchItems\language\french\constants.php
 						plugins\imagesDaDMatchItems\language\french\help.html
 						plugins\imagesDaDMatchItems\language\french\index.html
@@ -903,12 +900,12 @@ _quizmaker
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\plugin_imagesDaDMatchItems.zip
 			-imagesDaDSortItems
-				-language
+				+language
 					-english
 						plugins\imagesDaDSortItems\language\english\constants.php
 						plugins\imagesDaDSortItems\language\english\help.html
 						plugins\imagesDaDSortItems\language\english\index.html
-					-french
+					+french
 						plugins\imagesDaDSortItems\language\french\constants.php
 						plugins\imagesDaDSortItems\language\french\help.html
 						plugins\imagesDaDSortItems\language\french\index.html
@@ -921,7 +918,7 @@ _quizmaker
 				plugins\imagesDaDSortItems\imagesDaDSortItems.php
 				plugins\imagesDaDSortItems\index.html
 				plugins\imagesDaDSortItems\plugin_imagesDaDSortItems.zip
-			-imagesLogical
+			+imagesLogical
 				-language
 					-english
 						plugins\imagesLogical\language\english\constants.php
@@ -940,7 +937,7 @@ _quizmaker
 				plugins\imagesLogical\imagesLogical.php
 				plugins\imagesLogical\index.html
 				plugins\imagesLogical\plugin_imagesLogical.zip
-			-imagesSimple
+			+imagesSimple
 				-img
 					-dispositions
 						plugins\imagesSimple\img\dispositions\disposition-01.png
@@ -986,7 +983,7 @@ _quizmaker
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.php
 				plugins\listboxClassItems\plugin_listboxClassItems.zip
-			-matchItems
+			+matchItems
 				-img
 					-dispositions
 						plugins\matchItems\img\dispositions\disposition-01.png
@@ -995,12 +992,12 @@ _quizmaker
 						plugins\matchItems\img\dispositions\dispositions.svg
 						plugins\matchItems\img\dispositions\index.html
 					plugins\matchItems\img\index.html
-				-language
+				+language
 					-english
 						plugins\matchItems\language\english\constants.php
 						plugins\matchItems\language\english\help.html
 						plugins\matchItems\language\english\index.html
-					-french
+					+french
 						plugins\matchItems\language\french\constants.php
 						plugins\matchItems\language\french\help.html
 						plugins\matchItems\language\french\index.html
@@ -1013,7 +1010,7 @@ _quizmaker
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.php
 				plugins\matchItems\plugin_matchItems.zip
-			-pageBegin
+			+pageBegin
 				-language
 					-english
 						plugins\pageBegin\language\english\constants.php
@@ -1046,7 +1043,7 @@ _quizmaker
 					plugins\pageEnd\snapshoot\snapshoot-000.jpg
 				plugins\pageEnd\index.html
 				plugins\pageEnd\pageEnd.php
-			-pageGroup
+			+pageGroup
 				-language
 					-english
 						plugins\pageGroup\language\english\constants.php
@@ -1078,7 +1075,7 @@ _quizmaker
 					plugins\pageInfo\snapshoot\snapshoot-000.jpg
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.php
-			+radioMultiple
+			-radioMultiple
 				-img
 					-dispositions
 						plugins\radioMultiple\img\dispositions\dispositions.svg
@@ -1136,12 +1133,12 @@ _quizmaker
 						plugins\textareaMixte\img\dispositions\disposition-01.png
 						plugins\textareaMixte\img\dispositions\dispositions.svg
 						plugins\textareaMixte\img\dispositions\index.html
-				-language
-					-english
+				+language
+					+english
 						plugins\textareaMixte\language\english\constants.php
 						plugins\textareaMixte\language\english\help.html
 						plugins\textareaMixte\language\english\index.html
-					-french
+					+french
 						plugins\textareaMixte\language\french\constants.php
 						plugins\textareaMixte\language\french\help.html
 						plugins\textareaMixte\language\french\index.html
@@ -1153,8 +1150,9 @@ _quizmaker
 					plugins\textareaMixte\snapshoot\snapshoot-002.jpg
 				plugins\textareaMixte\index.html
 				plugins\textareaMixte\plugin_textareaMixte.zip
+				plugins\textareaMixte\textareaMixte.js
 				plugins\textareaMixte\textareaMixte.php
-			-textboxMultiple
+			+textboxMultiple
 				-img
 					-dispositions
 						plugins\textboxMultiple\img\dispositions\disposition-00.png
@@ -1166,12 +1164,12 @@ _quizmaker
 						plugins\textboxMultiple\img\dispositions\dispositions.svg
 						plugins\textboxMultiple\img\dispositions\index.html
 					plugins\textboxMultiple\img\index.html
-				-language
+				+language
 					-english
 						plugins\textboxMultiple\language\english\constants.php
 						plugins\textboxMultiple\language\english\help.html
 						plugins\textboxMultiple\language\english\index.html
-					-french
+					+french
 						plugins\textboxMultiple\language\french\constants.php
 						plugins\textboxMultiple\language\french\help.html
 						plugins\textboxMultiple\language\french\index.html
@@ -1184,7 +1182,7 @@ _quizmaker
 				plugins\textboxMultiple\index.html
 				plugins\textboxMultiple\plugin_textboxMultiple.zip
 				plugins\textboxMultiple\textboxMultiple.php
-			-ulDaDGroups
+			+ulDaDGroups
 				-img
 					-dispositions
 						plugins\ulDaDGroups\img\dispositions\disposition-02.png
@@ -1325,66 +1323,66 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=plugins\choiceImages\language\french\constants.php
-1=plugins\choiceSimple\language\french\constants.php
-2=plugins\choiceImages\choiceImages.php
-3=plugins\choiceSimple\choiceSimple.php
-4=docs\changelog.txt
-5=plugins\alphaSimple\alphaSimple.php
-6=docs\todo.txt
-7=class\Plugins.php
-8=sql\mysql.sql
-9=assets\js\quizmaker.js
-10=admin\header.php
-11=class\Questions.php
-12=assets\js\admin.js
+0=docs\todo.txt
+1=docs\changelog.txt
+2=class\Plugins.php
+3=assets\js\quiz-org\js\plugin_prototype.js
+4=plugins\matchItems\language\french\constants.php
+5=plugins\matchItems\matchItems.php
+6=assets\js\quiz-org\plugins\matchItems\matchItems.js
+7=assets\js\quiz-org\plugins\matchItems\matchItems.css
+8=assets\js\quiz-org\js\quiz-functions.js
+9=plugins\choiceImages\choiceImages.php
+10=plugins\choiceSimple\choiceSimple.php
+11=assets\js\quiz-org\plugins\choiceImages\choiceImages.js
+12=assets\js\quiz-org\plugins\choiceSimple\choiceSimple.js
 13=language\french\admin.php
 14=xoops_version.php
 [Selected Project Files]
 Main=
 Selected=docs\changelog.txt
-[plugins\choiceImages\language\french\constants.php]
-TopLine=1
-Caret=1,49
-[plugins\choiceSimple\language\french\constants.php]
-TopLine=1
-Caret=47,37
-[plugins\choiceImages\choiceImages.php]
-TopLine=69
-Caret=87,91
-[plugins\choiceSimple\choiceSimple.php]
-TopLine=32
-Caret=87,86
-[docs\changelog.txt]
-TopLine=1
-Caret=1,5
-[plugins\alphaSimple\alphaSimple.php]
-TopLine=90
-Caret=1,125
 [docs\todo.txt]
 TopLine=1
 Caret=1,1
-[class\Plugins.php]
-TopLine=122
-Caret=39,150
-[sql\mysql.sql]
-TopLine=87
-Caret=1,102
-[assets\js\quizmaker.js]
+[docs\changelog.txt]
 TopLine=1
-Caret=1,3
-[admin\header.php]
-TopLine=49
-Caret=40,94
-[class\Questions.php]
-TopLine=266
-Caret=63,285
-[assets\js\admin.js]
-TopLine=7
-Caret=20,26
+Caret=26,2
+[class\Plugins.php]
+TopLine=145
+Caret=19,145
+[assets\js\quiz-org\js\plugin_prototype.js]
+TopLine=364
+Caret=1,392
+[plugins\matchItems\language\french\constants.php]
+TopLine=6
+Caret=1,37
+[plugins\matchItems\matchItems.php]
+TopLine=19
+Caret=40,42
+[assets\js\quiz-org\plugins\matchItems\matchItems.js]
+TopLine=159
+Caret=23,197
+[assets\js\quiz-org\plugins\matchItems\matchItems.css]
+TopLine=13
+Caret=1,46
+[assets\js\quiz-org\js\quiz-functions.js]
+TopLine=861
+Caret=36,881
+[plugins\choiceImages\choiceImages.php]
+TopLine=126
+Caret=27,146
+[plugins\choiceSimple\choiceSimple.php]
+TopLine=83
+Caret=1,99
+[assets\js\quiz-org\plugins\choiceImages\choiceImages.js]
+TopLine=1
+Caret=22,12
+[assets\js\quiz-org\plugins\choiceSimple\choiceSimple.js]
+TopLine=524
+Caret=1,553
 [language\french\admin.php]
-TopLine=402
-Caret=40,435
+TopLine=108
+Caret=28,128
 [xoops_version.php]
-TopLine=611
-Caret=39,631
+TopLine=23
+Caret=38,33

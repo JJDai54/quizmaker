@@ -53,7 +53,11 @@ getInnerHTML_allbox (){
       var tpl0 = `{image}<table class='question'><tr><td>{textbox}</td></tr><tr><td style='text-align:center;padding-top:10px;'><div id='${this.data.listId}'>{listbox}</div></table>`;
       var textboxClass = "quiz-shadowbox-medium";    
     }
-    var textbox = `<div id="${this.data.textId}" name="${name}" class="quiz-shadowbox-medium ${textboxClass}" rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
+    
+      var textboxClass = "textareaMixte_text";    
+    
+    
+    var textbox = `<div id="${this.data.textId}" name="${name}" class="${textboxClass}" rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
 
 //------------------------------------------------------------------
     var htmlArr = [];

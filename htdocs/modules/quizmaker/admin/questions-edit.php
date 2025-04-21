@@ -26,7 +26,7 @@ use XoopsModules\Quizmaker\Constants;
 
 		$templateMain = 'quizmaker_admin_questions.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('questions.php'));
-		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUESTIONS, 'questions.php?op=new', 'add');
+		//$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUESTIONS, 'questions.php?op=new', 'add');
 		$adminObject->addItemButton(_AM_QUIZMAKER_QUESTIONS_LIST, 'questions.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');

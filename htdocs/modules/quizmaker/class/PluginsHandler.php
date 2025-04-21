@@ -238,9 +238,11 @@ echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destinat
     return 0;
 }
 
+/* **************************************************
 
+***************************************************** */
 public function getPlugin(&$pluginName)
-  {
+  {global $GLOBALS;
     // pour permettre une correction sans aceder à la base apres un changement de nom
     // A virer dès que les noms seront stabilisés
     // $pluginName est passé par référence pour remonter le transfert
@@ -254,6 +256,14 @@ public function getPlugin(&$pluginName)
       
       $clsName = "Plugin_" . $pluginName;   
 // echo "<hr>{$f}<br>{$pluginName}<br>{$clsName}<hr>";
+      //----------------------------------------------
+      //chargement du javascript du plugin
+      $jsPath = QUIZMAKER_PATH_PLUGINS_PHP . "/{$pluginName}/{$pluginName}.js";  
+      if (file_exists($jsPath)){
+        //echo "javascript du plugin <br>{$jsPath}<br>{$f}<hr>";
+        $jsUrl = QUIZMAKER_URL_PLUGINS_PHP . "/{$pluginName}/{$pluginName}.js";  
+        $GLOBALS['xoTheme']->addScript($jsUrl);
+      }
       //----------------------------------------------
       if (class_exists($clsName) ){
           $cls = new $clsName; 

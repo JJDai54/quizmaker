@@ -372,7 +372,8 @@ define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Options spécifiques");
 define('_AM_QUIZMAKER_START_TIMER', "Forcer le chronomètre");
 define('_AM_QUIZMAKER_START_TIMER_DESC', "<b>Oui</b> : Force le lancement du chronomètre pour ce slide.<br><b>Non</b> : Utilise le paramètre défini au niveau du quiz.");
 define('_AM_QUIZMAKER_STATISTICS', "Statistiques");
-define('_AM_QUIZMAKER_SUBMIT_AND_ADDNEW', "Soumettre et ajouter");
+define('_AM_QUIZMAKER_SUBMIT_AND_ADDNEW', "Soumettre et ajouter une nouvelle question");
+define('_AM_QUIZMAKER_SUBMIT_AND_RELOAD', "Soumettre et recharger la question");
 define('_AM_QUIZMAKER_TEST_QUIZ', "Teste quiz version");
 define('_AM_QUIZMAKER_THEME', "Thème");
 define('_AM_QUIZMAKER_THEME_DEFAULT_CAT', "Thème par défaut pour cette catégorie");
@@ -413,6 +414,8 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ', "Importation d'un quiz unique");
 define('_AM_QUIZMAKER_UNIT_PIXELS', "pixels");
 define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 define('_AM_QUIZMAKER_UNIT_SECONDES', "Secondes");
+define('_AM_QUIZMAKER_UNIT_MILISECONDS', "Mili-Secondes");
+define('_AM_QUIZMAKER_UNIT_CARACTERES', "Caractères");
 define('_AM_QUIZMAKER_UP', "Remonter");
 define('_AM_QUIZMAKER_UPDATE', "Mise à jour");
 define('_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS', "Afficher toutes les solutions");
@@ -423,7 +426,7 @@ define('_AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE', "Installer l&apos;exemple");
 
 
 define('_AM_QUIZMAKER_ANSWER', "Proposition");
-define('_AM_QUIZMAKER_UNIT_PERCENT', "%");
+define('_AM_QUIZMAKER_UNIT_PERCENT', "<b>%</b>");
 define('_AM_QUIZMAKER_DELAI_COOKIE', "Délai du cookie en secondes");
 define('_AM_QUIZMAKER_DELAI_COOKIE_DESC', "L'utiisateur ne pourra pas retenter ce quiz avant la fin du délai du cookie.");
 define('_AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN', "Options spécifiques au plugin");
@@ -435,7 +438,9 @@ define('_AM_QUIZMAKER_PLUGIN_HELP_LIBELLE', "Aide complète du plugin");
 define('_AM_QUIZMAKER_PLUGIN_HELP_CLOSE', "Fermer l'aide du plugin");
 define('_AM_QUIZMAKER_PLUGIN_HELP_HIDE', "Fermer");
 define('_AM_QUIZMAKER_PLUGIN_HELP_SHOW', "Afficher");
+define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE', "Délai pour passer au slide suivant");
+define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC', "Actif uniquement si l'option \"Choix unique et passage au slide suivant\" a été choisie");
 
-
+define('_AM_QUIZMAKER_NEW', 'Nouveau');
 
 ?>

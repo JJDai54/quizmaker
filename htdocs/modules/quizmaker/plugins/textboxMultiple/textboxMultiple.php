@@ -32,7 +32,10 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
 {
-     
+var $inpMaxlength = 0;    
+var $inpSize = 0;    
+var $maxMots = 0;    
+ 
 	/**
 	 * Constructor 
 	 *
@@ -40,9 +43,18 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("textboxMultiple", 0, "text");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->hasImageMain = true;
-        $this->optionsDefaults = ['disposition' => 'disposition-01'];
+        $this->maxPropositions = 6;
+        $this->maxMots = 12;
+        $this->inpSize = $this->lgMot1;
+        $this->inpMaxlength = $this->lgMot2;
+
+        $this->optionsDefaults = ['disposition'  => 'disposition-01',
+                                  'inpSize'      => $this->inpSize,
+                                  'inpMaxlength' => $this->inpMaxlength];
+
     }
 
 	/**
@@ -66,6 +78,16 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
+      $name = 'inpSize';  
+      $inpSize = new \XoopsFormNumber(_LG_PLUGIN_TEXTBOXMULTIPLE_INP_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpSize->setMinMax(5, $this->inpMaxCar, _AM_QUIZMAKER_UNIT_CARACTERES);
+      $trayOptions ->addElement($inpSize);     
+
+      $name = 'inpMaxlength';  
+      $inpMaxlength = new \XoopsFormNumber(_LG_PLUGIN_TEXTBOXMULTIPLE_INP_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpMaxlength->setMinMax(5, $this->inpWidth, _AM_QUIZMAKER_UNIT_CARACTERES);
+      $trayOptions ->addElement($inpMaxlength);     
+      
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
@@ -89,8 +111,7 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
-        $this->maxPropositions = 5;
-        $maxMots = 12;
+
 //    echo "<hr>answers<pre>" . print_r($answers, true) . "</pre><hr>";
         //-------------------------------------------------
         $lastWeight = 0;        
@@ -124,7 +145,7 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
             
             $name = $this->getName($h, 'inputs');
             $inpInputs = new XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_INPUTS, $name, $this->lgPoints, $this->lgPoints, $inputs);
-            $inpInputs->setMinMax(1, 5);
+            $inpInputs->setMinMax(1, $this->maxInputs);
             $trayCaption->addElement($inpInputs);
             
             $name = $this->getName($h, 'weight');
@@ -135,16 +156,16 @@ class Plugin_textboxMultiple extends XoopsModules\Quizmaker\Plugins
             $trayPropo->addElement($trayCaption);
             //--------------------------------------------------------------
             $trayAllMots = new XoopsFormElementTray  ('', $delimeter = '<br>');            
-            for($i = 0; $i < $maxMots; $i++){
+            for($i = 0; $i < $this->maxMots; $i++){
                 $mot    = (isset($tMots[$i])) ? $tMots[$i]: "";
                 $points = (isset($tPoints[$i])) ? intval($tPoints[$i]) : 0;
                 $trayMot = new XoopsFormElementTray  ('', $delimeter = '');                
                 
                 $inpLab  = new XoopsFormLabel("",  ($h+1) . ' / ' . ($i+1) . ' : ');
                 $trayMot->addElement($inpLab);
-           
+
                 $name = $this->getName($h, 'mots', $i, 'mot');
-                $inpMot = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $name, $this->lgMot1, $this->lgMot2, $mot);
+                $inpMot = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $name, $this->inpSize, $this->inpMaxlength, $mot);
                 $trayMot->addElement($inpMot);
                 
                 $name = $this->getName($h, 'mots', $i, 'points');

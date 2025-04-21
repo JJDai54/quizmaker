@@ -35,6 +35,8 @@ define('_LG_PLUGIN_IMAGESDADSORTITEMS_CONSIGNE', "Consigne à complèter");
 define('_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE', "Directive");
 define('_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_DESC', "Action à faire affichée sur le slide.");
 define('_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_LIB', "Cliquez sur les images et déplacez les pour les mettre dans l'ordre.");
+define('_LG_PLUGIN_IMAGESDADSORTITEMS_IMG1_HEIGHT', "Hauteur des images à déplacer");
+define('_LG_PLUGIN_IMAGESDADSORTITEMS_IMG2_HEIGHT', "Hauteur des images de référence");
 
 
 

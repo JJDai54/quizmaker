@@ -48,7 +48,7 @@ use XoopsModules\Quizmaker\Constants;
 		$questionsObj->setVar('quest_plugin', $pluginName);
 		$quest_parent_id = Request::getInt('quest_parent_id', 0);
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
-		$questionsObj->setVar('quest_question', Request::getString('quest_question', ''));
+		$questionsObj->setVar('quest_question', FQUIZMAKER\sanityse_inpValue(Request::getString('quest_question', '')));
 		$questionsObj->setVar('quest_identifiant', Request::getString('quest_identifiant', ''));
         
         $options = Request::getArray(QUIZMAKER_PREFIX_OPTIONS_NAME, null);
@@ -93,6 +93,7 @@ use XoopsModules\Quizmaker\Constants;
 		$questionsObj->setVar('quest_options', json_encode($options));
         //********************************************************
 /*
+echoArray($options,'options',true);   
 echoArray('gpf','options',true);       
 echoArray($_POST,'_POST',false);     
 */        
@@ -147,6 +148,8 @@ echoArray($_POST,'_POST',false);
 //=============================================================================
           if ($addNew)
 			redirect_header('questions.php?op=new&' . getParams2list($quizId, $quest_plugin, "", $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
+          else if ($reload)
+			redirect_header('questions.php?op=edit&' . getParams2list($quizId, $quest_plugin, "", $quest_parent_id, $questId), 2, _AM_QUIZMAKER_FORM_OK);
           else if ($sender == 'plugin_list')
 			redirect_header('plugins.php?op=list&' . getParams2list($quizId, $quest_plugin, $sender, $quest_parent_id), 2, _AM_QUIZMAKER_FORM_OK);
           else

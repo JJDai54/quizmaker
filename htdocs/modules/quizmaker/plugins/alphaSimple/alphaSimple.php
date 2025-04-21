@@ -43,8 +43,10 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("alphaSimple", 0, "text");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->optionsDefaults = ['imgHeight'      => '80', 
-                                  'directive'      => QUIZMAKER_NEW, 
+                                  'directive'      => _AM_QUIZMAKER_NEW, 
                                   'propositions'   => '', 
                                   'disposition'    => '',
                                   'ignoreAccents'  => 0];
@@ -90,8 +92,8 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
       $name = 'directive';  
-      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      if ($tValues[$name] == _AM_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC));      
       
@@ -101,7 +103,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayPropositions = new \XoopsFormElementTray(_AM_QUIZMAKER_PROPOSITIONS, $delimeter = ' ');  
       $name = 'propositions'; 
       //if(!$tValues[$name] ) $tValues[$name] = $alphabet; 
-      $inputPropositions = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_LETTERS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $inputPropositions = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_LETTERS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayPropositions->addElement($inputPropositions);
       $id = "{$optionName}[{$name}]";
         

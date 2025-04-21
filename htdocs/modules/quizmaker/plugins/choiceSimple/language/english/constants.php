@@ -31,4 +31,20 @@ define('_LG_PLUGIN_CHOICESIMPLE_CONSIGNE', "Vous devez cocher une ou plusieurs o
 define('_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE', "Choix multiple");
 define('_LG_PLUGIN_CHOICESIMPLE_MULTIPLE_CHOICE_DESC', "Oui : Cases à cocher - Non : Boutons radio");
 
+define('_LG_PLUGIN_CHOICESIMPLE_TYPE', "Type de sélection");
+define('_LG_PLUGIN_CHOICESIMPLE_TYPE_DESC', "");
+define('_LG_PLUGIN_CHOICESIMPLE_TYPE_0', "Choix multiple");
+define('_LG_PLUGIN_CHOICESIMPLE_TYPE_1', "Choix unique");
+define('_LG_PLUGIN_CHOICESIMPLE_TYPE_2', "Choix unique et passage au slide suivant");
+
+define('_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE', "Message");
+define('_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC', "Message affiché si c'est une question à choix unique avec passage au slide suivant.");
+define('_LG_PLUGIN_CHOICESIMPLE_MSGBG', "Couleur de fond du message.");
+
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1', "Question suivante");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION2', "On passe à la suite");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION3', "Persévérez");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION4', "Score cumulé : {score} / {scoreMaxi}");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION5', "Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
+
 ?>

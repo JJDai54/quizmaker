@@ -40,11 +40,15 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("choiceSimple", 0, "basic");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         
-        $this->optionsDefaults = ['inputType'       => 0, //'multipleChoice' => 0,
-                                  'msgNextSlide'    => _LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1,
-                                  'msgNextSlideBG'  => '#FFCC00',
-                                  'familyWords'    => ''];
+        $this->optionsDefaults = ['inputType'         => 0, //'multipleChoice' => 0,
+                                  'msgNextSlideTxt'   => _LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1,
+                                  'msgNextSlideBG'    => '#FFCC00',
+                                  'msgNextSlideDelai' => 1200,
+                                  'familyWords'       => '',
+                                  'disposition'       => 'disposition-0'];
 
         $this->hasImageMain = true;
         $this->multiPoints = true;
@@ -82,12 +86,21 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions->addElement($inpType);     
       $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_TYPE_DESC . QBR));   
          
-      $name = 'msgNextSlide';  
+      $name = 'msgNextSlideTxt';  
       $inpMsgNextSlide = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE, "{$optionName}[{$name}]",80,80, $tValues[$name]);
+
       $inpMsgNextSlide->addBtnClear("X");
-      $inpMsgNextSlide->addList(_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1_OPTIONS);
+      //$inpMsgNextSlide->addList(_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1_OPTIONS);
+      $h = 1;
+      while (defined('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION' . $h)){
+        $inpMsgNextSlide->addOption(constant('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION' . $h));
+        $h++;
+      }
+
       
-      
+  /*
+      $inpMsgNextSlide = new \XoopsFormText(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+  */    
       $trayOptions->addElement($inpMsgNextSlide);     
       $trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC . QBR));      
 
@@ -95,13 +108,26 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
       $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICESIMPLE_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElement($inpMsgBG);     
 
-      $trayOptions->addElement(new \XoopsFormLabel('', ''));      
+      $name = 'msgNextSlideDelai';  
+      $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
+      $inpPoints->setMinMax(0, 3000, _AM_QUIZMAKER_UNIT_MILISECONDS);
+      $trayOptions->addElement($inpPoints);     
+      $trayOptions->addElement(new \XoopsFormLabel('', _AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC));      
+
+      $trayOptions->addElement(new \XoopsFormLabel('', '<hr>'));      
     
       $name = 'familyWords';  
-      $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inputFamilyWords);     
       $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_FAMILY_WORDS_DESC));      
       
+      $name = 'disposition'; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
+      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
+      //$inputDisposition->setHorizontalIconNumber(9);
+      $trayOptions->addElement($inputDisposition);     
+      //$trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+
       //--------------------------------------------------------------------           
       
       return $trayOptions;
@@ -151,7 +177,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
       
             
             $inpChrono = new \XoopsFormLabel('', $i+1);            
-            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $this->getName($i,'proposition'), $this->lgMot2, $this->lgMot2, $proposition);
+            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $this->getName($i,'proposition'), $this->lgMot4, $this->lgMot5, $proposition);
             $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(-30, 30);
             $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($i,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
@@ -185,19 +211,21 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
         $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
        foreach ($answers as $key=>$v){
+            $v['proposition']  = FQUIZMAKER\sanityse_inpValue($v['proposition']);
+
             if($v['proposition'] != ''){
 //            echo "===>proposition = {$v['proposition']} - points = {$v['points']}<br>";
-			$ansObj = $answersHandler->create();
-    		$ansObj->setVar('answer_quest_id', $questId);
-            
-    		$ansObj->setVar('answer_proposition', $v['proposition']);
-    		$ansObj->setVar('answer_points', $v['points']);
-    		$ansObj->setVar('answer_weight', $v['weight']);
-            
-    		$ansObj->setVar('answer_caption', '');
-    		$ansObj->setVar('answer_inputs', 1);
+    			$ansObj = $answersHandler->create();
+        		$ansObj->setVar('answer_quest_id', $questId);
+                
+        		$ansObj->setVar('answer_proposition', $v['proposition']);
+        		$ansObj->setVar('answer_points', $v['points']);
+        		$ansObj->setVar('answer_weight', $v['weight']);
+                
+        		$ansObj->setVar('answer_caption', '');
+        		$ansObj->setVar('answer_inputs', 1);
 
-		      $ret = $answersHandler->insert($ansObj);
+		        $ret = $answersHandler->insert($ansObj);
             }
         
      }

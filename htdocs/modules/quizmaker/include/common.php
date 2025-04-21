@@ -127,7 +127,6 @@ return $root . $fld;
 
 define('QUIZMAKER_SELECT_ONCHANGE', 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
 define('QUIZMAKER_ADD_ID', true);
-define('QUIZMAKER_NEW', '__NEW__');
 define('QUIZMAKER_REQUIS', "<span style='color:red;'>*</span>");
 
 define('QUIZMAKER_POINTS_POSITIF', 'blue');

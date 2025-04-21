@@ -32,4 +32,9 @@ define('_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SILOUHETTE', "Couleur de fond des silo
 define('_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SOURCE', "Couleur de fond des images à replacer");
 define('_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT', "La couleur de fond des silouhettes n'est utilisée que dans les dispositions à deux zones");
 define('_LG_PLUGIN_IMAGESDADMATCHITEMS_MOVEALLOW', "Mouvements autorisés après positionement (disposition avec 2 zones)");
+
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_DAD', "Hauteur des images à déplacer");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_SHAPE', "Hauteur des silouhettes");
+
+
 ?>

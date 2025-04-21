@@ -40,6 +40,8 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("radioMultiple", 0, "basic");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->optionsDefaults = ['orientation' => 'horitontal', 
                                   'directive'   => ''];
         $this->hasImageMain = true;
@@ -71,7 +73,7 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
       
       $name = 'directive';  
       if (!$tValues[$name]) $tValues[$name] = _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $inpDirective = new \XoopsFormText(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
 //      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC));    
         

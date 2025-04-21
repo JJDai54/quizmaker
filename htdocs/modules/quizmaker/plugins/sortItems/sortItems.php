@@ -37,6 +37,8 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("sortItems", 0, "other");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->optionsDefaults = ['orderStrict' => 'N', 
                                   'title'       => '', 
                                   'btnColor'    => 'blue', 

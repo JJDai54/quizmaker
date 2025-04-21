@@ -40,17 +40,20 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("choiceImages", 0, "images");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         
-        $this->optionsDefaults = ['inputType'       => 0,
-                                  'imgHeight1'      => 64,
-                                  'cocheImgName'    => 'coche-01.png',
-                                  'cocheImgHeight'  => 25,  
-                                  'posLibelleV'     => 30,
-                                  'fontSize'        => '1.1',
-                                  'repartition'     => '321',
-                                  'disposition'     => 'disposition-00',
-                                  'msgNextSlide'    => _LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1,
-                                  'msgNextSlideBG'  => '#FFCC00'];
+        $this->optionsDefaults = ['inputType'         => 0,
+                                  'imgHeight1'        => 64,
+                                  'cocheImgName'      => 'coche-01.png',
+                                  'cocheImgHeight'    => 25,  
+                                  'posLibelleV'       => 30,
+                                  'fontSize'          => '1.1',
+                                  'repartition'       => '321',
+                                  'disposition'       => 'disposition-00',
+                                  'msgNextSlideTxt'   => _LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1,
+                                  'msgNextSlideBG'    => '#FFCC00',
+                                  'msgNextSlideDelai' => 1200];
     
         $this->maxPropositions = 9;	
         $this->hasImageMain = true;
@@ -86,8 +89,8 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
                                 2 => _LG_PLUGIN_CHOICEIMAGES_TYPE_2]);
       $trayOptions->addElement($inpType);     
       $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICEIMAGES_TYPE_DESC . QBR));   
-         
-      $name = 'msgNextSlide';  
+
+      $name = 'msgNextSlideTxt';  
       $inpMsgNextSlide = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICEIMAGES_MSG_NEXT_SLIDE, "{$optionName}[{$name}]",80,80, $tValues[$name]);
       $inpMsgNextSlide->addBtnClear("X");
       $inpMsgNextSlide->addList(_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1_OPTIONS);
@@ -99,7 +102,14 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
       $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICEIMAGES_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElement($inpMsgBG);     
 
-      $trayOptions->addElement(new \XoopsFormLabel('', ''));      
+      $name = 'msgNextSlideDelai';  
+      $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
+      $inpPoints->setMinMax(0, 3000, _AM_QUIZMAKER_UNIT_MILISECONDS);
+      $trayOptions->addElement($inpPoints);     
+      $trayOptions->addElement(new \XoopsFormLabel('', _AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC));      
+
+
+      $trayOptions->addElement(new \XoopsFormLabel('', '<hr>'));      
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
@@ -275,7 +285,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
 
 
             $btnPath = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/buttons';            $name =  $this->getName($i,'image2');
-            $inpImage2 = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, $name, $image2, $btnPath);
+            $inpImage2 = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_IMAGE, $name, $image2, $btnPath);
             //$zzz->setSelectedIconWidth(120);
             $inpImage2->setSelectedIconSize(48, 48);
             $inpImage2->setIconSize(64, 64);
@@ -356,7 +366,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
            $ansObj->setVar('answer_image1',  '');          
         }
         
-        
+        $v['proposition']  = FQUIZMAKER\sanityse_inpValue($v['proposition']);        
   		$ansObj->setVar('answer_proposition', $v['proposition']);
   		$ansObj->setVar('answer_points',  $v['points']);
   		$ansObj->setVar('answer_weight',  $v['weight']);

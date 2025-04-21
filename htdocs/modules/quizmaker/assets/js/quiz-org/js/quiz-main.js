@@ -431,7 +431,7 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
             </div>
             
             <div class="quiz_plugin_propositions ${quiz_css.proposition}">
-                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:95%;'>${comment2}${clQuestion.build()}</div>
+                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:100%;'>${comment2}${clQuestion.build()}</div>
             </div>
           </div>`
         );       
@@ -555,7 +555,7 @@ var answerContainer;
   *    allSlide = true : calcul le score pour tous les slides
   *    allSlide = false ; calcul le score jusqu'au slide courant (utile en cas de retour arrière)
   * ***********************************************************************/
-  function getAllScores (allSlide = false){
+  function getAllScores (nextSlide = false){
     // gather answer containers from our quiz
     const answerContainers = quizDivAllSlides.querySelectorAll('.answers');
 
@@ -565,6 +565,7 @@ var answerContainer;
 
     // for each question...
     quizard.forEach((clQuestion, index) => {
+    //console.log(`getAllScores => ${index} = ${clQuestion.getScoreByProposition()*1}`);
         if(index <= currentSlide) {
           //alert ('getAllScores ===> ' +  index + " / " + currentSlide);
           //result.repondu +=  clQuestion.getScore(answerContainers[index]);// ((points>0) ? points : 0;
@@ -769,6 +770,9 @@ function reloadQuestion() {
 * */
   function showCurrentSlide  () {
         //alert("showCurrentSlide");
+//     getStatistiques(currentQuestion);
+        //getAllScores(true);
+        showFinalResults();
         showSlide_new();
         return true;
   }
@@ -810,7 +814,7 @@ function reloadQuestion() {
     moveWindowPosTo('quiz_div_module_xoops');
     onTimesUp();
     console.log("===>showSlide_new - offset=" + offset);
-    //affichage du popup des solutions si osset > 0 uniquement
+    //affichage du popup des solutions si offset > 0 uniquement
     if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
     //alert("showSlide_new : " + offset);
 

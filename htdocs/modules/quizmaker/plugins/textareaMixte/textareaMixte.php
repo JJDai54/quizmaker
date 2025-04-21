@@ -32,7 +32,8 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_textareaMixte extends XoopsModules\Quizmaker\Plugins
 {
-const maxBadWords = 8;
+const maxBadWords = 12;
+const maxPropositions = 1;
      
 	/**
 	 * Constructor 
@@ -41,6 +42,8 @@ const maxBadWords = 8;
 	public function __construct()
 	{
         parent::__construct("textareaMixte", 0, "text");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->optionsDefaults = ['presentation'    => 'listbox',
                                   'comparaison'     => 0,
                                   'strToReplace'    => '@@@@@',
@@ -52,6 +55,7 @@ const maxBadWords = 8;
                        
                               
         $this->hasImageMain = true;
+        $this->numbering = 1; // force la umerotation avec des nombres
     }
 
 	/**
@@ -130,8 +134,7 @@ const maxBadWords = 8;
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
-        $this->maxPropositions = 1;
-        $this->maxBadWords = 8;
+        //$this->maxBadWords = 8;
 //    echo "<hr>answers<pre>" . print_r($answers, true) . "</pre><hr>";
         //-------------------------------------------------
         $i = 0; // il ny a qu'une seule proposition, pas utile de faire une boucle
@@ -158,13 +161,56 @@ const maxBadWords = 8;
  
         
         $name = $this->getName($i, 'proposition');
-        $inpPropo = $this->getformTextarea(_AM_QUIZMAKER_QUESTIONS_TEXT_TO_CORRECT, $name, $proposition);
+        $racine = $this->getName($i);
+        $inpPropo = new XoopsFormTextArea(_AM_QUIZMAKER_QUESTIONS_TEXT_TO_CORRECT, $name, $proposition);
+        //    public function __construct($caption, $name, $value = '', $rows = 5, $cols = 50)
+        //$inpPropo = $this->getformTextarea(_AM_QUIZMAKER_QUESTIONS_TEXT_TO_CORRECT, $name, $proposition);
+        $onFocus = "onfocus='textareaMixte_updateButtons(\"{$racine}\")' ";
+        $onBlur = "onblur='textareaMixte_verif(\"{$racine}\",\"" ._LG_PLUGIN_TEXTAREAMIXTE_ACCOLADES_ERR. "\")'";
+        $onSelectionChange = "onfocus='textareaMixte_updateButtons(\"{$racine}\")' ";
+        $style = "style='background:#ECECEC;'";
+        $inpPropo->setExtra("{$style} required onselectionchange='textareaMixte_updateButtons(\"{$racine}\")' {$onFocus} {$onBlur} {$onSelectionChange}");
+
         $this->trayGlobal->addElement($inpPropo);     
+        $btnLib = array('{+}','{-}','X');
+        // ajout des boutons des gestion des accolages pour les mot à selectionner, ou pas
+        $trayBtnAccollades = new XoopsFormElementTray  ('Action', ' ');
+        
+        $inpAddAccollades = new XoopsFormButton('', $this->getName($i, 'addAccollades'), $btnLib[0]);
+        $inpAddAccollades->setExtra("onclick='textareaMixte_addAccolades(\"{$racine}\")'");
+        $trayBtnAccollades->addElement($inpAddAccollades);
+        
+        $inpNewText = new XoopsFormButton('',  $this->getName($i, 'removeAccollades'), $btnLib[1]);
+        $inpNewText->setExtra("onclick='textareaMixte_removeAccolades(\"{$racine}\")'");
+        $trayBtnAccollades->addElement($inpNewText);
+        
+        $inpNewText = new XoopsFormButton('',  $this->getName($i, 'clearAccollades'), $btnLib[2]);
+        $inpNewText->setExtra("onclick='textareaMixte_ClearAccolades(\"{$racine}\",\"" ._LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ALERT. "\")'");
+        $trayBtnAccollades->addElement($inpNewText);
+        
+        $inpNewText = new XoopsFormButton('', 'button', "exemple 1");
+        $inpNewText->setExtra("onclick='textareaMixte_addTextDefault(\"{$racine}\",1)'");
+        $trayBtnAccollades->addElement($inpNewText);
+        
+        $inpNewText = new XoopsFormButton('', 'button', "exemple 2");
+        $inpNewText->setExtra("onclick='textareaMixte_addTextDefault(\"{$racine}\",2)'");
+        $trayBtnAccollades->addElement($inpNewText);
+        
+        $desc = "<br>\"<b>{$btnLib[0]}</b>\" : "  .  _LG_PLUGIN_TEXTAREAMIXTE_ADD_ACCOLADES
+              . "<br>\"<b>{$btnLib[1]}</b>\" : " .  _LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ACCOLADES
+              . "<br>\"<b>{$btnLib[2]}</b>\" : " .  _LG_PLUGIN_TEXTAREAMIXTE_CLEAR_ALL_ACCOLADES;
+        $trayBtnAccollades->addElement(new XoopsFormLabel('',$desc));      
+        $this->trayGlobal->addElement($trayBtnAccollades);      
+        
+        
+        
+        
+        
         //------------------------------------------------------------       
         $trayBuffer = new XoopsFormElementTray  ('', $delimeter = '<br>');  
         $words = explode(',', $buffer);
         
-        for ($j = 0; $j < $this->maxBadWords; $j++){
+        for ($j = 0; $j < $this::maxBadWords; $j++){
             if(isset($words[$j])){
                 $mot = $words[$j];
             }else{

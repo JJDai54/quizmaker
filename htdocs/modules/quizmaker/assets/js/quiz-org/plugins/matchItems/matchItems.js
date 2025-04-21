@@ -19,71 +19,109 @@ getInnerHTML (){
     //alert(currentQuestion.answers.length)
     var id = currentQuestion.answers[0].id;
     var name = this.getName();
-    
-    var newKeys = this.shuffleArray(this.data.keys);
-    var listName = `${name}-list`;
-    var textName = `${name}-text`;
-    this.data.styleCSS = getMarginStyle(newKeys.length, 2);
-    var conjonction = (currentQuestion.options.conjonction) ? `<td>${currentQuestion.options.conjonction}</td>` : "";
-    var item1 = '';
-    var item2 = '';
-    var itemId = '';
-    var row = '';
-    
-    var tplRow = `<tr><td><span>{numbering}</span></td>
-                  <td right>{itemList1}</td>
-                  ${conjonction}
-                  <td left>{itemList2}</td></tr>`;      
-                  
-    var tplLabel   = `<input type="text" id="{itemId}" {alignement} value="{itemValue}" name="" disabled>`; 
-    var tplTextBox = `<input type="text" id="{itemId}" {alignement} value="{itemValue}"  name="{listName}">`;
-    htmlArr.push(`${this.getImage()}<center><table>`);
-    
     var allAns = this.shuffleAnswers();
+    var item ='';
     //var allAns = currentQuestion.answers;
+    var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="" {disabled} style='text-align:{textalign};'></td>`; 
+    //var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="{listName}" ansIndex='{index}'></td>`;
+    var tplListbox     = `<td style='width:{width}%;'>{itemValue}</td>`; 
+    var tplConjonction = `<td style='width:{width}%;text-align:{textalign};'>{itemValue}</td>`; 
+    var tplnumbering   = `<td style='width:3%;text-align:right;'>{numbering}</td>`; 
+    var tplEmpty       = `<td style='width:{width}%;'></td>`; 
+    var tplTitle       = `<td style='width:{width}%;text-align:center;''>{title}</td>`; 
+ 
+
+    var delta = 100;
+    for(var h = 0; h < this.data.nbList; h++){
+        delta -= this.data.listArr[h].width;
+    }
+
+
     
 console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQuestion.options.list2_type}`);    
+    htmlArr.push(`${this.getImage()}<center><table>`);
+    if(this.data.titleExists){
+        if(delta  > 0){
+            htmlArr.push(tplEmpty.replace('{width}', delta / 2));
+        }
+        if(currentQuestion.numbering > 0){
+            item = tplnumbering.replace('{numbering}', '');
+            htmlArr.push(item);
+        }
+        for(var h = 0; h < this.data.nbList; h++){
+            htmlArr.push(tplTitle.replace('{width}', this.data.listArr[h].width)
+                                 .replace('{title}', this.data.listArr[h].title));
+        }
+        if(delta  > 0){
+            htmlArr.push(tplEmpty.replace('{width}', delta / 2));
+        }
+    }       
+    
+    
     for(var k = 0; k < allAns.length; k++){
-//console.log(allAns[k].proposition);    
         var ans = allAns[k];
-console.log(ans.proposition);    
-        var tCouple = ans.proposition.split(","); 
+        htmlArr.push('<tr>');
+        if(delta  > 0){
+            htmlArr.push(tplEmpty.replace('{width}', delta / 2));
+        }
         
-        itemId = ans.ansId + '-left';
-        switch(currentQuestion.options.list1_type*1){
-            case 0: //label
-                item1 = tplLabel.replace('{itemValue}', tCouple[0]).replace('{itemId}', itemId).replace('{alignement}', 'right');
-                break
-            case 1 : //combobox
-                item1 = getHtmlCombobox(this.data.list1Name, itemId, this.data.allItems1, 'right');
-                break
-            case 2 : //textbox
-                item1 = tplTextBox.replace('{itemValue}', '').replace('{itemId}', itemId).replace('{listName}', this.data.list1Name).replace('{alignement}', 'right');
-                //item1 = tplTextBox.replace('{itemValue}', tCouple[0]).replace('{itemId}', itemId);
-                break;
-            default: item1="?????";
-         }
-         
-        itemId = ans.ansId + '-right';
-        switch(currentQuestion.options.list2_type*1){
-            case 0: //label
-                item2 = tplLabel.replace('{itemValue}', tCouple[1]).replace('{itemId}', itemId).replace('{alignement}', 'left');
-                break
-            case 1 : //combobox
-                item2 = getHtmlCombobox(this.data.list2Name, itemId, this.data.allItems2, 'left');
-                break
-            case 2 : //textbox
-                item2 = tplTextBox.replace('{itemValue}', '').replace('{itemId}', itemId).replace('{listName}', this.data.list2Name).replace('{alignement}', 'left');
-                //item2 = tplTextBox.replace('{itemValue}', tCouple[1]).replace('{itemId}', itemId);
-                break;
-            default: item1="?????";
-         }
-         
-         row = tplRow.replace('{numbering}', getNumAlpha(k,currentQuestion.numbering))
-                     .replace('{itemList1}', item1)
-                     .replace('{itemList2}', item2);
-            htmlArr.push(row);
+        if(currentQuestion.numbering > 0){
+            item = tplnumbering.replace('{numbering}', getNumAlpha(k,currentQuestion.numbering));
+            htmlArr.push(item);
+        }
+ 
+        for(var h = 0; h < this.data.nbList; h++){
+            //var listWidth = (h == this.data.nbList) ? this.data.listArr[h].width+delta : this.data.listArr[h].width;
+            var listWidth = this.data.listArr[h].width;
+            var textalign = this.data.listArr[h].textalign;
+            var itemId   = ans.ansId + `-${h}`;
+            var itemName = ans.ansId + `-${h}`;
+            
+            switch(this.data.listArr[h].type*1){
+                case 0: //label
+                    item = "Label:" + ans.items[h];
+                    item = tplTextBox.replace('{itemValue}', ans.items[h])
+                                     .replace('{itemId}', itemId)
+                                     .replace('{textalign}', textalign)
+                                     .replace('{disabled}', 'disabled')
+                                     .replace('{width}', listWidth);
+                    break;
+                case 1 : //combobox
+                    item = tplListbox.replace('{itemValue}' , getHtmlCombobox(itemName, itemId, this.data.listArr[h].items, textalign))
+                                     .replace('{width}', listWidth);
+                    break;
+                case 2 : //textbox
+                    item = "textbox:" + ans.items[h];
+                    item = tplTextBox.replace('{itemValue}', '')
+                                     .replace('{itemId}', itemId)
+                                     .replace('{listName}', this.data.list1Name)
+                                     .replace('{textalign}', textalign)
+                                     .replace('{disabled}', '')
+                                     .replace('{width}', listWidth);
+
+                    break;
+                case 3 : //conjonction
+                default:
+                    item = tplConjonction.replace('{itemValue}', ans.items[h].replaceAll(' ', '&nbsp;'))
+                                         .replace('{textalign}', textalign)
+                                         .replace('{width}', listWidth); 
+                    break;
+             }
+            htmlArr.push(item);
+
+            
+        }
+        if(delta  > 0){
+            htmlArr.push(tplEmpty.replace('{width}', delta / 2));
+        }
+        htmlArr.push('</tr>');
     }
+    
+    
+/////////////////////////////////
+
+///////////////////////////////////
+
     
     htmlArr.push(`</table></center>`);
    
@@ -92,40 +130,79 @@ console.log(ans.proposition);
 
     
  }
-//---------------------------------------------------
+
+/* ***********************************************
+*
+* ************************************************ */
 prepareData(){
     var currentQuestion = this.question;
-    var allItems1 = [];
-    var allItems2 = [];
-
+    var itemId =   'idObInput';
+    var itemName =  'nameObInput';
+    var obInp = '';     
+    var titleExists = false;     
+    
+    var nbMaxList = currentQuestion.options.nbMaxList;
+    var listArr = [];
+    console.log("=============> nbMaxList = " + nbMaxList);
+    
+    //chargement des listes
+    for (var h = 0; h < nbMaxList; h++){
+        var collist = [];
+        collist.id = this.getId(`list${h}`);
+        collist.type = currentQuestion.options[`list${h}_type`];
+        collist.width = currentQuestion.options[`list${h}_width`];
+        collist.textalign = currentQuestion.options[`list${h}_textalign`];
+        collist.title = currentQuestion.options[`list${h}_title`];
+        collist.intrus = currentQuestion.options[`list${h}_intrus`].replaceAll(';','|').replaceAll(',','|');
+        
+        //Ajout des intrus si ils existent
+        if(collist.intrus){
+            collist.items = collist.intrus.split('|');
+        }else{
+            collist.items = [];
+        }
+        if (collist.title) {titleExists= true;}
+//         console.log(`${h} ===> type = `  + currentQuestion.options[`list${h}_type`]);
+//         console.log(`${h} ===> title = ` + currentQuestion.options[`list${h}_title`]);
+//         console.log(`${h} ===> intrus = ` + currentQuestion.options[`list${h}_intrus`]);
+//         console.log("------------");
+        listArr.push(collist);
+        
+    }
+    
+    //chargement de tous les items pour chaque liste
+    var nbList = nbMaxList;
     for(var k = 0; k < currentQuestion.answers.length; k++){
-        var tCouple = currentQuestion.answers[k].proposition.split(","); 
-        allItems1.push(tCouple[0]);
-        allItems2.push(tCouple[1]);
-    }
-    if(currentQuestion.options.list1_intrus){
-        var intrus = currentQuestion.options.list1_intrus.split(',');
-        for(var i = 0; i < intrus.length; i++){
-            if(intrus[i]){
-                allItems1.push(intrus[i]);
+        console.log(k + "--->" + currentQuestion.answers[k].proposition);
+        currentQuestion.answers[k].items = [];
+        var tExp = currentQuestion.answers[k].proposition.split(","); 
+        for (var i = 0; i < nbMaxList; i++){
+            if(tExp[i]){
+                currentQuestion.answers[k].items.push(tExp[i]);
+                if(listArr[i].items.indexOf(tExp[i]) == -1){
+                    listArr[i].items.push(tExp[i]);
+                }
             }
         }
-    }
-    if(currentQuestion.options.list2_intrus){
-        var intrus = currentQuestion.options.list2_intrus.split(',');
-        for(var i = 0; i < intrus.length; i++){
-            if(intrus[i]){
-                allItems2.push(intrus[i]);
-            }
-           
+        if(nbList > currentQuestion.answers[k].items.length){
+            nbList = currentQuestion.answers[k].items.length;
         }
     }
     
-    this.data.allItems1 = allItems1;
-    this.data.allItems2 = allItems2;
-    this.data.list1Name = this.getId('list1');
-    this.data.list2Name = this.getId('list2');
     
+    //a voir si il est judicieux dajouter un parametre pour trier, mélénger ou laisser la liste en l'état
+    //pour l'instant on force le tri
+    if(true){
+        for (var h = 0; h < nbMaxList; h++){
+            listArr[h].items.sort();
+        }
+    }
+ 
+    
+    this.data.nbList = nbList;
+    this.data.listArr = listArr;
+    this.data.titleExists = titleExists;
+    //alert("this.data.listArr[?].type = "  + this.data.listArr[0].type + " / " +  this.data.listArr[1].type );
 }
 
 /* ************************************
@@ -135,50 +212,123 @@ getScoreByProposition (answerContainer){
   var currentQuestion = this.question;
   //alert("getScore");
   var points = 0;
-  var couple = null;
-  var ans = null;
-  var v1 = ''
-  var v2 = '';
-
-    for(var k = 0; k < currentQuestion.answers.length; k++){
-        ans = currentQuestion.answers[k];
-        couple = ans.proposition.split(',');
-        v1 = document.getElementById(ans.ansId + '-left').value;
-console.log(k + ' : ' + couple[0] +  ' / ' + v1);        
-console.log(k + ' : ' + couple[1] +  ' / ' + v2);        
-        v2 = document.getElementById(ans.ansId + '-right').value; 
-        if(couple[0] == v1 && couple[1] == v2){
-            points += ans.points;
+  
+ //<select id="question-1-ans-5-0-1" name="question-1-ans-5-0" left="" ansindex="5">
+     for(var k = 0; k < currentQuestion.answers.length; k++){
+        var ans = currentQuestion.answers[k];
+        var p = ans.points;
+        
+  var nbRep = 0;
+  var nbGood = 0;
+        for(var h = 0; h < this.data.nbList; h++){
+            var itemId   = ans.ansId + `-${h}`;
+// console.log(`getScoreByProposition : ${p} - ${itemId}`);           
+            switch(this.data.listArr[h].type*1){
+                case 1 : //combobox
+                    nbRep++;
+                    var obInp = document.getElementById(itemId);
+                    if(obInp.value == ans.items[h]) { nbGood++;}
+                    console.log(`getScoreByProposition : ${p} - ${obInp.value}`);           
+                    break;
+                case 2 : //textbox
+                    nbRep++;
+                    var obInp = document.getElementById(itemId);
+                    if(sanityseTextForComparaison(obInp.value) == sanityseTextForComparaison(ans.items[h])) {nbGood++;}
+                    break;
+                    
+                //compte pour rien    
+                case 0: //label
+                case 3 : //conjonction
+                default:
+                    //p = 0;
+                    break;
+             }
         }
-    }
+        if (nbGood == nbRep) {points += ans.points;}
+        console.log(`===> ${ans.items[h]} - points : ${nbGood} / ${nbRep} => ${points}`);
+     }
 
 
-      return points;
+      if(currentQuestion.points){
+        return (points == this.scoreMaxiBP) ? currentQuestion.points :  0;
+      }else{
+        return points;
+      }
 
 }
 
 // //---------------------------------------------------
 getAllReponses (flag = 0){
-    var currentQuestion = this.question;
-     var tReponses = [];
+ console.log('getAllReponses');  
+   var currentQuestion = this.question;
+    var htmlArr = [];
 
-    var newKeys = this.data.keys;     
-    var tKeyWords = this.data.kitems;     
-     
-    for(var k = 0; k< newKeys.length; k++){
-        var key = newKeys[k];
-        tReponses.push([[tKeyWords[key].key], [tKeyWords[key].match], [tKeyWords[key].points]]);
-     }
+    //alert(currentQuestion.answers.length)
+    var id = currentQuestion.answers[0].id;
+    var name = this.getName();
+    var allAns = this.shuffleAnswers();
+    var item ='';
+    //var allAns = currentQuestion.answers;
+    var tplnumbering   = `<td style='width:3%;text-align:right;'>{numbering}</td>`; 
+    var tplBasic = `<td style='width:{width}%;' {alignement}>{itemValue}</td>`; 
 
-    return formatArray0(tReponses, "=>");
- }
+    htmlArr.push(`${this.getImage()}<center><table>`);
+    
+    for(var k = 0; k < allAns.length; k++){
+        var ans = allAns[k];
+        htmlArr.push('<tr>');
+        if(currentQuestion.numbering >0){
+            item = tplnumbering.replace('{numbering}', getNumAlpha(k,currentQuestion.numbering));
+            htmlArr.push(item);
+        }
+        
+        for(var h = 0; h < this.data.nbList; h++){
+            
+            var itemId   = ans.ansId + `-${h}`;
+            var itemName = ans.ansId + `-${h}`;
+            
+            switch(this.data.listArr[h].type*1){
+                case 0: //label
+                    item = tplBasic.replace('{itemValue}', ans.items[h])
+                                   .replace('{alignement}', 'right')
+                                   .replace('{width}', this.data.listArr[h].width);
+                    break;
+                case 1 : //combobox
+                    item = tplBasic.replace('{itemValue}' , ans.items[h])
+                                   .replace('{alignement}', 'left')
+                                   .replace('{width}', this.data.listArr[h].width);
+                    break;
+                case 2 : //textbox
+                    item = tplBasic.replace('{itemValue}', ans.items[h])
+                                   .replace('{alignement}', 'left')
+                                   .replace('{width}', this.data.listArr[h].width);
+
+                    break;
+                case 3 : //conjonction
+                default:
+                    item = tplBasic.replace('{itemValue}', ans.items[h].replaceAll(' ', '&nbsp;'))
+                                   .replace('{alignement}', 'left')
+                                   .replace('{width}', this.data.listArr[h].width); 
+                    break;
+             }
+            htmlArr.push(item);
+
+            
+        }
+        htmlArr.push('</tr>');
+    }
+    htmlArr.push(`</table></center>`);
+   
+    //return "en construction";
+    return htmlArr.join("\n");
+}
 
 
 
 
-//---------------------------------------------------
 //---------------------------------------------------
 getGoodReponses (){
+/*
     var currentQuestion = this.question;
      var tReponses = [];
 
@@ -191,6 +341,96 @@ getGoodReponses (){
      }
 
     return tReponses.join("<br>");
+  
+*/
+  
+  
+console.log('getGoodReponses');  
+  
+  
+  
+  
+  
+  
+      var currentQuestion = this.question;
+    var htmlArr = [];
+
+    //alert(currentQuestion.answers.length)
+    var id = currentQuestion.answers[0].id;
+    var name = this.getName();
+    var allAns = this.shuffleAnswers();
+    var item ='';
+    //var allAns = currentQuestion.answers;
+    var tplnumbering   = `<td style='width:3%;text-align:right;'>{numbering}</td>`; 
+    var tplBasic = `<td style='width:{width}%;' {alignement}>{itemValue}</td>`; 
+    var tplPoints = `<td style='width:{width}%;' left>===>{points}</td>`; 
+
+    htmlArr.push(`${this.getImage()}<center><table>`);
+    
+    for(var k = 0; k < allAns.length; k++){
+        var ans = allAns[k];
+        htmlArr.push('<tr>');
+        if(currentQuestion.numbering >0){
+            item = tplnumbering.replace('{numbering}', getNumAlpha(k,currentQuestion.numbering));
+            htmlArr.push(item);
+        }
+        
+        for(var h = 0; h < this.data.nbList; h++){
+            
+            var itemId   = ans.ansId + `-${h}`;
+            var itemName = ans.ansId + `-${h}`;
+            
+            switch(this.data.listArr[h].type*1){
+                case 0: //label
+                    item = tplBasic.replace('{itemValue}', ans.items[h])
+                                   .replace('{alignement}', 'right')
+                                   .replace('{width}', this.data.listArr[h].width);
+                    break;
+                case 1 : //combobox
+                    item = tplBasic.replace('{itemValue}' , ans.items[h])
+                                   .replace('{alignement}', 'left')
+                                   .replace('{width}', this.data.listArr[h].width);
+                    break;
+                case 2 : //textbox
+                    item = tplBasic.replace('{itemValue}', ans.items[h])
+                                   .replace('{alignement}', 'left')
+                                   .replace('{width}', this.data.listArr[h].width);
+
+                    break;
+                case 3 : //conjonction
+                default:
+                    item = tplBasic.replace('{itemValue}', ans.items[h].replaceAll(' ', '&nbsp;'))
+                                   .replace('{alignement}', 'left')
+                                   .replace('{width}', this.data.listArr[h].width); 
+                    break;
+             }
+            htmlArr.push(item);
+
+            item = tplPoints.replace('{points}',  ans.points);
+            htmlArr.push(item);
+            
+        }
+        htmlArr.push('</tr>');
+    }
+    htmlArr.push(`</table></center>`);
+   
+    //return "en construction";
+    return htmlArr.join("\n");
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    
  }
 
 /* ************************************
@@ -209,6 +449,50 @@ showBadAnswers (answerContainer){
 *
 * **** */
 showAnswers (goodAnswers = true){
+//console.log('===========> showAnswers');
+  var currentQuestion = this.question;
+
+
+     for(var k = 0; k < currentQuestion.answers.length; k++){
+        var ans = currentQuestion.answers[k];
+        for(var h = 0; h < this.data.nbList; h++){  
+            var itemId   = ans.ansId + `-${h}`;
+            if(goodAnswers){
+                var value = ans.items[h];
+            }else{
+                var value = getRandomArray(this.data.listArr[h].items);
+            }
+            
+            switch(this.data.listArr[h].type*1){
+                case 1 : //combobox
+                    var obInp = document.getElementById(itemId);
+                    obInp.value = value; 
+                    //console.log(`getScoreByProposition : ${p} - ${obInp.value}`);           
+                    break
+                case 2 : //textbox
+                    var obInp = document.getElementById(itemId);
+                    obInp.value = value;
+                    break;
+             }
+
+        }
+     }
+
+
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
     var currentQuestion = this.question;
     var tag = '';
     var obs = this.getObDivMain;
@@ -273,6 +557,7 @@ showAnswers (goodAnswers = true){
 
 //alert('ici -> ' + obInput.id);
     });
+*/
         
 }
 

@@ -1,18 +1,28 @@
 ---------------------------------------------------
-2024-10-28a v 6.02 beta 3 - JJDai - jjdelalandre@orange.fr
+2024-10-28a v 6.04 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 utilisation du xoopsFomrShowHide de Janus pour masquer ou afficher l'aide en ligne dans le formulaire des questions.
-
+plugin choiceSimple et choiceImages
+    - Ajout des tags dans le message, permet d'afficher notamment le score en cours
+    - Ajout d'options pour le message au slide suivant
+plugin textAreaMixte
+    ajout des boutons addAccolades, removeAccolades et clearAccolades pour la proposition de texte.
+plugin matchItems : refonte
+    - suppression dans les options de "conjonction" remplacé par une liste paramétrable
+    - Possibilité de définir 5 liste en colonne, de type label, textbox, listbox ou conjontion
+    - Ajout de paramètres pour chacune de ces liste : type de liste, titre, intrux, largeur de colonne, ...
+Pour tous les plugins, ajout de "version, release et author" visible dans l'onglet "plugin"
+    
 ---------------------------------------------------
 2024-10-28a v 6.02 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 plugin choiceSimple
-    - ajout des options : choix multiple, choix unique, choix unique et passage eu slide suivant
+    - ajout des options : choix multiple, choix unique, choix unique et passage au slide suivant
     - ajout d'un timer avec message "question suivante" dans le 3eme cas, choix unique et passage à la question suivante
     - mise à jour de l'aide du plugin.
 
 plugin choiceImages
-    - ajout des options : choix multiple, choix unique, choix unique et passage eu slide suivant
+    - ajout des options : choix multiple, choix unique, choix unique et passage au slide suivant
     - Ajout des images pour cochers dans le cas de choix multiple ou choix unique
     - ajout du reglage de la hauteur de la coche
     - ajout d'un timer avec message "question suivante" dans le 3eme cas, choix unique et passage à la question suivante

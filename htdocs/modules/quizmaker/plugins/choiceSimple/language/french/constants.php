@@ -39,5 +39,11 @@ define('_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC', "Message affiché si c'est
 define('_LG_PLUGIN_CHOICESIMPLE_MSGBG', "Couleur de fond du message.");
 
 define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1', "Question suivante");
-define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1_OPTIONS', _LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION1 . ",Question suivante,On passe à la suite,Persévérez");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION2', "On passe à la suite");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION3', "Persévérez");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION4', "Score cumulé : {score} / {scoreMaxi}");
+define('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION5', "Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
+
+
+
 ?>

@@ -37,6 +37,8 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("ulDaDSortList", 0, "dragAndDrop");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->optionsDefaults = ['orderStrict' => 'N', 
                                   'title'       => '', 
                                   'liBgDefault' => '#f5f5f5', 
@@ -166,7 +168,7 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
         $tPropos = array();
         $tPoints = array();
         foreach ($answers as $ansKey=>$ansValue){
-            $proposition = trim($ansValue['proposition']);
+            $proposition = FQUIZMAKER\sanityse_inpValue($ansValue['proposition']);
             if (!$proposition) continue;
             
             $caption = trim($ansValue['caption']);

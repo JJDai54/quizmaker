@@ -57,5 +57,8 @@ tplWord : "<span style='color: red;'>{word}</span>",
 tplWord2 : "<span style='color: white;'>{word}</span>",
 twoPoints : "&nbsp;:&nbsp;",
 nextQuestion : "Question suivante",
+formarDureeS : "{secondes} secondes",
+//formarDureeMS : "{minutes} minutes et {secondes} secondes",
+formarDureeMS : "{minutes},{secondes} minutes",
 version : "{name} Version {version} du {date_release} - contact : <a href='mailto:{email}?subject={name}'>{author}</a>"
 };

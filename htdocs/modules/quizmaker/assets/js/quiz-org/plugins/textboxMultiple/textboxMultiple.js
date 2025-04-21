@@ -35,8 +35,7 @@ getHtmlTextbox(sep){
     var currentQuestion = this.question;
     var tHtml = [];
     var nbInp = 0;
-    var width = Math.floor(90 / this.data.nbInputsMax);      
-        
+    //var width = Math.floor(90 / this.data.nbInputsMax);      
     for (var k = 0; k < currentQuestion.answers.length; k++){
         var name = this.getId(k);
         tHtml.push(`<label>${getNumAlpha(k*1,currentQuestion.numbering,0)}${currentQuestion.answers[k].caption}</label><br>`);
@@ -44,7 +43,8 @@ getHtmlTextbox(sep){
         var tInp = [];
         nbInp = currentQuestion.answers[k].inputs*1; 
         for (var j=0; j < nbInp; j++){
-          tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${width}%">`);
+          //tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${width}%">`);
+          tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" minlength="4" size="${currentQuestion.options.inpSize}" maxlength="${currentQuestion.options.inpMaxlength}">`);
         }
 
         tHtml.push(tInp.join(sep));

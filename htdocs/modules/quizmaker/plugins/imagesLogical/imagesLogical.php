@@ -40,6 +40,8 @@ class Plugin_imagesLogical extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("imagesLogical", 0, "images");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->maxPropositions = 8;	
         $this->optionsDefaults = ['imgHeight1' => 64,
                                   'imgHeight2' => 48];
@@ -237,7 +239,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             //----------------------------------------------------
 
             $tbl->addElement($inpChrono, -1);
-               
+   
             $col = 0;
             $tbl->addElement(new \XoopsFormLabel('','Proposition : ' . ($i+1)), $col, $k);
             $tbl->addElement($delProposition, $col, $k);

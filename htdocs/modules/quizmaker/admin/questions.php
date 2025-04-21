@@ -62,6 +62,7 @@ $op = Request::getCmd('op', 'list');
 
 //utiliser pour rediriger directement sur l'ajout d'une question du même type
 $addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
+$reload = (Request::getCmd('submit_and_reload', 'no') == 'no') ? false : true;
 
 //echo "<hr>addNew = " . (($addNew) ? ' ajout ok' : 'pas d ajout') . "-{$addNew}<hr>";
 
@@ -72,10 +73,10 @@ $sender  = Request::getString('sender', '');
 
 $quest_plugin = Request::getString('quest_plugin', '');
 
-function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0){
+function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0, $questId = 0){
 global $quizHandler;
     $catId = $quizHandler->getParentId($quizId);
-    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}";
+    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}&quest_id={$questId}";
 }
 
 //////////////////////////////////////////////

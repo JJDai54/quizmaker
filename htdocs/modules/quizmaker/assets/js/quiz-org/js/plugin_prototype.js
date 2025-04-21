@@ -61,6 +61,7 @@ proto_initSlide (){
         ans = currentQuestion.answers[k]
         //identifiant global du slide , contient le nom du plugin et le numero du slide tout slide compris 
         //pour eviter tout conflit entre slide
+        ans.index = k;
         ans.ansId = this.getId("ans",k);
         ans.name  = this.getName('ans');
         ans.points = ans.points*1;

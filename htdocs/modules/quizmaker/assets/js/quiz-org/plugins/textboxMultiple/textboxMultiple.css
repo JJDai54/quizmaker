@@ -3,6 +3,15 @@
   font-size:1.0em;
   text-align:left;
   color:black;
+  /* margin:0px 12px 0px 12px; */
+  padding:0px 12px 0px 12px;
+}
+
+.textboxMultiple table{
+/*     border:1px solid red; */
+    width: 95%;
+  margin:0px 12px 0px 12px; 
+  /* padding:0px 12px 0px 12px; */
 }
 
 .textboxMultiple input{

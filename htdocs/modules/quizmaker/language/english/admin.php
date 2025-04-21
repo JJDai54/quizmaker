@@ -372,7 +372,8 @@ define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Specific options");
 define('_AM_QUIZMAKER_START_TIMER', "Force timer");
 define('_AM_QUIZMAKER_START_TIMER_DESC', "<b>Oui</b> : Force le lancement du chronomètre pour ce slide.<br><b>Non</b> : Utilise le paramètre défini au niveau du quiz.");
 define('_AM_QUIZMAKER_STATISTICS', "Statistics");
-define('_AM_QUIZMAKER_SUBMIT_AND_ADDNEW', "Submit and add");
+define('_AM_QUIZMAKER_SUBMIT_AND_ADDNEW', "Submit and add a new question");
+define('_AM_QUIZMAKER_SUBMIT_AND_RELOAD', "Submit and reload the question");
 define('_AM_QUIZMAKER_TEST_QUIZ', "Test quiz version");
 define('_AM_QUIZMAKER_THEME', "Theme");
 define('_AM_QUIZMAKER_THEME_DEFAULT_CAT', "Default theme for this category");
@@ -413,6 +414,8 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ', "Importing a single quiz");
 define('_AM_QUIZMAKER_UNIT_PIXELS', "px");
 define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 define('_AM_QUIZMAKER_UNIT_SECONDES', "Seconds");
+define('_AM_QUIZMAKER_UNIT_MILISECONDS', "Mili-Secondes");
+define('_AM_QUIZMAKER_UNIT_CARACTERES', "Characteres");
 define('_AM_QUIZMAKER_UP', "Go up");
 define('_AM_QUIZMAKER_UPDATE', "Update");
 define('_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS', "Show all solutions");
@@ -422,8 +425,12 @@ define('_AM_QUIZMAKER_WEIGHT', "Weight");
 define('_AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE', "Instal example");
 
 define('_AM_QUIZMAKER_ANSWER', "Proposition");
-define('_AM_QUIZMAKER_UNIT_PERCENT', "%");
+define('_AM_QUIZMAKER_UNIT_PERCENT', "<b>%</b>");
 define('_AM_QUIZMAKER_SHUFFLE_ANSWERS', "Shuffle proposals");
 define('_AM_QUIZMAKER_SHUFFLE_ANSWERS_DESC', "Changes the order of the answers each time the quiz is launched.<br>The propositions will therefore be numbered differently each time.<br>Please note certain types of questions may not change the order.");
+define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE', "Délai pour passer au slide suivant");
+define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC', "Actif uniquement si l'option \"Choix unique et passage au slide suivant\" a été choisie");
+
+define('_AM_QUIZMAKER_NEW', 'New');
 
 ?>

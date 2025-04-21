@@ -56,6 +56,8 @@ tplResponseTD: "<tr><td>{word}</td><td>{sep}</td><td>{points}</td></tr>",
 tplWord: "<span style='color: red;'>{word}</span>",
 tplWord2: "<span style='color: white;'>{word}</span>",
 twoPoints: ":",
-nextQuestion : "Question suivante",
+nextQuestion : "Next question",
+formarDureeS : "{secondes} secondes",
+formarDureeMS : "{minutes} minutes and {secondes} secondes",
 version: "{name} Version {version} of {date_release} - contact: <a href='mailto:{email}?subject={name}'>{author}</a>"
 };

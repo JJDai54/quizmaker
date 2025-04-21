@@ -4,7 +4,7 @@
   * *****************************************************************/
 class choiceImages extends Plugin_Prototype{
 name = 'choiceImages';
-delaiNextSlide = 1500;  
+msgNextSlideDelai = 1500;  
 /* ***************************************
 *
 * *** */
@@ -26,14 +26,13 @@ getInnerHTML(){
     var i = 0;
     var h = repartition[i];
     //alert ("choiceImages repartition : " + h*2);
-    var msgNextSlide = '';
+    var msgNextSlideTxt = '';
     var divNexSlide = '';
 
-    var tpl = this.getDisposition(currentQuestion.options.disposition, this.getId(''));
     var imgStyle = `height:${currentQuestion.options.imgHeight1}px;`;
     var pStyle = `top:${currentQuestion.options.posLibelleV}%;font-size:${currentQuestion.options.fontSize}em;`;
     
-    var eventOnClick = `onclick="choiceImages_event_gotoNextSlide(event, ${currentQuestion.options.inputType},${this.delaiNextSlide});"`;
+    var eventOnClick = `onclick="choiceImages_event_gotoNextSlide(event, ${currentQuestion.options.inputType},${this.msgNextSlideDelai});"`;
     var ansArr = this.shuffleAnswers();
     
     for(var k in ansArr){
@@ -59,10 +58,15 @@ getInnerHTML(){
             h = repartition[++i];
         }
     }
-    
-    if (currentQuestion.options.msgNextSlide){
-        msgNextSlide = replaceBalisesByValues(currentQuestion.options.msgNextSlide);
-        divNexSlide = `<div id='${this.getId('nextquestion')}' style='background:${currentQuestion.options.msgNextSlideBG}' nextquestion>${msgNextSlide}</div>`;
+    //currentQuestion.options.msgNextSlideTxt='togodo';
+    //alert('msgNextSlideTxt = ' + currentQuestion.options.msgNextSlideTxt);
+    if (currentQuestion.options.msgNextSlideTxt){
+        //msgNextSlideTxt = replaceBalisesByValues(currentQuestion.options.msgNextSlideTxt);
+        msgNextSlideTxt = currentQuestion.options.msgNextSlideTxt;
+//         divNexSlide = `<div id="${this.getId('nextquestion','mask')}" class='quiz_div_mask'></div>`;
+//         divNexSlide += `<div id='${this.getId('nextquestion')}' style='background:${currentQuestion.options.msgNextSlideBG}' nextquestion>${msgNextSlideTxt}</div>`;
+        divNexSlide = `<div id="${this.getId('nextquestion','mask')}" class='quiz_div_mask'></div>`;
+        divNexSlide += `<div id="${this.getId('nextquestion')}" style='background:${currentQuestion.options.msgNextSlideBG}' nextquestion>${msgNextSlideTxt}</div>`;
     }else{
         divNexSlide = '';
     }
@@ -249,20 +253,15 @@ var btn = "div<img>";
 var tpl="";
   //alert(disposition);  
     switch(disposition){
-    case 'disposition-00':
-        tpl = `<div class='choiceImages_divMaitre'>{options}</div>`;
-        break;
-
-        break;
-        
     case 'disposition-02':
-        tpl = `<table><tr><td>{image}</td><td><div class='choiceImages_divMaitre'>{options}</div></td></tr></table>`;
+        tpl = `<center><table><tr><td>{image}</td><td><div class='choiceImages_divMaitre'>{options}</div></td></tr></table></center>`;
         break;
         
     case 'disposition-03':
-        tpl = `<table><tr><td><div class='choiceImages_divMaitre'>{options}</div></td><td>{image}</td></tr></table>`;
+        tpl = `<center><table><tr><td><div class='choiceImages_divMaitre'>{options}</div></td><td>{image}</td></tr></table></center>`;
         break;
         
+    case 'disposition-00':
     case 'disposition-01':
     default:
         tpl = `{image}<br><div class='choiceImages_divMaitre'>{options}</div>`;
@@ -277,7 +276,7 @@ var tpl="";
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant
 * ********** */
-function choiceImages_event_gotoNextSlide(ev, inputType, delaiNextSlide){
+function choiceImages_event_gotoNextSlide(ev, inputType, msgNextSlideDelai){
     console.log("choiceImages_event_gotoNextSlide");
     
     
@@ -286,12 +285,12 @@ function choiceImages_event_gotoNextSlide(ev, inputType, delaiNextSlide){
     //c'est un hoix unique avec passage au slide suivant
      if(inputType == 2){     
         //dans tous les cas on reactive le bouton nextSlide
-        idDivNextQuestion = ev.currentTarget.name + '-nextquestion';
+        var idDivNextQuestion = ev.currentTarget.name + '-nextquestion';
 
         if(choiceImages_show_message(idDivNextQuestion)){
-            setTimeout(choiceImages_next_slide, delaiNextSlide, idDivNextQuestion);
+            setTimeout(choiceImages_next_slide, msgNextSlideDelai, idDivNextQuestion);
         }else{
-            setTimeout(choiceImages_next_slide, delaiNextSlide/2, idDivNextQuestion);
+            setTimeout(choiceImages_next_slide, msgNextSlideDelai/2, idDivNextQuestion);
         }
         
     }
@@ -309,6 +308,9 @@ function choiceImages_next_slide(idDivNextQuestion){
      obNextSlide.style.visibility = 'hidden';
      obNextSlide.style.opacity = '0';
      obNextSlide.classList.remove('choiceImages_vignets');        
+
+      var obMask = document.getElementById(idDivNextQuestion + '-mask');
+      obMask.style.visibility = 'hidden';
    }
    
 }
@@ -316,10 +318,22 @@ function choiceImages_next_slide(idDivNextQuestion){
 * * Affecte la réponse et passe au slide suivant
 * ********** */
 function choiceImages_show_message(idDivNextQuestion){
+//console.log('choiceImages_show_message');
+//console.log('choiceImages_show_message : idDivNextQuestion = ' + idDivNextQuestion);      
     obNextSlide =  document.getElementById(idDivNextQuestion)
+//console.log('choiceImages_show_message : obNextSlide.id = ' + obNextSlide.id + '===>' + idDivNextQuestion);      
     if(obNextSlide){
+      //actualisation des scores et avancement dans le quiz
+      //remplacement des tokens par les scoring
+      computeAllScoreEvent();    
+      obNextSlide.innerHTML = replaceBalisesByValues(obNextSlide.innerHTML);
+
       obNextSlide.style.visibility = 'visible';        
       obNextSlide.classList.add('choiceImages_vignets');  
+      
+      var obMask = document.getElementById(idDivNextQuestion + '-mask');
+//console.log('choiceImages_show_message : obMask.id = ' + obMask.id);      
+      obMask.style.visibility = 'visible';
       return true;      
     }else{
         return false;

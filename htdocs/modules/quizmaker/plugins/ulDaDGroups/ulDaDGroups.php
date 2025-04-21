@@ -41,7 +41,9 @@ var $maxGroups = 4;
 	public function __construct()
 	{
         parent::__construct("ulDaDGroups", 0, "dragAndDrop");
-        $this->maxPropositions = 16;	
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
+        $this->maxPropositions = 20;	
         $this->optionsDefaults = ['group0'=>'','group1'=>'','group2'=>'','group3'=>'',
                                   'bgGroup0'=>'#dfdfdf','bgGroup1'=>'#dfdfdf','bgGroup2'=>'#dfdfdf','bgGroup3'=>'#dfdfdf',
                                   'ulWidth'=>'28',
@@ -283,6 +285,8 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
         */ 
        foreach ($answers as $key=>$v){
             $answerId = $v['id'];
+            $v['proposition']  = FQUIZMAKER\sanityse_inpValue($v['proposition']);
+            
             if($answerId > 0){
                 if($v['proposition'] && !isset($v['delete_Proposition'])) {
                     $ansObj = $answersHandler->get($answerId);

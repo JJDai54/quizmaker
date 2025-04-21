@@ -23,8 +23,8 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PLUGIN}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_SHORTDESC}></th>
-				<th class="center"><{$smarty.const._EDIT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_INSTALL}></th>
+				<th class="center"><{$smarty.const._EDIT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PLAY}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_HELP}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_IMAGE}></th>
@@ -39,7 +39,7 @@
              <{assign var=index value=$index+1}>
 			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$index}></td>
-				<td class='left'><a name="signet-<{$Plugin.type}>"><{$Plugin.type}></a></td>
+				<td class='left'><a name="signet-<{$Plugin.type}>"><{$Plugin.type}><br>(version : <{$Plugin.version}>)</a></td>
 				<td class='left'><{$Plugin.name}></td>
 				<td class='left width50'><{$Plugin.description}></td>
                 

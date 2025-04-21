@@ -4,7 +4,7 @@
   * *****************************************************************/
 class choiceSimple extends Plugin_Prototype{
 name = 'choiceSimple';
-delaiNextSlide = 1500;  
+msgNextSlideDelai = 1500;  
   
 /* ***************************************
 *
@@ -20,17 +20,19 @@ build (){
 getInnerHTML(){
     var currentQuestion = this.question;
     var name = this.getName();
-    var msgNextSlide = '';
+    var msgNextSlideTxt = '';
     var divNexSlide = '';
     
-    if (currentQuestion.options.msgNextSlide){
-        msgNextSlide = replaceBalisesByValues(currentQuestion.options.msgNextSlide);
-        divNexSlide = `<div id='${this.getId('nextquestion')}' style='background:${currentQuestion.options.msgNextSlideBG}' nextquestion>${msgNextSlide}</div>`;
+    if (currentQuestion.options.msgNextSlideTxt){
+        //msgNextSlideTxt = replaceBalisesByValues(currentQuestion.options.msgNextSlideTxt);
+        msgNextSlideTxt = currentQuestion.options.msgNextSlideTxt;
+        divNexSlide = `<div id="${this.getId('nextquestion','mask')}" class='quiz_div_mask'></div>`;
+        divNexSlide += `<div id="${this.getId('nextquestion')}" style='background:${currentQuestion.options.msgNextSlideBG}' nextquestion>${msgNextSlideTxt}</div>`;
     }else{
         divNexSlide = '';
     }
 
-    var tpl = this.getDisposition(currentQuestion.image, currentQuestion.options.familyWords);
+    var tpl = this.getDisposition(currentQuestion.options.disposition, currentQuestion.image, currentQuestion.options.familyWords);
     var html = tpl.replace("{image}", this.getImage())
                   .replace("{familyWords}", this.get_listFamilywords())
                   .replace("{optionsList}", this.get_optionsList())
@@ -67,13 +69,14 @@ var item;
     var keys = Object.keys(tItems);
     var typeInp = '';
     var eventOnClick = '';
-    
+   
     switch(currentQuestion.options.inputType*1){
         case 0 :
             typeInp = 'checkbox';
             break;
         case 2:
-            eventOnClick = `onclick="choiceSimple_event_gotoNextSlide(event, ${this.delaiNextSlide});"`;
+            typeInp = 'radio';
+            eventOnClick = `onclick="choiceSimple_event_gotoNextSlide(event, ${currentQuestion.options.msgNextSlideDelai});"`;
             // pas de break
         case 1:
             typeInp = 'radio';
@@ -81,15 +84,82 @@ var item;
     }
 
     var tHtml = [];
+    tHtml.push('<table>');
     for(var j=0; j < keys.length; j++){
         item = tItems[keys[j]];
-        tHtml.push(`<label>
-                 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
-                 ${getNumAlpha(j,numerotation,offset)}${item.word}
-                 </label>${sep}`);
-    
-    
+        tHtml.push(`<tr><td proposition ${extra} >       
+<input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}"caption="${item.key}" ${eventOnClick}>
+</td><td>`);
+
+if(numerotation==0){
+    tHtml.push(`<td proposition' ${extra} ><label for="${name}-${j}" style='text-indent:0;margin:0px 0px 0px 0px'>
+    ${item.word}
+</label><td>`);
+}else{
+    tHtml.push(`<td proposition ${extra} ><label for="${name}-${j}"><p>
+${getNumAlpha(j,numerotation,offset)}${item.word}
+</p></label></td>`);
+}
     }
+    tHtml.push('</table>');
+    return tHtml.join("\n");
+
+}
+/* ******************************************
+    tHtml.push(`<td><label for="${name}-${j}" style='text-indent:0;margin:5px 0px 0px 0px'>
+${getNumAlpha(j,numerotation,offset)}</label></td>
+<td><label for="${name}-${j}" style='text-indent:0;margin:5px 0px 0px 0px'>
+${item.word}
+</label></td>`);
+
+
+
+
+
+
+        tHtml.push(`<tr><td>       
+<input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
+</td><td><label for="${name}-${j}" style='text-indent:0;margin:5px 0px 0px 0px'>
+${getNumAlpha(j,numerotation,offset)}${item.word}
+</label><td></tr>`);
+*
+* ******************************************** */
+ getHtmlInputKeys_old(name, typeInp2, tItems, numerotation, offset=0, extra="", sep="<br>"){
+var item;
+    var currentQuestion = this.question;
+    var keys = Object.keys(tItems);
+    var typeInp = '';
+    var eventOnClick = '';
+   
+    switch(currentQuestion.options.inputType*1){
+        case 0 :
+            typeInp = 'checkbox';
+            break;
+        case 2:
+            typeInp = 'radio';
+            eventOnClick = `onclick="choiceSimple_event_gotoNextSlide(event, ${currentQuestion.options.msgNextSlideDelai});"`;
+            // pas de break
+        case 1:
+            typeInp = 'radio';
+        break;
+    }
+
+    var tHtml = [];
+    tHtml.push('<table>');
+    for(var j=0; j < keys.length; j++){
+        item = tItems[keys[j]];
+        tHtml.push(`<tr><td>
+                 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
+                 </td><td style='text-indent:0;'><label style='text-indent:0;'>${getNumAlpha(j,numerotation,offset)}${item.word}
+                 </label><td></tr>`);
+    
+    
+//         tHtml.push(`<label style='text-indent: -3em;'>
+//                  <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
+//                  ${getNumAlpha(j,numerotation,offset)}${item.word}
+//                  </label>${sep}`);
+    }
+    tHtml.push('</table>');
     return tHtml.join("\n");
 
 }
@@ -153,7 +223,7 @@ onFinalyse() {
     //pour compatibilité avec checkboxSimple et radioSimple obsolettes
     if(!currentQuestion.options.inputType){currentQuestion.options.inputType = 0;}
     
-    if(this.countAnsNotNull == 1) currentQuestion.options.inputType = 1;
+    if(this.countAnsNotNull == 1 && currentQuestion.options.inputType == 0) currentQuestion.options.inputType = 1;
     
     this.data.items = tItems;
     this.data.inputType = (currentQuestion.options.inputType == 0) ? 'checkbox'  : 'radio';
@@ -288,52 +358,145 @@ getAllReponses (flag = 0){
 /* *************************************
 *
 * ******** */
-getDisposition(bolImage, bolFamilyWords){
-var disposition = ((bolImage) ? "image" : "") 
-                + ((bolImage && bolFamilyWords) ? "-" : "")
-                + ((bolFamilyWords) ? "familyWords" : "");
+getDisposition(disposition, bolImage, bolFamilyWords){
+var sDispo = disposition + ((bolImage) ? "1" : "0") + ((bolFamilyWords) ? "1" : "0");
+//alert (`getDisposition : ${sDispo}`)
 
-    switch(disposition){
-    case "image-familyWords":
+    switch(sDispo){
+//----------------------------------------------------
+    case "disposition-011":
             var tpl = 
-`<table>
-<tr>
-    <td colspan='2'>{image}</td>
-    <td familyWords>{familyWords}</td>
-    <td>{optionsList}</td>
-</tr></table>`;
-        break;
-
-    case "image":
-        var tpl = 
-`<table>
-<tr>
+`<tr>
+    <td colspan='2' familyWords>{familyWords}</td>
+</tr><tr>
     <td>{image}</td>
     <td>{optionsList}</td>
-</tr></table>`;
+</tr>`;
         break;
-
-    case "familyWords":
-        var tpl = 
-`<table>
-<tr>
+//----------------------------------------------------
+    case "disposition-010":
+    case "disposition-110":
+            var tpl = 
+`<tr>
+    <td>{image}</td>
+    <td>{optionsList}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-001":
+    case "disposition-401":
+    case "disposition-501":
+            var tpl = 
+`<tr>
+    <td colspan='2' familyWords>{familyWords}</td>
+</tr><tr>
+    <td>{optionsList}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-111":
+            var tpl = 
+`<tr>
+    <td>{image}</td>
+    <td familyWords>{familyWords}</td>
+</tr><tr>
+    <td colspan='2'>{optionsList}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-210":
+    case "disposition-410":
+    case "disposition-510":
+            var tpl = 
+`<tr>
+    <td>{image}</td>
+</tr><tr>
+    <td>{optionsList}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-101":
+            var tpl = 
+`<tr>
+    <td>{optionsList}</td>
+</tr><tr>
+    <td familyWords>{familyWords}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-211":
+            var tpl = 
+`<tr>
+    <td colspan='2'>{image}</td>
+</tr><tr>
     <td familyWords>{familyWords}</td>
     <td>{optionsList}</td>
-</tr></table>`;
+</tr>`;
         break;
-
-    default:
+//----------------------------------------------------
+    case "disposition-201":
+    case "disposition-301":
             var tpl = 
-`<table>
-<tr>
+`<tr>
+    <td familyWords>{familyWords}</td>
+</tr><tr>
     <td>{optionsList}</td>
-</tr>
-</table>`;
+</tr>`;
         break;
-    }    
-
-    return `<div>{nextslide}</div><div id='{contenairId}'><center>${tpl}</center></div><br>`;
-
+//----------------------------------------------------
+    case "disposition-311":
+            var tpl = 
+`<tr>
+    <td familyWords>{familyWords}</td>
+    <td>{optionsList}</td>
+</tr><tr>
+    <td colspan='2'>{image}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-310":
+            var tpl = 
+`<tr>
+    <td>{optionsList}</td>
+</tr><tr>
+    <td>{image}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-411":
+            var tpl = 
+`<tr>
+    <td>{image}</td>
+    <td familyWords>{familyWords}</td>
+</tr><tr>
+    <td colspan='2'>{optionsList}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-511":
+            var tpl = 
+`<tr>
+    <td familyWords>{familyWords}</td>
+    <td>{image}</td>
+</tr><tr>
+    <td colspan='2'>{optionsList}</td>
+</tr>`;
+        break;
+//----------------------------------------------------
+    case "disposition-000":
+    case "disposition-100":
+    case "disposition-200":
+    case "disposition-300":
+    case "disposition-400":
+    case "disposition-500":
+    default:
+            var tpl = `<tr><td>{optionsList}</td></tr>`;
+        break;
+    }
+    
+    return `<div>{nextslide}</div><div id='{contenairId}'><center><table>${tpl}</table></center></div><br>`;    
+    
+    //return this.getDisposition(bolImage, bolFamilyWords);
 }
 
 } // ----- fin de la classe ------
@@ -341,18 +504,18 @@ var disposition = ((bolImage) ? "image" : "")
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant
 * ********** */
-function choiceSimple_event_gotoNextSlide(ev, delaiNextSlide){
+function choiceSimple_event_gotoNextSlide(ev, msgNextSlideDelai){
     console.log("choiceImages_event_gotoNextSlide");
     
     
     //dans tous les cas on reactive le bouton nextSlide
-    idDivNextQuestion = ev.currentTarget.name + '-nextquestion';
+    var idDivNextQuestion = ev.currentTarget.name + '-nextquestion';
     
     //document.getElementById(idDivNextQuestion).style.visibility = 'visible';      
     if(choiceSimple_show_message(idDivNextQuestion)){
-        setTimeout(choiceImages_next_slide, delaiNextSlide, idDivNextQuestion);
+        setTimeout(choiceSimple_next_slide, msgNextSlideDelai, idDivNextQuestion);
     }else{
-        setTimeout(choiceImages_next_slide, delaiNextSlide/2, idDivNextQuestion);
+        setTimeout(choiceSimple_next_slide, msgNextSlideDelai/2, idDivNextQuestion);
     }
     ev.stopPropagation();
 }
@@ -368,7 +531,10 @@ function choiceSimple_next_slide(idDivNextQuestion){
    if(obNextSlide){
      obNextSlide.style.visibility = 'hidden';
      obNextSlide.style.opacity = '0';
-     obNextSlide.classList.remove('choiceImages_vignets');        
+     obNextSlide.classList.remove('choiceImages_vignets');    
+         
+      var obMask = document.getElementById(idDivNextQuestion + '-mask');
+      obMask.style.visibility = 'hidden';
    }
    
 }
@@ -377,10 +543,20 @@ function choiceSimple_next_slide(idDivNextQuestion){
 * * Affecte la réponse et passe au slide suivant
 * ********** */
 function choiceSimple_show_message(idDivNextQuestion){
+//alert(statsTotal.cumul_score);
     obNextSlide =  document.getElementById(idDivNextQuestion)
     if(obNextSlide){
+      //actualisation des scores et avancement dans le quiz
+      //remplacement des tokens par les scoring
+      computeAllScoreEvent();  //  sleep(1);
+      //  document.getElementById('quiz_div_all_slides').getAllScores();
+      obNextSlide.innerHTML = replaceBalisesByValues(obNextSlide.innerHTML);
+        
       obNextSlide.style.visibility = 'visible';        
       obNextSlide.classList.add('choiceImages_vignets');  
+      
+      var obMask = document.getElementById(idDivNextQuestion + '-mask');
+      obMask.style.visibility = 'visible';
       return true;      
     }else{
         return false;

@@ -16,6 +16,7 @@ function addNewChild(parentId){
 <{* <{assign var='download' value=0}> *}>
 <{include file='db:quizmaker_admin_download.tpl' }>
 
+<{if $questions_list}>
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='questions.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
@@ -58,19 +59,7 @@ function addNewChild(parentId){
     </div>
 </div>
 </form>
- <style>
- input[type="number"]{
-   border-style:none;
-}
-
- input[type="number"]:hover{
-   border-style:solid;
-   background:rgb(204,204,204);
-   font-weight: bold;
-   color:blue;
- }
- </style>   
-<{if $questions_list}>
+ 
   
 <form name='quizmaker_list' id='quizmaker_list' action='questions.php' method='post' enctype=''>
 <input type="hidden" name="op"       value="update_list" />

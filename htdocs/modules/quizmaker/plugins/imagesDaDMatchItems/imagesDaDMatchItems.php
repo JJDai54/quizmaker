@@ -40,6 +40,8 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("imagesDaDMatchItems", 0, "dragAndDrop");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->maxPropositions = 12;	
         $this->optionsDefaults = ['imgHeight1'  => 64,
                                   'imgHeight2'  => 48,
@@ -72,17 +74,17 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
       //--------------------------------------------------------------------           
 
       $name = 'imgHeight1';  
-      $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_DAD,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElement($inpHeight1);     
 
       $name = 'imgHeight2';  
-      $inpHeight2 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_SHAPE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElement($inpHeight2);     
  
-       $name = 'directive';  
-      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      $name = 'directive';  
+      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_DIRECTIVE_DESC));      
 
@@ -202,8 +204,8 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
               $libImage = new \XoopsFormLabel('', $image);                        
             
             if($addNew){
-              $delProposition = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
-              //$delSubstitut = new \XoopsFormLabel('', QUIZMAKER_NEW);                        
+              $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+              //$delSubstitut = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
             }else{
               $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);

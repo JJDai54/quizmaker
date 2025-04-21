@@ -35,7 +35,13 @@ define('_LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_LISTBOX', "Text box with as many d
 
 define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON', "Comparison");
 define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_0', "Strict comparison (Exact word with accents)");
-define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_1', "Comparison with optional accents (e.g. \"sérénade\" equivalent to \"serênade\" equivalent to \"serenade\")");
-define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_2', "Soft comparison (Contained word with or without accents (eg: \"sérénade\", \"serênade\" are equivalent to \"serenade\")");
+define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_1', "Comparison with optional accents (e.g., \"sérénade\" is equivalent to \"serênade\" is equivalent to \"serenade\")");
+define('_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_2', "Soft comparison (Contained word with or without accents (e.g., \"sérénade\", \"serênade\" are equivalent to \"serenade\")");
 define('_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD', "Number of points per word found");
+define('_LG_PLUGIN_TEXTAREAMIXTE_ACCOLADES_ERR', "The number of opening and closing braces is different.");
+define('_LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ALERT', "Confirm the removal of all braces!");
+define('_LG_PLUGIN_TEXTAREAMIXTE_ADD_ACCOLADES', "Add braces around the selection.");
+define('_LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ACCOLADES', "Remove braces around the selection");
+define('_LG_PLUGIN_TEXTAREAMIXTE_CLEAR_ALL_ACCOLADES', "Remove all braces.");
+
 ?>

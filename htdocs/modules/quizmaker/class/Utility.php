@@ -40,7 +40,8 @@ class Utility
 
     use Utilities\ModuleUtility;  
     use Utilities\QuizBuildUtility; 
-    use Utilities\QuizUtility; 
+    use Utilities\QuizExport; 
+    use Utilities\QuizImport; 
  
     
 

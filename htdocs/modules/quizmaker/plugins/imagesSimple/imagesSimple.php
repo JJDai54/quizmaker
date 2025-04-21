@@ -40,13 +40,15 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("imagesSimple", 0, "images");
+        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+
         $this->maxPropositions = 8;	
         $this->optionsDefaults = ['imgHeight0'  => 64,
                                   'imgHeight1'  => 64,
                                   'imgHeight2'  => 48,
                                   'imgGreen'    => '',
                                   'imgRed'      => '',
-                                  'directive'   => QUIZMAKER_NEW,
+                                  'directive'   => _AM_QUIZMAKER_NEW,
                                   'disposition' => 'disposition-01'];
     }
 
@@ -115,8 +117,8 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElement($inpImgRed);   
 
       $name = 'directive';  
-      if ($tValues[$name] == QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
-      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot4, $tValues[$name]);
+      if ($tValues[$name] == _AM_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
+      $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
 
       $trayOptions ->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DIRECTIVE_DESC));     
