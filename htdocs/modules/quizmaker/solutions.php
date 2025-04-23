@@ -88,7 +88,7 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
         $numQuestion = 0;
 		foreach(array_keys($questionsAll) as $i) {
 			$question = $questionsAll[$i]->getValuesQuestions();
-            $question['solutions'] = $questionsAll[$i]->getSolutions($quiz['showAllSolutions']);
+            $question['solutions'] = $questionsAll[$i]->getSolutions($quiz['flags']['showAllSolutions']);
             $question['solutions']['libScoreMax'] = sprintf(_CO_QUIZMAKER_POINTS_FOR_ANSWER2, $question['solutions']['scoreMin'], $question['solutions']['scoreMax']);
             if($question['isQuestion']) 
                 $question['numQuestion'] = ++$numQuestion;

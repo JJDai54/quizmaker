@@ -48,7 +48,7 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
                                   'imgHeight2'  => 48,
                                   'imgGreen'    => '',
                                   'imgRed'      => '',
-                                  'directive'   => _AM_QUIZMAKER_NEW,
+                                  'directive'   => _CO_QUIZMAKER_NEW,
                                   'disposition' => 'disposition-01'];
     }
 
@@ -117,7 +117,7 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElement($inpImgRed);   
 
       $name = 'directive';  
-      if ($tValues[$name] == _AM_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
+      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
 

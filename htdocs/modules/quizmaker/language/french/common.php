@@ -96,4 +96,6 @@ define('_CO_QUIZMAKER_PLUGIN_CAT_IMAGES', "Images simples");
 define('_CO_QUIZMAKER_PLUGIN_CAT_OTHER', "Autres types de question");
 define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages de début, de fin et de regroupement");
 define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
+define('_CO_QUIZMAKER_NEW', 'Nouveau');
+
 ?>

@@ -46,7 +46,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['imgHeight'      => '80', 
-                                  'directive'      => _AM_QUIZMAKER_NEW, 
+                                  'directive'      => _CO_QUIZMAKER_NEW, 
                                   'propositions'   => '', 
                                   'disposition'    => '',
                                   'ignoreAccents'  => 0];
@@ -92,7 +92,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
       
       $name = 'directive';  
-      if ($tValues[$name] == _AM_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
+      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC));      

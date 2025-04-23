@@ -22,7 +22,7 @@
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include __DIR__ . '/include/common.php';
-include __DIR__ . '/include/permissions.php';
+//include __DIR__ . '/include/permissions.php';
 include __DIR__ . '/include/quizFlagAscii.php';
 include_once __DIR__ . '/include/functions.php';
 

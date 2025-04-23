@@ -587,7 +587,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -600,7 +600,7 @@ _quizmaker
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
+		+language
 			-english
 				-help
 					-img
@@ -660,7 +660,7 @@ _quizmaker
 				language\english\feedback.php
 				language\english\main.php
 				language\english\modinfo.php
-			-french
+			+french
 				-help
 					-img
 						language\french\help\img\_barre_de_dev.jpg
@@ -719,7 +719,7 @@ _quizmaker
 				language\french\feedback.php
 				language\french\main.php
 				language\french\modinfo.php
-		+plugins
+		-plugins
 			-alphaSimple
 				-img
 					-dispositions
@@ -891,7 +891,7 @@ _quizmaker
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.php
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\plugin_imagesDaDMatchItems.zip
-			-imagesDaDSortItems
+			+imagesDaDSortItems
 				-language
 					-english
 						plugins\imagesDaDSortItems\language\english\constants.php
@@ -1070,7 +1070,7 @@ _quizmaker
 					plugins\pageGroup\snapshoot\snapshoot--000.jpg
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.php
-			-pageInfo
+			+pageInfo
 				-language
 					-english
 						plugins\pageInfo\language\english\constants.php
@@ -1450,50 +1450,38 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=sql\mysql.sql
-1=class\Plugins.php
-2=plugins\multiQuestions\language\french\constants.php
-3=assets\js\quiz-org\plugins\multiQuestions\multiQuestions.css
-4=plugins\matchItems\matchItems.php
-5=plugins\multiQuestions\multiQuestions.php
-6=assets\js\quiz-org\plugins\multiQuestions\multiQuestions.js
-7=plugins\textboxMultiple\textboxMultiple.php
-8=plugins\listboxClassItems\listboxClassItems.php
-9=docs\changelog.txt
-10=xoops_version.php
+0=plugins\matchItems\matchItems.php
+1=assets\js\quiz-org\plugins\multiQuestions\multiQuestions.js
+2=plugins\listboxClassItems\listboxClassItems.php
+3=docs\changelog.txt
+4=xoops_version.php
+5=class\Answers.php
+6=class\Utilities\QuizImport.php
+7=header.php
 [Selected Project Files]
 Main=
-Selected=xoops_version.php
-[sql\mysql.sql]
-TopLine=86
-Caret=17,118
-[class\Plugins.php]
-TopLine=956
-Caret=9,991
-[plugins\multiQuestions\language\french\constants.php]
-TopLine=1
-Caret=45,35
-[assets\js\quiz-org\plugins\multiQuestions\multiQuestions.css]
-TopLine=1
-Caret=14,3
+Selected=docs\changelog.txt
 [plugins\matchItems\matchItems.php]
 TopLine=193
 Caret=38,228
-[plugins\multiQuestions\multiQuestions.php]
-TopLine=16
-Caret=1,44
 [assets\js\quiz-org\plugins\multiQuestions\multiQuestions.js]
 TopLine=16
 Caret=36,40
-[plugins\textboxMultiple\textboxMultiple.php]
-TopLine=117
-Caret=1,128
 [plugins\listboxClassItems\listboxClassItems.php]
-TopLine=172
-Caret=19,222
+TopLine=313
+Caret=100,359
 [docs\changelog.txt]
 TopLine=1
-Caret=22,16
+Caret=1,1
 [xoops_version.php]
 TopLine=1
-Caret=38,33
+Caret=34,32
+[class\Answers.php]
+TopLine=177
+Caret=15,214
+[class\Utilities\QuizImport.php]
+TopLine=204
+Caret=65,225
+[header.php]
+TopLine=1
+Caret=3,25

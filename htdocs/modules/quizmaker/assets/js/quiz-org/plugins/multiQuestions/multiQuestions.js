@@ -204,7 +204,22 @@ getScoreByProposition (answerContainer){
 * @ flag int: 0 = toutes les réponses / 1 = que les bonnes réponses
 * ********** */
 getAllReponses  (flag=0){
-    //pour cette question 0=1
+
+    var currentQuestion = this.question;
+    var tReponses = [];
+    var html = []
+    
+    for (var k = 0; k < currentQuestion.answers.length; k++){
+        var ans = currentQuestion.answers[k];
+        var html = `<b>Question ${k} : ${ans.caption}</b>` + qbr
+                 + 'Liste des réponses' + qbr
+                 + ans.proposition + qbr;
+        tReponses.push(html);
+    }    
+
+/*
+
+
     
     var currentQuestion = this.question;
     var tReponses = [];
@@ -221,6 +236,8 @@ getAllReponses  (flag=0){
         }
         tReponses.push(tGroup);
     }    
+    return html.join("\n");
+*/    
     return formatArray2(tReponses, '=');
 }
 

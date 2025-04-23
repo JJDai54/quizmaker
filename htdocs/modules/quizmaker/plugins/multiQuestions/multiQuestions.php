@@ -152,7 +152,7 @@ $lgProposition2 = $this->lgMot3;
               $delProposition = new \XoopsFormCheckBox('', $this->getName($k,'delete'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
             }else{
-              $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);
+              $delProposition = new \XoopsFormLabel('', _CO_QUIZMAKER_NEW);
             }
             
             $name = $this->getName($k, 'caption'); //contient la question
@@ -321,12 +321,14 @@ $lgProposition2 = $this->lgMot3;
   public function getSolutions($questId, $boolAllSolutions = true){
   global $answersHandler;
 
-    $tpl1 = "<tr><td colspan='4'><span style='color:%2\$s;font-weight:normal;'>%1\$s</span></td></tr>";
+    $tpl1 = "<tr><td ><span style='color:%3\$s;font-weight:normal;'>%4\$s %5\$s : %1\$s</span><br>%6\$s : %2\$s</td>"
+          . "<td>===>&nbsp;%7\$s&nbsp;%8\$s</td></tr>";
     
-    $tpl2 = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
-             . "<td><span style='color:%5\$s;'>%2\$s</span></td>" 
-             . "<td style='text-align:right;padding-right:5px;'><span style='color:%5\$s;'>%3\$s</span></td>"
-             . "<td><span style='color:%5\$s;'>%4\$s</span></td></tr>";
+//     $tpl2 = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
+//              . "<td><span style='color:%5\$s;'>%2\$s</span></td>" 
+//              . "<td style='text-align:right;padding-right:5px;'><span style='color:%5\$s;'>%3\$s</span></td>"
+//              . "<td><span style='color:%5\$s;'>%4\$s</span></td></tr>";
+
 
     $answersAll = $answersHandler->getListByParent($questId);
     
@@ -339,29 +341,23 @@ $lgProposition2 = $this->lgMot3;
 
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
+        //echoArray($ans);
         //$tp = $this->mergeAndSortArrays ($ans['points'], $ans['proposition']);
-        $tp = $this->combineAndSorAnswer($ans);
+        //$tp = $this->combineAndSorAnswer($ans);
             
         $color = "black";
-        $html[] = sprintf($tpl1, $ans['caption'], $color);        
+        $html[] = sprintf($tpl1, $ans['caption'], 
+                                 $ans['proposition'], 
+                                 $color,
+                                 _LG_PLUGIN_MULTIQUESTIONS_QUESTION_NUM,
+                                 $i+1,
+                                 _LG_PLUGIN_MULTIQUESTIONS_ANSWERS, 
+                                 $ans['points'],
+                                 _CO_QUIZMAKER_POINTS);        
+        $scoreMax += intval($ans['points']);
 
-        foreach($tp as $key=>$item){
-            $points = intval($item['points']);
-            if ($points > 0) {
-                $scoreMax += $points;
-                $color = QUIZMAKER_POINTS_POSITIF;
-                $html[] = sprintf($tpl2, $item['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
-            }elseif ($points < 0) {
-                $scoreMin += $points;
-                $color = QUIZMAKER_POINTS_NEGATIF;
-                $html[] = sprintf($tpl2, $item['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
-            }elseif($boolAllSolutions){
-                $color = QUIZMAKER_POINTS_NULL;
-                $html[] = sprintf($tpl2, $item['exp'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
-            }
-        }
         if($i < (count($answersAll)-1))
-        $html[] = "<td colspan='4'><hr class='default-hr-style-one'></td>";
+        $html[] = "<td colspan='2'><hr class='default-hr-style-one'></td>";
 	}
     $html[] = "</table>";
  

@@ -163,8 +163,8 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
     //$ret['answers'] = implode("\n", $html);
     
     $ret['answers'] = $tplImg;
-    $ret['scoreMin'] = $scoreMin;
-    $ret['scoreMax'] = $scoreMax;
+    $ret['scoreMin'] = 0;
+    $ret['scoreMax'] = 0;
     //echoArray($ret);
     return $ret;
 }

@@ -87,6 +87,7 @@ function quizFlagAscii($flag, $exp, $color = QUIZMAKER_FLAGS_COLORS)
 
 function quizFlagAlpha($flag, $exps, $colors = QUIZMAKER_FLAGS_COLORS)
 {
+    if ($flag<0) $flag = 0;
     $tExp = (isset($exps)) ? explode('|',$exps) : array('Yes','No','Auto');
     $tColors = (isset($colors)) ? explode('|',$colors) : explode('|', QUIZMAKER_FLAGS_COLORS);
 

@@ -47,7 +47,7 @@ class Plugin_imagesDaDSortItems extends XoopsModules\Quizmaker\Plugins
                                   'imgHeight2'  => 64, 
                                   'moveMode'    => 0, 
                                   'showCaptions'=> 'B',
-                                  'directive'   => _AM_QUIZMAKER_NEW];
+                                  'directive'   => _CO_QUIZMAKER_NEW];
 
         $this->hasImageMain = true;
         $this->multiPoints = true;
@@ -112,7 +112,7 @@ class Plugin_imagesDaDSortItems extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElement($inpMoveMode);     
 
       $name = 'directive';  
-      if ($tValues[$name] == _AM_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
+      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $trayOptions ->addElement($inpDirective);     
       $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      

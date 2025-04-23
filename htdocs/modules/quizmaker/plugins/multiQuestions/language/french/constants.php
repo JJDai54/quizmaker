@@ -27,6 +27,7 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 define('_LG_PLUGIN_MULTIQUESTIONS', "Questions multiples à réponses multiples.");
 define('_LG_PLUGIN_MULTIQUESTIONS_DESC', "Ce slide est composé d'une ou plusieurs questions.<br>Chaque question peut avoir plusieurs réponses.");
 define('_LG_PLUGIN_MULTIQUESTIONS_QUESTION', "Question");
+define('_LG_PLUGIN_MULTIQUESTIONS_QUESTION_NUM', "Question n°");
 
 define('_LG_PLUGIN_MULTIQUESTIONS_ANSWERS', "Réponses");
 define('_LG_PLUGIN_MULTIQUESTIONS_INTRUS', "Intrus");

@@ -259,7 +259,7 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
             if($addNew){
-              $delProposition = new \XoopsFormLabel('', _AM_QUIZMAKER_NEW);                        
+              $delProposition = new \XoopsFormLabel('', _CO_QUIZMAKER_NEW);                        
             }else{
               $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
               $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);

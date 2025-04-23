@@ -1,4 +1,9 @@
 ---------------------------------------------------
+2025-04-20a v 6.08 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Correction divers bugs, declaration, include, index, ...
+
+---------------------------------------------------
 2025-04-20a v 6.08 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Pour tous les plugins, ajout de "version, release et author" visible dans l'onglet "plugin"

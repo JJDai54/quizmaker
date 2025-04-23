@@ -431,6 +431,6 @@ define('_AM_QUIZMAKER_SHUFFLE_ANSWERS_DESC', "Changes the order of the answers e
 define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE', "Délai pour passer au slide suivant");
 define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC', "Actif uniquement si l'option \"Choix unique et passage au slide suivant\" a été choisie");
 
-define('_AM_QUIZMAKER_NEW', 'New');
+define('_CO_QUIZMAKER_NEW', 'New');
 
 ?>
