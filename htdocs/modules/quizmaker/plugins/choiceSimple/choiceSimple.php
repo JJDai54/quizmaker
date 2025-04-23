@@ -40,7 +40,7 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("choiceSimple", 0, "basic");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         
         $this->optionsDefaults = ['inputType'         => 0, //'multipleChoice' => 0,

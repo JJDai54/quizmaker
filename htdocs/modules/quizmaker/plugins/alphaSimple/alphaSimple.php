@@ -43,7 +43,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("alphaSimple", 0, "text");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['imgHeight'      => '80', 
                                   'directive'      => _AM_QUIZMAKER_NEW, 

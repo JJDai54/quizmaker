@@ -37,7 +37,7 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("ulDaDSortList", 0, "dragAndDrop");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['orderStrict' => 'N', 
                                   'title'       => '', 

@@ -1,0 +1,15 @@
+﻿.multiQuestions {
+/*     border:1px solid red; */
+    width:100%;
+    overflow-x: hidden;
+    text-align:left;
+    padding:12px;
+}
+
+.multiQuestions input {
+    font-size:1.2em;
+}
+
+.multiQuestions select {
+    font-size:1.2em;
+}

@@ -40,7 +40,7 @@ var $nbMaxList = 5;
 	public function __construct()
 	{
         parent::__construct("matchItems", 0, "other");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['nbMaxList' => $this->nbMaxList];
         for ($h = 0; $h < $this->nbMaxList; $h++){
@@ -163,17 +163,11 @@ var $nbMaxList = 5;
       
         
         for($k = 0; $k < $this->maxPropositions; $k++){
-        
-            if (isset($answers[$k])) {
-                $tExp = explode(',', $answers[$k]->getVar('answer_proposition'));
-                $points = intval(trim($answers[$k]->getVar('answer_points')));
-                $weight = intval(trim($answers[$k]->getVar('answer_weight')));
-            }else{
-                $tExp = array('','','','','','');
-                $points = 1;
-                $weight = $k * 10;
-            }
-            
+            $vArr = $this->getAnswerValues($answers[$k], $weight,1);
+            foreach($vArr as $key=>$value) $$key = $value;
+            if($isNew) $tExp = array('','','','','','');
+            else $tExp = explode(',', $proposition);
+            //----------------------------------------------------------------------- 
             
             $inpLab  = new XoopsFormLabel("", $k+1 . " : ");
             

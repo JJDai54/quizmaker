@@ -1,7 +1,58 @@
+DELETE FROM `x2511_quizmaker_questions` tq
+WHERE tq.quest_plugin='textboxMultiple';
+
+SELECT tz.* FROM `x2511_quizmaker_questions` tq, x2511_quizmaker_quiz as tz
+WHERE tq.quest_quiz_id=tz.quiz_id
+AND tq.quest_plugin='textboxMultiple';
+
+
+
+
+
+SELECT tq.quest_plugin, ta.* FROM `x2511_quizmaker_answers` as ta, x2511_quizmaker_questions as tq, x2511_quizmaker_quiz as tz
+WHERE ta.answer_quest_id = tq.quest_id
+AND tq.quest_quiz_id = tz.quiz_id
+AND tz.quiz_id=146
+AND tq.quest_plugin='textboxMultiple';
+
+
+SELECT tq.quest_plugin, ta.* FROM `x2511_quizmaker_answers` as ta
+inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
+inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
+WHERE tz.quiz_id=146
+AND tq.quest_plugin='textboxMultiple';
+ 
+
+
+update `x2511_quizmaker_answers` as ta
+inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
+inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
+SET ta.answer_buffer = ta.answer_caption
+WHERE tz.quiz_id=146
+AND tq.quest_plugin='textboxMultiple';
+ 
+
+update `x2511_quizmaker_answers` as ta
+inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
+inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
+SET ta.answer_buffer = 'aaa,bbb,ccc', ta.answer_points=1, ta.answer_inputs=5, ta.answer_group=1
+WHERE tz.quiz_id=146
+AND tq.quest_plugin='textboxMultiple';
+
+update x2511_quizmaker_questions as tq 
+inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
+SET tq.quest_plugin='multiQuestions'
+WHERE tz.quiz_id=146
+AND tq.quest_plugin='textboxMultiple';
+
+
+
+
+//-----------------------------------------------------------------
 SELECT * FROM `x2511_quizmaker_answers` as ta, x2511_quizmaker_questions as tq
 WHERE tq.quest_id = ta.answer_quest_id
 AND tq.quest_plugin = 'imagesDaDSortItems'
-
+ 
 UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
 SET ta.answer_image1 =  ta.answer_proposition
 WHERE tq.quest_id = ta.answer_quest_id

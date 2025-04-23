@@ -66,6 +66,13 @@ function getRandom(maxi, mini=0) {
   var maxi = Math.floor(maxi)+1; // 
   return Math.floor(Math.random() * (maxi - mini)) + mini;
 }
+function getRandomBool() {
+//console.log(`+++ maxi = ${maxi} - mini = ${mini}`);
+  var mini = 0;
+  var maxi = 999; // 
+  var r = Math.floor(Math.random() * (maxi - mini)) + mini;
+  return ((r%2)==1) ? true : false;
+}
 function getRandomArray(arr) {
     var index = getRandom(arr.length-1, 0);
     return arr[index];
@@ -529,7 +536,7 @@ function getHtmlRadio(name, tItems, itemDefault = -1, numerotation, offset=0, ex
 
 }
 
-function getHtmlCheckbox(name, tItems, itemDefault = -1, numerotation, offset, extra="", sep="<br>"){
+function getHtmlCheckbox(name, tItems, itemDefault = -1, numerotation, offset, extra="", sep=''){
     var tHtml = [];
     
     
@@ -878,6 +885,17 @@ function strip_tag(string) {
 * - supprime les caractères de poncuation
 * - remplace les caractères accetués
 * *********************************************** */
+function compareExp(exp1, exp2, bolToLower = true){
+    exp1 = sanityseTextForComparaison(exp1, bolToLower);
+    exp2 = sanityseTextForComparaison(exp2, bolToLower);
+    return (exp1 == exp2);
+}
+/* *********************************************
+* prépare un texte pour une comparaison avec un autre texte saisi
+* - supprime les "<br>" et les  "|n"
+* - supprime les caractères de poncuation
+* - remplace les caractères accetués
+* *********************************************** */
 function sanityseTextForComparaison(exp, bolToLower = true){
 var regAccent;
 var car2rep;
@@ -887,6 +905,7 @@ var car2rep;
     var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").trim(); //.replaceAll(" ","")
     
     var cars2del = new RegExp('[\ \'\.\!\?\,\;-@]', 'gi');
+    //var cars2del = new RegExp('[\ \'\.\!\?\;-@]', 'gi');
     //var cars2del = new RegExp('[ \'\.\!\?\,\;-]', 'gi');
   //var cars2del = new RegExp('[ \'\.\!\?\,\;\-\_\/]', 'gi');
         
@@ -931,7 +950,7 @@ var car2rep;
 function sanityseAccents(exp, setCasse=0){
 var regAccent;
 var car2rep;
-var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü');
+var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü', 'cç');
 var reponse = '';
     
     if(setCasse > 0){
@@ -1134,7 +1153,7 @@ function pb_init(maxValue, newValue = 0)
   var obBase = document.getElementById('pb_base');
   var obText = document.getElementById('pb_text');
   
-  pb.maxWidth = obContenair.offsetWidth - obText.offsetWidth - 12;
+  pb.maxWidth = obContenair.offsetWidth - obText.offsetWidth - 12-120;
   obBase.style.width = pb.maxWidth + 'px';
   pb.value = newValue;
   pb_showProgression();   

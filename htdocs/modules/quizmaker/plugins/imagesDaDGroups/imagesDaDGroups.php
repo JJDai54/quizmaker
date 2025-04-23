@@ -40,7 +40,7 @@ var $maxGroups = 4;
 	public function __construct()
 	{
         parent::__construct("imagesDaDGroups", 0, "dragAndDrop");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->maxPropositions = 16;	
         $this->optionsDefaults = ['imgHeight1'=>64,'imgHeight2'=>64,

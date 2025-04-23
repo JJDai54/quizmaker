@@ -1,4 +1,15 @@
 ---------------------------------------------------
+2025-04-20a v 6.08 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Pour tous les plugins, ajout de "version, release et author" visible dans l'onglet "plugin"
+Plugin matchItems : refonte
+    - suppression dans les options de "conjonction" remplacé par une liste paramétrable
+    - Possibilité de définir 5 liste en colonne, de type label, textbox, listbox ou conjontion
+    - Ajout de paramètres pour chacune de ces liste : type de liste, titre, intrux, largeur de colonne, ...
+Plugin textboxMultiple par le plugin questionMultiple
+    Ce plugin prend en charge en plus des textbox, les listbox,les checkbox et les boutons radio.
+        
+---------------------------------------------------
 2024-10-28a v 6.04 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 utilisation du xoopsFomrShowHide de Janus pour masquer ou afficher l'aide en ligne dans le formulaire des questions.
@@ -7,12 +18,6 @@ plugin choiceSimple et choiceImages
     - Ajout d'options pour le message au slide suivant
 plugin textAreaMixte
     ajout des boutons addAccolades, removeAccolades et clearAccolades pour la proposition de texte.
-plugin matchItems : refonte
-    - suppression dans les options de "conjonction" remplacé par une liste paramétrable
-    - Possibilité de définir 5 liste en colonne, de type label, textbox, listbox ou conjontion
-    - Ajout de paramètres pour chacune de ces liste : type de liste, titre, intrux, largeur de colonne, ...
-Pour tous les plugins, ajout de "version, release et author" visible dans l'onglet "plugin"
-    
 ---------------------------------------------------
 2024-10-28a v 6.02 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------

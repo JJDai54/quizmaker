@@ -248,7 +248,6 @@ function getHtmlLog(){
  * ************************************************************************/
 function getHtmlButtons(){                       //   style='background:blue;'
   return  `<div id="quiz_div_buttons" name="quiz_div_buttons">
-            <button id="quiz_div_horloge"           class="${quiz_css.horloge}">00:00</button>
             <button id="quiz_btn_previousSlide"     class="${quiz_css.buttons}">${quiz_messages.btnPrevious}</button>
             <button id="quiz_btn_nextSlide"         class="${quiz_css.buttons}">${quiz_messages.btnNext}</button>
             <button id="quiz_btn_reload_answers"    class="${quiz_css.buttons}">${quiz_messages.btnReload}</button>
@@ -298,9 +297,11 @@ var consigneTop = imgHeight-offset1;
  * ************************************************************************/
 function getProgressbarHTML(){
 var extra = (quiz.showGoToSlide == 1) ? 'onclick="event_pb_gotoSlide(event);" style="cursor: pointer;"':  ''; 
+var chrono = `<div style='float:left;'><button id="quiz_div_horloge"   style='width:120px;'     >00:00</button></div>`;
+
 return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" style="padding: 0px 0px 5px 0px;"><center>
-          <div id="pb_contenair" name="pb_contenair" class='${quiz_css.navigation}'>
-            <div id="pb_text" name="pb_text" width="80px">0 / 0</div>
+          <div id="pb_contenair" name="pb_contenair" class='${quiz_css.navigation}' style='width:90%;'>
+            ${chrono}<div id="pb_text" name="pb_text" style='width:40px;'>0 / 0</div>
             <div id="pb_base" name="pb_base" ${extra}>
                 <div id="pb_indicator"></div>
             </div>
@@ -422,16 +423,17 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
         // add this question and its answers to the output    
        var output = [];
        var classCSS = `quiz_div_plugin_main ${quiz_css.slide}` + ((clQuestion.question.pluginName == 'pageBegin') ? " quiz_div_plugin_begin" : "");
+       var PropositionsWwidth = 95;
         //---------------------------------------------------------------     
         output.push(
-          `<div id="slide[${questionNumber}]" name="slide${questionNumber}" class="${classCSS}" >
-            <div class="quiz_plugin_question_main ${quiz_css.question}">
+          `<div id="slide[${questionNumber}]" name="slide${questionNumber}"  class="${classCSS}" >
+            <div class="quiz_plugin_question_main ${quiz_css.question}" >
                 <div class="quiz_plugin_question">${title}</div>
                 
             </div>
             
             <div class="quiz_plugin_propositions ${quiz_css.proposition}">
-                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:100%;'>${comment2}${clQuestion.build()}</div>
+                <div id="${clQuestion.divMainId}" class="${clQuestion.typeName}" style='margin:auto;width:${PropositionsWwidth}%;'>${comment2}${clQuestion.build()}</div>
             </div>
           </div>`
         );       

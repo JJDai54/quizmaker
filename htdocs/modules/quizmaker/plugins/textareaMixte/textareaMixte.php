@@ -42,7 +42,7 @@ const maxPropositions = 1;
 	public function __construct()
 	{
         parent::__construct("textareaMixte", 0, "text");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['presentation'    => 'listbox',
                                   'comparaison'     => 0,

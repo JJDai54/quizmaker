@@ -41,7 +41,7 @@ var $maxGroups = 3;
 	public function __construct()
 	{
         parent::__construct("listboxClassItems", 0, "other");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['group0'=>'', 'group1'=>'', 'group2'=>'', 
                                   'groupDefault'   => '-1', 

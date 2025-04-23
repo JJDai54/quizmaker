@@ -13,12 +13,11 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
-HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
-		-css
+		+css
 			-infobulle
 				-images
 					css\infobulle\images\Award.png
@@ -42,7 +41,7 @@ _quiz-org
 				css\infobulle\exemple-01.html
 				css\infobulle\index.html
 				css\infobulle\infobulle.css
-			-progressbarr
+			+progressbarr
 				css\progressbarr\index.html
 				css\progressbarr\shaded-blue.png
 				css\progressbarr\shaded-green.png
@@ -88,10 +87,11 @@ _quiz-org
 				images\substitut\interrogation-05-rouge.png
 				images\substitut\interrogation-05-vert.png
 				images\substitut\interrogation-05-violet.png
+			images\graduation-pour-scrollbarre.svg
 			images\Help.png
 			images\Hint.png
 			images\index.html
-		-js
+		+js
 			js\index.html
 			js\plugin_prototype.js
 			js\quiz-events.js
@@ -107,7 +107,7 @@ _quiz-org
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-			+choiceImages
+			-choiceImages
 				-img
 					-buttons
 						plugins\choiceImages\img\buttons\btn_green.png
@@ -139,13 +139,27 @@ _quiz-org
 						plugins\choiceImages\img\buttons\pingouin-vertdegris.png
 						plugins\choiceImages\img\buttons\pingouin-violet.png
 					-coches
-						plugins\choiceImages\img\coches\coche_01_no.png
-						plugins\choiceImages\img\coches\coche_01_yes.png
+						plugins\choiceImages\img\coches\coche-01.png
+						plugins\choiceImages\img\coches\coche-02.png
+						plugins\choiceImages\img\coches\coche-03.png
+						plugins\choiceImages\img\coches\coche-04.png
+						plugins\choiceImages\img\coches\coche-05.png
+						plugins\choiceImages\img\coches\coche-06.png
+						plugins\choiceImages\img\coches\coche-07.png
+						plugins\choiceImages\img\coches\coche-08.png
+						plugins\choiceImages\img\coches\coche-09.jpg
+						plugins\choiceImages\img\coches\coche-10.png
+						plugins\choiceImages\img\coches\coche-11.png
+						plugins\choiceImages\img\coches\coche-12.png
+						plugins\choiceImages\img\coches\coche-13.png
+						plugins\choiceImages\img\coches\coche-14.png
+						plugins\choiceImages\img\coches\coche-15.png
+						plugins\choiceImages\img\coches\coche-16.png
 					plugins\choiceImages\img\index.html
 				plugins\choiceImages\choiceImages.css
 				plugins\choiceImages\choiceImages.js
 				plugins\choiceImages\index.html
-			+choiceSimple
+			-choiceSimple
 				plugins\choiceSimple\choiceSimple.css
 				plugins\choiceSimple\choiceSimple.js
 				plugins\choiceSimple\index.html
@@ -186,6 +200,10 @@ _quiz-org
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
+			+multiQuestions
+				plugins\multiQuestions\index.html
+				plugins\multiQuestions\multiQuestions.css
+				plugins\multiQuestions\multiQuestions.js
 			-pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
@@ -293,7 +311,7 @@ _quiz-org
 				plugins\textareaMixte\index.html
 				plugins\textareaMixte\textareaMixte.css
 				plugins\textareaMixte\textareaMixte.js
-			-textboxMultiple
+			+textboxMultiple
 				plugins\textboxMultiple\index.html
 				plugins\textboxMultiple\textboxMultiple.css
 				plugins\textboxMultiple\textboxMultiple.js
@@ -310,25 +328,41 @@ _quiz-org
 		index.html
 [Open project files]
 0=js\plugin_prototype.js
-1=plugins\choiceImages\choiceImages.css
-2=plugins\choiceImages\choiceImages.js
-3=plugins\choiceSimple\choiceSimple.js
-4=plugins\choiceSimple\choiceSimple.css
+1=plugins\multiQuestions\multiQuestions.css
+2=plugins\multiQuestions\multiQuestions.js
+3=plugins\textboxMultiple\textboxMultiple.js
+4=js\quiz-functions.js
+5=..\..\..\docs\todo.txt
+6=js\quiz-main.js
+7=css\quiz.css
+8=css\style-item-design.css
 [Selected Project Files]
 Main=
-Selected=plugins\choiceSimple\choiceSimple.js
+Selected=..\..\..\docs\todo.txt
 [js\plugin_prototype.js]
-TopLine=338
-Caret=31,348
-[plugins\choiceImages\choiceImages.css]
-TopLine=48
-Caret=1,71
-[plugins\choiceImages\choiceImages.js]
-TopLine=296
-Caret=1,313
-[plugins\choiceSimple\choiceSimple.js]
-TopLine=118
-Caret=75,156
-[plugins\choiceSimple\choiceSimple.css]
+TopLine=286
+Caret=29,310
+[plugins\multiQuestions\multiQuestions.css]
 TopLine=1
-Caret=1,28
+Caret=18,14
+[plugins\multiQuestions\multiQuestions.js]
+TopLine=117
+Caret=1,137
+[plugins\textboxMultiple\textboxMultiple.js]
+TopLine=18
+Caret=35,24
+[js\quiz-functions.js]
+TopLine=943
+Caret=67,953
+[..\..\..\docs\todo.txt]
+TopLine=1
+Caret=1,3
+[js\quiz-main.js]
+TopLine=278
+Caret=102,303
+[css\quiz.css]
+TopLine=13
+Caret=1,1
+[css\style-item-design.css]
+TopLine=77
+Caret=1,1

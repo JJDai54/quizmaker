@@ -40,7 +40,7 @@ class Plugin_pageBegin extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("pageBegin", 0, "page");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = [];
         $this->hasImageMain = true;

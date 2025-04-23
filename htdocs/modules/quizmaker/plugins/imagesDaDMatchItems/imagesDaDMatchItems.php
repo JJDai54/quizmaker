@@ -40,7 +40,7 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
 	public function __construct()
 	{
         parent::__construct("imagesDaDMatchItems", 0, "dragAndDrop");
-        $this->setVersion('1.02', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->maxPropositions = 12;	
         $this->optionsDefaults = ['imgHeight1'  => 64,

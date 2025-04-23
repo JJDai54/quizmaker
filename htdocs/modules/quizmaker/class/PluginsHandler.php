@@ -344,6 +344,9 @@ public function getNewPluginName(&$pluginName){
         case 'radioQuickImg' :
             $pluginName = 'choiceImages'; 
             break;
+        case 'textboxMultiple' :
+            $pluginName = 'multiQuestions'; 
+            break;
   }
 }
 /* ////////////////////////////////////////////////////////////////////// */
