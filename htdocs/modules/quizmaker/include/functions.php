@@ -394,5 +394,35 @@ function getBinOptionsFlagsArr ($binName, $binOptions){
     return $flags;
 }
 
+/**********************************************************************
+*
+* **********************************************************************/
+function getArray($list){
+    $list = strtolower($list);
+    switch($list){
+        case 'typeinput':
+            return array(0 => _LG_PLUGIN_MATCHITEMS_LABEL,
+                         1 => _LG_PLUGIN_MATCHITEMS_LISTBOX, 
+                         2 => _LG_PLUGIN_MATCHITEMS_TEXTBOX,
+                         3 => _LG_PLUGIN_MATCHITEMS_CONJONCTION);
+            break;
+            
+        case 'posv':
+            return array ('left'   => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
+                          'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
+                          'right'  => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
+            break;
+        case 'posv':
+            return array ('Top'    => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
+                          'middle' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
+                          'bottom' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
+            break;
+        default:
+            break;
+            
+    }
+    
 
+
+}
 

@@ -73,12 +73,13 @@ class Plugin_pageBegin extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
+      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
       
       //--------------------------------------------------------------------           
       
-      return null;
+      return $trayOptions;
     }
 
 /* ************************************************

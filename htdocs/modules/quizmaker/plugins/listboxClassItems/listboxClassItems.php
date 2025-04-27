@@ -68,7 +68,7 @@ var $maxGroups = 3;
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{global $myts;
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
 
       //--------------------------------------------------------------------           
       
@@ -76,7 +76,7 @@ var $maxGroups = 3;
       $inputMouseClick = new XoopsFormRadio(_AM_QUIZMAKER_QUIZ_ONCLICK, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputMouseClick->addOption(0, _AM_QUIZMAKER_CLICK_DOUBLE);   
       $inputMouseClick->addOption(1, _AM_QUIZMAKER_CLICK_SIMPLE);            
-      $trayOptions->addElement($inputMouseClick);     
+      $trayOptions->addElementOptions($inputMouseClick);     
 
       for($h = 0; $h < $this->maxGroups; $h++){
         $name = 'group' . $h;
@@ -88,27 +88,10 @@ var $maxGroups = 3;
         }else{
           $inpGoup->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
         }
-        $trayOptions->addElement($inpGoup);     
+        $trayOptions->addElementOptions($inpGoup);     
       }
       
       
-      
-      
-//       $name = 'group0';
-//       $inpGoup0 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 0',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-//       $inpGoup0->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
-//       $trayOptions->addElement($inpGoup0);     
-//       
-//       $name = 'group1';
-//       $inpGoup1 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 1',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2,$tValues[$name]);
-//       $inpGoup1->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
-//       $trayOptions->addElement($inpGoup1);     
-//       
-//       $name = 'group2';
-//       $inpGoup2 = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . ' 2',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-//       $inpGoup2->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
-//       $trayOptions->addElement($inpGoup2);  
-//          
       $name = 'groupDefault';  
       $inputGroupDefault = new XoopsFormRadio(_AM_QUIZMAKER_REPARTITION, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_REPARTITION_ALL_GROUPS);  
@@ -117,8 +100,8 @@ var $maxGroups = 3;
         $inputGroupDefault->addOption($h, (($tValues["group{$h}"]) ? $tValues["group{$h}"] : _AM_QUIZMAKER_GROUP . " {$h}"));            
       } 
       $inputGroupDefault->setDescription(_AM_QUIZMAKER_REPARTITION_DESC);  
-      $trayOptions->addElement($inputGroupDefault);     
-      $trayOptions->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_REPARTITION_DESC));     
+      $inputGroupDefault->setDescription(_AM_QUIZMAKER_REPARTITION_DESC);
+      $trayOptions->addElementOptions($inputGroupDefault);     
            
       return $trayOptions;
     }

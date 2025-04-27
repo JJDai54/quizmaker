@@ -30,7 +30,8 @@ getInnerHTML(){
     var divNexSlide = '';
 
     var imgStyle = `height:${currentQuestion.options.imgHeight1}px;`;
-    var pStyle = `top:${currentQuestion.options.posLibelleV}%;font-size:${currentQuestion.options.fontSize}em;`;
+    var posLibelleV = [-20,50,90][0];
+    var pStyle = `top:${posLibelleV}%;font-size:${currentQuestion.options.fontSize}em;`;
     
     var eventOnClick = `onclick="choiceImages_event_gotoNextSlide(event, ${currentQuestion.options.inputType},${this.msgNextSlideDelai});"`;
     var ansArr = this.shuffleAnswers();

@@ -27,5 +27,6 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 define('_LG_PLUGIN_PAGEEND', "Page de résultat du quiz");
 define('_LG_PLUGIN_PAGEEND_DESC', "Ce slide permet d'afficher les résultats du quiz. il est obligatoire et doit être le dernier slide car il active le bouton de validation qui permet d'enregistrer le résultat dans la base.Il est automatiquement ajouté lors de la création d'un nouveau quiz");
 define('_LG_PLUGIN_PAGEEND_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_PAGEEND_IMG_HEIGHT', "Hauteur de l'image");
 
 ?>

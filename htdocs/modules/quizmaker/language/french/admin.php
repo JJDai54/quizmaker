@@ -440,7 +440,9 @@ define('_AM_QUIZMAKER_PLUGIN_HELP_HIDE', "Fermer");
 define('_AM_QUIZMAKER_PLUGIN_HELP_SHOW', "Afficher");
 define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE', "Délai pour passer au slide suivant");
 define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC', "Actif uniquement si l'option \"Choix unique et passage au slide suivant\" a été choisie");
+define('_AM_QUIZMAKER_SUBMIT', "Soumettre");
 
+define('_AM_QUIZMAKER_NO_OPTIONS_', "Il n'y a pas d'options spécifiques pour ce plugin");
 
 
 ?>

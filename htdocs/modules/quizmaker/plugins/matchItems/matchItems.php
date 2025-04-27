@@ -32,7 +32,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_matchItems extends XoopsModules\Quizmaker\Plugins
 {
-var $nbMaxList = 5;     
+var $nbMaxColumns = 5;     
 	/**
 	 * Constructor 
 	 *
@@ -42,8 +42,9 @@ var $nbMaxList = 5;
         parent::__construct("matchItems", 0, "other");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
-        $this->optionsDefaults = ['nbMaxList' => $this->nbMaxList];
-        for ($h = 0; $h < $this->nbMaxList; $h++){
+        $this->optionsDefaults = ['nbColumns' => 2,
+                                  'nbMaxColumns' => $this->nbMaxColumns];
+        for ($h = 0; $h < $this->nbMaxColumns; $h++){
           $this->optionsDefaults["list{$h}_type"] = 0;
           $this->optionsDefaults["list{$h}_title"] = '';
           $this->optionsDefaults["list{$h}_intrus"] = '';
@@ -76,38 +77,130 @@ var $nbMaxList = 5;
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, '<br>');  
-      
+      //$trayOptions = new XoopsFormElementTray($caption, '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);
+       
+        
       $typeArr = array(0 => _LG_PLUGIN_MATCHITEMS_LABEL,
                        1 => _LG_PLUGIN_MATCHITEMS_LISTBOX, 
                        2 => _LG_PLUGIN_MATCHITEMS_TEXTBOX,
                        3 => _LG_PLUGIN_MATCHITEMS_CONJONCTION);
 
       $textalignArr = array ('left'   => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
-                       'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
-                       'right'  => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
-                 
+                             'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
+                             'right'  => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
+      $k=0;           
       //--------------------------------------------------------------------    
-      for ($h = 0; $h < $this->nbMaxList; $h++){
+      $name = "nbColumns";  
+      $nbColumns = $tValues[$name];
+      $inpNbColumns = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_NB_COLUMN,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpNbColumns->setExtra("style='background:#FFCC99;'");
+      $inpNbColumns->setMinMax(2, $this->nbMaxColumns, _LG_PLUGIN_MATCHITEMS_COLUMNS);
+      $inpNbColumns->setDescription(_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC);
+      //$trayOptions->addXoopsForm($inpNbColumns);  
+      
+//       $trayOptions->addElement (new \XoopsFormLabel(_LG_PLUGIN_MATCHITEMS_NB_COLUMN),0,$k);
+//       $trayOptions->addElement($inpNbColumns,1,$k);
+//       
+//       //$trayOptions->addElement(_LG_PLUGIN_MATCHITEMS_NB_COLUMN,0,$k);
+//       $trayOptions->addElement(new \XoopsFormLabel(_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC),1,$k);      
+          
+      $trayOptions->addElementOptions($inpNbColumns);      
+    //--------------------------------------------------
+
+      for ($h = 0; $h < $nbColumns; $h++){
           $j = $h+1;
+      //$trayOptions->insertBreak("<div style='background:green;'><hr></div>");
+      $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j) . "</div>");
+      //  $trayOptions->addElementOptions(sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j));      
+      
           $name = "list{$h}_type";  
-          $inpTypeList = new \XoopsFormRadio(sprintf(_LG_PLUGIN_MATCHITEMS_TYPE_LIST,$j), "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTypeList = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
           $inpTypeList->addOptionArray($typeArr);
-          $trayOptions ->addElement($inpTypeList);  
+          $trayOptions->addElementOptions($inpTypeList);      
+  
+
+
           
           $name = "list{$h}_textalign";  
-          $inpTextalign = new \XoopsFormRadio(sprintf(_LG_PLUGIN_MATCHITEMS_TEXTALIGN,$j), "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTextalign = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TEXTALIGN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
           $inpTextalign->addOptionArray($textalignArr);
-          $trayOptions ->addElement($inpTextalign);  
+          $trayOptions->addElementOptions($inpTextalign);  
           
           $name = "list{$h}_width";  
           $inpWidth = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
           $inpWidth->setExtra("style='background:#FFCC99;'");
           $inpWidth->setMinMax(5, 50, _AM_QUIZMAKER_UNIT_PERCENT);
-          $trayOptions ->addElement($inpWidth);  
+          $trayOptions->addElementOptions($inpWidth);  
           
           $name = "list{$h}_title"; 
-          $inpµIntrus = new \XoopsFormText(sprintf(_LG_PLUGIN_MATCHITEMS_TITLE_LIST,$j), "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpµIntrus->setExtra("style='background:" . self::bgColor1 . ";'");
+          $trayOptions->addElementOptions($inpµIntrus);
+          
+          $name = "list{$h}_intrus"; 
+          $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpµIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
+          $trayOptions->addElementOptions($inpµIntrus);
+           
+          //$trayOptions ->addElement(new XoopsFormLabel('<hr>', ''));   
+      }
+
+
+    //--------------------------------------------------
+      return $trayOptions;
+    }
+
+/* **********************************************************
+*
+* *********************************************************** */
+ 	public function getFormOptions_old($caption, $optionName, $jsonValues = null)
+ 	{
+      $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
+      //$trayOptions = new XoopsFormElementTray($caption, '<br>');  
+      $trayOptions = new XoopsTableOptions($caption, '<br>');  
+  
+      $typeArr = array(0 => _LG_PLUGIN_MATCHITEMS_LABEL,
+                       1 => _LG_PLUGIN_MATCHITEMS_LISTBOX, 
+                       2 => _LG_PLUGIN_MATCHITEMS_TEXTBOX,
+                       3 => _LG_PLUGIN_MATCHITEMS_CONJONCTION);
+
+      $textalignArr = array ('left'   => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
+                             'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
+                             'right'  => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
+                 
+      //--------------------------------------------------------------------    
+      $name = "nbColumns";  
+      $nbColumns = $tValues[$name];
+      $inpNbColumns = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_NB_COLUMN,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpNbColumns->setExtra("style='background:#FFCC99;'");
+      $inpNbColumns->setMinMax(2, $this->nbMaxColumns, _LG_PLUGIN_MATCHITEMS_COLUMNS);
+      $inpNbColumns->setDescription(_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC);
+      $trayOptions->addElement($inpNbColumns);  
+      $trayOptions->addElement(new \XoopsFormLabel(_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC));      
+          
+      for ($h = 0; $h < $nbColumns; $h++){
+          $j = $h+1;
+          $trayOptions->addElement(new \XoopsFormLabel(sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j)));      
+      
+          $name = "list{$h}_type";  
+          $inpTypeList = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTypeList->addOptionArray($typeArr);
+          $trayOptions ->addElement($inpTypeList);  
+          
+          $name = "list{$h}_textalign";  
+          $inpTextalign = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TEXTALIGN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTextalign->addOptionArray($textalignArr);
+          $trayOptions->addElement($inpTextalign);  
+          
+          $name = "list{$h}_width";  
+          $inpWidth = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+          $inpWidth->setExtra("style='background:#FFCC99;'");
+          $inpWidth->setMinMax(5, 50, _AM_QUIZMAKER_UNIT_PERCENT);
+          $trayOptions->addElement($inpWidth);  
+          
+          $name = "list{$h}_title"; 
+          $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
           $inpµIntrus->setExtra("style='background:" . self::bgColor1 . ";'");
           $trayOptions->addElement($inpµIntrus);
           
@@ -116,14 +209,13 @@ var $nbMaxList = 5;
           $inpµIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
           $trayOptions->addElement($inpµIntrus);
            
-          $trayOptions ->addElement(new XoopsFormLabel('<hr>', ''));   
+          //$trayOptions ->addElement(new XoopsFormLabel('<hr>', ''));   
       }
       
       
-      $trayOptions->addElement(new \XoopsFormHidden('nbMaxList', $this->nbMaxList));
+      $trayOptions->addElement(new \XoopsFormHidden('nbMaxColumns', $this->nbMaxColumns));
       return $trayOptions;
     }
-
 /* *************************************************
 *
 * ************************************************** */
@@ -145,18 +237,24 @@ var $nbMaxList = 5;
         //-------------------------------------------------
         //element definissat un objet ou un ensemble
         $weight = 0;
-        $tbl = $this->getNewXoopsTableXtray();
+        //$tbl = $this->getNewXoopsTableXtray();
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
-        $tbl->addTdStyle(1, 'text-align:left;width:50px;');
-        
+        $tbl->addTdStyle(0, 'text-align:left;width:50px;');
         // titre des colonnes et des listes
         $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
+        $nbColumns = (isset($options['nbColumns'])) ? $options['nbColumns'] : $this->nbMaxColumns;
+        
         //if(!$options) $options = $this->optionsDefaults;
           $tbl->addTitle('');        
-          for($h = 0; $h < $this->nbMaxList; $h++){
+          //for($h = 0; $h < $this->nbMaxColumns; $h++){
+          for($h = 0; $h < $nbColumns; $h++){
               $j = $h+1;
               $title = (isset($options["list{$h}_title"])) ? $options["list{$h}_title"] : sprintf(_LG_PLUGIN_MATCHITEMS_TITLE_DEFAULT,$j);
-              $tbl->addTitle($title);        
+              $tbl->addTitle("[#{$j}] {$title}" );        
+              
+              $width = $options["list{$h}_width"];
+              $tbl->addTdStyle($j, "width:{$width}%;");
+        //echo "<hr>column {$j} - width : {$width}<hr>";
           }
           $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_POINTS);        
           $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_WEIGHT);        
@@ -183,9 +281,17 @@ var $nbMaxList = 5;
 
             $tbl->addElement($inpLab, $col++, $k);
             
-            for($h = 0; $h < $this->nbMaxList; $h++){
+            for($h = 0; $h < $nbColumns; $h++){
               $name = $this->getName($k, "exp", $h); 
-              $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $tExp[$h]);            
+              $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $tExp[$h]);       
+              
+              //peti cacul simpliste pour donner un aperçu de la largeur des colonnes dans le quiz
+              //l'environnement étant différent, c'est juste une approche du résultat finel
+              $width = $options["list{$h}_width"];
+              $inpWidth = ($width < 20) ? 60 : 80;
+              $inpExp->setExtra("style='text-align:left;width:{$inpWidth}%;'");
+
+                   
               $tbl->addElement($inpExp, $col++, $k);
             }
             
@@ -211,7 +317,7 @@ var $nbMaxList = 5;
         //--------------------------------------------------------        
         foreach ($answers as $key=>$value){
         
-            for($h = 0; $h < $this->nbMaxList; $h++){
+            for($h = 0; $h < $this->nbMaxColumns; $h++){
                 $answers[$key]['exp'][$h] = trim($answers[$key]['exp'][$h]);
             }
             // si la première expression est vide la proposition n'est pas enregistrée

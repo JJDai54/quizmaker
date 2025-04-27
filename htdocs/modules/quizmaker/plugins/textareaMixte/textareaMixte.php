@@ -77,48 +77,42 @@ const maxPropositions = 1;
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
-      $labPresentation = new XoopsFormLabel('', _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION);
-      $trayOptions->addElement($labPresentation);
-           
       $name = 'presentation';  
-      $inputComparaison = new XoopsFormRadio('', "{$optionName}[{$name}]", $tValues[$name], '<br>');
+      $inputComparaison = new XoopsFormRadio(_LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION, "{$optionName}[{$name}]", $tValues[$name], '<br>');
       $inputComparaison->addOption("listbox",  _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_LISTBOX);            
       $inputComparaison->addOption("textbox",  _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_TEXTBOX);            
       $inputComparaison->addOption("textarea", _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_TEXTAREA);            
-      $trayOptions->addElement($inputComparaison);   
+      $trayOptions->addElementOptions($inputComparaison);   
         
-      $labComparaison = new XoopsFormLabel('', _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON);
-      $trayOptions->addElement($labComparaison);     
-      
       $name = 'comparaison';  
-      $inputComparaison = new XoopsFormRadio('', "{$optionName}[{$name}]", $tValues[$name], '<br>');
+      $inputComparaison = new XoopsFormRadio(_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON, "{$optionName}[{$name}]", $tValues[$name], '<br>');
       $inputComparaison->addOption("0", _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_0);            
       $inputComparaison->addOption("1", _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_1);            
       $inputComparaison->addOption("2", _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_2);            
-      $trayOptions->addElement($inputComparaison);     
+      $trayOptions->addElementOptions($inputComparaison);     
        
       $name = 'strToReplace';
       $inputStrToReplace = new XoopsFormText(_AM_QUIZMAKER_CARS_TO_REPLACE,"{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);            
       //$inputStrToReplace->setDescription ('blablabla');      
-      $trayOptions->addElement($inputStrToReplace);
+      $trayOptions->addElementOptions($inputStrToReplace);
       
       $name = 'tokenColor';  
       $inpTokenColor = new XoopsFormColorPicker('Couleur des balises', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpTokenColor);     
+      $trayOptions->addElementOptions($inpTokenColor);     
 
       $name = 'scoreByGoodWord';  
       $inpScoreByGoodWord = new \XoopsFormNumber(_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpScoreByGoodWord->setMinMax(1, 10, _AM_QUIZMAKER_UNIT_POINTS);
       $inpScoreByGoodWord->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TIMER));
-      $trayOptions->addElement($inpScoreByGoodWord);     
+      $trayOptions->addElementOptions($inpScoreByGoodWord);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
       //$trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
 
       return $trayOptions;

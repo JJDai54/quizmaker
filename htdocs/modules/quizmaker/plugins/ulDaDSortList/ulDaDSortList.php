@@ -71,30 +71,30 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{      
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
       $name = 'orderStrict';  
       $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
       $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
-      $trayOptions->addElement($inputOrder);     
+      $trayOptions->addElementOptions($inputOrder);     
       
       $name = 'title';  
       $inpTitle = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_CAPTION0, "{$optionName}[{$name}]", $this->lgProposition, $this->lgProposition, $tValues[$name]);
-      $trayOptions->addElement($inpTitle);     
+      $trayOptions->addElementOptions($inpTitle);     
 
       $name = 'liBgDefault';   /* background des items par defaut f5f5f5*/
       $inpLiBgDefault = new XoopsFormColorPicker('Couleur par defaut', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpLiBgDefault);     
+      $trayOptions->addElementOptions($inpLiBgDefault);     
 
       $name = 'liBgActive';  /* background de l'item survole pendant drag on drop ffe7e7*/
       $inpLiBgActive = new XoopsFormColorPicker('Couleur de survol pandant le déplacement', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpLiBgActive);     
+      $trayOptions->addElementOptions($inpLiBgActive);     
 
       $name = 'liBgHover';   /* background de l'item survole avant drag on drop 00FF00*/
       $inpLiBgHover = new XoopsFormColorPicker('Couleur de survol avant selection', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpLiBgHover);     
+      $trayOptions->addElementOptions($inpLiBgHover);     
 
 
 

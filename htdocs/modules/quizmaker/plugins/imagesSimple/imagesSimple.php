@@ -73,26 +73,26 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
 //echoArray($tValues,'tValues',false);    
       $path =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images";  
 //echo  "===>folderJS : {$path}<br>";
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
       $name = 'imgHeight0';  
       $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP0,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight0);     
+      $trayOptions->addElementOptions($inpHeight0);     
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP1,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight1);     
+      $trayOptions->addElementOptions($inpHeight1);     
 
       $name = 'imgHeight2';  
       $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP2,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight2);     
+      $trayOptions->addElementOptions($inpHeight2);     
       
       $name = 'imgGreen';  
-      $trayOptions ->addElement(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
+      $trayOptions ->addElementOptions(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
       //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
       $inpImgGreen = $this->getXoopsFormImage($tValues[$name], 
                                               "{$optionName}_{$name}", 
@@ -102,10 +102,10 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
                                               "{$optionName}[delete][{$name}]",                   //$this->getName($i,"delete_{$name}"),
                                               _LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED, 
                                               _LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_DESC);  
-      $trayOptions ->addElement($inpImgGreen);   
+      $trayOptions->addElementOptions($inpImgGreen);   
 
       $name = 'imgRed';  
-      $trayOptions ->addElement(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
+      $trayOptions ->addElementOptions(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
       //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
       $inpImgRed = $this->getXoopsFormImage($tValues[$name], 
                                             "{$optionName}_{$name}", 
@@ -114,20 +114,19 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
                                             "{$optionName}[delete][{$name}]",              //$this->getName($i,"delete_{$name}"), 
                                             _LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET, 
                                             _LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_DESC);  
-      $trayOptions ->addElement($inpImgRed);   
+      $trayOptions ->addElementOptions($inpImgRed);   
 
       $name = 'directive';  
       if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayOptions ->addElement($inpDirective);     
-
-      $trayOptions ->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DIRECTIVE_DESC));     
+      $inpDirective->setDescription(_AM_QUIZMAKER_DIRECTIVE_DESC);
+      $trayOptions ->addElementOptions($inpDirective);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
       return $trayOptions;
 
     }

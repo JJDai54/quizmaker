@@ -28,7 +28,16 @@ define('_LG_PLUGIN_ALPHASIMPLE', "Question de lettres");
 define('_LG_PLUGIN_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères alpha-nummériques à cocher.");
 
 define('_LG_PLUGIN_ALPHASIMPLE_CONSIGNE', "Vous devez sélectioner un caractère alpha-numérique qui correspond à la question.");
-define('_LG_PLUGIN_ALPHASIMPLE_LETTERS', "Lettres");     
+define('_LG_PLUGIN_ALPHASIMPLE_INTRUS', "Expressions erronées");
+
+define('_LG_PLUGIN_ALPHASIMPLE_LETTERS_DESC', <<<__exp__
+Liste de caractères ou d'expressions qui vient complèter les propositions pour faciliter la saisie.
+<br>Cette liste doit être séparée par un des caractères suivants :\",-|\"</b>
+<br>Les boutons \"X#@\" permettent de remplir automatiquement avec des listes prédéfinies.
+<br>Les éléments de cette liste valent 0 point.
+<br>Quand cette liste est utilisée, Il n'est pas utile de les saisir dans la liste des propositions.
+__exp__);
+
 define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE', "Directive");
 define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC', "Action à faire affichée au dessus des lettres.");
 define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB', "Cliquez sur une ou plusieurs lettres ou chiffres.");

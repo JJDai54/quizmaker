@@ -950,7 +950,9 @@ var car2rep;
 function sanityseAccents(exp, setCasse=0){
 var regAccent;
 var car2rep;
-var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü', 'cç');
+var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü', 'cçnñ',
+                         'AÀÂÄ', 'EÉÈÊË', 'IÎÏ', 'OÔÖ', 'UÙÜÜ', 'CÇNÑ');
+
 var reponse = '';
     
     if(setCasse > 0){
@@ -1080,6 +1082,7 @@ var tRet = [];
             
             if( clQuestion.question.isQuestion){
                 var link =`<h2 ${onClick}>${exp}</h2>` 
+                //var link =`<a ${onClick}>${exp}</a>` 
             }else{
                 var link =`<h1 ${onClick}>${exp}</h1>` 
             } 

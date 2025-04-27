@@ -1,11 +1,25 @@
 ﻿
 .pageBegin div[sommaire]{
 /* line-height:1.1em; voir quiz_sommaire h1 et h2 */
-/*
-*/
-max-height:200px;
+    max-height:250px;
     overflow-y: scroll;
 
 }
 
+.pageBegin h1{
+  font-size:1.2em;
+  font-bold:weight;
+  color:black;
+}
+.pageBegin h1:hover{
+    color:red;
+}
+
+.pageBegin h2{
+  font-size:1.2em;
+  color:blue;
+}
+.pageBegin h2:hover{
+    color:red;
+}
 

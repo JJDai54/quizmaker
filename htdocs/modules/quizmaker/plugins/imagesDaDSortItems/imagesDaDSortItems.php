@@ -85,37 +85,38 @@ class Plugin_imagesDaDSortItems extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESDADSORTITEMS_IMG1_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions ->addElement($inpHeight1);     
+      $trayOptions ->addElementOptions($inpHeight1);     
       
       $name = 'imgHeight2';  
       $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESDADSORTITEMS_IMG2_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions ->addElement($inpHeight2);     
+      $trayOptions ->addElementOptions($inpHeight2);     
       
       $name = 'showCaptions';  
       $inputShowCaption = new \XoopsFormRadio(_AM_QUIZMAKER_SHOW_CAPTIONS, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputShowCaption->addOption("N", _AM_QUIZMAKER_SHOW_CAPTIONS_NONE);            
       $inputShowCaption->addOption("T", _AM_QUIZMAKER_SHOW_CAPTIONS_TOP);            
       $inputShowCaption->addOption("B", _AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM);            
-      $trayOptions ->addElement($inputShowCaption);     
+      $trayOptions ->addElementOptions($inputShowCaption);     
       
       
       $name = 'moveMode';  
       $inpMoveMode = new \xoopsFormRadio(_AM_QUIZMAKER_MOVE_MODE, "{$optionName}[{$name}]" ,$tValues[$name] , ' ');
       $inpMoveMode->addOptionArray(['0'=>_LG_PLUGIN_IMAGESDADSORTITEMS_FLIP, "1"=>_LG_PLUGIN_IMAGESDADSORTITEMS_INSERT, "2"=>_LG_PLUGIN_IMAGESDADSORTITEMS_CARRET]);
-      $trayOptions ->addElement($inpMoveMode);     
+      $trayOptions ->addElementOptions($inpMoveMode);     
 
       $name = 'directive';  
       if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayOptions ->addElement($inpDirective);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_DESC));      
+      $inpDirective->setDescription(_LG_PLUGIN_IMAGESDADSORTITEMS_DIRECTIVE_DESC);
+      $trayOptions ->addElementOptions($inpDirective);     
+      
      
       //--------------------------------------------------------------------           
      

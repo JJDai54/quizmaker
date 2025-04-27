@@ -1,1 +1,25 @@
 ﻿
+.pageGroup div[sommaire]{
+/* line-height:1.1em; voir quiz_sommaire h1 et h2 */
+max-height:250px;
+    overflow-y: scroll;
+
+}
+.pageGroup h1{
+  font-size:1.2em;
+  font-bold:weight;
+  color:black;
+}
+.pageGroup h1:hover{
+  color:red;
+}
+
+.pageGroup h2{
+  font-size:1.2em;
+  color:blue;
+}
+.pageGroup h2:hover{
+    color:red;
+}
+
+

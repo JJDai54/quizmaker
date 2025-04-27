@@ -30,9 +30,10 @@ getInnerHTML (){
     var tplEmpty       = `<td style='width:{width}%;'></td>`; 
     var tplTitle       = `<td style='width:{width}%;text-align:center;''>{title}</td>`; 
  
+    var nbColumns = currentQuestion.options.nbColumns;
 
     var delta = 100;
-    for(var h = 0; h < this.data.nbList; h++){
+    for(var h = 0; h < nbColumns; h++){
         delta -= this.data.listArr[h].width;
     }
 
@@ -144,9 +145,10 @@ prepareData(){
     var nbMaxList = currentQuestion.options.nbMaxList;
     var listArr = [];
     console.log("=============> nbMaxList = " + nbMaxList);
+    var nbColumns = currentQuestion.options.nbColumns;
     
     //chargement des listes
-    for (var h = 0; h < nbMaxList; h++){
+    for (var h = 0; h < nbColumns; h++){
         var collist = [];
         collist.id = this.getId(`list${h}`);
         collist.type = currentQuestion.options[`list${h}_type`];
@@ -171,12 +173,11 @@ prepareData(){
     }
     
     //chargement de tous les items pour chaque liste
-    var nbList = nbMaxList;
     for(var k = 0; k < currentQuestion.answers.length; k++){
         console.log(k + "--->" + currentQuestion.answers[k].proposition);
         currentQuestion.answers[k].items = [];
         var tExp = currentQuestion.answers[k].proposition.split(","); 
-        for (var i = 0; i < nbMaxList; i++){
+        for (var i = 0; i < nbColumns; i++){
             if(tExp[i]){
                 currentQuestion.answers[k].items.push(tExp[i]);
                 if(listArr[i].items.indexOf(tExp[i]) == -1){
@@ -184,9 +185,9 @@ prepareData(){
                 }
             }
         }
-        if(nbList > currentQuestion.answers[k].items.length){
-            nbList = currentQuestion.answers[k].items.length;
-        }
+//         if(nbList > currentQuestion.answers[k].items.length){
+//             nbList = currentQuestion.answers[k].items.length;
+//         }
     }
     
     
@@ -199,7 +200,7 @@ prepareData(){
     }
  
     
-    this.data.nbList = nbList;
+    this.data.nbList = nbColumns;
     this.data.listArr = listArr;
     this.data.titleExists = titleExists;
     //alert("this.data.listArr[?].type = "  + this.data.listArr[0].type + " / " +  this.data.listArr[1].type );

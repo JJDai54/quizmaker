@@ -1,1 +1,26 @@
 ﻿
+.pageEnd div[sommaire]{
+/* line-height:1.1em; voir quiz_sommaire h1 et h2 */
+    max-height:250px;
+    overflow-y: scroll;
+
+}
+
+.pageEnd h1{
+  font-size:1.2em;
+  font-bold:weight;
+  color:black;
+}
+.pageEnd h1:hover{
+    color:red;
+}
+
+.pageEnd h2{
+  font-size:1.2em;
+  color:blue;
+}
+.pageEnd h2:hover{
+    color:red;
+}
+
+

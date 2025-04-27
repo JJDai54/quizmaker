@@ -1,8 +1,20 @@
 ---------------------------------------------------
+2025-04-20a v 6.08 beta 3 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+plugin alphaSimple :
+    - simplication de la fonction JS  "disposition"
+    - modification des icones de disposition
+tout plugin :    
+    - intégration de la fonction "getNewXFTableOptions" pour une meilleure présentation des options spécifiques.
+    
+---------------------------------------------------
 2025-04-20a v 6.08 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Correction divers bugs, declaration, include, index, ...
-
+Onglet "Questions"
+    -ajout d'une icone pour inté&grer une question dans le dernier group trouvé.
+     Permet de modifier les regroupement de questions sans les éditer à chaque fois.
+    
 ---------------------------------------------------
 2025-04-20a v 6.08 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------

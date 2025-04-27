@@ -75,7 +75,7 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null, $folderJS = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
     
       $name = 'inputType';  
@@ -83,8 +83,8 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
       $inpType->addOptionArray([0 => _LG_PLUGIN_CHOICESIMPLE_TYPE_0,
                                 1 => _LG_PLUGIN_CHOICESIMPLE_TYPE_1,
                                 2 => _LG_PLUGIN_CHOICESIMPLE_TYPE_2]);
-      $trayOptions->addElement($inpType);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_TYPE_DESC . QBR));   
+      $inpType->setDescription(_LG_PLUGIN_CHOICESIMPLE_TYPE_DESC);
+      $trayOptions->addElementOptions($inpType);     
          
       $name = 'msgNextSlideTxt';  
       $inpMsgNextSlide = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE, "{$optionName}[{$name}]",80,80, $tValues[$name]);
@@ -96,37 +96,29 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
         $inpMsgNextSlide->addOption(constant('_LG_PLUGIN_CHOICESIMPLE_NEXT_QUESTION' . $h));
         $h++;
       }
-
-      
-  /*
-      $inpMsgNextSlide = new \XoopsFormText(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-  */    
-      $trayOptions->addElement($inpMsgNextSlide);     
-      $trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC . QBR));      
-
+      $inpMsgNextSlide->setDescription(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC);
+      $trayOptions->addElementOptions($inpMsgNextSlide);     
+     
       $name = 'msgNextSlideBG';  
       $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICESIMPLE_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpMsgBG);     
+      $trayOptions->addElementOptions($inpMsgBG);     
 
       $name = 'msgNextSlideDelai';  
       $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
       $inpPoints->setMinMax(0, 3000, _AM_QUIZMAKER_UNIT_MILISECONDS);
-      $trayOptions->addElement($inpPoints);     
-      $trayOptions->addElement(new \XoopsFormLabel('', _AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC));      
+      $inpPoints->setDescription(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC);
+      $trayOptions->addElementOptions($inpPoints);     
 
-      $trayOptions->addElement(new \XoopsFormLabel('', '<hr>'));      
-    
       $name = 'familyWords';  
       $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayOptions ->addElement($inputFamilyWords);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_FAMILY_WORDS_DESC));      
+      $inputFamilyWords->setDescription(_AM_QUIZMAKER_FAMILY_WORDS_DESC);
+      $trayOptions ->addElementOptions($inputFamilyWords);     
       
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElement($inputDisposition);     
-      //$trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+      $trayOptions->addElementOptions($inputDisposition);     
 
       //--------------------------------------------------------------------           
       

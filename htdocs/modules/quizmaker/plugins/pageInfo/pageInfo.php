@@ -74,7 +74,8 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+  
       //--------------------------------------------------------------------   
       /*
       $name = 'imgHeight';  
@@ -82,7 +83,8 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
       $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElement($inpHeight1);     
       */        
-      
+      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+     
       //--------------------------------------------------------------------           
       
       return $trayOptions;

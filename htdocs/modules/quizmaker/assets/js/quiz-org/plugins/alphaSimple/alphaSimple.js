@@ -30,7 +30,7 @@ var varByRef = { sep: " - " }; //modifie par getDisposition et utiliser pour ali
     htmlArr.push(`<div id="${name}-alpha" style="text-align:left;margin-left:00px;">`);
     
     var tpl = this.getDisposition(currentQuestion.options.disposition, this.getId('tbl'), varByRef);
-    var html = tpl.replace("{img}", this.get_img())
+    var html = tpl.replace("{img}", this.getImage())
                   .replace("{words}", this.get_htmlWords(varByRef))
                   .replace("{answer}", "-?".repeat(this.data.nbSoluces).substring(1))
                   .replace("{directive}", currentQuestion.options.directive)
@@ -74,16 +74,6 @@ var tLetters = this.data.allExp;
  
     html += '</div>';
     return html;
-}
-
-/* ***************************************
-*
-* *** */
-get_img(){
-    var name = this.getName();
-    var currentQuestion = this.question;
-    return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.options.imgHeight}px"></center>`;
-//alert("get_img - disposition : " + currentQuestion.options.disposition);
 }
 
 /* **********************************************************
@@ -226,10 +216,84 @@ getAllReponses (flag = 0){
     return true;
   } 
  
+ getDisposition(disposition, tableId, varByRef){
+var currentQuestion = this.question;
+var tpl = "";
+var hr = '<hr class="quiz-style-two">';
+var divAnswer = `<div name='${name}' id='${this.idDivReponse}' selected>{answer}</div>`;
+
+var isImage = currentQuestion.image;
+var isWords = (this.data.tWords.length > 0);
+var isDirective = currentQuestion.options.directive;
+var tokenImage = '';
+
+//alert(disposition);
+//     var tpl = `<div class='alphaSimple_global'><center>${this.get_htmlWords()}<br><div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>?</div><br>${this.get_htmlLetters()}</center></div>`;
+//     var tpl = `<div class='alphaSimple_global'><center>${this.get_htmlWords()}<br><div name='${name}' id='${this.idDivReponse}' class='alphaSimple_letter_selected'>?</div><br>${this.get_htmlLetters()}</center></div>`;
+    switch(disposition)     {
+    
+    default:
+    case 'disposition-01':
+        if(isImage) {tpl += '{img}';}
+        if(isWords) {tpl += '<center><span words>{words}</span></center>';}
+        tpl += divAnswer;
+        tpl += hr;
+        if(isDirective) {tpl += '<center><span directive>{directive}</span></center>'}
+        tpl += '<center><span>{alphanum}</span></center>';
+        break;
+
+    case 'disposition-02':
+        if(isWords) {tpl += '<center><span words>{words}</span></center>';}
+        tpl += divAnswer;
+        if(isImage) {tpl += '{img}';}
+        tpl += hr;
+        if(isDirective) {tpl += '<center><span directive>{directive}</span></center>'}
+        tpl += '<center><span>{alphanum}</span></center>';
+        break;
+
+    case 'disposition-03':
+        tpl += divAnswer;
+        if(isImage) {tpl += '{img}';}
+        if(isWords) {tpl += '<center><span words>{words}</span></center>';}
+        tpl += hr;
+        if(isDirective) {tpl += '<center><span directive>{directive}</span></center>'}
+        tpl += '<center><span>{alphanum}</span></center>';
+        break;
+
+    case 'disposition-04':
+        if(isImage){
+            tpl += "<table><tr><td>{img}</td>"
+                +  `<td>${divAnswer}</td></tr></table>`;
+            if(isWords) {tpl += '<center><span words>{words}</span></center>';}
+            if(isDirective) {tpl += '<center><span directive>{directive}</span></center>'}
+            tpl += '<center><span>{alphanum}</span></center>';
+        
+        }else{
+            tpl = this.getDisposition('disposition-03', tableId, varByRef);
+        }
+        break;
+
+    case 'disposition-05':
+        if(isImage){
+            tpl += `<table><tr><td>${divAnswer}</td>`
+                 + "<td>{img}</td></tr></table>";
+            if(isWords) {tpl += '<center><span words>{words}</span></center>';}
+            if(isDirective) {tpl += '<center><span directive>{directive}</span></center>'}
+            tpl += '<center><span>{alphanum}</span></center>';
+        
+        }else{
+            tpl = this.getDisposition('disposition-03', tableId, varByRef);
+        }
+        break;
+
+    }
+    return tpl;
+}
+
   /* *********************************************
   
   ************************************************ */
-getDisposition(disposition, tableId, varByRef){
+getDisposition_old(disposition_old, tableId, varByRef){
 var currentQuestion = this.question;
 var tpl = "";
 var hr = '<hr class="quiz-style-two">';

@@ -68,30 +68,21 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);     
+ 
       //--------------------------------------------------------------------           
       
       $name = 'directive';  
       if (!$tValues[$name]) $tValues[$name] = _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayOptions ->addElement($inpDirective);     
-//      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC));    
-        
-//       $labTitle = new \XoopsFormLabel('', _AM_QUIZMAKER_ORIENTATION . ' : ');
-//       $labTitle->setDescription ('blablabla');      
-//       $trayOptions->addElement($labTitle);     
-
-//       $name = 'orientation';  
-//       $inputOrientation = new \XoopsFormRadio(_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION, "{$optionName}[{$name}]", $tValues[$name], ' ');
-//       $inputOrientation->addOption("H", _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_H);            
-//       $inputOrientation->addOption("V", _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_V);            
-//       $trayOptions->addElement($inputOrientation);     
+      $inpDirective->setDescription(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC);
+      $trayOptions ->addElementOptions($inpDirective);     
 
       $name = 'orientation'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputOrientation = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputOrientation->setGridIconNumber(2,1);
-      $trayOptions->addElement($inputOrientation);     
+      $trayOptions->addElementOptions($inputOrientation);     
       
       //--------------------------------------------------------------------           
   

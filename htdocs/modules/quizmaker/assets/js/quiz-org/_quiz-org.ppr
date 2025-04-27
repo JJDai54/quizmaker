@@ -13,6 +13,7 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
+HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quiz-org
@@ -41,7 +42,7 @@ _quiz-org
 				css\infobulle\exemple-01.html
 				css\infobulle\index.html
 				css\infobulle\infobulle.css
-			+progressbarr
+			-progressbarr
 				css\progressbarr\index.html
 				css\progressbarr\shaded-blue.png
 				css\progressbarr\shaded-green.png
@@ -91,7 +92,7 @@ _quiz-org
 			images\Help.png
 			images\Hint.png
 			images\index.html
-		+js
+		-js
 			js\index.html
 			js\plugin_prototype.js
 			js\quiz-events.js
@@ -107,7 +108,7 @@ _quiz-org
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-			-choiceImages
+			+choiceImages
 				-img
 					-buttons
 						plugins\choiceImages\img\buttons\btn_green.png
@@ -200,23 +201,23 @@ _quiz-org
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
-			+multiQuestions
+			-multiQuestions
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
 				plugins\multiQuestions\multiQuestions.js
-			-pageBegin
+			+pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
-			-pageEnd
+			+pageEnd
 				plugins\pageEnd\index.html
 				plugins\pageEnd\pageEnd.css
 				plugins\pageEnd\pageEnd.js
-			-pageGroup
+			+pageGroup
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.css
 				plugins\pageGroup\pageGroup.js
-			-pageInfo
+			+pageInfo
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
@@ -328,41 +329,13 @@ _quiz-org
 		index.html
 [Open project files]
 0=js\plugin_prototype.js
-1=plugins\multiQuestions\multiQuestions.css
-2=plugins\multiQuestions\multiQuestions.js
-3=plugins\textboxMultiple\textboxMultiple.js
-4=js\quiz-functions.js
-5=..\..\..\docs\todo.txt
-6=js\quiz-main.js
-7=css\quiz.css
-8=css\style-item-design.css
+1=plugins\choiceImages\choiceImages.js
 [Selected Project Files]
 Main=
-Selected=plugins\multiQuestions\multiQuestions.js
+Selected=plugins\choiceImages\choiceImages.js
 [js\plugin_prototype.js]
 TopLine=286
 Caret=29,310
-[plugins\multiQuestions\multiQuestions.css]
-TopLine=1
-Caret=18,14
-[plugins\multiQuestions\multiQuestions.js]
-TopLine=200
-Caret=14,233
-[plugins\textboxMultiple\textboxMultiple.js]
-TopLine=120
-Caret=1,159
-[js\quiz-functions.js]
-TopLine=943
-Caret=67,953
-[..\..\..\docs\todo.txt]
-TopLine=1
-Caret=31,36
-[js\quiz-main.js]
-TopLine=1
-Caret=15,17
-[css\quiz.css]
+[plugins\choiceImages\choiceImages.js]
 TopLine=13
-Caret=1,1
-[css\style-item-design.css]
-TopLine=77
-Caret=1,1
+Caret=1,33

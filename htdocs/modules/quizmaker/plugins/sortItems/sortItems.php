@@ -75,44 +75,44 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{      
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
       $name = 'orderStrict';  
       $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
       $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
-      $trayOptions->addElement($inputOrder);     
+      $trayOptions->addElementOptions($inputOrder);     
       
       $name = 'title';  
       $inpTitle = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_CAPTION0, "{$optionName}[{$name}]", $this->lgProposition, $this->lgProposition, $tValues[$name]);
-      $trayOptions->addElement($inpTitle);     
+      $trayOptions->addElementOptions($inpTitle);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
       
       //options dans le cas d'une liste déroullante
-      $trayOptions->addElement(new XoopsFormLabel('',QBR . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));   
+      //$trayOptions->addElementOptions(new XoopsFormLabel('',QBR . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));   
 
       $name = 'btnColor';  
-      $btnColors = XoopsLists::getDirListAsArray(QUIZMAKER_PATH_QUIZ_ORG . '/plugins/listboxSortItems/img/buttons', '');
+      $btnColors = XoopsLists::getDirListAsArray(QUIZMAKER_PATH_QUIZ_ORG . '/plugins/sortItems/img/buttons', '');
       $impBtnColors = new XoopsFormSelect(_AM_QUIZMAKER_BUTTONS_COLOR, "{$optionName}[{$name}]",$tValues[$name]) ;
       $impBtnColors->addOptionArray($btnColors);
-      $trayOptions->addElement($impBtnColors);   
+      $trayOptions->addElementOptions($impBtnColors);   
         
       $name = 'btnHeight';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(22, 96, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight1);     
+      $trayOptions->addElementOptions($inpHeight1);     
 
       $name = 'mouseClick';  
       $inputMouseClick = new XoopsFormRadio(_AM_QUIZMAKER_QUIZ_ONCLICK, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputMouseClick->addOption(0, _AM_QUIZMAKER_CLICK_DOUBLE);   
       $inputMouseClick->addOption(1, _AM_QUIZMAKER_CLICK_SIMPLE);            
-      $trayOptions->addElement($inputMouseClick);     
+      $trayOptions->addElementOptions($inputMouseClick);     
 
       return $trayOptions;
     }

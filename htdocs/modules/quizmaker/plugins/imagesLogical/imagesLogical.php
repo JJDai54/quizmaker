@@ -66,18 +66,18 @@ class Plugin_imagesLogical extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
       $name = 'imgHeight1';  
-      $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_HEIGHT_IMG_MASQUED,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight1);     
+      $trayOptions->addElementOptions($inpHeight1);     
 
       $name = 'imgHeight2';  
-      $inpHeight2 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_HEIGHT_IMG_PROPOSED,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight2);     
+      $trayOptions->addElementOptions($inpHeight2);     
 
       return $trayOptions;
 

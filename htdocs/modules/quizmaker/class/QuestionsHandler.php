@@ -437,7 +437,7 @@ __SQL__;
         return $ret;
     }
 /* ******************************
- * affecte la valeur d'un champ et du groupoe si besoin
+ * affecte la valeur d'un champ et du groupe si besoin
  * *********************** */
     public function setValue($questId, $field, $value, $doItForGroup = false)
     {
@@ -449,6 +449,9 @@ __SQL__;
        
         if($doItForGroup && $idParent > 0){
               $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_parent_id={$questId};";            
+              $ret = $this->db->queryf($sql);
+        }else{
+              $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_id={$questId};";            
               $ret = $this->db->queryf($sql);
         }
         return $ret;

@@ -77,8 +77,10 @@ var $maxMots = 0;
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
-//       //--------------------------------------------------------------------           
+      $trayOptions = $this->getNewXFTableOptions($caption);  
+//       //--------------------------------------------------------------------  
+      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+         
 //       $name = 'inpSize';  
 //       $inpSize = new \XoopsFormNumber(_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
 //       $inpSize->setMinMax(5, $this->inpMaxCar, _AM_QUIZMAKER_UNIT_CARACTERES);

@@ -24,20 +24,33 @@ img {
 }
 .quizmaker_linebreak_black{
     background:black;
-    color:white;
+    color:yellow;
     text-align:center;
+}
+.a[raccourcis]{
+    color:yellow;
+}
+.a:visited[raccourcis]{
+    color:yellow;
 }
 .quizmaker_linebreak_blue{
     background:blue;
     color:white;
     text-align:center;
-}.quizmaker_linebreak_green{
+}
+.quizmaker_linebreak_magenta{
+    background:magenta;
+    color:white;
+    text-align:center;
+}
+.quizmaker_linebreak_green{
     background:green;
     color:white;
     text-align:center;
-}.quizmaker_linebreak_cyan{
+}
+.quizmaker_linebreak_cyan{
     background:cyan;
-    color:white;
+    color:blue;
     text-align:center;
 }
 .quizmaker_linebreak_red{

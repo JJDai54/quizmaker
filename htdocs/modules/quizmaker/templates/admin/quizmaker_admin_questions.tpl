@@ -88,6 +88,8 @@ function addNewChild(parentId){
 		<{if $questions_count}>
 		<tbody>
             <{assign var="indexJS" value = -1}>
+            <{assign var="previousGroupId" value=0}>
+            
 			<{foreach item=Questions from=$questions_list name=quest  key=index}>
                 <{if $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>
                   <{assign var="fldImg" value="red"}>
@@ -96,6 +98,7 @@ function addNewChild(parentId){
                 <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
                   <{assign var="fldImg" value="red"}>
                   <{assign var="styleParent" value="style='background:lightblue;'"}>
+                  <{assign var="previousGroupId" value=$Questions.id}>
                   
                 <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_END}>
                   <{assign var="fldImg" value="red"}>
@@ -123,14 +126,17 @@ function addNewChild(parentId){
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}>
                     <{if $Questions.parent_id > 0}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_OUT_OF_GROUP}>">
-                            <img src="<{$modPathIcon16}>/out_of_group-green.png" alt="questions" />
+                            <img src="<{$modPathIcon16}>/out_group-red.png" alt="questions" />
                             </a>
                     <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=1" title="<{$smarty.const._AM_QUIZMAKER_CHILDREZN_OUT_OF_GROUP}>">
                             <img src="<{$modPathIcon16}>/out_of_group-red.png" alt="questions" />
                             </a>
-                    <{else $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
-                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                    <{elseif $previousGroupId <> 0}>
+    					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=<{$previousGroupId}>0&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_CHILDREZN_OUT_OF_GROUP}>">
+                            <img src="<{$modPathIcon16}>/in_group-green.png" alt="questions" />
+                            </a>
+                    <{else}>
                           <img src="<{$modPathIcon16}>/blank.png" alt="" />
                     <{/if}>              
 

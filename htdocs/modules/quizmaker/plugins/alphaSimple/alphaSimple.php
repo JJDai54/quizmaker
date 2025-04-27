@@ -75,6 +75,75 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null, $folderJS = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
+      $trayOptions = $this->getNewXFTableOptions($caption);  
+      
+      //--------------------------------------------------------------------           
+//echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
+      $name = 'imgHeight';  
+      $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions->addElementOptions($inpHeight1);     
+
+      $name = 'ignoreAccents';  
+	  $inpIgnoreAccents = new \XoopsFormRadioYN(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions ->addElementOptions($inpIgnoreAccents);      
+      
+      $name = 'directive';  
+      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+      $inpDirective->setDescription(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC);
+      $trayOptions ->addElementOptions($inpDirective);     
+      
+      //--------------------------------------------------
+      $alphabet = _ALPHASIMPLE_ALPHABET;
+      $number   = _ALPHASIMPLE_NUMBER_LG_PLUGIN_ALPHASIMPLE_NUMBER;
+      
+      $trayPropositions = new \XoopsFormElementTray(_LG_PLUGIN_ALPHASIMPLE_INTRUS, $delimeter = ' ');  
+      $name = 'propositions'; 
+      //if(!$tValues[$name] ) $tValues[$name] = $alphabet; 
+      $inpPropositions = new \XoopsFormText('', "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+      $trayPropositions->setDescription(_LG_PLUGIN_ALPHASIMPLE_LETTERS_DESC);
+      $trayPropositions->addElement($inpPropositions);
+      $id = "{$optionName}[{$name}]";
+        
+      $inpButtonClear = new \XoopsFormButton('', "", "X");
+      $inpButtonClear->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','')\"");
+      $trayPropositions->addElement($inpButtonClear);
+      
+      $inpButtonAlphabet = new \XoopsFormButton('', "", "@");
+      $inpButtonAlphabet->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$alphabet}')\"");
+      $trayPropositions->addElement($inpButtonAlphabet);
+      
+      $inpButtonNum = new \XoopsFormButton('', "", "#");
+      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$number}')\"");
+      $trayPropositions->addElement($inpButtonNum);
+      
+      $inpButtonNum = new \XoopsFormButton('', "", "@#");
+      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$number}--{$alphabet}')\"");
+      $trayPropositions->addElement($inpButtonNum);
+      $trayOptions ->addElementOptions($trayPropositions);      
+      //-----------------------------------------------------
+      
+      $name = 'disposition'; 
+      $path = $this->pathArr['img'] . "/dispositions"; 
+      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
+      //$inputDisposition->setHorizontalIconNumber(4);
+      $inputDisposition->setGridIconNumber(5);
+      $trayOptions->addElementOptions($inputDisposition);     
+   
+     // $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+
+      
+      //--------------------------------------------------------------------           
+      
+      return $trayOptions;
+    }
+/* **********************************************************
+*
+* *********************************************************** */
+ 	public function getFormOptions_old($caption, $optionName, $jsonValues = null, $folderJS = null)
+ 	{
+      $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
       //--------------------------------------------------------------------           
 //echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";

@@ -80,41 +80,39 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br><br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
       $name = 'inputType';  
       $inpType = new \XoopsFormRadio(_LG_PLUGIN_CHOICEIMAGES_TYPE, "{$optionName}[{$name}]", $tValues[$name]);
       $inpType->addOptionArray([0 => _LG_PLUGIN_CHOICEIMAGES_TYPE_0,
                                 1 => _LG_PLUGIN_CHOICEIMAGES_TYPE_1,
                                 2 => _LG_PLUGIN_CHOICEIMAGES_TYPE_2]);
-      $trayOptions->addElement($inpType);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_CHOICEIMAGES_TYPE_DESC . QBR));   
+      $inpType->setDescription(_LG_PLUGIN_CHOICEIMAGES_TYPE_DESC);                          
+      $trayOptions->addElementOptions($inpType);     
+   
 
       $name = 'msgNextSlideTxt';  
       $inpMsgNextSlide = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICEIMAGES_MSG_NEXT_SLIDE, "{$optionName}[{$name}]",80,80, $tValues[$name]);
       $inpMsgNextSlide->addBtnClear("X");
       $inpMsgNextSlide->addList(_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1_OPTIONS);
       $inpMsgNextSlide->setHelp(_LG_PLUGIN_CHOICEIMAGES_MSG_NEXT_SLIDE_DESC . QBR);
-      $trayOptions->addElement($inpMsgNextSlide);     
+      $trayOptions->addElementOptions($inpMsgNextSlide);     
     
 
       $name = 'msgNextSlideBG';  
       $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICEIMAGES_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpMsgBG);     
+      $trayOptions->addElementOptions($inpMsgBG);     
 
       $name = 'msgNextSlideDelai';  
       $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
       $inpPoints->setMinMax(0, 3000, _AM_QUIZMAKER_UNIT_MILISECONDS);
-      $trayOptions->addElement($inpPoints);     
-      $trayOptions->addElement(new \XoopsFormLabel('', _AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC));      
-
-
-      $trayOptions->addElement(new \XoopsFormLabel('', '<hr>'));      
+      $inpPoints->setDescription(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC);
+      $trayOptions->addElementOptions($inpPoints);     
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight1);     
+      $trayOptions->addElementOptions($inpHeight1);     
 
       $name = 'cocheImgName'; 
       $path = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/coches';
@@ -122,26 +120,22 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
       $inpCocheImg->setSelectedIconSize(64, 64);
       $inpCocheImg->setIconSize(64, 64);
       $inpCocheImg->setGridIconNumber(4);
-      $trayOptions->addElement($inpCocheImg);     
+      $trayOptions->addElementOptions($inpCocheImg);     
 
       $name = 'cocheImgHeight';  
       $inpCocheHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_COCHE_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpCocheHeight1->setMinMax(12, 48, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpCocheHeight1);     
-      
-      $trayOptions->addElement(new \XoopsFormLabel('', ''));      
+      $trayOptions->addElementOptions($inpCocheHeight1);     
       
       $name = 'posLibelleV';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_TOP,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(-150, 150, _AM_QUIZMAKER_UNIT_PERCENT);
-      $trayOptions->addElement($inpHeight1);     
+      $trayOptions->addElementOptions($inpHeight1);     
 
       $name = 'fontSize';  
       $inpDisposition = new \XoopsFormText(_LG_PLUGIN_CHOICEIMAGES_FONT_SIZE, "{$optionName}[{$name}]",5,5, $tValues[$name]);
-      $trayOptions->addElement($inpDisposition);     
+      $trayOptions->addElementOptions($inpDisposition);     
       //$trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_CHOICEIMAGES_FONT_SIZE_DESC));      
-      
-      $trayOptions->addElement(new \XoopsFormLabel('', ''));      
       
       $name = 'repartition';  
       $inpDisposition = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION, "{$optionName}[{$name}]",20,20, $tValues[$name]);
@@ -151,14 +145,14 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
       $inpDisposition->addBtn("2", '232');
       $inpDisposition->addBtn("3", '323');
       $inpDisposition->setHelp(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION_DESC . QBR);
-      $trayOptions->addElement($inpDisposition);     
+      $trayOptions->addElementOptions($inpDisposition);     
       
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputDisposition->setSelectedIconSize(64, 64);
       $inputDisposition->setIconSize(64, 64);
-      $trayOptions->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
 
       return $trayOptions;
 

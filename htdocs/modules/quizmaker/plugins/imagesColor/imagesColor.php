@@ -69,14 +69,14 @@ var $maxGroups = 4;
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{    
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 //echoArray($tValues);    
       //Taille des images à regrouper
       $name = 'imgHeight1';
       $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESCOLOR_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions ->addElement($inpHeight0);     
+      $trayOptions->addElementOptions($inpHeight0);     
 
         
       $name = 'showCaptions';  
@@ -84,27 +84,23 @@ var $maxGroups = 4;
       $inputShowCaption->addOption("N", _AM_QUIZMAKER_SHOW_CAPTIONS_NONE);            
       $inputShowCaption->addOption("T", _AM_QUIZMAKER_SHOW_CAPTIONS_TOP);            
       $inputShowCaption->addOption("B", _AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM);            
-      $trayOptions ->addElement($inputShowCaption);     
+      $trayOptions->addElementOptions($inputShowCaption);     
 
       $name = 'nbImagesByRow';
       $inpNbImagesByRow = new \XoopsFormNumber(_LG_PLUGIN_IMAGESCOLOR_NBIMGBYROW,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpNbImagesByRow->setMinMax(0, 8);
-      $trayOptions ->addElement($inpNbImagesByRow);  
+      $trayOptions ->addElementOptions($inpNbImagesByRow);  
 
       $name = 'colorDefault';  
       $inpColorDefault = new XoopsFormColorPicker('', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElement($inpColorDefault);     
+      $trayOptions->addElementOptions($inpColorDefault);     
       
       $name = 'colorSelectMode';  
       $inputDisposition = new \XoopsFormRadio(_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE, "{$optionName}[{$name}]", $tValues[$name]);
       $inputDisposition->addOption(0, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST);
       $inputDisposition->addOption(1, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID);
-      $trayOptions ->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
       //--------------------------------------
-
-
-
-
 
       return $trayOptions;
     }

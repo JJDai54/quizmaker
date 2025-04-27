@@ -70,45 +70,44 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_DAD,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight1);     
+      $trayOptions->addElementOptions($inpHeight1);     
 
       $name = 'imgHeight2';  
       $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_SHAPE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight2);     
+      $trayOptions->addElementOptions($inpHeight2);     
  
       $name = 'directive';  
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayOptions ->addElement($inpDirective);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _AM_QUIZMAKER_DIRECTIVE_DESC));      
+      $inpDirective->setDescription(_AM_QUIZMAKER_DIRECTIVE_DESC);
+      $trayOptions ->addElementOptions($inpDirective);     
 
 
       $name = 'moveAllow';  
 	  $inpMoveAllow = new \XoopsFormRadioYN(_LG_PLUGIN_IMAGESDADMATCHITEMS_MOVEALLOW , "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions ->addElement($inpMoveAllow);      
+      $trayOptions ->addElementOptions($inpMoveAllow);      
       
       
           $name = 'bgSource';  
           $inpBgSource = new XoopsFormColorPicker(QBR ._LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SOURCE, "{$optionName}[{$name}]", $tValues[$name]);
-          $trayOptions->addElement($inpBgSource);     
+          $trayOptions->addElementOptions($inpBgSource);     
 
           $name = 'bgSilhouette';  
           $inpBgSilhouette = new XoopsFormColorPicker(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SILOUHETTE, "{$optionName}[{$name}]", $tValues[$name]);
-          $trayOptions->addElement($inpBgSilhouette);     
-
-          $trayOptions->addElement(new XoopsFormLabel('',_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT . QBR));     
+          $inpBgSilhouette->setDescription(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT);
+          $trayOptions->addElementOptions($inpBgSilhouette);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
 
       return $trayOptions;
 

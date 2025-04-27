@@ -70,32 +70,32 @@ var $maxGroups = 4;
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{    
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
+      $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
     
       $name = 'ulWidth';  
       $inpUlWidth = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpUlWidth->setMinMax(20, 100, 'pixels');
-      $trayUlWidth = new XoopsFormElementTray(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH, $delimeter = ' ');  
-      $trayUlWidth->addElement($inpUlWidth);
-      $trayUlWidth->addElement(new \XoopsFormLabel(' ', '%'));
-      $trayOptions ->addElement($trayUlWidth);     
+      $inpUlWidth->setMinMax(20, 100, _AM_QUIZMAKER_UNIT_PIXELS);
+//       $trayUlWidth = new XoopsFormElementTray(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH, $delimeter = ' ');  
+//       $trayUlWidth->addElement($inpUlWidth);
+//       $trayUlWidth->addElement(new \XoopsFormLabel(' ', '%'));
+      $trayOptions ->addElementOptions($inpUlWidth);     
       
       //--------------------------------------
       // groupes
       
       for($h = 0; $h < $this->maxGroups; $h++){
-          $trayGroup = new XoopsFormElementTray('', $delimeter = ' ');  
+          $trayGroup = new XoopsFormElementTray(_AM_QUIZMAKER_GROUP_LIB . $h, $delimeter = ' ');  
           
           $name = 'group' . $h;
-          $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . $h,  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+          $inpGoup = new \XoopsFormText('',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
           $trayGroup->addElement($inpGoup);     
 
           $name = 'bgGroup' . $h;  
           $inpBgGroup = new XoopsFormColorPicker('', "{$optionName}[{$name}]", $tValues[$name]);
           $trayGroup->addElement($inpBgGroup);     
           
-          $trayOptions->addElement($trayGroup);     
+          $trayOptions->addElementOptions($trayGroup);     
       }
       //--------------------------------------
       $name = 'groupDefault';  
@@ -105,13 +105,13 @@ var $maxGroups = 4;
         $groupeName = ($tValues['group' . $h]) ? $tValues['group' . $h] : 'group' . $h;
         $inputGroupDefault->addOption($h, $groupeName);            
       }
-      $trayOptions ->addElement($inputGroupDefault);     
+      $trayOptions ->addElementOptions($inputGroupDefault);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElement($inputDisposition);     
+      $trayOptions->addElementOptions($inputDisposition);     
       
       return $trayOptions;
     }
