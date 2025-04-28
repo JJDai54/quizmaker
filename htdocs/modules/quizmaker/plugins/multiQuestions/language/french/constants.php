@@ -33,7 +33,7 @@ define('_LG_PLUGIN_MULTIQUESTIONS_ANSWERS', "Réponses");
 define('_LG_PLUGIN_MULTIQUESTIONS_INTRUS', "Intrus");
 
 
-define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_INPUT', "Type de d'entrée");
+define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_INPUT', "Type");
 define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_TEXTBOX', "Zone de saisie");
 define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_LISTBOX', "Liste déroulante");
 define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_CHECKBOX', "Case à cocher");

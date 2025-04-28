@@ -112,7 +112,7 @@ CREATE TABLE `quizmaker_answers` (
   `answer_caption` varchar(255) NOT NULL DEFAULT '',
   `answer_background` varchar(30) NOT NULL DEFAULT '',
   `answer_color` varchar(30) NOT NULL DEFAULT '',
-  `answer_points` varchar(255) NOT NULL DEFAULT '',
+  `answer_points` int(8) NOT NULL DEFAULT '0',
   `answer_weight` int(11) NOT NULL DEFAULT '0',
   `answer_inputs` int(10) NOT NULL DEFAULT '1',
   `answer_buffer` VARCHAR(2048) NOT NULL DEFAULT '',  

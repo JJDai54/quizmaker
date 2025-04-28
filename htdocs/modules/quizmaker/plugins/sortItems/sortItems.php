@@ -82,37 +82,37 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
       $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
       $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
-      $trayOptions->addElementOptions($inputOrder);     
+      $trayOptions->addElementOption($inputOrder);     
       
       $name = 'title';  
       $inpTitle = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_CAPTION0, "{$optionName}[{$name}]", $this->lgProposition, $this->lgProposition, $tValues[$name]);
-      $trayOptions->addElementOptions($inpTitle);     
+      $trayOptions->addElementOption($inpTitle);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOptions($inputDisposition);     
+      $trayOptions->addElementOption($inputDisposition);     
       
       //options dans le cas d'une liste déroullante
-      //$trayOptions->addElementOptions(new XoopsFormLabel('',QBR . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));   
+      //$trayOptions->addElementOption(new XoopsFormLabel('',QBR . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));   
 
       $name = 'btnColor';  
       $btnColors = XoopsLists::getDirListAsArray(QUIZMAKER_PATH_QUIZ_ORG . '/plugins/sortItems/img/buttons', '');
       $impBtnColors = new XoopsFormSelect(_AM_QUIZMAKER_BUTTONS_COLOR, "{$optionName}[{$name}]",$tValues[$name]) ;
       $impBtnColors->addOptionArray($btnColors);
-      $trayOptions->addElementOptions($impBtnColors);   
+      $trayOptions->addElementOption($impBtnColors);   
         
       $name = 'btnHeight';  
       $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(22, 96, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElementOptions($inpHeight1);     
+      $trayOptions->addElementOption($inpHeight1);     
 
       $name = 'mouseClick';  
       $inputMouseClick = new XoopsFormRadio(_AM_QUIZMAKER_QUIZ_ONCLICK, "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputMouseClick->addOption(0, _AM_QUIZMAKER_CLICK_DOUBLE);   
       $inputMouseClick->addOption(1, _AM_QUIZMAKER_CLICK_SIMPLE);            
-      $trayOptions->addElementOptions($inputMouseClick);     
+      $trayOptions->addElementOption($inputMouseClick);     
 
       return $trayOptions;
     }
@@ -134,43 +134,29 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
         $tbl = $this->getNewXoopsTableXtray();
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
         $tbl->addTdStyle(1, 'text-align:left;width:50px;');
-                
-        foreach($answers as $k=>$item){
-            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");  
-                
-            $proposition = $item->getVar('answer_proposition');          
+
+        for($k = 0; $k < $this->maxPropositions; $k++){
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            //-------------------------------------------------
             $name = $this->getName($k, 'proposition');
             $inpProposition = new \XoopsFormText("", $name, $this->lgMot1, $this->lgMot2, $proposition);
                 
             $name = $this->getName($k, 'weight');
-            $inpWeight = new \XoopsFormText(_AM_QUIZMAKER_WEIGHT, $name, $this->lgWeight, $this->lgWeight, $weight += 10);
+            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $name, $this->lgPoints, $this->lgPoints, $weight);
+            $inpWeight->setMinMax(0, 900);
+
                 
-            $col=0;
-            $tbl->addElement($inpLab, $col++, $k);
-            $tbl->addElement($inpProposition, $col++, $k);
-            $tbl->addElement($inpWeight, $col++, $k);
-        } 
-        //completion jusqu' à maxItem si besoin
-        for($k = count($answers); $k < $this->maxPropositions; $k++){
-            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");  
-            $name = $this->getName($k, 'proposition');
-            $inpProposition = new \XoopsFormText("", $name, $this->lgMot1, $this->lgMot2, '');
-            $name = $this->getName($k, 'weight');
-            $inpWeight = new \XoopsFormText(_AM_QUIZMAKER_WEIGHT, $name, $this->lgWeight, $this->lgWeight, $weight += 10);
-            
-            $col=0;
-            $tbl->addElement($inpLab, $col++, $k);
-            $tbl->addElement($inpProposition, $col++, $k);
-            $tbl->addElement($inpWeight, $col++, $k);
+            //----------------------------------------------------------
+            $tbl->addElement($inpProposition, ++$col, $k);
+            $tbl->addElement($inpWeight, ++$col, $k);
         }
-        
-        
         
         $this->trayGlobal->addElement($tbl);
         //----------------------------------------------------------
 		return $this->trayGlobal;
 	}
-    
 
 /* *************************************************
 *
@@ -180,23 +166,18 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
     //echoArray($answers,'saveAnswers',true);
         global $utility, $answersHandler, $pluginsHandler;
         //$this->echoAns ($answers, $questId, $bExit = true);    
-        $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
         $tPropos = array();
         $tPoints = array();
-        foreach ($answers as $ansKey=>$ansValue){
-            $proposition = trim($ansValue['proposition']);
-            if (!$proposition) continue;
+        foreach ($answers as $ansKey=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
+            if (!$ans['proposition']) continue;
             
-            $caption = trim($ansValue['caption']);
-            $weight = intval(trim($ansValue['weight']));
-    
-        	$ansObj = $answersHandler->create();
-        	$ansObj->setVar('answer_proposition', $proposition);
-        	$ansObj->setVar('answer_quest_id', $questId);
-        	//$ansObj->setVar('answer_caption', $caption);
-        	$ansObj->setVar('answer_weight', intval(trim($ansValue['weight'])));
-        	$ansObj->setVar('answer_points', 0);
+        	$ansObj->setVar('answer_proposition', $ans['proposition']);
+        	$ansObj->setVar('answer_weight', $ans['weight']);
         	$ret = $answersHandler->insert($ansObj);
         }
     }

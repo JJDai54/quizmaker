@@ -59,8 +59,8 @@ _quizmaker
 			admin\results.php
 			admin\traitements.php
 		-assets
-			-css
-				-admin
+			+css
+				+admin
 					assets\css\admin\index.html
 					assets\css\admin\style.css
 				assets\css\index.html
@@ -206,7 +206,7 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			+js
+			-js
 				+quiz-org
 					-css
 						-infobulle
@@ -527,7 +527,7 @@ _quizmaker
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -587,20 +587,22 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
 			include\index.html
 			include\install.php
 			include\notification.inc.php
+			include\plugin_getFormGroup.php
+			include\plugin_saveAnswers.php
 			include\quizFlagAscii.php
 			include\search.inc.php
 			include\uninstall.php
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
+		-language
 			-english
 				-help
 					-img
@@ -738,7 +740,7 @@ _quizmaker
 						plugins\alphaSimple\img\dispositions\dispositions.svg
 						plugins\alphaSimple\img\dispositions\index.html
 					plugins\alphaSimple\img\index.html
-				+language
+				-language
 					-english
 						plugins\alphaSimple\language\english\constants.php
 						plugins\alphaSimple\language\english\help.html
@@ -756,7 +758,7 @@ _quizmaker
 				plugins\alphaSimple\alphaSimple.php
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\plugin_alphaSimple.zip
-			+choiceImages
+			-choiceImages
 				-img
 					-dispositions
 						plugins\choiceImages\img\dispositions\disposition-01.png
@@ -766,12 +768,12 @@ _quizmaker
 						plugins\choiceImages\img\dispositions\dispositions-02.svg
 						plugins\choiceImages\img\dispositions\index.html
 					plugins\choiceImages\img\index.html
-				-language
+				+language
 					-english
 						plugins\choiceImages\language\english\constants.php
 						plugins\choiceImages\language\english\help.html
 						plugins\choiceImages\language\english\index.html
-					-french
+					+french
 						plugins\choiceImages\language\french\constants.php
 						plugins\choiceImages\language\french\help.html
 						plugins\choiceImages\language\french\index.html
@@ -783,7 +785,7 @@ _quizmaker
 					plugins\choiceImages\snapshoot\snapshoot-002.jpg
 				plugins\choiceImages\choiceImages.php
 				plugins\choiceImages\index.html
-			+choiceSimple
+			-choiceSimple
 				-img
 					-dispositions
 						plugins\choiceSimple\img\dispositions\disposition-0.png
@@ -794,7 +796,7 @@ _quizmaker
 						plugins\choiceSimple\img\dispositions\disposition-5.png
 						plugins\choiceSimple\img\dispositions\dispositions.svg
 						plugins\choiceSimple\img\dispositions\index.html
-				-language
+				+language
 					-english
 						plugins\choiceSimple\language\english\constants.php
 						plugins\choiceSimple\language\english\help.html
@@ -811,7 +813,7 @@ _quizmaker
 					plugins\choiceSimple\snapshoot\snapshoot-002.jpg
 				plugins\choiceSimple\choiceSimple.php
 				plugins\choiceSimple\index.html
-			+imagesColor
+			-imagesColor
 				-img
 				-language
 					-english
@@ -831,7 +833,7 @@ _quizmaker
 				plugins\imagesColor\imagesColor.php
 				plugins\imagesColor\index.html
 				plugins\imagesColor\plugin_imagesColor.zip
-			+imagesDaDGroups
+			-imagesDaDGroups
 				-img
 					-dispositions
 						plugins\imagesDaDGroups\img\dispositions\disposition-02.png
@@ -862,7 +864,7 @@ _quizmaker
 				plugins\imagesDaDGroups\imagesDaDGroups.php
 				plugins\imagesDaDGroups\index.html
 				plugins\imagesDaDGroups\plugin_imagesDaDGroups.zip
-			+imagesDaDMatchItems
+			-imagesDaDMatchItems
 				-img
 					-dispositions
 						plugins\imagesDaDMatchItems\img\dispositions\disposition-00.png
@@ -891,7 +893,7 @@ _quizmaker
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.php
 				plugins\imagesDaDMatchItems\index.html
 				plugins\imagesDaDMatchItems\plugin_imagesDaDMatchItems.zip
-			+imagesDaDSortItems
+			-imagesDaDSortItems
 				-language
 					-english
 						plugins\imagesDaDSortItems\language\english\constants.php
@@ -910,7 +912,7 @@ _quizmaker
 				plugins\imagesDaDSortItems\imagesDaDSortItems.php
 				plugins\imagesDaDSortItems\index.html
 				plugins\imagesDaDSortItems\plugin_imagesDaDSortItems.zip
-			+imagesLogical
+			-imagesLogical
 				+language
 					-english
 						plugins\imagesLogical\language\english\constants.php
@@ -929,7 +931,7 @@ _quizmaker
 				plugins\imagesLogical\imagesLogical.php
 				plugins\imagesLogical\index.html
 				plugins\imagesLogical\plugin_imagesLogical.zip
-			+imagesSimple
+			-imagesSimple
 				-img
 					-dispositions
 						plugins\imagesSimple\img\dispositions\disposition-01.png
@@ -954,7 +956,7 @@ _quizmaker
 				plugins\imagesSimple\imagesSimple.php
 				plugins\imagesSimple\index.html
 				plugins\imagesSimple\plugin_imagesSimple.zip
-			+listboxClassItems
+			-listboxClassItems
 				-language
 					-english
 						plugins\listboxClassItems\language\english\consigne.html
@@ -975,7 +977,7 @@ _quizmaker
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.php
 				plugins\listboxClassItems\plugin_listboxClassItems.zip
-			+matchItems
+			-matchItems
 				-img
 					plugins\matchItems\img\index.html
 				+language
@@ -1021,7 +1023,7 @@ _quizmaker
 					plugins\multiQuestions\snapshoot\index.html
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.php
-			+pageBegin
+			-pageBegin
 				-language
 					-english
 						plugins\pageBegin\language\english\constants.php
@@ -1038,7 +1040,7 @@ _quizmaker
 					plugins\pageBegin\snapshoot\snapshoot-000.jpg
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.php
-			+pageEnd
+			-pageEnd
 				+language
 					-english
 						plugins\pageEnd\language\english\constants.php
@@ -1054,7 +1056,7 @@ _quizmaker
 					plugins\pageEnd\snapshoot\snapshoot-000.jpg
 				plugins\pageEnd\index.html
 				plugins\pageEnd\pageEnd.php
-			+pageGroup
+			-pageGroup
 				-language
 					-english
 						plugins\pageGroup\language\english\constants.php
@@ -1070,7 +1072,7 @@ _quizmaker
 					plugins\pageGroup\snapshoot\snapshoot--000.jpg
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.php
-			+pageInfo
+			-pageInfo
 				-language
 					-english
 						plugins\pageInfo\language\english\constants.php
@@ -1086,7 +1088,7 @@ _quizmaker
 					plugins\pageInfo\snapshoot\snapshoot-000.jpg
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.php
-			+radioMultiple
+			-radioMultiple
 				-img
 					-dispositions
 						plugins\radioMultiple\img\dispositions\dispositions.svg
@@ -1112,7 +1114,7 @@ _quizmaker
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\plugin_radioMultiple.zip
 				plugins\radioMultiple\radioMultiple.php
-			+sortItems
+			-sortItems
 				-img
 					-dispositions
 						plugins\sortItems\img\dispositions\disposition-00.png
@@ -1137,7 +1139,7 @@ _quizmaker
 				plugins\sortItems\index.html
 				plugins\sortItems\plugin_sortItems.zip
 				plugins\sortItems\sortItems.php
-			+textareaMixte
+			-textareaMixte
 				-img
 					-dispositions
 						plugins\textareaMixte\img\dispositions\disposition-00.png
@@ -1338,8 +1340,8 @@ _quizmaker
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
-			-admin
+		+templates
+			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_answers.tpl
 				templates\admin\quizmaker_admin_categories.tpl
@@ -1421,49 +1423,41 @@ _quizmaker
 		xoops_version.php
 [Open project files]
 0=docs\changelog.txt
-1=class\Plugins.php
-2=plugins\matchItems\matchItems.php
-3=plugins\alphaSimple\alphaSimple.php
-4=plugins\imagesSimple\imagesSimple.php
-5=plugins\sortItems\sortItems.php
-6=plugins\textareaMixte\textareaMixte.php
-7=plugins\ulDaDGroups\ulDaDGroups.php
-8=plugins\ulDaDSortList\ulDaDSortList.php
-9=class\Questions.php
-10=xoops_version.php
+1=class\Questions.php
+2=class\Plugins.php
+3=include\plugin_getFormGroup.php
+4=include\plugin_saveAnswers.php
+5=plugins\imagesDaDMatchItems\imagesDaDMatchItems.php
+6=plugins\alphaSimple\alphaSimple.php
+7=plugins\ulDaDSortList\ulDaDSortList.php
+8=xoops_version.php
 [Selected Project Files]
 Main=
 Selected=docs\changelog.txt
 [docs\changelog.txt]
 TopLine=1
-Caret=1,2
-[class\Plugins.php]
-TopLine=922
-Caret=37,947
-[plugins\matchItems\matchItems.php]
-TopLine=72
-Caret=1,81
-[plugins\alphaSimple\alphaSimple.php]
-TopLine=68
-Caret=39,89
-[plugins\imagesSimple\imagesSimple.php]
-TopLine=93
-Caret=1,124
-[plugins\sortItems\sortItems.php]
-TopLine=76
-Caret=9,98
-[plugins\textareaMixte\textareaMixte.php]
-TopLine=72
-Caret=1,89
-[plugins\ulDaDGroups\ulDaDGroups.php]
-TopLine=69
-Caret=43,91
-[plugins\ulDaDSortList\ulDaDSortList.php]
-TopLine=68
-Caret=38,97
+Caret=1,1
 [class\Questions.php]
-TopLine=121
-Caret=34,187
+TopLine=498
+Caret=1,476
+[class\Plugins.php]
+TopLine=973
+Caret=41,1010
+[include\plugin_getFormGroup.php]
+TopLine=1
+Caret=1,7
+[include\plugin_saveAnswers.php]
+TopLine=1
+Caret=4,25
+[plugins\imagesDaDMatchItems\imagesDaDMatchItems.php]
+TopLine=138
+Caret=29,159
+[plugins\alphaSimple\alphaSimple.php]
+TopLine=220
+Caret=1,261
+[plugins\ulDaDSortList\ulDaDSortList.php]
+TopLine=50
+Caret=33,71
 [xoops_version.php]
 TopLine=1
 Caret=38,33

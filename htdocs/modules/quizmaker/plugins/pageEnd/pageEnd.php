@@ -42,7 +42,7 @@ class Plugin_pageEnd extends XoopsModules\Quizmaker\Plugins
         parent::__construct("pageEnd", 0, "page");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
-        $this->optionsDefaults = ['imgHeight'=>80];
+        $this->optionsDefaults = [];
         $this->hasImageMain = true;
     }
 
@@ -76,7 +76,7 @@ class Plugin_pageEnd extends XoopsModules\Quizmaker\Plugins
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
-      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
       
       //--------------------------------------------------------------------           
       

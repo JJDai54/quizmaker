@@ -79,7 +79,7 @@ var $maxMots = 0;
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
 //       //--------------------------------------------------------------------  
-      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
          
 //       $name = 'inpSize';  
 //       $inpSize = new \XoopsFormNumber(_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
@@ -137,25 +137,19 @@ var $maxMots = 0;
 
 $lgProposition1 = $this->lgMot3;
 $lgProposition2 = $this->lgMot3;
-           
+$input = 5;           
         for($k = 0; $k < $this->maxPropositions; $k++){
-            $vArr = $this->getAnswerValues($answers[$k], $weight,1);
-            foreach($vArr as $key=>$value) $$key = $value;
-            //if($isNew) $tExp = array('','','','','','');
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            //-------------------------------------------------
+            if($isNew) $points = 1;
             //else $tExp = explode(',', $proposition);
             //$trayCaption = new XoopsFormElementTray  ('', $delimeter = '<br>'); 
             $tplLib80r = "<div style='width:80px;float:left;text-align:right;'>{libelle}</div>";
             $tplLib60r = "<div style='width:60px;float:left;text-align:right;'>{libelle}</div>";
             $tplLib50r = "<div style='width:50px;float:left;text-align:right;'>{libelle}</div>";
             //--------------------------------------------------------- 
-            $inpId = new \XoopsFormHidden($this->getName($k,'id'), $id);
-            $inpChrono = new \XoopsFormLabel("", $k+1 . " : ");
-            if(!$isNew){
-              $delProposition = new \XoopsFormCheckBox('', $this->getName($k,'delete'));                        
-              $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
-            }else{
-              $delProposition = new \XoopsFormLabel('', _CO_QUIZMAKER_NEW);
-            }
             
             $name = $this->getName($k, 'caption'); //contient la question
             $lib = str_replace('{libelle}', _LG_PLUGIN_MULTIQUESTIONS_QUESTION, $tplLib80r);
@@ -192,16 +186,12 @@ $lgProposition2 = $this->lgMot3;
             $inpWeight->setMinMax(0, 1000);
 
             //--------------------------------------------------
-            $col = 0;
-            $tbl->addElement($inpId, $col, $k);
-            $tbl->addElement($inpChrono, $col, $k);
-            $tbl->addElement($delProposition, $col++, $k);
-            $tbl->addElement($inpQuestion, $col, $k);
+            $tbl->addElement($inpQuestion, ++$col, $k);
             $tbl->addElement($inpProposition, $col, $k);
-            $tbl->addElement($inpIntrus, $col++, $k);
+            $tbl->addElement($inpIntrus, $col, $k);
             
+            $tbl->addElement($inpInputs, ++$col, $k);
             $tbl->addElement($inpType, $col, $k);
-            $tbl->addElement($inpInputs, $col, $k);
             $tbl->addElement($inpPoints, $col, $k);
             $tbl->addElement($inpWeight, $col, $k);
 
@@ -268,52 +258,44 @@ $lgProposition2 = $this->lgMot3;
         $this->echoAns ($answers, $questId, $bExit = false);    
         //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
-        foreach ($answers as $anskey=>$ansValue){
-        echo ("===>id = {$ansValue['id']}<br>");
-            if(isset($ansValue['delete']) || $ansValue['caption']==''){
-                if($ansValue['id'] > 0)
-                    $answersHandler->deleteId($ansValue['id']);
-            }else{
-                if($ansValue['id'] == 0){
-          	        $ansObj = $answersHandler->create();
-                    $ansObj->setVar('answer_quest_id', $questId);
-                }else{
-          	        $ansObj = $answersHandler->get($ansValue['id']);
-                }
-            	$ansValue['caption'] = trim($ansValue['caption']);
-            	$ansValue['proposition'] = trim($ansValue['proposition']);
-            	$ansValue['buffer'] = trim($ansValue['buffer']);
-                
-                //correction eventuelle du nombre d'input
-                switch($ansValue['group']){
-                    case 2: //checkbox et bouton radio on ne fait qu'un seul groupe d'input
-                    case 3;
-                        $ansValue['inputs'] = 1;
-                        break;
-                    default: //listbox et textbox, le nombre d'input ne peut âs etre superieur au nomre de bonne réponses
-                    $nbGoodAns = count(explode(",", $ansValue['proposition']));
-                    if ($ansValue['inputs'] > $nbGoodAns) $ansValue['inputs'] = $nbGoodAns;
-                }
-                
-                //------------------------------------------------------------------
-            	$ansObj->setVar('answer_proposition', $ansValue['proposition']);
-            	$ansObj->setVar('answer_caption', $ansValue['caption']);
-            	$ansObj->setVar('answer_buffer', $ansValue['buffer']);
+        foreach ($answers as $anskey=>$ans){
+        echo ("===>id = {$ans['id']}<br>");
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
+          	if (!$ans['caption']) continue;
               
-            	$ansObj->setVar('answer_group',  $ansValue['group']);
-            	$ansObj->setVar('answer_inputs', $ansValue['inputs']);
-            	$ansObj->setVar('answer_points', $ansValue['points']);
-            	$ansObj->setVar('answer_weight', $ansValue['weight']);
-                
+              //correction eventuelle du nombre d'input
+              switch($ans['group']){
+                  case 2: //checkbox et bouton radio on ne fait qu'un seul groupe d'input
+                  case 3;
+                      $ans['inputs'] = 1;
+                      break;
+                  default: //listbox et textbox, le nombre d'input ne peut âs etre superieur au nomre de bonne réponses
+                  $nbGoodAns = count(explode(",", $ans['proposition']));
+                  if ($ans['inputs'] > $nbGoodAns) $ans['inputs'] = $nbGoodAns;
+              }
               
-        	    $ret = $answersHandler->insert($ansObj);
+              //------------------------------------------------------------------
+          	$ansObj->setVar('answer_proposition', $ans['proposition']);
+          	$ansObj->setVar('answer_caption', $ans['caption']);
+          	$ansObj->setVar('answer_buffer', $ans['buffer']);
+            
+          	$ansObj->setVar('answer_group',  $ans['group']);
+          	$ansObj->setVar('answer_inputs', $ans['inputs']);
+          	$ansObj->setVar('answer_points', $ans['points']);
+          	$ansObj->setVar('answer_weight', $ans['weight']);
+              
+            
+      	    $ret = $answersHandler->insert($ansObj);
 
             
             }
             
-//    echo "<hr>answers.mots <pre>" . print_r($ansValue['mots'], true) . "</pre><hr>";
+//    echo "<hr>answers.mots <pre>" . print_r($ans['mots'], true) . "</pre><hr>";
     
-        }
+
     }
 
 

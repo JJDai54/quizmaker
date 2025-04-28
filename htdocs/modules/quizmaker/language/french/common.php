@@ -46,6 +46,7 @@ define('_CO_QUIZMAKER_FORM_GROUP', "Groupe");
 define('_CO_QUIZMAKER_FORM_INTRO', "Introduction");
 define('_CO_QUIZMAKER_FORM_QUESTION', "Question");
 define('_CO_QUIZMAKER_FORM_RESULT', "Resultats");
+define('_CO_QUIZMAKER_FORM_INFO', "Information");
 define('_CO_QUIZMAKER_GDLIBSTATUS', "Prise en charge de la bibliothèque GD :");
 define('_CO_QUIZMAKER_GDLIBVERSION', "Version de la bibliothèque GD :");
 define('_CO_QUIZMAKER_GDOFF', "<span style='font-weight: bold;'>Désactivé</span> (Aucune miniature disponible)");

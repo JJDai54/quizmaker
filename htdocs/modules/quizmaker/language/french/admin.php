@@ -179,6 +179,7 @@ define('_AM_QUIZMAKER_ORIENTATION', "Orientation");
 define('_AM_QUIZMAKER_OUT_OF_GROUP', "Sortir du groupe");
 define('_AM_QUIZMAKER_PAGEBEGIN_DEFAULT1', "Ce quiz est noté sur {scoreMaxiQQ} points pour {totalQuestions}. questions.");
 define('_AM_QUIZMAKER_PARAMETRES', "Paramètres");
+define('_AM_QUIZMAKER_HEADER', "Entête");
 define('_AM_QUIZMAKER_PARENT', "Parent");
 define('_AM_QUIZMAKER_PARENT_ID', "ID Parent");
 define('_AM_QUIZMAKER_PERIODE', "Période");

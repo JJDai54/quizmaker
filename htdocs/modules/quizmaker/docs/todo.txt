@@ -1,3 +1,36 @@
+//---------------------------------------
+faire le ménage dans les enregistremant orphelins
+
+update  x2511_quizmaker_questions tq set tq.quest_flag = 0;
+
+update  x2511_quizmaker_questions tq
+LEFT JOIN  x2511_quizmaker_quiz tz  on tq.quest_quiz_id=tz.quiz_id
+set tq.quest_flag = 2501
+WHERE tz.quiz_id is null;
+
+delete FROM `x2511_quizmaker_questions` WHERE `quest_flag`=2501;
+---------------------------------
+update  x2511_quizmaker_answers ta set ta.answer_flag = 0;
+
+update  x2511_quizmaker_answers ta
+LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
+set ta.answer_flag = 2501
+WHERE tq.quest_id is null;
+
+delete FROM `x2511_quizmaker_answers` WHERE `answer_flag`=2501;
+
+---------------------------------
+ALTER TABLE `x2511_quizmaker_answers` CHANGE `answer_points` `answer_points` INT NOT NULL DEFAULT '0'; 
+
+
+
+SELECT tq.quest_id,tq.quest_quiz_id,ta.* FROM  x2511_quizmaker_answers ta
+LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
+WHERE tq.quest_id is null;
+
+
+
+
 DELETE FROM `x2511_quizmaker_questions` tq
 WHERE tq.quest_plugin='textboxMultiple';
 

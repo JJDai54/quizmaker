@@ -88,7 +88,7 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
                                 1 => _LG_PLUGIN_CHOICEIMAGES_TYPE_1,
                                 2 => _LG_PLUGIN_CHOICEIMAGES_TYPE_2]);
       $inpType->setDescription(_LG_PLUGIN_CHOICEIMAGES_TYPE_DESC);                          
-      $trayOptions->addElementOptions($inpType);     
+      $trayOptions->addElementOption($inpType);     
    
 
       $name = 'msgNextSlideTxt';  
@@ -96,23 +96,23 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
       $inpMsgNextSlide->addBtnClear("X");
       $inpMsgNextSlide->addList(_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1_OPTIONS);
       $inpMsgNextSlide->setHelp(_LG_PLUGIN_CHOICEIMAGES_MSG_NEXT_SLIDE_DESC . QBR);
-      $trayOptions->addElementOptions($inpMsgNextSlide);     
+      $trayOptions->addElementOption($inpMsgNextSlide);     
     
 
       $name = 'msgNextSlideBG';  
       $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICEIMAGES_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOptions($inpMsgBG);     
+      $trayOptions->addElementOption($inpMsgBG);     
 
       $name = 'msgNextSlideDelai';  
       $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
       $inpPoints->setMinMax(0, 3000, _AM_QUIZMAKER_UNIT_MILISECONDS);
       $inpPoints->setDescription(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC);
-      $trayOptions->addElementOptions($inpPoints);     
+      $trayOptions->addElementOption($inpPoints);     
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElementOptions($inpHeight1);     
+      $trayOptions->addElementOption($inpHeight1);     
 
       $name = 'cocheImgName'; 
       $path = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/coches';
@@ -120,39 +120,45 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
       $inpCocheImg->setSelectedIconSize(64, 64);
       $inpCocheImg->setIconSize(64, 64);
       $inpCocheImg->setGridIconNumber(4);
-      $trayOptions->addElementOptions($inpCocheImg);     
+      $trayOptions->addElementOption($inpCocheImg);     
 
       $name = 'cocheImgHeight';  
       $inpCocheHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_COCHE_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpCocheHeight1->setMinMax(12, 48, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElementOptions($inpCocheHeight1);     
+      $trayOptions->addElementOption($inpCocheHeight1);     
       
+//       $name = 'posLibelleV';  
+//       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_TOP,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+//       $inpHeight1->setMinMax(-150, 150, _AM_QUIZMAKER_UNIT_PERCENT);
+//       $trayOptions->addElementOption($inpHeight1);  
+         
       $name = 'posLibelleV';  
-      $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_TOP,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(-150, 150, _AM_QUIZMAKER_UNIT_PERCENT);
-      $trayOptions->addElementOptions($inpHeight1);     
+      $inpTopLib = new \XoopsFormNumber(_LG_PLUGIN_CHOICEIMAGES_IMG_TOP,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpTopLib->setDescription(_LG_PLUGIN_CHOICEIMAGES_IMG_TOP_DESC);
+      $inpTopLib->setMinMax(-150, 150, _AM_QUIZMAKER_UNIT_PERCENT);
+      $trayOptions->addElementOption($inpTopLib);     
 
       $name = 'fontSize';  
-      $inpDisposition = new \XoopsFormText(_LG_PLUGIN_CHOICEIMAGES_FONT_SIZE, "{$optionName}[{$name}]",5,5, $tValues[$name]);
-      $trayOptions->addElementOptions($inpDisposition);     
+      $inpFontSize = new \XoopsFormText(_LG_PLUGIN_CHOICEIMAGES_FONT_SIZE, "{$optionName}[{$name}]",5,5, $tValues[$name]);
+      $trayOptions->addElementOption($inpFontSize);     
       //$trayOptions->addElement(new \XoopsFormLabel('', _LG_PLUGIN_CHOICEIMAGES_FONT_SIZE_DESC));      
       
       $name = 'repartition';  
-      $inpDisposition = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION, "{$optionName}[{$name}]",20,20, $tValues[$name]);
+      $inpRepartition = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION, "{$optionName}[{$name}]",20,20, $tValues[$name]);
       // $inpDisposition->setDescription(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION_DESC);      
-      $inpDisposition->addBtnClear("X");
-      $inpDisposition->addBtn("1", '123');
-      $inpDisposition->addBtn("2", '232');
-      $inpDisposition->addBtn("3", '323');
-      $inpDisposition->setHelp(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION_DESC . QBR);
-      $trayOptions->addElementOptions($inpDisposition);     
+      $inpRepartition->addBtnClear("X");
+      $inpRepartition->addBtn("1", '123');
+      $inpRepartition->addBtn("2", '232');
+      $inpRepartition->addBtn("3", '323');
+      $inpRepartition->setHelp(_LG_PLUGIN_CHOICEIMAGES_DISPOSITION_DESC . QBR);
+      $trayOptions->addElementOption($inpRepartition);     
       
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      $inputDisposition->setSelectedIconSize(64, 64);
-      $inputDisposition->setIconSize(64, 64);
-      $trayOptions->addElementOptions($inputDisposition);     
+      $inptDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inptDisposition->setSelectedIconSize(64, 64);
+      $inptDisposition->setIconSize(64, 64);
+      $trayOptions->addElementOption($inptDisposition);     
 
       return $trayOptions;
 
@@ -207,19 +213,13 @@ class Plugin_choiceImages extends XoopsModules\Quizmaker\Plugins
 * - sequence logique
 * - mauvaises reponses
 * ************************************************** */
-public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem, $maxItems, $path)
+public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $firstItem, $maxItems, $path)
 { 
-    
-        
-        
         //suppression des enregistrement en trop
-        if(count($arr) > $maxItems) $this->deleteToMuchItems($arr, $maxItems);
+        if(count($answers) > $maxItems) $this->deleteToMuchItems($answers, $maxItems);
         $lib = "<div style='background:black;color:white;'><center>" . $titleGroup . "</center></div>";        
         $trayAllAns->addElement(new \XoopsFormLabel('',$lib));
         $weight = 0;
-
-
-
 
         $imgPath = QUIZMAKER_PATH_QUIZ_JS . '/images/substitut';
         $imgUrl = QUIZMAKER_URL_QUIZ_JS . '/images/substitut';
@@ -229,56 +229,25 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
         $tbl = $this->getNewXoopsTableXtray();
         //----------------------------------------------------------
         for($k = 0 ; $k < $maxItems ; $k++){
-            $i = $k + $firstItem;
-            $weight += 10;
-            
-            if (isset($arr[$k])){
-                $answerId    = $arr[$k]->getVar('answer_id');
-                $proposition = $arr[$k]->getVar('answer_proposition');
-                $image1      = $arr[$k]->getVar('answer_image1');
-                $image2      = $arr[$k]->getVar('answer_image2');
-                $points      = $arr[$k]->getVar('answer_points');
-                $weight      = $weight; 
-                $caption     = $arr[$k]->getVar('answer_caption');
-                $color  = $arr[$k]->getVar('answer_color');
-/*
-*/        //choix d'une image existante:
-            }else{
-                $answerId = 0;
-                $proposition = "";
-                $image1     = '';
-                $image2     = '';
-                $points      = 0;
-                $weight      = $weight;
-                $caption     = '';
-                $color       = '';
-            }
-            //if(!$image1) $image1     = 'blank-org.jpg';
-/*
-*/            
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
-//echoArray($arr);            
-            $inpAnswerId = new \XoopsFormHidden($this->getName($i,'id'), $answerId);
-            $libChrono = new \XoopsFormLabel('', $i+1);          
-            //$inpChrono = new \XoopsFormHidden($this->getName($i,'chrono'), $i+1);            
-            $inpChrono = new \XoopsFormLabel('', $i+1);            
+            $inpPropos = new \XoopsFormText('', $this->getName($k,'proposition'), $this->lgMot2, $this->lgMot2, $proposition);
+            //$inpPropos->setExtra('required');
             
-            
-            $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete'),);                        
-            $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
-            
-            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_ANSWER . " {$i} ", $this->getName($i,'proposition'), $this->lgMot1, $this->lgMot1, $proposition);
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);
+            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(-30, 30);
-            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($i,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
-            $inpWeight->setMinMax(0, 999);
+            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($k,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
+            $inpWeight->setMinMax(0, 99999);
 
 
-            $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$i}", $path, 60, '<br>',$this->getName($i,'delete_image1'));
-            $inpColor = new XoopsFormColorPicker('Text', $this->getName($i,'color'), $color);
+            $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$k}", $path, 60, '<br>',$this->getName($k,'delete_image1'));
+            $inpColor = new XoopsFormColorPicker('Text', $this->getName($k,'color'), $color);
 
 
-            $btnPath = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/buttons';            $name =  $this->getName($i,'image2');
+            $btnPath = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/buttons';
+            $name =  $this->getName($k,'image2');
             $inpImage2 = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_IMAGE, $name, $image2, $btnPath);
             //$zzz->setSelectedIconWidth(120);
             $inpImage2->setSelectedIconSize(48, 48);
@@ -287,35 +256,26 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             
             $labImg1OrImg2 =  new \XoopsFormLabel("", _LG_PLUGIN_CHOICEIMAGES_IMG1_OR_IMG2);
 //-------------------------------------------------------------------
-            $inpChrono = new \XoopsFormHidden($this->getName($i,'chrono'), $i+1);
+            //$inpChrono = new \XoopsFormHidden($this->getName($k,'chrono'), $k+1);
 
 
             //----------------------------------------------------
-
-            $tbl->addElement($inpChrono, -1);
-               
-            $col = 0;
-            //$tbl->addElement($libChrono, $col, $k);
-            $tbl->addElement($delProposition, $col, $k);
-            //$tbl->addElement($inpInputs, $col, $k);
             $tbl->addElement($inpPropos, ++$col, $k);
                          
-            $tbl->addElement($inpAnswerId, $col, $k);
-            //$tbl->addElement($libChrono, $col, $k);
             $tbl->addElement($inpImage2, ++$col, $k);
             $tbl->addElement($labImg1OrImg2, ++$col, $k);
             $tbl->addElement($inpImage1, ++$col, $k);
              
             //$tbl->addElement($inpCaption, ++$col, $k);
             $tbl->addElement($inpPoints, ++$col, $k);
-            $tbl->addElement($inpWeight, $col, $k);
+            $tbl->addElement($inpWeight, ++$col, $k);
            
             $tbl->addElement($inpColor, $col, $k);
 
             
         }
         $trayAllAns->addElement($tbl);
-        return $i+1;  // return le dernier index pour le groupe suivant
+        return $k+1;  // return le dernier index pour le groupe suivant
 
 }
 
@@ -334,65 +294,40 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
         //--------------------------------------------------------       
 // echoArray($answers); exit;
 // echoArray($_FILES);       
-        /*
-        */ 
-       foreach ($answers as $key=>$v){
-            $answerId = $v['id'];
-            if($answerId > 0){
-                $ansObj = $answersHandler->get($answerId);
-                if(!isset($v['delete'])) $v['delete'] = 0;
-            }else{
-                $ansObj = $answersHandler->create();
-    		    $ansObj->setVar('answer_quest_id', $questId);        
-                $v['delete'] = 0;
-            }
-        //$this->echoAns ($v, $questId, $bExit = false);    
+       $noIcon = '-No_Icon';
+
+       foreach ($answers as $key=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
             
-        //Suppression de la proposition et de l'image
-        if( $v['delete'] == 1) {
-            $this->delete_answer_by_image($v,$path);  
-            continue;
-        }
-        //if( $v['answer_proposition'] == '') continue;
-        //Suppression de l'image
-        if( $v['delete_image1'] == 1) {
-           $v['image1'] = '';  
-           $ansObj->setVar('answer_image1',  '');          
-        }
-        
-        $v['proposition']  = FQUIZMAKER\sanityse_inpValue($v['proposition']);        
-  		$ansObj->setVar('answer_proposition', $v['proposition']);
-  		$ansObj->setVar('answer_points',  $v['points']);
-  		$ansObj->setVar('answer_weight',  $v['weight']);
-        $ansObj->setVar('answer_color',   $v['color']);          
-        $ansObj->setVar('answer_image2',  $v['image2']);          
-        
-        $formName = $this->getName()."_image1_" . ($v['chrono']-1);
-        $prefix = "quiz-{$questId}-{$v['chrono']}";
+            //Suppression de l'image
+            if( $ans['delete_image1'] == 1) {
+               $ans['image1'] = '';  
+               $ansObj->setVar('answer_image1',  '');          
+            }
+            
+            $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);        
+      		$ansObj->setVar('answer_proposition', $ans['proposition']);
+      		$ansObj->setVar('answer_points',  $ans['points']);
+      		$ansObj->setVar('answer_weight',  $ans['weight']);
+            $ansObj->setVar('answer_color',   $ans['color']);          
+            $ansObj->setVar('answer_image2',  $ans['image2']);          
+            
+            $formName = $this->getName()."_image1_" . ($ans['chrono']-1);
+            $prefix = "quiz-{$questId}-{$ans['chrono']}";
 
-        $newImg = $this->save_img($v, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
-        if($newImg == ''){
-            //$ansObj->setVar('answer_proposition', $v['proposition']);        
-        }else{
-            $ansObj->setVar('answer_image1', $newImg);        
-        }
-        
-        
-        
-        
-        
-        
-        
+            $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
+            if($newImg == ''){
+                //$ansObj->setVar('answer_proposition', $ans['proposition']);        
+            }else{
+                $ansObj->setVar('answer_image1', $newImg);        
+            }
 
-        $answersHandler->insert($ansObj);
+            $answersHandler->insert($ansObj);
      }
-
-     //suppression des propositions qui n'ont pas d'image de definie
-     /*
-       $criteria = new CriteriaCompo(new Criteria('answer_quest_id', $questId, '='));
-       $criteria->add(new Criteria('', 0, '=',null,'length(answer_proposition)'),"AND");
-       $answersHandler->deleteAll($criteria);
-     */
+//exit;
     }
     
 

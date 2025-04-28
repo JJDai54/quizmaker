@@ -1,4 +1,17 @@
 ---------------------------------------------------
+2025-04-29 v 6.10 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Grosse récriture des fonction getFormGroup, saveAnswers et getFormOptions de tous les plugins.
+    harmonisation du code avec l'ajout de code commun dans les fichier :
+     - include/plugin_getFormGroup.php
+     - include/plugin_saveAnswers.php
+    harmonisation des nom de varaible notamment dans les boucle,
+    utilisation systématique de :
+        - $k pou pur boucler sur answers
+        - $i pour indiquer le chrono
+        - $h pour les boucles internes
+         
+---------------------------------------------------
 2025-04-20a v 6.08 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 plugin alphaSimple :
@@ -6,7 +19,16 @@ plugin alphaSimple :
     - modification des icones de disposition
 tout plugin :    
     - intégration de la fonction "getNewXFTableOptions" pour une meilleure présentation des options spécifiques.
-    
+    - intégration dans tous les plugins de:
+            $vArr = $this->getAnswerValues($answers[$k], $weight,1);
+            foreach($vArr as $key=>$value) $$key = $value;
+            remplissage d'un tableau et affectation des valeurs par defaut si l'enregistrement n'existe pas
+
+mysql
+    changement de type pour le champ "ans_ppoints" en int(8)
+globalement
+    gros ménage sur imgHeight de l'image principale supprimée dans optionsPlugins et remonté dans question.
+        
 ---------------------------------------------------
 2025-04-20a v 6.08 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------

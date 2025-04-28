@@ -198,7 +198,7 @@ switch($op) {
 		$answersObj->setVar('answer_background', $background);
         
 		$answersObj->setVar('answer_background', Request::getString('answer_background', ''));
-		$answersObj->setVar('answer_points', Request::getString('answer_points', ''));
+		$answersObj->setVar('answer_points', Request::getInt('answer_points', ''));
 		$answersObj->setVar('answer_weight', Request::getInt('answer_weight', 0));
 		$answersObj->setVar('answer_inputs', Request::getInt('answer_inputs', 1));
 		$answersObj->setVar('answer_group',  Request::getInt('answer_group', 1));

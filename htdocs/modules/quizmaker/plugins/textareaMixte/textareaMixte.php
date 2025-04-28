@@ -84,35 +84,35 @@ const maxPropositions = 1;
       $inputComparaison->addOption("listbox",  _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_LISTBOX);            
       $inputComparaison->addOption("textbox",  _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_TEXTBOX);            
       $inputComparaison->addOption("textarea", _LG_PLUGIN_TEXTAREAMIXTE_PRESENTATION_TEXTAREA);            
-      $trayOptions->addElementOptions($inputComparaison);   
+      $trayOptions->addElementOption($inputComparaison);   
         
       $name = 'comparaison';  
       $inputComparaison = new XoopsFormRadio(_LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON, "{$optionName}[{$name}]", $tValues[$name], '<br>');
       $inputComparaison->addOption("0", _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_0);            
       $inputComparaison->addOption("1", _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_1);            
       $inputComparaison->addOption("2", _LG_PLUGIN_TEXTAREAMIXTE_COMPARAISON_2);            
-      $trayOptions->addElementOptions($inputComparaison);     
+      $trayOptions->addElementOption($inputComparaison);     
        
       $name = 'strToReplace';
       $inputStrToReplace = new XoopsFormText(_AM_QUIZMAKER_CARS_TO_REPLACE,"{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);            
       //$inputStrToReplace->setDescription ('blablabla');      
-      $trayOptions->addElementOptions($inputStrToReplace);
+      $trayOptions->addElementOption($inputStrToReplace);
       
       $name = 'tokenColor';  
       $inpTokenColor = new XoopsFormColorPicker('Couleur des balises', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOptions($inpTokenColor);     
+      $trayOptions->addElementOption($inpTokenColor);     
 
       $name = 'scoreByGoodWord';  
       $inpScoreByGoodWord = new \XoopsFormNumber(_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpScoreByGoodWord->setMinMax(1, 10, _AM_QUIZMAKER_UNIT_POINTS);
       $inpScoreByGoodWord->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TIMER));
-      $trayOptions->addElementOptions($inpScoreByGoodWord);     
+      $trayOptions->addElementOption($inpScoreByGoodWord);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOptions($inputDisposition);     
+      $trayOptions->addElementOption($inputDisposition);     
       //$trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
 
       return $trayOptions;
@@ -131,31 +131,23 @@ const maxPropositions = 1;
         //$this->maxBadWords = 8;
 //    echo "<hr>answers<pre>" . print_r($answers, true) . "</pre><hr>";
         //-------------------------------------------------
-        $i = 0; // il ny a qu'une seule proposition, pas utile de faire une boucle
-        if (isset($answers[$i])) {
-            $ansId = $answers[$i]->getVar('answer_id');
-            $proposition = $answers[$i]->getVar('answer_proposition', 'e');
-            $caption = $answers[$i]->getVar('answer_caption');
-            $points = $answers[$i]->getVar('answer_points');
-            $buffer = $answers[$i]->getVar('answer_buffer');
-        }else{
-            $ansId = 0;
-            $proposition = '';
-            $caption = '';
-            $points = 0;
-            $buffer = '';
-        }
-        
-        $name = $this->getName($i, 'ansId');
-        $this->trayGlobal->addElement(new XoopsFormHidden($name, $ansId));
+        $k = 0;
+        $ans = (isset($answers[$k])) ? $answers[$k] : null;
+        //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+        include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+        //-------------------------------------------------
+
+       
+        $name = $this->getName($k, 'id');
+        $this->trayGlobal->addElement(new XoopsFormHidden($name, $answerId));
  
-        $name = $this->getName($i, 'caption');
+        $name = $this->getName($k, 'caption');
         $inpCaption = new XoopsFormText(_AM_QUIZMAKER_PLUGIN_TITLE, $name, $this->lgProposition, $this->lgProposition, $caption);
         $this->trayGlobal->addElement($inpCaption);
  
         
-        $name = $this->getName($i, 'proposition');
-        $racine = $this->getName($i);
+        $name = $this->getName($k, 'proposition');
+        $racine = $this->getName($k);
         $inpPropo = new XoopsFormTextArea(_AM_QUIZMAKER_QUESTIONS_TEXT_TO_CORRECT, $name, $proposition);
         //    public function __construct($caption, $name, $value = '', $rows = 5, $cols = 50)
         //$inpPropo = $this->getformTextarea(_AM_QUIZMAKER_QUESTIONS_TEXT_TO_CORRECT, $name, $proposition);
@@ -170,15 +162,15 @@ const maxPropositions = 1;
         // ajout des boutons des gestion des accolages pour les mot à selectionner, ou pas
         $trayBtnAccollades = new XoopsFormElementTray  ('Action', ' ');
         
-        $inpAddAccollades = new XoopsFormButton('', $this->getName($i, 'addAccollades'), $btnLib[0]);
+        $inpAddAccollades = new XoopsFormButton('', $this->getName($k, 'addAccollades'), $btnLib[0]);
         $inpAddAccollades->setExtra("onclick='textareaMixte_addAccolades(\"{$racine}\")'");
         $trayBtnAccollades->addElement($inpAddAccollades);
         
-        $inpNewText = new XoopsFormButton('',  $this->getName($i, 'removeAccollades'), $btnLib[1]);
+        $inpNewText = new XoopsFormButton('',  $this->getName($k, 'removeAccollades'), $btnLib[1]);
         $inpNewText->setExtra("onclick='textareaMixte_removeAccolades(\"{$racine}\")'");
         $trayBtnAccollades->addElement($inpNewText);
         
-        $inpNewText = new XoopsFormButton('',  $this->getName($i, 'clearAccollades'), $btnLib[2]);
+        $inpNewText = new XoopsFormButton('',  $this->getName($k, 'clearAccollades'), $btnLib[2]);
         $inpNewText->setExtra("onclick='textareaMixte_ClearAccolades(\"{$racine}\",\"" ._LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ALERT. "\")'");
         $trayBtnAccollades->addElement($inpNewText);
         
@@ -212,7 +204,7 @@ const maxPropositions = 1;
             }
             
             $trayMot = new XoopsFormElementTray  ('', $delimeter = ' ');  
-            $name = $this->getName($i,'mots', $j);
+            $name = $this->getName($k,'mots', $j);
             $inpMot = new XoopsFormText($j+1 ."-". _AM_QUIZMAKER_PLUGIN_MOT . ' : ', $name, $this->lgMot1, $this->lgMot2, $mot);
             $trayMot->addElement($inpMot);
             
@@ -233,25 +225,20 @@ const maxPropositions = 1;
 //echoArray('p');exit;
         global $utility, $answersHandler, $pluginsHandler;
         
-        $i = 0; //il n'y a qu'une seule proposition, pas utile de parcourir le tableau
-        $valueAns = $answers[0];
-        if($valueAns['ansId'] == 0){
-            $ansObj = $answersHandler->create();
-  		    $ansObj->setVar('answer_quest_id', $questId);
-  		    $ansObj->setVar('answer_weight', 0);
-  		    $ansObj->setVar('answer_inputs', 1);
-        }else{
-            $ansObj = $answersHandler->get($valueAns['ansId']);
-        }
-        
+        $k = 0; //il n'y a qu'une seule proposition, pas utile de parcourir le tableau
+        $ans = (isset($answers[$k])) ? $answers[$k] : null;
 
-  		$ansObj->setVar('answer_caption', $valueAns['caption']);
-  		//$ansObj->setVar('answer_points', $valueAns['points']);
-  		$ansObj->setVar('answer_proposition', $valueAns['proposition']);
-  		$ansObj->setVar('answer_buffer', implode(',', $valueAns['mots']));
+        //chargement des operations communes à tous les plugins
+        include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+        //if (is_null($ansObj)) continue;
+        //---------------------------------------------------           
+        
+  		$ansObj->setVar('answer_caption', $ans['caption']);
+  		$ansObj->setVar('answer_proposition', $ans['proposition']);
+  		$ansObj->setVar('answer_buffer', implode(',', $ans['mots']));
 
         $ret = $answersHandler->insert($ansObj);
-
+//exit;
     }
     
 /* ********************************************

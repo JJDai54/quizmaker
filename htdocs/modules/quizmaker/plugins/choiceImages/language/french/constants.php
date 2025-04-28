@@ -38,6 +38,7 @@ define('_LG_PLUGIN_CHOICEIMAGES_IMG_HEIGHT', "Hauteur des images des proposition
 define('_LG_PLUGIN_CHOICEIMAGES_COCHE', "Coche");
 define('_LG_PLUGIN_CHOICEIMAGES_COCHE_IMG_HEIGHT', "Hauteur des coches");
 define('_LG_PLUGIN_CHOICEIMAGES_IMG_TOP', "Position du libelle en hauteur");
+define('_LG_PLUGIN_CHOICEIMAGES_IMG_TOP_DESC', "Vers le haut < 50% > Vers le bas"); 
 define('_LG_PLUGIN_CHOICEIMAGES_FONT_SIZE', "Taille de la police (en em, defaut=1.1)");
 define('_LG_PLUGIN_CHOICEIMAGES_FONT_SIZE_DESC', "Taille de la police");
 
@@ -51,4 +52,6 @@ define('_LG_PLUGIN_CHOICEIMAGES_MSGBG', "Couleur de fond du message.");
 
 define('_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1', "Question suivante");
 define('_LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1_OPTIONS', _LG_PLUGIN_CHOICEIMAGES_NEXT_QUESTION1 . ",On passe à la suite,Persévérez,Score cumulé : {score} / {scoreMaxi}");
+
+
 ?>

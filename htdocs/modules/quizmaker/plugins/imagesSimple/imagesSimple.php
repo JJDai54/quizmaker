@@ -79,20 +79,20 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       $name = 'imgHeight0';  
       $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP0,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElementOptions($inpHeight0);     
+      $trayOptions->addElementOption($inpHeight0);     
 
       $name = 'imgHeight1';  
       $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP1,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight1->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElementOptions($inpHeight1);     
+      $trayOptions->addElementOption($inpHeight1);     
 
       $name = 'imgHeight2';  
       $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP2,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight2->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElementOptions($inpHeight2);     
+      $trayOptions->addElementOption($inpHeight2);     
       
       $name = 'imgGreen';  
-      $trayOptions ->addElementOptions(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
+      $trayOptions ->addElementOption(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
       //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
       $inpImgGreen = $this->getXoopsFormImage($tValues[$name], 
                                               "{$optionName}_{$name}", 
@@ -102,10 +102,10 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
                                               "{$optionName}[delete][{$name}]",                   //$this->getName($i,"delete_{$name}"),
                                               _LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED, 
                                               _LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_DESC);  
-      $trayOptions->addElementOptions($inpImgGreen);   
+      $trayOptions->addElementOption($inpImgGreen);   
 
       $name = 'imgRed';  
-      $trayOptions ->addElementOptions(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
+      $trayOptions ->addElementOption(new \xoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]));
       //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
       $inpImgRed = $this->getXoopsFormImage($tValues[$name], 
                                             "{$optionName}_{$name}", 
@@ -114,19 +114,19 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
                                             "{$optionName}[delete][{$name}]",              //$this->getName($i,"delete_{$name}"), 
                                             _LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET, 
                                             _LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_DESC);  
-      $trayOptions ->addElementOptions($inpImgRed);   
+      $trayOptions ->addElementOption($inpImgRed);   
 
       $name = 'directive';  
       if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $inpDirective->setDescription(_AM_QUIZMAKER_DIRECTIVE_DESC);
-      $trayOptions ->addElementOptions($inpDirective);     
+      $trayOptions ->addElementOption($inpDirective);     
 
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOptions($inputDisposition);     
+      $trayOptions->addElementOption($inputDisposition);     
       return $trayOptions;
 
     }
@@ -207,13 +207,13 @@ $i = $this->getFormGroup($trayAllAns, 1, $badly, _AM_QUIZMAKER_BAD_PROPOSITIONS,
 * - sequence logique
 * - mauvaises reponses
 * ************************************************** */
-public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem, $maxItems, $path)
+public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $firstItem, $maxItems, $path)
 { 
     
         
         
         //suppression des enregistrement en trop
-        if(count($arr) > $maxItems) $this->deleteToMuchItems($arr, $maxItems);
+        if(count($answers) > $maxItems) $this->deleteToMuchItems($answers, $maxItems);
         $lib = "<div style='background:black;color:white;'><center>" . $titleGroup . "</center></div>";        
         $trayAllAns->addElement(new \XoopsFormLabel('',$lib));
         $weight = 0;
@@ -228,36 +228,13 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
       
         $tbl = $this->getNewXoopsTableXtray();
         //----------------------------------------------------------
-        for($k = 0 ; $k < $maxItems ; $k++){
-            $i = $k + $firstItem;
-            $weight += 10;
-            if (isset($arr[$k])){
-                $answerId    = $arr[$k]->getVar('answer_id');
-                $proposition = $arr[$k]->getVar('answer_proposition');
-                $imgName     = $arr[$k]->getVar('answer_image1');
-                $points      = $arr[$k]->getVar('answer_points');
-                $weight      = $weight; // $arr[$i]->getVar('answer_weight');
-                $caption     = $arr[$k]->getVar('answer_caption');
-/*
-*/        //choix d'une image existante:
-            }else{
-                $answerId = 0;
-                $proposition = "";
-                $imgName     = '';
-                $points      = 0;
-                $weight      = $weight;
-                $caption     = '';
-            }
-            //if(!$imgName) $imgName     = 'blank-org.jpg';
+        for($k = 0; $k < $maxItems ; $k++){
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
-            
-            $inpAnswerId = new \XoopsFormHidden($this->getName($i,'id'), $answerId);            
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);            
-            $libChrono = new \XoopsFormLabel('', $i+1); // . "[{$answerId}]"
-            $inpChrono = new \XoopsFormHidden($this->getName($i,'chrono'), $i+1);    
             $inpPropositionImg = $this->getXoopsFormImage($proposition, $this->getName()."_proposition_{$i}", $path);
-            $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete'),);                        
-            $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
             $inpProposition = new \XoopsFormHidden($this->getName($i,'proposition'), $proposition);            
             //$libProposition = new \XoopsFormLabel('',  $proposition; // pour le dev
 
@@ -288,21 +265,13 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
             }
             
             //----------------------------------------------------
-
-            $tbl->addElement($inpChrono, -1);
-               
-            $col = 0;
-            $tbl->addElement(new \XoopsFormLabel('','Proposition : ' . ($i+1)), $col, $k);
-            $tbl->addElement($delProposition, $col, $k);
-            $tbl->addElement($inpInputs, $col, $k);
+            $tbl->addElement($inpInputs, -1, $k);
              
-            $tbl->addElement($inpAnswerId, ++$col, $k);
-            //$tbl->addElement($libChrono, $col, $k);
-            $tbl->addElement($inpPropositionImg, $col, $k);
-             
+            $tbl->addElement($inpPropositionImg, ++$col, $k);
             $tbl->addElement($inpCaption, ++$col, $k);
-            $tbl->addElement($inpWeight, $col, $k);
-            $tbl->addElement($inpPoints, $col, $k);
+            $tbl->addElement($inpPoints, ++$col, $k);
+             
+            $tbl->addElement($inpWeight, ++$col, $k);
            
             //$tbl->addElement($inpImgSubstitut, ++$col, $k);
             
@@ -329,64 +298,55 @@ public function getFormGroup(&$trayAllAns, $inputs, $arr,$titleGroup, $firstItem
 
         /*
         */ 
-       foreach ($answers as $key=>$v){
-            $answerId = $v['id'];
-            if($answerId > 0){
-                $ansObj = $answersHandler->get($answerId);
-                if(!isset($v['delete'])) $v['delete'] = 0;
-            }else{
-                $ansObj = $answersHandler->create();
-                $v['delete'] = 0;
-            }
-        //$this->echoAns ($v, $questId, $bExit = false);    
-            
-        //Suppression de la proposition et de l'image
-        if( $v['delete'] == 1) $this->delete_answer_by_image($v,$path);  
+       foreach ($answers as $key=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
         
-        
-        //enregistrement de l'image
-        //if($_FILES['answers'][name] != '') 
-        //recuperation de l'image pour le champ proposition
-        //le chrono ne correspond pad forcément à la clé dans files
-        //il faut retrouver cette clé à patir du nom du form donne dans le formumaire de saisie
-        //un pour le champ "proposition" qui stocke l'image principale
-        //et un pour le champ image qui stocke l'image de substitution
-        $formName = $this->getName()."_proposition_" . ($v['chrono']-1);
-        $prefix = "quiz-{$questId}-{$v['chrono']}";
+            //enregistrement de l'image
+            //if($_FILES['answers'][name] != '') 
+            //recuperation de l'image pour le champ proposition
+            //le chrono ne correspond pad forcément à la clé dans files
+            //il faut retrouver cette clé à patir du nom du form donne dans le formumaire de saisie
+            //un pour le champ "proposition" qui stocke l'image principale
+            //et un pour le champ image qui stocke l'image de substitution
+            $formName = $this->getName()."_proposition_" . ($ans['chrono']-1);
+            $prefix = "quiz-{$questId}-{$ans['chrono']}";
 
-        $newImg = $this->save_img($v, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
-        if($newImg == ''){
-            //$ansObj->setVar('answer_proposition', $v['proposition']);        
-        }else{
-            $ansObj->setVar('answer_proposition', $newImg);        
-        }
-        
-        //SSi le champ 'points' est plus petit ou égal à zéro , suppression de l'image de substitution
-        if (intval($v['points']) == 0){
-            $ansObj->setVar('answer_image1', '');        
-        }else{
-            //idem pour le champ image qui sctocke celle de substitution
-            $formName = $this->getName()."_substitut_" . ($v['chrono']-1);
-            $newImg = $this->save_img($v, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
+            $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
             if($newImg == ''){
-                //$ansObj->setVar('answer_proposition', $v['proposition']);        
+                //$ansObj->setVar('answer_proposition', $ans['proposition']);        
             }else{
-                $ansObj->setVar('answer_image1', $newImg);        
+                $ansObj->setVar('answer_proposition', $newImg);        
             }
-        } 
+            
+            //SSi le champ 'points' est plus petit ou égal à zéro , suppression de l'image de substitution
+            if (intval($ans['points']) == 0){
+                $ansObj->setVar('answer_image1', '');        
+            }else{
+                //idem pour le champ image qui sctocke celle de substitution
+                $formName = $this->getName()."_substitut_" . ($ans['chrono']-1);
+                $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
+                if($newImg == ''){
+                    //$ansObj->setVar('answer_proposition', $ans['proposition']);        
+                }else{
+                    $ansObj->setVar('answer_image1', $newImg);        
+                }
+            } 
 
-        //if(isset($v['proposition'])) $ansObj->setVar('answer_proposition', $v['proposition']);        
-       // if ($fileImg =! '') $ansObj->setVar('answer_proposition', $fileImg);
-        
+            //if(isset($ans['proposition'])) $ansObj->setVar('answer_proposition', $ans['proposition']);        
+           // if ($fileImg =! '') $ansObj->setVar('answer_proposition', $fileImg);
+            
 
-        $ansObj->setVar('answer_caption', $v['caption']);
-        $ansObj->setVar('answer_weight', $v['weight']);
-        $ansObj->setVar('answer_points', $v['points']); 
-        $ansObj->setVar('answer_quest_id', $questId); 
-        $ansObj->setVar('answer_inputs', $v['inputs']); 
-        
-        if ($v['points'] == 0) $v['image'] = '';
-        $answersHandler->insert($ansObj);
+            $ansObj->setVar('answer_caption', $ans['caption']);
+            $ansObj->setVar('answer_weight', $ans['weight']);
+            $ansObj->setVar('answer_points', $ans['points']); 
+            $ansObj->setVar('answer_quest_id', $questId); 
+            $ansObj->setVar('answer_inputs', $ans['inputs']); 
+            
+            if ($ans['points'] == 0) $ans['image'] = '';
+            $answersHandler->insert($ansObj);
      }
      //suppression des propositions qui n'ont pas d'image de definie
      $criteria = new CriteriaCompo(new Criteria('answer_quest_id', $questId, '='));

@@ -75,7 +75,7 @@ class Plugin_pageBegin extends XoopsModules\Quizmaker\Plugins
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
-      $trayOptions ->addElementOptions(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
       
       //--------------------------------------------------------------------           
       

@@ -84,7 +84,7 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
                                 1 => _LG_PLUGIN_CHOICESIMPLE_TYPE_1,
                                 2 => _LG_PLUGIN_CHOICESIMPLE_TYPE_2]);
       $inpType->setDescription(_LG_PLUGIN_CHOICESIMPLE_TYPE_DESC);
-      $trayOptions->addElementOptions($inpType);     
+      $trayOptions->addElementOption($inpType);     
          
       $name = 'msgNextSlideTxt';  
       $inpMsgNextSlide = new \XoopsFormTextPlus(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE, "{$optionName}[{$name}]",80,80, $tValues[$name]);
@@ -97,28 +97,28 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
         $h++;
       }
       $inpMsgNextSlide->setDescription(_LG_PLUGIN_CHOICESIMPLE_MSG_NEXT_SLIDE_DESC);
-      $trayOptions->addElementOptions($inpMsgNextSlide);     
+      $trayOptions->addElementOption($inpMsgNextSlide);     
      
       $name = 'msgNextSlideBG';  
       $inpMsgBG = new \XoopsFormColorPicker(_LG_PLUGIN_CHOICESIMPLE_MSGBG, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOptions($inpMsgBG);     
+      $trayOptions->addElementOption($inpMsgBG);     
 
       $name = 'msgNextSlideDelai';  
       $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
       $inpPoints->setMinMax(0, 3000, _AM_QUIZMAKER_UNIT_MILISECONDS);
       $inpPoints->setDescription(_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC);
-      $trayOptions->addElementOptions($inpPoints);     
+      $trayOptions->addElementOption($inpPoints);     
 
       $name = 'familyWords';  
       $inputFamilyWords = new \XoopsFormText(_AM_QUIZMAKER_FAMILY_WORDS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $inputFamilyWords->setDescription(_AM_QUIZMAKER_FAMILY_WORDS_DESC);
-      $trayOptions ->addElementOptions($inputFamilyWords);     
+      $trayOptions ->addElementOption($inputFamilyWords);     
       
       $name = 'disposition'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
       //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOptions($inputDisposition);     
+      $trayOptions->addElementOption($inputDisposition);     
 
       //--------------------------------------------------------------------           
       
@@ -147,10 +147,10 @@ class Plugin_choiceSimple extends XoopsModules\Quizmaker\Plugins
 		return $this->trayGlobal;
 	}
 
-public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem, $maxItems, $path='')
+public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstItem, $maxItems, $path='')
 { 
         
-  reset($arr);
+  reset($answers);
         $tbl = $this->getNewXoopsTableXtray();
         $tbl->addTdStyle(1, "width:500px;");
         $tbl->addTdStyle(2, "width:120px;");
@@ -158,27 +158,20 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
         $weight = 0;
         
         for($k = 0; $k < $maxItems; $k++){
-            $i = $k + $firstItem;
-            if (isset($arr[$k])){
-                $proposition = $arr[$k]->getVar('answer_proposition');
-                $points = $arr[$k]->getVar('answer_points');
-            }else{
-                $proposition = '';
-                $points = 0;
-            }
-      
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            //-------------------------------------------------
             
-            $inpChrono = new \XoopsFormLabel('', $i+1);            
-            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $this->getName($i,'proposition'), $this->lgMot4, $this->lgMot5, $proposition);
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);
+            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $this->getName($k,'proposition'), $this->lgMot4, $this->lgMot5, $proposition);
+            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(-30, 30);
-            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($i,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
+            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($k,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
             $inpWeight->setMinMax(0, 999);
-            $inpGroup = new \XoopsFormHidden($this->getName($i,'group'), $group);
+            $inpGroup = new \XoopsFormHidden($this->getName($k,'group'), $group);
 
         //----------------------------------------------------------
-            $col = 0;
-            $tbl->addElement(new \XoopsFormLabel('','' . ($i+1)), $col, $k);
+
             //$tbl->addElement($inpChrono, $col, $k, '');
             $tbl->addElement($inpPropos, ++$col, $k);
             $tbl->addElement($inpPoints, ++$col, $k);
@@ -200,19 +193,20 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
  	{
         global $utility, $answersHandler, $pluginsHandler;
         //$this->echoAns ($answers, $questId, $bExit = true);    
-        $answersHandler->deleteAnswersByQuestId($questId); 
+        //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
-       foreach ($answers as $key=>$v){
-            $v['proposition']  = FQUIZMAKER\sanityse_inpValue($v['proposition']);
+       foreach ($answers as $key=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
+            $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);
 
-            if($v['proposition'] != ''){
-//            echo "===>proposition = {$v['proposition']} - points = {$v['points']}<br>";
-    			$ansObj = $answersHandler->create();
-        		$ansObj->setVar('answer_quest_id', $questId);
+            if($ans['proposition'] != ''){
                 
-        		$ansObj->setVar('answer_proposition', $v['proposition']);
-        		$ansObj->setVar('answer_points', $v['points']);
-        		$ansObj->setVar('answer_weight', $v['weight']);
+        		$ansObj->setVar('answer_proposition', $ans['proposition']);
+        		$ansObj->setVar('answer_points', $ans['points']);
+        		$ansObj->setVar('answer_weight', $ans['weight']);
                 
         		$ansObj->setVar('answer_caption', '');
         		$ansObj->setVar('answer_inputs', 1);
@@ -223,44 +217,6 @@ public function getFormGroup(&$trayAllAns, $group, $arr,$titleGroup, $firstItem,
      }
     }
     
-// /* ********************************************
-// *
-// *********************************************** */
-//   public function getSolutions($questId, $boolAllSolutions = true){
-//   global $answersHandler;
-//   /*
-// 		$ret = $this->getValues($keys, $format, $maxDepth);
-// 		$ret['id']          = $this->getVar('answer_id');
-// 		$ret['quest_id']    = $this->getVar('answer_quest_id');
-// 		$ret['caption']      = $this->getVar('answer_caption');
-// 		$ret['proposition'] = $this->getVar('answer_proposition');
-// 		$ret['points']      = $this->getVar('answer_points');
-// 		$ret['weight']      = $this->getVar('answer_weight');
-// 		$ret['inputs']      = $this->getVar('answer_inputs');
-//   
-//   */
-//     $answersAll = $answersHandler->getListByParent($questId);
-// //    echoArray($answersAll);
-//     $answers = array();
-//     $totalPoints = 0;
-//     $html = array();
-//     $html[] = "<table style='margin:0px 20px 0px 20px;' width='90%'>";
-// 	foreach(array_keys($answersAll) as $i) {
-// 		$ans = $answersAll[$i]->getValuesAnswers();
-// 
-//         if ($ans['points'] > 0){
-//             $html[] = "<tr><td>- {$ans['proposition']}</td><td>&nbsp;===>&nbsp;</td><td>{$ans['points']}</td></tr>";
-//             $totalPoints += intval($ans['points']);
-//         }
-// 	}
-//     
-//         $p = sprintf(_CO_QUIZMAKER_POINTS_FOR_ANSWER2, $totalPoints); 
-//         $html[] = "<tr><td colspan='2'><hr class='grey1-hr-style-one'></td></tr>";   
-//         $html[] = "<tr><td colspan='2'>{$p}</td></tr>";   
-//     $html[] = "</table>";
-// 
-//     return implode("\n", $html);
-//      }
 
 
 /* ********************************************

@@ -105,19 +105,19 @@ var $nbMaxColumns = 5;
 //       //$trayOptions->addElement(_LG_PLUGIN_MATCHITEMS_NB_COLUMN,0,$k);
 //       $trayOptions->addElement(new \XoopsFormLabel(_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC),1,$k);      
           
-      $trayOptions->addElementOptions($inpNbColumns);      
+      $trayOptions->addElementOption($inpNbColumns);      
     //--------------------------------------------------
 
       for ($h = 0; $h < $nbColumns; $h++){
           $j = $h+1;
       //$trayOptions->insertBreak("<div style='background:green;'><hr></div>");
       $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j) . "</div>");
-      //  $trayOptions->addElementOptions(sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j));      
+      //  $trayOptions->addElementOption(sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j));      
       
           $name = "list{$h}_type";  
           $inpTypeList = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
           $inpTypeList->addOptionArray($typeArr);
-          $trayOptions->addElementOptions($inpTypeList);      
+          $trayOptions->addElementOption($inpTypeList);      
   
 
 
@@ -125,23 +125,23 @@ var $nbMaxColumns = 5;
           $name = "list{$h}_textalign";  
           $inpTextalign = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TEXTALIGN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
           $inpTextalign->addOptionArray($textalignArr);
-          $trayOptions->addElementOptions($inpTextalign);  
+          $trayOptions->addElementOption($inpTextalign);  
           
           $name = "list{$h}_width";  
           $inpWidth = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
           $inpWidth->setExtra("style='background:#FFCC99;'");
           $inpWidth->setMinMax(5, 50, _AM_QUIZMAKER_UNIT_PERCENT);
-          $trayOptions->addElementOptions($inpWidth);  
+          $trayOptions->addElementOption($inpWidth);  
           
           $name = "list{$h}_title"; 
           $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
           $inpµIntrus->setExtra("style='background:" . self::bgColor1 . ";'");
-          $trayOptions->addElementOptions($inpµIntrus);
+          $trayOptions->addElementOption($inpµIntrus);
           
           $name = "list{$h}_intrus"; 
           $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
           $inpµIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
-          $trayOptions->addElementOptions($inpµIntrus);
+          $trayOptions->addElementOption($inpµIntrus);
            
           //$trayOptions ->addElement(new XoopsFormLabel('<hr>', ''));   
       }
@@ -239,7 +239,7 @@ var $nbMaxColumns = 5;
         $weight = 0;
         //$tbl = $this->getNewXoopsTableXtray();
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
-        $tbl->addTdStyle(0, 'text-align:left;width:50px;');
+        //$tbl->addTdStyle(0, 'text-align:left;width:50px;');
         // titre des colonnes et des listes
         $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
         $nbColumns = (isset($options['nbColumns'])) ? $options['nbColumns'] : $this->nbMaxColumns;
@@ -261,13 +261,13 @@ var $nbMaxColumns = 5;
       
         
         for($k = 0; $k < $this->maxPropositions; $k++){
-            $vArr = $this->getAnswerValues($answers[$k], $weight,1);
-            foreach($vArr as $key=>$value) $$key = $value;
-            if($isNew) $tExp = array('','','','','','');
-            else $tExp = explode(',', $proposition);
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            //-------------------------------------------------
+            if($isNew) $tPropos = array('','','','','','');
+
             //----------------------------------------------------------------------- 
-            
-            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");
             
             $name = $this->getName($k, 'points');
             $inpPoints = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $points);
@@ -277,13 +277,10 @@ var $nbMaxColumns = 5;
             $inpWeight = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 1000);
 
-            $col=0;
-
-            $tbl->addElement($inpLab, $col++, $k);
-            
+            //--------------------------------------------------------------
             for($h = 0; $h < $nbColumns; $h++){
               $name = $this->getName($k, "exp", $h); 
-              $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $tExp[$h]);       
+              $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $tPropos[$h]);       
               
               //peti cacul simpliste pour donner un aperçu de la largeur des colonnes dans le quiz
               //l'environnement étant différent, c'est juste une approche du résultat finel
@@ -292,12 +289,12 @@ var $nbMaxColumns = 5;
               $inpExp->setExtra("style='text-align:left;width:{$inpWidth}%;'");
 
                    
-              $tbl->addElement($inpExp, $col++, $k);
+              $tbl->addElement($inpExp, ++$col, $k);
             }
             
             
-            $tbl->addElement($inpPoints, $col++, $k);
-            $tbl->addElement($inpWeight, $col++, $k);
+            $tbl->addElement($inpPoints, ++$col, $k);
+            $tbl->addElement($inpWeight, ++$col, $k);
 
         }
         $this->trayGlobal->addElement($tbl);
@@ -313,9 +310,13 @@ var $nbMaxColumns = 5;
  	{
         global $utility, $answersHandler, $pluginsHandler;
         //$this->echoAns ($answers, $questId, $bExit = true); 
-        $answersHandler->deleteAnswersByQuestId($questId); 
+        //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
-        foreach ($answers as $key=>$value){
+        foreach ($answers as $key=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
         
             for($h = 0; $h < $this->nbMaxColumns; $h++){
                 $answers[$key]['exp'][$h] = trim($answers[$key]['exp'][$h]);
@@ -323,12 +324,9 @@ var $nbMaxColumns = 5;
             // si la première expression est vide la proposition n'est pas enregistrée
             if ($answers[$key]['exp'][0] === '') continue;
             
-          	$ansObj = $answersHandler->create();
-          	$ansObj->setVar('answer_quest_id', $questId);
-
           	$ansObj->setVar('answer_proposition', implode(',', $answers[$key]['exp']));
-          	$ansObj->setVar('answer_points', intval($value['points']));
-          	$ansObj->setVar('answer_weight', intval($value['weight']));
+          	$ansObj->setVar('answer_points', $ans['points']);
+          	$ansObj->setVar('answer_weight', $ans['weight']);
               
           	$ansObj->setVar('answer_caption', '');
           	$ansObj->setVar('answer_inputs', 0);

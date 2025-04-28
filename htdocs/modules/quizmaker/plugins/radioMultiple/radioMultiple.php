@@ -76,13 +76,13 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
       if (!$tValues[$name]) $tValues[$name] = _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB;
       $inpDirective = new \XoopsFormText(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $inpDirective->setDescription(_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC);
-      $trayOptions ->addElementOptions($inpDirective);     
+      $trayOptions ->addElementOption($inpDirective);     
 
       $name = 'orientation'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputOrientation = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
       $inputOrientation->setGridIconNumber(2,1);
-      $trayOptions->addElementOptions($inputOrientation);     
+      $trayOptions->addElementOption($inputOrientation);     
       
       //--------------------------------------------------------------------           
   
@@ -104,40 +104,32 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
         $maxMots = 5;
         //---------------------------------------------------------
 
+        $tbl = $this->getNewXoopsTableXtray();
+        //----------------------------------------------------------
         
-        $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
-        for($i = 0; $i < $this->maxPropositions; $i++){        
-            $trayAns = new XoopsFormElementTray  (chr($i+65), $delimeter = '<br>');  
-            if (isset($answers[$i])){
-                $mots = explode(',', $answers[$i]->getVar('answer_proposition'));
-                $points = $answers[$i]->getVar('answer_points');
-        
-            }else{
-                $mots = array();
-                $points = 0;
-            }
-           $trayWords = new XoopsFormElementTray  ('' . " : ", $delimeter = ' => ');
-            for($k = 0; $k < $maxMots; $k++){        
-                $mot = (isset($mots[$k])) ? $mots[$k] : '';
-                $name = $this->getName($i, 'mots', $k);
-                $inpMot = new \XoopsFormText(" " . ($k+1), $name, $this->lgMot1, $this->lgMot2, $mot);
-                $trayWords->addElement($inpMot);
+        for($k = 0; $k < $this->maxPropositions; $k++){        
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            //-------------------------------------------------
+            if($isNew) $points = 0; //correction du nombre de points pour les nouveaux enregistrement
+            
+            for($h = 0; $h < $maxMots; $h++){        
+                $mot = (isset($tPropos[$h])) ? $tPropos[$h] : '';
+                $name = $this->getName($k, 'mots', $h);
+                
+                $inpMot = new \XoopsFormText(" " . ($h+1), $name, $this->lgMot1, $this->lgMot2, $mot);
+                $tbl->addElement($inpMot, ++$col,  $k);
             }
             
-                      
-           $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS . " : ", $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);
+           $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS . " : ", $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
            $inpPoints->setMinMax(-30,30);
-           $trayWords->addElement($inpPoints); 
+           $tbl->addElement($inpPoints, ++$col, $k); 
            
-           $trayAns->addElement($trayWords);
-           
-            //ajouter les points ici
-           //$trayAns->addElement($inpPoints);
-           $trayAllAns->addElement($trayAns);        
          }
         
         //----------------------------------------------------------
-        $this->trayGlobal->addElement($trayAllAns);
+        $this->trayGlobal->addElement($tbl);
 		return $this->trayGlobal;
 	}
 
@@ -149,27 +141,27 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
  	{
         global $utility, $answersHandler, $pluginsHandler;
 
-        $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------   
         $propos = array();
         $weight = 10;     
    
-        foreach ($answers as $keyAns=>$valueAns){
-//echo "<hr>Question questId = {$questId}<pre>" . print_r($valueAns, true) . "</pre><hr>";
-            
+        foreach ($answers as $key=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
             $tMots = array(); 
-            foreach ($valueAns['mots'] as $keyMot=>$mot){
+            foreach ($ans['mots'] as $keyMot=>$mot){
                 $mot = trim($mot);
                 if ($mot != ''){
                     $tMots[] = $mot;
                 }
             }
+            
             if (count($tMots) > 0){
 //echo "<hr>mots : " .  implode(',', $tMots);          
-            	$ansObj = $answersHandler->create();
-            	$ansObj->setVar('answer_quest_id', $questId);
             	$ansObj->setVar('answer_proposition', implode(',', $tMots));
-            	$ansObj->setVar('answer_points', $valueAns['points']);
+            	$ansObj->setVar('answer_points', $ans['points']);
             	$ansObj->setVar('answer_weight', $weight += 10);
                 
             	$ansObj->setVar('answer_caption', '');

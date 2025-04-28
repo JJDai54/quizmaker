@@ -78,23 +78,23 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
       $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
       $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
       $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
-      $trayOptions->addElementOptions($inputOrder);     
+      $trayOptions->addElementOption($inputOrder);     
       
       $name = 'title';  
       $inpTitle = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_CAPTION0, "{$optionName}[{$name}]", $this->lgProposition, $this->lgProposition, $tValues[$name]);
-      $trayOptions->addElementOptions($inpTitle);     
+      $trayOptions->addElementOption($inpTitle);     
 
       $name = 'liBgDefault';   /* background des items par defaut f5f5f5*/
       $inpLiBgDefault = new XoopsFormColorPicker('Couleur par defaut', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOptions($inpLiBgDefault);     
+      $trayOptions->addElementOption($inpLiBgDefault);     
 
       $name = 'liBgActive';  /* background de l'item survole pendant drag on drop ffe7e7*/
       $inpLiBgActive = new XoopsFormColorPicker('Couleur de survol pandant le déplacement', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOptions($inpLiBgActive);     
+      $trayOptions->addElementOption($inpLiBgActive);     
 
       $name = 'liBgHover';   /* background de l'item survole avant drag on drop 00FF00*/
       $inpLiBgHover = new XoopsFormColorPicker('Couleur de survol avant selection', "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOptions($inpLiBgHover);     
+      $trayOptions->addElementOption($inpLiBgHover);     
 
 
 
@@ -119,33 +119,20 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
         $tbl->addTdStyle(1, 'text-align:left;width:50px;');
                 
-        foreach($answers as $k=>$item){
-            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");  
-                
-            $proposition = $item->getVar('answer_proposition');          
+        for($k = 0; $k < $this->maxPropositions; $k++){
+            $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            //-------------------------------------------------
+        
             $name = $this->getName($k, 'proposition');
             $inpProposition = new \XoopsFormText("", $name, $this->lgMot1, $this->lgMot2, $proposition);
                 
             $name = $this->getName($k, 'weight');
             $inpWeight = new \XoopsFormText(_AM_QUIZMAKER_WEIGHT, $name, $this->lgWeight, $this->lgWeight, $weight += 10);
                 
-            $col=0;
-            $tbl->addElement($inpLab, $col++, $k);
-            $tbl->addElement($inpProposition, $col++, $k);
-            $tbl->addElement($inpWeight, $col++, $k);
-        } 
-        //completion jusqu' à maxItem si besoin
-        for($k = count($answers); $k < $this->maxPropositions; $k++){
-            $inpLab  = new XoopsFormLabel("", $k+1 . " : ");  
-            $name = $this->getName($k, 'proposition');
-            $inpProposition = new \XoopsFormText("", $name, $this->lgMot1, $this->lgMot2, '');
-            $name = $this->getName($k, 'weight');
-            $inpWeight = new \XoopsFormText(_AM_QUIZMAKER_WEIGHT, $name, $this->lgWeight, $this->lgWeight, $weight += 10);
-            
-            $col=0;
-            $tbl->addElement($inpLab, $col++, $k);
-            $tbl->addElement($inpProposition, $col++, $k);
-            $tbl->addElement($inpWeight, $col++, $k);
+            $tbl->addElement($inpProposition, ++$col, $k);
+            $tbl->addElement($inpWeight, ++$col, $k);
         }
         
         
@@ -163,22 +150,18 @@ class Plugin_ulDaDSortList extends XoopsModules\Quizmaker\Plugins
     //echoArray($answers,'saveAnswers',true);
         global $utility, $answersHandler, $pluginsHandler;
         //$this->echoAns ($answers, $questId, $bExit = true);    
-        $answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
-        $tPropos = array();
-        $tPoints = array();
-        foreach ($answers as $ansKey=>$ansValue){
-            $proposition = FQUIZMAKER\sanityse_inpValue($ansValue['proposition']);
-            if (!$proposition) continue;
+        foreach ($answers as $key=>$ans){
+            //chargement des operations communes à tous les plugins
+            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            if (is_null($ansObj)) continue;
+            //---------------------------------------------------           
+            $ans['proposition'] = FQUIZMAKER\sanityse_inpValue($ans['proposition']);
+            if (!$ans['proposition']) continue;
             
-            $caption = trim($ansValue['caption']);
-            $weight = intval(trim($ansValue['weight']));
-    
-        	$ansObj = $answersHandler->create();
-        	$ansObj->setVar('answer_proposition', $proposition);
-        	$ansObj->setVar('answer_quest_id', $questId);
+        	$ansObj->setVar('answer_proposition', $ans['proposition']);
         	//$ansObj->setVar('answer_caption', $caption);
-        	$ansObj->setVar('answer_weight', intval(trim($ansValue['weight'])));
+        	$ansObj->setVar('answer_weight', $ans['weight']);
         	$ansObj->setVar('answer_points', 0);
         	$ret = $answersHandler->insert($ansObj);
         }

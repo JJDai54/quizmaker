@@ -104,6 +104,10 @@ function addNewChild(parentId){
                   <{assign var="fldImg" value="red"}>
                   <{assign var="styleParent" value="style='background:mistyrose;'"}>
                   
+                <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_INFO}>
+                  <{assign var="fldImg" value="red"}>
+                  <{assign var="styleParent" value="style='background:#CCFF99;'"}>
+                  
                 <{elseif !$Questions.actif}>
                   <{assign var="fldImg" value="blue"}>
                   <{assign var="styleParent" value="style='background:#FFCCFF;color:red;'"}>
