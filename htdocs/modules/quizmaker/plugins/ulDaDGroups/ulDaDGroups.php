@@ -74,8 +74,8 @@ var $maxGroups = 4;
       //--------------------------------------------------------------------           
     
       $name = 'ulWidth';  
-      $inpUlWidth = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpUlWidth->setMinMax(20, 100, _AM_QUIZMAKER_UNIT_PIXELS);
+      $inpUlWidth = new \XoopsFormNumber(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpUlWidth->setMinMax(20, 100, _AM_QUIZMAKER_UNIT_PERCENT);
 //       $trayUlWidth = new XoopsFormElementTray(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH, $delimeter = ' ');  
 //       $trayUlWidth->addElement($inpUlWidth);
 //       $trayUlWidth->addElement(new \XoopsFormLabel(' ', '%'));
@@ -169,6 +169,8 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 //$this->echoAns ($imgList,'{$imgPath}', false);   
       
         $tbl = $this->getNewXoopsTableXtray();
+        $tbl->addTitleArray(['',_AM_QUIZMAKER_PLUGIN_LABEL,_AM_QUIZMAKER_PLUGIN_BACKGROUND,_AM_QUIZMAKER_PLUGIN_GROUP,_AM_QUIZMAKER_PLUGIN_POINTS,_AM_QUIZMAKER_PLUGIN_WEIGHT]);
+
         //----------------------------------------------------------
         for($k = 0 ; $k < $maxItems ; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
@@ -192,15 +194,15 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //if(!$imgName) $imgName     = 'blank-org.jpg';
             //-------------------------------------------------
             $inpProposition = new \XoopsFormText('',  $this->getName($i,'proposition'), $this->lgProposition, $this->lgProposition, $proposition);
-            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
-            $inpWeight->setMinMax(0, 900, 'pixels');
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
+            $inpWeight = new \XoopsFormNumber('',  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
+            $inpWeight->setMinMax(0, 99999);
+            $inpPoints = new \XoopsFormNumber('',  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
             $inpPoints->setMinMax(1, 30);
-            $inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
+            $inpgroup = new \xoopsFormSelect('',  $this->getName($i,'group'), $group); //n° du groupe
             $inpgroup->addOptionArray(['0'=>$libGroup0, '1'=>$libGroup1, '2'=>$libGroup2, '3'=>$libGroup3]);
 
             $idChkIsBackground = $this->getName($i,'isBackground') ;
-            $inpBackground = new XoopsFormColorPicker('Couleur', $this->getName($i,'background'), $background);
+            $inpBackground = new XoopsFormColorPicker('', $this->getName($i,'background'), $background);
             $inpBackground->setExtra("onChange=\"document.getElementById('{$idChkIsBackground}1').checked=1;\"");
             //$inpBackground->setExtra("onChange=\"alert('{$idChkIsBackground}');document.getElementById('{$idChkIsBackground}1').checked=1;alert('zzzzzzz');\"");
             $inpIsBackround = new \XoopsFormCheckBox('', $idChkIsBackground, array($isBackground));                        
@@ -210,13 +212,13 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //--------------------------------------------------               
             $tbl->addElement($inpProposition, ++$col, $k);
             
-            $tbl->addElement($inpIsBackround, ++$col, $k);
+            $tbl->addElement($inpIsBackround, ++$col, $k, ' ');
             $tbl->addElement($inpBackground, $col, $k);
             
-            $tbl->addElement($inpWeight, ++$col, $k);
-            $tbl->addElement($inpPoints, ++$col, $k);
             
             $tbl->addElement($inpgroup, ++$col, $k);
+            $tbl->addElement($inpPoints, ++$col, $k);
+            $tbl->addElement($inpWeight, ++$col, $k);
 /*
 */             
            
@@ -245,7 +247,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //---------------------------------------------------           
 
             $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);
-            
+            if(!$ans['proposition']) continue;
             
             if ($ans['points'] == 0) $ans['points'] = 1;
 

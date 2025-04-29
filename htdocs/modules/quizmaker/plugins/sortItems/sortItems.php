@@ -131,9 +131,10 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
         //-------------------------------------------------
         //element definissat un objet ou un ensemble
         $weight = 0;
-        $tbl = $this->getNewXoopsTableXtray();
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
-        $tbl->addTdStyle(1, 'text-align:left;width:50px;');
+        $tbl->addTdStyle(2, 'text-align:left;width:50px;');
+        $tbl->addTitleArray(['',_AM_QUIZMAKER_PLUGIN_LABEL,_AM_QUIZMAKER_PLUGIN_WEIGHT]);
+
 
         for($k = 0; $k < $this->maxPropositions; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
@@ -141,10 +142,10 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
             $name = $this->getName($k, 'proposition');
-            $inpProposition = new \XoopsFormText("", $name, $this->lgMot1, $this->lgMot2, $proposition);
+            $inpProposition = new \XoopsFormText("", $name, $this->lgMot2, $this->lgMot2, $proposition);
                 
             $name = $this->getName($k, 'weight');
-            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $name, $this->lgPoints, $this->lgPoints, $weight);
+            $inpWeight = new \XoopsFormNumber('',  $name, $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 900);
 
                 

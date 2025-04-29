@@ -32,7 +32,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
 {
-     
+var $nbMaxColumns = 5;     
 	/**
 	 * Constructor 
 	 *
@@ -43,7 +43,8 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['orientation' => 'horitontal', 
-                                  'directive'   => ''];
+                                  'directive'   => '',
+                                  'nbColumns'   => $this->nbMaxColumns];
         $this->hasImageMain = true;
         $this->hasShuffleAnswers = true;
     }
@@ -71,6 +72,13 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
       $trayOptions = $this->getNewXFTableOptions($caption);     
  
       //--------------------------------------------------------------------           
+      $name = "nbColumns";  
+      $nbColumns = $tValues[$name];
+      $inpNbColumns = new \XoopsFormNumber(_LG_PLUGIN_RADIOMULTIPLE_NB_COLUMN,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpNbColumns->setExtra("style='background:#FFCC99;'");
+      $inpNbColumns->setMinMax(2, $this->nbMaxColumns, _AM_QUIZMAKER_UNIT_OPTIONS);
+      $inpNbColumns->setDescription(_LG_PLUGIN_RADIOMULTIPLE_NB_COLUMN_DESC);
+      $trayOptions ->addElementOption($inpNbColumns);     
       
       $name = 'directive';  
       if (!$tValues[$name]) $tValues[$name] = _LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB;
@@ -96,15 +104,27 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
 * ************************************************** */
  	public function getForm($questId, $quizId)
  	{
-        global $utility, $answersHandler, $xoopsConfig;
+        global $utility, $answersHandler, $xoopsConfig, $questionsHandler;
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
         $this->maxPropositions = 8;
-        $maxMots = 5;
+
         //---------------------------------------------------------
+        $quest =  $questionsHandler->get($questId, 'quest_options');
+        $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
+        $nbColumns = (isset($options['nbColumns'])) ? $options['nbColumns'] : $this->nbMaxColumns;
 
         $tbl = $this->getNewXoopsTableXtray();
+          $tbl->addTitle('');        
+          for($h = 0; $h < $nbColumns; $h++){
+              $j = $h+1;
+              $tbl->addTitle(sprintf(_AM_QUIZMAKER_PLUGIN_OPTION_NUM, $h+1));        
+              //$width = $options["list{$h}_width"];
+              //$tbl->addTdStyle($j, "width:{$width}%;");
+        //echo "<hr>column {$j} - width : {$width}<hr>";
+          }
+          $tbl->addTitleArray([_AM_QUIZMAKER_PLUGIN_POINTS, _AM_QUIZMAKER_PLUGIN_WEIGHT]);        
         //----------------------------------------------------------
         
         for($k = 0; $k < $this->maxPropositions; $k++){        
@@ -114,17 +134,22 @@ class Plugin_radioMultiple extends XoopsModules\Quizmaker\Plugins
             //-------------------------------------------------
             if($isNew) $points = 0; //correction du nombre de points pour les nouveaux enregistrement
             
-            for($h = 0; $h < $maxMots; $h++){        
+            for($h = 0; $h < $nbColumns; $h++){        
                 $mot = (isset($tPropos[$h])) ? $tPropos[$h] : '';
                 $name = $this->getName($k, 'mots', $h);
                 
-                $inpMot = new \XoopsFormText(" " . ($h+1), $name, $this->lgMot1, $this->lgMot2, $mot);
+                $inpMot = new \XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $mot);
                 $tbl->addElement($inpMot, ++$col,  $k);
             }
             
            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS . " : ", $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
            $inpPoints->setMinMax(-30,30);
            $tbl->addElement($inpPoints, ++$col, $k); 
+
+           $name = $this->getName($k, 'weight');
+           $inpWeight = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $weight);
+           $inpWeight->setMinMax(0, 1000);
+           $tbl->addElement($inpWeight, ++$col, $k); 
            
          }
         

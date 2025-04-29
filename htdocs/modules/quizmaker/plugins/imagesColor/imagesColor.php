@@ -181,9 +181,11 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 //$this->echoAns ($imgList,'{$imgPath}', false);   
       
         $tbl = $this->getNewXoopsTableXtray();
+        
         //----------------------------------------------------------
         for($k = 0 ; $k < $maxItems ; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            $points=1;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
@@ -232,8 +234,8 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
             
-            //Suppression de la proposition et de l'image
-            if(isset($ans['delete_Proposition'])) $this->delete_answer_by_image($ans,$path);  
+//             //Suppression de la proposition et de l'image
+//             if(isset($ans['delete_Proposition'])) $this->delete_answer_by_image($ans,$path);  
             
             
             //enregistrement de l'image

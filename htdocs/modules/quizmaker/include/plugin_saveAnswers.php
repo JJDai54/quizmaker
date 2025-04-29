@@ -22,6 +22,10 @@
         $ansObj = null;
     }  
     //-----------------------------------
+    if(!isset($ans['proposition'])) $ans['proposition'] ='';
+    if(!isset($ans['caption']))     $ans['caption'] ='';
+    if(!isset($ans['buffer']))      $ans['buffer'] ='';
+    //-----------------------------------
   	$ans['proposition'] = trim($ans['proposition']);
   	$ans['caption']     = trim($ans['caption']);
   	$ans['buffer']      = trim($ans['buffer']);

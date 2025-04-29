@@ -216,8 +216,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             }
             
             //----------------------------------------------------
-            $tbl->addElement($inpInputs, $col, $k);
-             
+            $tbl->addElement($inpInputs, ++$col, $k);
             $tbl->addElement($inpPropositionImg, $col, $k);
              
             $tbl->addElement($inpCaption, ++$col, $k);

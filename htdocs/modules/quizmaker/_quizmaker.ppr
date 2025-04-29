@@ -587,7 +587,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -768,7 +768,7 @@ _quizmaker
 						plugins\choiceImages\img\dispositions\dispositions-02.svg
 						plugins\choiceImages\img\dispositions\index.html
 					plugins\choiceImages\img\index.html
-				+language
+				-language
 					-english
 						plugins\choiceImages\language\english\constants.php
 						plugins\choiceImages\language\english\help.html
@@ -997,7 +997,7 @@ _quizmaker
 					plugins\matchItems\snapshoot\snapshoot-002.jpg
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.php
-			+multiQuestions
+			-multiQuestions
 				-img
 					-dispositions
 						plugins\multiQuestions\img\dispositions\disposition-00.png
@@ -1096,12 +1096,12 @@ _quizmaker
 						plugins\radioMultiple\img\dispositions\index.html
 						plugins\radioMultiple\img\dispositions\vertical.png
 					plugins\radioMultiple\img\index.html
-				-language
+				+language
 					-english
 						plugins\radioMultiple\language\english\constants.php
 						plugins\radioMultiple\language\english\help.html
 						plugins\radioMultiple\language\english\index.html
-					-french
+					+french
 						plugins\radioMultiple\language\french\constants.php
 						plugins\radioMultiple\language\french\help.html
 						plugins\radioMultiple\language\french\index.html
@@ -1178,12 +1178,12 @@ _quizmaker
 						plugins\ulDaDGroups\img\dispositions\disposition-30.png
 						plugins\ulDaDGroups\img\dispositions\disposition-31.png
 						plugins\ulDaDGroups\img\dispositions\index.html
-				-language
+				+language
 					-english
 						plugins\ulDaDGroups\language\english\constants.php
 						plugins\ulDaDGroups\language\english\help.html
 						plugins\ulDaDGroups\language\english\index.html
-					-french
+					+french
 						plugins\ulDaDGroups\language\french\constants.php
 						plugins\ulDaDGroups\language\french\help.html
 						plugins\ulDaDGroups\language\french\index.html
@@ -1197,7 +1197,7 @@ _quizmaker
 				plugins\ulDaDGroups\index.html
 				plugins\ulDaDGroups\plugin_ulDaDGroups.zip
 				plugins\ulDaDGroups\ulDaDGroups.php
-			+ulDaDSortList
+			-ulDaDSortList
 				-language
 					-english
 						plugins\ulDaDSortList\language\english\constants.php
@@ -1424,40 +1424,44 @@ _quizmaker
 [Open project files]
 0=docs\changelog.txt
 1=class\Questions.php
-2=class\Plugins.php
-3=include\plugin_getFormGroup.php
-4=include\plugin_saveAnswers.php
-5=plugins\imagesDaDMatchItems\imagesDaDMatchItems.php
-6=plugins\alphaSimple\alphaSimple.php
-7=plugins\ulDaDSortList\ulDaDSortList.php
-8=xoops_version.php
+2=admin\questions-save.php
+3=class\Plugins.php
+4=plugins\alphaSimple\alphaSimple.php
+5=class\Answers.php
+6=plugins\ulDaDGroups\ulDaDGroups.php
+7=include\plugin_getFormGroup.php
+8=admin\questions.php
+9=plugins\listboxClassItems\listboxClassItems.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
+Selected=plugins\ulDaDGroups\ulDaDGroups.php
 [docs\changelog.txt]
 TopLine=1
 Caret=1,1
 [class\Questions.php]
-TopLine=498
-Caret=1,476
+TopLine=426
+Caret=19,442
+[admin\questions-save.php]
+TopLine=15
+Caret=1,31
 [class\Plugins.php]
-TopLine=973
-Caret=41,1010
-[include\plugin_getFormGroup.php]
-TopLine=1
-Caret=1,7
-[include\plugin_saveAnswers.php]
-TopLine=1
-Caret=4,25
-[plugins\imagesDaDMatchItems\imagesDaDMatchItems.php]
-TopLine=138
-Caret=29,159
+TopLine=909
+Caret=11,935
 [plugins\alphaSimple\alphaSimple.php]
-TopLine=220
-Caret=1,261
-[plugins\ulDaDSortList\ulDaDSortList.php]
+TopLine=247
+Caret=44,262
+[class\Answers.php]
+TopLine=144
+Caret=93,165
+[plugins\ulDaDGroups\ulDaDGroups.php]
 TopLine=50
-Caret=33,71
-[xoops_version.php]
-TopLine=1
-Caret=38,33
+Caret=65,78
+[include\plugin_getFormGroup.php]
+TopLine=34
+Caret=19,45
+[admin\questions.php]
+TopLine=51
+Caret=35,66
+[plugins\listboxClassItems\listboxClassItems.php]
+TopLine=200
+Caret=36,218

@@ -56,18 +56,23 @@
       $i = $k + $firstItem; // $i est le premier index du group a utiliser a la place de $k
       
       if($isNew){
-        $delProposition = new \XoopsFormLabel('', _CO_QUIZMAKER_NEW);                        
+        $delProposition = new \XoopsFormLabel('', '+');  //_CO_QUIZMAKER_NEW                       
       }else{
-        $delProposition = new \XoopsFormCheckBox('', $this->getName($i,'delete_Proposition'));                        
+        $delProposition = new \XoopsFormCheckBoxImage('', $this->getName($i,'delete_Proposition'), [0]);    
+        $delProposition->switchImage(true);                    
+        $delProposition->showCaption(false);                    
         $delProposition->addOption(1, _AM_QUIZMAKER_DELETE);
       }
+    
+
  
       //-------------------------------------------------
       if($tbl){
         $col = 0;
+        $tbl->addTdStyle($col, 'width:80px;font-size:1.5em;vertical-align:middle;padding-top:10px;');
         $tbl->addXoopsFormHidden($this->getName($i,'id'), $answerId);
-        $tbl->addXoopsFormHidden($this->getName($i,'chrono'), $i+1, $col, $k);
-        $tbl->addElement($delProposition, $col, $k);
+        $tbl->addXoopsFormHidden($this->getName($i,'chrono'), $i+1, $col, $k, '');
+        $tbl->addElement($delProposition, $col, $k, '');
       }
       //-------------------------------------------------
 ?>

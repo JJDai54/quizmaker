@@ -63,6 +63,7 @@ $op = Request::getCmd('op', 'list');
 //utiliser pour rediriger directement sur l'ajout d'une question du même type
 $addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
 $reload = (Request::getCmd('submit_and_reload', 'no') == 'no') ? false : true;
+$cancel = (Request::getCmd('cancel', 'no') == 'no') ? false : true;
 
 //echo "<hr>addNew = " . (($addNew) ? ' ajout ok' : 'pas d ajout') . "-{$addNew}<hr>";
 

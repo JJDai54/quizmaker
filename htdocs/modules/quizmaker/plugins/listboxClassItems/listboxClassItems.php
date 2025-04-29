@@ -206,8 +206,6 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 echoArray ($_POST,'saveAnswers', true);    
 */
                 
-        //$this->echoAns ($answers, $questId, $bExit = false);    
-        //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------       
         
         /*
@@ -217,7 +215,7 @@ echoArray ($_POST,'saveAnswers', true);
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
-            
+            if(!$ans['proposition']) continue;
 
             $ansObj->setVar('answer_proposition', $ans['proposition']);
             //$ansObj->setVar('answer_caption', $ans['caption']);

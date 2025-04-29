@@ -205,23 +205,23 @@ _quiz-org
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
 				plugins\multiQuestions\multiQuestions.js
-			+pageBegin
+			-pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
-			+pageEnd
+			-pageEnd
 				plugins\pageEnd\index.html
 				plugins\pageEnd\pageEnd.css
 				plugins\pageEnd\pageEnd.js
-			+pageGroup
+			-pageGroup
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.css
 				plugins\pageGroup\pageGroup.js
-			+pageInfo
+			-pageInfo
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
-			-radioMultiple
+			+radioMultiple
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\radioMultiple.css
 				plugins\radioMultiple\radioMultiple.js
@@ -330,12 +330,16 @@ _quiz-org
 [Open project files]
 0=js\plugin_prototype.js
 1=plugins\choiceImages\choiceImages.js
+2=plugins\radioMultiple\radioMultiple.js
 [Selected Project Files]
 Main=
-Selected=plugins\choiceImages\choiceImages.js
+Selected=plugins\radioMultiple\radioMultiple.js
 [js\plugin_prototype.js]
 TopLine=286
 Caret=29,310
 [plugins\choiceImages\choiceImages.js]
 TopLine=13
 Caret=1,33
+[plugins\radioMultiple\radioMultiple.js]
+TopLine=104
+Caret=24,125

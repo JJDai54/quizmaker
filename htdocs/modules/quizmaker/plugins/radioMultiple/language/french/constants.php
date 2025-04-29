@@ -36,5 +36,7 @@ define('_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE', "Directive");
 define('_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC', "Action à faire.");
 define('_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB', "");
 
+define('_LG_PLUGIN_RADIOMULTIPLE_NB_COLUMN', "Nombre de colonnes : ");
+define('_LG_PLUGIN_RADIOMULTIPLE_NB_COLUMN_DESC', "Valeur entre 2 e 5.<br>Par défaut le nombre de colonnes est de cinq.<br><span style='color:red;'><b>Important</b> : en cas de diminution, les données des colonnes supprimées seront perdues.<br>L'affichage du formulaire sera modifié après validation du formulaire.</span>");
 
 ?>

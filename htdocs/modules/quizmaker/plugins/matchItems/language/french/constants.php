@@ -30,7 +30,7 @@ define('_LG_PLUGIN_MATCHITEMS_CONSIGNE', "Consigne à complèter");
 
 
 define('_LG_PLUGIN_MATCHITEMS_NB_COLUMN', "Nombre de colonnes : ");
-define('_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC', "Par défaut le nombre de colonnes est de deux. il es possible de l'augement jusqu'à cinq.<br><span style='color:red;'><b>Important</b> : en cas de diminution, les données des colonnes supprimées seront perdues.<br>L'affichage du formulaire sera modifié après validation du formulaire.</span>");
+define('_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC', "Valeur entre 2 et 5.<br>Par défaut le nombre de colonnes est de deux.<br><span style='color:red;'><b>Important</b> : en cas de diminution, les données des colonnes supprimées seront perdues.<br>L'affichage du formulaire sera modifié après validation du formulaire.</span>");
 
 define('_LG_PLUGIN_MATCHITEMS_COLUMNS', "<b>Colonnes</b>");
 define('_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM', "<b>Colonne n° : %s</b>");

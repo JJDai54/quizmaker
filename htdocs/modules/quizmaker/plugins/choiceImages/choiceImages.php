@@ -289,12 +289,8 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
         
         $quiz = $quizHandler->get($quizId,"quiz_folderJS");
         $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
-        //$this->echoAns ($answers, $questId, $bExit = false);    
-        //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------       
-// echoArray($answers); exit;
-// echoArray($_FILES);       
-       $noIcon = '-No_Icon';
+//  echoArray($_FILES);       
 
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
@@ -303,12 +299,27 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             //---------------------------------------------------           
             
             //Suppression de l'image
-            if( $ans['delete_image1'] == 1) {
+            if(isset($ans['delete_image1']) &&  $ans['delete_image1'] == 1) {
                $ans['image1'] = '';  
                $ansObj->setVar('answer_image1',  '');          
             }
+            if (!isset( $ans['image1']))  $ans['image1'] = '';     
+            if ($ans['image2'] == QUIZMAKER_NO_ICON) $ans['image2'] = null;
+      
+            //todo : a virer quand le menage sera fait
+            if ($ans['image2'] == 'Button_Icon_Black') $ans['image2'] = null;
             
-            $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);        
+            $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);  
+            if(!$ans['proposition'] && !$ans['image1'] &&  !$ans['image2']){
+              if($ans['id']>0) $this->delete_answer_by_image($ans,$path);
+              continue;
+            }
+            
+            
+            
+            
+//echoArray($ans);  
+//echo "===>|{$ans['image2']}|<br>";                
       		$ansObj->setVar('answer_proposition', $ans['proposition']);
       		$ansObj->setVar('answer_points',  $ans['points']);
       		$ansObj->setVar('answer_weight',  $ans['weight']);

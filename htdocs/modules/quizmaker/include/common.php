@@ -209,6 +209,8 @@ define('QUIZMAKER_PERMIT_MESSAGEJS',   $h++);
 define('QUIZMAKER_PERMIT_CLONE',       $h++);
 define('QUIZMAKER_PERMIT_PERMISSIONS', $h++);
 
+define('QUIZMAKER_NO_ICON', '-no_icon');
+
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';

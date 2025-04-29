@@ -227,7 +227,6 @@ var $nbMaxColumns = 5;
         $this->initFormForQuestion();
         
         //recuperation des titres de colonnes
-        $quest =  $questionsHandler->get($questId, 'quest_options');
         //echoArray($titlesArr);      
 //         
 //         $answers = $answersHandler->getListByParent($questId);
@@ -235,14 +234,15 @@ var $nbMaxColumns = 5;
 
 
         //-------------------------------------------------
+        $quest =  $questionsHandler->get($questId, 'quest_options');
+        $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
+        $nbColumns = (isset($options['nbColumns'])) ? $options['nbColumns'] : $this->nbMaxColumns;
         //element definissat un objet ou un ensemble
         $weight = 0;
         //$tbl = $this->getNewXoopsTableXtray();
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
         //$tbl->addTdStyle(0, 'text-align:left;width:50px;');
         // titre des colonnes et des listes
-        $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
-        $nbColumns = (isset($options['nbColumns'])) ? $options['nbColumns'] : $this->nbMaxColumns;
         
         //if(!$options) $options = $this->optionsDefaults;
           $tbl->addTitle('');        

@@ -24,15 +24,20 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
-//   echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";
+//   echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";exit;
 //
-  
+        $quizId = Request::getInt('quest_quiz_id', 0);
+		$quest_parent_id = Request::getInt('quest_parent_id', 0);
+        
+        if($cancel){
+        	redirect_header('questions.php?op=list&' . getParams2list($quizId, $quest_plugin, "", $quest_parent_id), 2, _CANCEL);
+            exit;
+        }
 		// Security Check
 
 // 		if (!$GLOBALS['xoopsSecurity']->check()) {
 // 			redirect_header('questions.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
 // 		}
-        $quizId = Request::getInt('quest_quiz_id', 0);
 		if ($questId > 0) {
 			$questionsObj = $questionsHandler->get($questId);
             $isNew = false;
@@ -46,7 +51,6 @@ use XoopsModules\Quizmaker\Constants;
         // Set Vars
         $pluginName = Request::getString('quest_plugin', '');
 		$questionsObj->setVar('quest_plugin', $pluginName);
-		$quest_parent_id = Request::getInt('quest_parent_id', 0);
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 		$questionsObj->setVar('quest_question', FQUIZMAKER\sanityse_inpValue(Request::getString('quest_question', '')));
 		$questionsObj->setVar('quest_identifiant', Request::getString('quest_identifiant', ''));

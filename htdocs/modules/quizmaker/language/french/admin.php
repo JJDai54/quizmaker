@@ -214,6 +214,9 @@ define('_AM_QUIZMAKER_PLUGIN_EXAMPLE_EXIST', "L&apos;exemple du quiz <b>%s</b> e
 define('_AM_QUIZMAKER_PLUGIN_INPUTS', "Entrées");
 define('_AM_QUIZMAKER_PLUGIN_INSTALL_OK', "Le quiz du plugin a été installé avec succès.");
 define('_AM_QUIZMAKER_PLUGIN_LABEL', "Libellé");
+define('_AM_QUIZMAKER_PLUGIN_GROUP', "Groupe");
+define('_AM_QUIZMAKER_PLUGIN_BACKGROUND', "Fond");
+define('_AM_QUIZMAKER_PLUGIN_OPTION_NUM', "Option n° %s");
 define('_AM_QUIZMAKER_PLUGIN_MOT', "Mot");
 define('_AM_QUIZMAKER_PLUGIN_NOT_EXISTS', "Ce plugin n'existe pas.");
 define('_AM_QUIZMAKER_PLUGIN_OPTIONS', "Opions du slide");
@@ -417,6 +420,8 @@ define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 define('_AM_QUIZMAKER_UNIT_SECONDES', "Secondes");
 define('_AM_QUIZMAKER_UNIT_MILISECONDS', "Mili-Secondes");
 define('_AM_QUIZMAKER_UNIT_CARACTERES', "Caractères");
+define('_AM_QUIZMAKER_UNIT_COLUMNS', "Colonnes");
+define('_AM_QUIZMAKER_UNIT_OPTIONS', "Options");
 define('_AM_QUIZMAKER_UP', "Remonter");
 define('_AM_QUIZMAKER_UPDATE', "Mise à jour");
 define('_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS', "Afficher toutes les solutions");

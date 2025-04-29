@@ -48,7 +48,8 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
         $this->optionsDefaults = ['directive'      => _CO_QUIZMAKER_NEW, 
                                   'propositions'   => '', 
                                   'disposition'    => '',
-                                  'ignoreAccents'  => 0];
+                                  'ignoreAccents'  => 0,
+                                  'togodo'=>0];
         $this->hasImageMain = true;
         $this->multiPoints = true;
         $this->hasShuffleAnswers = true;
@@ -76,8 +77,36 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       
-      //--------------------------------------------------------------------           
+      //--------------------------------------------------------------------     
+      /*
+      test xoopsForm XoopsFormCheckBoxImage
 //echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
+      $name = 'togodo1';  
+	  $inpTogodo = new \XoopsFormCheckBox(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", [0,2]);
+	  //$inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", ['zzzzzz','yyyyyyy']);
+      $inpTogodo->addOption(0,"zzzzzz");
+      $inpTogodo->addOption(1,"rrrrrr");
+      $inpTogodo->addOption(2,"yyyyyyy");
+      $trayOptions ->addElementOption($inpTogodo);      
+      
+      $name = 'togodo2';  
+	  $inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", [0,2]);
+      $inpTogodo->setSkin('pastille');
+	  //$inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", ['zzzzzz','yyyyyyy']);
+      $inpTogodo->addOption(0,"zzzzzz");
+      $inpTogodo->addOption(1,"rrrrrr");
+      $inpTogodo->addOption(2,"yyyyyyy");
+      $trayOptions ->addElementOption($inpTogodo);      
+
+      $name = 'togodo3';  
+	  $inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", [0,2]);
+      //$inpTogodo->setSkin('pastille');
+	  //$inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", ['zzzzzz','yyyyyyy']);
+      $inpTogodo->addOption(0,"");
+      $inpTogodo->addOption(1,"");
+      $inpTogodo->addOption(2,"");
+      $trayOptions ->addElementOption($inpTogodo);      
+      */      
 
       $name = 'ignoreAccents';  
 	  $inpIgnoreAccents = new \XoopsFormRadioYN(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", $tValues[$name]);
@@ -231,9 +260,11 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         
   reset($answers);
         $tbl = $this->getNewXoopsTableXtray();
-        $tbl->addTdStyle(1, "width:500px;");
-        $tbl->addTdStyle(2, "width:150px;");
-        $tbl->addTdStyle(3, "width:120px;");
+        $tbl->addTdStyle(1, "width:150px;");
+        $tbl->addTdStyle(2, "width:30px;text-align:center;");
+        $tbl->addTdStyle(3, "width:50px;text-align:center;");
+        $tbl->addTitle(['', _AM_QUIZMAKER_PLUGIN_LABEL, _AM_QUIZMAKER_PLUGIN_POINTS, _AM_QUIZMAKER_PLUGIN_WEIGHT]);        
+        
         $weight = 0;
         
         for($k = 0; $k < $maxItems; $k++){
@@ -241,11 +272,11 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
-            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $this->getName($i,'proposition'), $this->lgMot2, $this->lgMot2, $proposition);
+            $inpPropos = new \XoopsFormText('', $this->getName($i,'proposition'), $this->lgMot2, $this->lgMot2, $proposition);
            
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);
+            $inpPoints = new \XoopsFormNumber('',  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(-30, 30);
-            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($i,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
+            $inpWeight = new \XoopsFormNumber('',  $this->getName($i,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
             $inpWeight->setMinMax(0, 999);
             $inpGroup = new \XoopsFormHidden($this->getName($i,'group'), $group);
 
