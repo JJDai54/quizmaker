@@ -19,35 +19,214 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<https://xoopsfr.kiolo.fr>
  */
+    var hsConfig = null;
 
-function reloadImgModeles(divId, imgHeight=80){
-    //alert('reloadImgModeles : ' + divId);
+function reloadPluginSnapshoots(divId, imgHeight=80){
+    //alert('reloadPluginSnapshoots : ' + divId);
     var obDivImg = document.getElementById(divId);
-    var obInpTypeQuestion = document.getElementById('quest_plugin');
-    var tOptions = obInpTypeQuestion.options;
+    obDivImg.height = imgHeight+ 'px';
+    var obInpPlugin = document.getElementById('quest_plugin');
+    var tOptions = obInpPlugin.options;
     //alert(tOptions + '===>' + tOptions.length);
     
-    var pluginName = obInpTypeQuestion.options[obInpTypeQuestion.selectedIndex].value;
+    var pluginName = obInpPlugin.options[obInpPlugin.selectedIndex].value;
     var btnAddQuestion = document.getElementById('btnAddQuestion');
-
-    if(pluginName[0] == '>'){
+//alert(pluginName);
+    if(!pluginName[0] == '-'){
         btnAddQuestion.style.display = 'none';
         obDivImg.innerHTML = `<div style="height:${imgHeight}px"></div>`;    
     }else{
+    console.log('===>reloadPluginSnapshoots : pluginName = ' + pluginName);
         if (btnAddQuestion) btnAddQuestion.style.display = 'block';
-        var tImg = [];
-        for(var i=0; i<3; i++){
-            var url = `../plugins/${pluginName}/snapshoot/snapshoot-00${i}.jpg`;
-            tImg.push(`<a href='${url}' class='highslide' onclick='return hs.expand(this);' >
-                      <img src="${url}" alt="" style="max-height:${imgHeight}px" />
-                   </a>`)
+    hsConfig = {
+        slideshowGroup: `group_${pluginName}`,
+        thumbnailId: `thumb_${pluginName}`,
+        transitions: ['expand', 'crossfade'],
+
+        align : 'center',
+        outlineType : 'rounded-white',
+        fadeInOut : true,
+        numberPosition : 'caption',
+        dimmingOpacity : 0.75,
+        // Add the controlbar
+        interval: 5000,
+        repeat: true,
+        useControls: true,
+        fixedControls: 'fit',
+        overlayOptions: {
+          opacity: 0.6,
+          position: 'bottom center',
+          hideOnMouseOut: true
+        },
+          	thumbstrip: {
+          mode: 'horizontal',
+          position: 'below',
+          relativeTo: 'image'
         }
+
+    };
+    if (hs.addSlideshow) hs.addSlideshow(hsConfig);
+
+ //console.log('hsConfig : ' + hsConfig.slideshowGroup) ;      
+        var tImg = [];
+        
+        for(var h = 0; h < 3; h++){
+            var url = `../plugins/${pluginName}/snapshoot/snapshoot-00${h}.jpg`;
+                        if (!imageExists(url)) break;
+
+                if (h == 0){
+                    tImg.push (`<div class='highslide-gallery'>
+                    <a id='thumb_${pluginName}' href='${url}' class='highslide' onclick='return hs.expand(this, hsConfig );'>
+                        <img src="${url}" alt="slides" style="max-height:${imgHeight}px;" />
+                    </a></div>
+                    <div class='hidden-container'>`);
+                }else{
+                    tImg.push (`
+                    <a  href='${url}' class='highslide' onclick='return hs.expand(this, hsConfig );'>
+                        <img src="${url}" alt="slides" style="max-height:${imgHeight}px;" />
+                    </a>`);
+                }
+        }
+        tImg.push (`</div>\n`);
+        console.log(tImg.join("\n"));
+        //obDivImg.innerHTML = "=====" + pluginName + "=====<br>" + tImg.join("\n");
         obDivImg.innerHTML = tImg.join("\n");
     }
     
     
+} 
 
-    //alert('reloadImgModeles : ' + divId + " / " + pluginName); //obInpTypeQuestion.value
+function hs_AddConfig(pluginName){
+    console.log('===>hs_AddConfig : pluginName = ' + pluginName);
+
+    var hsConfig = {
+        slideshowGroup: `group_${pluginName}`,
+        thumbnailId: `thumb_${pluginName}`,
+        transitions: ['expand', 'crossfade'],
+
+        align : 'center',
+        outlineType : 'rounded-white',
+        fadeInOut : true,
+        numberPosition : 'caption',
+        dimmingOpacity : 0.75,
+        // Add the controlbar
+        interval: 5000,
+        repeat: true,
+        useControls: true,
+        fixedControls: 'fit',
+        overlayOptions: {
+          opacity: 0.6,
+          position: 'bottom center',
+          hideOnMouseOut: true
+        },
+          	thumbstrip: {
+          mode: 'horizontal',
+          position: 'below',
+          relativeTo: 'image'
+        }
+
+    };
+    if (hs.addSlideshow) hs.addSlideshow(hsConfig);
+}
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+/**
+ * Quizmaker module for xoops
+ *
+ * @copyright     2020 XOOPS Project (https://xooops.org)
+ * @license        GPL 2.0 or later
+ * @package        quizmaker
+ * @since          1.0
+ * @min_xoops      2.5.9
+ * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<https://xoopsfr.kiolo.fr>
+ */
+
+function reloadPluginSnapshoots_3(divId, imgHeight=80){
+    //alert('reloadPluginSnapshoots : ' + divId);
+    var obDivImg = document.getElementById(divId);
+    var obInpPlugin = document.getElementById('quest_plugin');
+    var tOptions = obInpPlugin.options;
+    //alert(tOptions + '===>' + tOptions.length);
+    
+    var pluginName = obInpPlugin.options[obInpPlugin.selectedIndex].value;
+    var btnAddQuestion = document.getElementById('btnAddQuestion');
+
+    if(!pluginName[0] == '-'){
+        btnAddQuestion.style.display = 'none';
+        obDivImg.innerHTML = `<div style="height:${imgHeight}px"></div>`;    
+    }else{
+    console.log('===>reloadPluginSnapshoots : pluginName = ' + pluginName);
+        if (btnAddQuestion) btnAddQuestion.style.display = 'block';
+        var tImg = [];
+        tImg.push (`\n
+<script  type="text/javascript">
+        
+var config_${pluginName} = {
+    slideshowGroup: 'group_${pluginName}',
+    thumbnailId: 'thumb_${pluginName}',
+    transitions: ['expand', 'crossfade'],
+
+    align : 'center',
+    outlineType : 'rounded-white',
+    fadeInOut : true,
+    numberPosition : 'caption',
+    dimmingOpacity : 0.75,
+    // Add the controlbar
+    interval: 5000,
+    repeat: true,
+    useControls: true,
+    fixedControls: 'fit',
+    overlayOptions: {
+      opacity: 0.6,
+      position: 'bottom center',
+      hideOnMouseOut: true
+    },
+      	thumbstrip: {
+      mode: 'horizontal',
+      position: 'below',
+      relativeTo: 'image'
+    }
+
+};
+        
+if (hs.addSlideshow) hs.addSlideshow(config_${pluginName});
+</script>`);        
+        
+        tImg.push (`<div class='highslide-gallery'>`);
+        for(var h = 0; h < 3; h++){
+            var url = `../plugins/${pluginName}/snapshoot/snapshoot-00${h}.jpg`;
+            if (!imageExists(url)) continue;
+            var ancId = (h == 0) ? `id='thumb_${pluginName}'` : '' ;
+            tImg.push (`
+            <a ${ancId} href='${url}' class='highslide' onclick='return hs.expand(this, config_${pluginName} );'>
+                <img src="${url}" alt="slides" style="max-height:${imgHeight}px;" />
+            </a>`);
+        }
+        tImg.push (`</div>\n`);
+        console.log(tImg.join("\n"));
+        obDivImg.innerHTML = "=====" + pluginName + "=====<br>" + tImg.join("\n");
+    }
+    
+    
+}    
+    
+
+    //alert('reloadPluginSnapshoots : ' + divId + " / " + pluginName); //obInpPlugin.value
     
 function imageExists(image_url){
 
@@ -58,7 +237,7 @@ function imageExists(image_url){
 
     return http.status != 404;
 
-}}
+}
 
 function setValue2Input(id, exp) {
 //alert (id);

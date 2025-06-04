@@ -24,8 +24,14 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_IMAGESCOLOR', "Regrouper les images");
-define('_LG_PLUGIN_IMAGESCOLOR_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
-define('_LG_PLUGIN_IMAGESCOLOR_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESCOLOR', "Find the right color");
+define('_LG_PLUGIN_IMAGESCOLOR_DESC', "This slide is made up of two to four groups of mixed images that must be placed in the right place.");
+define('_LG_PLUGIN_IMAGESCOLOR_CONSIGNE', "Instructions to complete");
 
+define('_LG_PLUGIN_IMAGESCOLOR_HEIGHT', "Image height");
+define('_LG_PLUGIN_IMAGESCOLOR_NBIMGBYROW', "Number of images per row");
+define('_LG_PLUGIN_IMAGESCOLOR_SHUFFLE_IMG', "Shuffle images");
+define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE', "Color selection mode");
+define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST', "Dropdown list");
+define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID', "Grid");
 ?>

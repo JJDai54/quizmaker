@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_PAGEBEGIN', "Page de présentation du quiz");
-define('_LG_PLUGIN_PAGEBEGIN_DESC', "Ce slide permet de présenter le quiz; Il est obligatoire et doit être placé en premier.<br>Il est automatiquement ajouté lors de la création d'un nouveau quiz");
-define('_LG_PLUGIN_PAGEBEGIN_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_PAGEBEGIN', "Quiz presentation page");
+define('_LG_PLUGIN_PAGEBEGIN_DESC', "This slide introduces the quiz; it is mandatory and must be placed first.<br>It is automatically added when a new quiz is created");
+define('_LG_PLUGIN_PAGEBEGIN_CONSIGNE', "Instructions to complete");
 
 ?>

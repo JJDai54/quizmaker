@@ -49,7 +49,11 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
                                   'propositions'   => '', 
                                   'disposition'    => '',
                                   'ignoreAccents'  => 0,
-                                  'togodo'=>0];
+                                  'togodo'=>0,
+                                  'nextSlideDelai'      => 0,
+                                  'nextSlideBG'         =>'#FFCC00',
+                                  'nextSlideMessage' => _AM_QUIZMAKER_NEXT_SLIDE_MSG0];
+
         $this->hasImageMain = true;
         $this->multiPoints = true;
         $this->hasShuffleAnswers = true;
@@ -78,35 +82,6 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions = $this->getNewXFTableOptions($caption);  
       
       //--------------------------------------------------------------------     
-      /*
-      test xoopsForm XoopsFormCheckBoxImage
-//echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
-      $name = 'togodo1';  
-	  $inpTogodo = new \XoopsFormCheckBox(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", [0,2]);
-	  //$inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", ['zzzzzz','yyyyyyy']);
-      $inpTogodo->addOption(0,"zzzzzz");
-      $inpTogodo->addOption(1,"rrrrrr");
-      $inpTogodo->addOption(2,"yyyyyyy");
-      $trayOptions ->addElementOption($inpTogodo);      
-      
-      $name = 'togodo2';  
-	  $inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", [0,2]);
-      $inpTogodo->setSkin('pastille');
-	  //$inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", ['zzzzzz','yyyyyyy']);
-      $inpTogodo->addOption(0,"zzzzzz");
-      $inpTogodo->addOption(1,"rrrrrr");
-      $inpTogodo->addOption(2,"yyyyyyy");
-      $trayOptions ->addElementOption($inpTogodo);      
-
-      $name = 'togodo3';  
-	  $inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", [0,2]);
-      //$inpTogodo->setSkin('pastille');
-	  //$inpTogodo = new \XoopsFormCheckBoxImage(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", ['zzzzzz','yyyyyyy']);
-      $inpTogodo->addOption(0,"");
-      $inpTogodo->addOption(1,"");
-      $inpTogodo->addOption(2,"");
-      $trayOptions ->addElementOption($inpTogodo);      
-      */      
 
       $name = 'ignoreAccents';  
 	  $inpIgnoreAccents = new \XoopsFormRadioYN(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", $tValues[$name]);
@@ -148,85 +123,15 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElementOption($trayPropositions);      
       //-----------------------------------------------------
       
-      $name = 'disposition'; 
-      $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(4);
-      $inputDisposition->setGridIconNumber(5);
-      $trayOptions->addElementOption($inputDisposition);     
-   
-     // $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+      // disposition 
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
 
-      
-      //--------------------------------------------------------------------           
-      
-      return $trayOptions;
-    }
-/* **********************************************************
-*
-* *********************************************************** */
- 	public function getFormOptions_old($caption, $optionName, $jsonValues = null, $folderJS = null)
- 	{
-      $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = new XoopsFormElementTray($caption, $delimeter = '<br>');  
-      //--------------------------------------------------------------------           
-//echo "<hr><pre>options : " . print_r($tValues, true) . "</pre><hr>";
-      $name = 'imgHeight';  
-      $inpHeight1 = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
-      $trayOptions->addElement($inpHeight1);     
-
-      $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
-      
-      $name = 'ignoreAccents';  
-	  $inpIgnoreAccents = new \XoopsFormRadioYN(_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS  , "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions ->addElement($inpIgnoreAccents);      
-      
-      $trayOptions ->addElement(new XoopsFormLabel('', '<br>'));   
-      
-      $name = 'directive';  
-      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayOptions ->addElement($inpDirective);     
-      $trayOptions ->addElement(new XoopsFormLabel('', _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC));      
-      
-      $alphabet = _ALPHASIMPLE_ALPHABET;
-      $number   = _ALPHASIMPLE_NUMBER_LG_PLUGIN_ALPHASIMPLE_NUMBER;
- 
-      $trayPropositions = new \XoopsFormElementTray(_AM_QUIZMAKER_PROPOSITIONS, $delimeter = ' ');  
-      $name = 'propositions'; 
-      //if(!$tValues[$name] ) $tValues[$name] = $alphabet; 
-      $inputPropositions = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_LETTERS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $trayPropositions->addElement($inputPropositions);
-      $id = "{$optionName}[{$name}]";
-        
-      $inpButtonClear = new \XoopsFormButton('', "", "X");
-      $inpButtonClear->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','')\"");
-      $trayPropositions->addElement($inpButtonClear);
-      
-      $inpButtonAlphabet = new \XoopsFormButton('', "", "@");
-      $inpButtonAlphabet->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$alphabet}')\"");
-      $trayPropositions->addElement($inpButtonAlphabet);
-      
-      $inpButtonNum = new \XoopsFormButton('', "", "#");
-      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$number}')\"");
-      $trayPropositions->addElement($inpButtonNum);
-      
-      $inpButtonNum = new \XoopsFormButton('', "", "@#");
-      $inpButtonNum->setExtra("width:'50px' onclick=\"setValue2Input('{$id}','{$number}--{$alphabet}')\"");
-      $trayPropositions->addElement($inpButtonNum);
-      $trayOptions ->addElement($trayPropositions);      
-      
-      
-      $name = 'disposition'; 
-      $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(4);
-      $inputDisposition->setGridIconNumber(4,3);
-      $trayOptions->addElement($inputDisposition);     
-   
-     // $trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
-
+      //--------------------------------------------------------------------   
+      define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE', "Message");        
+      define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE_DESC', "Message affiche lors du passage au slide suivant en mose automatique");        
+      define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE0', "Bravo !");        
+      $arrConst = ['nextSlideMessage' => '_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE'];
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_avertissement.php");
       
       //--------------------------------------------------------------------           
       
@@ -242,11 +147,10 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
-
         //-------------------------------------------------
         $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
         
-        $i = $this->getFormGroup($trayAllAns, 0, $answers,'', 0, $this->maxPropositions);        
+        $i = $this->getFormGroup($trayAllAns, 0, $answers, '', 0, $this->maxPropositions);        
 
 
                     
@@ -255,7 +159,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 		return $this->trayGlobal;
 	}
 
-public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstItem, $maxItems, $path='')
+public function getFormGroup(&$trayAllAns, $group, $answers, $titleGroup, $firstItem, $maxItems, $path='')
 { 
         
   reset($answers);
@@ -287,7 +191,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             $tbl->addElement($inpWeight, ++$col, $k);
             $tbl->addElement($inpGroup, $col, $k, '');
         }
-        
+
         $trayAllAns->addElement($tbl);
         return $i+1;  // return le dernier index pour le groupe suivant
 

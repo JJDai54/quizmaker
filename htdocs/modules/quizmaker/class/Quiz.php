@@ -56,6 +56,7 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_publishResults', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_publishAnswers', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_theme', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_background', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_libBegin', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_libEnd', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_questPosComment1', XOBJ_DTYPE_INT);
@@ -102,7 +103,7 @@ class Quiz extends \XoopsObject
 	 * @return \XoopsThemeForm
 	 */
 	public function getFormQuiz($action = false)
-	{global $utility, $categoriesHandler, $quizUtility;
+	{global $utility, $categoriesHandler, $quizUtility, $pluginsHandler;
 		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
 			$action = $_SERVER['REQUEST_URI'];
@@ -139,7 +140,8 @@ class Quiz extends \XoopsObject
         //----------------------------------------------------------
         $fileNameTray = new \XoopsFormElementTray(_AM_QUIZMAKER_FILE_NAME_JS, ' ');        
 		// Form Text quiz_folderJS
-        $inpFileName = new \XoopsFormText('' , 'quiz_folderJS', 50, 255, $this->getVar('quiz_folderJS'));
+        $folderJS = $this->getVar('quiz_folderJS');
+        $inpFileName = new \XoopsFormText('' , 'quiz_folderJS', 50, 255, $folderJS);
         $inpFileName->setDescription(_AM_QUIZMAKER_FILE_NAME_JS_DESC);
 		$fileNameTray->addElement($inpFileName, false);
         
@@ -232,6 +234,16 @@ class Quiz extends \XoopsObject
         //$inpTheme->addOptionArray($quizUtility::get_css_color(true));
         $inpTheme->addOptionArray( \JANUS\get_css_color());
 		$form->addElement($inpTheme, false);
+
+        //--------------------------------------------
+        // Form Text quiz_background
+        $background = $this->getVar('quiz_background');
+
+        $inpBakground = $pluginsHandler->getFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN, 'quiz_background', $background, $folderJS);
+        $inpBakground->setCaption(_AM_QUIZMAKER_BACKGROUND_MAIN);
+        $form->addElement($inpBakground);     
+
+
 
         // Form Text quiz_libBegin
         $libBegin = ($this->getVar('quiz_libBegin')) ? $this->getVar('quiz_libBegin') :  _CO_QUIZMAKER_LIB_BEGIN_DEFAULT;
@@ -348,6 +360,7 @@ class Quiz extends \XoopsObject
 
         
 		$ret['theme']             = $this->getVar('quiz_theme');
+		$ret['background']        = $this->getVar('quiz_background');
 		$ret['libBegin']          = $this->getVar('quiz_libBegin');
 		$ret['libEnd']            = $this->getVar('quiz_libEnd');
         $ret['theme_ok'] = ($ret['theme'] == '') ? $categoriesHandler->getValue($ret['cat_id'],'cat_theme','default') : $ret['theme'];

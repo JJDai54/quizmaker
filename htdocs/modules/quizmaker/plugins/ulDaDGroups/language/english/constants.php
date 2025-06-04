@@ -24,9 +24,9 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_ULDADGROUPS', "Répartir les propositions dans les groupes");
-define('_LG_PLUGIN_ULDADGROUPS_DESC', "Ce slide est composé de plusieurs groupes dans lesquels il faut répartir les propositions.");
-define('_LG_PLUGIN_ULDADGROUPS_CONSIGNE', "Cliquer et déplacer les items pour regrouper les bonnes réponses.<br>Certains items peuvent déjà être à la bonne place.");
+define('_LG_PLUGIN_ULDADGROUPS', "Distribute the suggestions into groups");
+define('_LG_PLUGIN_ULDADGROUPS_DESC', "This slide is composed of several groups into which the suggestions must be distributed.");
+define('_LG_PLUGIN_ULDADGROUPS_CONSIGNE', "Click and drag the items to group the correct answers.<br>Some items may already be in the correct position.");
 
 define('_LG_PLUGIN_ULDADGROUPS_UL_WIDTH', "Item width");
 

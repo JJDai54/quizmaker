@@ -49,7 +49,8 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('form', '');
 		$GLOBALS['xoopsTpl']->assign('error', '');
         
-        $clPerms->addPermissions($criteria, 'view_cats', 'cat_id'); 
+        //$clPerms->addPermissions($criteria, 'view_cats', 'cat_id'); 
+        $clPerms->addPermissions($criteria, 'edit_quiz', 'cat_id'); 
          
 		$categoriesCount = $categoriesHandler->getCountCategories($criteria);
 		$categoriesAll = $categoriesHandler->getAllCategories($criteria, $start, $limit, 'cat_weight,cat_name');
@@ -124,6 +125,7 @@ switch($op) {
             
             $clPerms = new JanusPermissions();
             //$clPerms->savePermission('view_quiz', $permId, $_POST['groups_view_quiz']);
+            $clPerms->savePermission('view_cats',        $permId, $_POST['view_cats']);
             $clPerms->savePermission('edit_quiz',        $permId, $_POST['edit_quiz']);
             $clPerms->savePermission('create_quiz',      $permId, $_POST['create_quiz']);
             $clPerms->savePermission('delete_quiz',      $permId, $_POST['delete_quiz']);

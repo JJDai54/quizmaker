@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>imagesColor : Retrouiver la bonne couleur.</title>
+
+  
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>
+    <h1>findObjects : Retrouver les objets.</h1>
+    <h3>Description :</h3>
+    <span style="color: rgb(204, 0, 0); font-weight: bold;"></span><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">C</span>e
+    slide affiche une ou deux images dans lesquelles il faut chercher soit les objets cachés, soit les différences.<br>
+Il peut être utilisés pour d'autres jeux dont le but est de cliquer sur une image pour trouver des zones prédéfinies.<br>
+le mot "<span style="font-weight: bold;">Touche</span>" défini, objets
+cachés ou les différences à trouver. Ce mot a été choisi plustôt que
+"Objet" pour ne pas porter à confusion dans le code de l'application.<br>
+    <h3>Objectif : <br>
+    </h3>
+    Cliquer sur les images et découvrir les zones prédéfinies.<br>
+    <h3>Options :
+    </h3>
+    <ul>
+      <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Points :
+            </span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">score
+global obtenu
+          quand le nombre d'objets à troiuvé est atteind.</span></li>
+  <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">Nombre d'essais maximum</span>&nbsp;
+: afin d'éviter les petis malins qui vont cliquer un peu partout, le
+nombre d'essais put être limité. Bien qu'il puisse être inférieur au
+nombre d'objets à trouver, il est préférable de lui donner une valeur
+au moins égal au nombres d'objets.</span></li>
+  <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">Dispopsition</span> : dans le cas de deux images distincts, il est possible de les placer horizontelement, ou verticalement.<br>
+Il faudra veiller a bien ajuster la largeur des images.<br>
+outre les deux images des propositions, une image globale au plugin
+peut être définie. elle est rteprésentée en bleu sur les icones. Elle
+peut être utile par exemple pour les objets cachés pour présenter ceux
+à trouver.</span></li>
+  <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span><span style="font-weight: bold;">Largeur de l'image 1</span> : Largeur en pixel de la première image.<br>
+La largeur maximum (une ou deux images - voir disposition) est d'environ 650px.<br>
+La hauteur est automatique, il faut veiller à ce que le rapport largeur/hauteur soit correcte pour ne pas perturber l'affichage.</li>
+  <li><span style="font-weight: bold;">Largeur de l'image 2</span> : Largeur en pixel de la première image (voir "Largeur de l'image 1).</li>
+  <li><span style="font-weight: bold;">Zoom automatique</span> : Les
+boutons "+" et "-" en haut à droite permettent de zoomer ou dézoomer
+sur les images . Il est possible de zoomer automatiquement à
+l'affichage du slide, ce qui évite un click sur le bouton "+".<br>
+  </li>
+
+  <li><span style="font-weight: bold;">Delai d'affichage du slide suivant&nbsp;</span>
+: Si ce délai est égal à 0, c'est à l'utilisateur de cliquer sur le bouton suivant une fois qu'il pense avoir bien répondu. <br>
+Si ce délai est supérieur à zéro, selon le cas le message 1 ou 2 est
+affiché, et le passage à la question suivante est automatique.<br>
+Le passage à la question suivant est déclenché dans deux cas : <br>
+    <ul>
+      <li>Le nombre d'objets à trouver a été atteind.</li>
+      <li>Le nombre d'essais a été atteind.</li>
+    </ul>
+  </li>
+</ul>
+<ul>
+
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;"> Message 1</span> : message affiché dans le premier cas.</span></li>
+  <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">Message 2</span> : message affiché dans le deuxième cas.</span></li>
+  <li><span style="font-weight: bold;">Couleur de fond du message</span>&nbsp; : défini la couleur de fond du message affiché au passage automatique au slide suivant.</li>
+  <li>maxTouches : Ce paramètre est utile unique dans l'interface
+d'adminisration du plugin et est actif uniquement après enregirtrement
+et rechargement de la question.<br>
+Il défini le nombre de "touches" maximum à définir.<br>
+Si cette valeur est égale à zéro, le nombre de "touches" est illimité.</li>
+</ul>
+Les paramètres suivants ne sont utiles que dans l'interface du
+formulaies d'administration. Ils permettes de définir la taille par
+défaut des touches.<br>
+
+  
+<ul>
+<li><span style="font-weight: bold;">Largeur des touches</span> : Défini la largeur des touches par défaut.<br>
+Cette valeur put être modifiée pour chaque "Touche".<br>
+Ce paramètre est pris en compte après enregistrement et rechargement de la question.<br>
+
+  </li>
+  <li><span style="font-weight: bold;">Hauteur des touches</span> : Défini la hauteur des touches par défaut.<br>
+Cette valeur put être
+modifiée pour chaque "Touche" .<br>
+Ce paramètre est pris en compte après
+enregistrement et rechargement de la question.</li>
+  <li><span style="font-weight: bold;">Èpaisseur de la bordure</span> : Défini l'épaisseur des touches par défaut. Plus l'épaisseur est imortante mieux elle sera visible au moment de la conception.<br>
+
+Cette valeur put être
+modifiée pour chaque "Touche" .<br>
+
+Ce paramètre est pris en compte après
+enregistrement et rechargement de la question.
+  </li>
+  <li>&nbsp;<span style="font-weight: bold;">Arrondi des angles</span> : Défini la l'arrondi des angles des touches par défaut.<br>
+
+Cette valeur put être
+modifiée pour chaque "Touche" .<br>
+
+Ce paramètre est pris en compte après
+enregistrement et rechargement de la question.<br>
+Important : La recharche de l'impact du clique considère que la touche
+est définie comme une ellipse, non comme un rectangle, ce qui peut
+poser parfois des anomalies.<br>
+Il faut tester les liques sur la seconde images pour valider la zone clicable.<br>
+  </li>
+</ul>
+
+<h3>Propositions :</h3>
+    <ul>
+      <li><span style="font-weight: bold;">Image 1</span> : la première image à charger <span style="font-weight: bold;">est obligatoire</span>. Elle doit faire au moint 500px de largeur et 450px maximum de haut.</li>
+  <li><span style="font-weight: bold;">Image 2</span> : la deuxième image à charger, <span style="font-weight: bold;">est optionelle</span> selon le jeux, objets cachés ou chercher les différences.<br>
+Si elle n'est pas définie, le prmière image sera automatiquement utilisée après enregistrement et rechargement de la question.</li>
+  <li><span style="font-weight: bold;">Touches</span> : A chaque clique sur l'image principale une nouvelle
+touche est ajoutée sur la droite du formulaire avec les valeurs par
+défaut.<br>
+Il est possible de modifier tous les paramètres de la touche pour coller au plus juste de l'image.<br>
+Au suvol de ces définitions, la touche sur l'image clignote quelques secondes pour mieux la répérer.<br>
+Le titre de la touche optionnel et la couleur de la bordure ne sont n'utilisés que dans l'admin pour faciliter leur gestion.</li>
+</ul>
+    &nbsp; <br>
+    <br>
+  </body></html>

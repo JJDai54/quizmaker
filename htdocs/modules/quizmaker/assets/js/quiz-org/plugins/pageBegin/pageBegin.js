@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     pageBegin
+* *****************************************************************/
+function getPlugin_pageBegin(question, slideNumber){
+    return new pageBegin(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _Begin
+  *                     pageBegin
   * *****************************************************************/
 
 class pageBegin extends Plugin_Prototype{

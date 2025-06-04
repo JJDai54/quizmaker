@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     imagesSimple
+* *****************************************************************/
+function getPlugin_imagesSimple(question, slideNumber){
+    return new imagesSimple(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _imagesSimple
+  *                     imagesSimple
   * *****************************************************************/
 class imagesSimple extends Plugin_Prototype{
 name = 'imagesSimple';

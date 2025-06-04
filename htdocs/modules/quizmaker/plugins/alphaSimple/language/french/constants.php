@@ -25,9 +25,9 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
 define('_LG_PLUGIN_ALPHASIMPLE', "Question de lettres");
-define('_LG_PLUGIN_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères alpha-nummériques à cocher.");
+define('_LG_PLUGIN_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères ou expressions alpha-nummériques à sélectionner.");
 
-define('_LG_PLUGIN_ALPHASIMPLE_CONSIGNE', "Vous devez sélectioner un caractère alpha-numérique qui correspond à la question.");
+define('_LG_PLUGIN_ALPHASIMPLE_CONSIGNE', "Sélectionnez un ou plusieurs caractères ou expressions alpha-numérique qui correspond à la question.");
 define('_LG_PLUGIN_ALPHASIMPLE_INTRUS', "Expressions erronées");
 
 define('_LG_PLUGIN_ALPHASIMPLE_LETTERS_DESC', <<<__exp__
@@ -42,5 +42,9 @@ define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE', "Directive");
 define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC', "Action à faire affichée au dessus des lettres.");
 define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB', "Cliquez sur une ou plusieurs lettres ou chiffres.");
 define('_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS', "Ignorer les accents.");
+
+define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE', "Message");        
+define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE_DESC', "Message affiché lors du passage au slide suivant en mose automatique");        
+define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE0', "Bravo !");        
 
 ?>

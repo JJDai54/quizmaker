@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     pageInfo
+* *****************************************************************/
+function getPlugin_pageInfo(question, slideNumber){
+    return new pageInfo(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _pageInfo
+  *                     pageInfo
   * *****************************************************************/
 
 class pageInfo extends Plugin_Prototype{
@@ -32,7 +38,7 @@ var name = this.getName();
           
       }
       
-      //pour que l'ombre du bas du dernier texte ne soit pas oupé, un padding serait peut être mieux
+      //pour que l'ombre du bas du dernier texte ne soit pas coupé, un padding serait peut être mieux
       htmlArr.push(qbr); 
       return htmlArr.join("\n");
 

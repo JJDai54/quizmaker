@@ -358,13 +358,14 @@ __SQL__;
 /* ******************************
  * supprime la question, ses enfants si c'est un groupe les réponses et les images si besoin
  * *********************** */
-    public function deleteCascade( $object, $force = false)
+    public function deleteCascade( $questId, $force = false)
     {
         global $answersHandler, $quizHandler;
         
-        
-        $questId = $object->getVar("quest_id");
-        $pluginName =  $object->getVar("quest_plugin");   
+        $questObj = $this->get($questId);        
+         
+        $questId = $questObj->getVar("quest_id");
+        $pluginName =  $questObj->getVar("quest_plugin");   
         $criteria = new \CriteriaCompo(new \Criteria("quest_id", $questId, '='));
         //ajout des enfants si c'est une page de groupe
         if($pluginName == 'pageGroup'){
@@ -384,7 +385,7 @@ __SQL__;
             $answersHandler->deleteAnswersByQuestId($questId);
             $this->delete($rstQuestions[$i]);
         }
-        $quizHandler->purgerImages($object->getVar("quest_quiz_id"));
+        $quizHandler->purgerImages($questObj->getVar("quest_quiz_id"));
         return true;
     }
     
@@ -496,7 +497,7 @@ public function getStatistics($quizId = 0){
 /* ********************************
 *
 * ******************************* */
-public function getTypeQuestionOf($quizId){
+public function getPluginOf($quizId){
     $sql = "SELECT DISTINCT quest_plugin"
          . " FROM ". $this->table 
          . " WHERE quest_quiz_id = {$quizId}"

@@ -90,6 +90,31 @@ use XoopsModules\Quizmaker\Utility;
 
 		$quizObj->setVar('quiz_delai_cookie',      Request::getInt('quiz_delai_cookie', 0));
 		$quizObj->setVar('quiz_max_flying',        Request::getInt('quiz_max_flying', 0));
+
+
+             
+$quizObj->setVar('quiz_background',        Request::getString('quiz_background', ''));
+        //------------------------------------------------------------
+         $path =  QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$newFolder}/images"; 
+         
+        $delBackground = Request::getInt('del_quiz_background', 0);
+        if($delBackground == 1){ //    || $questImage
+            $fullName = $path . '/' . $quizObj->getVar('quiz_background');
+            unlink($fullName);
+            $quizObj->setVar('quiz_background', '');
+        }
+        
+        if($newQuiz){
+             // creation du dossier des JS
+             $quizUtility::create_quiz_arborescense($path);
+        }
+
+        //recupe du background
+        $quizBackground = $pluginsHandler->save_img($ans, 'quiz_background', $path, $newFolder, 'quiz-', $nameOrg);
+        //enregistrement de background
+        if ($quizBackground) $quizObj->setVar('quiz_background', $quizBackground);
+        //------------------------------------------------------------
+//exit($quizBackground);
         
 //echoGPF();exit;
 		// Insert Data
@@ -101,6 +126,7 @@ use XoopsModules\Quizmaker\Utility;
             
 		// Set Vars
         if($newQuiz){
+             
              //------------------------------------------------------------------
              //ajout automatique des pages d'info et de résultat
              //------------------------------------------------------------------
@@ -125,7 +151,7 @@ use XoopsModules\Quizmaker\Utility;
              $answerObj->setVar('answer_proposition', _AM_QUIZMAKER_PAGEBEGIN_DEFAULT1);
              $answerObj->setVar('answer_weight',0);
 		     $answersHandler->insert($answerObj);             
-             
+
              //------------------------------------------------------------------
              // page de résultats
              //--------------------------             

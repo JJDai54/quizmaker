@@ -48,7 +48,7 @@ public static function create_quiz_arborescense($path){
 \JANUS\FSO\isFolder($path, true);  
 \JANUS\FSO\isFolder($path . '/js', true);
 \JANUS\FSO\isFolder($path . '/images', true);  
-  
+\JANUS\FSO\isFolder($path . '/sounds', true);  
 //     if (!is_dir($path))             mkdir($path, 0777, true);
 //     if (!is_dir($path . '/js'))     mkdir($path . '/js', 0777, true);
 //     if (!is_dir($path . '/images')) mkdir($path . '/images', 0777, true);

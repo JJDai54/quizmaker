@@ -99,4 +99,5 @@ define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages de début, de fin et de regroupem
 define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
 define('_CO_QUIZMAKER_NEW', 'Nouveau');
 
+
 ?>

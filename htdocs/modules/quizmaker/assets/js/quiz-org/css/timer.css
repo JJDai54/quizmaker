@@ -12,6 +12,7 @@ no-body {
   display:none;
   width: 100px;
   height: 100px;
+  z-index:99999;
   /* border:1px solid black; */
 }
 

@@ -1,0 +1,53 @@
+﻿.selectImages{
+
+
+}
+
+
+
+.selectImages_divMaitre{
+    text-align:center; 
+
+}
+
+.selectImages_divMaitre div{
+   /* background:lime;*/
+    position:relative;
+
+  display: inline-block; 
+  margin:15px 25px 0px 15px;
+
+}
+.selectImages_divMaitre img{
+ /*height:120px;*/
+    position:relative;
+ object-fit:contain;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.selectImages_divMaitre img:hover{
+-ms-transform: scale(1.1); /* IE 9 */
+-webkit-transform: scale(1.1); /* Safari 3-8 */
+transform: scale(1.1);
+}
+
+.selectImages_divMaitre p{
+    position:absolute;
+    left:50%;
+    /* top:50%;*/
+    transform:translate(-50%,-50%);
+    font-size:1.5em;
+    font-weight:bold;
+    color:green;
+    cursor: none;
+}
+
+.selectImages_divMaitre img[coche]{
+    position:absolute;
+    bottom:0;
+    right:0;
+    inert;
+    visibility:hidden;
+}
+

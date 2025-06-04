@@ -48,7 +48,8 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
                                   'moveAllow'   => '1', 
                                   'directive'   => '', 
                                   'bgSource'=>'#dfdfdf','bgSilhouette'=>'#dfdfdf',
-                                  'disposition' => 'dispositions-10'];
+                                  'disposition' => 'dispositions-10',
+                                  'zoom' =>     0];
     }
 
 	/**
@@ -94,20 +95,21 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElementOption($inpMoveAllow);      
       
       
-          $name = 'bgSource';  
-          $inpBgSource = new XoopsFormColorPicker(QBR ._LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SOURCE, "{$optionName}[{$name}]", $tValues[$name]);
-          $trayOptions->addElementOption($inpBgSource);     
+      $name = 'bgSource';  
+      $inpBgSource = new XoopsFormColorPicker(QBR ._LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SOURCE, "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions->addElementOption($inpBgSource);     
 
-          $name = 'bgSilhouette';  
-          $inpBgSilhouette = new XoopsFormColorPicker(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SILOUHETTE, "{$optionName}[{$name}]", $tValues[$name]);
-          $inpBgSilhouette->setDescription(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT);
-          $trayOptions->addElementOption($inpBgSilhouette);     
+      $name = 'bgSilhouette';  
+      $inpBgSilhouette = new XoopsFormColorPicker(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SILOUHETTE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpBgSilhouette->setDescription(_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT);
+      $trayOptions->addElementOption($inpBgSilhouette);     
 
-      $name = 'disposition'; 
-      $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOption($inputDisposition);     
+      // disposition 
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      
+      // zoom
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_zoom.php");
+      //---------------------------------------------------------
 
       return $trayOptions;
 
@@ -176,10 +178,10 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);            
             $inpPropositionImg = $this->getXoopsFormImage($proposition, $this->getName()."_proposition_{$i}", $path,80,'<br>');
-            $inpImage= new \XoopsFormHidden($this->getName($i,'image'), $image);    
+            $inpImage= new \XoopsFormHidden($this->getName($i,'image'), $image1);    
             
               $libProposition = new \XoopsFormLabel('', $proposition);                        
-              $libImage = new \XoopsFormLabel('', $image);                        
+              $libImage = new \XoopsFormLabel('', $image1);                        
             
             
             $inpProposition = new \XoopsFormHidden($this->getName($i,'proposition'), $proposition);            
@@ -200,7 +202,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
 //         $inpImgSubstitut= new \XoopsFormSelect(_AM_QUIZMAKER_IMG_SUBSTITUT, $this->getName($i,'image'),$image);   
 //         $inpImgSubstitut->addOptionArray($listImg);
 //$inpImgSubstitut = $this->getFormSelectImage(_AM_QUIZMAKER_IMG_SUBSTITUT, $image, $this->getName($i,'image'), $imgUrl, $imgList, $maxWidth=80);    
-            $inpImgSubstitut = $this->getXoopsFormImage($image, $this->getName()."_substitut_{$i}", $path, 80, '<br>', $this->getName($i,'delete_image_Substitution'));
+            $inpImgSubstitut = $this->getXoopsFormImage($image1, $this->getName()."_substitut_{$i}", $path, 80, '<br>', $this->getName($i,'delete_image_Substitution'));
          
             //----------------------------------------------------
 

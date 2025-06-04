@@ -1,16 +1,82 @@
 ---------------------------------------------------
+2025-05-25 v 6.14 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+transfert des fonctions de zoom dans "function.js" afin d'être plus générique pour l'ajout de cette fonctionalité dans d'autres plugins
+ 
+plugin imagesDaDMatchItems, plugin_imagesDaDGroups 
+    ajout de l'option de zoom
+             
+plugin imagesDaDMatchItems : 
+    correction mise en page et CSS qui inteferait sur l'option de zoom
+    fixation de la largeur en pixel "width=700px"
+
+Corrections pour minification : quelques manques notamment :
+    ";" en fin d'instruction
+    'var' pour declarer les variables
+
+traduction anglaise des constantes linguistiques
+        
+---------------------------------------------------
+2025-05-25 v 6.12 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Intégration du plugin "findObjects"
+Ajout des champs "quiz_background" et "quest_background" pour mettre une image de fond sur les quiz
+quiz_background  : valeur par defaut pour tous les slides d'un même quiz
+quest_background : valeur spécifique pour le slide courant, elle prime sur "quiz_background" 
+
+plugins : selectInputs, selectImages, alphaSimple, findObjects :
+    refonte  du passage au slide suivant si "nextSlideDelai" est > 0
+    harmonisation des variables utilisées et transfert des inputs dans "plugin_options_avertissement.php"
+    qui par le fait utilise les même noms de variable et simplifie la compréhension du code
+    Côté javascript simplification par le tranfert des fonctions des plugins dans "functions.js".
+
+ 
+---------------------------------------------------
 2025-04-29 v 6.10 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Grosse récriture des fonction getFormGroup, saveAnswers et getFormOptions de tous les plugins.
     harmonisation du code avec l'ajout de code commun dans les fichier :
      - include/plugin_getFormGroup.php
      - include/plugin_saveAnswers.php
-    harmonisation des nom de varaible notamment dans les boucle,
+    harmonisation des nom de variable notamment dans les boucles,
     utilisation systématique de :
         - $k pou pur boucler sur answers
         - $i pour indiquer le chrono
         - $h pour les boucles internes
-         
+fusion des plugins sortItems et ulDaDSortList         
+    modification dans le template "index.html" remplacement de :
+    
+    switch (currentQuestion.type){
+                    case "alphaSimple" : obj = new (alphaSimple)(currentQuestion, chrono); break;
+                    case "selectImages" : obj = new (selectImages)(currentQuestion, chrono); break;
+                    case "selectInputs" : obj = new (selectInputs)(currentQuestion, chrono); break;
+                    ...
+    par :         
+    switch (currentQuestion.type){
+                    case "alphaSimple" : obj = getPlugin_alphaSimple(currentQuestion, chrono); break;
+                    case "selectImages" : obj = getPlugin_selectImages(currentQuestion, chrono); break;
+                    case "selectInputs" : obj = getPlugin_selectInputs(currentQuestion, chrono); break;
+                    ....  
+      et création des fonctions correspondantes dans chaque plugin.
+      Cela permet :
+        - dans un plugin d'avoir plusieurs classe JS héritées du plugin principal (exemple de sortItems)
+        - d'éviter dans le JS les conditions ou switch en fonction du cas a traiter
+        - de clarifier le code JS des plugin 
+        - de diminuer le nombre de plugins qui font la même choses à quelques différences près
+        
+highslide : refonte de l'intégration avec chargement de highslide-full.js ai lieu de highslide.js.
+            Permet de faire un slide show sur les snapshoot des plugin ai lieu d'un zoom sur chaque image. 
+            Une seule image sera ffaiché par défaut mais les autres images appraitrons dans le slideshoww,
+            et il sera possible d'en mettre autant que nécéssaire, car certains plugins mérite au minimum 5 snapshoots.
+            
+Génération du quiz : 
+    le chargement des JS et des CSS etais limité aux fichier qui portaient le ùêùe nom que le plugin. 
+    Dorénavant tous les fichiers CSS et JS trouvé dans les dossiers de plugins sont chargés.
+    Cela permet l'intégration de nouveaux fichiers sans allourdir le fichier de classe existant, 
+    voir de séparer la classe principale avec les fonction de gestion des evenement par exemple.
+    exemple du plugin "findObjects" qui doit charger une autre classe.
+    Pour ce faire modification du template "quizmaker_admin_quiz_inline.tpl" et de la fonction "build_quizinline".
+       
 ---------------------------------------------------
 2025-04-20a v 6.08 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
@@ -52,7 +118,7 @@ Plugin textboxMultiple par le plugin questionMultiple
 2024-10-28a v 6.04 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 utilisation du xoopsFomrShowHide de Janus pour masquer ou afficher l'aide en ligne dans le formulaire des questions.
-plugin choiceSimple et choiceImages
+plugin selectInputs et selectImages
     - Ajout des tags dans le message, permet d'afficher notamment le score en cours
     - Ajout d'options pour le message au slide suivant
 plugin textAreaMixte
@@ -60,12 +126,12 @@ plugin textAreaMixte
 ---------------------------------------------------
 2024-10-28a v 6.02 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-plugin choiceSimple
+plugin selectInputs
     - ajout des options : choix multiple, choix unique, choix unique et passage au slide suivant
     - ajout d'un timer avec message "question suivante" dans le 3eme cas, choix unique et passage à la question suivante
     - mise à jour de l'aide du plugin.
 
-plugin choiceImages
+plugin selectImages
     - ajout des options : choix multiple, choix unique, choix unique et passage au slide suivant
     - Ajout des images pour cochers dans le cas de choix multiple ou choix unique
     - ajout du reglage de la hauteur de la coche
@@ -79,13 +145,13 @@ quiz :
 ---------------------------------------------------
 2024-10-28a v 6.02 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
-Ajout du plugin choiceImages
+Ajout du plugin selectImages
 Divers corrections de xoopsFormIconSelect dans le framework Janus
 Correction de la fonction purgerImages
 
 Javascript :
     - ajout de l'evenement event_finalize appeler à la fin de l'affichage d'un slide
-      permet notamment de désactiver le bouton "nextSlide" dans le plugin "choiceImages"
+      permet notamment de désactiver le bouton "nextSlide" dans le plugin "selectImages"
       
 ---------------------------------------------------
 2024-08-01a v 6.00 beta 1 - JJDai - jjdelalandre@orange.fr
@@ -233,7 +299,7 @@ Ajout des champs quiz_libBegin et quiz_libEnd pour une meilleure personnalisatio
     ajout des constantes attenantes
     MAJ du JS        
 Table quiz : suppression des champs ci-dessous remplacé par quiz_optionsDev de type binnaire:
-    quiz_showTypeQuestion
+    quiz_showPlugin
     quiz_showReloadAnswers
     quiz_showGoToSlide
     quiz_showGoodAnswers        
@@ -263,7 +329,7 @@ Onglet "Type de question" :
     - génération du popup qui affiche l'aide d'un plugin en cliquant sur le bouton "?"
     
 - correction JS : 
-    - reloadImgModeles, verification de l'existence de l'objet "btnAddQuestion"
+    - reloadPluginSnapshoots, verification de l'existence de l'objet "btnAddQuestion"
     - refonte de la fonction pluginsHandler->getListByGroup()
     - correction imgasDadSortItem remplacement de '//' par '/'+'/' que le minificateur n'aime pas
     - Transfert de la génération des fichiers minifiés dans le dossier "upload/quizmaker/quiz-min"

@@ -31,7 +31,7 @@ use XoopsModules\Quizmaker\Constants;
   	if (!$GLOBALS['xoopsSecurity']->check()) {
   		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
   	}
-  	if ($questionsHandler->deleteCascade($questionsObj)) {
+  	if ($questionsHandler->deleteCascade($questId)) {
   		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
   	} else {
   		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());

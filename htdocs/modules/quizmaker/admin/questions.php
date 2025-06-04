@@ -171,7 +171,6 @@ switch($op) {
 	break;
     
 	case 'update_list':
-//echoArray('gp', "===>quizId = {$quizId}");
 
         $list = Request::getArray('quest_list');
         //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
@@ -183,8 +182,36 @@ switch($op) {
             $startTimer = (isset($arr['startTimer']) ? 1 : 0);
             $questionsHandler->updateAll('quest_start_timer', $startTimer, $criteria, $force = false);
         }
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
-	break;
+        
+        $delArr = array_keys(Request::getArray('delete'));
+        if(count($delArr) > 0){
+
+    $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE_LIST, $quizId, implode(' / ', $delArr));
+  	xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'deletelist'=>implode(',', $delArr), 'op' => 'delete_list'], $_SERVER['REQUEST_URI'], $msg);
+
+// echo "<hr>===>{$msg}<hr>";
+// echoArray('gp', "===>quizId = {$quizId}",true);
+// require __DIR__ . '/footer.php';
+
+//exit;
+        }else{
+            redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
+        }
+        
+        
+	   break;
+    
+	case 'delete_list':
+        $deletelist =  Request::getString('deletelist','');
+
+        $arr = explode(',', $deletelist);
+        //echoArray('gp','gp');
+        //echoArray($arr,'zzzzzzz',true);
+        foreach($arr as $key=>$questIdToDelete){
+  	        $questionsHandler->deleteCascade($questIdToDelete);
+        }  
+  		redirect_header('questions.php?' . getParams2list($quizId, $quest_plugin), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
+	   break;
     } // fin du switch maitre
     
 require __DIR__ . '/footer.php';

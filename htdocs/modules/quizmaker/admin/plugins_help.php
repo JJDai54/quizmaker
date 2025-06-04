@@ -25,6 +25,7 @@ include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 include_once dirname(__DIR__) . '/include/common.php';
 xoops_loadLanguage('common', QUIZMAKER_DIRNAME);
 xoops_loadLanguage('plugins', QUIZMAKER_DIRNAME);
+require __DIR__ . '/header.php';
 
 xoops_load('XoopsFormLoader');
 include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");

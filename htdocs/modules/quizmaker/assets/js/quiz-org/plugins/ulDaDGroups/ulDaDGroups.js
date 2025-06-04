@@ -1,7 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     plugin_ulSortList
+* *****************************************************************/
+function getPlugin_ulDaDGroups(question, slideNumber){
+    return new ulDaDGroups(question, slideNumber);
+}
 
  /* ******************************************************************
-  *                     _plugin_ulSortList
+  *                     plugin_ulSortList
   * **************************************************************** */
 
 class ulDaDGroups extends Plugin_Prototype{

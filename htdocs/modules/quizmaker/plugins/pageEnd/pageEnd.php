@@ -76,7 +76,7 @@ class Plugin_pageEnd extends XoopsModules\Quizmaker\Plugins
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
-      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
       
       //--------------------------------------------------------------------           
       

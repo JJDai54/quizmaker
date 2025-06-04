@@ -95,7 +95,6 @@ const maxPropositions = 1;
        
       $name = 'strToReplace';
       $inputStrToReplace = new XoopsFormText(_AM_QUIZMAKER_CARS_TO_REPLACE,"{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);            
-      //$inputStrToReplace->setDescription ('blablabla');      
       $trayOptions->addElementOption($inputStrToReplace);
       
       $name = 'tokenColor';  
@@ -108,12 +107,8 @@ const maxPropositions = 1;
       $inpScoreByGoodWord->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TIMER));
       $trayOptions->addElementOption($inpScoreByGoodWord);     
 
-      $name = 'disposition'; 
-      $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOption($inputDisposition);     
-      //$trayOptions->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_DISPOSITION_DESC));     
+      // disposition 
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
 
       return $trayOptions;
     }

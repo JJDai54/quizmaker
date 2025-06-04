@@ -1,7 +1,12 @@
-﻿ 
+﻿/*******************************************************************
+*                     matchItems
+* *****************************************************************/
+function getPlugin_matchItems(question, slideNumber){
+    return new matchItems(question, slideNumber);
+}
 
  /*******************************************************************
-  *                     _matchItems
+  *                     matchItems
   * *****************************************************************/
 class matchItems extends Plugin_Prototype{
 name = 'matchItems';  
@@ -469,7 +474,7 @@ showAnswers (goodAnswers = true){
                     var obInp = document.getElementById(itemId);
                     obInp.value = value; 
                     //console.log(`getScoreByProposition : ${p} - ${obInp.value}`);           
-                    break
+                    break;
                 case 2 : //textbox
                     var obInp = document.getElementById(itemId);
                     obInp.value = value;

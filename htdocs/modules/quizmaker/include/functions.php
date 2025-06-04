@@ -380,7 +380,7 @@ function getBinOptionsFlagsArr ($binName, $binOptions){
         break;
         
     case 'dev':
-        $flags['showTypeQuestion']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_PLUGIN, $binOptions), "TQ");
+        $flags['showPlugin']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_PLUGIN, $binOptions), "TQ");
         $flags['showReloadAnswers'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RELOADANSWERS, $binOptions), "Rl");
         $flags['showGoToSlide']     = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_GOTOSLIDE, $binOptions), "Go");
         $flags['showGoodAnswers']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_GOODANSWERS, $binOptions), "Ga"); 

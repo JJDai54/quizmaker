@@ -24,8 +24,16 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_IMAGESDADMATCHITEMS', "Replacer les images à leure place");
-define('_LG_PLUGIN_IMAGESDADMATCHITEMS_DESC', "Ce slide est composé d'images et de titres. Il faut replacer les images sur les bons titres.");
-define('_LG_PLUGIN_IMAGESDADMATCHITEMS_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS', "Replace the images in their proper place");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_DESC', "This slide is composed of images and titles. You must replace the images with the correct titles.");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_CONSIGNE', "Instructions to complete");
+
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SILOUHETTE', "Background color of the silhouettes");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_SOURCE', "Background color of the images to replace");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_BG_AVERTISSEMENT', "The background color of the silhouettes is only used in two-zone layouts");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_MOVEALLOW', "Movements allowed after positioning (2-zone layout)");
+
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_DAD', "Height of images to move");
+define('_LG_PLUGIN_IMAGESDADMATCHITEMS_IMG_HEIGHT_SHAPE', "Height of silhouettes");
 
 ?>

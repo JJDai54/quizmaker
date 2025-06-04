@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     pageGroup
+* *****************************************************************/
+function getPlugin_pageGroup(question, slideNumber){
+    return new pageGroup(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _pageGroup
+  *                     pageGroup
   * *****************************************************************/
 
 class pageGroup extends Plugin_Prototype{

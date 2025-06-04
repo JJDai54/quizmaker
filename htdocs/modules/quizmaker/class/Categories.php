@@ -154,6 +154,7 @@ class Categories extends \XoopsObject
         $catId = $this->getVar('cat_id');
         $clPerms = new \JanusPermissions();
 
+        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS,        'view_cats',        $catId, $this->isNew()));
         $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,        'edit_quiz',        $catId, $this->isNew()));
         $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,      'create_quiz',      $catId, $this->isNew()));
         $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,      'delete_quiz',      $catId, $this->isNew()));

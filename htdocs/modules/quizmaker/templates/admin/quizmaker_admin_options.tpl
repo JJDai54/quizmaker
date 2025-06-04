@@ -69,7 +69,7 @@
                    <{assign var="urlOptionsDev" value="options.php?op=set_bit&opt_id=`$binOpt.id`&field=opt_optionsDev"}>
                 
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_PLUGIN}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_PLUGIN}>' >
-                        <{$binOpt.flags.showTypeQuestion}>
+                        <{$binOpt.flags.showPlugin}>
                         </a>|
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_RELOADANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_RELOAD_ANSWERS}>' >
                         <{$binOpt.flags.showReloadAnswers}>

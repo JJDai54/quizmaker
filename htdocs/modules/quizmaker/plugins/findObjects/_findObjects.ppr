@@ -1,0 +1,45 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\plugins\findObjects
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+Extensions=*.*
+[Project tree]
+_findObjects
+	+findObjects
+		-img
+		-js
+			js\colorPicker.js
+			js\findObject_events.js
+			js\index.html
+			js\messages-fr.js
+			js\Touches.js
+		+language
+			-english
+				language\english\constants.php
+				language\english\help.html
+				language\english\index.html
+			-french
+				language\french\constants.php
+				language\french\help.html
+				language\french\index.html
+			language\index.html
+		+snapshoot
+			snapshoot\index.html
+		findObjects.css
+		findObjects.js
+		findObjects.php
+		index.html
+[Open project files]
+[Selected Project Files]
+Main=

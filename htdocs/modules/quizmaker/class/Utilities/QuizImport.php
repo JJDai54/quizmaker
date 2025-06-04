@@ -222,7 +222,7 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
            'quiz_useTimer','quiz_showResultAllways','quiz_showReponsesBottom',
            'quiz_showLog','quiz_shuffleQuestions','quiz_showGoodAnswers',
            'quiz_showBadAnswers','quiz_showReloadAnswers','quiz_minusOnShowGoodAnswers',
-           'quiz_showResultPopup','quiz_showTypeQuestion','quiz_showAllSolutions',
+           'quiz_showResultPopup','quiz_showPlugin','quiz_showAllSolutions',
            'quiz_showScoreMinMax','quiz_showGoToSlide');
 
     //affectation du nouvel ID
@@ -515,7 +515,7 @@ public static function quiz_loadData($quizId)
 /**************************************************************
  * 
  * ************************************************************/
-public static function quiz_getTypeQuestionFromYML($pathSource)
+public static function quiz_getPluginFromYML($pathSource)
 {global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
 
     $questShortName = 'questions';

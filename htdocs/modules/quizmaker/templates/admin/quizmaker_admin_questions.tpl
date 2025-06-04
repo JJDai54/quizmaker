@@ -16,7 +16,9 @@ function addNewChild(parentId){
 <{* <{assign var='download' value=0}> *}>
 <{include file='db:quizmaker_admin_download.tpl' }>
 
-<{if $questions_list}>
+
+
+
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='questions.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
@@ -44,7 +46,9 @@ function addNewChild(parentId){
       </table>
     </div>
 </div><br><br>
+</form>
 <{* ======================================================== *}> 
+<{if $questions_list}>
 <br>
 <div class="floatright">
     <div class="xo-buttons">
@@ -58,7 +62,6 @@ function addNewChild(parentId){
         
     </div>
 </div>
-</form>
  
   
 <form name='quizmaker_list' id='quizmaker_list' action='questions.php' method='post' enctype=''>
@@ -71,6 +74,7 @@ function addNewChild(parentId){
 		<thead>
 			<tr class='head'>
 				<th class="center">*</th>
+				<th class="center"><{$smarty.const._DELETE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PARENT_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS_QUIZ_ID}></th>
@@ -91,9 +95,11 @@ function addNewChild(parentId){
             <{assign var="previousGroupId" value=0}>
             
 			<{foreach item=Questions from=$questions_list name=quest  key=index}>
+                  <{assign var="deleteOk" value=false}>
                 <{if $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>
                   <{assign var="fldImg" value="red"}>
                   <{assign var="styleParent" value="style='background:navajowhite;'"}>
+                  <{assign var="deleteOk" value=false}>
                   
                 <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
                   <{assign var="fldImg" value="red"}>
@@ -111,14 +117,21 @@ function addNewChild(parentId){
                 <{elseif !$Questions.actif}>
                   <{assign var="fldImg" value="blue"}>
                   <{assign var="styleParent" value="style='background:#FFCCFF;color:red;'"}>
+                  <{assign var="deleteOk" value=true}>
                 <{else}>
                   <{assign var="fldImg" value="blue"}>
                   <{assign var="styleParent" value=""}>
+                  <{assign var="deleteOk" value=true}>
                 <{/if}>
                 
                 
   			<tr class='<{cycle values='odd, even'}>' style='height:40px;'>
-                
+                <{if $deleteOk}>
+				<td class='center' <{$styleParent}> ><input type='checkbox' id='delete[<{$Questions.id}>]'  name='delete[<{$Questions.id}>]' value='1'></td>      
+                <{else}>
+				<td class='center' <{$styleParent}> ></td>      
+                <{/if}>
+                         
                 <{if $Questions.actif}>
                     <{assign var="indexJS" value=$indexJS+1}>
 				    <td class='center width5' <{$styleParent}> ><{$index}>/<{$indexJS}></td>
@@ -271,10 +284,10 @@ function disabledItemParent(){
 disabledItemParent();
 
 quizmaker_scrollWin();
-reloadImgModeles("modelesTypeQuestionId");
+//reloadPluginSnapshoots("modelesPluginId");
 
 tth_set_value('last_asc', true);
-tth_trierTableau('quiz_question_list', 8);  
+tth_trierTableau('quiz_question_list', 9);  
 
 </script>
 

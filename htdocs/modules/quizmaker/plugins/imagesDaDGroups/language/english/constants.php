@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_IMAGESDADGROUPS', "Regrouper les images");
-define('_LG_PLUGIN_IMAGESDADGROUPS_DESC', "Ce slide est composé de deux à quatre groupes d'images mélangées qu'il faut placer au bon endroit.");
-define('_LG_PLUGIN_IMAGESDADGROUPS_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESDADGROUPS', "Group images");
+define('_LG_PLUGIN_IMAGESDADGROUPS_DESC', "This slide is made up of two to four groups of mixed images that must be placed in the correct location.");
+define('_LG_PLUGIN_IMAGESDADGROUPS_CONSIGNE', "Instructions to complete");
 
 ?>

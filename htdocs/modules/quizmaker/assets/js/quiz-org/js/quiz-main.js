@@ -7,7 +7,15 @@
 // });
 
  // a traiter showResultAllways
-
+//blocage du click droit de la souris
+//document.addEventListener('contextmenu', event => event.preventDefault()); 
+/*
+document.addEventListener('contextmenu', function(e){
+    if (e.target.nodeName === 'IMG') {
+        e.preventDefault();
+    }
+}, false);
+*/
 
 // permet de récupérer les variables $_GET ou $_POST utililser pour des messages personnalisés
 const quiz_request_keys=['uid','uname','name','email','ip','quiz_id'];
@@ -23,6 +31,8 @@ const quiz_config = {
     date_release : "26-10-2024",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
+    urlQuiz :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}` : ``,
+    //urlQuizSound :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/sounds` : `sounds`,
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
     urlCommonImg : (quiz_execution == 1) ? `${quiz.url}/images` : `../images`,
     regexAllLetters : /\{[\w+\0123456789 àéèêëîïôöûüù]*\}/gi,
@@ -74,7 +84,7 @@ quiz.showResultPopup   = isBitOk(h++, optionsIhm);
 //alert("optionsDev = " + quiz.optionsDev);
 var h = 0;
 var optionsDev = quiz.optionsDev*1;
-quiz.showTypeQuestion   = isBitOk(h++, optionsDev); 
+quiz.showPlugin   = isBitOk(h++, optionsDev); 
 quiz.showReloadAnswers  = isBitOk(h++, optionsDev); 
 quiz.showGoToSlide      = isBitOk(h++, optionsDev); 
 quiz.showGoodAnswers    = isBitOk(h++, optionsDev); 
@@ -109,7 +119,7 @@ getStatAllSlides();
 
 var content = `  
     <div id='quiz_div_main'>
-      ${getHtmlHeader()}
+      ${getHtmlHeader()}${getHtmlAvertissementId()}
       <div id='quiz_div_body'>
         ${getHtmlPopup()}
         <div id='quiz_div_all_slides' name='quiz_div_all_slides' class="${quiz_css.slide}">
@@ -141,11 +151,12 @@ var content = `
 */
     quizard.forEach((clQuestion, index) => {
         //alert ("===> test : " + clQuestion.question.pluginName  + " - " + clQuestion.question.question);
+        clQuestion.getBackground();
         clQuestion.initSlide ();
       });
       
-     //lors de la construction des slide les score mini et maxi ne sont pas encore completement connu
-     //il faut réactualiser le slide pageBegin pour pour pouvoir afficcer ces valeurs apres parcours de touts les slides 
+     //lors de la construction des slide les scores mini et maxi ne sont pas encore completement connus
+     //il faut réactualiser le slide pageBegin pour pour pouvoir afficcher ces valeurs apres parcours de tous les slides 
     quizard[0].onUpdate();
     
 }
@@ -154,7 +165,7 @@ var content = `
  *   
  * ************************************************************************/
 function getHtmlHeader(){
-var build = (quiz.showTypeQuestion) ? ` [build${quiz_messages.twoPoints}${quiz.build}]` : "";
+var build = (quiz.showPlugin) ? ` [build${quiz_messages.twoPoints}${quiz.build}]` : "";
 
     return `<div id="quiz_div_header" name="quiz_div_header" class="${quiz_css.header}">${quiz.name}${build}</div>`;
 }
@@ -261,6 +272,15 @@ function getHtmlButtons(){                       //   style='background:blue;'
             `;
 
 }
+//---------------------------------------------------
+function getHtmlAvertissementId(){
+    avertissementId = 'quiz_avertissement';
+    var divAvertissement = `<div id="${avertissementId}-mask" class='quiz_avertissement_next_slide'>`
+                         + `<div mask></div>`
+                         + `<div id="${avertissementId}" message>Message d'avertissement lors du passage au slide suivant</div></div>`;
+    return divAvertissement;
+}
+
 /**************************************************************************
  *  Affiche le bouton 'consignes'
  *  mis à par pour envisager un placement personaliser, à voir
@@ -326,7 +346,12 @@ var questionNumber = 0;     //n° du slide hors page_begin, page_end et page_gro
       
       //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + " - \n" + currentQuestion.question);
             // debut du type de slide a traiter
-            var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
+            //if(currentQuestion.type == 'sortItems'){
+                var clQuestion = getTplNewClass2 (currentQuestion, slideNumber++);
+//             }else{
+//                 var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
+//             }
+
             if(clQuestion){
                 clQuestion.question.questionNumber = (clQuestion.isQuestion) ? ++questionNumber : 0;
                 quizard.push(clQuestion);
@@ -350,10 +375,14 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
 
     myQuestions.forEach((currentQuestion, index) => {
       if(currentQuestion){
+      //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + "\n" + currentQuestion.question);
       
-      //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + " - \n" + currentQuestion.question);
             // debut du type de slide a traiter
-            var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
+            //if(currentQuestion.type == 'sortItems'){
+                var clQuestion = getTplNewClass2 (currentQuestion, slideNumber++);
+            //}else{
+            //    var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
+            //}
             if(clQuestion){
                 statsTotal.quiz_questions  += (clQuestion.isQuestion ? 1 : 0);
                 statsTotal.quiz_score_maxi += clQuestion.scoreMaxiQQ;
@@ -649,7 +678,7 @@ var answerContainer;
 
 
     //pour le dev ajout du type de question, en prod a desativer dans le formulaire du quiz
-    if(quiz.showTypeQuestion)
+    if(quiz.showPlugin)
         exp += `<br><span style="font-size:1.2em;font-weight:800;">[ ${currentQuestion.question.pluginName} 
                | quiz_id = ${currentQuestion.question.quizId} 
                | quest_id = ${currentQuestion.question.questId} ]`; 
@@ -815,7 +844,6 @@ function reloadQuestion() {
 
   function showSlide_new (offset=0) {
     moveWindowPosTo('quiz_div_module_xoops');
-    onTimesUp();
     console.log("===>showSlide_new - offset=" + offset);
     //affichage du popup des solutions si offset > 0 uniquement
     if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
@@ -838,6 +866,7 @@ function reloadQuestion() {
     
     
         if (isNewSlide){
+    onTimesUp();
           showFinalResults();
           clearInterval(idSlideTimer);
           statsTotal.slideTimer = 0;
@@ -896,9 +925,11 @@ if(obHelp) obHelp.innerHTML = consigne;
 
    
   //alert("showSlide_new : " + offset);
-  if (quiz.showResultAllways) showResults();
+    if (quiz.showResultAllways) {showResults()};
   //if (currentSlide == 1 && quiz.showReponsesBottom)  updateOptions();  
-          quizard[currentSlide].onFinalyse();
+    if (isNewSlide){
+        quizard[currentSlide].onFinalyse();
+    }
    }
    
 /* ******************************************

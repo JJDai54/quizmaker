@@ -18,6 +18,7 @@ isAntiseche = false;
 data  = [];
 focusId = '';
 boolDog = false;
+isZoomed = false;
 
 stats = {
       scoreMin:  0,
@@ -25,19 +26,18 @@ stats = {
       score:     0
     };
 //---------------------------------------------------
- constructor(question = null, slideNumber = 0) {
+ constructor(question = null, slideNumber = 0, className='') {
+//alert('ptototype : ' + this.typeName);
 
     this.name = question.type;
     this.question = question;
-    this.typeName = question.type;
-    this.pluginName = question.type;
-//  this.typeForm = question.typeForm;//numerique equivalent a type qui est une chaiine
+    this.typeName =  (className) ? className : question.type;
+    //this.pluginName = question.type;
     this.isQuestion = (question.type.substring(0, 4) != 'page');         
 //alert(`constructor - ${question.type} - ` + ((this.isQuestion) ? 'oui' : 'non'));    
 
     this.slideNumber = slideNumber;
     this.divMainId =  this.getId('main');//mais apres affectation de slideNumber si même id    
-// this.blob("dans la classe ---> " + question.type)
 
     this.getOptionsDefaults();
     this.proto_initSlide();
@@ -49,6 +49,10 @@ stats = {
   
 /* **********************************************************
 Initialise toutes les données communes à tous les plugins
+Appelé pour chaque slide à la fin du chargement du html
+contrairement a "prepareData" qui n'accède pas encore au DOM
+permet de finaliser l'initialisation du slide en accedant au DOM construction
+
 ************************************************************* */
 proto_initSlide (){
 
@@ -58,7 +62,7 @@ proto_initSlide (){
     
     //calcul des poins min et max standarts
     for(var k in currentQuestion.answers){
-        ans = currentQuestion.answers[k]
+        ans = currentQuestion.answers[k];
         //identifiant global du slide , contient le nom du plugin et le numero du slide tout slide compris 
         //pour eviter tout conflit entre slide
         ans.index = k;
@@ -85,6 +89,7 @@ proto_initSlide (){
     this.blob(`===>computeScoresMinMax BP [1] - ${this.getName()}: ${this.scoreMaxiBP}   - ${this.scoreMiniBP}`, true);
     this.blob(`===>computeScoresMinMax QQ [2] - ${this.getName()}: ${this.scoreMaxiQQ} - ${this.scoreMiniQQ}`, true);
     return true;
+
 
 }
 /* **********************************************************
@@ -270,6 +275,34 @@ getImage(){
         return "";
     }
 }
+
+getBackground(){
+//alert(quiz.background);
+    var currentQuestion = this.question;
+
+    if(currentQuestion.background){
+        var background = currentQuestion.background;
+    }else if(quiz.background){
+        var background = quiz.background;
+    }else{
+        return false;
+    }
+    
+    var url = `url(${quiz_config.urlQuizImg}/${background})`;
+    var obDiv = document.getElementById(this.getId('main')).parentNode;
+    obDiv.style.backgroundImage = url;
+    
+    var obDiv = document.getElementById(this.getId('main')).parentNode.parentNode;
+    obDiv.style.backgroundImage = url;
+    
+}
+
+/* ***************************************
+*
+* *** */
+isImage(){
+    return this.question.image;
+}
 /* ***************************************
 *
 * *** */
@@ -434,12 +467,21 @@ onUpdate() {}
 /* ************************************************
 Appelé au debut de l'affichage d'un nouveau slide
 *************************************************** */
-onEnter() {}
+onEnter() {
+}
 
 /* ************************************************
-Appelé au debut à la fin de l'affichage d'un nouveau slide
+Appelé à la fin de l'affichage d'un nouveau slide
 *************************************************** */
-onFinalyse() {}
+onFinalyse() {
+    var currentQuestion = this.question;
+    if (currentQuestion.options.nextSlideDelai*1 > 0){
+        //document.getElementById('quiz_btn_nextSlide').setAttribute('disabled','disabled');
+        document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
+    }else{
+        document.getElementById('quiz_btn_nextSlide').disabled = '';
+    }
+}
 
 //---------------------------------------------------
 getDisposition(disposition, tableId=null){}  

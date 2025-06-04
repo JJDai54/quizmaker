@@ -1,0 +1,43 @@
+﻿.selectInputs {
+    border: 0px solid #FFAD33;
+    width 100%;
+    font-size:1.1em;    
+}
+.selectInputs table td{
+    border: 0px solid #FFAD33;
+}
+.selectInputs table td[proposition]{
+    border: 0px solid #FFAD33;
+    vertical-align: top;
+    /* margin:0px; */
+    padding:0px;
+}
+.selectInputs table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+    width 100%;
+}
+.selectInputs input{
+    margin:5px 5px 0px 0px;
+    padding:2px 0px 0px 0px;
+}
+.selectInputs label{
+    /* padding: 5px 0px 5px 30px; */
+    margin:0px 0px 0px 0px;
+    padding:0px 2px 0px 0px;
+}
+
+.selectInputs p{
+ text-indent:-1.5em;
+ margin:0px 0px 0px 1.5em;
+ }
+
+.selectInputs td[familyWords]{
+    text-align:left;
+    font-size:1.1em;
+    font-weight:bold;
+    color:blue;
+    padding-left:50px;
+}
+

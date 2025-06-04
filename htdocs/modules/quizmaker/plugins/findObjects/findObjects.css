@@ -1,0 +1,124 @@
+.findObjects_table{
+    border:0px;
+    margin:0px;
+    padding:30px;
+    width: 100%; 
+}
+.findObjects_table th{
+    border:0px;
+    text-align: center
+}
+.findObjects_table td{
+    border:0px;
+    text-align: left
+    vertical-align:top;
+}
+.coordonnees2{
+   overflow-y:scroll;
+   height:600px;
+   display:block;
+}
+
+.coordonnees tr:hover td{
+    background-color:lime;
+}
+
+.divImageRef1{
+    position:relative;
+    width:600px;
+    /* height:300px; */
+    background:#FFCCFF;
+    margin:0px;
+    padding:0px;
+cursor: crosshair;
+display: float;
+}
+
+.divImageRef1 img{
+    margin:0px;
+    padding:0px;
+    pointer-events:none !important;
+    max-width:100%;
+}
+
+.divImageRef2{
+    position:relative;
+    width:600px;
+    /* height:300px; */
+    background:#FFCCFF;
+    margin:0px;
+    padding:0px;
+cursor: crosshair;
+display: float;
+}
+
+.divImageRef2 img{
+    margin:0px;
+    padding:0px;
+    pointer-events:none !important;
+    max-width:100%;
+}
+
+.fill{
+    object-fit:fill;
+
+}
+
+.touche{
+    position:absolute;
+    /* width:32px; */
+    /* height:32px; */
+    border: 2px solid;
+    background:transparent;
+    pointer-events:none !important;
+    
+  border-bottom-left-radius: 100% 100%;
+  border-bottom-right-radius: 100% 100%;
+  border-top-left-radius: 100% 100%;
+  border-top-right-radius: 100% 100%;    
+}
+
+input[type="number"] 
+  width: 50px !important; 
+  background:lime;
+ /* appearance: none; */
+ }
+
+input [poil="1"]{
+ background:lime;
+ /* appearance: none; */
+ background:lime;
+ }
+
+.inpNumber{
+ /* background:white; */
+  width: 50px !important; 
+border:1px silver solid;
+ }
+
+.resultat{
+    /* width:500px; */
+    /* height:300px; */
+    background:#FFCCFF;
+cursor: crosshair;
+margin: 10px;
+padding:10px;
+    background:#99CCFF;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in-element {
+  background:orange;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out;
+
+}
+
+#log {
+   overflow-y:scroll;
+   height:300px;
+   display:block;
+}

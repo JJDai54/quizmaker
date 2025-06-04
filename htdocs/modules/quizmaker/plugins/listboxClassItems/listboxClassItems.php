@@ -44,7 +44,9 @@ var $maxGroups = 3;
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['group0'=>'', 'group1'=>'', 'group2'=>'', 
+                                  'bgGroup0'=>'#dfdfdf','bgGroup1'=>'#dfdfdf','bgGroup2'=>'#dfdfdf','bgGroup3'=>'#dfdfdf',
                                   'groupDefault'   => '-1', 
+                                  'oneListOnly'    => 0,
                                   'mouseClick'     => 1];
     }
 
@@ -78,31 +80,39 @@ var $maxGroups = 3;
       $inputMouseClick->addOption(1, _AM_QUIZMAKER_CLICK_SIMPLE);            
       $trayOptions->addElementOption($inputMouseClick);     
 
-      for($h = 0; $h < $this->maxGroups; $h++){
-        $name = 'group' . $h;
-        $requis = ($h < 2);
-        
-        $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . $h . (($requis)?QUIZMAKER_REQUIS:''),  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-        if($requis){
-          $inpGoup->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
-        }else{
-          $inpGoup->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
-        }
-        $trayOptions->addElementOption($inpGoup);     
-      }
+//       for($h = 0; $h < $this->maxGroups; $h++){
+//         $name = 'group' . $h;
+//         $requis = ($h < 2);
+//         
+//         $inpGoup = new \XoopsFormText(_AM_QUIZMAKER_GROUP_LIB . $h . (($requis)?QUIZMAKER_REQUIS:''),  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
+//         if($requis){
+//           $inpGoup->setExtra("required placeholder='" . _AM_QUIZMAKER_REQUIRED . "'");
+//         }else{
+//           $inpGoup->setExtra("placeholder='" . _AM_QUIZMAKER_OPTIONAL . "'");
+//         }
+//         $trayOptions->addElementOption($inpGoup);     
+//       }
       
       
-      $name = 'groupDefault';  
-      $inputGroupDefault = new XoopsFormRadio(_AM_QUIZMAKER_REPARTITION, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_REPARTITION_ALL_GROUPS);  
-      $inputGroupDefault->addOption(-2, _AM_QUIZMAKER_REPARTITION_ONLY_GROUP0);  
-      for($h=0; $h<3; $h++){
-        $inputGroupDefault->addOption($h, (($tValues["group{$h}"]) ? $tValues["group{$h}"] : _AM_QUIZMAKER_GROUP . " {$h}"));            
-      } 
-      $inputGroupDefault->setDescription(_AM_QUIZMAKER_REPARTITION_DESC);  
-      $inputGroupDefault->setDescription(_AM_QUIZMAKER_REPARTITION_DESC);
-      $trayOptions->addElementOption($inputGroupDefault);     
+//       $name = 'groupDefault';  
+//       $inputGroupDefault = new XoopsFormRadio(_AM_QUIZMAKER_REPARTITION, "{$optionName}[{$name}]", $tValues[$name], ' ');
+//       $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_REPARTITION_ALL_GROUPS);  
+//       $inputGroupDefault->addOption(-2, _AM_QUIZMAKER_REPARTITION_ONLY_GROUP0);  
+//       for($h=0; $h<3; $h++){
+//         $inputGroupDefault->addOption($h, (($tValues["group{$h}"]) ? $tValues["group{$h}"] : _AM_QUIZMAKER_GROUP . " {$h}"));            
+//       } 
+//       $inputGroupDefault->setDescription(_AM_QUIZMAKER_REPARTITION_DESC);  
+//       $trayOptions->addElementOption($inputGroupDefault);     
            
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_groups.php");
+      
+      
+      $name = 'oneListOnly';  
+       $inpOneListOnky = new XoopsFormRadioYN(_LG_PLUGIN_LISTBOXCLASSITEMS_ONE_LIST_ONLY, "{$optionName}[{$name}]", $tValues[$name], ' ');
+       $inpOneListOnky->setDescription(_LG_PLUGIN_LISTBOXCLASSITEMS_ONE_LIST_ONLY_DESC);
+       $trayOptions->addElementOption($inpOneListOnky);     
+
+      
       return $trayOptions;
     }
 

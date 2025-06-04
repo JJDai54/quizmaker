@@ -78,7 +78,7 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
   
       //--------------------------------------------------------------------   
 
-      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
      
       //--------------------------------------------------------------------           
       

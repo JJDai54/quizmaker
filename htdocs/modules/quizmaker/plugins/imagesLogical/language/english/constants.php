@@ -24,11 +24,11 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_IMAGESLOGICAL', "Trouver l'image manquante");
-define('_LG_PLUGIN_IMAGESLOGICAL_DESC', "Ce slide est composé d'une séquence d'images dont une ou plusieurs sont masquées.<br>Il faut reconstituer la séquence correcte.");
-define('_LG_PLUGIN_IMAGESLOGICAL_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_IMAGESLOGICAL', "Find the missing image");
+define('_LG_PLUGIN_IMAGESLOGICAL_DESC', "This slide is composed of a sequence of images, one or more of which are hidden.<br>You must reconstruct the correct sequence.");
+define('_LG_PLUGIN_IMAGESLOGICAL_CONSIGNE', "Instructions to complete");
 
-define('_LG_PLUGIN_HEIGHT_IMG_MASQUED', "Hauteur des images masquées");
-define('_LG_PLUGIN_HEIGHT_IMG_PROPOSED', "Hauteur des images proposées");
+define('_LG_PLUGIN_HEIGHT_IMG_MASQUED', "Height of the hidden images");
+define('_LG_PLUGIN_HEIGHT_IMG_PROPOSED', "Height of the proposed images");
 
 ?>

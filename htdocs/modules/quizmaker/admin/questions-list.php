@@ -61,20 +61,20 @@ use XoopsModules\Quizmaker\Constants;
 
         //---------------------------------------------        
         //Liste des types de question
-        $imgModelesHeight = 50;
+        $imgModelesHeight = 80;
         if (!$quest_plugin) $quest_plugin = 'checkboxSimple';
         $inpTypeQuest = new \XoopsFormSelect(_CO_QUIZMAKER_PLUGIN, 'quest_plugin', $quest_plugin);
         $inpTypeQuest->addOptionArray($pluginsHandler->getListByGroup(true));
-        $inpTypeQuest->setExtra("onchange='reloadImgModeles(\"modelesTypeQuestionId\",{$imgModelesHeight});'".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
+        $inpTypeQuest->setExtra("onchange='reloadPluginSnapshoots(\"modelesPluginId\",{$imgModelesHeight});'".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
         $GLOBALS['xoopsTpl']->assign('inpTypeQuest', $inpTypeQuest->render());
 \JANUS\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //liste des images de type de question - a faire
         global $quizUtility, $pluginsHandler;
         // recupe de la classe du type de question
-        $clTypeQuestion = $pluginsHandler->getPlugin($quest_plugin);
-        if($clTypeQuestion){
-          $imgModelesHtml = new \XoopsFormLabel('', $clTypeQuestion->getHtmlImgModeles($imgModelesHeight));  
+        $clPlugin = $pluginsHandler->getPlugin($quest_plugin);
+        if($clPlugin){
+          $imgModelesHtml = new \XoopsFormLabel('', $clPlugin->getHtmlImgModeles(null,$imgModelesHeight));  
           $GLOBALS['xoopsTpl']->assign('imgModelesHtml', $imgModelesHtml->render());
         }else{
           $GLOBALS['xoopsTpl']->assign('imgModelesHtml', "");
@@ -82,7 +82,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 
         
         //---------------------------------------------        
-        //Ajout d'une question selon le type de selectTypeQuestion
+        //Ajout d'une question selon le type de selectPlugin
         $btnNewQuestion = $quizUtility->getNewBtn('<=== ' . _ADD . '===>', 'new', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_SELECT_TYPE_BEFORE_ADD);
 		$GLOBALS['xoopsTpl']->assign('btnNewQuestion', $btnNewQuestion);
         

@@ -40,10 +40,12 @@ let timerIsRunning = false;
 let remainingPathColor = COLOR_CODES.info.color;
 
 function build_timer(){
+console.log('build_timer');
     document.getElementById("app").innerHTML = build_timer_html();
 }
 
 function build_timer_html(){
+console.log('build_timer_html');
 var html = `<div id='chronometre' class="base-timer">
   <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g class="base-timer__circle">
@@ -73,6 +75,8 @@ return html;
 //startTimer();
 
 function onTimesUp() {
+console.log('onTimesUp');
+
   clearInterval(timerInterval);
   timerIsRunning = false;
   //alert("termine");
@@ -88,6 +92,7 @@ function onTimesUp() {
  *  mis à par pour envisager un placement personaliser, à voir
  * ************************************************************************/
 function initTimer_for_quiz(position, divSize, fontSize){
+console.log('initTimer_for_quiz');
  // voir la classe quiz_infobulle
 
     if(timerIsRunning) return false;
@@ -123,6 +128,7 @@ var divSizePix = divSize + 'px';
 }
 
 function initTimer(divSize, divLeft, divTop, fontSize){
+console.log('initTimer');
 //if(document.getElementById('app').innerHTML=='') build_timer_html();
     if(timerIsRunning) return false;
 
@@ -149,6 +155,7 @@ var divSizePix = divSize + 'px';
 
 }
 function razTimer(chrono) {
+console.log('razTimer');
     if(timerIsRunning) return false;
 TIME_LIMIT = chrono;
 timePassed = 0;
@@ -171,6 +178,7 @@ timerInterval = null;
 }
 
 function startChronometre(chrono) {
+console.log('startChronometre');
     if(timerIsRunning) return false;
      razTimer(chrono);
     timerIsRunning = true;
@@ -193,6 +201,7 @@ function startChronometre(chrono) {
 }
 
 function formatTime(time) {
+console.log('formatTime');
   const minutes = Math.floor(time / 60);
   let seconds = time % 60;
 
@@ -204,6 +213,7 @@ function formatTime(time) {
 }
 
 function setRemainingPathColor(timeLeft) {
+console.log('setRemainingPathColor');
   const { alert, warning, info } = COLOR_CODES;
   if (timeLeft <= alert.threshold) {
     document
@@ -223,11 +233,13 @@ function setRemainingPathColor(timeLeft) {
 }
 
 function calculateTimeFraction() {
+console.log('calculateTimeFraction');
   const rawTimeFraction = timeLeft / TIME_LIMIT;
   return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
 }
 
 function setCircleDasharray() {
+console.log('setCircleDasharray');
   const circleDasharray = `${(
     calculateTimeFraction() * FULL_DASH_ARRAY
   ).toFixed(0)} 283`;

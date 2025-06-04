@@ -1,4 +1,10 @@
-﻿
+﻿/*******************************************************************
+*                     alphaSimple
+* *****************************************************************/
+function getPlugin_alphaSimple(question, slideNumber){
+    return new alphaSimple(question, slideNumber);
+}
+
  /*******************************************************************
   *                     _alphaSimple
   * *****************************************************************/
@@ -65,7 +71,8 @@ var tLetters = this.data.allExp;
             html += qbr; 
         }else{
             //var onclick = `document.getElementById('${this.idDivReponse}').innerHTML='${tLetters[k]}';`;
-            var onclick = `eventOnClickAlpha('${this.idDivReponse}','${tLetters[k]}',${this.data.nbSoluces},'${this.sep}');`;
+            //var onclick = `eventOnClickAlpha('${this.idDivReponse}','${tLetters[k]}',${this.data.nbSoluces},'${this.sep}');`;
+            var onclick = `eventOnClickAlpha(${this.slideNumber}, '${tLetters[k]}');`;
             //alert('|' + onclick + '|');
             html += `<a onclick="${onclick}">${tLetters[k]}</a>`; 
         }
@@ -125,9 +132,18 @@ var tLetters = this.data.allExp;
 
 //    this.data.items = tItems;
     this.data.nbSoluces = nbSoluces;
+    this.data.nbClicks = 0;
     
 }
 
+//---------------------------------------------------
+onEnter(){
+    super.onEnter();
+}
+//---------------------------------------------------
+onFinalyse() {
+    super.onFinalyse();
+}       
 //---------------------------------------------------
 getScoreByProposition ( answerContainer){
 var points = 0;
@@ -425,7 +441,13 @@ var divDirective = '<span class="alphaSimple_directive">{directive}</span>';
 //-------------------------------
 //----- Evenements du slide -----
 //-------------------------------
-function eventOnClickAlpha(idReponse, newValue, nbSoluces, sep){
+function eventOnClickAlpha(slideNumber, newValue){
+    var clQuestion = quizard[slideNumber];
+    
+var idReponse = clQuestion.idDivReponse;
+var nbSoluces = clQuestion.data.nbSoluces;
+var sep = clQuestion.sep;
+
 //alert("eventOnClickAlpha - "  + " - "  + idReponse + ' - ' + newValue);
     var obRep = document.getElementById(idReponse);
     var tRep = obRep.innerHTML.split(sep);
@@ -434,6 +456,7 @@ function eventOnClickAlpha(idReponse, newValue, nbSoluces, sep){
 
     if (nbSoluces == 1){
       obRep.innerHTML = newValue;
+      clQuestion.data.nbClicks++;
     }else{
         var tRep = obRep.innerHTML.split(sep);
 console.log (nbSoluces + "-" + tRep.length);
@@ -442,6 +465,12 @@ console.log (nbSoluces + "-" + tRep.length);
             tRep.shift();
         }
         obRep.innerHTML = tRep.join(sep);
+        clQuestion.data.nbClicks++;
 
     }
+
+    if(clQuestion.question.options.nextSlideDelai * 1 > 0 && clQuestion.data.nbClicks == nbSoluces){
+        quiz_show_avertissement( clQuestion.question.options.nextSlideMessage , clQuestion.question.options.nextSlideDelai, clQuestion.question.options.nextSlideBG);
+    }  
+
 }

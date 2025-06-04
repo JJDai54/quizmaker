@@ -1,0 +1,107 @@
+﻿.findObjects{
+}
+
+.findObjects table{
+    margin:0px;
+    padding:0px;
+    border:0px solid transparent ;
+}
+.findObjects table td{
+    margin:0px;
+    padding:0px;
+    border:0px solid transparent ;
+    background:transparent ;
+}
+
+.findObjects_divImageRef1{
+    /* width:650px; */
+    /* height:300px; */
+    /* background:#FFCCFF; */
+    position:relative;
+    background:transparent;
+    margin:0px;
+    padding:0px;
+cursor: crosshair;
+display: float;
+    height:auto;
+}
+
+
+.findObjects_divImageRef1 img{
+    margin:0px;
+    padding:0px;
+    pointer-events:none !important;
+    max-width:100%;
+    max-height:100%;
+    /* height:auto; */
+
+    border-bottom-left-radius: 25px 25px;
+    border-bottom-right-radius: 25px 25px;
+    border-top-left-radius: 25px 25px;
+    border-top-right-radius: 25px 25px;
+    box-shadow: 8px 8px 5px #444;
+}
+
+
+.findObjects_divImageRef2{
+    /* max-width:450px; */
+    /* height:300px; */
+    /* background:#FFCCFF; */
+    position:relative;
+    background:transparent;
+    margin:0px;
+    padding:0px;
+cursor: crosshair;
+display: float;
+}
+
+.findObjects_divImageRef2 img{
+    margin:0px;
+    padding:0px;
+    pointer-events:none !important;
+    max-width:100%;
+    height:auto;
+}
+
+/* ********************************************** */
+
+
+/* ********************************************** */
+.touche{
+    position:absolute;
+    /* width:32px; */
+    /* height:32px; */
+    border: 2px solid;
+    background:transparent;
+    pointer-events:none !important;
+    
+  border-bottom-left-radius: 100% 100%;
+  border-bottom-right-radius: 100% 100%;
+  border-top-left-radius: 100% 100%;
+  border-top-right-radius: 100% 100%;    
+}
+
+.fill{
+    object-fit:fill;
+
+}
+
+.etalon{
+    position:absolute;
+    border: 1px solid red;
+    left : 0px;
+    top : 0px;
+    width : 10px;
+    height : 10px;
+    background: yellow;
+}
+
+/* ********************************************** */
+
+.findObjects_bravo{
+    font-size:1.2em;
+    font-weight: bold;
+    color: red !important;
+    vertical-align: middle;
+    text-align: center;
+}

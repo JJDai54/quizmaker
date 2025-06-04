@@ -11,7 +11,7 @@
 <div class="floatleft">
 <{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}> : <{$inpCategory}>
 <{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}> : <{$inpQuiz}>
-<br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$inpPreviousQuestion}> <{$inpNextQuestion}> <b><{$quesTypeQuestion}></b> <{$inpQuest}> 
+<br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$inpPreviousQuestion}> <{$inpNextQuestion}> <b><{$quesPlugin}></b> <{$inpQuest}> 
 </div>
 
 <{* 
@@ -73,6 +73,7 @@
                 <td class='left'>    
                     <{$Answers.image1}>
                     <{if $Answers.image2}><br><{$Answers.image2}><{/if}>
+                    <{* <{$Answers.buffer}> *}>
                 </td>
                     
                 <td class='center width10'>

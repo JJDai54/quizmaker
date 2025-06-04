@@ -1,9 +1,15 @@
-﻿
+﻿/*******************************************************************
+*                     imagesDaDGroups
+* *****************************************************************/
+function getPlugin_imagesDaDGroups(question, slideNumber){
+    return new imagesDaDGroups(question, slideNumber);
+}
  /*******************************************************************
-  *                     _imagesDaDGroups
+  *                     imagesDaDGroups
   * *****************************************************************/
 class imagesDaDGroups extends Plugin_Prototype{
 name = 'imagesDaDGroups';
+
 
 //---------------------------------------------------
 build (){
@@ -100,6 +106,17 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
     }
     return tpl;
 }
+
+//---------------------------------------------------
+onFinalyse() {
+    super.onFinalyse();
+    var currentQuestion = this.question;
+
+    if(currentQuestion.options.zoom == 2) {
+        zoom_plus(event, this.slideNumber);  
+    }  
+console.log('===> onFinalyse : ' + currentQuestion.question);
+}       
 
 /* *********************************************************
 *
@@ -530,8 +547,14 @@ for (var h = 0; h < 4; h++){
             tpl = `tpl "${disposition}" non trouvé`;    
         break;
     }
-    return tpl;
+    
+    if(currentQuestion.options.zoom > 0){
+        return zoom_getCapsule(tpl, this.slideNumber);
+    }else{
+        return tpl;
+    }
 }
+
 }  // FIN DE LA CLASSE
 
 /* ******************************************************************** */

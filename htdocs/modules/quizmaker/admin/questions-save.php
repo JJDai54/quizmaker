@@ -124,7 +124,7 @@ echoArray($_POST,'_POST',false);
 
         //suppression de l'image existant si besoin si la case a ete coche 
         //ou si le nom de la nouvelle image est différent de l'ancienne
-        $delImage = Request::getInt('del_image', 0);
+        $delImage = Request::getInt('del_quest_image', 0);
         if($delImage == 1){ //    || $questImage
             $fullName = $path . '/' . $questionsObj->getVar('quest_image');
             unlink($fullName);
@@ -139,7 +139,20 @@ echoArray($_POST,'_POST',false);
         
         //enregistrement de l'image
         if ($questImage) $questionsObj->setVar('quest_image', $questImage);
+        //------------------------------------------------------------
+        $delBackground = Request::getInt('del_quest_background', 0);
+        if($delBackground == 1){ //    || $questImage
+            $fullName = $path . '/' . $questionsObj->getVar('quest_background');
+            unlink($fullName);
+            $questionsObj->setVar('quest_background', '');
+        }
 
+        //recupe du background
+        $questBackground = $cls->save_img($ans, 'quest_background', $path, $folderJS, 'question', $nameOrg);
+        //enregistrement de background
+        if ($questBackground) $questionsObj->setVar('quest_background', $questBackground);
+        //------------------------------------------------------------
+        
 		// Insert Data
 		if ($questionsHandler->insert($questionsObj)) {
             $questId = $questionsObj->getVar('quest_id');

@@ -84,9 +84,116 @@ position:relative;
     width : 100%;
     height : 600px;
     background:rgb(208,208,208);
-    opacity: 0.33;
+    opacity: .33;
+    z-index: 9999;
+
+    }
+.quiz_div_mask_avertissement{      /* masque pour empecher des interractions avec les élément du dessous */
+    position:absolute;
+    left:0px;
+    top:0px;
+    /*display : none;*/
+    visibility : hidden;
+    width : 100%;
+    height : 600px;
+    background:rgb(208,208,208);
+    opacity: .33;
+    z-index: 9999;
+    text-align:center;
+    vertical-align:middle;
     }
 
+
+
+ /* masque pour empecher des interractions avec les élément du dessous */
+ /* et affiche d'un message de transition au slide suivant */
+.quiz_avertissement_next_slide{  
+    position:absolute;
+    left:0px;
+    top:0px;
+    /*display : none;*/
+    visibility : hidden;
+    width : 100%;
+    height : 600px;
+    background:transparent;
+    opacity: 1;
+    z-index: 9999;
+    text-align:center;
+    vertical-align:middle;
+}   
+.quiz_avertissement_next_slide div[mask]{     
+    position:absolute;
+    left:0px;
+    top:0px;
+    /*display : none;*/
+/*     visibility : hidden; */
+    width : 100%;
+    height : 600px;
+    background:rgb(208,208,208);
+    opacity: .33;
+    z-index: 9998;
+    text-align:center;
+    vertical-align:middle;
+    }
+
+.quiz_avertissement_next_slide div[message]{
+    position:absolute; 
+    width:70%;
+    transform:translate(15%,180%);
+    margin:auto;
+    /* visibility:hidden; */
+    padding: 32px;
+    -moz-border-radius:30px;
+    border-radius: 30px;
+
+    border:0px solid gray;
+    background:#FF9900;
+    font-size:1.5em;
+    font-weight:bold;
+    z-index:9999;
+    box-shadow: 8px 8px 5px #444;
+}
+
+.avertissement_fondu {
+    animation: avertissement_fadein 1s;
+    -moz-animation: avertissement_fadein 1s; /* Firefox */
+    -webkit-animation: avertissement_fadein 1s; /* Safari et Chrome */
+    -o-animation: avertissement_fadein 1s; /* Opera */
+}
+@keyframes avertissement_fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.8;
+    }
+}
+@-moz-keyframes avertissement_fadein { /* sur Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.8;
+    }
+}
+@-webkit-keyframes avertissement_fadein { /* sur Safari et Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:.8;
+    }
+}
+@-o-keyframes avertissement_fadein { /* sur Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: .8;
+    }
+}
+
+    
 /* /////////////////////////////////////////////////////////////// */
 
 
@@ -201,10 +308,10 @@ position:relative;
 /* *********************************************************** */
 #gigi_div_question{         /* pour la question et le commentaire associé */
     width : 100%;
-    min-height : 100px;
-    max-height : 200px;
+    min-height : 90px;
+    max-height : 150px;
 
-    background:rgb(255,51,0);
+    background:#FF6600;
     overflow-y: auto;
 
 }
@@ -336,6 +443,7 @@ cursor: pointer;
   margin-itemRound-bottom: 0px;
   padding-top: 0px;
   padding-itemRound-bottom: 0px;
+  max-height:220px;
 }
 
 .quiz_plugin_comment1{
@@ -740,4 +848,117 @@ input.slide-proposition2{
     padding:0px;
     font-weight:normal;
     line-height: 1.1em;
+}
+
+/* ********* style de ZOOM  ******** */
+
+.quiz_btnZoomEnable{
+    border:0px;
+    height : 32px;
+/* filter: grayscale(1); */
+}
+.quiz_btnZoomDisable{
+    border:0px;
+    height : 32px;
+    filter: grayscale(1);
+}
+
+.quiz_btnZoomEnable:hover{
+   transform: scale(1.2)  translate(3px);
+}
+
+.quiz_div_btn{
+    max-height:32px;
+    text-align:right;
+}
+
+.quiz_div_in_slide{
+    /* transition: transform 2s ease-in-out; */
+    /* background:red; */  
+    /* transition: scale 2s; */ 
+    /* position: absolute; */
+    /* width:100%; */ 
+    margin:auto;
+}
+
+
+.quiz_div_out_slide{
+    position: absolute;
+    
+    border-style:solid;
+    border-width:3px;
+    border-color:blue;
+    border-bottom-left-radius: 25px 25px;
+    border-bottom-right-radius: 25px 25px;
+    border-top-left-radius: 25px 25px;
+    border-top-right-radius: 25px 25px;
+    box-shadow: 8px 8px 5px #444;
+}
+
+.quiz_div_zoom_plus_begin{
+
+    animation: quiz_div_zoom_plus_anim 2s;
+
+
+    -moz-animation: quiz_div_zoom_plus_anim 2s; /* Firefox */
+    -webkit-animation: quiz_div_zoom_plus_anim 2s; /* Safari et Chrome */
+    -o-animation: quiz_div_zoom_plus_anim 2s; /* Opera */
+    /* transform: scale(1.6); */ 
+    animation-fill-mode: forwards; /* l'ordre des instruction est importante sinon ca ne fonctione pas */
+    animation-delay: 100ms;      
+    animation-iteration-count:1;
+ }
+
+@keyframes quiz_div_zoom_plus_anim {
+       0% {transform: scale(1);}
+       100% { transform:translate(-3%,-3%) scale(1.6); background:#EBEBEB;}
+}
+@-moz-keyframes quiz_div_zoom_plus_anim { /* sur Firefox */
+       0% {transform: scale(1);}
+       100% {transform:scale(1.6); transform:translate(20%,50%);}
+}
+@-webkit-keyframes quiz_div_zoom_plus_anim { /* sur Safari et Chrome */
+       0% {transform: scale(1);}
+       100% {transform:scale(1.6); transform:translate(20%,50%);}
+}
+@-o-keyframes quiz_div_zoom_plus_anim { /* sur Opera */
+       0% {transform: scale(1);}
+       100% {transform:scale(1.6); transform:translate(20%,50%);}
+}
+
+
+.quiz_div_zoom_moins_begin{
+    /* transform:   scale(1); */ 
+/*     left:100px; */
+    /* top:100px; */
+
+    animation: quiz_div_zoom_moins_anim 500ms;
+    -moz-animation: quiz_div_zoom_moins_anim 500ms; /* Firefox */
+    -webkit-animation: quiz_div_zoom_moins_anim 500ms; /* Safari et Chrome */
+    -o-animation: quiz_div_zoom_moins_anim 500ms; /* Opera */
+    /* transform: scale(1.6); */ 
+    animation-fill-mode: forwards; /* l'ordre des instruction est importante sinon ca ne fonctione pas */
+    animation-delay: 100ms;      
+    animation-iteration-count:1;
+ }
+/* ********************************************** */
+
+
+
+
+@keyframes quiz_div_zoom_moins_anim {
+       0% {transform: scale(1.6);border-width:3px;background:#EBEBEB;}
+       100% { transform: scale(1) transform:translate(0%,0%);border-width:0px;border-color:transparent;box-shadow: 0px 0px 0px #444;background:transparent;}
+}
+@-moz-keyframes quiz_div_zoom_moins_anim { /* sur Firefox */
+       0% {transform: scale(1.6);border-width:3px;background:#EBEBEB;}
+       100% { transform: scale(1) transform:translate(0%,0%);border-width:0px;border-color:transparent;box-shadow: 0px 0px 0px #444;background:transparent;}
+}
+@-webkit-keyframes quiz_div_zoom_moins_anim { /* sur Safari et Chrome */
+       0% {transform: scale(1.6);border-width:3px;background:#EBEBEB;}
+       100% { transform: scale(1) transform:translate(0%,0%);border-width:0px;border-color:transparent;box-shadow: 0px 0px 0px #444;background:transparent;}
+}
+@-o-keyframes quiz_div_zoom_moins_anim { /* sur Opera */
+       0% {transform: scale(1.6);border-width:3px;background:#EBEBEB;}
+       100% { transform: scale(1) transform:translate(0%,0%);border-width:0px;border-color:transparent;box-shadow: 0px 0px 0px #444;background:transparent;}
 }

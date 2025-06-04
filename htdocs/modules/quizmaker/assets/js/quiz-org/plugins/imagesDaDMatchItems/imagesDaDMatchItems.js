@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     imagesDaDMatchItems
+* *****************************************************************/
+function getPlugin_imagesDaDMatchItems(question, slideNumber){
+    return new imagesDaDMatchItems(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _imagesDaDMatchItems
+  *                     imagesDaDMatchItems
   * *****************************************************************/
 class imagesDaDMatchItems extends Plugin_Prototype{
 name = 'imagesDaDMatchItems';
@@ -71,17 +77,17 @@ onDragStart="dad_start(event);"`;
         src = `${quiz_config.urlQuizImg}/${ansImg.proposition}`;
         //au cas ou caption n'a pas ete renseigné, affiche le nom de l'image
         caption = (ansCap.caption) ? qbr +  ansCap.caption : ansCap.proposition; 
-        img = `<div>`
-            + `<img id="${ansImg.ansId}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" goodImg='${ansCap.proposition}' title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+        img = `<div class='imagesDaDMatchItems_div_img'>`
+            + `<img id="${ansImg.ansId}" etat="1"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg='${ansCap.proposition}' title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
             + `<span id=${ansCap.idCaption}>${caption}</span></div>`;
         
         tHtmlSequence.push(img);
         
     }
     //---------------------------------------------------------------------
-
     var tpl = this.getDisposition(currentQuestion.options.disposition, currentQuestion.options.directive)
             .replace("{message}", quiz_messages.message02)
+            .replace("{directive}", currentQuestion.options.directive)
             .replace('{sequence}', tHtmlSequence.join("\n"))
             .replace('{suggestion}', "");
     return tpl;
@@ -122,8 +128,8 @@ onDragStart="dad_start(event);"`;
             if(ans.isOk) {
                 src = `${quiz_config.urlQuizImg}/${ans.image1}`;
                 caption = (ans.caption) ? qbr + ans.caption : ''; 
-                img = `<div>`
-                    + `<img id="${ans.ansId}" etat="1"  class='imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+                img = `<div class='imagesDaDMatchItems_div_img'>`
+                    + `<img id="${ans.ansId}" etat="1"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
                     + `<span>${caption}</span></div>`;        
                 tHtmlSequence.push(img);
             }
@@ -135,8 +141,8 @@ onDragStart="dad_start(event);"`;
             if(ans.image1) {
                 src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
                 caption = (ans.caption) ? qbr + ans.caption : ''; 
-                img = `<div>`
-                    + `<img id="${ans.ansId}" etat="2"  class='imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+                img = `<div class='imagesDaDMatchItems_div_img'>`
+                    + `<img id="${ans.ansId}" etat="2"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
                     + `<span>${caption}</span></div>`;        
                 tHtmlSequence.push(img);
             }
@@ -161,13 +167,15 @@ onDragStart="dad_start(event);"`;
             var etat = (bShuffle) ? 0 : 1;
             //console.log("ans.idImg = " + ans.idImg);
             src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
-            img = `<img id="${idBasket}" etat="${etat}" class='imagesDaDMatchItems_myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title=""  ${eventImgFromStyle} alt=""  ${eventImgFrom}>`;
+            img = `<img id="${idBasket}" etat="${etat}" class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title=""  ${eventImgFromStyle} alt=""  ${eventImgFrom}>`;
             tHtmlSuggestion.push(img);
         }
     }
     //---------------------------------------------------------------------
+//currentQuestion.options.directive = currentQuestion.options.disposition ; //pour test
     var tpl = this.getDisposition(currentQuestion.options.disposition, currentQuestion.options.directive)
             .replace("{message}", quiz_messages.message02)
+            .replace("{directive}", currentQuestion.options.directive)
             .replace('{sequence}', tHtmlSequence.join("\n"))
             .replace('{suggestion}', tHtmlSuggestion.join("\n"));
     return tpl;
@@ -178,7 +186,7 @@ onDragStart="dad_start(event);"`;
     
     var currentQuestion = this.question;
     this.data.masks = 0;
-
+//alert('prepareData : ' + this.slideNumber + ' - ' + currentQuestion.question + ' - '+ currentQuestion.options.disposition);
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
         ans.idCaption = this.getId("img",k);
@@ -194,10 +202,20 @@ Mise à jour des couleurs de fond différentes pour chaque question
 onEnter() {
    var currentQuestion = this.question;
     
-    setStyleAttribute(this.getId('source'), 'background-color', currentQuestion.options.bgSource);
-    setStyleAttribute(this.getId('silouhette'), 'background-color', currentQuestion.options.bgSilhouette);
+    //setStyleAttribute(this.getId('source'), 'background-color', currentQuestion.options.bgSource);
+    //setStyleAttribute(this.getId('silouhette'), 'background-color', currentQuestion.options.bgSilhouette);
 }
 
+//---------------------------------------------------
+onFinalyse() {
+    super.onFinalyse();
+    var currentQuestion = this.question;
+
+    if(currentQuestion.options.zoom == 2) {
+        zoom_plus(event, this.slideNumber);  
+    }  
+console.log('===> onFinalyse : ' + currentQuestion.question);
+}       
 
 /* **************************************************
 calcul le nombre de points obtenus d'une question/slide
@@ -256,47 +274,58 @@ getAllReponses (flag = 0){
 /* ***************************************
 *
 * *** */
-getDisposition(disposition, directiveExists = false){
-    var directive = "";
+getDisposition(disposition, directive){
+    var currentQuestion = this.question;
+    var posDirective = "";
+    var bgSource     = `background-color:${currentQuestion.options.bgSource}`;
+    var bgSilhouette = `background-color:${currentQuestion.options.bgSilhouette}`;
 
     switch(disposition){
         default:
         case 'disposition-00':
-            if (directiveExists) directive= "{directive}<hr>";
-            var tpl = `${directive}<div id='${this.getId('source')}'>{sequence}</div>`;
+            if (directive) posDirective = `${directive}<hr>`;
+            var tpl = `<center>${posDirective}</center><br><div id='${this.getId('source')}' class='imagesDaDMatchItems_groups' style='max-width:700px;background:${currentQuestion.options.bgSource};'>{sequence}</div>`;
             break;
         case 'disposition-10':
-            if (directiveExists) directive= "<tr><td><hr>{directive}<hr></td></tr>";
-            var tpl = `<table width:"100%"'>
-                        <tr><td id='${this.getId('silouhette')}' silouhette>{sequence}</td></tr>
-                        ${directive}
-                        <tr><td  id='${this.getId('source')}' source>{suggestion}</td></tr>
+            if (directive) posDirective = `<tr><td><hr>${directive}<hr></td></tr>`;
+            var tpl = `<table width="700px">
+                        <tr><td id='${this.getId('silouhette')}' style='${bgSilhouette};' silouhette>{sequence}</td></tr>
+                        ${posDirective}
+                        <tr><td  id='${this.getId('source')}' style='${bgSource};' source>{suggestion}</td></tr>
                     </table>`;
             break;
         case 'disposition-11':
-            if (directiveExists) directive= "<tr><td><hr>{directive}<hr></td></tr>";
-            var tpl = `<table width:"100%"'>
-                        ${directive}
-                        <tr><td  id='${this.getId('source')}' source>{suggestion}</td></tr>
-                        <tr><td id='${this.getId('silouhette')}' silouhette>{sequence}</td></tr>
+            if (directive) posDirective= `<tr><td><hr>${directive}<hr></td></tr>`;
+            var tpl = `<table  width="700px">
+                        ${posDirective}
+                        <tr><td  id='${this.getId('source')}' style='${bgSource};' source>{suggestion}</td></tr>
+                        <tr><td id='${this.getId('silouhette')}' style='${bgSilhouette};' silouhette>{sequence}</td></tr>
                     </table>`;
             break;
         case 'disposition-20':
-            if (directiveExists) directive= "{directive}<hr>";
-            var tpl = `${directive}<table><tr>
-                        <td  id='${this.getId('source')}' style='width:50%;vertical-align: top;' source>{suggestion}</td>
-                        <td id='${this.getId('silouhette')}' style='width:50%;vertical-align: top;' silouhette>{sequence}</td>
+            if (directive) posDirective = `${directive}<hr>`;
+            var tpl = `${posDirective}<table  width="700px"><tr>
+                        <td  id='${this.getId('source')}' style='${bgSource};width:50%;vertical-align: top;' source>{suggestion}</td>
+                        <td id='${this.getId('silouhette')}' style='${bgSilhouette};width:50%;vertical-align: top;' silouhette>{sequence}</td>
                     </tr></table>`;
             break;
         case 'disposition-21':
-            if (directiveExists) directive= "{directive}<hr>";
-            var tpl = `${directive}<table><tr>
-                        <td id='${this.getId('silouhette')}' style='width:50%;vertical-align: top;' silouhette>{sequence}</td>
-                        <td  id='${this.getId('source')}' style='width:50%;vertical-align: top;' source>{suggestion}</td>
+            if (directive) posDirective = `${directive}<hr>`;
+            var tpl = `${posDirective}<table  width="700px"><tr>
+                        <td id='${this.getId('silouhette')}' style='${bgSilhouette};width:50%;vertical-align: top;' silouhette>{sequence}</td>
+                        <td  id='${this.getId('source')}' style='${bgSource};width:50%;vertical-align: top;' source>{suggestion}</td>
                     </tr></table>`;
             break;
     }
-    return tpl;
+    
+    //tpl = `<div>${tpl}</div>`;
+    //alert(`slideNumber : ${this.slideNumber} - zoom = ${currentQuestion.options.zoom} - disposition = ${disposition}`);
+    if(currentQuestion.options.zoom > 0){
+        return zoom_getCapsule(tpl, this.slideNumber);
+    }else{
+        return tpl;
+    }
+
 }
 
 } // ----- fin de la classe ------

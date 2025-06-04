@@ -18,12 +18,27 @@
     background: #dfdfdf;
 }
 
-.imagesDaDMatchItems div:hover{
-    border: 0px solid green;
+
+.imagesDaDMatchItems_groups{
+
+/*     width:auto; */
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+
+    /*background-color:rgb(204,255,255);*/
+
+    float:left;
+    margin:5px;
+    font-size:0.8em;
+    text-align:center;
+    padding:2px;
 }
 
-.imagesDaDMatchItems div{
-    width:auto;
+.imagesDaDMatchItems_div_img{
+
+/*     width:auto; */
     -moz-border-radius: 12px 12px 12px 12px;
     -webkit-border-radius: 12px 12px 12px 12px;
     -khtml-border-radius: 12px 12px 12px 12px;
@@ -32,16 +47,18 @@
     /*background-color:rgb(204,255,255);*/
     background-color: transparent;
 
-    float:left;margin:5px;
+    float:left;
+    margin:5px;
     font-size:0.8em;
     text-align:center;
     padding:2px;
 }
-.imagesDaDMatchItems div:hover{
+
+.imagesDaDMatchItems_div_img:hover{
     border: 0px solid green;
 }
 
-.imagesDaDMatchItems img{
+.imagesDaDMatchItems_img{
     -moz-border-radius: 12px 12px 12px 12px;
     -webkit-border-radius: 12px 12px 12px 12px;
     -khtml-border-radius: 12px 12px 12px 12px;
@@ -50,9 +67,10 @@
     /* border: 4px solid green; */
     cursor:grab;
 }
-.imagesDaDMatchItems img:hover{
+.imagesDaDMatchItems_img:hover{
     border: 4px solid red;
 }
+
 
 .imagesDaDMatchItems_myimg1{
     border: 4px solid transparent;

@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     imagesLogical
+* *****************************************************************/
+function getPlugin_imagesLogical(question, slideNumber){
+    return new imagesLogical(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _imagesLogical
+  *                     imagesLogical
   * *****************************************************************/
 class imagesLogical extends Plugin_Prototype{
 name = 'imagesLogical';

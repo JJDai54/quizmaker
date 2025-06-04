@@ -287,10 +287,10 @@ _quizmaker
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.css
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.js
 							assets\js\quiz-org\plugins\alphaSimple\index.html
-						-choiceSimple
-							assets\js\quiz-org\plugins\choiceSimple\choiceSimple.css
-							assets\js\quiz-org\plugins\choiceSimple\choiceSimple.js
-							assets\js\quiz-org\plugins\choiceSimple\index.html
+						-selectInputs
+							assets\js\quiz-org\plugins\selectInputs\selectInputs.css
+							assets\js\quiz-org\plugins\selectInputs\selectInputs.js
+							assets\js\quiz-org\plugins\selectInputs\index.html
 						-imagesColor
 							assets\js\quiz-org\plugins\imagesColor\imagesColor.css
 							assets\js\quiz-org\plugins\imagesColor\imagesColor.js
@@ -692,25 +692,25 @@ _quizmaker
 				plugins\alphaSimple\alphaSimple.php
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\plugin_alphaSimple.zip
-			+choiceSimple
+			+selectInputs
 				-language
 					+english
-						plugins\choiceSimple\language\english\constants.php
-						plugins\choiceSimple\language\english\help.html
-						plugins\choiceSimple\language\english\index.html
+						plugins\selectInputs\language\english\constants.php
+						plugins\selectInputs\language\english\help.html
+						plugins\selectInputs\language\english\index.html
 					-french
-						plugins\choiceSimple\language\french\constants.php
-						plugins\choiceSimple\language\french\help.html
-						plugins\choiceSimple\language\french\index.html
-					plugins\choiceSimple\language\index.html
+						plugins\selectInputs\language\french\constants.php
+						plugins\selectInputs\language\french\help.html
+						plugins\selectInputs\language\french\index.html
+					plugins\selectInputs\language\index.html
 				-snapshoot
-					plugins\choiceSimple\snapshoot\index.html
-					plugins\choiceSimple\snapshoot\snapshoot-000.jpg
-					plugins\choiceSimple\snapshoot\snapshoot-001.jpg
-					plugins\choiceSimple\snapshoot\snapshoot-002.jpg
-				plugins\choiceSimple\choiceSimple.php
-				plugins\choiceSimple\index.html
-				plugins\choiceSimple\plugin_choiceSimple.zip
+					plugins\selectInputs\snapshoot\index.html
+					plugins\selectInputs\snapshoot\snapshoot-000.jpg
+					plugins\selectInputs\snapshoot\snapshoot-001.jpg
+					plugins\selectInputs\snapshoot\snapshoot-002.jpg
+				plugins\selectInputs\selectInputs.php
+				plugins\selectInputs\index.html
+				plugins\selectInputs\plugin_selectInputs.zip
 			-imagesColor
 				-img
 				+language

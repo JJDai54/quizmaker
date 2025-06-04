@@ -968,12 +968,12 @@ var reponse = '';
     for(var h = 0; h < arrExp1.length;  h++){
         regAccent = new RegExp('[' + arrExp1[h].substring(1) + ']', globalParam);
         car2rep = arrExp1[h][0];
-        //console.log('sanityseAccents : ' + regAccent + "--->" + car2rep)
+        //console.log('sanityseAccents : ' + regAccent + "--->" + car2rep);
         reponse = reponse.replaceAll(regAccent, car2rep);
         
         regAccent = new RegExp('[' + arrExp1[h].substring(1).toUpperCase() + ']', globalParam);
         car2rep = arrExp1[h][0].toUpperCase();
-        //console.log('sanityseAccents : ' + regAccent + "--->" + car2rep)
+        //console.log('sanityseAccents : ' + regAccent + "--->" + car2rep);
         reponse = reponse.replaceAll(regAccent, car2rep);
 
        //if(!ignoreCasse)
@@ -1044,12 +1044,12 @@ function replaceBalisesByValues(exp, questId = 0)
         newExp = newExp.replaceAll(`{${key}}`, quiz_rgp[key]);
     });
     
-    if (newExp.search('{sommaire}') >= 0)     {newExp = newExp.replaceAll("{sommaire}", get_sommaire(0));}
-    if (newExp.search('{groups}') >= 0)       {newExp = newExp.replaceAll("{groups}", get_sommaire(1));}
+    if (newExp.search('{sommaire}') >= 0)     {newExp = newExp.replaceAll("{sommaire}", get_sommaire(0,0));}
+    if (newExp.search('{groups}') >= 0)       {newExp = newExp.replaceAll("{groups}", get_sommaire(1,0));}
     if (newExp.search('{allquestions}') >= 0) {newExp = newExp.replaceAll("{allquestions}", get_sommaire(2,0));}
     if (newExp.search('{questions}') >= 0)    {newExp = newExp.replaceAll("{questions}", get_sommaire(2, questId));}
    
-    var newExp = newExp.replaceAll('//',  '<br>');
+    var newExp = newExp.replaceAll('\/\/',  '<br>');
     return newExp;
     
   } 
@@ -1061,6 +1061,7 @@ var isGroup = false;
 //var numSlide = 0;
 var bolOk = true;
 var tRet = [];
+
     quizard.forEach((clQuestion, numSlide) => {
         switch (selection){
         default :
@@ -1071,28 +1072,29 @@ var tRet = [];
             bolOk = (!clQuestion.question.isQuestion); 
             break;
         case 2: // liste des questions sans les groupes filtrer eventuellement par parentId
-            bolOk = (clQuestion.question.isQuestion && (clQuestion.question.parentId == questId || questId == 0)  ); 
+            bolOk = (clQuestion.question.isQuestion && (clQuestion.question.parentId == questId || questId == 0)); 
 //console.log(`=>get_sommaire ${selection} - questId = ${questId}`);
             break;
         }
         if (bolOk){
-            console.log ("===> test : " + clQuestion.question.pluginName  + " - " + clQuestion.question.question);
+            //console.log ("===> test : " + clQuestion.question.pluginName  + " - " + clQuestion.question.question);
             var onClick = `onClick="gotoSlideNum(${numSlide});"`;
-            var exp = `${numSlide}-${clQuestion.question.pluginName }-${clQuestion.sanityse_question()}`;
+            var exp = `${numSlide}-${clQuestion.question.pluginName}-${clQuestion.sanityse_question()}`;
             
             if( clQuestion.question.isQuestion){
-                var link =`<h2 ${onClick}>${exp}</h2>` 
-                //var link =`<a ${onClick}>${exp}</a>` 
+                var link =`<h2 ${onClick}>${exp}</h2>`; 
+                //var link =`<a ${onClick}>${exp}</a>`; 
             }else{
-                var link =`<h1 ${onClick}>${exp}</h1>` 
+                var link =`<h1 ${onClick}>${exp}</h1>`; 
             } 
             tRet.push(link);
          }
     
       });
 
-    console.log(tRet.join("<br>\n"));
-    return "<div name='quiz_div_sommaire' sommaire class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>";
+    //console.log(tRet.join("<br>\n"));
+    return ('<div name="quiz_div_sommaire" sommaire class="quiz_sommaire">' + tRet.join("<br>\n") + "</div>");
+    //return ("<div name='quiz_div_sommaire' sommaire class='quiz_sommaire'>" + tRet.join("<br>\n") + "</div>");
 }
 
 //function getMarginStyle(nbItems, min=5, max=12, numStyle=0, extra=''){
@@ -1228,7 +1230,7 @@ function get_highslide_a(imgUrl, width = '', height = '', path = '', lettrine = 
     }
     
     var html = `<div class='highslide-gallery' ${divStyle}>`  
-             + `<a href='http://127.0.0.16/uploads/quizmaker/quiz-js/QuizFevier2024-v02-5784/${imgUrl}' class='highslide' onclick='return hs.expand(this);'>`
+             + `<a href='${imgUrl}' class='highslide' onclick='return hs.expand(this);'>`
              + `<img src='${imgUrl}'  alt='' ${style}/>`
              + `</a></div>`;
     return html; 
@@ -1395,7 +1397,7 @@ function strToArrayNum(strExp, sep=","){
     
     for (var i = 0; i < strArr.length; i++) {
       intArr[i] = strArr[i]*1;
-     //console.log(`computeScoresMinMaxByProposition - inputs = ${currentQuestion.answers[k].inputs} - ${this.question.answers[k].proposition} -(${tPoints[i]}`))
+     //console.log(`computeScoresMinMaxByProposition - inputs = ${currentQuestion.answers[k].inputs} - ${this.question.answers[k].proposition} -(${tPoints[i]}`));
     }
     return intArr;
 }
@@ -1406,7 +1408,7 @@ function arrayToArrayNum(strArr){
     var intArr = new Int8Array(strArr.length);
     for (var i = 0; i < strArr.length; i++) {
       intArr[i] = strArr[i]*1 ;
-     //console.log(`computeScoresMinMaxByProposition - inputs = ${currentQuestion.answers[k].inputs} - ${this.question.answers[k].proposition} -(${tPoints[i]}`))
+     //console.log(`computeScoresMinMaxByProposition - inputs = ${currentQuestion.answers[k].inputs} - ${this.question.answers[k].proposition} -(${tPoints[i]}`));
     }
     return intArr;
 }
@@ -1448,7 +1450,7 @@ function componentFromStr(numStr, percent) {
   //console.log(aStyleSheets[i].cssRules);
     try{
       var aCssRules =  aStyleSheets[i].cssRules;
-      console.log("modifCSSRule===> aCssRules : " + aCssRules)
+      console.log("modifCSSRule===> aCssRules : " + aCssRules);
       for(var j = 0; j < aCssRules.length; ++j){   
         if(exp_reg.test(aCssRules[j].selectorText)){ 
           aCssRules[j].style[sPropriete]= sVal;
@@ -1470,4 +1472,219 @@ function componentFromStr(numStr, percent) {
         ob.setAttribute("style", sAttribut + ':' + sVal);
         //obSilouhette.style.background=currentQuestion.options.bgSilhouette;
     }
+}
+
+
+function playSound(src){
+  let audio = new Audio(src);
+    audio.play();
+
+}
+
+/* *******************************************
+* affiche me message d'avertissement et passe au slide suivant
+* ********** */
+function quiz_show_avertissement(message, nextSlideDelai, background='#FFCCFF'){
+ 
+    avertissementId = 'quiz_avertissement';
+    divAvertissement =  document.getElementById(avertissementId);
+    divMask =  document.getElementById(avertissementId + '-mask');
+
+    if(divAvertissement){
+      //actualisation des scores et avancement dans le quiz
+      computeAllScoreEvent();    
+      //remplacement des tokens par les scores
+      divAvertissement.innerHTML = replaceBalisesByValues(message);
+      divAvertissement.style.background = background;
+
+      divMask.style.visibility = 'visible';
+      divAvertissement.classList.add('avertissement_fondu');  
+      
+      setTimeout(quiz_next_slide, nextSlideDelai*1000, avertissementId);
+      return true;      
+    }else{
+        return false;
+    }
+}
+
+/* *******************************************
+* 
+* ********** */
+
+function quiz_next_slide(avertissementId){
+// alert(`fO_next_slide : delai = ${nextSlideDelai}`);
+    var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
+        btnNextSlide.disabled = '';   
+        btnNextSlide.click(); 
+    
+    //avertissementId = 'quiz_avertissement';
+    
+    divAvertissement =  document.getElementById(avertissementId);
+   if(divAvertissement){
+//      divAvertissement.style.visibility = 'hidden';
+      divAvertissement.style.opacity = '0';
+      divAvertissement.classList.remove('avertissement_fondu');        
+
+      var obMask = document.getElementById(avertissementId + '-mask');
+      obMask.style.visibility = 'hidden';
+   }
+   
+}
+
+/* ***************************************
+algorithme qui calcul la position absolue d'un div sur une page html 
+**************************************** */
+function getAbsolutePosition(element) {
+  //return { 'x': 0, 'y': 0 };
+  let x = 0;
+  let y = 0;
+  let currentElement = element;
+
+  while (currentElement && currentElement !== document.body) {
+    x += currentElement.offsetLeft;
+    y += currentElement.offsetTop;
+    currentElement = currentElement.offsetParent;
+  }
+    console.log(`getAbsolutePosition :  obSource : ${element.id} - x = ${x} - y = ${y}`);
+
+  return { 'x': x, 'y': y };
+}
+
+//fonction pas convaincante
+function getPosition(elt){
+    var posX = elt.offsetLeft;
+    var posY = elt.offsetTop + elt.offsetHeight;
+    while (elt.offsetParent) {
+        elt = elt.offsetParent;
+        posX += elt.offsetLeft;
+        posY += elt.offsetTop;
+    }
+    //return {haut: posY, gauche: posX}
+  return { 'x': posX, 'y':  posY};
+}
+
+/* ********* function de ZOOM  ******** */
+/* ***************************************
+
+**************************************** */
+function zoom_getBtnZoom(slideNumber, disable = false){
+console.log('===>zoom_capsule');
+    var clQuestion = quizard[slideNumber];
+
+    if(disable){
+        var btn1 = `<img src='${quiz_config.urlCommonImg}/plus.png'  class='quiz_btnZoomDisable'>`;
+        var btn2 = `<img src='${quiz_config.urlCommonImg}/moins.png' class='quiz_btnZoomDisable'>`;
+    }else{
+        var btn1 = `<img src='${quiz_config.urlCommonImg}/plus.png'  class='quiz_btnZoomEnable' onclick='zoom_plus(event, ${slideNumber});'>`;
+        var btn2 = `<img src='${quiz_config.urlCommonImg}/moins.png' class='quiz_btnZoomEnable' onclick='zoom_moins(event, ${slideNumber});'>`;
+    }
+    
+    return `<div class='quiz_div_btn'><b>Zoom : </b>${btn1} ${btn2}</div>`;
+
+}
+/* ***************************************
+
+**************************************** */
+function zoom_getCapsule(htmlSlide, slideNumber){
+console.log('===>zoom_capsule');
+    var clQuestion = quizard[slideNumber];
+
+    var idContenair1 = clQuestion.getId('contenair1');
+    return  `<div id='${idContenair1}' class='quiz_div_in_slide'>${zoom_getBtnZoom(slideNumber)}` + htmlSlide + `</div>`;
+
+}
+/* ***************************************
+
+**************************************** */
+function zoom_plus(ev, slideNumber){
+console.log('===>zoom_plus');
+    var clQuestion = quizard[slideNumber];
+    if(clQuestion.isZoomed == true) return true;
+//return false;
+
+    var idContenair1 = clQuestion.getId('contenair1');
+    //alert(idContenair1);
+    var obContenair1 = document.getElementById(idContenair1);
+    var absolutePosition = getAbsolutePosition(obContenair1);
+    
+
+    //alert( decalageH);
+
+    document.body.appendChild(obContenair1);
+
+    if(!obContenair1.classList.contains('quiz_div_out_slide')){
+        obContenair1.classList.add('quiz_div_out_slide');
+    }
+    
+    //calcul du decalage du au centrage de obContenair1
+    var decalageH = (document.getElementById('quiz_div_main').offsetWidth - obContenair1.offsetWidth) / 2;
+    obContenair1.style.left = (absolutePosition.x+decalageH) + 'px';
+    obContenair1.style.top = absolutePosition.y + 'px';
+
+
+    if(obContenair1.classList.contains('quiz_div_zoom_moins_begin')){
+        obContenair1.classList.remove('quiz_div_zoom_moins_begin');
+    } 
+    if(!obContenair1.classList.contains('quiz_div_zoom_plus_begin')){
+        obContenair1.classList.add('quiz_div_zoom_plus_begin');
+    }
+    clQuestion.isZoomed = true;
+    ev.stopPropagation();
+
+    return true;
+}
+
+/* ***************************************
+
+**************************************** */
+function zoom_moins(ev, slideNumber){
+console.log('===>zoom_moins');
+    var clQuestion = quizard[slideNumber];
+    if(clQuestion.isZoomed == false){return false;}
+    
+console.log('===>zoom_moins : ' + 2);
+    var idContenair1 = clQuestion.getId('contenair1');
+    var idContenair2 = clQuestion.getId('main');
+
+    var obContenair1 = document.getElementById(idContenair1);
+    var obContenair2 = document.getElementById(idContenair2);
+console.log('===>zoom_moins : ' + 3);
+    /*
+    */
+     obContenair1.classList.remove('quiz_div_zoom_plus_begin');
+     obContenair1.classList.add('quiz_div_zoom_moins_begin');
+
+
+    setTimeout(zoom_end,1000, idContenair1, idContenair2);
+    clQuestion.isZoomed = false;
+console.log('===>zoom_moins : ' + 4);
+    ev.stopPropagation();
+
+}
+
+function zoom_end(idContenair1, idContenair2){
+
+     var obContenair1 = document.getElementById(idContenair1);
+     var obContenair2 = document.getElementById(idContenair2);
+     
+     //histoire de replacer l'image au centre du slide
+     //obContenair2.appendChild(obContenair1);
+     obCenter = document.createElement('center');
+     obCenter.appendChild(obContenair1);
+     obContenair2.appendChild(obCenter);
+     
+     
+    //obContenair1.classList.replace('quiz_div_zoom_moins_begin','quiz_div_in_slide');
+
+    obContenair1.classList.remove('quiz_div_zoom_moins_begin');
+    if(obContenair1.classList.contains('quiz_div_out_slide')){
+        obContenair1.classList.remove('quiz_div_out_slide');
+    }
+    obContenair1.classList.add('quiz_div_in_slide');
+obContenair1.style.position = '';
+obContenair1.style.left = '';
+obContenair1.style.top ='';
+    
+console.log('zoom_end' + '->' + obContenair1.classList);
+
 }

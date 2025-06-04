@@ -24,16 +24,19 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_RADIOMULTIPLE', "Retrouver les termes qui vont ensemble");
-define('_LG_PLUGIN_RADIOMULTIPLE_DESC', "Ce slide est composé de plusieurs liste avec un nombre identique de termes.<br>Il faut retouver les termes qui vont ensemble.<br>Plusieurs solutions peuvent être proposées avec un nombre de points différent.");
-define('_LG_PLUGIN_RADIOMULTIPLE_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_RADIOMULTIPLE', "Find the terms that go together");
+define('_LG_PLUGIN_RADIOMULTIPLE_DESC', "This slide is composed of several lists with an identical number of terms.<br>You must find the terms that go together.<br>Several solutions can be proposed with a different number of points.");
+define('_LG_PLUGIN_RADIOMULTIPLE_CONSIGNE', "Instructions to complete");
 
-define('_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION', "Orientation des groupes de boutons radios");
-define('_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_V', "Verticale");
-define('_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_H', "Horizontale");
+define('_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION', "Orientation of the radio button groups");
+define('_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_V', "Vertical");
+define('_LG_PLUGIN_RADIOMULTIPLE_ORIENTATION_H', "Horizontal");
 
 define('_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE', "Directive");
-define('_LG_PLUGIN_RADIOMULTIPLE_DESC', "Action à faire.");
+define('_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_DESC', "Action to perform.");
 define('_LG_PLUGIN_RADIOMULTIPLE_DIRECTIVE_LIB', "");
+
+define('_LG_PLUGIN_RADIOMULTIPLE_NB_COLUMN', "Number of columns: ");
+define('_LG_PLUGIN_RADIOMULTIPLE_NB_COLUMN_DESC', "Value between 2 and 5.<br>The default number of columns is five.<br><span style='color:red;'><b>Important</b>: If the number is reduced, the data in the deleted columns will be lost.<br>The form display will change after form validation.</span>");
 
 ?>

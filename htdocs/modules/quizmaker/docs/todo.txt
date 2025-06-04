@@ -1,3 +1,7 @@
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_background` VARCHAR(255) NOT NULL AFTER `quest_image`; 
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_background` VARCHAR(255) NOT NULL AFTER `quiz_theme`; 
+
+
 //---------------------------------------
 faire le ménage dans les enregistremant orphelins
 
@@ -219,7 +223,7 @@ ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_libBegin` VARCHAR(120) NOT NULL AFTE
 ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_optionsIhm` INT NOT NULL DEFAULT '0' AFTER `quiz_execution`, ADD `quiz_optionsDev` INT NOT NULL AFTER `quiz_optionsIhm`; 
 
 
-ALTER TABLE x251_quizmaker_quiz DROP quiz_showTypeQuestion;
+ALTER TABLE x251_quizmaker_quiz DROP quiz_showPlugin;
 ALTER TABLE x251_quizmaker_quiz DROP quiz_showReloadAnswers;
 ALTER TABLE x251_quizmaker_quiz DROP quiz_showGoToSlide;
 ALTER TABLE x251_quizmaker_quiz DROP quiz_showGoodAnswers;
@@ -308,7 +312,7 @@ _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC
         
         
 
-quiz_showTypeQuestion
+quiz_showPlugin
 quiz_showReloadAnswers
 quiz_showGoToSlide
 quiz_showGoodAnswers        
@@ -345,7 +349,8 @@ quiz_showReponsesBottom
   `quiz_showReponsesBottom` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_showLog` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_legend` text NOT NULL,
-  `quiz_theme` varchar(50) NOT NULL,
+  `quiz_theme` varchar(250) NOT NULL,
+  `quiz_background` varchar(50) NOT NULL,
   `quiz_shuffleQuestions` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_showGoToSlide` tinyint(1) NOT NULL DEFAULT '0',
   `quiz_minusOnShowGoodAnswers` tinyint(1) NOT NULL DEFAULT '0',

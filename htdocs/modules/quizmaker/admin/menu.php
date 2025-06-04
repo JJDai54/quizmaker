@@ -31,7 +31,10 @@ $sysPathIcon32 = $moduleInfo->getInfo('sysicons32');
 include_once(XOOPS_ROOT_PATH . '/Frameworks/janus/class/Permissions.php');
 include_once(XOOPS_ROOT_PATH . '/modules/quizmaker/include/common.php');
 
-
+if(!is_dir(XOOPS_ROOT_PATH . "/Frameworks/janus")){
+    $adminmenu=[];
+    return true;
+}
 $clPerms = new JanusPermissions('quizmaker');
 
 $adminmenu[] = [

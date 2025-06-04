@@ -1,13 +1,6 @@
-﻿
-.sortItems{
-  width:100%;
-  text-align: right; 
-  border:0px solid blue;
-  cellpadding:2:
-  cellspacing:2;
-  /* background:blue; */
-}
-
+﻿/* *********************** */
+/* ******* sortItems ***** */
+/* *********************** */
 .sortItems table{
   margin-top:0px;
   border: 0px solid black;
@@ -23,30 +16,61 @@
     text-align:center;
 }
 
-.sortItems td[listbox]{
+/* ******************************* */
+/* ******* sortItems_listbox ***** */
+/* ******************************* */
+.sortItems_listbox{
+  width:100%;
+  text-align: right; 
+  border:0px solid blue;
+  cellpadding:2:
+  cellspacing:2;
+  /* background:blue; */
+}
+
+.sortItems_listbox table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+  width:80%;
+  font-size:1.0em;
+  cellpadding:2:
+  cellspacing:2;
+  text-align: center; 
+}
+
+.sortItems_listbox td{
+    text-align:center;
+}
+
+.sortItems_listbox td[listbox]{
   font-size:1.1em;
   color:blue;
   font-weight:bold;
   /* background:blue; */
 }
 
-.sortItems td[buttons]{
+.sortItems_listbox select{
+  text-align: center; 
+}
+
+.sortItems_listbox td[buttons]{
     vertical-align: middle;
     width:180px;
 }
 
-.sortItems span{
+.sortItems_listbox span{
     font-size: 1.4em;
     font-weight:bold;
 }
 
-.sortItems img{
+.sortItems_listbox img{
 	border:none;
     margin-top:10px;
 }
 
 
-.sortItems img:hover{
+.sortItems_listbox img:hover{
     -moz-transform: translate(+3px, +3px);
     -ms-transform: translate(+3px, +3px);
     -o-transform: translate(+3px, +3px);
@@ -60,17 +84,318 @@
 
 
 
-.sortItems select{
+.sortItems_listbox select{
   font-size:1.2em;
   width:100%;
 }
-.sortItems td{
+.sortItems_listbox td{
   text-align:center;
   border: 0px solid black;
 }
  
-.sortItems span{
+.sortItems_listbox span{
     font-size:1.2em;
     font-weight:bold;
  }          
-          
+
+
+/* ******************************** */
+/* ******* sortItems_combobox ***** */
+/* ******************************** */
+.sortItems_combobox{
+  width:100%;
+  text-align: right; 
+  border:0px solid blue;
+  cellpadding:2:
+  cellspacing:2;
+  /* background:blue; */
+}
+
+.sortItems_combobox table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+  width:80%;
+  font-size:1.0em;
+  cellpadding:2:
+  cellspacing:2;
+  text-align: center; 
+}
+
+.sortItems_combobox td{
+    text-align:center;
+}
+
+.sortItems_combobox td[listbox]{
+  font-size:1.1em;
+  color:blue;
+  font-weight:bold;
+  /* background:blue; */
+}
+
+.sortItems_combobox select{
+  text-align: center; 
+}
+
+.sortItems_combobox td[buttons]{
+    vertical-align: middle;
+    width:180px;
+}
+
+.sortItems_combobox span{
+    font-size: 1.4em;
+    font-weight:bold;
+}
+
+.sortItems_combobox select{
+  font-size:1.2em;
+  width:100%;
+}
+.sortItems_combobox td{
+  text-align:center;
+  border: 0px solid black;
+}
+ 
+.sortItems_combobox span{
+    font-size:1.2em;
+    font-weight:bold;
+ }          
+
+/* ********************************* */
+/* ******* sortItems_ulDaDList ***** */
+/* ********************************* */
+.sortItems_ulDaDList table{
+  margin-top:0px;
+  border: 0px solid black;
+  border-collapse: collapse;
+  width:80%;
+  font-size:1.0em;
+  cellpadding:2:
+  cellspacing:2;
+  text-align: center; 
+}
+
+.sortItems_ulDaDList td{
+    text-align:center;
+}
+
+.ulDaDSortList {
+ width:60%;
+  
+ text-align:center;
+ font-size:1.2em;
+  /* background:cyan; */  
+
+}
+
+.ulDaDSortList span{
+    font-size:1.4em;
+    font-weight:bold;
+}
+
+.ulDaDSortList_slist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align:center;
+}
+
+.ulDaDSortList_slist li {
+  margin: 5px;
+  padding: 6px;
+  border: 1px solid #dfdfdf;
+  background: #f5f5f5;    /* background des items par defaut */
+  cursor: grab;
+  -moz-border-radius:8px;
+  border-radius:8px;
+  width:90%;
+}
+
+/* (B) DRAG-AND-DROP HINT 
+*/
+.ulDaDSortList_slist li.hint {
+  border: 1px solid #ffc49a;
+  background: #feffb4;  /* background de tous les items pendant le survol */
+}
+.ulDaDSortList_slist li.active {
+  border: 1px solid #ffa5a5;
+  background: #ffe7e7;   /* background de l'item survole pendant drag on drop*/
+}
+.ulDaDSortList_slist li:hover {
+  border: 1px solid #ffa5a5;
+  background: #00FF00;      /* background de l'item survole avant drag on drop*/
+}
+
+.ulDaDSortList_slist li{background:#aaffff;}
+.ulDaDSortList_slist li.hint{background:#aaffff;}
+.ulDaDSortList_slist li.active{background:#ffe7e7;}
+.ulDaDSortList_slist li.hover{background:#00ff00;}
+
+
+/* ***************************** */
+/* ******* imgDaDSortItems ***** */
+/* ***************************** */
+.imgDaDSortItems {
+    margin-top:10px;
+    margin-left:0px;
+    margin-right:0px;
+    text-align:center;
+    width:100%;
+    /* background-color:green; */
+}
+
+.imgDaDSortItems div[directive]{
+ font-size: 1.0em;
+ font-weight:bold;
+ color:red;
+ margin: 0px 5px 0px 5px;
+ cursor: not-allowed;
+    display:inline-block;
+    float:none;
+    border: 0px solid red;
+ }
+
+.imgDaDSortItems span[directive="red"]{
+ font-size: 1.0em;
+ font-weight:bold;
+ color:red;
+ margin: 0px 5px 0px 5px;
+ cursor: not-allowed;
+ }
+.imgDaDSortItems span[directive="blue"]{
+ font-size: 1.0em;
+ font-weight:bold;
+ color:blue;
+ margin: 0px 5px 0px 5px;
+ cursor: not-allowed;
+ }
+ 
+
+.imgDaDSortItems div[sequence]{
+    margin: 0 auto;
+    display:inline-block;
+    /* text-align:center; */
+ 
+    /* background-color:cyan; */
+    /* border: 4px solid green; */
+/*     padding-left:50px; */
+    /* float:center; */
+}
+
+.imgDaDSortItems div[draggable]{
+
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+
+    /*background-color:rgb(204,255,255);*/
+    background-color: transparent;
+
+    float:left;
+    margin:2px;
+    font-size:0.8em;
+    text-align:center;
+    padding:1px;
+}
+.imgDaDSortItems div[draggable]:hover{
+    border: 4px solid green;
+}
+
+.imgDaDSortItems img{
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    margin-bottom:5px;
+}
+
+
+/* ===== styles des div des sequences a ordonner ===== */
+.imgDaDSortItems div[divSequenceMode]{
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    margin-bottom:5px;
+}
+
+.imgDaDSortItems div[divSequenceMode="0"]{
+    border: 4px solid transparent;
+}
+
+.imgDaDSortItems div[divSequenceMode="1"]{
+    border: 4px solid red;
+    /* border-style: groove;*/    
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    background:transparent;
+
+}    
+
+/* ===== styles des encarts ===== */
+.imgDaDSortItems div[encart]{
+    /* border: 4px solid green; */
+    border-radius: 3px 3px 3px 3px;
+    float:left;
+    padding:0px;
+    width:2px;
+    border: 3px solid transparent;
+    background-color:transparent;
+
+    
+}
+
+.imgDaDSortItems div[encart="1"]{
+    border: 3px solid transparent;
+    background-color:transparent;
+}    
+.imgDaDSortItems div[encart="2"]{
+    border: 3px solid blue;
+    background-color:blue;
+}    
+
+.imgDaDSortItems div[encart="3"]{
+    border: 3px solid yellow;
+    background-color:yellow;
+}    
+
+/* survol des encart pour le dev */
+.imgDaDSortItems div[encart="1"]:hover{
+    border: 3px solid transparent; /* green */
+    background: transparent; /* red */
+    
+}
+
+.imgDaDSortItems div[divRefMode]{
+    display:inline-block;
+    float:center;
+    border: 3px solid transparent;
+    -moz-border-radius: 12px 12px 12px 12px;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px;
+    background-color: transparent;
+    text-align:center;
+
+    margin:2px;
+    font-size:0.8em;
+    text-align:center;
+    padding:1px;
+}    
+.imgDaDSortItems div[divRefMode="1"]{
+    border: 3px solid transparent;
+}    
+
+.imgDaDSortItems div[divRefMode="2"]{
+    border: 3px solid red;
+}    
+
+.imgDaDSortItems div[imgRef2]{
+    border: 2px solid red;
+
+}    
+
+

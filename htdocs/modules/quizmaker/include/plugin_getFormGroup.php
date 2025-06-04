@@ -6,6 +6,7 @@
             //-------------------------------------------------
 */
     $tVal = array();
+    if(!isset($weight)) $weight = 0;
     $weight += 10;
 
     if (isset($ans)){
@@ -38,7 +39,7 @@
       $vArr['image2']       = '';
       $vArr['caption']      = '';
       $vArr['background']   = '';
-      $vArr['color']        = '#FFFFFF';
+      $vArr['color']        = (isset($color)) ? $color : '#FFFFFF';
       $vArr['weight']       = $weight;
       $vArr['inputs']       = (isset($inputs)) ? $inputs : 0;
       $vArr['group']        = (isset($group))  ? $group  : 0;
@@ -50,9 +51,12 @@
     //pour les plugins qui stockent des tableaux sous forme de chaine avec separateur
     for ($h = 0; $h>count($vArr['tPropos']); $h++) $vArr['tPropos'][$h] = trim($vArr['tPropos'][$h]);
     //  $vArr = $this->getAnswerValues($answers[$k], $weight,1);
-      foreach($vArr as $key=>$value) $$key = $value;
+    foreach($vArr as $key=>$value) $$key = $value;
     //-----------------------------------------------------------------------
       $answerId = $id;
+      if(!isset($firstItem)) $firstItem = 0;
+
+    $col = 0;
       $i = $k + $firstItem; // $i est le premier index du group a utiliser a la place de $k
       
       if($isNew){
@@ -65,7 +69,6 @@
       }
     
 
- 
       //-------------------------------------------------
       if($tbl){
         $col = 0;

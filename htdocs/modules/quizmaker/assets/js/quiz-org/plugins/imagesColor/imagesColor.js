@@ -1,6 +1,11 @@
-﻿
+﻿/*******************************************************************
+*                     imagesColor
+* *****************************************************************/
+function getPlugin_imagesColor(question, slideNumber){
+    return new imagesColor(question, slideNumber);
+}
  /*******************************************************************
-  *                     _imagesColor
+  *                     imagesColor
   * *****************************************************************/
 class imagesColor extends Plugin_Prototype{
 name = 'imagesColor';
@@ -140,7 +145,7 @@ getHtmlPicker(){
     var colors = [];
     //var tplColors = `<option value='{color}' style='background-color:{color};color:{color};'>{color}</option>`;
     var tplColors = `<option value='{color}' style='background-color:{color};color:transparent;'>{color}</option>`;
-    colors.push(tplColors.replaceAll('{color}', currentQuestion.options.colorDefault))
+    colors.push(tplColors.replaceAll('{color}', currentQuestion.options.colorDefault));
     
      for(var k in currentQuestion.answers){
          var ans = currentQuestion.answers[k];
@@ -148,7 +153,7 @@ getHtmlPicker(){
          ans.caption = ans.caption.replace(' ',qbr).replace('/',qbr);
          
          if(ans.points <= 0) {ans.points = 1;}
-         colors.push(tplColors.replaceAll('{color}', ans.color))
+         colors.push(tplColors.replaceAll('{color}', ans.color));
      }
        
      

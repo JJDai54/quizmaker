@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     textareaMixte
+* *****************************************************************/
+function getPlugin_textareaMixte(question, slideNumber){
+    return new textareaMixte(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _textareaMixte
+  *                     textareaMixte
   * *****************************************************************/
 
 class textareaMixte extends Plugin_Prototype{

@@ -1,7 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     radioMultiple
+* *****************************************************************/
+function getPlugin_radioMultiple(question, slideNumber){
+    return new radioMultiple(question, slideNumber);
+}
 
  /*******************************************************************
-  *                     _radioMultiple
+  *                     radioMultiple
   * *****************************************************************/
 
 class radioMultiple extends Plugin_Prototype{

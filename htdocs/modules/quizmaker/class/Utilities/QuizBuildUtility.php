@@ -54,8 +54,8 @@ global $quizHandler, $questionsHandler, $answersHandler;
     // --- Dossier de destination
     $quiz = $quizHandler->get($quizId);
 //echo "<hr>quiz<pre>" . print_r($quiz, true) . "</pre><hr>";
-    $name = $quiz->getVar('quiz_folderJS');   
-    $path = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$name}";
+    $folderJS = $quiz->getVar('quiz_folderJS');   
+    $path = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$folderJS}";
     self::create_quiz_arborescense($path);     
     
     
@@ -76,7 +76,7 @@ global $quizHandler, $questionsHandler, $answersHandler;
     
     
     // --- Génération du fichier d'HTML ---
-    self::build_quizinline($quiz, QUIZMAKER_PATH_UPLOAD_QUIZ, $name);
+    self::build_quizinline($quiz, QUIZMAKER_PATH_UPLOAD_QUIZ, $folderJS);
     
 
     // incrementer la version => quiz_build  
@@ -98,6 +98,8 @@ static function copie_ressources_images($pathDest){
 //             
 //     $folderHandler->copy($pathSource,$pathDest);
 self:: copyFolder ($pathSource,$pathDest) ;
+
+
     return true;
 }
 
@@ -127,9 +129,36 @@ global $utility, $xoopsConfig;
     
     
     //----------------------------------------------
-    $allPlugins = \JANUS\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, false);
+    //$tCss = \JANUS\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
+    // intégration des fichiers CSS et JS de tous les plugins.
+    //et génération de l'instanciation des classe des plugins
+    $allPluginsCSS = array();
+    $allPluginsJS = array();
+    $allPlugins = array();
+    $allFolders = \JANUS\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, true);        
+    foreach  ($allFolders as $fld=>$pluginPath){
+        $allPlugins[] = $fld;
+        $files2include = \JANUS\FSO\getFilePrefixedBy($pluginPath, array('css','js'), '', false, false,false);
+        foreach($files2include as $key=>$f){
+            if (substr($f,-3) == 'css'){
+                $allPluginsCSS[] = $fld . '/' . $f;
+            }else if(substr($f,-2) == 'js'){
+                $allPluginsJS[] = $fld . '/' . $f;
+            }
+        }
+    }
+// echoArray($allFolders,'$allFolders');        
+// echoArray($allPluginsJS,'$allPluginsJS');        
+// echoArray($allPluginsCSS,'$allPluginsCSS');        
+// echoArray($allPlugins,'$allPlugins',true);        
+//     
+    //chargement des JS de tous les plugins
+    $tpl->assign('allPluginsJS', $allPluginsJS);
+    //Chargement des CSS de tous les plugins
+    $tpl->assign('allPluginsCSS', $allPluginsCSS);
+    //construction du switch qui retourne la classe du plugin seon le type de question
     $tpl->assign('allPlugins', $allPlugins);
-    //echoArray($allPlugins, 'plugins', false);
+
 
     //----------------------------------------------
     //insertion du fichier de langue
@@ -193,6 +222,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['description']              = $quizValues['description']; 
     $optionsArr['legend']                   = $quizValues['legend'];//"{allType}"
     $optionsArr['theme']                    = $theme;
+    $optionsArr['background']               = $quizValues['background'];
     $optionsArr['libBegin']                 = $quizValues['libBegin'];
     $optionsArr['libEnd']                   = $quizValues['libEnd'];
     $optionsArr['onClickSimple']            = $quizValues['onClickSimple'];
@@ -256,7 +286,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
 //    echoArray($questions,'',true);
     foreach (array_keys($questions) as $i) {
         $values=$questions[$i]->getValuesQuestions();
-        $clTypeQuestion = $pluginsHandler->getPlugin($values['plugin']);
+        $clPlugin = $pluginsHandler->getPlugin($values['plugin']);
         $typesQuestionsArr[] = $values['plugin'];  
               
         $tQuest = array();
@@ -271,7 +301,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
  
         //$tQuest['options']        = json_decode($values['quest_options'],true);    
         $tQuest['options']        = json_decode($values['options'],true);    
-        $tQuest['optionsDefault'] =  $clTypeQuestion->optionsDefaults;    
+        $tQuest['optionsDefault'] =  $clPlugin->optionsDefaults;    
 /*
 if($values['options'] != $values['quest_options']) {
 echo "<hr><pre>{$values['quest_id']} - options : {$values['options']}<br>quest_options : {$values['quest_options']}</pre><hr>";
@@ -289,6 +319,7 @@ for($h=0; $h<strlen($values['options']); $h++){
         $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
         $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['image']          = self::sanitise($values['quest_image']);
+        $tQuest['background']     = self::sanitise($values['quest_background']);
         $tQuest['height']         = self::sanitise($values['quest_height']);
         $tQuest['points']         = $values['points'];
         $tQuest['numbering']      = $values['numbering'];
@@ -346,6 +377,7 @@ global $quizHandler, $questionsHandler, $answersHandler;
     $criteria->setsort("answer_weight");
     $criteria->setOrder("ASC");
     $answers = $answersHandler->getObjects($criteria);
+    
     foreach (array_keys($answers) as $i) {
         $values = $answers[$i]->getValuesAnswers();
         $tVals = array();

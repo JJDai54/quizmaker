@@ -24,8 +24,11 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_LISTBOXCLASSITEMS', "Regrouper les items ou chasser les intrus");
-define('_LG_PLUGIN_LISTBOXCLASSITEMS_DESC', "Ce slide est composé de deux listes.<br>Il faut écarter les intrus dans la deuxième liste.<br>Il est possible de corriger et de réintégrer les termes écartés.");
-define('_LG_PLUGIN_LISTBOXCLASSITEMS_CONSIGNE', "Consigne à complèter");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS', "Group items or remove intruders");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS_DESC', "This slide is composed of two lists.<br>You must remove the intruders from the second list.<br>It is possible to correct and reinstate the removed terms.");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS_CONSIGNE', "Instructions to complete");
+
+define('_LG_PLUGIN_LISTBOXCLASSITEMS_ONE_LIST_ONLY', "One list only");
+define('_LG_PLUGIN_LISTBOXCLASSITEMS_ONE_LIST_ONLY_DESC', "If two groups are defined, allows you to display only one list instead of two.<br>Inactive if more than two groups are defined.<br>In this case the default group will be group 0.<br>As the second list will be hidden, there will be no room for error, no correction will be possible.");
 
 ?>

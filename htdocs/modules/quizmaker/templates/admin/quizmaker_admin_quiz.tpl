@@ -181,7 +181,7 @@ img{
 
 
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_PLUGIN}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_PLUGIN}>' >
-                        <{$Quiz.flags.showTypeQuestion}>
+                        <{$Quiz.flags.showPlugin}>
                         </a>|
                    <a href="<{$urlOptionsDev}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_RELOADANSWERS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_RELOAD_ANSWERS}>' >
                         <{$Quiz.flags.showReloadAnswers}>

@@ -24,8 +24,22 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_TEXTBOXMULTIPLE', "Questions multiples à réponses multiples.");
-define('_LG_PLUGIN_TEXTBOXMULTIPLE_DESC', "Ce slide est composé d'une ou plusieurs questions.<br>Chaque question peut avoir plusieurs réponses saisissables.");
-define('_LG_PLUGIN_TEXTBOXMULTIPLE_CONSIGNE', "Saisissez pour chaque item une ou plieurs réponses.<br>La saisie est valide avec ou sans accents et majuscules.");
+define('_LG_PLUGIN_MULTIQUESTIONS', "Multiple questions with multiple answers.");
+define('_LG_PLUGIN_MULTIQUESTIONS_DESC', "This slide is composed of one or more questions.<br>Each question can have multiple answers.");
+define('_LG_PLUGIN_MULTIQUESTIONS_QUESTION', "Question");
+define('_LG_PLUGIN_MULTIQUESTIONS_QUESTION_NUM', "Question No.");
+
+define('_LG_PLUGIN_MULTIQUESTIONS_ANSWERS', "Answers");
+define('_LG_PLUGIN_MULTIQUESTIONS_INTRUS', "Intruder");
+
+define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_INPUT', "Type");
+define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_TEXTBOX', "Input box");
+define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_LISTBOX', "Drop-down list");
+define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_CHECKBOX', "Check box");
+define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_RADIO', "Radio button");
+
+define('_LG_PLUGIN_MULTIQUESTIONS_CONSIGNE', "To be defined");
+define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH', "Size of input boxes in number of characters");
+define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH_DESC', "Maximum number of characters to enter");
 
 ?>

@@ -79,7 +79,7 @@
                     </a>
                 </td>   
                     
-                <td class='left width20'>
+                <td class='left width5'>
 <{* 
                     <div class='highslide-gallery'>
 			         <{foreach item=modele from=$Plugin.modeles}>    

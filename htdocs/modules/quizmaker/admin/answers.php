@@ -133,7 +133,7 @@ switch($op) {
         if($questId > 0){
             $obQuest = $questionsHandler->get($questId);
 		    $GLOBALS['xoopsTpl']->assign('questOptions', $obQuest->getVar('quest_options'));
-		    $GLOBALS['xoopsTpl']->assign('quesTypeQuestion', $obQuest->getVar('quest_plugin'));
+		    $GLOBALS['xoopsTpl']->assign('quesPlugin', $obQuest->getVar('quest_plugin'));
         }  
         //--------------------------------------------
         
@@ -204,6 +204,7 @@ switch($op) {
 		$answersObj->setVar('answer_group',  Request::getInt('answer_group', 1));
 		$answersObj->setVar('answer_image1', Request::getString('answer_image1', ''));
 		$answersObj->setVar('answer_image2', Request::getString('answer_image2', ''));
+		$answersObj->setVar('answer_buffer', Request::getString('answer_buffer', ''));
         
 		// Insert Data
 		if ($answersHandler->insert($answersObj)) {

@@ -1,5 +1,8 @@
 Read Me First
 =============
 
+Le module nécéssite l'installation du frawework Janus:
+https://github.com/JJDai54/janus
+
 Install just like another XOOPS module
-In the package there is somm quiz to import and test the module.
+In the package there is somme quiz to import and test the module.

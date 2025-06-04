@@ -116,6 +116,7 @@ define('_AM_QUIZMAKER_FOLDER_JS', "Fichier");
 define('_AM_QUIZMAKER_FORM_DELETE_OK', "Supprimé avec succès");
 define('_AM_QUIZMAKER_FORM_OK', "Enregistré avec succès");
 define('_AM_QUIZMAKER_FORM_SURE_DELETE', "Êtes-vous sûr de supprimer : <b><span style='color : Red;'>[#%s] %s</span></b>");
+define('_AM_QUIZMAKER_FORM_SURE_DELETE_LIST', "Êtes-vous sûr de supprimer cette liste : <b><span style='color : Red;'>[#%s] %s</span></b>");
 define('_AM_QUIZMAKER_FORM_TYPE_SHORT', "Formulaire");
 define('_AM_QUIZMAKER_GROUP', "Groupe");
 define('_AM_QUIZMAKER_GROUP_ALL', "Tous les groupes");
@@ -127,6 +128,7 @@ define('_AM_QUIZMAKER_HELP', "Aide");
 define('_AM_QUIZMAKER_ICONE', "Icone");
 define('_AM_QUIZMAKER_IMAGE', "Image");
 define('_AM_QUIZMAKER_IMAGE_MAIN', "Image principale");
+define('_AM_QUIZMAKER_BACKGROUND_MAIN', "Image de fond (texture)");
 define('_AM_QUIZMAKER_IMG_HEIGHT1', "Hauteur de l'image");
 define('_AM_QUIZMAKER_IMG_SUBSTITUT', "Image de Substitution");
 define('_AM_QUIZMAKER_IMPORT', "Importation");
@@ -214,6 +216,7 @@ define('_AM_QUIZMAKER_PLUGIN_EXAMPLE_EXIST', "L&apos;exemple du quiz <b>%s</b> e
 define('_AM_QUIZMAKER_PLUGIN_INPUTS', "Entrées");
 define('_AM_QUIZMAKER_PLUGIN_INSTALL_OK', "Le quiz du plugin a été installé avec succès.");
 define('_AM_QUIZMAKER_PLUGIN_LABEL', "Libellé");
+define('_AM_QUIZMAKER_PLUGIN_IMAGE', "Image");
 define('_AM_QUIZMAKER_PLUGIN_GROUP', "Groupe");
 define('_AM_QUIZMAKER_PLUGIN_BACKGROUND', "Fond");
 define('_AM_QUIZMAKER_PLUGIN_OPTION_NUM', "Option n° %s");
@@ -417,8 +420,9 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST', "Importation des questions uniquement"
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ', "Importation d'un quiz unique");
 define('_AM_QUIZMAKER_UNIT_PIXELS', "pixels");
 define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
-define('_AM_QUIZMAKER_UNIT_SECONDES', "Secondes");
-define('_AM_QUIZMAKER_UNIT_MILISECONDS', "Mili-Secondes");
+define('_AM_QUIZMAKER_UNIT_SECONDS', "Secondes");
+define('_AM_QUIZMAKER_UNIT_MILLISECONDS', "Milli-Secondes");
+define('_AM_QUIZMAKER_UNIT_ATTEMPTS', "Essais");
 define('_AM_QUIZMAKER_UNIT_CARACTERES', "Caractères");
 define('_AM_QUIZMAKER_UNIT_COLUMNS', "Colonnes");
 define('_AM_QUIZMAKER_UNIT_OPTIONS', "Options");
@@ -448,7 +452,27 @@ define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE', "Délai pour passer au slide suivant
 define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC', "Actif uniquement si l'option \"Choix unique et passage au slide suivant\" a été choisie");
 define('_AM_QUIZMAKER_SUBMIT', "Soumettre");
 
-define('_AM_QUIZMAKER_NO_OPTIONS_', "Il n'y a pas d'options spécifiques pour ce plugin");
+define('_AM_QUIZMAKER_NO_OPTIONS', "Il n'y a pas d'options spécifiques pour ce plugin");
+define('_AM_QUIZMAKER_NO_CLASSE', "00-none");
+define('_AM_QUIZMAKER_ANSWERS_EDIT', "Edit proposition");
+define('_AM_QUIZMAKER_ANSWERS_GROUP', "Groupe");
+define('_AM_QUIZMAKER_ANSWERS_POINTS', "Points");
+define('_AM_QUIZMAKER_INPUTS', "Inputs");
 
+define('_AM_QUIZMAKER_NEXT_SLIDE_PARAMS', "Parametres des messages de passage au slide suivant");
+define('_AM_QUIZMAKER_NEXT_SLIDE_MSG0', "Score cumulé : {score} / {scoreMaxi}");
+define('_AM_QUIZMAKER_NEXT_SLIDE_MSG1', "Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
+define('_AM_QUIZMAKER_NEXT_SLIDE_MSG2', "Question suivante");
+define('_AM_QUIZMAKER_NEXT_SLIDE_MSG3', "On passe à la suite");
+define('_AM_QUIZMAKER_NEXT_SLIDE_MSG4', "Persévérez");
+
+define('_AM_QUIZMAKER_ZOOM', "Zoom");
+define('_AM_QUIZMAKER_ZOOM_DESC', "Affichage des boutons \"+\" et \"-\" respectivement vert et rouge qui permettent de zoomer sur le slide.");
+define('_AM_QUIZMAKER_ZOOM_NONE', "Aucun");
+define('_AM_QUIZMAKER_ZOOM_MANUEL', "Manuel");
+define('_AM_QUIZMAKER_ZOOM_AUTO', "Automatique");
+
+
+define('_AM_QUIZMAKER_LOAD_JANUS', "<center><hr><div style='font-size:1.5em;'>Pour utiliser ce module le framework \"Janus\" doit être installé.<br>Lien de téléchargemnt du Frmework :<br><a href='https://github.com/JJDai54/janus'>Framework Janus</a></div><hr></center>");
 
 ?>

@@ -76,42 +76,15 @@ var $maxGroups = 4;
       $name = 'ulWidth';  
       $inpUlWidth = new \XoopsFormNumber(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpUlWidth->setMinMax(20, 100, _AM_QUIZMAKER_UNIT_PERCENT);
-//       $trayUlWidth = new XoopsFormElementTray(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH, $delimeter = ' ');  
-//       $trayUlWidth->addElement($inpUlWidth);
-//       $trayUlWidth->addElement(new \XoopsFormLabel(' ', '%'));
       $trayOptions ->addElementOption($inpUlWidth);     
       
       //--------------------------------------
       // groupes
-      
-      for($h = 0; $h < $this->maxGroups; $h++){
-          $trayGroup = new XoopsFormElementTray(_AM_QUIZMAKER_GROUP_LIB . $h, $delimeter = ' ');  
-          
-          $name = 'group' . $h;
-          $inpGoup = new \XoopsFormText('',  "{$optionName}[{$name}]", $this->lgMot2, $this->lgMot2, $tValues[$name]);
-          $trayGroup->addElement($inpGoup);     
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_groups.php");
 
-          $name = 'bgGroup' . $h;  
-          $inpBgGroup = new XoopsFormColorPicker('', "{$optionName}[{$name}]", $tValues[$name]);
-          $trayGroup->addElement($inpBgGroup);     
-          
-          $trayOptions->addElementOption($trayGroup);     
-      }
-      //--------------------------------------
-      $name = 'groupDefault';  
-      $inputGroupDefault = new \XoopsFormRadio(_AM_QUIZMAKER_GROUP_DEFAULT, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_GROUP_ALL);            
-      for($h = 0; $h < $this->maxGroups; $h++){ 
-        $groupeName = ($tValues['group' . $h]) ? $tValues['group' . $h] : 'group' . $h;
-        $inputGroupDefault->addOption($h, $groupeName);            
-      }
-      $trayOptions ->addElementOption($inputGroupDefault);     
+      // disposition
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
 
-      $name = 'disposition'; 
-      $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOption($inputDisposition);     
       
       return $trayOptions;
     }

@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     multiQuestions
+* *****************************************************************/
+function getPlugin_multiQuestions(question, slideNumber){
+    return new multiQuestions(question, slideNumber);
+}
+
  /*******************************************************************
-  *                     _multiQuestions
+  *                     multiQuestions
   * *****************************************************************/
 class multiQuestions extends Plugin_Prototype{
 name='multiQuestions';  
@@ -172,7 +178,7 @@ getScoreByProposition (answerContainer){
                     nbRep++;
                 }
             }
-        })
+        });
         bolOk = (obs.length == nbRep);
     }else if(ans.typeInput == 2){
         obs.forEach((obInput, index) => {
@@ -182,7 +188,7 @@ getScoreByProposition (answerContainer){
                 }
                 
             }
-        })
+        });
         bolOk = (ans.sanitysArr.length == nbRep);
     }else{
         obs.forEach((obInput, index) => {
@@ -192,7 +198,7 @@ getScoreByProposition (answerContainer){
                 }
                 
             }
-        })
+        });
         bolOk = (nbRep > 0);
     }
     
@@ -207,7 +213,7 @@ getAllReponses  (flag=0){
 
     var currentQuestion = this.question;
     var tReponses = [];
-    var html = []
+    var html = [];
     
     for (var k = 0; k < currentQuestion.answers.length; k++){
         var ans = currentQuestion.answers[k];
@@ -255,7 +261,7 @@ getAllReponses  (flag=0){
 console.clear();    
     for (var k=0; k < currentQuestion.answers.length; k++){
         var ans = currentQuestion.answers[k];
- console.log(`===>showGoodAnswers : ${ans.caption} - type = ${ans.typeInput}`)
+ console.log(`===>showGoodAnswers : ${ans.caption} - type = ${ans.typeInput}`);
         if (ans.typeInput < 2){
             this.showAnswers_listbox_and_textbox(k, ans, true);
         }else{

@@ -24,18 +24,23 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_IMAGESSIMPLE', "Trouver les images de la même famille");
-define('_LG_PLUGIN_IMAGESSIMPLE_DESC', "Ce slide est composé d'images dont une ou plusieurs sont masquées.<br>Il faut retrouver les images de la même famille.");
+define('_LG_PLUGIN_IMAGESSIMPLE', "Find images from the same family");
+define('_LG_PLUGIN_IMAGESSIMPLE_DESC', "This slide is composed of images, one or more of which are hidden.<br>You need to find the images from the same family.");
 define('_LG_PLUGIN_IMAGESSIMPLE_CONSIGNE', "Click on the images to select them.<br><br>Click again on the selected images to deselect them.");
 
-define('_LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE', "Cliquez sur les images ci-dessous pour les sélectionner !");
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_FAMILY_HEIGHT', "Hauteur des images modèles");
+define('_LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE', "Click on the images below to select them!");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_FAMILY_HEIGHT', "Height of the template images");
 
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED', "Images sélectionnée");
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_DESC', "Cette image apparaitra en tête des images sélectionnées par l'utilisateur");
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_HEIGHT', "Hauteur des images sélectionnées");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED', "Selected images");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_DESC', "This image will appear at the top of the user-selected images");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED_HEIGHT', "Height of selected images");
 
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET', "Images du panier");
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_DESC', "Cette image apparaitra en tête du panier des images non sélectionnées par l'utilisateur");
-define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_HEIGHT', "Hauteur des images du panier");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET', "Basket images");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_DESC', "This image will appear at the top of the basket for images not selected by the user");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_BASKET_HEIGHT', "Height of basket images");
+
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP0', "Height of images in the first group: images from the template list");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP1', "Height of images in the second group: selected images");
+define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SIZE_GROUP2', "Height of images in the third group: suggested images");
+
 ?>

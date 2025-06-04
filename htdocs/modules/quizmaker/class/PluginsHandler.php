@@ -35,6 +35,7 @@ class PluginsHandler
     var $name = '';
     var $description= '';
     var $allPlugins = null;
+    var $renameImage = false; // Permet de garder le nom originale d'une image, a utiliser en dev uniquement
         
 	/**
 	 * Constructor 
@@ -242,7 +243,7 @@ echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destinat
 
 ***************************************************** */
 public function getPlugin(&$pluginName)
-  {global $GLOBALS;
+  {global $GLOBALS, $xoTheme;
     // pour permettre une correction sans aceder à la base apres un changement de nom
     // A virer dès que les noms seront stabilisés
     // $pluginName est passé par référence pour remonter le transfert
@@ -264,18 +265,27 @@ public function getPlugin(&$pluginName)
         $jsUrl = QUIZMAKER_URL_PLUGINS_PHP . "/{$pluginName}/{$pluginName}.js";  
         $GLOBALS['xoTheme']->addScript($jsUrl);
       }
+      $cssPath = QUIZMAKER_PATH_PLUGINS_PHP . "/{$pluginName}/{$pluginName}.css";  
+      if (file_exists($jsPath)){
+        //echo "javascript du plugin <br>{$jsPath}<br>{$f}<hr>";
+        $jsUrl = QUIZMAKER_URL_PLUGINS_PHP . "/{$pluginName}/{$pluginName}.css";  
+        $GLOBALS['xoTheme']->addStylesheet($jsUrl);
+      }
       //----------------------------------------------
       if (class_exists($clsName) ){
           $cls = new $clsName; 
+          $cls->loadJS();
           return $cls;
       }else if (file_exists($f) && !class_exists($clsName) ){
           include_once($f);    
           $cls = new $clsName; 
+          $cls->loadJS();
           return $cls;
       }
       else{
         return null;
       }
+      
   }
   /* *****
   * transfert de classes obsolettes
@@ -301,7 +311,8 @@ public function getNewPluginName(&$pluginName){
             $pluginName = 'comboboxSortItems'; 
             break;
         case 'imagesSortItems' :
-            $pluginName = 'imagesDaDSortItems'; 
+        case 'imagesDaDSortItems' :
+            $pluginName = 'sortItems'; 
             break;
         case 'ulSortList' :
             $pluginName = 'ulDaDSortList'; 
@@ -335,17 +346,24 @@ public function getNewPluginName(&$pluginName){
             break;
         case 'checkboxSimple' :
         case 'radioSimple' :
-            $pluginName = 'choiceSimple'; 
+            $pluginName = 'selectInputs'; 
             break;
         case 'comboboxSortItems' :
         case 'listboxSortItems' :
             $pluginName = 'sortItems'; 
             break;
         case 'radioQuickImg' :
-            $pluginName = 'choiceImages'; 
+            $pluginName = 'selectImages'; 
             break;
         case 'textboxMultiple' :
             $pluginName = 'multiQuestions'; 
+            break;
+        case 'classicSelect' :
+        case 'choiceSimple' :
+            $pluginName = 'selectInputs'; 
+            break;
+        case 'choiceImages' :
+            $pluginName = 'selectImages'; 
             break;
   }
 }
@@ -456,7 +474,230 @@ public function getPluginPath($pluginName, $includefiles = false )
     return $pArr;  
   }
     
+/* *************************** gestion des images ************************ */
+
+/* *************************************************
+
+*************************************************** */
+function save_img(&$answer, $formName, $path, $folderQuiz, $prefix, &$nameOrg=''){
+global $quizmakerHelper, $quizUtility;
+//echoArray(func_get_args());
+    //if (!is_array($formName)) return false;
+//echoArray($_FILES,'save_img',true);
+    if(!$_POST['xoops_upload_file']) return false;    
+    $nameOrg = '';
+    $keyFile = array_search($formName, $_POST['xoops_upload_file']);    
+    if(!$_FILES[$formName]['name']) return '';
+    $savedFilename = '';
+//echo "<hr>path : {$path}<hr>";    
+    include_once XOOPS_ROOT_PATH . '/class/uploader.php';    
+//echo 'save_img : ' . $path;exit;    
+//     $filename       = $_FILES[$chrono]['name'];
+//     $imgMimetype    = $_FILES[$chrono]['type'];
+    $uploaderErrors = '';
+    $uploader = new \XoopsMediaUploader($path , 
+                    $quizmakerHelper->getConfig('mimetypes_image'), 
+                    $quizmakerHelper->getConfig('maxsize_image'), null, null);
+    
+//---------------------------------------------------    
+ //echo "save_img - chrono : {$chrono}<br>" ;  
+    
+    
+    if ($uploader->fetchMedia($_POST['xoops_upload_file'][$keyFile])) {
+        //$prefix = "quiz-{$answer['quest_id']}-{$answer['id']}";
+        $uploader->setPrefix($prefix);
+        $uploader->fetchMedia($_POST['xoops_upload_file'][$keyFile]);
+        if (!$uploader->upload()) {
+            $uploaderErrors = $uploader->getErrors();
+        } else {
+            $savedFilename = $uploader->getSavedFileName();
+            $maxwidth  = (int)$quizmakerHelper->getConfig('maxwidth_image');
+            $maxheight = (int)$quizmakerHelper->getConfig('maxheight_image');
 
 
+            $nameOrg = $_FILES[$_POST['xoops_upload_file'][$keyFile]]['name'];       
+            if($this->renameImage){
+                //echo "===>savedFilename : {$savedFilename}<br>";  
+                //modification du nom pour les repérer dans le dossier   
+                $newName = $prefix . '-' . $quizUtility::sanitiseFileName($nameOrg);
+                rename($path.'/'. $savedFilename,  $path.'/' . $newName);
+                $savedFilename = $newName;
+            }
+            //retiir l'extension et remplace les _ par des espaces
+            $h= strrpos($nameOrg,'.');
+            $i=0;
+            $nameOrg = str_replace('_', ' ', substr($nameOrg, $i, $h));
 
-} //Fin de la class
+        }
+
+
+    } else {
+        //if ($filename > '') {
+            $uploaderErrors = $uploader->getErrors();
+        //}
+        // il faut garder l'image existante si il n'y a pas eu de nouvelle selection
+        // ou l'image sélectionée dans la liste
+        //$slidesObj->setVar('sld_image', Request::getString('sld_image'));
+        $savedFilename = '';
+    }
+    //exit ($savedFilename);
+    return $savedFilename;
+}
+
+/* *************************************************
+*
+* ************************************************** */
+ 	public function getXoopsFormImage($imgName, 
+                                      $formName, 
+                                      $path, 
+                                      $maxWidth=80, 
+                                      $delimiter=' ', 
+                                      $delChkName='', 
+                                      $caption = '', 
+                                      $description = '',
+                                      $div = false)
+ 	{ 
+     //echo "getXoopsFormImage - image : {$imgName}<br>";
+        global $quizmakerHelper;
+        $fulName = QUIZMAKER_PATH_UPLOAD . $path . "/" . $imgName;  
+        $libImgName = new \XoopsFormLabel('', "[{$imgName}]");
+
+//echo "fullName : {$fulName}<br>";
+              
+        if (is_null($imgName) || $imgName=='' || !is_readable($fulName)) {
+          $urlImg = "";
+        }else{
+          $urlImg = QUIZMAKER_URL_UPLOAD . $path . "/" . $imgName;
+        }
+        
+        //affichage de l'image actuelle
+        if($div){
+            $img = "<div id='divImg_{$formName}' name='divImg_{$formName}'><img src='{$urlImg}'  name='{$formName}' id='{$formName}' alt='' title=''></div>";
+        }else{
+            $img = "<img src='{$urlImg}'  name='{$formName}' id='{$formName}' alt='' style='max-width:{$maxWidth}px' title='{$imgName}'>";
+        }
+
+        $inpImg = new \XoopsFormLabel('', $img);
+        //$hiddenImg = nw \XoopsFormHidden());
+
+        //affichage du titre
+        //$inpCaption = new \XoopsFormLabel('', $caption);
+        //creation du groupe 'traiImg)'
+        
+        //$imageTray->addElement($img); 
+//echo "<hr>urlImg : {$urlImg}<br>"; 
+        
+        //Selection d'un image locale dans l'explorateur
+        //$upload_size = 5000000;
+        $upload_size = $quizmakerHelper->getConfig('maxsize_image'); 
+        $inpLoadImg = new \XoopsFormFile('', $formName, $upload_size);
+//echo "===>upload_size : {$upload_size}<br>";
+ 
+        if($delChkName){
+            if($urlImg){
+              $delImg = new \XoopsFormCheckBox('', $delChkName);                        
+              $delImg->addOption(1, _AM_QUIZMAKER_DELETE);
+            }else{
+              $delImg = new \XoopsFormLabel('', _CO_QUIZMAKER_NEW);                        
+            }
+                                     
+        }else $delImg = new \XoopsFormLabel('', ''); 
+
+        //-------------------------------------------------------------
+        $imageTray  = new \XoopsFormElementTray($caption,''); 
+        //$imageTray->addElement(new \xoopsFormHidden($formName, $imgName));
+        $imageTray->addElement($inpImg);
+        $imageTray->addElement($delImg);
+        $imageTray->addElement(new \XoopsFormLabel('', '<br>'));
+//        $imageTray->addElement($libImgName);// a garder pour le dev
+        if($description) $imageTray->addElement(new \XoopsFormLabel('', $description . '<br>'));
+        $imageTray->addElement($inpLoadImg);
+        //$imageTray->setDescription(_AM_QUIZMAKER_IMG_DESC . '<br>' . sprintf(_AM_QUIZMAKER_UPLOADSIZE, $upload_size / 1024), '<br>');
+        //$inpCaption = new \XoopsFormLabel('', $caption);
+        return $imageTray; 
+     }
+
+public function getXoopsFormImageDiv($imgName, 
+                                      $formName, 
+                                      $path, 
+                                      $class, 
+                                      $delimiter=' ', 
+                                      $delChkName='', 
+                                      $caption = '', 
+                                      $description = '')
+    {
+    
+     //echo "getXoopsFormImage - image : {$imgName}<br>";
+        global $quizmakerHelper;
+        $fulName = QUIZMAKER_PATH_UPLOAD . $path . "/" . $imgName;  
+        $libImgName = new \XoopsFormLabel('', "[{$imgName}]");
+
+//echo "fullName : {$fulName}<br>";
+              
+        if (is_null($imgName) || $imgName=='' || !is_readable($fulName)) {
+          $urlImg = "";
+        }else{
+          $urlImg = QUIZMAKER_URL_UPLOAD . $path . "/" . $imgName;
+        }
+        
+        //affichage de l'image actuelle
+
+            $img = "<div id='divImg_{$formName}' name='divImg_{$formName}' class='$class'><img src='{$urlImg}'  name='{$formName}' id='{$formName}' alt='' title=''></div>";
+
+        $inpImg = new \XoopsFormLabel('', $img);
+        //$hiddenImg = nw \XoopsFormHidden());
+
+        //affichage du titre
+        //$inpCaption = new \XoopsFormLabel('', $caption);
+        //creation du groupe 'traiImg)'
+        
+        //$imageTray->addElement($img); 
+//echo "<hr>urlImg : {$urlImg}<br>"; 
+        
+        //Selection d'un image locale dans l'explorateur
+        //$upload_size = 5000000;
+        $upload_size = $quizmakerHelper->getConfig('maxsize_image'); 
+        $inpLoadImg = new \XoopsFormFile('', $formName, $upload_size);
+//echo "===>upload_size : {$upload_size}<br>";
+ 
+        if($delChkName){
+            if($urlImg){
+              $delImg = new \XoopsFormCheckBox('', $delChkName);                        
+              $delImg->addOption(1, _AM_QUIZMAKER_DELETE);
+            }else{
+              $delImg = new \XoopsFormLabel('', _CO_QUIZMAKER_NEW);                        
+            }
+                                     
+        }else $delImg = new \XoopsFormLabel('', ''); 
+
+        //-------------------------------------------------------------
+        $imageTray  = new \XoopsFormElementTray($caption,''); 
+        //$imageTray->addElement(new \xoopsFormHidden($formName, $imgName));
+        $imageTray->addElement($inpImg);
+        $imageTray->addElement($delImg);
+        $imageTray->addElement(new \XoopsFormLabel('', '<br>'));
+//        $imageTray->addElement($libImgName);// a garder pour le dev
+        if($description) $imageTray->addElement(new \XoopsFormLabel('', $description . '<br>'));
+        $imageTray->addElement($inpLoadImg);
+        //$imageTray->setDescription(_AM_QUIZMAKER_IMG_DESC . '<br>' . sprintf(_AM_QUIZMAKER_UPLOADSIZE, $upload_size / 1024), '<br>');
+        //$inpCaption = new \XoopsFormLabel('', $caption);
+        return $imageTray; 
+    }
+
+/* **********************************************************
+*
+* *********************************************************** */
+public function getFormImage($caption, $name, $image, $folderJS)
+{
+
+    $path =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images";  
+//echo $path;exit;
+    //$fullName =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/{$folderJS}/images/" . $tValues[$name];     
+    //$inpImage = $this->getXoopsFormImage($tValues[$name], "{$optionName}[{$name}]", $path, 80,'<br>');  
+    $inpImage = $this->getXoopsFormImage($image, $name, $path, 80,'<br>', 'del_' . $name, $caption);  
+    
+    return $inpImage;
+  }
+
+
+} // ********************* Fin de la class ******************************

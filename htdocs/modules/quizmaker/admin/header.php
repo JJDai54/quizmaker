@@ -65,6 +65,7 @@ xoops_load('XoopsLists', 'core');
 $utility = new \XoopsModules\Quizmaker\Utility();
 $quizUtility = new \XoopsModules\Quizmaker\Utility();
 
+if(!is_dir(XOOPS_ROOT_PATH . "/Frameworks/janus")){redirect_header("load_janus.php");}
 include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
 \JANUS\loadAllXForms();   
 \JANUS\load_trierTableauHTML();

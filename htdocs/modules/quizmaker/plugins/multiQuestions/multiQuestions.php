@@ -78,27 +78,9 @@ var $maxMots = 0;
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
-//       //--------------------------------------------------------------------  
-      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS_));     
+      //--------------------------------------------------------------------  
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
          
-//       $name = 'inpSize';  
-//       $inpSize = new \XoopsFormNumber(_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-//       $inpSize->setMinMax(5, $this->inpMaxCar, _AM_QUIZMAKER_UNIT_CARACTERES);
-//       $trayOptions ->addElement($inpSize);     
-// 
-//       $name = 'inpMaxlength';  
-//       $inpMaxlength = new \XoopsFormNumber(_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-//       $inpMaxlength->setMinMax(5, $this->inpWidth, _AM_QUIZMAKER_UNIT_CARACTERES);
-//       $trayOptions ->addElement($inpMaxlength);     
-//       
-// 
-//       $name = 'disposition'; 
-//       $path = $this->pathArr['img'] . "/dispositions"; 
-//       $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PATH_PLUGINS_PHP);
-//       $imgList = XoopsLists::getFileListByExtension($path,  array('jpg','png','gif'), '');
-//       $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-//       $inputDisposition->setGridIconNumber(count($imgList),1);
-//       $trayOptions->addElement($inputDisposition);      
       //--------------------------------------------------------------------           
 
       return $trayOptions;

@@ -122,11 +122,9 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       $inpDirective->setDescription(_AM_QUIZMAKER_DIRECTIVE_DESC);
       $trayOptions ->addElementOption($inpDirective);     
 
-      $name = 'disposition'; 
-      $path = $this->pathArr['img'] . "/dispositions"; 
-      $inputDisposition = new \XoopsFormIconSelect("<br>" . _AM_QUIZMAKER_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], $path);
-      //$inputDisposition->setHorizontalIconNumber(9);
-      $trayOptions->addElementOption($inputDisposition);     
+      // disposition 
+      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      
       return $trayOptions;
 
     }

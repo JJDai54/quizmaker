@@ -1,6 +1,12 @@
-﻿
+﻿/*******************************************************************
+*                     listboxClassItems
+* *****************************************************************/
+function getPlugin_listboxClassItems(question, slideNumber){
+    return new listboxClassItems(question, slideNumber);
+}
+
 /************************************************************************
- *                 _listboxClassItems
+ *                 listboxClassItems
  * **********************************************************************/
 
 class listboxClassItems extends Plugin_Prototype{
@@ -51,8 +57,7 @@ getInnerHTML(){
         }
         tHtml.push(`<div style='text-align:center;${styleDiv}' >` ); 
         tHtml.push(`<span>${this.data.groups[i].libelle}</span><br>`); 
-        tHtml.push(`<SELECT id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick}>`);
-        tHtml.push(`<SELECT id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick}>`);
+        tHtml.push(`<select id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick} style='background:${this.data.groups[i].background};'>`);
         tHtml.push('</select>'); 
         tHtml.push('</div>'); 
     }
@@ -67,7 +72,7 @@ getInnerHTML(){
  prepareData(){
     
     var currentQuestion = this.question;
-    
+
     var groupsArr = [];
     for(var k = 0; k <= 3; k++){
         var key = 'group' + k;
@@ -76,12 +81,14 @@ getInnerHTML(){
             t.libelle = currentQuestion.options[key];
             t.id =  this.getId('group', k);
             t.propositions = []; //tableau des propositions du groupe
+            t.background = currentQuestion.options[`bgGroup${k}`]; //couleur de fond des groupes
             groupsArr.push(t);
             //alert(this.data.groups[0].libelle);
         }
     }
     
     this.data.nbGroups = groupsArr.length;    
+    
     
 
    
@@ -100,6 +107,11 @@ getInnerHTML(){
     
     //identification des groupes
     this.data.groups = groupsArr;
+    
+     if(currentQuestion.options.oneListOnly*1 == 1 && this.data.groups.length == 2){
+        currentQuestion.options.groupDefault = -2;
+        //alert(currentQuestion.options.groupDefault + ' / ' + this.data.groups.length);
+    }    
 }
 /* *********************************************************
 *
@@ -127,9 +139,16 @@ loadAlllistBox(goodAnswers = false){
     var randGrp = 0;
     var mode = 0; //random sur tous les groupes
     
-    
-    
-    if(goodAnswers)  mode = 1; //bonnes réponses
+//     
+//     if(currentQuestion.options.groupDefault == 0 && this.data.groups.length == 2){
+//         var groupDefault = -2;
+//     }else{
+//         var groupDefault = currentQuestion.options.groupDefault;
+//     }
+
+   if(goodAnswers) {
+        mode = 1;  //bonnes réponses
+   }
     else if(currentQuestion.options.groupDefault >= 0)  {
         mode = 2; //tous les items dans le groupe par defaut
         var groupDefault = (this.data.groups.length == 1) ? 0 : currentQuestion.options.groupDefault;

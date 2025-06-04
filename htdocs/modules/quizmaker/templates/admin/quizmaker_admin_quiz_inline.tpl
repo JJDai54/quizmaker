@@ -26,12 +26,16 @@
     <{/foreach}>
     
     <script src="<{$urlApp}>/js/<{$prototype}>"></script>
-    <!-- Insertion des classes et des css des plugins -->
-    <{foreach item=pluginJS from=$allPlugins name=tpljsName}>
-        <script src="<{$urlPlugins}>/<{$pluginJS}>/<{$pluginJS}>.js"></script>
-        <link rel="stylesheet" href="<{$urlPlugins}>/<{$pluginJS}>/<{$pluginJS}>.css" type="text/css" />
+    
+    <!-- Insertion des CSS des plugins zzzzz-->
+    <{foreach item=css from=$allPluginsCSS name=tplcssName}>
+        <link rel="stylesheet" href="<{$urlPlugins}>/<{$css}>" type="text/css" />
     <{/foreach}>
 
+    <!-- Insertion des fichier JS des plugins itou les classes de ces plugins -->
+    <{foreach item=js from=$allPluginsJS name=tpljsName}>
+        <script src="<{$urlPlugins}>/<{$js}>"></script>
+    <{/foreach}>
     <{* ========================================== *}> 
 
 <script>
@@ -39,14 +43,14 @@
 /**************************************************************************
  *   get instance de classe
  * ************************************************************************/
-  function getTplNewClass (currentQuestion, chrono){
+  function getTplNewClass2 (currentQuestion, chrono){
 
   var obj;
 
     switch (currentQuestion.type){
     <{foreach item=pluginJS from=$allPlugins name=tpljsName}>
         <{assign var='className' value=$pluginJS}>
-        case "<{$className}>" : obj = new (<{$className}>)(currentQuestion, chrono); break;
+        case "<{$className}>" : obj = getPlugin_<{$className}>(currentQuestion, chrono); break;
     <{/foreach}>
     
     default: alert("getTplNewClass - Classe absente : " + currentQuestion.type); break;

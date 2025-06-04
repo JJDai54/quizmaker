@@ -115,12 +115,12 @@ use XoopsModules\Quizmaker\Utility;
         if($fromQuizId){
         //Liste des types de question
         $inpCheckbox = new \XoopsFormCheckboxAll(_CO_QUIZMAKER_PLUGIN, 'plugins_selected', 1, '<br>');
-        $inpCheckbox->addOptionArray($questionsHandler->getTypeQuestionOf($fromQuizId));    
-        $idCheckAllTypeQuestion = $inpCheckbox->addOptionChecboxkAll('all_plugins_selected', 'Tous les types de question', -1, true);
+        $inpCheckbox->addOptionArray($questionsHandler->getPluginOf($fromQuizId));    
+        $idCheckAllPlugin = $inpCheckbox->addOptionChecboxkAll('all_plugins_selected', 'Tous les types de question', -1, true);
         $inpCheckbox->setColorCheckAll('red');
         $form->addElement($inpCheckbox);
-        //echo "<hr>idCheckAllTypeQuestion = {$idCheckAllTypeQuestion}<hr>";
-        $form->addElement(new xoopsFormHidden('select_checkboxAllTypeQuestionId', $idCheckAllTypeQuestion));
+        //echo "<hr>idCheckAllPlugin = {$idCheckAllPlugin}<hr>";
+        $form->addElement(new xoopsFormHidden('select_checkboxAllPluginId', $idCheckAllPlugin));
         }
         */
         
@@ -171,7 +171,7 @@ use XoopsModules\Quizmaker\Utility;
         $idCheckAllQuestions = $inpQuestions->addOptionChecboxkAll('all_questions_selected', 'Toutes les questions', -1, false);
         $inpQuestions->setColorCheckAll('red');
         $form->addElement($inpQuestions);
-        //echo "<hr>idCheckAllTypeQuestion = {$idCheckAllTypeQuestion}<hr>";
+        //echo "<hr>idCheckAllPlugin = {$idCheckAllPlugin}<hr>";
         $form->addElement(new xoopsFormHidden('select_checkboxAllQuestionsId', $idCheckAllQuestions));
         }
         
