@@ -1439,9 +1439,10 @@ _quizmaker
 18=language\french\main.php
 19=solutions.php
 20=xoops_version.php
+21=docs\changelog.txt
 [Selected Project Files]
 Main=
-Selected=xoops_version.php
+Selected=docs\changelog.txt
 [admin\export.php]
 TopLine=41
 Caret=1,47
@@ -1473,19 +1474,19 @@ Caret=55,174
 TopLine=104
 Caret=12,125
 [admin\build_quiz_cat.php]
-TopLine=29
+TopLine=15
 Caret=13,59
 [plugins\listboxClassItems\listboxClassItems.php]
 TopLine=196
 Caret=1,217
 [class\Utilities\QuizBuildUtility.php]
-TopLine=393
+TopLine=379
 Caret=7,418
 [admin\questions-save.php]
 TopLine=79
 Caret=1,100
 [admin\import-quiz.php]
-TopLine=94
+TopLine=80
 Caret=11,129
 [admin\import-plugin.php]
 TopLine=77
@@ -1497,7 +1498,7 @@ Caret=42,108
 TopLine=80
 Caret=48,100
 [language\french\main.php]
-TopLine=56
+TopLine=42
 Caret=49,84
 [solutions.php]
 TopLine=34
@@ -1505,3 +1506,6 @@ Caret=3,61
 [xoops_version.php]
 TopLine=1
 Caret=38,33
+[docs\changelog.txt]
+TopLine=1
+Caret=1,1

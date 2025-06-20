@@ -1,10 +1,13 @@
 ---------------------------------------------------
-2025-05-25 v 6.14 beta 2 - JJDai - jjdelalandre@orange.fr
+2025-06-20 v 6.14 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Activation désactivation automatioque des boutons zoomPlus et zoomMoins
 Divers corrections du JS pour minification
 Divers corrections des CSS
 trnsfert et optimisation du calcul des tailles dans "xoops_version.php" dans la fonction "quizmaker_getSizesArr" dans xoops_version.inc.php
+Ajout des champs cat_actif et opt_actif
+Répartition des functions JS dans plusieurs fichiers : fnc_zoom.js, fnc_progressBar.js, ...
+Correcion des JS pour minification
 
 ---------------------------------------------------
 2025-05-25 v 6.14 beta 1 - JJDai - jjdelalandre@orange.fr
