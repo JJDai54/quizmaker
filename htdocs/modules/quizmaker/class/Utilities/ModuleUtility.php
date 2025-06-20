@@ -61,6 +61,7 @@ public static function create_quiz_arborescense($path){
 // sous-entendu qu'on a les droits d'écriture, bien sûr! 
  ****************************************************************************/
 public static function copyFolder($source, $dest) { 
+//echo "<hr>source = {$source}<br>dest = {$dest}<hr>";
 
   if (!is_dir($dest)) mkdir($dest, 0755);
   foreach (
@@ -183,7 +184,7 @@ public static function submitQuizVerif($quizId, $uid, $uname)
         $options['cols']   = '100%';
         $options['width']  = '100%';
         $options['height'] = '300px';
-        $options['editor'] = $quizmakerHelper->getConfig('editor_admin');
+        $options['editor'] = $quizmakerHelper->getConfig('quizmaker_editor');
         
         if($newOptions !== null){
           $keys = array('rows','cols','width','height');

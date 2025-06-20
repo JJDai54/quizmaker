@@ -109,8 +109,8 @@ class OptionsHandler extends \XoopsPersistableObjectHandler
  * *********************** */
     public function getAllOptionsArr(&$binMerged = null)
     {$binMerged = array();
-    
-        $optionsAll = $this->getAllOptions();
+        $criteria = new \Criteria('opt_actif',1,'=');
+        $optionsAll = $this->getAllOptions($criteria);
         $optionArr = array();
     	foreach(array_keys($optionsAll) as $i) {
             $values = $optionsAll[$i]->getValuesOptions();
@@ -405,5 +405,22 @@ public function setBitOn($optId, $field, $bitIndex, $newValue = -1)
     $ret = $this->db->queryf($sql);
     return $ret;
 }
+
+/* ******************************
+ * incremente la valeur d'un champ selon le modulo passé en parametre 
+ * *********************** */
+  public function changeEtat($optId, $field='opt_actif', $modulo = 2)
+  {
+      $increment = 1;
+      if($modulo < 0){
+          $modulo = abs($modulo);
+          $increment = $modulo-1;
+      }
+      
+      $sql = "UPDATE " . $this->table . " SET {$field} = mod({$field}+{$increment},{$modulo}) WHERE opt_id={$optId};";
+      $ret = $this->db->queryf($sql);
+      
+      return $ret;
+  }
 
 } // fin de la classe

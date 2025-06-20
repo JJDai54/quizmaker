@@ -14,17 +14,17 @@ msgNextSlideDelai = 1500;
 /* ***************************************
 *
 * *** */
-build (){
+buildSlide (bShuffle = true){
 //alert("selectImages");
     this.boolDog = false;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
 
 
 /* ************************************
 *
 * **** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     //var tplOption = "<div ><img src='pingouin-02.jpg'><p>}{titre}</p></div>";
     var tHtml = [];

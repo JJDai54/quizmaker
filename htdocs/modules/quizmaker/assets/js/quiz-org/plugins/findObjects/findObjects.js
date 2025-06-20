@@ -17,18 +17,20 @@ urlSound='';
 /* ***************************************
 *
 * *** */
-build (){
-//alert("findObjects");
+buildSlide (bShuffle = true){
+    var currentQuestion = this.question;
+//alert("findObjects-> : buildSlide - " + `slideNumber = ${this.slideNumber} - question = ${currentQuestion.question}`);
     this.boolDog = false;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
 
 
 /* ************************************
 *
 * **** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
+//alert("findObjects-> : getInnerHTML - " + `slideNumber = ${this.slideNumber} - question = ${currentQuestion.question}`);
     //var tplOption = "<div ><img src='pingouin-02.jpg'><p>}{titre}</p></div>";
     var url = '';
     var imgId = '';
@@ -68,6 +70,7 @@ getInnerHTML(){
 
 //---------------------------------------------------
 onEnter() {
+    super.onEnter();
 }
 //---------------------------------------------------
 initSlide() {
@@ -110,23 +113,12 @@ initSlide() {
 //---------------------------------------------------
 onFinalyse() {
     super.onFinalyse();
-    var currentQuestion = this.question;
-    if (currentQuestion.options.nextSlideDelai*1 > 0){
-        //document.getElementById('quiz_btn_nextSlide').setAttribute('disabled','disabled');
-        document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
-        //alert("onEnter");
-    }else{
-        document.getElementById('quiz_btn_nextSlide').disabled = '';
-    }
 
     var attempts = this.colTouches.attempts;
     document.getElementById(this.data.idAttempts).innerHTML = `${attempts.total}/${attempts.max}`;     
     document.getElementById(this.data.idObjetsFound).innerHTML = `${attempts.winning}/${attempts.totalWinning}`;    
 
-    if(currentQuestion.options.zoom == 2) {
-        zoom_plus(event, this.slideNumber);  
-    }  
-console.log('===> onFinalyse : ' + currentQuestion.question);
+
 }       
 //---------------------------------------------------
  prepareData(){
@@ -302,18 +294,9 @@ getDisposition(disposition, contenairId){
     var idContenair1 = this.getId('contenair1');
     var idContenair2 = this.getId('contenair2');
     this.data.idPrompt =  this.getId('prompt');
-    this.data.idBravo =  this.getId('bravo');
+    //this.data.idBravo =  this.getId('bravo');
     this.data.idAttempts =  this.getId('attempts');
     this.data.idObjetsFound =  this.getId('objetsFound');
-
-    var btn1 = `<img src='${quiz_config.urlCommonImg}/plus.png'  class='quiz_btnZoom' onclick='zoom_plus(event, ${this.slideNumber});'>`;
-    var btn2 = `<img src='${quiz_config.urlCommonImg}/moins.png' class='quiz_btnZoom' onclick='zoom_moins(event, ${this.slideNumber});'>`;
-    //   var attempts = this.colTouches.attempts;
-    if(currentQuestion.options.zoom > 0) {
-        var btnZoom = zoom_getBtnZoom(this.slideNumber,false);      
-    }else{
-        var btnZoom = zoom_getBtnZoom(this.slideNumber, true);  
-    }  
 
     var promptOnClick = `<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
 cellspacing="1">
@@ -321,7 +304,7 @@ cellspacing="1">
 <tr>
 <td style="width:45%;vertical-align: top; text-align: right;">nombre d'essais</td>
 <td id='${this.data.idAttempts}' class='findObjects_bravo'>0/0</td>
-<td colspan="1" rowspan="2" style="width:148px;vertical-align: middle;">${btnZoom}</td>
+<td colspan="1" rowspan="2" style="width:148px;vertical-align: middle;"></td>
 </tr>
 <tr>
 <td style="width:45%;vertical-align: top; text-align: right;">Objets trouvés</td>
@@ -391,7 +374,7 @@ console.log("=====>isToucheOk");
         message = fo_sprint(clQuestion.question.options.nextSlideMessageMax,attempts, clQuestion.colTouches.nbTouches);
         quiz_show_avertissement(message ,  clQuestion.question.options.nextSlideDelai*1, clQuestion.question.options.nextSlideBG);
     }else if( attempts.winning == clQuestion.colTouches.attempts.totalWinning){
-        document.getElementById(clQuestion.data.idBravo).innerHTML = `BRAVO ! : ${attempts.winning}/${clQuestion.colTouches.attempts.totalWinning}`; 
+        //document.getElementById(clQuestion.data.idBravo).innerHTML = `BRAVO ! : ${attempts.winning}/${clQuestion.colTouches.attempts.totalWinning}`; 
         zoom_moins(e, slideNumber);   
     }else if( attempts.total >= attempts.max){
         zoom_moins(e, slideNumber);   

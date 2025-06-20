@@ -44,7 +44,7 @@ define('_LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX', "Combobox");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_LISTUL', "Bulleted list");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD', "Images");
 
-define('_LG_PLUGIN_SORTITEMS_CLASSE_SELECT', "Select a class and submit the form");
+define('_LG_PLUGIN_SORTITEMS_CLASSE_SELECT', "Select a class, validate and reload the form");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_DESC', "The principle is the same regardless of the structure; it involves sorting a list that comes in different forms:"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_CLASSE_LISTBOX . "</b> : List of expressions with movement buttons"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX . "</b> : As many drop-down lists as expressions to sort, filled with all the expressions"

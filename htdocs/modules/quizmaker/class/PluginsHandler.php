@@ -227,14 +227,14 @@ echo "<hr>pluginHandler->install {$pluginName}<br>{$pluginPhpPath}<br>{$pluginJs
     $dest =  QUIZMAKER_PATH_QUIZ_JS . "/plugins";
     $quizUtility->copyFolder($source, $dest); 
     $quizUtility::deleteDirectory($source);    
-echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
+//echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
     
                       
     //copie des fichiers plugins/php                      
     $source = "{$fullPath}/{$pluginName}";
     $dest =  QUIZMAKER_PATH_PLUGINS_PHP . '/' . $pluginName;
     $quizUtility->copyFolder($source, $dest); 
-echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
+//echo "<hr>pluginHandler->install {$pluginName}<br>source = {$source}<br>destination = {$dest}<hr>";
 //exit('pluginHandler->install');    
     return 0;
 }
@@ -298,17 +298,10 @@ public function getNewPluginName(&$pluginName){
     switch($pluginName){
         case 'checkboxLogical' :
             $pluginName = 'checkboxSimple'; 
-        case 'radioLogical' :
-            $pluginName = 'radioSimple'; 
-            break;
         case 'listboxIntruders1' : 
         case 'listboxIntruders2' : 
         case 'listboxIntruders' : 
             $pluginName = 'listboxClassItems';   
-            break;
-        case 'sortCombobox' :
-        case 'comboboxSortList' :
-            $pluginName = 'comboboxSortItems'; 
             break;
         case 'imagesSortItems' :
         case 'imagesDaDSortItems' :
@@ -345,9 +338,12 @@ public function getNewPluginName(&$pluginName){
             $pluginName = 'matchItems'; 
             break;
         case 'checkboxSimple' :
+        case 'radioLogical' :
         case 'radioSimple' :
             $pluginName = 'selectInputs'; 
             break;
+        case 'sortCombobox' :
+        case 'comboboxSortList' :
         case 'comboboxSortItems' :
         case 'listboxSortItems' :
             $pluginName = 'sortItems'; 
@@ -511,8 +507,8 @@ global $quizmakerHelper, $quizUtility;
             $uploaderErrors = $uploader->getErrors();
         } else {
             $savedFilename = $uploader->getSavedFileName();
-            $maxwidth  = (int)$quizmakerHelper->getConfig('maxwidth_image');
-            $maxheight = (int)$quizmakerHelper->getConfig('maxheight_image');
+//             $maxwidth  = (int)$quizmakerHelper->getConfig('maxwidth_image');
+//             $maxheight = (int)$quizmakerHelper->getConfig('maxheight_image');
 
 
             $nameOrg = $_FILES[$_POST['xoops_upload_file'][$keyFile]]['name'];       

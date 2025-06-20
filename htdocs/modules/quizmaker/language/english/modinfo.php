@@ -53,12 +53,10 @@ define('_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP', "Slide help");
 define('_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP_DESC', "Allows you to display the description of the slide with its options when editing questions.<br>If you master the module it is possible to hide this help to reduce the display when editing editing questions.");
 define('_MI_QUIZMAKER_DIVIDEBY', "Divide by");
 define('_MI_QUIZMAKER_DIVIDEBY_DESC', "Divide by the number of columns.");
-define('_MI_QUIZMAKER_EDITOR_ADMIN', "Editor administrator");
-define('_MI_QUIZMAKER_EDITOR_ADMIN_DESC', "Select the editor that should be used in the admin area for text box fields");
 define('_MI_QUIZMAKER_EDITOR_MAXCHAR', "Maximum character text");
 define('_MI_QUIZMAKER_EDITOR_MAXCHAR_DESC', "Maximum number of characters to display the text of a text box or editor field in the admin area");
-define('_MI_QUIZMAKER_EDITOR_USER', "Editor user");
-define('_MI_QUIZMAKER_EDITOR_USER_DESC', "Select the editor that should be used in the user area for text box fields");
+define('_MI_QUIZMAKER_EDITOR', "Editor");
+define('_MI_QUIZMAKER_EDITOR_DESC', "Select the editor that should be used in the user area for text box fields");
 define('_MI_QUIZMAKER_EXPORT', "Export");
 define('_MI_QUIZMAKER_GROUPS', "Group access");
 define('_MI_QUIZMAKER_GROUPS_DESC', "Select general access permission for groups.");
@@ -160,16 +158,11 @@ define('_MI_QUIZMAKER_SMNAME14', "Results");
 define('_MI_QUIZMAKER_TABLE_TYPE', "Table type");
 define('_MI_QUIZMAKER_UPLOAD_GROUPS', "Upload group permissions");
 define('_MI_QUIZMAKER_UPLOAD_GROUPS_DESC', "Which groups are allowed to upload files");
-define('_MI_QUIZMAKER_USE_JS_MINIFIED', "Minified JavaScript");
-define('_MI_QUIZMAKER_USE_JS_MINIFIED_DESC', "Uses minified javascript files.<br>Leave no during the development of the javascript part.<br>Do not forget to minify the javascript files when the original files have been modified.");
+define('_MI_QUIZMAKER_USE_MINIFIED_FILES', "Minified JavaScript");
+define('_MI_QUIZMAKER_USE_MINIFIED_FILES_DESC', "Uses minified javascript files.<br>Leave no during the development of the javascript part.<br>Do not forget to minify the javascript files when the original files have been modified.");
 define('_MI_QUIZMAKER_USE_TAG', "Use TAG");
 define('_MI_QUIZMAKER_USE_TAG_DESC', "If you use the tag module, check this option yes");
 define('_MI_QUIZMAKER_USER_PAGER', "Number of items per page on user side");
 define('_MI_QUIZMAKER_USER_PAGER_DESC', "Paging lists in the user interface");
-
-define('_MI_QUIZMAKER_CAT_PLUGIN', "Examples Category");
-define('_MI_QUIZMAKER_CAT_PLUGIN_DESC', "Name of the default category into which the examples provided with the plugins are imported.<br>See the <b>Plugins</b> tab");
-define('_MI_QUIZMAKER_CAT_PLUGIN_DEFAULT', "Example quizzes by question type");
-
 
 ?>

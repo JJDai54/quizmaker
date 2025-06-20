@@ -12,16 +12,16 @@ name = 'imagesDaDGroups';
 
 
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
 
 
 /* ************************************
 *
 * **** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var tWords = [];
     var tPoints = [];
@@ -107,16 +107,6 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
     return tpl;
 }
 
-//---------------------------------------------------
-onFinalyse() {
-    super.onFinalyse();
-    var currentQuestion = this.question;
-
-    if(currentQuestion.options.zoom == 2) {
-        zoom_plus(event, this.slideNumber);  
-    }  
-console.log('===> onFinalyse : ' + currentQuestion.question);
-}       
 
 /* *********************************************************
 *
@@ -548,11 +538,7 @@ for (var h = 0; h < 4; h++){
         break;
     }
     
-    if(currentQuestion.options.zoom > 0){
-        return zoom_getCapsule(tpl, this.slideNumber);
-    }else{
         return tpl;
-    }
 }
 
 }  // FIN DE LA CLASSE

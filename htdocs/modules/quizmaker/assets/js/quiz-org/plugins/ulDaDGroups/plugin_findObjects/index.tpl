@@ -15,7 +15,7 @@
         
     <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/js/plugin_prototype.js"></script>
     
-    <!-- Insertion des CSS des plugins zzzzz-->
+    <!-- Insertion des CSS des plugins -->
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/alphaSimple/alphaSimple.css" type="text/css" />
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/findObjects/findObjects.css" type="text/css" />
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/imagesColor/imagesColor.css" type="text/css" />

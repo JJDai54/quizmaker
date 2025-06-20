@@ -11,15 +11,15 @@ class imagesColor extends Plugin_Prototype{
 name = 'imagesColor';
 
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
 
 /* ************************************
 *
 * **** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     if (currentQuestion.options.colorSelectMode == 1){
         return this.getInnerHTML_color_picker();

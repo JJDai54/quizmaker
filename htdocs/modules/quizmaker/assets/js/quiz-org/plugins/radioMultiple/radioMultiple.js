@@ -12,15 +12,15 @@ function getPlugin_radioMultiple(question, slideNumber){
 class radioMultiple extends Plugin_Prototype{
 name = "radioMultiple";  
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     var currentQuestion = this.question;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
   
 /* ***************************************
 *
 * *** */
-getInnerHTML (){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var id = this.getId(0);
     var name = this.getName();

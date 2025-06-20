@@ -14,10 +14,10 @@ name = 'imagesDaDMatchItems';
 /* *************************************
 *
 * ******** */
-build (){
+buildSlide (bShuffle = true){
 
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
 
 
@@ -206,16 +206,6 @@ onEnter() {
     //setStyleAttribute(this.getId('silouhette'), 'background-color', currentQuestion.options.bgSilhouette);
 }
 
-//---------------------------------------------------
-onFinalyse() {
-    super.onFinalyse();
-    var currentQuestion = this.question;
-
-    if(currentQuestion.options.zoom == 2) {
-        zoom_plus(event, this.slideNumber);  
-    }  
-console.log('===> onFinalyse : ' + currentQuestion.question);
-}       
 
 /* **************************************************
 calcul le nombre de points obtenus d'une question/slide
@@ -318,14 +308,7 @@ getDisposition(disposition, directive){
             break;
     }
     
-    //tpl = `<div>${tpl}</div>`;
-    //alert(`slideNumber : ${this.slideNumber} - zoom = ${currentQuestion.options.zoom} - disposition = ${disposition}`);
-    if(currentQuestion.options.zoom > 0){
-        return zoom_getCapsule(tpl, this.slideNumber);
-    }else{
-        return tpl;
-    }
-
+    return tpl;
 }
 
 } // ----- fin de la classe ------

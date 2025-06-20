@@ -99,5 +99,9 @@ define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages de début, de fin et de regroupem
 define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
 define('_CO_QUIZMAKER_NEW', 'Nouveau');
 
+define('_CO_QUIZMAKER_PLAYER_STATUS', "Etat");
+define('_CO_QUIZMAKER_PLAYER_ALL', "Tous les quiz");
+define('_CO_QUIZMAKER_PLAYER_NONE', "Quiz non fait");
+define('_CO_QUIZMAKER_PLAYER_YES', "Quiz déjà fait");
 
 ?>

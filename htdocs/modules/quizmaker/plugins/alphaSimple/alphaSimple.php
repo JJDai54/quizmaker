@@ -52,7 +52,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
                                   'togodo'=>0,
                                   'nextSlideDelai'      => 0,
                                   'nextSlideBG'         =>'#FFCC00',
-                                  'nextSlideMessage' => _AM_QUIZMAKER_NEXT_SLIDE_MSG0];
+                                  'nextSlideMessage' =>  ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : '')];
 
         $this->hasImageMain = true;
         $this->multiPoints = true;

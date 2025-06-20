@@ -29,8 +29,8 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
 	'version'             => 6.14,
-	'module_status'       => 'Beta 1',
-	'release_date'        => '2025/05/31',
+	'module_status'       => 'Beta 2',
+	'release_date'        => '2025/06/20',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -294,22 +294,13 @@ $modversion['blocks'][] = [
 // Editor Admin
 xoops_load('xoopseditorhandler');
 $editorHandler = XoopsEditorHandler::getInstance();
-$modversion['config'][] = [
-	'name'        => 'editor_admin',
-	'title'       => '_MI_QUIZMAKER_EDITOR_ADMIN',
-	'description' => '_MI_QUIZMAKER_EDITOR_ADMIN_DESC',
-	'formtype'    => 'select',
-	'valuetype'   => 'text',
-	'default'     => 'TinyMCE', //dhtml
-	'options'     => array_flip($editorHandler->getList()),
-];
-// Editor User
+// Editor of quizmaker
 xoops_load('xoopseditorhandler');
 $editorHandler = XoopsEditorHandler::getInstance();
 $modversion['config'][] = [
-	'name'        => 'editor_user',
-	'title'       => '_MI_QUIZMAKER_EDITOR_USER',
-	'description' => '_MI_QUIZMAKER_EDITOR_USER_DESC',
+	'name'        => 'quizmaker_editor',
+	'title'       => '_MI_QUIZMAKER_EDITOR',
+	'description' => '_MI_QUIZMAKER_EDITOR_DESC',
 	'formtype'    => 'select',
 	'valuetype'   => 'text',
 	'default'     => 'TinyMCE', //dhtml
@@ -406,46 +397,8 @@ $modversion['config'][] = [
 // create increment steps for file size
 include_once __DIR__ . '/include/xoops_version.inc.php';
 
-$iniPostMaxSize       = quizmaker_returnBytes(\ini_get('post_max_size'));
-$iniUploadMaxFileSize = quizmaker_returnBytes(\ini_get('upload_max_filesize'));
-$maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
-//echo quizmaker_returnBytes(\ini_get('post_max_size')) . "---" . quizmaker_returnBytes(\ini_get('upload_max_filesize')) . "---" . $maxSize;
-if ($maxSize > 10000 * 1048576) {
-    $increment = 500;
-}
-if ($maxSize <= 10000 * 1048576) {
-    $increment = 200;
-}
-if ($maxSize <= 5000 * 1048576) {
-    $increment = 100;
-}
-if ($maxSize <= 2500 * 1048576) {
-    $increment = 50;
-}
-if ($maxSize <= 1000 * 1048576) {
-    $increment = 10;
-}
-if ($maxSize <= 500 * 1048576) {
-    $increment = 5;
-}
-if ($maxSize <= 100 * 1048576) {
-    $increment = 2;
-}
-if ($maxSize <= 50 * 1048576) {
-    $increment = 1;
-}
-if ($maxSize <= 25 * 1048576) {
-    $increment = 0.5;
-}
-$optionMaxsize = [];
-$i = $increment;
-while ($i * 1048576 <= $maxSize) {
-    $optionMaxsize[$i . ' ' . _MI_QUIZMAKER_SIZE_MB] = $i * 1048576;
-    $i += $increment;
-}
-//echo "<hr>optionMaxsize = {$optionMaxsize}<pre>" .  print_r($optionMaxsize,true) . "</pre><hr>";
-//exit;
-// Uploads : maxsize of image
+$optionMaxsize = quizmaker_getSizesArr();
+
 $modversion['config'][] = [
     'name'        => 'maxsize_image',
     'title'       => '_MI_QUIZMAKER_MAXSIZE_IMAGE',
@@ -465,6 +418,7 @@ $modversion['config'][] = [
     'default'     => ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'],
     'options'     => ['bmp' => 'image/bmp','gif' => 'image/gif','pjpeg' => 'image/pjpeg', 'jpeg' => 'image/jpeg','jpg' => 'image/jpg','jpe' => 'image/jpe', 'png' => 'image/png'],
 ];
+/*
 $modversion['config'][] = [
     'name'        => 'maxwidth_image',
     'title'       => '_MI_QUIZMAKER_MAXWIDTH_IMAGE',
@@ -481,6 +435,8 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 300,
 ];
+*/
+
 // Uploads : maxsize of image
 $modversion['config'][] = [
     'name'        => 'maxsize_import',
@@ -505,44 +461,14 @@ $modversion['config'][] = [
 ];
 */
 
-// Use tag
-// $modversion['config'][] = [
-// 	'name'        => 'usetag',
-// 	'title'       => '_MI_QUIZMAKER_USE_TAG',
-// 	'description' => '_MI_QUIZMAKER_USE_TAG_DESC',
-// 	'formtype'    => 'yesno',
-// 	'valuetype'   => 'int',
-// 	'default'     => 0,
-// ];
-/*
-// Number column
-$modversion['config'][] = [
-	'name'        => 'numb_col',
-	'title'       => '_MI_QUIZMAKER_NUMB_COL',
-	'description' => '_MI_QUIZMAKER_NUMB_COL_DESC',
-	'formtype'    => 'select',
-	'valuetype'   => 'int',
-	'default'     => 1,
-	'options'     => [1 => '1', 2 => '2', 3 => '3', 4 => '4'],
-];
-// Divide by
-$modversion['config'][] = [
-	'name'        => 'divideby',
-	'title'       => '_MI_QUIZMAKER_DIVIDEBY',
-	'description' => '_MI_QUIZMAKER_DIVIDEBY_DESC',
-	'formtype'    => 'select',
-	'valuetype'   => 'int',
-	'default'     => 1,
-	'options'     => [1 => '1', 2 => '2', 3 => '3', 4 => '4'],
-];
-*/
 // Table type
+/*
 $modversion['config'][] = [
 	'name'        => 'table_type',
 	'title'       => '_MI_QUIZMAKER_TABLE_TYPE',
 	'description' => '_MI_QUIZMAKER_DIVIDEBY_DESC',
 	'formtype'    => 'select',
-	'valuetype'   => 'int',
+	'valuetype'   => 'text',
 	'default'     => 'bordered',
 	'options'     => ['bordered' => 'bordered', 'striped' => 'striped', 'hover' => 'hover', 'condensed' => 'condensed'],
 ];
@@ -556,6 +482,26 @@ $modversion['config'][] = [
 	'default'     => 'default',
 	'options'     => ['default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger'],
 ];
+*/
+$modversion['config'][] = [
+	'name'        => 'table_type',
+	'title'       => '_MI_QUIZMAKER_TABLE_TYPE',
+	'description' => '_MI_QUIZMAKER_DIVIDEBY_DESC',
+	'formtype'    => 'hidden',
+	'valuetype'   => 'text',
+	'default'     => 'bordered',
+
+];
+// Panel by
+$modversion['config'][] = [
+	'name'        => 'panel_type',
+	'title'       => '_MI_QUIZMAKER_PANEL_TYPE',
+	'description' => '_MI_QUIZMAKER_PANEL_TYPE_DESC',
+	'formtype'    => 'hidden',
+	'valuetype'   => 'text',
+	'default'     => 'default',
+
+];
 // Advertise
 $modversion['config'][] = [
 	'name'        => 'advertise',
@@ -565,26 +511,7 @@ $modversion['config'][] = [
 	'valuetype'   => 'text',
 	'default'     => '',
 ];
-/*
-// Bookmarks
-$modversion['config'][] = [
-	'name'        => 'bookmarks',
-	'title'       => '_MI_QUIZMAKER_BOOKMARKS',
-	'description' => '_MI_QUIZMAKER_BOOKMARKS_DESC',
-	'formtype'    => 'yesno',
-	'valuetype'   => 'int',
-	'default'     => 0,
-];
-*/
-// Make Sample button visible?
-// $modversion['config'][] = [
-// 	'name'        => 'displaySampleButton',
-// 	'title'       => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON',
-// 	'description' => '_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC',
-// 	'formtype'    => 'yesno',
-// 	'valuetype'   => 'int',
-// 	'default'     => 1,
-// ];
+
 // Maintained by
 $modversion['config'][] = [
 	'name'        => 'maintainedby',
@@ -595,38 +522,17 @@ $modversion['config'][] = [
 	'default'     => 'https://github.com/JJDai54/quizmaker',
 ];
 
+// Javascript is minified
 $modversion['config'][] = [
-	'name'        => 'cat_name_plugin',
-	'title'       => '_MI_QUIZMAKER_CAT_PLUGIN',
-	'description' => '_MI_QUIZMAKER_CAT_PLUGIN_DESC',
-	'formtype'    => 'textbox',
-	'valuetype'   => 'text',
-	'default'     => _MI_QUIZMAKER_CAT_PLUGIN_DEFAULT,
-];
-
-// Jacascript is minified
-/*
-*/
-$modversion['config'][] = [
-	'name'        => 'use_js_minified',
-	'title'       => '_MI_QUIZMAKER_USE_JS_MINIFIED',
-	'description' => '_MI_QUIZMAKER_USE_JS_MINIFIED_DESC',
+	'name'        => 'use_minified_files',
+	'title'       => '_MI_QUIZMAKER_USE_MINIFIED_FILES',
+	'description' => '_MI_QUIZMAKER_USE_MINIFIED_FILES_DESC',
 	'formtype'    => 'yesno',
 	'valuetype'   => 'int',
 	'default'     => 0,
 ];
 
-// Use tag
-// $modversion['config'][] = [
-// 	'name'        => 'perm_by_quiz',
-// 	'title'       => '_MI_QUIZMAKER_APLY_PERM_CAT',
-// 	'description' => '_MI_QUIZMAKER_APLY_PERM_CAT_DESC',
-// 	'formtype'    => 'yesno',
-// 	'valuetype'   => 'int',
-// 	'default'     => 0,
-// ];
-
-// help type de question
+// help plugins
 $modversion['config'][] = [
 	'name'        => 'display_plugin_help',
 	'title'       => '_MI_QUIZMAKER_DISPLAY_PLUGIN_HELP',

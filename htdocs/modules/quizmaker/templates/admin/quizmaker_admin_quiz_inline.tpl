@@ -53,7 +53,7 @@
         case "<{$className}>" : obj = getPlugin_<{$className}>(currentQuestion, chrono); break;
     <{/foreach}>
     
-    default: alert("getTplNewClass - Classe absente : " + currentQuestion.type); break;
+    default: alert(quiz_messages.majCtrlF5 + "\n___________________\n" + "getTplNewClass - Classe absente : " + currentQuestion.type); break;
     }
 
     //blob("getTplNewClass - Classe : " + currentQuestion.type);
@@ -86,10 +86,10 @@
 </div>
 
 
-<script src="<{$urlApp}>/js/<{$quiz_functions}>.js"></script>
-<script src="<{$urlApp}>/js/<{$quiz_events}>.js"></script>
-<script src="<{$urlApp}>/js/<{$timer}>.js"></script>
-<script src="<{$urlApp}>/js/<{$quiz_main}>.js"></script>
+<{foreach item=js from=$jsArr}>
+    <script src="<{$urlApp}>/js/<{$js}>.js"></script>
+<{/foreach}>
+
 
 <{if $outline}>
     </body>

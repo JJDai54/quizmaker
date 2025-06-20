@@ -107,7 +107,7 @@ self:: copyFolder ($pathSource,$pathDest) ;
 *
 * ************************************************* */
 public static function build_quizinline($quiz, $path, $name){
-global $utility, $xoopsConfig;    
+global $utility, $xoopsConfig, $messagesHandler;    
 
     include_once XOOPS_ROOT_PATH.'/class/template.php';
     $tpl = new \xoopsTpl();
@@ -180,11 +180,10 @@ global $utility, $xoopsConfig;
     $tpl->assign('questions', 'quiz-questions');
     $tpl->assign('options', 'quiz-options');
  
-
-    $tpl->assign('quiz_functions', 'quiz-functions');
-    $tpl->assign('quiz_events', 'quiz-events');
-    $tpl->assign('quiz_main', 'quiz-main');
-    $tpl->assign('timer', 'timer');
+    //attention à l'ordre de chargement des JS, "quiz-main" doit absolument être en dernier
+    $jsArr = ['fnc_timer','fnc_progressBar','fnc_zoom','fnc_array','fnc_string',
+              'fnc_htmlObjects','quiz_functions','quiz_events','quiz_main'];
+    $tpl->assign('jsArr', $jsArr);
 
     //-------------------------------------------------
     $tpl->assign('outline', true);
@@ -294,7 +293,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
         $tQuest['questId']        = $values['quest_id'];
         $tQuest['parentId']       = $values['quest_parent_id'];
         $tQuest['type']           = $values['plugin'];
-        $tQuest['pluginName']   = $values['plugin'];
+        $tQuest['pluginName']     = $values['plugin'];
         $tQuest['typeForm']       = $values['typeForm'];
         $tQuest['question']       = self::sanitise($values['quest_question']);
         $tQuest['identifiant']    = self::sanitise($values['identifiant']);
@@ -302,6 +301,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
         //$tQuest['options']        = json_decode($values['quest_options'],true);    
         $tQuest['options']        = json_decode($values['options'],true);    
         $tQuest['optionsDefault'] =  $clPlugin->optionsDefaults;    
+        $tQuest['hasZoom']        =  $clPlugin->hasZoom;    
 /*
 if($values['options'] != $values['quest_options']) {
 echo "<hr><pre>{$values['quest_id']} - options : {$values['options']}<br>quest_options : {$values['quest_options']}</pre><hr>";
@@ -319,6 +319,8 @@ for($h=0; $h<strlen($values['options']); $h++){
         $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
         $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['image']          = self::sanitise($values['quest_image']);
+        $tQuest['zoom']           = self::sanitise($values['quest_zoom']);
+        $tQuest['zoom']           = self::sanitise($values['quest_zoom']);
         $tQuest['background']     = self::sanitise($values['quest_background']);
         $tQuest['height']         = self::sanitise($values['quest_height']);
         $tQuest['points']         = $values['points'];
@@ -413,7 +415,7 @@ global $pluginsHandler;
     foreach($allPlugins as $key=>$plugin){
         $consignes[$plugin['type']] = $plugin['consigne'];
     }
-    echoArray($consignes);
+    //echoArray($consignes);
     
     $exp ="var quiz_consignes = JSON.parse(`" .  json_encode($consignes) . "`);";  
     $exp = str_replace('"', '\"', $exp);

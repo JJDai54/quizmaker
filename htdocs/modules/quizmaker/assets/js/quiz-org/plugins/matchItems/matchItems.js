@@ -12,12 +12,12 @@ class matchItems extends Plugin_Prototype{
 name = 'matchItems';  
 
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
 //-----------------------------------------------------------
-getInnerHTML (){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var htmlArr = [];
 

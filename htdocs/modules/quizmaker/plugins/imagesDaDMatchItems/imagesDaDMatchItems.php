@@ -41,6 +41,7 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
 	{
         parent::__construct("imagesDaDMatchItems", 0, "dragAndDrop");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->hasZoom = true;
 
         $this->maxPropositions = 12;	
         $this->optionsDefaults = ['imgHeight1'  => 64,
@@ -48,8 +49,7 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
                                   'moveAllow'   => '1', 
                                   'directive'   => '', 
                                   'bgSource'=>'#dfdfdf','bgSilhouette'=>'#dfdfdf',
-                                  'disposition' => 'dispositions-10',
-                                  'zoom' =>     0];
+                                  'disposition' => 'dispositions-10'];
     }
 
 	/**
@@ -107,8 +107,6 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
       // disposition 
       include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
       
-      // zoom
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_zoom.php");
       //---------------------------------------------------------
 
       return $trayOptions;

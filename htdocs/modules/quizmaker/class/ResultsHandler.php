@@ -109,7 +109,7 @@ class ResultsHandler extends \XoopsPersistableObjectHandler
 // 		$crAllResults = $this->getResultsCriteria($crAllResults, $start, $limit, $sort, $order);
 // 		return parent::getAll($crAllResults);
 // 	}
-	public function getAllResults($criteria=null, $start = 0, $limit = 0, $sort = 'result_id ASC', $order = 'ASC')
+	public function getAllResults($criteria=null, $start = 0, $limit = 0, $sort = 'result_id', $order = 'ASC')
 	{
 		$newCriteria = ($criteria) ? $criteria: new \CriteriaCompo();
 		$crAllResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);

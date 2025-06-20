@@ -12,15 +12,15 @@ function getPlugin_textareaMixte(question, slideNumber){
 class textareaMixte extends Plugin_Prototype{
 name = "textareaMixte";  
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     var currentQuestion = this.question;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
 /* ***************************************
 *
 * *** */
   
-getInnerHTML (){
+getInnerHTML(bShuffle = true){
 
     switch(this.question.options.presentation){
         case 'listbox' : return this.getInnerHTML_allbox() ; break;
@@ -38,7 +38,6 @@ getInnerHTML (){
 getInnerHTML_textarea (){
     var currentQuestion = this.question;
     var html = '';
-    // this.blob("build : " + currentQuestion.question);
 
     var nbRows = (this.data.nbRows > 8) ? 8 : this.data.nbRows;
     html = `${this.getImage()}<textarea id="${this.data.textId}"  name="${this.getName}" class="slide-proposition" rows="${nbRows}">${this.data.text}</textarea>`;
@@ -53,14 +52,14 @@ getInnerHTML_allbox (){
     var name = this.getName();
     
     if(currentQuestion.options.disposition == "disposition-01"){
-      var tpl0 = `{image}<table class='question'><tr><td width='50%'>{textbox}</td><td style='padding-left:15px;' width='50%'><div id='${this.data.listId}'>{listbox}</div></td></tr></table>`;
-      var textboxClass = "quiz-shadowbox";    
+      var tpl0 = `{image}<table class='textareaMixte_table'><tr><td width='50%'>{textbox}</td><td style='padding-left:15px;' width='50%'><div id='${this.data.listId}' style='text-align:right;padding-right:70px' >{listbox}</div></td></tr></table>`;
+      var textboxClass = "textareaMixte_shadowbox";    
     }else{
-      var tpl0 = `{image}<table class='question'><tr><td>{textbox}</td></tr><tr><td style='text-align:center;padding-top:10px;'><div id='${this.data.listId}'>{listbox}</div></table>`;
-      var textboxClass = "quiz-shadowbox-medium";    
+      var tpl0 = `{image}<table class='textareaMixte_table'><tr><td>{textbox}</td></tr><tr><td style='text-align:center;padding-top:10px;'><div id='${this.data.listId}'>{listbox}</div></td></tr></table>`;
+      var textboxClass = "textareaMixte_shadowbox";    
     }
     
-      var textboxClass = "textareaMixte_text";    
+    
     
     
     var textbox = `<div id="${this.data.textId}" name="${name}" class="${textboxClass}" rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
@@ -91,7 +90,8 @@ get_all_listbox (k){
 
     var tAllWords = shuffleNewArray(this.data.allWords);
     var onclick = `onchange="return textareaMixte_update_event(event,'${this.data.textId}', '${this.data.listId}', ${this.slideNumber},'select');" style="margin-bottom:2px"`;
-    var obList = getHtmlCombobox( this.getName('inp'), this.getId('tlb'),tAllWords, onclick, false);
+    var cssClass = "class='textareaMixte_select'";
+    var obList = getHtmlCombobox( this.getName('inp'), this.getId('tlb'),tAllWords, cssClass +' '+ onclick, false);
     return obList;
 }
 //---------------------------------------------------
@@ -158,8 +158,7 @@ var points = 0;
 
     if(this.question.options.presentation == 'textarea' || currentQuestion.points > 0){
         //dans tous les cas on retire tous les caractères inutiles  
-        var obText = getObjectById(this.data.textId);
-        //alert((obText) ?'ok':'pas glop');
+        var obText = document.getElementById(this.data.textId);
         var reponse = sanityseTextForComparaison(obText.innerHTML);   
 
         console.log("===>textareaMixte->getScoreByProposition\n" + reponse + "\n------------------\n" + this.data.textSanized + "\n------------------\n");
@@ -287,3 +286,100 @@ computeAllScoreEvent();
     return false;
 }
 
+/* *******************************
+*
+* *** */
+function transformTextWithMask(exp, mask){
+var ret = {textOk:'', text:'', words:[], nbRows:0};
+
+    ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
+    exp = exp.replaceAll("\n", qbr); //avec mise en forme de crlf
+    textOk = exp.replaceAll('{','').replaceAll('}','');
+
+
+    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+    var regex = quiz_config.regexAllLettersPP;
+
+    
+    var tWordsA = exp.match(regex);
+    //alert (tWordsA.join('|'));
+    tWordsA = [...new Set(tWordsA)]; // elimine les doublons
+//    alert(tWordsA.join('|'));
+//----------------------------------------------
+    //remplacement des mots entre accolade par le mask defini dans options
+    var exp2 = exp.replaceAll(qbr, "\n");
+    ret.nbRows = exp2.split("\n").length; //nombre de lignes du texte
+//    exp = exp.replaceAll("\n","<br>");
+
+
+
+    for (var i in tWordsA) {
+//alert (`${tWordsA[i]} ===> ${mask}`) ;   
+        //replacement des mots entre accolade par le mask
+        exp2 = exp2.replaceAll(tWordsA[i], mask);
+        
+        //suppression des accolades dans le tableau des mots
+        tWordsA[i] = tWordsA[i].replace("{","").replace("}","");
+    }
+
+
+
+//------------------------------------------------------------------
+        
+    ret.text   = exp2;      //texte avec mask
+    ret.words  = tWordsA;   //tableau des mots trouvés
+    ret.textOk = textOk;    //text sans les accolades
+    // blob(ret.textOk);
+    return ret;
+//-------------------------------------------------
+
+}  
+
+/* *******************************
+*
+* *** */
+function transformTextWithToken(exp, tokenColor = '#0000FF'){
+var ret = {textOk:'', text:'', words:[], nbRows:0};
+var textOk = '';
+
+    ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
+    exp = exp.replaceAll("\n", qbr); //avec mise en forme de crlf
+    textOk = exp.replaceAll('{','').replaceAll('}','');
+    
+    //var regex = /\{[\w+\àéèêëîïôöûüù]*\}/gi;
+    var regex = quiz_config.regexAllLettersPP;
+    
+    var tWordsA = exp.match(regex);
+    tWordsA = [...new Set(tWordsA)];
+
+    var tpl = "<span style='color:{tokenColor};'>{word}</span>";
+    //remplacement des mots entre accolades par des chifres entre accolade
+    var exp2 = exp;
+    for (var i in tWordsA) {
+        var token = "{" + (i*1+1) + "}";
+        var word =  tpl.replace("{word}", token)
+                       .replace("{tokenColor}", tokenColor); 
+// blob("token = " + token +  "-" + tWordsA[i]);
+        
+        exp2 = exp2.replaceAll(tWordsA[i], word);
+
+        
+    tWordsA[i] = tWordsA[i].replace("{","").replace("}","");
+    }
+    
+//     textOk = exp2;
+//     for (var i in tWordsA) {
+//         var token = "{" + (i*1+1) + "}";
+//         textOk = textOk.replaceAll(token, tWordsA[i]);
+//     }
+
+
+//------------------------------------------------------------------
+        
+    ret.text    = exp2;         //texte avec token  : {1}{2}{3} ...
+    ret.words   = tWordsA;      //Tableau des mots entre accolades
+    ret.textOk  = textOk;       //texte sans les accollades
+    return ret;
+//-------------------------------------------------
+
+}  

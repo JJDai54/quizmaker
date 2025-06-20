@@ -146,24 +146,30 @@ _quiz-org
 			images\Hint.png
 			images\index.html
 			images\moins.png
+			images\next.png
 			images\plus.png
 		+js
+			js\fnc_array.js
+			js\fnc_htmlObjects.js
+			js\fnc_progressBar.js
+			js\fnc_string.js
+			js\fnc_timer.js
+			js\fnc_zoom.js
 			js\index.html
 			js\plugin_prototype.js
-			js\quiz-events.js
-			js\quiz-functions.js
-			js\quiz-main.js
-			js\timer.js
-		-language
+			js\quiz_events.js
+			js\quiz_functions.js
+			js\quiz_main.js
+		+language
 			language\index.html
 			language\quiz-english.js
 			language\quiz-french.js
-		-plugins
-			-alphaSimple
+		+plugins
+			+alphaSimple
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-			+findObjects
+			-findObjects
 				-images
 					plugins\findObjects\images\index.html
 					plugins\findObjects\images\Rhinoceros-Pierre_Yves_Gallard-[03772-021].jpg
@@ -176,15 +182,15 @@ _quiz-org
 				plugins\findObjects\index.html
 				plugins\findObjects\Touche.js
 				plugins\findObjects\Touches.js
-			+imagesColor
+			-imagesColor
 				plugins\imagesColor\imagesColor.css
 				plugins\imagesColor\imagesColor.js
 				plugins\imagesColor\index.html
-			+imagesDaDGroups
+			-imagesDaDGroups
 				plugins\imagesDaDGroups\imagesDaDGroups.css
 				plugins\imagesDaDGroups\imagesDaDGroups.js
 				plugins\imagesDaDGroups\index.html
-			+imagesDaDMatchItems
+			-imagesDaDMatchItems
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.css
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.js
 				plugins\imagesDaDMatchItems\index.html
@@ -201,15 +207,15 @@ _quiz-org
 				plugins\imagesSimple\imagesSimple.css
 				plugins\imagesSimple\imagesSimple.js
 				plugins\imagesSimple\index.html
-			+listboxClassItems
+			-listboxClassItems
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.css
 				plugins\listboxClassItems\listboxClassItems.js
-			+matchItems
+			-matchItems
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
-			+multiQuestions
+			-multiQuestions
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
 				plugins\multiQuestions\multiQuestions.js
@@ -225,7 +231,7 @@ _quiz-org
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.css
 				plugins\pageGroup\pageGroup.js
-			+pageInfo
+			-pageInfo
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
@@ -290,7 +296,7 @@ _quiz-org
 				plugins\selectInputs\index.html
 				plugins\selectInputs\selectInputs.css
 				plugins\selectInputs\selectInputs.js
-			+sortItems
+			-sortItems
 				-img
 					-buttons
 						-blue
@@ -409,62 +415,30 @@ _quiz-org
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=plugins\findObjects\findObjects.js
-1=plugins\findObjects\findObjects.css
-2=plugins\imagesDaDGroups\imagesDaDGroups.js
-3=js\quiz-functions.js
-4=css\quiz.css
-5=plugins\listboxClassItems\listboxClassItems.js
-6=plugins\imagesDaDMatchItems\imagesDaDMatchItems.js
-7=plugins\imagesDaDMatchItems\imagesDaDMatchItems.css
-8=js\quiz-main.js
-9=plugins\findObjects\Touches.js
-10=plugins\findObjects\Touche.js
-11=_plugin-JS-Modele\PluginName.js
-12=plugins\selectImages\selectImages.js
-13=js\plugin_prototype.js
+0=js\quiz_functions.js
+1=js\quiz_main.js
+2=language\quiz-french.js
+3=language\quiz-english.js
+4=js\fnc_string.js
+5=plugins\textareaMixte\textareaMixte.js
 [Selected Project Files]
 Main=
-Selected=js\quiz-functions.js
-[plugins\findObjects\findObjects.js]
-TopLine=302
-Caret=109,333
-[plugins\findObjects\findObjects.css]
-TopLine=45
-Caret=1,100
-[plugins\imagesDaDGroups\imagesDaDGroups.js]
+Selected=js\fnc_string.js
+[js\quiz_functions.js]
+TopLine=68
+Caret=1,84
+[js\quiz_main.js]
 TopLine=1
-Caret=1,12
-[js\quiz-functions.js]
-TopLine=1604
-Caret=8,1632
-[css\quiz.css]
-TopLine=862
-Caret=20,885
-[plugins\listboxClassItems\listboxClassItems.js]
-TopLine=29
-Caret=63,59
-[plugins\imagesDaDMatchItems\imagesDaDMatchItems.js]
-TopLine=156
-Caret=35,183
-[plugins\imagesDaDMatchItems\imagesDaDMatchItems.css]
-TopLine=28
-Caret=25,61
-[js\quiz-main.js]
-TopLine=1
-Caret=60,54
-[plugins\findObjects\Touches.js]
-TopLine=428
-Caret=43,231
-[plugins\findObjects\Touche.js]
-TopLine=76
-Caret=16,97
-[_plugin-JS-Modele\PluginName.js]
-TopLine=11
-Caret=90,32
-[plugins\selectImages\selectImages.js]
-TopLine=48
-Caret=1,68
-[js\plugin_prototype.js]
-TopLine=1
-Caret=1,6
+Caret=7,13
+[language\quiz-french.js]
+TopLine=3
+Caret=9,39
+[language\quiz-english.js]
+TopLine=3
+Caret=9,39
+[js\fnc_string.js]
+TopLine=117
+Caret=5,129
+[plugins\textareaMixte\textareaMixte.js]
+TopLine=340
+Caret=1,360

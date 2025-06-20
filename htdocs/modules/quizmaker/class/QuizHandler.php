@@ -347,6 +347,19 @@ global $questionsHandler, $resultsHandler;
  * @$quizId : id du quiz
  * @$field : nom du champ à changer
  * *********************** */
+    public function setValue($quizId, $field, $value)
+    {
+        //$sql = "UPDATE " . $this->table . " SET {$field} = not {$field} WHERE quiz_id={$quizId};";
+        $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quiz_id={$quizId};";
+        $ret = $this->db->queryf($sql);
+        return $ret;
+    }
+    
+/* ******************************
+ * Change l'etat du champ passer en parametre
+ * @$quizId : id du quiz
+ * @$field : nom du champ à changer
+ * *********************** */
 /*
 public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 {

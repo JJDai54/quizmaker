@@ -395,6 +395,7 @@ global $xoopsDB;
     $categoriesObj = $this->create();
 	// Set Vars
 	$categoriesObj->setVar('cat_name', $catName);
+	$categoriesObj->setVar('cat_actif', 1);
 	$categoriesObj->setVar('cat_description', '');
 	$categoriesObj->setVar('cat_weight',  0);
 	$categoriesObj->setVar('cat_theme', 'default');
@@ -450,5 +451,22 @@ $fldWeight = 'cat_weight';
    
 }
 
+
+ /* ******************************
+ * incremente la valeur d'un champ selon le modulo passé en parametre 
+ * *********************** */
+  public function changeEtat($catId, $field='cat_actif', $modulo = 2)
+  {
+      $increment = 1;
+      if($modulo < 0){
+          $modulo = abs($modulo);
+          $increment = $modulo-1;
+      }
+      
+      $sql = "UPDATE " . $this->table . " SET {$field} = mod({$field}+{$increment},{$modulo}) WHERE cat_id={$catId};";
+      $ret = $this->db->queryf($sql);
+      
+      return $ret;
+  }
 
 } // fin de la classe

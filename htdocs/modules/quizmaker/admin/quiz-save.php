@@ -71,9 +71,9 @@ use XoopsModules\Quizmaker\Utility;
 		//$quizObj->setVar('quiz_dateEnd', \JANUS\getSqlDate($QuizDateEnd));
 		$quizObj->setVar('quiz_dateEnd', \JANUS\getSqlDate($QuizDateEndArr));
                 
+		$quizObj->setVar('quiz_publishQuiz',       Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_publishResults',    Request::getInt('quiz_publishResults', 0));
 		$quizObj->setVar('quiz_publishAnswers',    Request::getInt('quiz_publishAnswers', 0));
-		$quizObj->setVar('quiz_publishQuiz',       Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_theme',             Request::getString('quiz_theme', 'defaut'));
 		$quizObj->setVar('quiz_questPosComment1',  Request::getInt('quiz_questPosComment1', 1));
 		$quizObj->setVar('quiz_legend',            Request::getText('quiz_legend', ''));

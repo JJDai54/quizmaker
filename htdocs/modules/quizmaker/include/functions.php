@@ -353,10 +353,10 @@ QUIZMAKER_BIT_SHOW_GOODANSWERS      => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHO
 QUIZMAKER_BIT_SHOW_BADANSWERS       => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC),
 QUIZMAKER_BIT_SHOW_LOG              => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_LOG, _AM_QUIZMAKER_QUIZ_SHOW_LOG_DESC),
 QUIZMAKER_BIT_SHOW_RESULTALLWAYS    => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_RESULT_ALLWAYS, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES),
-QUIZMAKER_BIT_SHOW_REPONSESBOTTOM   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM_DESC));
+QUIZMAKER_BIT_SHOW_REPONSESBOTTOM   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM_DESC),
+QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SHOW_RIGHT_CLICK_MENU, _AM_QUIZMAKER_QUIZ_SHOW_SHOW_RIGHT_CLICK_MENU_DESC));
         break;
     }
-    
     return $arr;
 }
 
@@ -388,6 +388,7 @@ function getBinOptionsFlagsArr ($binName, $binOptions){
         $flags['showLog']           = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_LOG, $binOptions), "Log"); 
         $flags['showResultAllways'] = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTALLWAYS, $binOptions), "Ra"); 
         $flags['showReponsesBottom']= quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_REPONSESBOTTOM, $binOptions), "Rb"); 
+        $flags['showReponsesBottom']= quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU, $binOptions), "Rcm"); 
         break;
     }
 

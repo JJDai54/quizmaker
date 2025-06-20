@@ -41,13 +41,13 @@ var $maxGroups = 4;
 	{
         parent::__construct("imagesDaDGroups", 0, "dragAndDrop");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->hasZoom = true;
 
         $this->maxPropositions = 16;	
         $this->optionsDefaults = ['imgHeight1'=>64,'imgHeight2'=>64,
                                   'group0'=>'Panier','group1'=>'','group2'=>'','group3'=>'',
                                   'bgGroup0'=>'#dfdfdf','bgGroup1'=>'#dfdfdf','bgGroup2'=>'#dfdfdf','bgGroup3'=>'#dfdfdf',
-                                  'showCaptions'=>'B','groupDefault'=>'-1', 'disposition'=>'',
-                                  'zoom' => 0];
+                                  'showCaptions'=>'B','groupDefault'=>'-1', 'disposition'=>''];
     }
 
 	/**
@@ -86,9 +86,6 @@ var $maxGroups = 4;
       $inputShowCaption->addOption("B", _AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM);            
       $trayOptions ->addElementOption($inputShowCaption);     
       
-      // zoom
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_zoom.php");
-
       //groups     
       include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_groups.php");
 

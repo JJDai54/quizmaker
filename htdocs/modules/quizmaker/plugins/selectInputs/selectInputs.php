@@ -46,7 +46,7 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
         $this->optionsDefaults = ['inputType'        => 0, //'multipleChoice' => 0, unique choice => 1,
                                   'nextSlideDelai'   => 0,
                                   'nextSlideBG'      =>'#FFCC00',
-                                  'nextSlideMessage' => _AM_QUIZMAKER_NEXT_SLIDE_MSG0,
+                                  'nextSlideMessage' => ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : ''),
                                   'familyWords'      => '',
                                   'disposition'      => 'disposition-0'];
 

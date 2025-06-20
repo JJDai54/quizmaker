@@ -44,4 +44,6 @@ define('_LG_PLUGIN_TEXTAREAMIXTE_ADD_ACCOLADES', "Add braces around the selectio
 define('_LG_PLUGIN_TEXTAREAMIXTE_REMOVE_ACCOLADES', "Remove braces around the selection");
 define('_LG_PLUGIN_TEXTAREAMIXTE_CLEAR_ALL_ACCOLADES', "Remove all braces.");
 
+define('_LG_PLUGIN_TEXTAREAMIXTE_ADD_BAD_EXP', "Add unwanted words or phrases.<br>These phrases are intended to confuse the user.<br><b>Important</b>: This list is only used with drop-down lists (see the \"Presentation\" option above).");
+
 ?>

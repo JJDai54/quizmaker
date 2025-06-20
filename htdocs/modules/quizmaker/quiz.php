@@ -124,11 +124,11 @@ switch($op) {
 		$QuizDateEndArr = Request::getArray('quiz_dateEnd');
 		$QuizDateEnd = strtotime($QuizDateEndArr['date']) + (int)$QuizDateEndArr['time'];
 		$quizObj->setVar('quiz_dateEnd', $QuizDateEnd);
+		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
 		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
-		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
 		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'default'));
-$quizObj->setVar('quiz_background', Request::getString('quiz_background', 'default'));
+        $quizObj->setVar('quiz_background', Request::getString('quiz_background', 'default'));
 		$quizObj->setVar('quiz_libBegin', Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
 		$quizObj->setVar('quiz_libEnd', Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 		$quizObj->setVar('quiz_questPosComment1', Request::getInt('quiz_questPosComment1', 1));

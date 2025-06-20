@@ -14,15 +14,15 @@ msgNextSlideDelai = 1500;
 /* ***************************************
 *
 * *** */
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
 
 /* ***************************************
 *
 * *** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var name = this.getName();
    
@@ -409,7 +409,6 @@ var sDispo = disposition + ((bolImage) ? "1" : "0") + ((bolFamilyWords) ? "1" : 
             var tpl = 
 `<tr>
     <td familyWords>{familyWords}</td>
-</tr><tr>
     <td>{optionsList}</td>
 </tr>`;
         break;

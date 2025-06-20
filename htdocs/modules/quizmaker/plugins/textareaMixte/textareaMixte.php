@@ -43,6 +43,7 @@ const maxPropositions = 1;
 	{
         parent::__construct("textareaMixte", 0, "text");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->hasZoom = true;
 
         $this->optionsDefaults = ['presentation'    => 'listbox',
                                   'comparaison'     => 0,
@@ -187,8 +188,10 @@ const maxPropositions = 1;
         
         
         
-        //------------------------------------------------------------       
-        $trayBuffer = new XoopsFormElementTray  ('', $delimeter = '<br>');  
+        //------------------------------------------------------------ 
+        $this->trayGlobal->addElement(new XoopsFormLabel('',_LG_PLUGIN_TEXTAREAMIXTE_ADD_BAD_EXP));      
+              
+        $trayBuffer = new XoopsFormElementTray  ('', $delimeter = ' ');  
         $words = explode(',', $buffer);
         
         for ($j = 0; $j < $this::maxBadWords; $j++){
@@ -200,7 +203,8 @@ const maxPropositions = 1;
             
             $trayMot = new XoopsFormElementTray  ('', $delimeter = ' ');  
             $name = $this->getName($k,'mots', $j);
-            $inpMot = new XoopsFormText($j+1 ."-". _AM_QUIZMAKER_PLUGIN_MOT . ' : ', $name, $this->lgMot1, $this->lgMot2, $mot);
+            //$inpMot = new XoopsFormText($j+1 ."-". _AM_QUIZMAKER_PLUGIN_MOT . ' : ', $name, $this->lgMot1, $this->lgMot2, $mot);
+            $inpMot = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $mot);
             $trayMot->addElement($inpMot);
             
             $trayBuffer->addElement($trayMot);

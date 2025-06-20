@@ -100,6 +100,7 @@ switch($op) {
 		}
 		// Set Vars
 		$optionsObj->setVar('opt_name', Request::getString('opt_name', ''));
+		$optionsObj->setVar('opt_actif', Request::getInt('opt_actif', 1));
 		$optionsObj->setVar('opt_icone', Request::getText('opt_icone', ''));
 		$optionsObj->setVar('opt_optionsIhm', Request::getInt('opt_optionsIhm', 0));
 		$optionsObj->setVar('opt_optionsDev', Request::getInt('opt_optionsDev', 0));
@@ -142,6 +143,14 @@ switch($op) {
         $newValue = Request::getInt('newValue', -1);
         $optionsHandler->setBitOn($optId, $field, $bitIndex, $newValue);
         redirect_header("options.php?op=list", 5, "Etat de {$field} Changé");
+	break;
+        
+	case 'change_etat':
+        $field = Request::getString('field');
+        $modulo = Request::getInt('modulo', 2);
+        $optionsHandler->changeEtat($optId, $field, $modulo);
+        redirect_header("options.php?op=list", 5, "Etat de {$field} Changé");
+	break;
 
     
 }

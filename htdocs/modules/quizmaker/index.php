@@ -66,11 +66,13 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         }
         
         
+		$crCategories->add( new \Criteria( 'cat_actif', 1, "=", 'AND'));
 		$categoriesCount = $categoriesHandler->getCount($crCategories);
 		$GLOBALS['xoopsTpl']->assign('categoriesCount', $categoriesCount);
 		$crCategories->setStart( $start );
 		$crCategories->setLimit( $limit );
 		$categoriesAll = $categoriesHandler->getAll($crCategories);
+        //echoArray($categoriesAll);
 		if ($categoriesCount > 0) {
 			$categories = [];
 			// Get All Categories

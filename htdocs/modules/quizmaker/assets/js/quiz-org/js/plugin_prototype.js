@@ -173,8 +173,15 @@ getScoreInfos (){
              };
 }
 //---------------------------------------------------
- build (){}
-  
+ buildSlide (bShuffle = true){
+     return this.getInnerHTML(bShuffle);
+}
+ 
+/* ************************************
+*
+* **** */
+getInnerHTML(bShuffle = true){}
+
 /* **********************************************************
 
 ************************************************************* */
@@ -270,7 +277,7 @@ getImage(){
     var currentQuestion = this.question;
     if (currentQuestion.image) {
         //return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
-        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" style="height:${currentQuestion.height}px;max-width:800px"></center>`;
+        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='quiz_image_main' alt="" title="" style="height:${currentQuestion.height}px;max-width:800px"></center>`;
     }else{
         return "";
     }
@@ -325,7 +332,6 @@ setFocus(){
     if(this.focusId != ''){
         try{
         document.getElementById(this.focusId).focus({focusVisible:true});
-        //document.getElementById(this.focusId).value='zzzzz';
         console.log('===>setFocus : ' + this.focusId + " = " + document.getElementById(this.focusId).value);
         }catch{}
     }
@@ -392,21 +398,6 @@ setFocus(){
 
 
     
-//     try{
-//         //option remonter au niveau de la question, a supprimer des que possible
-//       if(this.question.options.shuffleAnswers == 1){
-//          arr = shuffleArray(this.question.answers);
-//       }else{
-//           arr = this.question.answers;
-//       }
-//     }catch{
-//       if(this.question.shuffleAnswers == 1){
-//           //arr = shuffleArrayKeys(this.question.answers);
-//           arr = this.question.answers;
-//       }
-//     }
-//     
-//     return arr;
  }
 
 
@@ -481,6 +472,11 @@ onFinalyse() {
     }else{
         document.getElementById('quiz_btn_nextSlide').disabled = '';
     }
+
+    if(currentQuestion.zoom == 2) {
+        zoom_plus(event, this.slideNumber);  
+    }  
+    
 }
 
 //---------------------------------------------------
@@ -509,7 +505,21 @@ sanityse_question(bReplaceSlash = false)
 * **** */
 reloadQuestion(bShuffle = true)
   {
-    document.getElementById(this.divMainId).innerHTML = this.getInnerHTML(bShuffle);
+    var currentQuestion = this.question;
+    
+    if (currentQuestion.hasZoom){
+      if(currentQuestion.zoom > 0){
+          var htmlSlide = zoom_getCapsule(this.buildSlide(bShuffle), this.slideNumber, 1, false);
+      }else{
+          var htmlSlide = zoom_getCapsule(this.buildSlide(bShuffle), this.slideNumber, 2, false);
+      }
+    }else{
+        var htmlSlide = this.buildSlide();
+    } 
+    document.getElementById(this.divMainId).innerHTML = htmlSlide;
+
+  //alert('===>reloadQuestion');
+    //document.getElementById(this.divMainId).innerHTML = this.getInnerHTML(bShuffle);
     this.initSlide();
     this.setFocus();
   } 

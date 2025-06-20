@@ -68,7 +68,6 @@ global $clPerms;
 //--------------------------------------------------------
 switch($op) {
 	default:
-        $op = 'list';
 	case 'list':
 	case 'new':
 	case 'save':
@@ -78,12 +77,31 @@ switch($op) {
 	   break;
     
 	case 'build_quiz':
+        //modules/quizmaker/admin/quiz.php?op=build_quiz&quiz_id=3&cat_id=2
         checkRightEditQuiz('edit_quiz',$catId);
         $build = $quizUtility::buildQuiz($quizId);
 		//redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
         redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$build));
 	   break;    
-        
+
+	case 'build_all_quiz_cat':
+        $quizHandler->updateAll('quiz_flag', 0,null,true);
+        $criteria = new CriteriaCompo();
+        $criteria->add(new Criteria("quiz_cat_id",$catId,"="));
+        $allQuiz = $quizHandler->getAllQuiz($criteria);
+ 
+		foreach(array_keys($allQuiz) as $j) {
+            $quizId = $allQuiz[$j]->getVar('quiz_id');
+            $build = $quizUtility::buildQuiz($quizId);
+            $quizHandler->setValue($quizId,'quiz_flag', 3);
+        }            
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, _AM_QUIZMAKER_QUIZ_BUILD_ALL_OK);
+	   break;    
+       
+	case 'build_all_quiz_cat_old':
+        include_once("build_quiz_cat.php");
+	   break;  
+         
 	case 'export_quiz':
         checkRightEditQuiz('export_quiz',$catId);
         $quizUtility::quiz_export($quizId);

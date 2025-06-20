@@ -41,6 +41,7 @@ class Categories extends \XoopsObject
 	{
 		$this->initVar('cat_id', XOBJ_DTYPE_INT);
 		$this->initVar('cat_name', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('cat_actif', XOBJ_DTYPE_INT);
 		$this->initVar('cat_description', XOBJ_DTYPE_OTHER);
 		$this->initVar('cat_theme', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_weight', XOBJ_DTYPE_INT);
@@ -93,14 +94,22 @@ class Categories extends \XoopsObject
 		$form->setExtra('enctype="multipart/form-data"');
         //------------------------------------------------------------------------
 		// Form Text catName
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'cat_name', 50, 255, $this->getVar('cat_name') ), true);
+        $name = $this->getVar('cat_name');
+        $inpName = new \XoopsFormText( _AM_QUIZMAKER_NAME, 'cat_name', 50, 255, $name);
+        if($name == QUIZMAKER_CAT_NAME_FOR_EXEMPLE){
+          $inpName->setExtra("disabled");
+		  $form->addElement($inpName, false);
+          $form->addElement(new \XoopsFormHidden('cat_name', $name));
+        }else{
+		  $form->addElement($inpName, true);
+        }
+        
+        //cat_actif
+		$form->addElement(new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'cat_actif', $this->getVar('cat_actif')));
+        
 		// Form Editor DhtmlTextArea catDescription
 		$editorConfigs = [];
-		if ($isAdmin) {
-			$editor = $quizmakerHelper->getConfig('editor_admin');
-		} else {
-			$editor = $quizmakerHelper->getConfig('editor_user');
-		}
+		$editor = $quizmakerHelper->getConfig('quizmaker_editor');
 		$editorConfigs['name'] = 'cat_description';
 		$editorConfigs['value'] = $this->getVar('cat_description', 'e');
 		$editorConfigs['rows'] = 5;
@@ -210,6 +219,7 @@ class Categories extends \XoopsObject
         
 		$ret['id']                = $this->getVar('cat_id');
 		$ret['name']              = $this->getVar('cat_name');
+		$ret['actif']             = $this->getVar('cat_actif');
 		$ret['description']       = $this->getVar('cat_description', 'e');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
@@ -264,6 +274,5 @@ class Categories extends \XoopsObject
        return $ret;         
 
     }
-
-    
+   
 }

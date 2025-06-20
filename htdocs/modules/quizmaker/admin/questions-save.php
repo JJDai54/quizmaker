@@ -112,6 +112,7 @@ echoArray($_POST,'_POST',false);
 		$questionsObj->setVar('quest_learn_more', Request::getString('quest_learn_more', ''));
 		$questionsObj->setVar('quest_see_also', Request::getString('quest_see_also', ''));
 		$questionsObj->setVar('quest_points', Request::getInt('quest_points', 0));
+		$questionsObj->setVar('quest_zoom', Request::getInt('quest_zoom', 0));
 		$questionsObj->setVar('quest_height', Request::getInt('quest_height', 0));
 		$questionsObj->setVar('quest_numbering', Request::getInt('quest_numbering', 2));
 		$questionsObj->setVar('quest_shuffleAnswers', Request::getInt('quest_shuffleAnswers', 0));
@@ -121,6 +122,7 @@ echoArray($_POST,'_POST',false);
 		$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
 		$questionsObj->setVar('quest_actif', Request::getInt('quest_actif', 1));
 		$questionsObj->setVar('quest_update', \JANUS\getSqlDate());
+
 
         //suppression de l'image existant si besoin si la case a ete coche 
         //ou si le nom de la nouvelle image est différent de l'ancienne

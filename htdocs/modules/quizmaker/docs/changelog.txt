@@ -1,4 +1,12 @@
 ---------------------------------------------------
+2025-05-25 v 6.14 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Activation désactivation automatioque des boutons zoomPlus et zoomMoins
+Divers corrections du JS pour minification
+Divers corrections des CSS
+trnsfert et optimisation du calcul des tailles dans "xoops_version.php" dans la fonction "quizmaker_getSizesArr" dans xoops_version.inc.php
+
+---------------------------------------------------
 2025-05-25 v 6.14 beta 1 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 transfert des fonctions de zoom dans "function.js" afin d'être plus générique pour l'ajout de cette fonctionalité dans d'autres plugins
@@ -15,6 +23,7 @@ Corrections pour minification : quelques manques notamment :
     'var' pour declarer les variables
 
 traduction anglaise des constantes linguistiques
+Ajout du champs "quest_zoom" initialement dans les options mais en phase de généralisation à tous les plugins
         
 ---------------------------------------------------
 2025-05-25 v 6.12 beta 1 - JJDai - jjdelalandre@orange.fr
@@ -333,7 +342,7 @@ Onglet "Type de question" :
     - refonte de la fonction pluginsHandler->getListByGroup()
     - correction imgasDadSortItem remplacement de '//' par '/'+'/' que le minificateur n'aime pas
     - Transfert de la génération des fichiers minifiés dans le dossier "upload/quizmaker/quiz-min"
-      ces fichiers sont générés lors de la construction du quiz quand l'option "use_js_minified" est utilisée.
+      ces fichiers sont générés lors de la construction du quiz quand l'option "use_minified_files" est utilisée.
                
 ---------------------------------------------------
 2024-04-23a v 4.14 beta 6 - JJDai - jjdelalandre@orange.fr

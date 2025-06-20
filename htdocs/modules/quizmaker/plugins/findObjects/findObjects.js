@@ -30,14 +30,22 @@ function initFindObject(){
     mydiv2.onclick = isToucheOk;
     
     colTouches = new Touches(0, 0, mydiv1, mydiv2);
-
+/*
     if(defaultValues.defaultWidth)          colTouches.toucheSize.w = defaultValues.defaultWidth;
     if(defaultValues.defaultHeight)         colTouches.toucheSize.h = defaultValues.defaultHeight;
     if(defaultValues.defaultBorderWidth)    colTouches.toucheSize.borderWidth = defaultValues.defaultBorderWidth;
     if(defaultValues.defaultBorderRadius)   colTouches.toucheSize.borderRadius = defaultValues.defaultBorderRadius;
-    if(defaultValues.defaultBorderWidth)    colTouches.toucheSize.borderWidth = defaultValues.defaultBorderWidth;
     if(defaultValues.maxTouches)            colTouches.maxTouches = defaultValues.maxTouches;
-
+*/
+    //pas besoin de tester l'existence de la clé d'autant que si 0 renvooie faux
+    colTouches.toucheSize.w = defaultValues.defaultWidth;
+    colTouches.toucheSize.h = defaultValues.defaultHeight;
+    colTouches.toucheSize.borderWidth = defaultValues.defaultBorderWidth;
+    colTouches.toucheSize.borderRadius = defaultValues.defaultBorderRadius;
+    colTouches.maxTouches = defaultValues.maxTouches;
+    
+//alert(defaultValues.defaultBorderRadius);
+//alert(colTouches.toucheSize.borderRadius);
     loadDataFromBuffer();   
     setTimeout("refreshImg()",900);
 }

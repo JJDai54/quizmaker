@@ -11,6 +11,7 @@
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ACTIF}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ICONE}></th>
 				<th class="center"></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_OPTIONS_IHM}></th>
@@ -31,9 +32,21 @@
                 </td>
             
 				<td class='center'>
+                  <a href="options.php?op=change_etat&opt_id=<{$binOpt.id}>&field=opt_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
+                      <img src="<{$modPathIcon16}>actif-<{$binOpt.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                  </a>
+                </td>
+
+				<td class='center'>
                     <img src="<{$modPathIcon16}>/binoptions/<{$binOpt.icone}>" alt="config" title='<{$binOpt.name}>' />
                     <{* <{$binOpt.icone}> *}>
                 </td>
+
+                
+                
+                
+                
+                
 				<td class='right'><{$binOpt.optionsIhm}>&nbsp;===></td>
 				<td class='left'> 
                    <{assign var="urlOptionsIhm" value="options.php?op=set_bit&opt_id=`$binOpt.id`&field=opt_optionsIhm"}>

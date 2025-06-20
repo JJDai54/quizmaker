@@ -90,6 +90,14 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
 		return parent::getCount($crCountQuestions);
 	}
 
+	public function getCountQuestionsOfQuiz($quizId)
+	{
+		$criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
+		//$criteria = $this->getQuestionsCriteria($crCountQuestions);
+// 		$nbQuestion = parent::getCount($criteria);
+//         echo "nbQuestion = {$nbQuestion}";exit;
+        return parent::getCount($criteria);
+	}
 	/**
 	 * Get All Questions in the database
 	 * @param int    $start 
@@ -442,12 +450,33 @@ __SQL__;
  * *********************** */
     public function setValue($questId, $field, $value, $doItForGroup = false)
     {
+        $questObj = $this->get($questId);
+        if($doItForGroup){
+            $idParent = ($questObj->getVar('quest_plugin') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
+            $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_parent_id={$questId};";            
+            $ret = $this->db->queryf($sql);
+        }else{
+            $questObj->setVar($field,$value);
+            $this->insert($questObj);
+        }
+        
+        return $ret;
+    }
+/* ******************************
+ * affecte la valeur d'un champ et du groupe si besoin
+ * *********************** */
+    public function setValue2($questId, $field, $value, $doItForGroup = false)
+    {
     
         $questObj = $this->get($questId);
         $questObj->setVar($field,$value);
-        $idParent = ($questObj->getVar('quest_plugin') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
         $this->insert($questObj);
        
+        //si c'est un pageGroup recupere  quest_id du groupe sinon recupere quest_parent_id  de la question
+        $idParent = ($questObj->getVar('quest_plugin') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
+        
+        
+        //si $doItForGroup>0 affecte $value a tous le groupe
         if($doItForGroup && $idParent > 0){
               $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_parent_id={$questId};";            
               $ret = $this->db->queryf($sql);

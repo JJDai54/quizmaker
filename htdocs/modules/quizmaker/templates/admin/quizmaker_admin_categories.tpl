@@ -11,6 +11,7 @@
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_ACTIF}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORIES_THEME}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CREATION}></th>
@@ -29,6 +30,11 @@
                     <{$cat.name}></a>
                 </td>
 
+				<td class='center'>
+                  <a href="categories.php?op=change_etat&cat_id=<{$cat.id}>&field=cat_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
+                      <img src="<{$modPathIcon16}>actif-<{$cat.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                  </a>
+                </td>
 
                 <{* ---------------- Arrows Weight -------------------- *}>
                 <td class='center' <{$styleParent}> >

@@ -42,6 +42,7 @@ var $maxGroups = 4;
 	{
         parent::__construct("ulDaDGroups", 0, "dragAndDrop");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->hasZoom = true;
 
         $this->maxPropositions = 20;	
         $this->optionsDefaults = ['group0'=>'','group1'=>'','group2'=>'','group3'=>'',

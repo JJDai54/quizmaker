@@ -103,7 +103,7 @@ use XoopsModules\Quizmaker\Utility;
         
     case 'import':
     $catId  = Request::getInt('cat_id', 0);
-   echoArray('gpf',"import : catId = {$catId}");
+   //echoArray('gpf',"import : catId = {$catId}");
         if (loadFileTo("files_new_quiz", $pathImport, $savedFilename)){
             $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
 //exit($ret .  '===>' . $pathImport);
@@ -126,7 +126,7 @@ use XoopsModules\Quizmaker\Utility;
     
         break;
     default : 
-        echoArray('gpf','import',true);
+        //echoArray('gpf','import',true);
         break;
     }
 

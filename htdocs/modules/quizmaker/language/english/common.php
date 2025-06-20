@@ -98,4 +98,9 @@ define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Start, end and grouping pages");
 define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Texts");
 define('_CO_QUIZMAKER_NEW', 'New');
 
+define('_CO_QUIZMAKER_PLAYER_STATUS', "Status");
+define('_CO_QUIZMAKER_PLAYER_ALL', "All quizzes");
+define('_CO_QUIZMAKER_PLAYER_NONE', "Quiz not taken");
+define('_CO_QUIZMAKER_PLAYER_YES', "Quiz already taken");
+
 ?>

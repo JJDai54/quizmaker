@@ -54,6 +54,7 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_see_also', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_posComment1', XOBJ_DTYPE_INT);
 		$this->initVar('quest_image', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_zoom', XOBJ_DTYPE_INT);
 		$this->initVar('quest_background', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_height', XOBJ_DTYPE_INT);
 		$this->initVar('quest_points', XOBJ_DTYPE_INT);
@@ -394,7 +395,19 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             $options =  html_entity_decode($this->getVar('quest_options'));
             
             //if($inpOptions || $clPlugin->hasImageMain) 
-// Image
+            //--------------------------------------------
+            //zoom
+            if($clPlugin->hasZoom){
+                $name = 'quest_zoom';  
+                $inputZoom = new \XoopsFormRadio(_AM_QUIZMAKER_ZOOM, $name, $this->getVar($name), ' ');
+                $inputZoom->setDescription(_AM_QUIZMAKER_ZOOM_DESC);            
+                $inputZoom->addOption(0, _AM_QUIZMAKER_ZOOM_NONE);            
+                $inputZoom->addOption(1, _AM_QUIZMAKER_ZOOM_MANUEL);            
+                $inputZoom->addOption(2, _AM_QUIZMAKER_ZOOM_AUTO);            
+                $form->addElement($inputZoom);     
+            }
+            //--------------------------------------------
+            // Image
             if($clPlugin->hasImageMain){
               $image = $this->getVar('quest_image');
               $inpImage = $clPlugin->getFormImage(_AM_QUIZMAKER_IMAGE_MAIN, 'quest_image', $image, $folderJS);
@@ -413,6 +426,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                   $form->addElement($inpTrayImg);     
 
               }
+            
             //--------------------------------------------
             $background = $this->getVar('quest_background');
             $inpBakground = $clPlugin->getFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN, 'quest_background', $background, $folderJS);
@@ -533,6 +547,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
  		$ret['learn_more']     = $this->getVar('quest_learn_more', 'e');
  		$ret['see_also']       = $this->getVar('quest_see_also', 'e');
  		$ret['image']          = $this->getVar('quest_image', 'e');
+ 		$ret['zoom']           = $this->getVar('quest_zoom');
  		$ret['background']     = $this->getVar('quest_background', 'e');
  		$ret['height']         = $this->getVar('quest_height');
 		$ret['points']         = $this->getVar('quest_points');

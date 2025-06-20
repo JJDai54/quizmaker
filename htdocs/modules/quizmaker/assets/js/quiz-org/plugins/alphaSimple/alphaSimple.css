@@ -19,7 +19,7 @@
 
 .alphaSimple span[words]{
   text-align:center;
-  font-size: 2.5em;
+  font-size: 1.5em;
   font-weight:bold;
   color:black;
   cursor: not-allowed;
@@ -58,7 +58,7 @@
  
 .alphaSimple [selected="1"]{
   text-align:center;
-  font-size: 3.5em;
+  font-size: 2.5em;
   font-weight:bold;
   color:blue;
   background:#FFCC99;
@@ -94,7 +94,7 @@
  
 .alphaSimple div[selected]{
   text-align:center;
-  font-size: 3.5em;
+  font-size: 2.0em;
   font-weight:bold;
   color:blue;
   background:#FFCC99;

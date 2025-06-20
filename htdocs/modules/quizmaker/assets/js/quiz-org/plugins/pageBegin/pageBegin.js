@@ -13,15 +13,15 @@ class pageBegin extends Plugin_Prototype{
 name = "pageBegin";
 
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     var currentQuestion = this.question;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
   
 /* ***************************************
 *
 * *** */
-getInnerHTML (){
+getInnerHTML(bShuffle = true){
 var currentQuestion=this.question;
 var name = this.getName();
 

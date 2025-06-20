@@ -35,11 +35,11 @@ use XoopsModules\Quizmaker\Utility;
 if($quizId > 0 && $sender != 'cat_id'){
   $quiz = $quizHandler->get($quizId);
   $catId = $quiz->getVar('quiz_cat_id');
-echo "ooooo:" . $catId;
-  if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
-}else{
-    $quizId = array_key_first($catArr);    
-}
+
+        if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
+        }else{
+            $quizId = array_key_first($catArr);    
+        }
         $clPerms->checkAndRedirect('view_cats',$catId,'$catId',"categories.php?op=list&cat_id={$catId}");
 
         
@@ -52,6 +52,7 @@ echo "ooooo:" . $catId;
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, "quiz.php?op=new&cat_id={$catId}", 'add');
         
 		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, "quiz.php?op=init_weight&cat_id={$catId}", 'update');
+		$adminObject->addItemButton(_AM_QUIZMAKER_BUILD_ALL_QUIZ, "quiz.php?op=build_all_quiz_cat&cat_id={$catId}&in_use=0&nbdone=0", "synchronized");
         
         //update weight 
 //         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);

@@ -81,13 +81,13 @@ define('QUIZMAKER_URL_UPLOAD_QUIZ',  QUIZMAKER_URL_UPLOAD  . QUIZMAKER_FLD_UPLOA
 
 //-------------- path et url poour quiz_org ou quiz_min ------------------------------
 /*
-$useJsMinified = $quizmakerHelper->getConfig('use_js_minified');
+$useJsMinified = $quizmakerHelper->getConfig('use_minified_files');
 define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_JS . (($useJsMinified) ? QUIZMAKER_FLD_QUIZ_MIN : QUIZMAKER_FLD_QUIZ_ORG)) ;
 */
 define('QUIZMAKER_PATH_QUIZ_ORG', QUIZMAKER_PATH_MODULE . QUIZMAKER_FLD_QUIZ_JS . QUIZMAKER_FLD_QUIZ_ORG);
 define('QUIZMAKER_PATH_QUIZ_MIN', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_QUIZ_MIN );
 
-if ($isHelper && $quizmakerHelper->getConfig('use_js_minified')){
+if ($isHelper && $quizmakerHelper->getConfig('use_minified_files')){
     define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_MIN);
     define('QUIZMAKER_PATH_QUIZ_JS', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_QUIZ_JS_TO_RUN);
     define('QUIZMAKER_URL_PLUGINS_JS',   QUIZMAKER_URL_UPLOAD . QUIZMAKER_QUIZ_JS_TO_RUN . QUIZMAKER_FLD_PLUGINS_JS);
@@ -123,6 +123,7 @@ return $root . $fld;
 ///--------------Obsolete----------------------
 
 //-------------- autres constantes ------------------------------
+define('QUIZMAKER_CAT_NAME_FOR_EXEMPLE', 'Plugins QuizMaker');
 
 
 define('QUIZMAKER_SELECT_ONCHANGE', 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
@@ -178,6 +179,7 @@ define('QUIZMAKER_BIT_SHOW_BADANSWERS', $h++);
 define('QUIZMAKER_BIT_SHOW_LOG', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTALLWAYS', $h++);
 define('QUIZMAKER_BIT_SHOW_REPONSESBOTTOM', $h++);
+define('QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU', $h++);
 
 define('QUIZMAKER_CONFIG_IHM_PROD1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
                                    | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX));
@@ -186,6 +188,7 @@ define('QUIZMAKER_CONFIG_DEV_PROD1', 0);
 define('QUIZMAKER_CONFIG_IHM_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
                                   | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX)
                                   | pow(2, QUIZMAKER_BIT_SHOW_ALLSOLUTIONS)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU)
                                   | pow(2, QUIZMAKER_BIT_ALLOWEDPREVIOUS));
 
 define('QUIZMAKER_CONFIG_DEV_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
@@ -195,6 +198,7 @@ define('QUIZMAKER_CONFIG_DEV_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
                                   | pow(2, QUIZMAKER_BIT_SHOW_GOTOSLIDE)
                                   | pow(2, QUIZMAKER_BIT_SHOW_GOODANSWERS)
                                   | pow(2, QUIZMAKER_BIT_SHOW_BADANSWERS)
+                                  | pow(2, QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU)
                                   | pow(2, QUIZMAKER_BIT_SHOW_RESULTALLWAYS));
 
 //-----------------------------------------------------

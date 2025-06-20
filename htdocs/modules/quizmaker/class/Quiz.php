@@ -163,11 +163,6 @@ class Quiz extends \XoopsObject
         */
             
 
-		// Form Check Box quiz_actif
-		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
-		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
-		$form->addElement($inpActif);
-        
         //-------------------------------------------------------
         define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
         define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
@@ -182,8 +177,7 @@ class Quiz extends \XoopsObject
 		$form->addElement($inpDuration);
         
 
-        // quiz_max_flying
-        //Taille des images à regrouper
+        // quiz_max_flying : Maximum de tentives pour une meme cession
         $name = 'quiz_max_flying';
         $inpMaxFlying = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_FLYING,  $name, 3, 1, $this->getVar($name));
         $inpMaxFlying->setMinMax(0, 10);
@@ -198,6 +192,11 @@ class Quiz extends \XoopsObject
 		// Form Check Box quizDateEnd
         $quizDateEnd = \JANUS\xoopsformDateOkTray(_AM_QUIZMAKER_DATEEND, 'quiz_dateEndOk', $this->getVar('quiz_dateEndOk'), 'quiz_dateEnd', $this->getVar('quiz_dateEnd'));
 		$form->addElement($quizDateEnd);
+        
+		// Form Check Box quiz_actif
+		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
+		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
+		$form->addElement($inpActif);
         
 		// Form Check Box quiz_publishQuiz
 		$quizExecution = $this->isNew() ? 0 : $this->getVar('quiz_publishQuiz');
@@ -400,6 +399,7 @@ class Quiz extends \XoopsObject
         $flags = array();
         $flags['actif']             = quizFlagAscii($ret['actif'], "A");
         $flags['showConsigne']      = quizFlagAscii($ret['showConsigne'], "?");
+        $flags['publishQuiz']       = quizFlagAscii($ret['publishQuiz'], "P");
         $flags['publishResults']    = quizFlagAscii($ret['publishResults'], "R");
         $flags['publishAnswers']    = quizFlagAscii($ret['publishAnswers'], "S");
 
@@ -515,12 +515,21 @@ class Quiz extends \XoopsObject
 //exit;    
      
     //--------------------------------------------------
+     //liste des images dant le champ "quest_background" de la table quiz
+    $sql = "SELECT quiz_background FROM " . $xoopsDB->prefix('quizmaker_quiz')
+         . " WHERE quiz_id = {$quiz_id} AND quiz_background <> ''";
+     $result = $xoopsDB->query($sql);
+     while ($row = $xoopsDB->fetchArray($result)){
+        if ($row['quiz_background']) $quizTblImg[] = $row['quiz_background'];
+     }
+    //--------------------------------------------------
      //liste des images dans le champ "image" de la table questions
-    $sql = "SELECT quest_image FROM " . $xoopsDB->prefix('quizmaker_questions')
-         . " WHERE quest_quiz_id = {$quiz_id} AND quest_image <> ''";
+    $sql = "SELECT quest_image,quest_background FROM " . $xoopsDB->prefix('quizmaker_questions')
+         . " WHERE quest_quiz_id = {$quiz_id} AND (quest_image <> '' || quest_background <> '')";
      $result = $xoopsDB->query($sql);
      while ($row = $xoopsDB->fetchArray($result)){
         if ($row['quest_image']) $quizTblImg[] = $row['quest_image'];
+        if ($row['quest_background']) $quizTblImg[] = $row['quest_background'];
      }
     //--------------------------------------------------
      //liste des images dant le champ "options" de la table questions

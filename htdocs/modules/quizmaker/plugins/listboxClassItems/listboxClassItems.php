@@ -182,7 +182,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //-------------------------------------------------
             $inpProposition = new \XoopsFormText('',  $this->getName($i,'proposition'), $this->lgProposition, $this->lgProposition, $proposition);
             $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
-            $inpWeight->setMinMax(0, 900, 'pixels');
+            $inpWeight->setMinMax(0, 900);
             $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
             $inpPoints->setMinMax(1, 30);
             $inpgroup = new \xoopsFormSelect(_AM_QUIZMAKER_GROUP,  $this->getName($i,'group'), $group); //n° du groupe
@@ -212,9 +212,9 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         $quiz = $quizHandler->get($quizId,"quiz_folderJS");
         //$path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
 
-/*
-echoArray ($_POST,'saveAnswers', true);    
-*/
+
+//echoArray ($_POST,'saveAnswers', true);    
+
                 
         //--------------------------------------------------------       
         

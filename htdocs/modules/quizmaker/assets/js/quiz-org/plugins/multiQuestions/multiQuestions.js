@@ -12,15 +12,15 @@ class multiQuestions extends Plugin_Prototype{
 name='multiQuestions';  
   
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     var currentQuestion = this.question;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
   
 /* ***************************************
 *
 * *** */
-getInnerHTML (){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var sep = "";
     var id = this.getName;

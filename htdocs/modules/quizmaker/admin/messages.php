@@ -35,20 +35,23 @@ $msgId = Request::getInt('msg_id');
 switch($op) {
 	case 'list':
 	default:
+        $messagesHandler->loadAllLanguagesMessagesJS();
+
 		// Define Stylesheet
-		$GLOBALS['xoTheme']->addStylesheet( $style, null );
+		//$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
 		//$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$limit = 0; //pas de pagination, la liste est exhustive
         $language = Request::getString('language', $GLOBALS['xoopsConfig']['language']);
-            
 		$templateMain = 'quizmaker_admin_messages.tpl';
-		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('messages.php'));
-		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_MESSAGES, 'messages.php?op=new', 'add');
         
 		$adminObject->addItemButton(_AM_QUIZMAKER_LOAD_JS_LANGUAGES_FILES, 'messages.php?op=loadalljsmessages', 'download');
-		$adminObject->addItemButton(_AM_QUIZMAKER_SAVE_JS_LANGUAGES_FILES, 'messages.php?op=buildalljsmessages', 'export');
+            
+		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('messages.php'));
+		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_MESSAGES, 'messages.php?op=new', 'add');
 
+		$adminObject->addItemButton(_AM_QUIZMAKER_SAVE_JS_LANGUAGES_FILES, 'messages.php?op=buildalljsmessages', 'export');
+        
         $inpLanguage = new \XoopsFormSelect(_AM_QUIZMAKER_LANGUAGE, 'language', $language);
         $inpLanguage->addOptionArray($messagesHandler->getLanguages());
         $inpLanguage->setExtra('onchange="document.quizmaker_select_filter.submit();"');
@@ -151,6 +154,7 @@ switch($op) {
     
 	case 'buildalljsmessages':
         $messagesHandler->buildAllJsLanguage();
+//        exit;
 		redirect_header('messages.php', 3, _AM_QUIZMAKER_MESSAGES_SAVED);
 	break;
 }

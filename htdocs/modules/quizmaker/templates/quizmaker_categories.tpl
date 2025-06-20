@@ -33,6 +33,12 @@
             <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_CATEGORIES}> : </td>
             <td class="left" style='padding:5px;'><{$selector.inpCategory}></td>
         </tr>
+        
+        <tr>
+            <td class="right" style='padding:5px;'><{$smarty.const._CO_QUIZMAKER_PLAYER_STATUS}> : </td>
+            <td class="left" style='padding:5px;'><{$selector.inpPlayer}></td>
+        </tr>
+        
         <{*
         <tr>
             <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_QUIZ}> : </td>

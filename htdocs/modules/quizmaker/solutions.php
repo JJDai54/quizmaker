@@ -49,7 +49,7 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
               $bolOk = false;
         }else if ($GLOBALS['xoopsUser']){
           /*
-            //verifie que l'utilisateur à bien fait le quiz siono pas de solutions, non mais !!!
+            //verifie que l'utilisateur à bien fait le quiz sionon pas de solutions, non mais !!!
             $criteria = new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId));
             //echo "eee : " . $criteria->renderWhere() . '<br>';
             $criteria->add(new \Criteria('result_uid', $GLOBALS['xoopsUser']->getVar('uid')));
@@ -58,7 +58,7 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
             
             $scoreMax = $resultsHandler->getScoreMax($quizId, $GLOBALS['xoopsUser']->getVar('uid'));
             $bolOk = ($scoreMax > 0);
-
+//$bolOk = true;
         }else{
               // l'utilisateur n'est pas connecté, pas droit de voir les solutions
               $bolOk = false;

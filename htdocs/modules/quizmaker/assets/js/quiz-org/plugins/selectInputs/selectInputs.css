@@ -5,6 +5,7 @@
 }
 .selectInputs table td{
     border: 0px solid #FFAD33;
+    background:transparent;
 }
 .selectInputs table td[proposition]{
     border: 0px solid #FFAD33;

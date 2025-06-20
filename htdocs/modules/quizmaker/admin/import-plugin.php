@@ -94,7 +94,7 @@ use XoopsModules\Quizmaker\Utility;
     case 'import':
 		if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             //le plugin existe déjà la confirmation de suppressioins de l'ancien plugin est ok
-            echoArray('gp');
+            //echoArray('gp');
             $pluginName = Request::getString('pluginName','');
             $fullPath = Request::getString('fullPath','');
             $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . "new_plugin";

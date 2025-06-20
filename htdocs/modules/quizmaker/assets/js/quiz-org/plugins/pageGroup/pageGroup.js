@@ -13,15 +13,15 @@ class pageGroup extends Plugin_Prototype{
 name = "pageGroup";
 
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     var currentQuestion = this.question;
-    return this.getInnerHTML() ;
+    return this.getInnerHTML(bShuffle);
  }
   
 /* ***************************************
 *
 * *** */
-getInnerHTML (){
+getInnerHTML(bShuffle = true){
 
 var currentQuestion=this.question;
 var name = this.getName();
@@ -59,7 +59,7 @@ onEnter() {
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
       console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
+        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, currentQuestion.questId);
         document.getElementById(id).innerHTML = exp;
     }
   }

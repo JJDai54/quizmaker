@@ -92,7 +92,7 @@ $adminmenu[] = [
 
 if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)){
 // if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)
-//     && $quizmakerHelper->getConfig('use_js_minified')){
+//     && $quizmakerHelper->getConfig('use_minified_files')){
 $adminmenu[] = [
   	'title' => _MI_QUIZMAKER_MINIFY,
   	'link' => 'admin/minify.php',

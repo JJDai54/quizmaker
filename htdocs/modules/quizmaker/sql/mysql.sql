@@ -15,6 +15,7 @@ CREATE TABLE `quizmaker_categories` (
   `cat_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `cat_parent_id` int(8) NOT NULL DEFAULT '0',
   `cat_name` varchar(255) NOT NULL DEFAULT '',
+  `cat_actif`  tinyint(1) NOT NULL DEFAULT '1', 
   `cat_description` text NOT NULL,
   `cat_theme` varchar(50) NOT NULL DEFAULT '0',
   `cat_weight` int(11) NOT NULL DEFAULT '0',
@@ -53,12 +54,13 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_background` varchar(255) NOT NULL,
   `quiz_build` int NOT NULL DEFAULT '0',
   `quiz_execution` tinyint(1) NOT NULL DEFAULT '0',
-  `quiz_libBegin` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `quiz_libEnd` varchar(120) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `quiz_libBegin` varchar(120) NOT NULL,
+  `quiz_libEnd` varchar(120) NOT NULL,
   `quiz_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
   `quiz_optionsDev` bit(16) NOT NULL DEFAULT b'0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
   `quiz_delai_cookie` INT NOT NULL DEFAULT '3600',   
+  `quiz_max_flying` INT NOT NULL DEFAULT '1',   
   `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   PRIMARY KEY (`quiz_id`)
@@ -84,6 +86,7 @@ CREATE TABLE `quizmaker_questions` (
   `quest_learn_more` varchar(255) NOT NULL DEFAULT '',
   `quest_see_also` varchar(255) NOT NULL DEFAULT '',
   `quest_image` varchar(255) NOT NULL DEFAULT '',
+  `quest_zoom` tinyint(1) NOT NULL DEFAULT '0',
   `quest_background` varchar(255) NOT NULL DEFAULT '',
   `quest_height` int(11) NOT NULL DEFAULT '80',
   `quest_points`  tinyint(1) NOT NULL DEFAULT '0',
@@ -167,23 +170,24 @@ CREATE TABLE `quizmaker_results` (
 CREATE TABLE `quizmaker_options` (
   `opt_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `opt_name` varchar(30) NOT NULL DEFAULT '',
+  `opt_actif`  tinyint(1) NOT NULL DEFAULT '1', 
   `opt_icone` varchar(30) NOT NULL DEFAULT '',
   `opt_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
   `opt_optionsDev` bit(16) NOT NULL DEFAULT b'0',
   PRIMARY KEY (`opt_id`)
 ) ENGINE=InnoDB;
 
-INSERT INTO quizmaker_options (opt_id, opt_name, opt_icone, opt_optionsIhm, opt_optionsDev) VALUES
-(1, 'Production simple', 'binoption-01.png', b'0000000000000011', b'0000000000000000'),
-(2, 'Production + timer', 'binoption-02.png', b'0000000000100011', b'0000000000000000'),
-(3, 'Production + timer + popup', 'binoption-03.png', b'0000000010100011', b'0000000000000000'),
-(4, 'Developpement', 'binoption-04.png', b'0000000000010111', b'0000000001011111'),
-(5, 'No options', 'binoption-05.png', b'0000000000000000', b'0000000000000000'),
-(6, 'All options', 'binoption-06.png', b'0000000011111111', b'0000000011111111'),
-(7, 'Personal 1', 'binoption-07.png', b'0000000000100111', b'0000000000000000'),
-(8, 'Personal 2', 'binoption-08.png', b'0000000011110111', b'0000000000000000');
+INSERT INTO quizmaker_options (opt_id, opt_name, opt_actif, opt_icone, opt_optionsIhm, opt_optionsDev) VALUES
+(1, 'Production simple', 1, 'binoption-01.png', b'0000000000000011', b'0000000000000000'),
+(2, 'Production + timer', 0, 'binoption-02.png', b'0000000000100011', b'0000000000000000'),
+(3, 'Production + timer + popup', 0, 'binoption-03.png', b'0000000010100011', b'0000000000000000'),
+(4, 'Developpement', 1, 'binoption-04.png', b'0000000000010111', b'0000000001011111'),
+(5, 'No options', 1, 'binoption-05.png', b'0000000000000000', b'0000000000000000'),
+(6, 'All options', 1, 'binoption-06.png', b'0000000011111111', b'0000000011111111'),
+(7, 'Personal 1', 0, 'binoption-07.png', b'0000000000100111', b'0000000000000000'),
+(8, 'Personal 2', 0, 'binoption-08.png', b'0000000011110111', b'0000000000000000');
 
 
-INSERT INTO quizmaker_categories( cat_name, cat_description,  cat_theme, cat_weight) VALUES 
-('Test', 'Catégorie de test', 'default', 0);
+INSERT INTO quizmaker_categories( cat_name, cat_actif, cat_description,  cat_theme, cat_weight) VALUES 
+('Test', 'Catégorie de test', 1, 'default', 0);
 

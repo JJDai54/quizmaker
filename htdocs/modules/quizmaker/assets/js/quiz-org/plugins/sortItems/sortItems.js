@@ -21,9 +21,9 @@ name = "sortItems";
 /* *************************************
 *
 * ******** */
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = true;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
     
  }
 
@@ -107,7 +107,7 @@ name = "sortItems_combobox";
 /* *************************************
 *
 * ******** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
 //alert('sortItems_combobox : ' + this.typeName);
 //alert("comboboxSortItems - getInnerHTML");
     const tHtml = [];
@@ -260,7 +260,7 @@ name = "sortItems_listbox";
 /* *************************************
 *
 * ******** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
 //alert("sortItems -getInnerHTML ");
     var  currentQuestion = this.question;
     var name = this.getName();
@@ -413,7 +413,7 @@ name = "sortItems_ulDaDList";
 /* *************************************
 *
 * ******** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     if(this.isImage()){
         var html = `<table><tr><td width='33%'>${this.getImage()}</td><td width='66%'>${this.getInnerHTML_alone()}</td></tr></table>`;
         return html;

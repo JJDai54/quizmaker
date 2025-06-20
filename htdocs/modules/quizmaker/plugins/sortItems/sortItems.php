@@ -29,6 +29,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
 {
+var $noClass = "00-none";
      
 	/**
 	 * Constructor 
@@ -39,7 +40,7 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
         parent::__construct("sortItems", 0, "other");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
-        $this->optionsDefaults = ['classe'      => _AM_QUIZMAKER_NO_CLASSE, 
+        $this->optionsDefaults = ['classe'      => $this->noClass, 
                                   'orderStrict' => 'N', 
                                   'title'       => '', 
                                   'btnColor'    => 'blue', 
@@ -80,36 +81,21 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
-
-      $name = 'orderStrict';  
-      $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
-      $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
-      $trayOptions->addElementOption($inputOrder);     
-      
-      $name = 'title';  
-      $inpTitle = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_CAPTION0, "{$optionName}[{$name}]", $this->lgProposition, $this->lgProposition, $tValues[$name]);
-      $trayOptions->addElementOption($inpTitle);     
-
-/*
-      $name = 'classe'; 
-      $path = $this->pathArr['img'] . "/classes"; 
-      $inpDisposition = new \XoopsFormIconSelect(_LG_PLUGIN_SORTITEMS_CLASSE, , $path);
-      //$inpDisposition->setHorizontalIconNumber(9);
-      $inpDisposition->setDescription(_LG_PLUGIN_SORTITEMS_CLASSE_DESC);
-      $trayOptions->addElementOption($inpDisposition);     
-      //options dans le cas d'une liste déroullante
-      //$trayOptions->addElementOption(new XoopsFormLabel('',QBR . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));   
-*/      
-      
+     
       $name = 'classe';
       $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_SORTITEMS_CLASSE, "{$optionName}[{$name}]", $tValues[$name]);
-      if (!$tValues[$name] || $tValues[$name] == _AM_QUIZMAKER_NO_CLASSE) $inpClasse->addOption(_AM_QUIZMAKER_NO_CLASSE, _LG_PLUGIN_SORTITEMS_CLASSE_SELECT);
+      if (!$tValues[$name] || $tValues[$name] == $this->noClass) $inpClasse->addOption($this->noClass, _LG_PLUGIN_SORTITEMS_CLASSE_SELECT);
       $inpClasse->addOption('01-listbox', _LG_PLUGIN_SORTITEMS_CLASSE_LISTBOX);
       $inpClasse->addOption('02-combobox', _LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX);
       $inpClasse->addOption('03-listeapuces', _LG_PLUGIN_SORTITEMS_CLASSE_LISTUL);
       $inpClasse->addOption('04-imagesdad', _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD);
       $inpClasse->setDescription(_LG_PLUGIN_SORTITEMS_CLASSE_DESC);
+      // change la couleur de fond selon que la classe a été selectionnée ou pas
+      if($tValues['classe'] == $this->noClass){ 
+            $inpClasse->setExtra('style="background:#FFCCCC;color:red"');
+      }else{
+            $inpClasse->setExtra('style="background:lime;"');
+      }
       $trayOptions->addElementOption($inpClasse, true);     
 
       switch($tValues['classe']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
@@ -181,7 +167,19 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
             $trayOptions ->addElementOption($inpDirective);     
             break;
       
-      }
+
+     }
+    if($tValues['classe'] != $this->noClass){ // si la classe n'a pas été selectionner pas d'affichage des opttions commune
+        $name = 'orderStrict';  
+        $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
+        $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
+        $inputOrder->addOption("R", _AM_QUIZMAKER_ALLOW_ALL_ORDER);            
+        $trayOptions->addElementOption($inputOrder);     
+
+        $name = 'title';  
+        $inpTitle = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_CAPTION0, "{$optionName}[{$name}]", $this->lgProposition, $this->lgProposition, $tValues[$name]);
+        $trayOptions->addElementOption($inpTitle);     
+    }
 
 
       /* *********************************************************** */  
@@ -277,7 +275,7 @@ class Plugin_sortItems extends XoopsModules\Quizmaker\Plugins
         //-------------------------------------------------
         $quest =  $questionsHandler->get($questId, 'quest_options');
         $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
-        if (!$options['classe'] || $options['classe'] == _AM_QUIZMAKER_NO_CLASSE) return null;
+        if (!$options['classe'] || $options['classe'] == $this->noClass) return null;
         //echo "===> " . $options['classe'] . "<hr>";exit;
         $isImage = ($options['classe'] == '04-imagesdad');
         

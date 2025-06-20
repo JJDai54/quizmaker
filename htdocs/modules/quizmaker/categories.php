@@ -31,9 +31,13 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 //-----------------------------------------------------------
 //recherche des categories autorisées
 $clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+$criteriaCatAllowed->add(new \criteria('cat_actif',1,'='));
+
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
+$playerId  = Request::getInt('player_id', 2);
+
 //echoArray($catArr);
 // $pg = array_merge($_GET, $_POST);
 // echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
@@ -56,7 +60,7 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 $keywords = [];
 //----------------------------------------------------
 $utility = new \XoopsModules\Quizmaker\Utility();
-
+//echoArray("gp");
 //----------------------------------------------------
         $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
         // ----- Listes de selection pour filtrage -----  
@@ -68,6 +72,23 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
         $selector['inpCategory'] = $inpCategory->render();
+        
+        
+        if($xoopsUser){
+            $inpPlayer = new \XoopsFormSelect(_CO_QUIZMAKER_PLAYER_STATUS, 'player_id', $playerId);
+            $inpPlayer->addOption(0, _CO_QUIZMAKER_PLAYER_ALL);
+            $inpPlayer->addOption(1, _CO_QUIZMAKER_PLAYER_YES);
+            $inpPlayer->addOption(2, _CO_QUIZMAKER_PLAYER_NONE);
+            $inpPlayer->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+      	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
+            
+            $criteria =  new \CriteriaCompo(new \Criteria("result_uid", $xoopsUser->uid(), '='));
+            $quizPlayer = array_flip($resultsHandler->getList($criteria));
+            //echoArray($quizPlayer, "userId : {$xoopsUser->uid()}");
+        }else{
+            $inpPlayer = new \XoopsFormLabel(_CO_QUIZMAKER_PLAYER_STATUS, _CO_QUIZMAKER_PLAYER_ALL);
+        }
+            $selector['inpPlayer'] = $inpPlayer->render();
         
         $catObj = $categoriesHandler->get($catId);
 		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
@@ -94,6 +115,17 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 		foreach(array_keys($allQuiz) as $j) {
             //if (!in_array($j, $quizPerm)) continue;
             $tQuiz = $allQuiz[$j]->getValuesQuiz();
+            //si $inpPlayer = 1 on ne prenda que si la clé de $quizPlayer existe
+            //si $inpPlayer = 2 on ne prenda que si la clé de $quizPlayer ,'existe pasexiste
+            //si $inpPlayer = 0 on prenda tout
+           if($playerId == 1){
+                if (!isset($quizPlayer[$tQuiz['id']])) continue;
+           }else if($playerId == 2){
+                if (isset($quizPlayer[$tQuiz['id']])) continue;
+           }
+            
+            
+            
             //Ajout des statistiques
             
             

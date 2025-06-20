@@ -53,7 +53,8 @@ class Plugin_selectImages extends XoopsModules\Quizmaker\Plugins
                                   'disposition'       => 'disposition-00',
                                   'nextSlideDelai'   => 0,
                                   'nextSlideBG'      =>'#FFCC00',
-                                  'nextSlideMessage' => _AM_QUIZMAKER_NEXT_SLIDE_MSG0];
+                                  'nextSlideMessage' => ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : '')];
+                                   
     
         $this->maxPropositions = 9;	
         $this->hasImageMain = true;

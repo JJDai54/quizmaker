@@ -131,6 +131,9 @@ img{
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_actif"   title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
                         <{$Quiz.flags.actif}>
                         </a>|
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishQuiz&modulo=3"  title='<{$smarty.const._CO_QUIZMAKER_PUBLISH_QUIZ}>' ><b>
+                        <{$Quiz.flags.publishQuiz}>
+                        </b></a>|
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&field=quiz_publishResults&modulo=3"  title='<{$smarty.const._AM_QUIZMAKER_PUBLISH_RESULTS}>' ><b>
                         <{$Quiz.flags.publishResults}>
                         </b></a>|

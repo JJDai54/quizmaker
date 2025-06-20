@@ -40,14 +40,14 @@ define('_LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX', "Combobox");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_LISTUL', "Liste à puce");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD', "Images");
 
-define('_LG_PLUGIN_SORTITEMS_CLASSE_SELECT', "Sélectionnez une classe et validez le formulaire");
+define('_LG_PLUGIN_SORTITEMS_CLASSE_SELECT', "Sélectionnez une classe,  validez et rechargez le formulaire");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_DESC', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_CLASSE_LISTBOX . "</b> : Liste d'expressions avec des boutons de déplacement"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX . "</b> : Autant de listes déroulantes que d'expresions à trier remplies avec toutes les expressions"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_CLASSE_LISTUL . "</b> : Liste à puces à replacer en ordre en cliquant et déplaçant les expressions (Drag and Drop libellés)"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD . "</b> : Images à replacer en ordre en cliquant et les déplaçant (Drag and Drop images)"
 . "<br><span style='color:red;'><b>Important : </b>Valider cette option avant de passer à la suite des paramètres afin d'actualiser l'affichage selon l'option choisie.</span>"
-. "<br><span style='color:red;'>Pour faire apparaitre les paramètre selon l'option chisie cliquez sur <b>\"soumettre et recharger la question\"</b>.</span>"
+. "<br><span style='color:red;'>Pour faire apparaitre les paramètres selon l'option choisie cliquez sur <b>\"soumettre et recharger la question\"</b>.</span>"
 . "<br><span style='color:red;'>Il est toujours possible de changer ensuite mais au risque de devoir reparamètrer les nouvelles options qui n'étaient pas disponibles et de perdre les autres.</span>");
 
 define('_LG_PLUGIN_SORTITEMS_DIRECTIVE', "Directive");

@@ -75,53 +75,12 @@ flex-direction: column;
 position:relative;
 */
 }
-.quiz_div_mask{      /* masque pour empecher des interractions avec les élément du dessous */
-    position:absolute;
-    left:0px;
-    top:0px;
-    /*display : none;*/
-    visibility : hidden;
-    width : 100%;
-    height : 600px;
-    background:rgb(208,208,208);
-    opacity: .33;
-    z-index: 9999;
-
-    }
-.quiz_div_mask_avertissement{      /* masque pour empecher des interractions avec les élément du dessous */
-    position:absolute;
-    left:0px;
-    top:0px;
-    /*display : none;*/
-    visibility : hidden;
-    width : 100%;
-    height : 600px;
-    background:rgb(208,208,208);
-    opacity: .33;
-    z-index: 9999;
-    text-align:center;
-    vertical-align:middle;
-    }
-
 
 
  /* masque pour empecher des interractions avec les élément du dessous */
  /* et affiche d'un message de transition au slide suivant */
-.quiz_avertissement_next_slide{  
-    position:absolute;
-    left:0px;
-    top:0px;
-    /*display : none;*/
-    visibility : hidden;
-    width : 100%;
-    height : 600px;
-    background:transparent;
-    opacity: 1;
-    z-index: 9999;
-    text-align:center;
-    vertical-align:middle;
-}   
-.quiz_avertissement_next_slide div[mask]{     
+  
+.quiz_mask{     
     position:absolute;
     left:0px;
     top:0px;
@@ -131,12 +90,13 @@ position:relative;
     height : 600px;
     background:rgb(208,208,208);
     opacity: .33;
-    z-index: 9998;
+    z-index: 2222;
     text-align:center;
     vertical-align:middle;
+    visibility : hidden;
     }
 
-.quiz_avertissement_next_slide div[message]{
+.quiz_avertissement{
     position:absolute; 
     width:70%;
     transform:translate(15%,180%);
@@ -152,6 +112,8 @@ position:relative;
     font-weight:bold;
     z-index:9999;
     box-shadow: 8px 8px 5px #444;
+    visibility : hidden;
+    opacity:1;
 }
 
 .avertissement_fondu {
@@ -159,13 +121,18 @@ position:relative;
     -moz-animation: avertissement_fadein 1s; /* Firefox */
     -webkit-animation: avertissement_fadein 1s; /* Safari et Chrome */
     -o-animation: avertissement_fadein 1s; /* Opera */
+
+    animation-fill-mode: forwards; /* l'ordre des instruction est importante sinon ca ne fonctione pas */
+    animation-delay: 0ms;      
+    animation-iteration-count:1;
+    
 }
 @keyframes avertissement_fadein {
     from {
         opacity:0;
     }
     to {
-        opacity:.8;
+        opacity:1;
     }
 }
 @-moz-keyframes avertissement_fadein { /* sur Firefox */
@@ -173,7 +140,7 @@ position:relative;
         opacity:0;
     }
     to {
-        opacity:.8;
+        opacity:1;
     }
 }
 @-webkit-keyframes avertissement_fadein { /* sur Safari et Chrome */
@@ -181,7 +148,7 @@ position:relative;
         opacity:0;
     }
     to {
-        opacity:.8;
+        opacity:1;
     }
 }
 @-o-keyframes avertissement_fadein { /* sur Opera */
@@ -189,7 +156,7 @@ position:relative;
         opacity:0;
     }
     to {
-        opacity: .8;
+        opacity:1;
     }
 }
 
@@ -303,6 +270,15 @@ position:relative;
     position:relative;
 }
 
+.quiz_image_main{         /*image principale des slides*/
+  box-shadow: 8px 8px 5px #444;
+  border: 0px solid;
+  -moz-border-radius: 8px 8px 8px 8px;
+  -webkit-border-radius: 8px 8px 8px 8px;
+  -khtml-border-radius: 8px 8px 8px 8px;
+  border-radius: 8px 8px 8px 8px;
+
+}
 
 
 /* *********************************************************** */
@@ -509,10 +485,9 @@ font-family: Arial, Helvetica, sans-serif;
 	background-color: #227799;
 	color: #ffffff;
 	border: 0px;
-	border-radius: 3px;
+    border-radius: 8px;
 	padding: 10px 15px 10px 15px;
 	margin-itemRound-bottom: 20px;
-    border-radius: 8px;
     transition-duration: 0.4s;
     cursor: pointer;
     margin-left:5px;
@@ -812,7 +787,7 @@ input.slide-proposition2{
     -moz-border-radius: 12px 12px 12px 12px;
     -webkit-border-radius: 12px 12px 12px 12px;
     -khtml-border-radius: 12px 12px 12px 12px;
-    border-radius: 12px v 12px 12px;
+    border-radius: 12px 12px 12px 12px;
 
 }
 
@@ -851,25 +826,46 @@ input.slide-proposition2{
 }
 
 /* ********* style de ZOOM  ******** */
+.quiz_div_btn{
+    min-height:32px !important;
+    max-height:32px !important;
+    position:absolute;
+    right:12px;
+    max-width:72px;
 
-.quiz_btnZoomEnable{
+    background-color:silver;
+    -moz-border-radius: 12px 12px 12px 12px !important;
+    -webkit-border-radius: 12px 12px 12px 12px;
+    -khtml-border-radius: 12px 12px 12px 12px;
+    border-radius: 12px 12px 12px 12px !important;
+    box-shadow: 3px 3px 3px #444;
+    border:1px solid grey;
+}
+
+.quiz_btnZoomAll{
+    /* position:absolute; */
     border:0px;
     height : 32px;
+    cursor:pointer;
+    
 /* filter: grayscale(1); */
 }
+
+.quiz_btnZoomEnable{
+    pointer-events: all;
+/* filter: grayscale(1); */
+}
+
 .quiz_btnZoomDisable{
-    border:0px;
-    height : 32px;
+    pointer-events: none;
     filter: grayscale(1);
+}
+.quiz_btnZoomNext{
+
 }
 
 .quiz_btnZoomEnable:hover{
    transform: scale(1.2)  translate(3px);
-}
-
-.quiz_div_btn{
-    max-height:32px;
-    text-align:right;
 }
 
 .quiz_div_in_slide{
@@ -893,6 +889,7 @@ input.slide-proposition2{
     border-top-left-radius: 25px 25px;
     border-top-right-radius: 25px 25px;
     box-shadow: 8px 8px 5px #444;
+    z-index:8888;
 }
 
 .quiz_div_zoom_plus_begin{

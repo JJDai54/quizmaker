@@ -48,11 +48,16 @@ trait QuizExport
 public static function quiz_export($quizId, $modeName = 0, $suffix = 0){
 global $quizHandler;
 //echo "<hr>quiz_export - quizId = {$quizId}<hr>";
-
+        
+        $quiz = $quizHandler->get($quizId);
+        $err = self::verif_exportable($quizId);
+        if ($err > 0){
+            redirect_header("quiz.php?cat_id={$quiz->getVar('quiz_cat_id')}", 5, constant("_AM_QUIZMAKER_QUIZ_EXPORT_ERR{$err}"));
+        }
+        
         //suppression des images non référencées dans les réponses
         $quizHandler->purgerImages($quizId);
         
-        $quiz = $quizHandler->get($quizId);
         self::quiz_exportToYml($quizId);
         
 \JANUS\FSO\isFolder(QUIZMAKER_PATH_UPLOAD_EXPORT, true);  
@@ -78,6 +83,25 @@ chmod ($outZipPath , 0666);
 		$GLOBALS['xoopsTpl']->assign('href', $outZipUrl);        
 		$GLOBALS['xoopsTpl']->assign('delai', 2000);        
 		$GLOBALS['xoopsTpl']->assign('name', $name);        
+}
+
+/**************************************************************
+ * return : > 0 : n° de la causse qui empeche l'export
+ * ************************************************************/
+public static function verif_exportable($quizId){
+    global $xoopsConfig, $quizHandler, $questionsHandler, $xoopsDB;
+    
+    $nbQuestions = $questionsHandler->getCountQuestionsOfQuiz($quizId);
+    if ($nbQuestions == 0) return 1; //pas de question dans le quiz
+
+    $nbQuestions = $questionsHandler->getCountQuestionsOfQuiz($quizId);
+    if ($nbQuestions == 0) return 2; //pas de question dans le quiz
+    
+    //placer ici les autres critère qui ne perttent pas d'exporter le quiz
+    
+    //i n'y a pas d'empechement retour 0
+    return 0;
+
 }
 
 /**************************************************************

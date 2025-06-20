@@ -16,15 +16,15 @@ sep = "-"; //separateurs pour les réponses
 /* ***************************************
 *
 * *** */
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
 
 /* ***************************************
 *
 * *** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
 var currentQuestion = this.question;
 var name = this.getName();
 var varByRef = { sep: " - " }; //modifie par getDisposition et utiliser pour aligner les mots h ou v

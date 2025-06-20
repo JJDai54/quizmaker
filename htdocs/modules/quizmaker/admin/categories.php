@@ -110,6 +110,7 @@ switch($op) {
 		}
 		// Set Vars
 		$categoriesObj->setVar('cat_name', Request::getString('cat_name', ''));
+		$categoriesObj->setVar('cat_actif', Request::getInt('cat_actif', 1));
 		$categoriesObj->setVar('cat_description', Request::getText('cat_description', ''));
 		$categoriesObj->setVar('cat_weight', Request::getString('cat_weight', 0));
 		$categoriesObj->setVar('cat_theme', Request::getString('cat_theme', 'default'));
@@ -174,6 +175,13 @@ switch($op) {
         \redirect_header($url, 0, "");
         break;
 
-    
+	case 'change_etat':
+        $field = Request::getString('field');
+        $modulo = Request::getInt('modulo', 2);
+        $categoriesHandler->changeEtat($catId, $field, $modulo);
+        redirect_header("categories.php?op=list", 5, "Etat de {$field} Changé");
+	break;
+
+
 }
 require __DIR__ . '/footer.php';

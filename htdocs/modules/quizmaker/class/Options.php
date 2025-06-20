@@ -41,6 +41,7 @@ class Options extends \XoopsObject
 	{
 		$this->initVar('opt_id', XOBJ_DTYPE_INT);
 		$this->initVar('opt_name', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('opt_actif', XOBJ_DTYPE_INT);
 		$this->initVar('opt_icone', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('opt_optionsIhm', XOBJ_DTYPE_INT);
 		$this->initVar('opt_optionsDev', XOBJ_DTYPE_INT);
@@ -95,6 +96,8 @@ class Options extends \XoopsObject
 		// Form Text opt_name
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'opt_name', 50, 50, $this->getVar('opt_name') ), true);
         
+		// Form Text opt_actif
+        $form->addElement(new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF,'opt_actif', $this->getVar('opt_actif')));
         
 		// Form Text opt_icone
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_ICONE, 'opt_icone', 50, 50, $this->getVar('opt_icone') ), true);
@@ -134,6 +137,7 @@ class Options extends \XoopsObject
         
 		$ret['id']          = $this->getVar('opt_id');
 		$ret['name']        = $this->getVar('opt_name');
+		$ret['actif']       = $this->getVar('opt_actif');
 		$ret['icone']       = $this->getVar('opt_icone');
 		$ret['optionsIhm']  = $this->getVar('opt_optionsIhm');
 		$ret['optionsDev']  = $this->getVar('opt_optionsDev');

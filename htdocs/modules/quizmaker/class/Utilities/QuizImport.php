@@ -210,7 +210,7 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
 //     echoArray($tabledata);
 
     //Mise à jour des champs avant importation
-    //il ny a normalement qu'un seul quiz, inutile de bouler sur tableData
+    //il ny a normalement qu'un seul quiz, inutile de boucler sur tableData
     $row = $tabledata[0];
     $oldQuizId = $row['quiz_id'];
     $row['quiz_id'] = $newQuizId;

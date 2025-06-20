@@ -10,10 +10,12 @@
   cellpadding:2:
   cellspacing:2;
   text-align: center; 
+    background:transparent;
 }
 
 .sortItems td{
     text-align:center;
+    background:transparent;
 }
 
 /* ******************************* */
@@ -26,6 +28,7 @@
   cellpadding:2:
   cellspacing:2;
   /* background:blue; */
+    background:transparent;
 }
 
 .sortItems_listbox table{
@@ -37,10 +40,12 @@
   cellpadding:2:
   cellspacing:2;
   text-align: center; 
+    background:transparent;
 }
 
 .sortItems_listbox td{
     text-align:center;
+    background:transparent;
 }
 
 .sortItems_listbox td[listbox]{
@@ -124,6 +129,7 @@
 
 .sortItems_combobox td{
     text-align:center;
+    background:transparent;
 }
 
 .sortItems_combobox td[listbox]{
@@ -177,6 +183,7 @@
 
 .sortItems_ulDaDList td{
     text-align:center;
+    background:transparent;
 }
 
 .ulDaDSortList {

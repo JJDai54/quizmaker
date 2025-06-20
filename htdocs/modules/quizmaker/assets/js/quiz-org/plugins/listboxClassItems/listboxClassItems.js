@@ -15,15 +15,15 @@ name = "listboxClassItems";
 /* *************************************
 *
 * ******** */
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
  /* ************************************
 * la fontion loadAllList sera appelé apres par l'evennement "initSlide appelé par la prottoype"
 * test d'approche pour comparer avec la solution prise par les autres slide avec reloadQuastion()
 * **** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var click = (currentQuestion.options.mouseClick == 1) ? "onclick" : "ondblclick";
     var img = '';

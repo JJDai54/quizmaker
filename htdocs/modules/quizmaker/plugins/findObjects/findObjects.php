@@ -42,6 +42,7 @@ var $maxGroups = 4;
         parent::__construct("findObjects", 0, "images");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
         $this->integration=1;
+        $this->hasZoom = true;
         $this->hasImageMain = true;
         $this->multiPoints = true;                
         $this->maxPropositions = 16;	
@@ -59,8 +60,7 @@ var $maxGroups = 4;
                                   'nextSlideDelai'      => 0,
                                   'nextSlideBG'         =>'#FFCC00',
                                   'nextSlideMessageWin' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN0,
-                                  'nextSlideMessageMax' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX0,
-                                  'zoom'                => 1];
+                                  'nextSlideMessageMax' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX0];
     }
 
 	/**
@@ -134,7 +134,6 @@ var $maxGroups = 4;
       $inpWidth2->setMinMax(32, 600, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElementOption($inpWidth2);     
 
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_zoom.php");
       //---------------------------------------------------------
       // avertissement
       //ajout des message d'avertissement au passge du slide suivant  
@@ -282,7 +281,7 @@ foreach($answers as $key=>$ans){
 
 //echoArray($options);
 $tplTouches = "var bufferArr = [" . implode(",\n", $touchesArr) . "];";
-$defaultValues = "var defaultValues = {'maxTouches' : {$options['maxTouches']}, 'defaultWidth' : {$options['defaultWidth']}, 'defaultHeight' : {$options['defaultHeight']}, 'defaultBorderWidth' : {$options['defaultBorderWidth']}, 'defaultBorderRadius' : {$options['defaultBorderRadius']}, 'defaultBorderWidth' : {$options['defaultBorderWidth']}};\n";
+$defaultValues = "var defaultValues = {'maxTouches' : {$options['maxTouches']}, 'defaultWidth' : {$options['defaultWidth']}, 'defaultHeight' : {$options['defaultHeight']}, 'defaultBorderWidth' : {$options['defaultBorderWidth']}, 'defaultBorderRadius' : {$options['defaultBorderRadius']}};\n";
 
 $delete = _LG_FINDOBJECTS_DELETE;
 $title = _LG_FINDOBJECTS_TITLE;

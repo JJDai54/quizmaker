@@ -110,6 +110,7 @@ function quizmaker_search($queryarray, $andor, $limit, $offset, $userid)
 		$crUser->add( new \Criteria( 'cat_submitter', $userid ), 'OR' );
 	}
 	$crSearch = new \CriteriaCompo();
+	$crSearch->add('cat_actif', 1, 'AND' );
 	if (isset($crKeywords)) {
 		$crSearch->add( $crKeywords, 'AND' );
 	}

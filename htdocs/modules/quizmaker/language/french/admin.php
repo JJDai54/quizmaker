@@ -59,7 +59,8 @@ define('_AM_QUIZMAKER_CATEGORIES_LIST', "Liste des catégories");
 define('_AM_QUIZMAKER_CATEGORIES_NAME', "Catégories");
 define('_AM_QUIZMAKER_CATEGORIES_THEME', "Thème");
 define('_AM_QUIZMAKER_CATEGORY', "Catégorie");
-define('_AM_QUIZMAKER_CHILDREZN_OUT_OF_GROUP', "Sortir tous les enfants du groupe");
+define('_AM_QUIZMAKER_CHILDREN_OUT_OF_GROUP', "Sortir tous les enfants du groupe");
+define('_AM_QUIZMAKER_CHILD_IN_PREVIOUS_GROUP', "Mettre dans le grooupe précédent");
 define('_AM_QUIZMAKER_CHRONO', "Chronomètre");
 define('_AM_QUIZMAKER_CLICK_DOUBLE', "double click");
 define('_AM_QUIZMAKER_CLICK_SIMPLE', "Simple click");
@@ -87,7 +88,7 @@ define('_AM_QUIZMAKER_DESCRIPTION_DESC', "Texte affiché sur la page d'introduct
 define('_AM_QUIZMAKER_DIRECTIVE', "Directive");
 define('_AM_QUIZMAKER_DIRECTIVE_DESC', "Indiquer ici une action à faire, une aide ou toute indication utile.");
 define('_AM_QUIZMAKER_DISPOSITION', "Disposition");
-define('_AM_QUIZMAKER_DISPOSITION_DESC', "<b>Important</b> : Sélectionnez une disposition qui corresponde au nombre de groupes qui on été définis.");
+define('_AM_QUIZMAKER_DISPOSITION_DESC', "<b>Important</b> : dans le cas de plugins avec des groupes, sélectionnez une disposition qui corresponde au nombre de groupes qui on été définis.");
 define('_AM_QUIZMAKER_DOWN', "Redescendre");
 define('_AM_QUIZMAKER_DOWNLOAD_OK', "Le téléchargement va démarrer. Si il ne démarre pas cliquer sur le lien direct ici ===>");
 define('_AM_QUIZMAKER_EDIT_QUIZ', "Editer le quiz");
@@ -333,6 +334,8 @@ define('_AM_QUIZMAKER_QUIZ_SHOW_LOG_DESC', "Utilisé lors du développement, aff
 define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES', "Afficher les réponses");
 define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM', "Afficher les réponses");
 define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM_DESC', "Permet d'afficher les réponses en bas de page.");
+define('_AM_QUIZMAKER_QUIZ_SHOW_SHOW_RIGHT_CLICK_MENU', "Menu Click droit");
+define('_AM_QUIZMAKER_QUIZ_SHOW_SHOW_RIGHT_CLICK_MENU_DESC', "Active ou désactive le menu sur le click droit de la souris.");
 //define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES', "Affiche le résultat global dans le bandeau du bas");
 define('_AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION', "Mélanger les questions");
 define('_AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC', "Ne pas utiliser si l'ordre des questions est important ou si des \"Encarts\" ont été utilisés");
@@ -471,8 +474,12 @@ define('_AM_QUIZMAKER_ZOOM_DESC', "Affichage des boutons \"+\" et \"-\" respecti
 define('_AM_QUIZMAKER_ZOOM_NONE', "Aucun");
 define('_AM_QUIZMAKER_ZOOM_MANUEL', "Manuel");
 define('_AM_QUIZMAKER_ZOOM_AUTO', "Automatique");
-
-
+define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR1', "Le quiz ne peut pas être exporté.<br>Il est endommagé, les pages begin et end sont absentes !");
+define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR2', "Le quiz ne peut pas être exporté.<br>Probablement qu'il n'y a pas encore de questions dans ce quiz !");
 define('_AM_QUIZMAKER_LOAD_JANUS', "<center><hr><div style='font-size:1.5em;'>Pour utiliser ce module le framework \"Janus\" doit être installé.<br>Lien de téléchargemnt du Frmework :<br><a href='https://github.com/JJDai54/janus'>Framework Janus</a></div><hr></center>");
+
+define('_AM_QUIZMAKER_BUILD_ALL_QUIZ', "Générer tous les quiz de la catégorie");
+define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_OK',"Traitement terminé");
+define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_QUIZ_ID',"Quiz %s fait");
 
 ?>

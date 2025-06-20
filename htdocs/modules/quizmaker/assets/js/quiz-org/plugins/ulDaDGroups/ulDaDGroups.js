@@ -13,53 +13,16 @@ class ulDaDGroups extends Plugin_Prototype{
 name = "ulDaDGroups";
 
 //---------------------------------------------------
-build (){
+buildSlide (bShuffle = true){
     this.boolDog = false;
-    return this.getInnerHTML();
+    return this.getInnerHTML(bShuffle);
  }
 
-/* ************************************
-*
-* **** */
- reloadQuestion() {
-    var currentQuestion = this.question;
-
-/*    
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML();
-    return true;
- */
-
-    var obGroups= [];
-    var obGroup;
-    var nbGroups = this.data.groupsLib.length;
-    var groupIndex = -1; //groupe de destination aleatoire
-    
-    for(k = 0; k < this.data.groupsLib.length; k++){
-        obGroups[k] = document.getElementById(this.getId('group',k));
-        //alert(k + " : " + obGroups[k].id);
-    }
-    
-    for(var k in currentQuestion.answers){
-        var ans =  currentQuestion.answers[k];
-        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
-//alert(currentQuestion.options.groupDefault + "-" + groupIndex);
-        //alert ('groupIndex : ' + groupIndex);
-        obGroup = obGroups[groupIndex];
-        //alert(ans.ansId);
-        obGroup.appendChild(document.getElementById(ans.ansId )); //+ "-div"
-
-    }
-
-     return true;
-}
 
 /* ************************************
 *
 * **** */
-getInnerHTML(){
+getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
     var tWords = [];
     var tPoints = [];
@@ -139,17 +102,16 @@ initSlide (){
         var groupName = this.getId('group', k);
         var obGroup = document.getElementById(groupName);
         if(obGroup){
-            //quiz_init_slist(obGroup);
             this.init_slist(obGroup);
         }
     }
     //this.reloadQuestion();    
     return true;
  }
-/*
+ 
+/* *********************************************************
 https://code-boxx.com/drag-drop-sortable-list-javascript/
-*/
-
+********************************************************* */
 init_slist (target) {
   // (A) SET CSS + GET ALL LIST ITEMS
   target.classList.add("quiz_ulDaDGroups_slist");
@@ -289,6 +251,43 @@ var tHtml = [];
 
 }
 
+/* ************************************
+*
+* **** */
+ reloadQuestion() {
+    var currentQuestion = this.question;
+
+/*    
+    var name = this.getName();
+    var obContenair = document.getElementById(`${name}`);
+
+    obContenair.innerHTML = this.getInnerHTML();
+    return true;
+ */
+
+    var obGroups= [];
+    var obGroup;
+    var nbGroups = this.data.groupsLib.length;
+    var groupIndex = -1; //groupe de destination aleatoire
+    
+    for(k = 0; k < this.data.groupsLib.length; k++){
+        obGroups[k] = document.getElementById(this.getId('group',k));
+        //alert(k + " : " + obGroups[k].id);
+    }
+    
+    for(var k in currentQuestion.answers){
+        var ans =  currentQuestion.answers[k];
+        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
+//alert(currentQuestion.options.groupDefault + "-" + groupIndex);
+        //alert ('groupIndex : ' + groupIndex);
+        obGroup = obGroups[groupIndex];
+        //alert(ans.ansId);
+        obGroup.appendChild(document.getElementById(ans.ansId )); //+ "-div"
+
+    }
+
+     return true;
+}
   
 /* ***************************************
 *
@@ -566,6 +565,7 @@ groupes.push(`
         break;
     }
     return tpl;
+
 }
 
 
