@@ -4,18 +4,26 @@ border:1px solid red;
 */
 }
 
+.matchItems div{
+    border: 0px;
+}
 .matchItems table{
     width:100%;
+    background:transparent;
+    border: 0px;
 }
 
+.matchItems table td{
+    background:transparent;
+    border: 0px;
+}
 .matchItems td[left]{
   text-align:left;
+
 
 }
 .matchItems td[right]{
   text-align:right;
-
-
 }
 .matchItems td[center]{
   text-align:center;
@@ -30,10 +38,19 @@ border:1px solid red;
 
 
 .matchItems select{
-  font-size:1.2em;
-  width:90%;
-  margin:0px 5px 0px 5px;
+    font-size:1.2em;
+    width:90%;
+    margin:0px 5px 0px 5px;
+    background:white;
+    margin:0px 5px 0px 5px;
+    border:1px solid grey;
+    -moz-border-radius: 4px 4px 4px 4px ;
+    -webkit-border-radius: 4px 4px 4px 4px ;
+    -khtml-border-radius: 4px 4px 4px 4px ;
+    border-radius: 4px 4px 4px 4px ;
+    padding: 0px 5px 0px 5px;
 }
+
 .matchItems select[left]{
   text-align:left;
   align-items: left;
@@ -51,11 +68,25 @@ border:1px solid red;
 }
 
 .matchItems input{
-  font-size:1.2em;
-  margin:0px 5px 0px 5px;
-
-  width:90%;
+    font-size:1.2em;
+    width:90%;
+    margin:0px 5px 0px 5px;
+    border:1px solid grey;
+    -moz-border-radius: 4px 4px 4px 4px ;
+    -webkit-border-radius: 4px 4px 4px 4px ;
+    -khtml-border-radius: 4px 4px 4px 4px ;
+    border-radius: 4px 4px 4px 4px ;
+    padding: 0px 5px 0px 5px;
 }
+.matchItems input[disabled]{
+    background:#E5E5E5;
+}
+
+.matchItems input[zzz]{
+    background:white;
+}
+
+
 .matchItems input[left]{
   text-align:left;
   margin:0px 5px 0px 5px;

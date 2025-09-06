@@ -24,8 +24,8 @@
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
-define('_LG_PLUGIN_SELECTINPUTS', "Question à réponses multiples");
-define('_LG_PLUGIN_SELECTINPUTS_DESC', "Ce slide est composé d'une question et de plusieurs cases à cocher.");
+define('_LG_PLUGIN_SELECTINPUTS', "Question à réponses uniques ou multiples");
+define('_LG_PLUGIN_SELECTINPUTS_DESC', "Ce slide est composé d'une question et de plusieurs boutons radio ou cases à cocher.");
 define('_LG_PLUGIN_SELECTINPUTS_CONSIGNE', "Vous devez cocher une ou plusieurs options qui correspondent à la question.<br>Important : Selon les options choisies le nombre de points peut augmenter ou diminuer selon les bonnes ou mauvaises options.");
 
 define('_LG_PLUGIN_SELECTINPUTS_TYPE', "Type de sélection");

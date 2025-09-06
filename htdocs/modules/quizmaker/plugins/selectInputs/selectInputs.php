@@ -132,8 +132,14 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
   reset($answers);
         $tbl = $this->getNewXoopsTableXtray();
         $tbl->addTdStyle(1, "width:500px;");
-        $tbl->addTdStyle(2, "width:120px;");
-        $tbl->addTdStyle(3, "width:120px;");
+        $tbl->addTdStyle(2, "width:120px;text-align:center");
+        $tbl->addTdStyle(3, "width:120px;text-align:center");
+        
+        $tbl->addTitle('');        
+        $tbl->addTitle(_AM_QUIZMAKER_PROPOSITIONS);        
+        $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_POINTS);        
+        $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_WEIGHT);        
+        
         $weight = 0;
         
         for($k = 0; $k < $maxItems; $k++){
@@ -142,10 +148,10 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
             
-            $inpPropos = new \XoopsFormText(_AM_QUIZMAKER_PLUGIN_MOT, $this->getName($k,'proposition'), $this->lgMot4, $this->lgMot5, $proposition);
-            $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_POINTS,  $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
+            $inpPropos = new \XoopsFormText('', $this->getName($k,'proposition'), $this->lgMot4, $this->lgMot5, $proposition);
+            $inpPoints = new \XoopsFormNumber('',  $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(-30, 30);
-            $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_WEIGHT,  $this->getName($k,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
+            $inpWeight = new \XoopsFormNumber('',  $this->getName($k,'weight'), $this->lgWeight, $this->lgWeight, $weight += 10);
             $inpWeight->setMinMax(0, 999);
             $inpGroup = new \XoopsFormHidden($this->getName($k,'group'), $group);
 

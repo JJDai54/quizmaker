@@ -127,10 +127,20 @@ getHtmlMultiCheckbox(k, itemsArr, strType, sep = '&nbsp;'){
     
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
-
+        var idx = 0;
+            
         ans['proposArr']  = ans.proposition.split(",");        
         ans['sanitysArr'] = sanityseTextForComparaison(ans.proposition.replaceAll(',','|')).split("|");        
-        ans['intrusArr']  = ans.buffer.split(",");        
+        ans['intrusArr']  = ans.buffer.split(",");    
+        
+        //supression des bonnes répopnses dans les intrus pour éviter de les avoir en double dans les listes déroulantes, les checkbox, ...
+        for(var h=0; h< ans['proposArr'].length; h++){
+            idx = ans['intrusArr'].indexOf(ans['proposArr'][h]);
+            if (idx >=0 ){
+                ans['intrusArr'].splice(idx,idx);
+            } 
+        }
+        
         ans['itemsArr']   = shuffleArray(ans['proposArr'].concat(ans['intrusArr']));        
         
         //pour faciliter le code

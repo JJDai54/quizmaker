@@ -50,7 +50,10 @@ const maxPropositions = 1;
                                   'strToReplace'    => '@@@@@',
                                   'scoreByGoodWord' => 1,
                                   'disposition'     => 'disposition-01',
-                                  'tokenColor'      => '#FF0000'];
+                                  'fontsize'        => 3,
+                                  'lineheight'      => 3,
+                                  'tokenColor'      => '#FF0000',
+                                  'wordColor'       => '#008000'];
 
  
                        
@@ -97,10 +100,28 @@ const maxPropositions = 1;
       $name = 'strToReplace';
       $inputStrToReplace = new XoopsFormText(_AM_QUIZMAKER_CARS_TO_REPLACE,"{$optionName}[{$name}]", $this->lgMot1, $this->lgMot1, $tValues[$name]);            
       $trayOptions->addElementOption($inputStrToReplace);
-      
+
       $name = 'tokenColor';  
-      $inpTokenColor = new XoopsFormColorPicker('Couleur des balises', "{$optionName}[{$name}]", $tValues[$name]);
+      $inpTokenColor = new XoopsFormColorPicker(_LG_PLUGIN_TEXTAREAMIXTE_TOKEN_COLOR, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElementOption($inpTokenColor);     
+      
+      $name = 'wordColor';  
+      $inpWordColor = new XoopsFormColorPicker(_LG_PLUGIN_TEXTAREAMIXTE_WORD_COLOR, "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions->addElementOption($inpWordColor);   
+        
+      $name = 'fontsize';  
+      $inpFontSize = new XoopsFormSelect(_LG_PLUGIN_TEXTAREAMIXTE_FONT_SIZE, "{$optionName}[{$name}]", $tValues[$name]);
+      for($h=0; $h<15;$h++){
+        $inpFontSize->addOption($h, ($h+10)*0.1);
+      }
+      $trayOptions->addElementOption($inpFontSize);     
+      
+      $name = 'lineheight';  
+      $inpLineHeight = new XoopsFormSelect(_LG_PLUGIN_TEXTAREAMIXTE_LINE_HEIGHT, "{$optionName}[{$name}]", $tValues[$name]);
+      for($h=0; $h<15;$h++){
+        $inpLineHeight->addOption($h, ($h+10)*0.1);
+      }
+      $trayOptions->addElementOption($inpLineHeight);     
 
       $name = 'scoreByGoodWord';  
       $inpScoreByGoodWord = new \XoopsFormNumber(_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);

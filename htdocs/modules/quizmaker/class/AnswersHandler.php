@@ -74,6 +74,7 @@ class AnswersHandler extends \XoopsPersistableObjectHandler
 		return $this->db->getInsertId();
 	}
 
+
 	/**
 	 * Get Count Answers in the database
 	 * @param int    $start 

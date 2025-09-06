@@ -70,8 +70,9 @@ quiz.allowedPrevious   = isBitOk(h++, optionsIhm);
 quiz.useTimer          = isBitOk(h++, optionsIhm); 
 quiz.shuffleQuestions  = isBitOk(h++, optionsIhm);  
 quiz.showResultPopup   = isBitOk(h++, optionsIhm);  
+quiz.realignWindowPos  = 1;  
+quiz.timerInBtnNext    = 0;   
 //quiz.minusOnShowGoodAnswers = isBitOk(h++, optionsIhm);  
- 
 
 //alert("optionsDev = " + quiz.optionsDev);
 var h = 0;
@@ -318,12 +319,12 @@ var consigneTop = imgHeight-offset1;
  *   
  * ************************************************************************/
 function getProgressbarHTML(){
-var extra = (quiz.showGoToSlide == 1) ? 'onclick="event_pb_gotoSlide(event);" style="cursor: pointer;"':  ''; 
-var chrono = `<div style='float:left;'><button id="quiz_div_horloge"   style='width:120px;'     >00:00</button></div>`;
+var extra = (quiz.showGoToSlide == 1) ? 'onclick="event_pb_gotoSlide(event);" style="cursor: pointer;max-width:400px"' :  ''; 
+var chrono = `<div style='float:left;'><button id="quiz_div_horloge"   style='width:130px;'     >00:00</button></div>`;
 
 return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" style="padding: 0px 0px 5px 0px;"><center>
           <div id="pb_contenair" name="pb_contenair" class='${quiz_css.navigation}' style='width:90%;'>
-            ${chrono}<div id="pb_text" name="pb_text" style='width:40px;'>0 / 0</div>
+            ${chrono}<div id="pb_text" name="pb_text" style='width:80px;'>0 / 0</div>
             <div id="pb_base" name="pb_base" ${extra}>
                 <div id="pb_indicator"></div>
             </div>
@@ -458,16 +459,21 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
        var classCSS = `quiz_div_plugin_main ${quiz_css.slide}` + ((clQuestion.question.pluginName == 'pageBegin') ? " quiz_div_plugin_begin" : "");
        var PropositionsWwidth = 95;
         //---------------------------------------------------------------     
-        if (clQuestion.question.hasZoom){
-            if(clQuestion.question.zoom > 0){
-                var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 1, true);
-            }else{
-                var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 2, true);
-            }
+        if (clQuestion.question.hasZoom && clQuestion.question.zoom > 0){
+            var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 1, false);
         }else{
             var htmlSlide = clQuestion.buildSlide();
         } 
         
+//         if (clQuestion.question.hasZoom){
+//             if(clQuestion.question.zoom > 0){
+//                 var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 1, false);
+//             }else{
+//                 var htmlSlide = clQuestion.buildSlide();
+//             }
+//         }else{
+//             var htmlSlide = clQuestion.buildSlide();
+//         } 
 //alert(`hasZoom = ${clQuestion.question.hasZoom}`);
         
         output.push(
@@ -618,7 +624,8 @@ var answerContainer;
           //result.repondu +=  clQuestion.getScore(answerContainers[index]);// ((points>0) ? points : 0;
           result.repondu  += (clQuestion.isInputOk( answerContainers[index]) ? 1 : 0);  
           //result.score  += clQuestion.points*1;  
-          result.score  += clQuestion.getScoreByProposition()*1;  
+          //result.score  += clQuestion.getScoreByProposition()*1;  
+          result.score  += clQuestion.getScore()*1;  
           //alert(clQuestion.question.question + '->' + clQuestion.getScoreByProposition()*1);
           //clQuestion.getScore()*1;  
           //result.score  += clQuestion.points*1;
@@ -858,7 +865,7 @@ function reloadQuestion() {
 * */
 
   function showSlide_new (offset=0) {
-    moveWindowPosTo('quiz_div_module_xoops');
+    if(quiz.realignWindowPos){moveWindowPosTo('quiz_div_module_xoops');}
     console.log("===>showSlide_new - offset=" + offset);
     //affichage du popup des solutions si offset > 0 uniquement
     if (currentSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(currentSlide);
@@ -910,7 +917,11 @@ if(obHelp) obHelp.innerHTML = consigne;
     if (currentQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || currentQuestion.startTimer) && !bStopTimer){
     //alert("start slide timer : |" + currentQuestion.timer + "|");
         statsTotal.slideTimer = currentQuestion.timer;
-        btnNextSlide.innerHTML = `${quiz_messages.btnNext} (${statsTotal.slideTimer})`;
+        
+        //retiré du bouton pour être remplacer par chrono
+        if(quiz.timerInBtnNext == 1){
+            btnNextSlide.innerHTML = `${quiz_messages.btnNext} (${statsTotal.slideTimer})`;
+        }
         idSlideTimer = setInterval(updateSlideTimer, 1000);
         startChronometre(currentQuestion.timer);
     }
@@ -1078,7 +1089,7 @@ var container = document.getElementById(objId);
 //      obSlideTimer.innerHTML = statsTotal.slideTimer;
     
     //ajout du timer dans le bouton "next"
-    if(statsTotal.slideTimer >= 0){
+    if(statsTotal.slideTimer >= 0 && quiz.timerInBtnNext == 1){
         btnNextSlide.innerHTML = `${quiz_messages.btnNext} [${statsTotal.slideTimer}]`;
 //        alert ('updateSlideTimer - ' + btnNextSlide.innerHTML);
     } else{

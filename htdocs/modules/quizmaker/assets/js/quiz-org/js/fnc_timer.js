@@ -82,7 +82,7 @@ console.log('onTimesUp');
   //alert("termine");
   document.getElementById('chronometre').style.display ='none';
   
-  // avoir si remplace le timer sur le bouton sivant
+  // à voir si remplace le timer sur le bouton suivant
   //document.getElementById('quiz_btn_nextSlide').click();
 
 }

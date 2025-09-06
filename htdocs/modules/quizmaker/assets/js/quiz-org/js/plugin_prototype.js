@@ -166,7 +166,7 @@ getId (uid, indexElement = null){
 getScoreInfos (){
     return {'question_min': this.scoreMiniBP, 
             'question_max': this.scoreMaxiBP, 
-            'question_points': this.this.getScoreByProposition(0), 
+            'question_points': this.getScore(), // this.getScoreByProposition(0), 
             'quiz_nb_answers' : 0,
             'quiz_nb_questions' : 0,
             'quiz_score': 0,
@@ -283,6 +283,27 @@ getImage(){
     }
 }
 
+getBackground2(){
+//alert(quiz.background);
+    var currentQuestion = this.question;
+
+    if(currentQuestion.background){
+        var background = currentQuestion.background;
+    }else if(quiz.background){
+        var background = quiz.background;
+    }else{
+        return false;
+    }
+    
+    var url = `url(${quiz_config.urlQuizImg}/${background})`;
+    //alert(`slide[${this.slideNumber}]`);
+    var obDiv = document.getElementById(`slide[${this.slideNumber}]`);
+    if(obDiv){
+      alert('getBackground : slide n° = ' + obDiv.id);
+      obDiv.style.background = 'green';
+    }
+    
+}
 getBackground(){
 //alert(quiz.background);
     var currentQuestion = this.question;
@@ -302,6 +323,8 @@ getBackground(){
     var obDiv = document.getElementById(this.getId('main')).parentNode.parentNode;
     obDiv.style.backgroundImage = url;
     
+    //var obDiv1 = obDiv.firstChild;
+    //obDiv1.style.backgroundImage = url;
 }
 
 /* ***************************************
@@ -396,8 +419,6 @@ setFocus(){
 //if (ok) alert("melange ok");
     return arr;
 
-
-    
  }
 
 
@@ -405,7 +426,7 @@ setFocus(){
 * getScore : renvoie le nombre de points obtenu pour la question
 * @ return: nombre de poits obtenus
 * ********** */
-getScore (answerContainer){
+getScore (answerContainer = null){
 var points = 0;
 
     var currentQuestion = this.question;
@@ -421,7 +442,7 @@ var points = 0;
 }
 
 //---------------------------------------------------
-  getScoreByProposition (answerContainer){return 0;}
+getScoreByProposition (answerContainer){return 0;}
 
 /* *******************************************
 * isInputOk : renvoie vrai si reponsemin = 0 ou si le nombre minimum de réponse requise est atteint
@@ -505,17 +526,24 @@ sanityse_question(bReplaceSlash = false)
 * **** */
 reloadQuestion(bShuffle = true)
   {
+    //alert('reloadQuestion : ' + ((bShuffle) ? 'true': 'false'));
+//return false;
     var currentQuestion = this.question;
-    
-    if (currentQuestion.hasZoom){
-      if(currentQuestion.zoom > 0){
-          var htmlSlide = zoom_getCapsule(this.buildSlide(bShuffle), this.slideNumber, 1, false);
-      }else{
-          var htmlSlide = zoom_getCapsule(this.buildSlide(bShuffle), this.slideNumber, 2, false);
-      }
+    if (currentQuestion.hasZoom && currentQuestion.zoom > 0){
+        var htmlSlide = zoom_getCapsule(this.buildSlide(bShuffle), this.slideNumber, 1, false);
     }else{
-        var htmlSlide = this.buildSlide();
+        var htmlSlide = this.buildSlide(bShuffle);
     } 
+    
+//         if (clQuestion.question.hasZoom){
+//             if(clQuestion.question.zoom > 0){
+//                 var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 1, false);
+//             }else{
+//                 var htmlSlide = clQuestion.buildSlide();
+//             }
+//         }else{
+//             var htmlSlide = clQuestion.buildSlide();
+//         } 
     document.getElementById(this.divMainId).innerHTML = htmlSlide;
 
   //alert('===>reloadQuestion');

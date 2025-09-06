@@ -34,6 +34,7 @@ $start = 0; //Request::getInt('start', 0);
 $limit = 0; //Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 $resultId = Request::getInt('result_id', 0);
 $catId = Request::getInt('cat_id');
+$playerId = Request::getInt('player_id',1);
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
@@ -65,7 +66,7 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
         }
 
         if (!$bolOk){
-              redirect_header("categories.php?op=list&cat_id={$catId}", 5, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
+              redirect_header("categories.php?op=list&cat_id={$catId}&player_id={$playerId}", 5, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
         }
         //----------------------------------------------------------------------
 		$quizObj = $quizHandler->get($quizId);
@@ -111,8 +112,8 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));
 // Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS];
-
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => "categories.php?op=list&cat_id={$catId}&player_id={$playerId}"];
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_SOLUTIONS . ' : <b>' . $quiz['name'] . '</b>'];
 //---------------------------------------------------
 //  ajout du resultat du participant le cas échéant
 //----------------------------------------------------

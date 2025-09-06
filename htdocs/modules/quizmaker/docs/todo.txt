@@ -1,3 +1,42 @@
+      $h = strrpos($k, ".");
+      $indexKey = substr($k,0 , $h);
+-----------------------------------------------
+SELECT tq.*, ta.answer_image1, ta.answer_image2 FROM `x251_quizmaker_answers` ta
+LEFT JOIN  `x251_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
+WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
+
+
+UPDATE `x251_quizmaker_answers` 
+SET answer_image2 = answer_image1,
+answer_image1 = answer_proposition,
+answer_proposition = null
+WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
+
+
+-----------------------------------------------------------------
+SELECT tq.*, ta.answer_image1, ta.answer_image2 FROM `x2511_quizmaker_answers` ta
+LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
+WHERE `quest_quiz_id` = 15;
+
+UPDATE `x2511_quizmaker_answers` ta
+LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
+SET answer_image2 = concat(answer_image2,'.png')
+WHERE `quest_quiz_id` = 15;
+-----------------------------------------------
+
+SELECT tq.*, ta.answer_image1, ta.answer_image2 FROM `x2511_quizmaker_answers` ta
+LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
+WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
+
+UPDATE `x2511_quizmaker_answers` 
+SET answer_image1 = answer_proposition
+WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
+
+UPDATE `x2511_quizmaker_answers` 
+SET answer_proposition = ''
+WHERE (`answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png") 
+
+
 ALTER TABLE `x251_quizmaker_options` ADD `opt_actif` INT NOT NULL DEFAULT '1' AFTER `opt_name`; 
 ALTER TABLE `x251_quizmaker_categories` ADD `cat_actif` TINYINT NOT NULL DEFAULT '1' AFTER `cat_name`; 
 

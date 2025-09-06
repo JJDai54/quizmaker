@@ -92,6 +92,34 @@ class Questions extends \XoopsObject
 		return $newInsertedId;
 	}
 
+    /**
+     * create a clone(copy) of the current object
+     *
+     * @access public
+     * @return object clone
+     */
+    public function cloneQuestion()
+    {
+        global $questionsHandler;
+        
+        $class = get_class($this);
+        $clone = null;
+        $clone = new $class();
+        foreach ($this->vars as $k => $v) {
+            $clone->setVar($k, $v['value']);
+        }
+        $clone->setVar('quest_id', 0);
+        $clone->setVar('quest_question', $clone->getVar('quest_question') . " - (clone [#{$this->getVar('quest_id')}])");
+        $clone->setVar('quest_weight', $clone->getVar('quest_weight')+2);
+        // need this to notify the handler class that this is a newly created object
+        $clone->setNew();
+
+        return $clone;
+    }
+
+
+
+
 /* *************************************
 insert un lineBreak avec des liens sur les différenes partie du formulaire
 **************************************** */

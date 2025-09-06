@@ -1,4 +1,24 @@
 ---------------------------------------------------
+2025-09-06 v 6.16 beta 3 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+Ajout des bloc "Dernier quiz" et "Catégories"
+Correction du plugin "multiQuestions" :
+    suppression des doublons dans les listes de propositions quand la bonne réponse est aussi dans les intrus.
+    
+---------------------------------------------------
+2025-06-20 v 6.14 beta 3 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+un peu de cosmétique dans "quizmaker_breadcrumbs"
+Correction affichage des stats dans "categories.php" et le template associé
+Correction d'une erreur de jeunesse : 
+    enregistrement des images des propositions dans le champ "answer_image1' au lieu de "answer_proposition"
+    enregistrement des images de substitution dans le champs 'answer_image2" au lieu de "answer_image1"
+    correction des exemples liés aux plugins
+
+Ajout de la fonctionalité de clonage d'une question.
+Les images liées sont également dupliquées pour ne pas créer d'interférence avec la question source (supression par exemple).
+
+---------------------------------------------------
 2025-06-20 v 6.14 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Activation désactivation automatioque des boutons zoomPlus et zoomMoins
@@ -24,6 +44,7 @@ plugin imagesDaDMatchItems :
 Corrections pour minification : quelques manques notamment :
     ";" en fin d'instruction
     'var' pour declarer les variables
+    {} après in if()
 
 traduction anglaise des constantes linguistiques
 Ajout du champs "quest_zoom" initialement dans les options mais en phase de généralisation à tous les plugins

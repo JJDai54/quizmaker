@@ -58,15 +58,13 @@ use XoopsModules\Quizmaker\Constants;
         $options = Request::getArray(QUIZMAKER_PREFIX_OPTIONS_NAME, null);
 		//$questionsObj->setVar('quest_options', implode('|', $options));
         //--------------------------------------------------------
-        $quiz = $quizHandler->get($quizId);
-        $folderJS = $quiz->getVar('quiz_folderJS');
-        $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";  
-        $cls = $pluginsHandler->getClassPlugin($pluginName);
+        $pathImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
+        $clsPlugin = $pluginsHandler->getClassPlugin($pluginName);
         //********************************************************
         //suppression des images si il y en  de définies dans les options du plugins
         if(isset($options['delete'])){
             foreach($options['delete'] AS $name=>$value){
-                $f = "{$path}/{$options[$name]}";
+                $f = "{$pathImg}/{$options[$name]}";
                 //echo "{$Name}-{$value}<br>{$f}<br>";
                 unlink($f);
                 $options[$name] = '';
@@ -83,7 +81,7 @@ use XoopsModules\Quizmaker\Constants;
             if(substr($key,0,strlen(QUIZMAKER_PREFIX_OPTIONS_NAME)) == QUIZMAKER_PREFIX_OPTIONS_NAME){
                 //echo "===>{$key} => {$img['name']} => {$img['tmp_name']}<br>"; 
             
-                $newImg = $cls->save_img($ans, $key, $path, $folderJS, $prefix);
+                $newImg = $clsPlugin->save_img($ans, $key, $pathImg, $prefix);
                 if($newImg == ''){
                     //echo "===> {$key} => pas d'image sauvegardée<br>";        
                 }else{
@@ -128,29 +126,29 @@ echoArray($_POST,'_POST',false);
         //ou si le nom de la nouvelle image est différent de l'ancienne
         $delImage = Request::getInt('del_quest_image', 0);
         if($delImage == 1){ //    || $questImage
-            $fullName = $path . '/' . $questionsObj->getVar('quest_image');
+            $fullName = $pathImg . '/' . $questionsObj->getVar('quest_image');
             unlink($fullName);
             $questionsObj->setVar('quest_image', '');
         }
 
         // --- gestion de limage de la question
-        $cls = $pluginsHandler->getClassPlugin($pluginName);
+        //$clsPlugin = $pluginsHandler->getClassPlugin($pluginName);
         
         //recupe de la nouvelle image si elle a ete selectionnée
-        $questImage = $cls->save_img($ans, 'quest_image', $path, $folderJS, 'question', $nameOrg);
+        $questImage = $clsPlugin->save_img($ans, 'quest_image', $pathImg, 'question', $nameOrg);
         
         //enregistrement de l'image
         if ($questImage) $questionsObj->setVar('quest_image', $questImage);
         //------------------------------------------------------------
         $delBackground = Request::getInt('del_quest_background', 0);
         if($delBackground == 1){ //    || $questImage
-            $fullName = $path . '/' . $questionsObj->getVar('quest_background');
+            $fullName = $pathImg . '/' . $questionsObj->getVar('quest_background');
             unlink($fullName);
             $questionsObj->setVar('quest_background', '');
         }
 
         //recupe du background
-        $questBackground = $cls->save_img($ans, 'quest_background', $path, $folderJS, 'question', $nameOrg);
+        $questBackground = $clsPlugin->save_img($ans, 'quest_background', $pathImg, 'question', $nameOrg);
         //enregistrement de background
         if ($questBackground) $questionsObj->setVar('quest_background', $questBackground);
         //------------------------------------------------------------
@@ -159,7 +157,7 @@ echoArray($_POST,'_POST',false);
 		if ($questionsHandler->insert($questionsObj)) {
             $questId = $questionsObj->getVar('quest_id');
 
-            $cls->saveAnswers(Request::getArray('answers', []), $questId, $quizId);
+            $clsPlugin->saveAnswers(Request::getArray('answers', []), $questId, $quizId);
         
        
 //echo "<hr>" .  getParams2list($quizId, $quest_plugin); exit;

@@ -28,9 +28,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 6.14,
-	'module_status'       => 'Beta 2',
-	'release_date'        => '2025/06/20',
+	'version'             => 6.16,
+	'module_status'       => 'Beta 3',
+	'release_date'        => '2025/09/06',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -38,7 +38,7 @@ $modversion = [
 	'author_website_name' => 'Origami du Monde',
 	'credits'             => 'XOOPS Development Team',
 	'license'             => 'GPL 2.0 or later',
-	'license_url'         => 'http://www.gnu.org/licenses/gpl-3.0.en.html',
+	'license_url'         => 'https://www.gnu.org/licenses/gpl-3.0.en.html',
 	'help'                => 'page=help',
 	'release_info'        => 'release_info',
 	'release_file'        => XOOPS_URL . '/modules/quizmaker/docs/release_info file',
@@ -170,7 +170,9 @@ $modversion['helpsection'] = [
 ];
 
 
-// Entries last
+// ------------------- Blocks ------------------- //
+
+// Quiz categories
 $modversion['blocks'][] = [
     'file'        => 'categories.php',
     'name'        => '//' . \_MI_QUIZMAKER_CATEGORIES_BLOCK,
@@ -178,9 +180,10 @@ $modversion['blocks'][] = [
     'show_func'   => 'b_quizmaker_categories_show',
     'edit_func'   => 'b_quizmaker_categories_edit',
     'template'    => 'quizmaker_block_categories.tpl',
-    'options'     => '5|80|0|Title', //nbItem|ldTitle|cats(0=all)|title
+    'options'     => '5|80|0|Title||250|blue', // "nbItem|lenghtTitle|catsIds|title|logo|width|theme"
 ];
-// Quiz last
+
+// Quiz last or new
 $modversion['blocks'][] = [
 	'file'        => 'quiz.php',
 	'name'        => _MI_QUIZMAKER_QUIZ_BLOCK_LAST,
@@ -188,8 +191,9 @@ $modversion['blocks'][] = [
 	'show_func'   => 'b_quizmaker_quiz_show',
 	'edit_func'   => 'b_quizmaker_quiz_edit',
 	'template'    => 'quizmaker_block_quiz.tpl',
-	'options'     => 'last|5|25|0',
+	'options'     => 'new|5|25|0||||250|blue', // "typeBlock|limit|lenghtTitle|cats|caption|desc|logo|width|theme"
 ];
+
 // Quiz random
 $modversion['blocks'][] = [
 	'file'        => 'quiz.php',
@@ -198,96 +202,8 @@ $modversion['blocks'][] = [
 	'show_func'   => 'b_quizmaker_quiz_show',
 	'edit_func'   => 'b_quizmaker_quiz_edit',
 	'template'    => 'quizmaker_block_quiz.tpl',
-	'options'     => 'random|5|25|0',
+	'options'     => 'random|5|25|0||||250|blue', // "typeBlock|limit|lenghtTitle|cats|caption|desc|logo|width|theme"
 ];
-// Quiz random
-
-// ------------------- Blocks ------------------- //
-/*
-// Quiz new
-$modversion['blocks'][] = [
-	'file'        => 'quiz.php',
-	'name'        => _MI_QUIZMAKER_QUIZ_BLOCK_NEW,
-	'description' => _MI_QUIZMAKER_QUIZ_BLOCK_NEW_DESC,
-	'show_func'   => 'b_quizmaker_quiz_show',
-	'edit_func'   => 'b_quizmaker_quiz_edit',
-	'template'    => 'quizmaker_block_quiz.tpl',
-	'options'     => 'new|5|25|0',
-];
-// Quiz hits
-$modversion['blocks'][] = [
-	'file'        => 'quiz.php',
-	'name'        => _MI_QUIZMAKER_QUIZ_BLOCK_HITS,
-	'description' => _MI_QUIZMAKER_QUIZ_BLOCK_HITS_DESC,
-	'show_func'   => 'b_quizmaker_quiz_show',
-	'edit_func'   => 'b_quizmaker_quiz_edit',
-	'template'    => 'quizmaker_block_quiz.tpl',
-	'options'     => 'hits|5|25|0',
-];
-// Quiz top
-$modversion['blocks'][] = [
-	'file'        => 'quiz.php',
-	'name'        => _MI_QUIZMAKER_QUIZ_BLOCK_TOP,
-	'description' => _MI_QUIZMAKER_QUIZ_BLOCK_TOP_DESC,
-	'show_func'   => 'b_quizmaker_quiz_show',
-	'edit_func'   => 'b_quizmaker_quiz_edit',
-	'template'    => 'quizmaker_block_quiz.tpl',
-	'options'     => 'top|5|25|0',
-];
-
-
-
-// Results new
-$modversion['blocks'][] = [
-	'file'        => 'results.php',
-	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_NEW,
-	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_NEW_DESC,
-	'show_func'   => 'b_quizmaker_results_show',
-	'edit_func'   => 'b_quizmaker_results_edit',
-	'template'    => 'quizmaker_block_results.tpl',
-	'options'     => 'new|5|25|0',
-];
-// Results hits
-$modversion['blocks'][] = [
-	'file'        => 'results.php',
-	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_HITS,
-	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_HITS_DESC,
-	'show_func'   => 'b_quizmaker_results_show',
-	'edit_func'   => 'b_quizmaker_results_edit',
-	'template'    => 'quizmaker_block_results.tpl',
-	'options'     => 'hits|5|25|0',
-];
-// Results top
-$modversion['blocks'][] = [
-	'file'        => 'results.php',
-	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_TOP,
-	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_TOP_DESC,
-	'show_func'   => 'b_quizmaker_results_show',
-	'edit_func'   => 'b_quizmaker_results_edit',
-	'template'    => 'quizmaker_block_results.tpl',
-	'options'     => 'top|5|25|0',
-];
-// Results random
-$modversion['blocks'][] = [
-	'file'        => 'results.php',
-	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_RANDOM,
-	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_RANDOM_DESC,
-	'show_func'   => 'b_quizmaker_results_show',
-	'edit_func'   => 'b_quizmaker_results_edit',
-	'template'    => 'quizmaker_block_results.tpl',
-	'options'     => 'random|5|25|0',
-];
-// Results last
-$modversion['blocks'][] = [
-	'file'        => 'results.php',
-	'name'        => _MI_QUIZMAKER_RESULTS_BLOCK_LAST,
-	'description' => _MI_QUIZMAKER_RESULTS_BLOCK_LAST_DESC,
-	'show_func'   => 'b_quizmaker_results_show',
-	'edit_func'   => 'b_quizmaker_results_edit',
-	'template'    => 'quizmaker_block_results.tpl',
-	'options'     => 'last|5|25|0',
-];
-*/
 
 
 // ------------------- Config ------------------- //

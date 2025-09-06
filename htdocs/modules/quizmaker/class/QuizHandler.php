@@ -249,6 +249,20 @@ class QuizHandler extends \XoopsPersistableObjectHandler
 
         return $v;        
     }
+	/**
+	 * Returns folder with prefix de categorie si il est defini
+	 * $parram $ret : 0 : return folder
+	 *                1 : return full path
+	 *                2 : return full URL
+	 * @param $subfolder string
+	 * @return folder
+	 */
+	public function getFolderJS($quizId, $ret = 0, $subfolder='')
+	{
+        $quizObj = $this->get($quizId);
+        return $quizObj->getFolderJS($ret, $subfolder);
+    }
+    
 /* ******************************
  *  
  * *********************** */
@@ -540,8 +554,10 @@ public function setBinOptions($quizId, $optId)
 	public function getAllowed($short_permtype = 'view_cats', $criteria = null, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC")
     {
         global $categoriesHandler, $quizmakerHelper, $clPerms;
+        $quizmakerHelper      = Helper::getInstance();
         if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
-
+        if(!$clPerms) $clPerms = new \JanusPermissions('quizmaker');
+        //--------------------------------------------------------
         $clPerms->addPermissions($criteria, 'view_cats', 'quiz_cat_id');
         
         if (is_null($criteria)) $criteria = new \CriteriaCompo();
@@ -554,7 +570,7 @@ public function setBinOptions($quizId, $optId)
         $idsCat = join(',', $categoriesHandler->getPermissionsOld($short_permtype));
         //echo "<hr>===>getAllowed quiz :<br>idsQuiz : {$idsQuiz}<br>idsCat : {$idsCat}<hr>";
         //------------------------------------------------
-        $criteria->add(new \Criteria('quiz_cat_id',"({$idsCat})",'IN'), 'AND');
+        //$criteria->add(new \Criteria('quiz_cat_id',"({$idsCat})",'IN'), 'AND');
         
             
        $now = \JANUS\getSqlDate();

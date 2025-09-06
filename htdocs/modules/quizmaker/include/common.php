@@ -124,6 +124,7 @@ return $root . $fld;
 
 //-------------- autres constantes ------------------------------
 define('QUIZMAKER_CAT_NAME_FOR_EXEMPLE', 'Plugins QuizMaker');
+define('QUIZMAKER_PROPOSITION_VIDE', '$_void_$');
 
 
 define('QUIZMAKER_SELECT_ONCHANGE', 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
@@ -213,8 +214,10 @@ define('QUIZMAKER_PERMIT_MESSAGEJS',   $h++);
 define('QUIZMAKER_PERMIT_CLONE',       $h++);
 define('QUIZMAKER_PERMIT_PERMISSIONS', $h++);
 
-define('QUIZMAKER_NO_ICON', '-no_icon');
+define('QUIZMAKER_NO_ICON', '-no_icon.png');
 
+define('QUIZMAKER_TPL_IMG1', "<img src='%s/%s' alt='' title='%s' style='height:64px;'>");
+define('QUIZMAKER_TPL_IMG2', "<img src='%s/%s' alt='' title='%s' style='height:64px;background:%s'>");
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';

@@ -33,6 +33,7 @@ $clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
+$playerId  = Request::getInt('player_id', 1);
 //echoArray($catArr);
 
 $op    = Request::getCmd('op', 'list');
@@ -71,7 +72,8 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 //$permEdit = $clPerms->getPermissionsOld(16,'global_ac');
 //echoArray($permEdit);
 $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
-$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL_MODULE . '/'];
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => "categories.php?cat_id={$catId}&player_id={$playerId}"];
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_RESULTS . ' : <b>' . $quiz['name'] . '</b>'];
 
 $GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
 $GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);

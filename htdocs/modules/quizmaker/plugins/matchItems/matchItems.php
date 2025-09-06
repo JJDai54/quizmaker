@@ -43,7 +43,8 @@ var $nbMaxColumns = 5;
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['nbColumns' => 2,
-                                  'nbMaxColumns' => $this->nbMaxColumns];
+                                  'nbMaxColumns' => $this->nbMaxColumns,
+                                  'imgHeight1'   => 96];
         for ($h = 0; $h < $this->nbMaxColumns; $h++){
           $this->optionsDefaults["list{$h}_type"] = 0;
           $this->optionsDefaults["list{$h}_title"] = '';
@@ -84,7 +85,9 @@ var $nbMaxColumns = 5;
       $typeArr = array(0 => _LG_PLUGIN_MATCHITEMS_LABEL,
                        1 => _LG_PLUGIN_MATCHITEMS_LISTBOX, 
                        2 => _LG_PLUGIN_MATCHITEMS_TEXTBOX,
-                       3 => _LG_PLUGIN_MATCHITEMS_CONJONCTION);
+                       3 => _LG_PLUGIN_MATCHITEMS_CONJONCTION,
+                       4 => _LG_PLUGIN_MATCHITEMS_IMAGE1,
+                       5 => _LG_PLUGIN_MATCHITEMS_IMAGE2);
 
       $textalignArr = array ('left'   => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
                              'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
@@ -106,6 +109,14 @@ var $nbMaxColumns = 5;
 //       $trayOptions->addElement(new \XoopsFormLabel(_LG_PLUGIN_MATCHITEMS_NB_COLUMN_DESC),1,$k);      
           
       $trayOptions->addElementOption($inpNbColumns);      
+
+
+      $name = 'imgHeight1';
+      $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
+      $inpHeight0->setDescription(_LG_PLUGIN_MATCHITEMS_IMG_HEIGHT_DESC);
+      $trayOptions ->addElementOption($inpHeight0);     
+      
     //--------------------------------------------------
 
       for ($h = 0; $h < $nbColumns; $h++){
@@ -115,7 +126,8 @@ var $nbMaxColumns = 5;
       //  $trayOptions->addElementOption(sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j));      
       
           $name = "list{$h}_type";  
-          $inpTypeList = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          //$inpTypeList = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
+          $inpTypeList = new \XoopsFormSelect(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name]);   
           $inpTypeList->addOptionArray($typeArr);
           $trayOptions->addElementOption($inpTypeList);      
   
@@ -130,7 +142,7 @@ var $nbMaxColumns = 5;
           $name = "list{$h}_width";  
           $inpWidth = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
           $inpWidth->setExtra("style='background:#FFCC99;'");
-          $inpWidth->setMinMax(5, 50, _AM_QUIZMAKER_UNIT_PERCENT);
+          $inpWidth->setMinMax(5, 80, _AM_QUIZMAKER_UNIT_PERCENT);
           $trayOptions->addElementOption($inpWidth);  
           
           $name = "list{$h}_title"; 
@@ -156,7 +168,7 @@ var $nbMaxColumns = 5;
 * ************************************************** */
  	public function getForm($questId, $quizId)
  	{
-        global $utility, $answersHandler, $questionsHandler;
+        global $utility, $answersHandler, $questionsHandler, $quizHandler;
 
         $answers = $answersHandler->getListByParent($questId);
         $this->initFormForQuestion();
@@ -167,6 +179,8 @@ var $nbMaxColumns = 5;
 //         $answers = $answersHandler->getListByParent($questId);
 //         $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
 
+        $quiz = $quizHandler->get($quizId,"quiz_folderJS");
+        $path =  QUIZMAKER_FLD_UPLOAD_QUIZ_JS . "/" . $quiz->getVar('quiz_folderJS') . "/images";
 
         //-------------------------------------------------
         $quest =  $questionsHandler->get($questId, 'quest_options');
@@ -175,7 +189,7 @@ var $nbMaxColumns = 5;
         //element definissat un objet ou un ensemble
         $weight = 0;
         //$tbl = $this->getNewXoopsTableXtray();
-        $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
+        $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:100%;'");
         //$tbl->addTdStyle(0, 'text-align:left;width:50px;');
         // titre des colonnes et des listes
         
@@ -193,11 +207,12 @@ var $nbMaxColumns = 5;
           }
           $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_POINTS);        
           $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_WEIGHT);        
-      
+          
         
         for($k = 0; $k < $this->maxPropositions; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
+            $points = 1;
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
             if($isNew) $tPropos = array('','','','','','');
@@ -205,6 +220,7 @@ var $nbMaxColumns = 5;
             //----------------------------------------------------------------------- 
             
             $name = $this->getName($k, 'points');
+            if ($points==0) $points = 1;
             $inpPoints = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $points);
             $inpPoints->setMinMax(1, 30);
             
@@ -214,17 +230,38 @@ var $nbMaxColumns = 5;
 
             //--------------------------------------------------------------
             for($h = 0; $h < $nbColumns; $h++){
-              $name = $this->getName($k, "exp", $h); 
-              $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot2, $tPropos[$h]);       
-              
-              //peti cacul simpliste pour donner un aperçu de la largeur des colonnes dans le quiz
-              //l'environnement étant différent, c'est juste une approche du résultat finel
-              $width = $options["list{$h}_width"];
-              $inpWidth = ($width < 20) ? 60 : 80;
-              $inpExp->setExtra("style='text-align:left;width:{$inpWidth}%;'");
+                if ($options["list{$h}_type"] == 4 || $options["list{$h}_type"] == 5){
+                    if ($options["list{$h}_type"] == 4){
+                        $fldImg = 'image1';
+                        $img = $image1;
+                    }else{
+                        $fldImg = 'image2';
+                        $img = $image2;
+                    }
+
+                    $inpImg = $this->getXoopsFormImage($img, $this->getName()."_{$fldImg}_{$k}", $path, 80, '<br>');
+                    $inpImgHidden = new \XoopsFormHidden($this->getName($k, $fldImg), $img);   
+                
+                    $name = $this->getName($k, "exp", $h); 
+                    $inpProposition = new \XoopsFormHidden($name, '');            
+
+                    $tbl->addElement($inpImg, ++$col, $k);
+                    $tbl->addElement($inpImgHidden, $col, $k);
+                    $tbl->addElement($inpProposition, $col, $k);
+                
+                }else{
+                    $name = $this->getName($k, "exp", $h); 
+                    $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot3, $tPropos[$h]);       
+                    
+                    //peti cacul simpliste pour donner un aperçu de la largeur des colonnes dans le quiz
+                    //l'environnement étant différent, c'est juste une approche du résultat finel
+                    $width = $options["list{$h}_width"];
+                    $inpWidth = ($width < 20) ? 60 : 80;
+                    $inpExp->setExtra("style='text-align:left;width:{$inpWidth}%;'");
+              $tbl->addElement($inpExp, ++$col, $k);
+                }
 
                    
-              $tbl->addElement($inpExp, ++$col, $k);
             }
             
             
@@ -243,9 +280,11 @@ var $nbMaxColumns = 5;
 * ************************************************** */
  	public function saveAnswers($answers, $questId, $quizId)
  	{
-        global $utility, $answersHandler, $pluginsHandler;
+        global $utility, $answersHandler, $pluginsHandler, $quizHandler;
         //$this->echoAns ($answers, $questId, $bExit = true); 
         //$answersHandler->deleteAnswersByQuestId($questId); 
+        $pathImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
+
         //--------------------------------------------------------        
         foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
@@ -254,10 +293,50 @@ var $nbMaxColumns = 5;
             //---------------------------------------------------           
         
             for($h = 0; $h < $this->nbMaxColumns; $h++){
+                if(isset($answers[$key]['exp'][$h]))
                 $answers[$key]['exp'][$h] = trim($answers[$key]['exp'][$h]);
             }
+            
+            //verifie qu'aucune espression n'a été saisie dans aucune colonne
+            $exp = implode('', $answers[$key]['exp']);
+            $exp = str_replace(',','',$exp);
+            if ($exp === '') continue;    
+            //solution insifisant si il y a une image        
             // si la première expression est vide la proposition n'est pas enregistrée
-            if ($answers[$key]['exp'][0] === '') continue;
+            //if ($answers[$key]['exp'][0] === '') continue;
+      
+      
+            //enregistrement de l'image 1 et 2
+            //if($_FILES['answers'][name] != '') 
+            //recuperation de l'image pour le champ proposition
+            //le chrono ne correspond pad forcément à la clé dans files
+            //il faut retrouver cette clé à patir du non du form donner dans le formumaire de saisie
+            //un pour le champ "proposition" qui stocke l'image principale
+            //et un pour le champ imge qui stocke l'image de substitution
+            $prefix = "quiz-{$questId}-{$ans['chrono']}";
+            $formName = $this->getName()."_image1_" . ($ans['chrono']-1);
+            $newImg = $this->save_img($ans, $formName, $pathImg, $prefix, $nameOrg);
+            if($newImg == ''){
+                //$ansObj->setVar('answer_proposition', $ans['proposition']);        
+            }else{
+                $ansObj->setVar('answer_image1', $newImg);        
+                //if(!$ans['caption']) $ans['caption'] = $nameOrg;
+            }
+            //----------------------------------------------------
+            $prefix = "quiz-{$questId}-{$ans['chrono']}";
+            $formName = $this->getName()."_image2_" . ($ans['chrono']-1);
+            $newImg = $this->save_img($ans, $formName, $pathImg, $prefix, $nameOrg);
+            if($newImg == ''){
+                //$ansObj->setVar('answer_proposition', $ans['proposition']);        
+            }else{
+                $ansObj->setVar('answer_image2', $newImg);        
+                //if(!$ans['caption']) $ans['caption'] = $nameOrg;
+            }
+            //----------------------------------------------------
+      
+      
+      
+      
             
           	$ansObj->setVar('answer_proposition', implode(',', $answers[$key]['exp']));
           	$ansObj->setVar('answer_points', $ans['points']);
@@ -268,6 +347,8 @@ var $nbMaxColumns = 5;
       
       	    $ret = $answersHandler->insert($ansObj);
         }
+//         echoGPF();
+//         exit;
     }
 
 

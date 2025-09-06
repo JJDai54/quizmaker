@@ -129,16 +129,16 @@ class Results extends \XoopsObject
 /*
 // a recalculer : egal au nombre total de questions
         // Form Text  result_answers_achieved
-        $inpAnsAchived = new \XoopsFormNumber(_AM_QUIZMAKER_ANSWERS_ACHIEVED, 'result_answers_achieved', 8, 8, $this->getVar('result_answers_achieved'));
+        $inpAnsAchived = new \XoopsFormNumber(_AM_QUIZMAKER_PROPOSITIONS_ACHIEVED, 'result_answers_achieved', 8, 8, $this->getVar('result_answers_achieved'));
         $inpAnsAchived->setMinMax(-100, 100);
-        //$inpTimer->setDescription(_AM_QUIZMAKER_ANSWERS_ACHIEVED_DESC);
+        //$inpTimer->setDescription(_AM_QUIZMAKER_PROPOSITIONS_ACHIEVED_DESC);
 		$form->addElement($inpAnsAchived);
 */        
         
         // Form Text  result_answers_total
-        $inpAnsTotal = new \XoopsFormNumber(_AM_QUIZMAKER_ANSWERS_TOTAL, 'result_answers_total', 8, 8, $this->getVar('result_answers_total'));
+        $inpAnsTotal = new \XoopsFormNumber(_AM_QUIZMAKER_PROPOSITIONS_TOTAL, 'result_answers_total', 8, 8, $this->getVar('result_answers_total'));
         $inpAnsTotal->setMinMax(-100, 100);
-        //$inpTimer->setDescription(_AM_QUIZMAKER_ANSWERS_TOTAL_DESC);
+        //$inpTimer->setDescription(_AM_QUIZMAKER_PROPOSITIONS_TOTAL_DESC);
 		$form->addElement($inpAnsTotal);
         
         

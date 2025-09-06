@@ -37,8 +37,8 @@
 		<thead>
 			<tr class='head'>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_QUESTION_ID}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_ANSWERS_PROPOSITION}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_PROPOSITIONS_QUESTION_ID}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_PROPOSITIONS_PROPOSITION}></th>
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_GROUP}></th>
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_POINTS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CAPTION}></th>
@@ -65,7 +65,7 @@
                     <{$Answers.group}></td>
 				
 				<td class='center'>
-                    <{$Answers.points}></td>
+                    <{$Answers.points}> / <{$Answers.inputs}></td>
                     
                 <td class='left'>    
                     <{$Answers.caption}></td>

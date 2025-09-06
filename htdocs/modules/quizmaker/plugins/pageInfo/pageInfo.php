@@ -153,9 +153,8 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
     $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
 //    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");
     //recherche du dossier upload du quiz
-    $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-    $path =  QUIZMAKER_URL_UPLOAD_QUIZ . "/" . $quiz->getVar('quiz_folderJS') . "/images";
-    $img = $path . '/' . $question->getVar('quest_image');
+    $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
+    $img = $urlImg . '/' . $question->getVar('quest_image');
     $tplImg = "<img src='{$img}' alt='' title='' style='height:250px;>";
     //$ret['answers'] = implode("\n", $html);
     

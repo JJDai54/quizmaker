@@ -115,7 +115,12 @@ onFinalyse() {
     super.onFinalyse();
 
     var attempts = this.colTouches.attempts;
-    document.getElementById(this.data.idAttempts).innerHTML = `${attempts.total}/${attempts.max}`;     
+    if(attempts.max < 0){
+        document.getElementById(this.data.idAttempts).innerHTML = `${attempts.total}`;     
+    }else{
+        document.getElementById(this.data.idAttempts).innerHTML = `${attempts.total}/${attempts.max}`;     
+    }
+     
     document.getElementById(this.data.idObjetsFound).innerHTML = `${attempts.winning}/${attempts.totalWinning}`;    
 
 
@@ -124,6 +129,8 @@ onFinalyse() {
  prepareData(){
     //this.colTouches = new Touches()
       // colTouches = new Touches(0, 0, mydiv1, mydiv2);
+    var currentQuestion = this.question;
+    if(currentQuestion.options.maxAttemps == 0){currentQuestion.options.maxAttemps = currentQuestion.answers.length-1;}
     this.initMinMaxQQ(2);
     
 }
@@ -247,45 +254,43 @@ getAllReponses (flag = 0){
   ************************************************ */
 getDisposition(disposition, contenairId){
     var currentQuestion = this.question;
-    var idTogodo = this.getId('togodo');
-    this.data.idTogodo = idTogodo;
     disposition += (this.isImage()) ? '-img' : ''; 
-    
+//    alert(disposition);
     switch(disposition){
     case 'disposition-02v':
-        var tpl =  `{image1}{image2}<div id="${idTogodo}"></div>`;
+        var tpl =  `{image1}{image2}`;
         this.data.isDivImg2 = true;
         break;
         
     case 'disposition-02v-img':
-        var tpl =  `<table><tr><td>{imageMain}</td>{image1}{image2}<td></td></tr><tr><td colspan='2'><div id="${idTogodo}"></div></td></tr></table`;
+        var tpl =  `<table><tr><td>{imageMain}</td>{image1}{image2}<td></td></tr></table`;
         this.data.isDivImg2 = true;
         break;
         
     case 'disposition-02h':
-        var tpl = `<table><tr><td>{image1}</td><td>{image2}</td></tr><tr><td colspan="2"><div id="${idTogodo}"></div></td></tr></table>`;
+        var tpl = `<table><tr><td>{image1}</td><td>{image2}</td></tr></table>`;
         this.data.isDivImg2 = true;
         break;
         
     case 'disposition-02h-img':
-        var tpl = `<table><tr><td colspan='2'>{imageMain}</td></tr><tr><td>{image1}</td><td>{image2}</td></tr><tr><td colspan="2"><div id="${idTogodo}"></div></td></tr></table>`;
+        var tpl = `<table><tr><td colspan='2'>{imageMain}</td></tr><tr><td>{image1}</td><td>{image2}</td></tr></table>`;
         this.data.isDivImg2 = true;
         break;
     
     case 'disposition-01v-img':
-        var tpl = `{imageMain}{image1}<div id="${idTogodo}"></div>`;
+        var tpl = `{imageMain}<br>{image1}`;
         this.data.isDivImg2 = false;
         break;
         
     case 'disposition-01h-img':
-        var tpl = `<table><tr><td>{imageMain}</td><td>{image1}</td></tr><tr><td colspan='2'><div id="${idTogodo}"></div></td></tr></table>`;
+        var tpl = `<table><tr><td>{imageMain}</td><td>{image1}</td></tr></table>`;
         this.data.isDivImg2 = false;
         break;
         
     case 'disposition-01h':
     case 'disposition-01v':
     default:
-        var tpl = `{image1}<div id="${idTogodo}"></div>`;
+        var tpl = `{image1}`;
         this.data.isDivImg2 = false;
         break;
         
@@ -298,8 +303,7 @@ getDisposition(disposition, contenairId){
     this.data.idAttempts =  this.getId('attempts');
     this.data.idObjetsFound =  this.getId('objetsFound');
 
-    var promptOnClick = `<table style="text-align: left; width: 100%;" border="0" cellpadding="2"
-cellspacing="1">
+    var promptOnClick = `<table class="findObjects_prompt">
 <tbody>
 <tr>
 <td style="width:45%;vertical-align: top; text-align: right;">nombre d'essais</td>
@@ -313,7 +317,7 @@ cellspacing="1">
 </tbody>
 </table>`;
 
-    return  `<center><div id='${idContenair1}' class='quiz_div_in_slide'>${promptOnClick}` + tpl + `</div></center>`;
+    return  `<center><div id='${idContenair1}b' class='quiz_div_in_slide'>${promptOnClick}` + tpl + `</div></center>`;
         
 }
 
@@ -351,9 +355,12 @@ console.log("=====>isToucheOk");
         urlSound = clQuestion.urlSound +  'boum.mp3';
         if(PlaySound){playSound(urlSound)};
     }
- 
-    
-    document.getElementById(clQuestion.data.idAttempts).innerHTML = `${attempts.total}/${attempts.max}`;     
+
+    if(attempts.max < 0){
+        document.getElementById(clQuestion.data.idAttempts).innerHTML = `${attempts.total}`;     
+    }else{
+        document.getElementById(clQuestion.data.idAttempts).innerHTML = `${attempts.total}/${attempts.max}`;     
+    }
     document.getElementById(clQuestion.data.idObjetsFound).innerHTML = `${attempts.winning}/${attempts.totalWinning}`;    
     
 
@@ -362,6 +369,8 @@ console.log("=====>isToucheOk");
     
     //si le nombre d'essai est atteind et si nextSlide=auto on passe au prochan slide   
 //    alert(`delai = ${clQuestion.question.options.nextSlideDelai}`) ; 
+    if( attempts.max < 0){return true;}
+    
     if( attempts.winning == clQuestion.colTouches.attempts.totalWinning && clQuestion.question.options.nextSlideDelai*1 > 0){
     //if( attempts.winning == clQuestion.colTouches.nbTouches && clQuestion.question.options.nextSlideDelai*1 > 0){
         zoom_moins(e, slideNumber);   

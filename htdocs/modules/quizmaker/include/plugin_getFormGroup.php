@@ -8,7 +8,7 @@
     $tVal = array();
     if(!isset($weight)) $weight = 0;
     $weight += 10;
-
+    
     if (isset($ans)){
       $tVal['answerId']     = $ans->getVar('answer_id');
       $vArr['id']           = $ans->getVar('answer_id');
@@ -72,7 +72,7 @@
       //-------------------------------------------------
       if($tbl){
         $col = 0;
-        $tbl->addTdStyle($col, 'width:80px;font-size:1.5em;vertical-align:middle;padding-top:10px;');
+        $tbl->addTdStyle($col, 'min-width:80px;font-size:1.5em;vertical-align:middle;padding-top:10px;');
         $tbl->addXoopsFormHidden($this->getName($i,'id'), $answerId);
         $tbl->addXoopsFormHidden($this->getName($i,'chrono'), $i+1, $col, $k, '');
         $tbl->addElement($delProposition, $col, $k, '');

@@ -203,10 +203,15 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
      */
 	public function getAllowed($short_permtype = 'view_cats', $criteria = null, $sorted='cat_weight,cat_name,cat_id', $order="ASC")
     {global $clPerms;
+        $quizmakerHelper      = Helper::getInstance();
+        //if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
+        if(!$clPerms) $clPerms = new \JanusPermissions('quizmaker');
+        //--------------------------------------------------------
+    
         $clPerms->addPermissions($criteria, 'view_cats', 'cat_id');
         
         if (is_null($criteria)) $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('cat_id',"({$ids})",'IN'));
+        //$criteria->add(new \Criteria('cat_id',"({$ids})",'IN'));
         if ($sorted != '') $criteria->setSort($sorted);
         if ($order  != '') $criteria->setOrder($order);
         
@@ -214,6 +219,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
         //------------------------------------------------
 
         $allEnrAllowed = parent::getAll($criteria);
+        //echoArray($allEnrAllowed);
         return $allEnrAllowed;
     }
     

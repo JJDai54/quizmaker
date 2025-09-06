@@ -115,6 +115,7 @@ var sizeNum = 5;
     newTr = document.createElement("tr");
     newTr.setAttribute('chrono', clTouche.chrono);
     newTr.addEventListener('mouseover', function (event){onHoverTr(event,clTouche.chrono);});
+    newTr.addEventListener('mouseleave', function (event){onMouseLeaveTr(event);});
     divCoordonnees.appendChild(newTr);
     //-----------------------------------------
     

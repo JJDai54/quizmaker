@@ -192,20 +192,6 @@ position:relative;
 }
 
 
-#pb_contenair{
-  /*background-color:lightgray;*/
-  width: 80%;
-  height:24px;
-  padding:2px 0px 2px 0px;
-  -moz-border-radius:3px;
-  border-radius:3px;
-  text-align:left;
-  border:1px solid gray;
-  margin-top:5px;	
-    overflow-block: visible;
-    overflow: visible;
-
-}
 
 #quiz_div_consigne{
   background: #fafadc;
@@ -673,6 +659,21 @@ input.slide-proposition2{
 
 
 /* ------------------------------ */
+#pb_contenair{
+  /*background-color:lightgray;*/
+  width: 70%;
+  height:24px;
+  padding:2px 0px 2px 0px;
+  -moz-border-radius:3px;
+  border-radius:3px;
+  text-align:left;
+  border:1px solid gray;
+  margin-top:5px;	
+    overflow-block: visible;
+    overflow: visible;
+
+}
+
 #pb_base{
   /* width:340px; */
   display: inline-block;
@@ -826,13 +827,13 @@ input.slide-proposition2{
 }
 
 /* ********* style de ZOOM  ******** */
-.quiz_div_btn{
-    min-height:32px !important;
-    max-height:32px !important;
+.quiz_divZoomBtn{
+    min-height:36px !important;
+    max-height:36px !important;
     position:absolute;
     right:12px;
-    max-width:72px;
-
+    max-width:250px;
+padding:2px 0px 0px 2px;
     background-color:silver;
     -moz-border-radius: 12px 12px 12px 12px !important;
     -webkit-border-radius: 12px 12px 12px 12px;
@@ -865,7 +866,7 @@ input.slide-proposition2{
 }
 
 .quiz_btnZoomEnable:hover{
-   transform: scale(1.2)  translate(3px);
+   transform: scale(1.1)  translate(3px);
 }
 
 .quiz_div_in_slide{

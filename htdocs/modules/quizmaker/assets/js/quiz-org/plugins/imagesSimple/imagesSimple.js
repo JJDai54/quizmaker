@@ -60,10 +60,10 @@ getInnerHTML(bShuffle = true){
         if (ans.points*1 > 0){
             //var src = `${urlCommonImg}/substitut/${ans.image}`;
         }else{
-            var src = `${urlQuizImg}/${ans.proposition}`;
+            var src = `${urlQuizImg}/${ans.image1}`;
 
         }
-        img = `<img id="${ans.ansId}" src="${src}" title="${ans.proposition}" alt="zzz" height="${imgHeight1}">`;        
+        img = `<img id="${ans.ansId}" src="${src}" title="${ans.image1}" alt="zzz" height="${imgHeight1}">`;        
         tHtmlSequence.push(img);
     }
     //--------------------------------------------------------------
@@ -77,7 +77,7 @@ getInnerHTML(bShuffle = true){
           var idFrom = ans.ansId; //this.getId('suggestion',k);
           var ev = evTpl.replace('{idFrom}', idFrom);
           var ev = ev.replace('{idTo}',this.data.idSelection);
-          img = `<img id="${idFrom}" src="${urlQuizImg}/${ans.proposition}" ${ev} title="${ans.proposition}" alt="" selectable height="${imgHeight2}">`;
+          img = `<img id="${idFrom}" src="${urlQuizImg}/${ans.image1}" ${ev} title="${ans.image1}" alt="" selectable height="${imgHeight2}">`;
           tHtmlSuggestion.push(img);
       }
 
@@ -204,7 +204,7 @@ getAllReponses (flag = 0){
     for(var k in this.data.suggestion){
     //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.data.suggestion[k];
-          var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
+          var img = `<img src="${quiz_config.urlQuizImg}/${ans.image1}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
           tReponses.push ([img, ans.points]);
         if (ans.points*1 <= 0){
         }

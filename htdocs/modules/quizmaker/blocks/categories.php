@@ -44,8 +44,9 @@ function b_quizmaker_categories_show($options)
     $GLOBALS['xoopsTpl']->assign('quizmaker_url', \QUIZMAKER_URL_MODULE);
     $block       = [];
     $h=0;
-	$limit       = $options[$h++];
-	$lenghtTitle = $options[$h++];
+	$limit       = $options[$h++]; //inutilisé
+	$lenghtTitle = $options[$h++]; //inutilisé
+    
 	$catsIds = $options[$h++];
     $tCats = explode(',', $catsIds);
     if($tCats[0] == 0){
@@ -53,14 +54,14 @@ function b_quizmaker_categories_show($options)
     }else{
         $nbCats = count($tCats);
     }
-	$caption = $options[$h++];
-	//$desc = $options[5];
+
+    $block['options']['title'] = $options[$h++];
+    $block['options']['logo'] = $options[$h++];
+    $block['options']['width'] = $options[$h++];
+    $block['options']['theme'] = $options[$h++];            
     
-	array_shift($options);
-	array_shift($options);
-	array_shift($options);
-	array_shift($options);
-	//array_shift($options);
+    unset($options);
+    
 //------------------------------------------------------------------
 	$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
     $categoriesHandler = $quizmakerHelper->getHandler('Categories');
@@ -73,25 +74,18 @@ function b_quizmaker_categories_show($options)
       $cats = $categoriesHandler->getAllowedArr('view', $crCat, 0, 0, $sort='cat_weight,cat_name,cat_id', $order="ASC");   
     }
     
-    $block['options']['title'] = $caption;            
-    //$block['options']['desc'] = str_replace("\n", "<br>",$desc);            
-    $block['options']['theme'] = 'blue';            
-
-    
 	if (count($cats) > 0) {
 		foreach(array_keys($cats) as $i) {
             $catId = $cats[$i]['cat_id'];
 			$block['data'][$catId]['id'] = $catId;            
 			$block['data'][$catId]['name'] = $cats[$catId]['cat_name'];            
 			$block['data'][$catId]['theme'] = $cats[$catId]['cat_theme'];            
-//             $catId = $cats[$i]->getVar('cat_id');
-// 			$block['data'][$catId]['cat']['id'] = $catId;            
-// 			$block['data'][$catId]['cat']['name'] = $cats[$catId]['cat_name'];            
-// 			$block['data'][$catId]['cat']['theme'] = $cats[$catId]['cat_colors_set'];            
 		}
 	}
 
 //echo "<hr>===>block : <pre>". print_r($block, true) ."</pre><hr>";
+//    echoArray($block);
+
 
 \JANUS\load_css('', false);	
     return $block;
@@ -105,38 +99,64 @@ function b_quizmaker_categories_show($options)
  */
 function b_quizmaker_categories_edit($options)
 {
-    $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();    
+include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
+\JANUS\loadAllXForms();   
+
+    //$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();    
+	$quizmakerHelper = Helper::getInstance();
     $form = new \XoopsThemeForm("quizmaker_block", 'form', $action, 'post', true);
 	$form->setExtra('enctype="multipart/form-data"');
-
-
             
     //--------------------------------------------
     $index=0 ; 
-    $inpNbItems = new \XoopsFormNumber(_CO_JANUS_NB_QUIZ_2_list, "options[{$index}]", 5, 5, $options[$index]);
+    $inpNbItems = new \XoopsFormNumber(_MB_QUIZMAKER_NB_QUIZ_2_list, "options[{$index}]", 5, 5, $options[$index]);
     $inpNbItems->setMinMax(3, 25);
     $form->addElement($inpNbItems);
     //--------------------------------------------
     $index++;    
-    $inpLgItems = new \XoopsFormNumber(_CO_JANUS_NAME_LENGTH, "options[{$index}]", 5, 5, $options[$index]);
+    $inpLgItems = new \XoopsFormNumber(_MB_QUIZMAKER_NAME_LENGTH, "options[{$index}]", 5, 5, $options[$index]);
     $inpLgItems->setMinMax(25, 120);
     $form->addElement($inpLgItems);
 
     $index++;   
     $tCat = explode(',', $options[$index]); 
     $categoriesHandler = $quizmakerHelper->getHandler('Categories');
-    $catAll = $categoriesHandler->getAllCategories();
+    $catAll = $categoriesHandler->getAllCategories(null);
 
-    $inpCat = new \XoopsFormSelect(_CO_JANUS_CATEGORIES, "options[{$index}]", $tCat, $size = 5, true);
-    $inpCat->addOption(0, _CO_JANUS_ALL_CAT);
+    $inpCat = new \XoopsFormSelect(_MB_QUIZMAKER_CATEGORIES, "options[{$index}]", $tCat, $size = 5, true);
+    $inpCat->addOption(0, _MB_QUIZMAKER_ALL_CAT);
 	foreach(array_keys($catAll) as $i) {
         $inpCat->addOption($catAll[$i]->getVar('cat_id'), $catAll[$i]->getVar('cat_name'));
 	}
     $form->addElement($inpCat);
     
     $index++;    
-    $inpCaption = new \XoopsFormText(_CO_JANUS_BLOCK_TITLE ,  "options[{$index}]", 120, 120, $options[$index]);
+    $inpCaption = new \XoopsFormText(_MB_QUIZMAKER_BLOCK_TITLE ,  "options[{$index}]", 120, 120, $options[$index]);
     $form->addElement($inpCaption);
+
+    $index++;   
+      $path =  XOOPS_UPLOAD_PATH . "/images";
+      $inputLogo = new \XoopsFormIconSelect("qqqqqqqqqq", "options[{$index}]", $options[$index] , $path);
+      $inputLogo->setExtension(true);
+      $inputLogo->setGridIconNumber(5,5);
+      $inputLogo->setIconSize (80, 80);
+    $form->addElement($inputLogo);     
+    
+
+    $index++;    
+    if (!isset($options[$index])) $options[$index] = 250;
+    $inpImgWidth = new \XoopsFormNumber(_MB_QUIZMAKER_IMG_WIDTH, "options[{$index}]", 5, 5, $options[$index]);
+    $inpImgWidth->setMinMax(25, 350, 'px');
+    $form->addElement($inpImgWidth);
+
+
+    // Form Selection du theme globale du bloc
+    $index++;    
+    if (!isset($options[$index])) $options[$index] = 'blue';
+    $inpTheme = new \XoopsFormSelect(_MB_QUIZMAKER_THEME, "options[{$index}]", $options[$index]);
+    $inpTheme->addOptionArray( \JANUS\get_css_color());
+    $form->addElement($inpTheme );
+
 
     return $form->render();
 

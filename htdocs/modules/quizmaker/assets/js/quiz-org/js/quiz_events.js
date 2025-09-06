@@ -387,31 +387,6 @@ function event_hide_popup_result() {
     return true;
 }
 
-function event_pb_gotoSlide(ev) {
-
-    var xy = cumulativeOffset(ev.currentTarget);
-    var pbWidth = parseInt(ev.currentTarget.style.width, 10 );
-    var posX = (ev.clientX - xy.left )  ;
-    var numSlide= Math.floor((posX / pbWidth) * (quizard.length+1));
-    //console.log ("numSlide = " + numSlide);
-    
-    gotoSlideNum(numSlide);    
-    ev.stopPropagation();
-}
-
-var cumulativeOffset = function(element) {
-    var top = 0, left = 0;
-    do {
-        top += element.offsetTop  || 0;
-        left += element.offsetLeft || 0;
-        element = element.offsetParent;
-    } while(element);
-
-    return {
-        top: top,
-        left: left
-    };
-};
 
 
 

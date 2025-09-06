@@ -42,6 +42,9 @@ function shuffleArray(array) {
    return newArray;
 }
 
+/* **********************************
+
+* *** */
 function shuffleArrayFY(arr){
     for(var i = arr.length-1 ; i > 0; i--){
         var j = Math.floor( Math.random() * (i + 1) ); //random index
@@ -74,9 +77,9 @@ function shuffleArrayKeys(arrKeys)
 *
 * * *** */
 function shuffleNewArray (arraySource) {
-  array = duplicateArray(arraySource);
+  newArray = duplicateArray(arraySource);
 
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = newArray.length, temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -87,12 +90,12 @@ function shuffleNewArray (arraySource) {
     currentIndex -= 1;
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
+    temporaryValue = newArray[currentIndex];
+    newArray[currentIndex] = newArray[randomIndex];
+    newArray[randomIndex] = temporaryValue;
   }
 
-  return array;
+  return newArray;
 }
 
 /* *****************************************
@@ -128,7 +131,7 @@ const sep = "_$_";
 }
 
 /* *****************************************
-* sortArrayKey1
+* sortArrayObjectrrayKey1
 * tri un tableau de tableau associatif :  [] => objectArray
 * @arr tableau : tableau a trier
 * @name name : nom de la clé sur laquel trié
@@ -159,45 +162,14 @@ const sep = "_$_";
 
 }
 
-/* *****************************************
-* sortArrayKey2
-* tri un tableau associatif de tableau associatif :  ObjectKeyArray => objectArray
-* @keyArr object : tableau associatif a trier
-* @name name : nom de la clé sur laquel trié
-* @order string : ordre de tri
-* $return object : tableau associatif trié
-* ****************************************** */
-function sortArrayKey2(KeyArr,name, order="ASC"){
-var tvk=[];
-var newKeyArray=[];
-const sep = "_$_";
-
-    for(var key in KeyArr)
-    {
-        var newKey = ('' + KeyArr[key][name]).padStart(5,'0').padEnd(25, '+') + sep + key;
-        // blob("===>newKey = " + newKey);
-        tvk.push(newKey);
-    }
-    
-    tvk.sort();
-    if (order[0].toUpperCase() != "A") tvk.reverse();
-    
-    for (var index in tvk){
-        var t = tvk[index].split(sep);
-        newKeyArray[t[1]] =  KeyArr[t[1]];
-    }
-     return newKeyArray;
-
-
-}
 
 /* *****************************************
-* sortArrayKey2
-* tri un tableau associatif de tableau associatif :  ObjectKeyArray => objectArray
-* @keyArr object : tableau associatif a trier
-* @name name : nom de la clé sur laquel trié
+* sortArrayKey
+* tri un tableau de tableau selon une des colonne
+* @arr object : tableau à trier
+* @index2sort : nom de la clé sur laquel trié
 * @order string : ordre de tri
-* $return object : tableau associatif trié
+* $return object : tableau trié
 * ****************************************** */
 function sortArrayArray(arr, index2sort, order="ASC"){
 var tvk=[];

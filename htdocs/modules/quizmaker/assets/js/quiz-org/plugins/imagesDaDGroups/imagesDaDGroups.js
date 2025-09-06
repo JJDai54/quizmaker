@@ -81,7 +81,8 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
         var tHtmlImgs = [];
         for(var j = 0; j < groups[k].length; j++){
             ans = groups[k][j];
-            src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
+            src = `${quiz_config.urlQuizImg}/${ans.image1}`;
+//            alert(src);
             switch (posCaption){
                 case 'T': captionTop    = ans.caption + qbr ; break;
                 case 'B': captionBottom = qbr + ans.caption ; break;
@@ -202,7 +203,6 @@ console.log("getScoreByProposition.obImg" + ans.ansId + "-img");
             }
         }            
     }
-    //return ((currentQuestion.points > 0) ? currentQuestion.points : points);
     return points;
 } 
 
@@ -238,7 +238,7 @@ var ImgStyle=`style="height:${divHeight}px;"`;
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
         var g = ans.group;
-        src = `${quiz_config.urlQuizImg}/${ans.proposition}`; 
+        src = `${quiz_config.urlQuizImg}/${ans.image1}`; 
         switch (posCaption){
             case 'T': captionTop    = ans.caption + qbr ; break;
             case 'B': captionBottom = qbr + ans.caption ; break;

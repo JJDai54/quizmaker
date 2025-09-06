@@ -117,7 +117,7 @@ var $maxGroups = 4;
 
       $name = 'maxAttemps';
       $inpMaxAttemps = new \XoopsFormNumber(_LG_PLUGIN_FINDOBJECTS_MAXTRY,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
-      $inpMaxAttemps->setMinMax(0, 54, _AM_QUIZMAKER_UNIT_ATTEMPTS);
+      $inpMaxAttemps->setMinMax(-1, 54, _AM_QUIZMAKER_UNIT_ATTEMPTS);
       $inpMaxAttemps->setDescription(_LG_FINDOBJECTS_IMAGES_ATTEMPTS_MAX_DESC);
       $trayOptions ->addElementOption($inpMaxAttemps);  
       
@@ -226,7 +226,7 @@ public function getFormImg(&$trayAllAns, $group, $answers,$titleGroup, $firstIte
     $imgPath = QUIZMAKER_PATH_QUIZ_JS . '/images/substitut';
     $imgUrl = QUIZMAKER_URL_QUIZ_JS . '/images/substitut';
 
-    $imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
+    //$imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
 
         $k = 0;
         $i = 1;
@@ -238,19 +238,30 @@ public function getFormImg(&$trayAllAns, $group, $answers,$titleGroup, $firstIte
         $tbl->addTdStyle(0, 'vertical-align: top;width:50%;');
         $tbl->addTdStyle(1, 'vertical-align: top;');
             $inpImg1 = $this->getXoopsFormImageDiv($image1, $this->getName()."_image1", $path, "divImageRef1", '<br>');
-            if(!$image2) $image2 = $image1;
-            $inpImg2 = $this->getXoopsFormImageDiv($image2, $this->getName()."_image2", $path, "divImageRef2", '<br>');
+            $inpImage1Name = new \xoopsFormHidden($this->getName($k, 'image1'), $image1);
+            
+            if($image2) {
+                //il y a une deuxième image, on peut eventuellement la supprimée dans le cas d'objet chaché notamment
+                $delName = $this->getName($k, "del_image2");
+            }else{
+                //il n'y a pas ede deuxième image, on prend la première pour permettre de tester les touches, et pas de suppression de cette dernière
+                $image2 = $image1;
+                $delName = null;
+            }
+            $inpImg2 = $this->getXoopsFormImageDiv($image2, $this->getName()."_image2", $path, "divImageRef2", '<br>', $delName);
+            $inpImage2Name = new \xoopsFormHidden($this->getName($k, 'image2'), $image2);
         
             //$inpCaption = new \XoopsFormText(_AM_QUIZMAKER_CAPTION,  $this->getName($i,'caption'), $this->lgMot1, $this->lgMot1, $caption);
-            //$inpAnsIs = new \xoopsFormHidden(, )
         
             ///------------------------------------------------------------------------------   
         $tbl->addXoopsFormHidden($this->getName($i,'id'), $answerId);
         $tbl->addXoopsFormHidden($this->getName($i,'chrono'), $i+1, $col, $k, '');
         
             $tbl->addElement($inpImg1, $col, $k);
+            $tbl->addElement($inpImage1Name, $col, $k);
             $tbl->addElement(new XoopsFormLabel('',"<div id='resultat' class='resultat'>" . _LG_FINDOBJECTS_TEST_ClICK_OBJECTS . "</div>"), $col,$k);
             $tbl->addElement($inpImg2, $col, $k);
+            $tbl->addElement($inpImage2Name, $col, $k);
              
             //$tbl->addElement($inpCaption, $col, $k);
 
@@ -363,10 +374,10 @@ __inpDivImg__;
  	public function saveAnswers($answers, $questId, $quizId)
  	{
         global $utility, $answersHandler, $pluginsHandler, $quizHandler, $xoopsDB;
-//echoArray($answers,'saveAnswers');        
+//echoArray($answers,'saveAnswers');exit;           
 //echoArray('gp','saveAnswers');exit;        
-        $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-        $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
+        $pathImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
+
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //--------------------------------------------------------       
         //sauvegarde en premier de la proposition n)12 qui contient les images
@@ -378,14 +389,26 @@ __inpDivImg__;
        
         $prefix = "quiz-{$questId}-{$ans['chrono']}";
         $formName = $this->getName()."_image1";
-        $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix, $nameOrg);
+        $newImg = $this->save_img($ans, $formName, $pathImg, $prefix, $nameOrg);
         if($newImg){
+            $this->delete_image($ans['image1'], $pathImg);
             $ansObj->setVar('answer_image1', $newImg);        
         }
        
+        // suppression de l'image n°2
+//echoArray($ans,'saveAnswers');//exit;           
+        if(isset($ans['del_image2'])){
+            $this->delete_image($ans['image2'], $pathImg);
+            $ans['image2'] = '';
+            $ansObj->setVar('answer_image2', $ans['image2']);        
+        }
+        
+        
+        
+        
         $prefix = "quiz-{$questId}-{$ans['chrono']}";
         $formName = $this->getName()."_image2";
-        $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix, $nameOrg);
+        $newImg = $this->save_img($ans, $formName, $pathImg, $prefix, $nameOrg);
         if($newImg){
             $ansObj->setVar('answer_image2', $newImg);        
         }
@@ -484,21 +507,7 @@ __inpDivImg__;
     $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
 //    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");
     //recherche du dossier upload du quiz
-    $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-    $path =  QUIZMAKER_URL_UPLOAD_QUIZ . "/" . $quiz->getVar('quiz_folderJS') . "/images";
-    $tplImg = "<img src='{$path}/%s' alt='' title='%s' style='height:64px;background:%s'>";
-/*
-    $tImg = array();
-	foreach(array_keys($answersAll) as $i) {
-		$ans = $answersAll[$i]->getValuesAnswers();
-        if ($ans['group'] == 0) {
-            $tImg[] = sprintf($tplImg, $ans['proposition'], $ans['proposition'], $ans['color']);
-        }
-	}
-    $html[] = implode("\n", $tImg);
-    $html[] = "<hr>";
-*/    
-    
+    $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
        
     //-------------------------------------------
     $answersAll = $answersHandler->getListByParent($questId, 'answer_touches DESC,answer_weight,answer_id');
@@ -517,18 +526,18 @@ __inpDivImg__;
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
         $touches = intval($ans['touches']);
-        $imgUrl = sprintf($tplImg, $ans['proposition'], $ans['proposition'], $ans['color']);
+        $tokenImg = sprintf(QUIZMAKER_TPL_IMG2, $urlImg, $ans['image1'], $ans['image1'], $ans['color']);
         if ($touches > 0) {
             $scoreMax += $touches;
             $color = QUIZMAKER_TOUCHES_POSITIF;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $touches, _CO_QUIZMAKER_TOUCHES, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $touches, _CO_QUIZMAKER_TOUCHES, $color, $ans['caption']);
         }elseif ($touches < 0) {
             $scoreMin += $touches;
             $color = QUIZMAKER_TOUCHES_NEGATIF;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $touches, _CO_QUIZMAKER_TOUCHES, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $touches, _CO_QUIZMAKER_TOUCHES, $color, $ans['caption']);
         }elseif($boolAllSolutions){
             $color = QUIZMAKER_TOUCHES_NULL;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $touches, _CO_QUIZMAKER_TOUCHES, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $touches, _CO_QUIZMAKER_TOUCHES, $color, $ans['caption']);
         }
 	}
     $html[] = "</table>";

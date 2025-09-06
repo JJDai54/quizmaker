@@ -46,7 +46,7 @@ trait QuizExport
 
 ************************** */
 public static function quiz_export($quizId, $modeName = 0, $suffix = 0){
-global $quizHandler;
+global $quizHandler, $categoriesHandler, $pluginsHandler;
 //echo "<hr>quiz_export - quizId = {$quizId}<hr>";
         
         $quiz = $quizHandler->get($quizId);
@@ -67,22 +67,36 @@ global $quizHandler;
 //echo "<hr>quiz_export->expName : {$expName}<hr>";    
         
         switch($suffix){
-        case 1:  $expName .= '-' . date("Y-m-d_H-m-s"); break;
-        case 2:  $expName .= '-' . rand(10000,99999);   break;
+        case 1:  $expName .= '-' . date("Y-m-d_H-m-s") . '.zip'; break;
+        case 2:  $expName .= '-' . rand(10000,99999) . '.zip';   break;
+        default: $expName .= '.zip';   break;
         }   
         
         $sourcePath = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$folderJS}/export/";
-        $outZipPath = QUIZMAKER_PATH_UPLOAD_EXPORT . "/{$expName}.zip";
-        $outZipUrl = QUIZMAKER_URL_UPLOAD_EXPORT . "/{$expName}.zip";
+        $outZipPath = QUIZMAKER_PATH_UPLOAD_EXPORT . "/{$expName}";
+        $outZipUrl = QUIZMAKER_URL_UPLOAD_EXPORT . "/{$expName}";
         
         //\JANUS\zipSimpleDir($sourcePath, $outZipPath);   
         \JANUS\ZipReccurssiveDir($sourcePath, $outZipPath);   
 chmod ($outZipPath , 0666);
-
+        
+        //petite verue pour copier le zip dans le dossier du plugin si sc'en est un
+        $cat = $categoriesHandler->get($quiz->getVar('quiz_cat_id'));
+        if($cat->getVar('cat_name') == QUIZMAKER_CAT_NAME_FOR_EXEMPLE){
+            $quizName = $quiz->getVar('quiz_name');
+            $h = strrpos($quizName, "_");
+            $plugin = substr($quizName,$h+1);
+            $clsPlugin = $pluginsHandler->getPlugin($plugin);
+            $clsPlugin->copyArchiveInPluginFolder($outZipPath);
+        }
+        
+        
+        
 		$GLOBALS['xoopsTpl']->assign('download', 1);        
 		$GLOBALS['xoopsTpl']->assign('href', $outZipUrl);        
 		$GLOBALS['xoopsTpl']->assign('delai', 2000);        
 		$GLOBALS['xoopsTpl']->assign('name', $name);        
+        return true;
 }
 
 /**************************************************************

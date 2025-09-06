@@ -126,8 +126,20 @@ function setBorderColor(chrono, kolor){
     document.getElementById(cltouche.getId('borderColor')).value = kolor;
               
 }
-
+//var idClignotant = null;
+var idClignotant = null;
 function onHoverTr(e, chrono){
+    //alert('onHoverTr');
+    clTouche = colTouches.getToucheByChrono(chrono);
+    obDivTouche = clTouche.divTouche[1];
+    obDivTouche.style.background = clTouche.borderColor;
+    obDivTouche.classList.add('fade-in-element');
+//     setTimeout(remove_fadin,800,chrono);
+     setTimeout(clignote_touche,800,chrono);
+    if (idClignotant) clearInterval(idClignotant);
+    idClignotant = setInterval(clignote_touche, 2000, chrono);
+}
+function clignote_touche(chrono){
     //alert('onHoverTr');
     clTouche = colTouches.getToucheByChrono(chrono);
     obDivTouche = clTouche.divTouche[1];
@@ -136,6 +148,12 @@ function onHoverTr(e, chrono){
     setTimeout(remove_fadin,800,chrono);
     
 }
+function onMouseLeaveTr(e){
+console.log('onMouseLeaveTr');
+    if (idClignotant) clearInterval(idClignotant);
+    idClignotant = null;
+}
+
 function remove_fadin(chrono){
     clTouche = colTouches.getToucheByChrono(chrono);
     obDivTouche = clTouche.divTouche[1];

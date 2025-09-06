@@ -190,7 +190,6 @@ this.blob('showGoodAnswers -----------------------------------------');
         }            
                     
     }
-    //return ((currentQuestion.points > 0) ? currentQuestion.points : points);
     return points;
 } 
 

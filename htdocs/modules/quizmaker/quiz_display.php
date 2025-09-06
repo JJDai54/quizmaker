@@ -30,6 +30,7 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 
 $op    = Request::getCmd('op', 'run');
 $quizId = Request::getInt('quiz_id', 0);
+$playerId = Request::getInt('player_id', 1);
 
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
@@ -70,17 +71,17 @@ $catId = $quizObj->getVar('quiz_cat_id');
 //     setcookie($coookieName, $tentatives+1, time() - 3600);  /* Suppression Du Cookie */
 // }
 //********************************************************************/
+$coookieName = QUIZMAKER_DIRNAME . "-" . $quizId;
 if ($maxTentatives > 0){
-    $coookieName = "quizmaker" . "-" . $quizId;
     $cookieArr =  explode('|', Request::getString($coookieName , '','COOKIE'));
     $tentatives =  intVal($cookieArr[0]) ;
-echoRequest('C',"max = {$maxTentatives} - tentatives = {$cookieArr[0]}");
+//echoRequest('C',"max = {$maxTentatives} - tentatives = {$cookieArr[0]}");
     if($cookieArr[0] > $maxTentatives) {
         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
         //setcookie($coookieName, "", time() - 3600);
         $strDelai = formatDelai($cookieArr[1]);
         $msg = sprintf(_MA_QUIZMAKER_MAX_FLYING_EXCEEDS, $strDelai);
-        redirect_header('categories.php?cat_id=' . $catId, 8, $msg);
+        redirect_header("categories.php?cat_id={$catId}&player_id={$playerId}", 8, $msg);
         exit;
     }
     $deadLine = time() + $delai;
@@ -173,7 +174,7 @@ function formatDelai ($timestamp1, $timestamp2 = null){
         }
        
         if (!$ok)
-			redirect_header("categories.php?op=list&cat_id={$catId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
+			redirect_header("categories.php?op=list&cat_id={$catId}player_id={$playerId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
         
 
 
@@ -199,7 +200,8 @@ function formatDelai ($timestamp1, $timestamp2 = null){
 
 ////////////////////////////////////////////////
 // Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => "categories.php?cat_id={$catId}&player_id={$playerId}"];
+$xoBreadcrumbs[] = ['title' => $quizValues['name']];
 
 // Keywords
 /*

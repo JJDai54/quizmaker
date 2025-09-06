@@ -98,10 +98,10 @@ maxTouches : nombre de touches maximum a créer - si =0 illimité
 divImg1 : div qui contient l'image principale obligatoire
 divImg2 : di qui contient l'image secondaire optionnelle
 **************************************** */
-constructor(maxTouches, attemptsMax, divImg1, divImg2=null){
+constructor(maxTouches, maxAttemps, divImg1, divImg2=null){
     
     this.maxTouches = maxTouches;
-    this.attempts.max = attemptsMax;
+    this.attempts.max = maxAttemps;
     
     this.divImg1 = divImg1;
     this.imgSize1 = {'w':divImg1.offsetWidth, 'h':divImg1.offsetHeight}; 
@@ -247,13 +247,10 @@ console.log(`isFull : ${this.collection.length} - ${this.maxTouches}`);
 /* ***************************************
 
 **************************************** */
-isAttemptsMax(){
-    return (this.maxAttempts >= this.maxAttempts);
+setMaxAttempts(maxAttemps){
+    this.attempts.max = maxAttemps;
 }
-setMaxTry(attemptsMax){
-    this.attempts.max = attemptsMax;
-}
-getMaxTry(){
+getMaxAttempts(){
     return this.attempts.max;
 }
 
@@ -350,6 +347,7 @@ findToucheInXY(obSource, x, y, stillClicked = false){
     this.attempts.total++;
     if(this.attempts.max > 0 && this.attempts.total > this.attempts.max){
         this.lastErreur = 5;
+
         return null;
     }
     //----------------------------------------------------------
@@ -366,7 +364,7 @@ findToucheInXY(obSource, x, y, stillClicked = false){
 //console.log(`=====${k}x = ${x} - y = ${y} - coef = ${coef}`);    
 console.log(clTouche.toString());         
         if((clTouche.tics==0 || stillClicked) && clTouche.isClickInTouche(x, y, coef)){
-            //si la tuche a déjà été& trouvée oncompte 1 dans losing
+            //si la tuche a déjà été& trouvée on compte 1 dans losing
             if(clTouche.tics == 0 && clTouche.points > 0 ){
                 this.attempts.winning++;
             }else{

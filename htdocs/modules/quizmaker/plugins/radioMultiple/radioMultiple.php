@@ -89,6 +89,7 @@ var $nbMaxColumns = 5;
       $name = 'orientation'; 
       $path = $this->pathArr['img'] . "/dispositions"; 
       $inputOrientation = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_RADIOMULTIPLE_ORIENTATION. "-" . $tValues[$name], "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inputOrientation->setExtension(false);
       $inputOrientation->setGridIconNumber(2,1);
       $trayOptions->addElementOption($inputOrientation);     
       

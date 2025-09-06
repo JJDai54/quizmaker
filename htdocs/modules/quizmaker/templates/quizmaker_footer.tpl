@@ -6,7 +6,7 @@
 <div class='pull-left'><{$copyright}></div>
 *}>
 
-<{if $pagenav != ''}>
+<{if isset($pagenav)}>
 	<div class='pull-right'><{$pagenav}></div>
 <{/if}>
 <br>

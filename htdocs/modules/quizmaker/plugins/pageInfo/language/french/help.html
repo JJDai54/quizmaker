@@ -1,239 +1,268 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html><head><title>pageInfo : page d'information</title>
+<html><head>
+  <title>pageInfo : page d'information</title>
 
   
-    
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /></head><body>
-    <h1>pageInfo : page d'information</h1>
-    <h3>Description :</h3>
-    Ce slide permet de d�finir une ou plusieurs pages
-    interm�diaires pour informer ou donner des pr�cisoin sur les slides suivants.<br>
-    <ul>
-      <li>deux zones de textes pour informer <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">l'utilisateur</span>
-      </li>
-      <li>une image optionnelle</li>
-    </ul>
-    <span style="color: rgb(204, 0, 0); font-weight: bold;"></span><h3>Objectif : <br>
-    </h3>
+  
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head><body>
+<h1>pageInfo : page d'information</h1>
+
+<h3>Description :</h3>
+
+Ce slide permet de définir une ou plusieurs pages intermédiaires pour
+informer ou donner des précisions sur les slides suivants.<br>
+
 <ul>
-  <li>Donner des r�sultats interm�diaires.</li>
-  <li>Donner des informations sur la suite du quiz</li>
-  <li>Proposer une image ou un texte utilis� par la ou les question suivantes.</li>
+
+  <li>deux zones de textes pour informer <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">l'utilisateur</span>
+  </li>
+  <li>une image optionnelle</li>
 </ul>
 
-    <h3>Options :
-    </h3>
-    <ul>
-      <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">images
-:
-            elle sera affich�e au-dessus des deux zones de texte</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">.</span><o:p></o:p></span></li>
-      <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><b>hauteur
-            de l'image :</b> attention de ne pas ajouter des images trop
-          lourdes au risque de ralentir l'affichage.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
-            <br>
-          </span></b></li>
-      <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;"></span></span><span style="font-weight: bold;"></span><span style="font-weight: bold;">zones
-          de texte 1 (optionnelle):</span> une zone de texte qui peut <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">incorporer
-          </span>des variables du quiz (nombre de question, r�sultat,
-        sommaire, ...)<span style="font-weight: bold;"></span></li>
-      <li><span style="font-weight: bold;">zones de texte 2 (optionnelle):</span>
-        une zone de texte qui peut <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">incorporer
-          </span> des variables du quiz (nombre de
-        question, r�sultat, sommaire, ...) <br>
-      </li>
-    </ul>
-    <span style="font-weight: bold; color: rgb(153, 0, 0);">
-      L'�diteur utilis� pour les zones de texte est celui param�tr� dans les
-      options du module. </span><br>
-    <ul>
-      <span style="font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span>
-    </ul>
-    <h3>Propositions :</h3>
-    Deux zones de texte libres.<br>
-    Il est possible d'insérer les variables du quiz ci-dessous&nbsp; :<br>
-    <ul>
-      <li>"Code" : Code a insérer dans le texte, ces codes doivent être
-        entre accollades.</li>
-      <li>"Pages"' : Indique sur quelle pages il est préférable
-        d'utiliser ces codes.</li>
-      <li>"Description" : Description des valeurs de remplacement. </li>
-    </ul>
-    <table style="text-align: left; width: 100%;" border="1" cellpadding="1" cellspacing="1">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top; width: 200px; background-color: rgb(204, 255, 255);">Code<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Pages<br>
-          </td>
-          <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Description<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{repondu}</td>
-          <td style="vertical-align: top;">Groupe / Fin</td>
-          <td style="vertical-align: top;">Insère le nombre de question
-            auquel a répondu l'utilisateur.<br>
-            Les pages de regroupement ne comptent pas.<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{totalQuestions}</td>
-          <td style="vertical-align: top;">Toutes<br>
-          </td>
-          <td style="vertical-align: top;">Insère le nombre de questions<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{score}</td>
-          <td style="vertical-align: top;">Groupes / Fin<br>
-          </td>
-          <td style="vertical-align: top;">Insère le score obtenu. Il est
-            possible insérer le score <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">intermédiaire
-              </span> dans les pages de groupes.<br>
-            Le score finale peut être insérer dans la page de fin<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{scoreMaxiQQ}</td>
-          <td style="vertical-align: top;">Toutes<br>
-          </td>
-          <td style="vertical-align: top;">Insère le score maximum possible
-            pour le quiz.<br>
-            Idem {scoreMaxi}</td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{scoreMiniQQ}</td>
-          <td style="vertical-align: top;">Toutes<br>
-          </td>
-          <td style="vertical-align: top;">Insère le score minimum
-            possible. <br>
-            peut être inférieur �&nbsp; zéro si certaines proposition ont un nombre de
-            points inférieur �&nbsp; zéro.<br>
-            idem {scoreMini}<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{scoreMaxi}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Insère le score maximum possible
-            pour le quiz.<br>
-            Idem {scoreMaxi}</td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{scoreMini}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Insère le score minimum
-            possible. <br>
-            peut être inférieur �&nbsp; zéro si certaines proposition ont un nombre de
-            points inférieur �&nbsp; zéro.<br>
-            idem {scoreMini}</td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{duree}</td>
-          <td style="vertical-align: top;">Groupes / Fin<br>
-          </td>
-          <td style="vertical-align: top;">Insère le temps mis par
-            l<span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">'utilisateur
-              </span> pour répondre aux questions.<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{sommaire}</td>
-          <td style="vertical-align: top;">Debut / Fin<br>
-          </td>
-          <td style="vertical-align: top;">Insère un sommaire détaillé des
-            questions par groupe.<br>
-            Peut-être utilisé lors de l'élaboration du quiz pour faciliter les
-            tests<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{groups}</td>
-          <td style="vertical-align: top;">Début<br>
-          </td>
-          <td style="vertical-align: top;">Insère un sommaire des groupes
-            de questions.<br>
-            Peut-être utilisé lors de l'élaboration du quiz pour faciliter les
-            tests<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{questions}<br>
-          </td>
-          <td style="vertical-align: top;">Début / Groupes / Fin<br>
-          </td>
-          <td style="vertical-align: top;">Sur les pages de début et de fin
-            du quiz insère un sommaire de toutes les questions.<br>
-            Sur une page de groupe insère un sommaire des questions du groupe.<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{allquestions}<br>
-          </td>
-          <td style="vertical-align: top;">Début / Groupes / Fin</td>
-          <td style="vertical-align: top;">Insère un sommaire de toutes les
-            questions.<br>
-            Équivalent �&nbsp; {questions} pour les pages de début et de fin.<br>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Les
-codes
-            suivants peuvent aussi �tre utilis�s si l'utilisateur s'est
-            connect�, dans le cas ou les quiz ne seait pas public.<br>
-            Ils sont utilis�s pour valider le score et l'enregistrer dans la base
-            de
-            donn�es.<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{uid}<br>
-          </td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Identifiants de l'utilisateur<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{uname}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Pseudo<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{name}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Nom<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{email}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Courriel<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{ip}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Adresse IP<br>
-          </td>
-        </tr>
-        <tr>
-          <td style="vertical-align: top;">{quiz_id}</td>
-          <td style="vertical-align: top;">Toutes</td>
-          <td style="vertical-align: top;">Identifiant du quiz<br>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br>
-    Exemple :<br>
-    <table style="text-align: left; width: 100%; background-color: rgb(255, 204, 204);" border="1" cellpadding="5" cellspacing="0">
-      <tbody>
-        <tr>
-          <td style="vertical-align: top;">
-            <pre>- Nombre de r�ponses faites : {repondu} / {totalQuestions}<br>- Votre score est de {score} / {scoreMaxiQQ} (score minimum : {scoreMiniQQ}) <br>- Votre temps de réponse est de {duree}</pre>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </body></html>
+<span style="color: rgb(204, 0, 0); font-weight: bold;"></span>
+<h3>Objectif : <br>
+</h3>
+
+<ul>
+
+  <li>Donner des résultats intermédiaires.</li>
+  <li>Donner des informations sur la suite du quiz</li>
+  <li>Proposer une image ou un texte utilisé par la ou les questions
+suivantes.</li>
+</ul>
+
+<h3>Options : </h3>
+
+<ul>
+
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">images
+: elle sera affichée au-dessus des deux zones de texte</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;">.</span><o:p></o:p></span></li>
+  <li><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><b>hauteur
+de l'image :</b> attention de ne pas ajouter des images trop lourdes au
+risque de ralentir l'affichage.</span><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"> <br>
+    </span></b></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"><span style="font-weight: bold;"></span></span><span style="font-weight: bold;"></span><span style="font-weight: bold;">zones
+de texte 1 (optionnelle):</span> une zone de texte qui peut <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">incorporer
+    </span>des variables du quiz (nombre de question, résultat,
+sommaire, ...)<span style="font-weight: bold;"></span></li>
+  <li><span style="font-weight: bold;">zones de texte 2 (optionnelle):</span>
+une zone de texte qui peut <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">incorporer
+    </span> des variables du quiz (nombre de question, résultat,
+sommaire, ...) <br>
+  </li>
+</ul>
+
+<span style="font-weight: bold; color: rgb(153, 0, 0);"> L'�diteur
+utilisé pour les zones de texte est celui paramètré dans les options du
+module. </span><br>
+
+<ul>
+
+  <span style="font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"></span>
+</ul>
+
+<h3>Propositions :</h3>
+
+Deux zones de texte libres.<br>
+
+Il est possible d'insérer les variables du quiz ci-dessous&nbsp; :<br>
+
+<ul>
+
+  <li>"Code" : Code a insérer dans le texte, ces codes doivent être
+entre accollades.</li>
+  <li>"Pages"' : Indique sur quelle pages il est préférable d'utiliser
+ces codes.</li>
+  <li>"Description" : Description des valeurs de remplacement. </li>
+</ul>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="1" cellspacing="1">
+
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; width: 200px; background-color: rgb(204, 255, 255);">Code<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Pages<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Description<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{repondu}</td>
+      <td style="vertical-align: top;">Groupe / Fin / Info</td>
+      <td style="vertical-align: top;">Insère le nombre de question
+auquel a répondu l'utilisateur.<br>
+Les pages de regroupement ne comptent pas.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{totalQuestions}</td>
+      <td style="vertical-align: top;">Toutes<br>
+      </td>
+      <td style="vertical-align: top;">Insère le nombre de questions<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{score}</td>
+      <td style="vertical-align: top;">Groupes / Fin / Info
+      </td>
+      <td style="vertical-align: top;">Insère le score obtenu. Il est
+possible insérer le score <span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">intermédiaire
+      </span> dans les pages de groupes.<br>
+Le score finale peut être insérer dans la page de fin<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{scoreMaxiQQ}</td>
+      <td style="vertical-align: top;">Toutes<br>
+      </td>
+      <td style="vertical-align: top;">Insère le score maximum possible
+pour le quiz.<br>
+Idem {scoreMaxi}</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{scoreMiniQQ}</td>
+      <td style="vertical-align: top;">Toutes<br>
+      </td>
+      <td style="vertical-align: top;">Insère le score minimum
+possible. <br>
+peut être inférieur à&nbsp; zéro si certaines proposition ont un nombre
+de points inférieur à&nbsp; zéro.<br>
+idem {scoreMini}<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{scoreMaxi}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Insère le score maximum possible
+pour le quiz.<br>
+Idem {scoreMaxi}</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{scoreMini}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Insère le score minimum
+possible. <br>
+peut être inférieur à&nbsp; zéro si certaines proposition ont un nombre
+de points inférieur à&nbsp; zéro.<br>
+idem {scoreMini}</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{duree}</td>
+      <td style="vertical-align: top;">Groupes / Fin / Info
+      </td>
+      <td style="vertical-align: top;">Insère le temps mis par l<span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">'utilisateur
+      </span> pour répondre aux questions.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{timer}<br>
+      </td>
+      <td style="vertical-align: top;">Info<br>
+      </td>
+      <td style="vertical-align: top;">Insère le temps d'affichage du slide (voir le paramètre "Chronomètre")<br>
+      </td>
+    </tr>
+<tr>
+      <td style="vertical-align: top;">{sommaire}</td>
+      <td style="vertical-align: top;">Debut / Fin<br>
+      </td>
+      <td style="vertical-align: top;">Insère un sommaire détaillé des
+questions par groupe.<br>
+Peut-être utilisé lors de l'élaboration du quiz pour faciliter les tests<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{groups}</td>
+      <td style="vertical-align: top;">Début<br>
+      </td>
+      <td style="vertical-align: top;">Insère un sommaire des groupes
+de questions.<br>
+Peut-être utilisé lors de l'élaboration du quiz pour faciliter les tests<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{questions}<br>
+      </td>
+      <td style="vertical-align: top;">Début / Groupes / Fin<br>
+      </td>
+      <td style="vertical-align: top;">Sur les pages de début et de fin
+du quiz insère un sommaire de toutes les questions.<br>
+Sur une page de groupe insère un sommaire des questions du groupe.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{allquestions}<br>
+      </td>
+      <td style="vertical-align: top;">Début / Groupes / Fin</td>
+      <td style="vertical-align: top;">Insère un sommaire de toutes les
+questions.<br>
+Équivalent à&nbsp; {questions} pour les pages de début et de fin.<br>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3" rowspan="1" style="vertical-align: top; background-color: rgb(204, 255, 255);">Les
+codes suivants peuvent aussi être utilisés si l'utilisateur s'est
+connecté, dans le cas ou les quiz ne seait pas public.<br>
+Ils sont utilisés pour valider le score et l'enregistrer dans la base
+de données.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{uid}<br>
+      </td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Identifiants de l'utilisateur<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{uname}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Pseudo<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{name}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Nom<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{email}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Courriel<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{ip}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Adresse IP<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">{quiz_id}</td>
+      <td style="vertical-align: top;">Toutes</td>
+      <td style="vertical-align: top;">Identifiant du quiz<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+
+Exemple :<br>
+
+<table style="text-align: left; width: 100%; background-color: rgb(255, 204, 204);" border="1" cellpadding="5" cellspacing="0">
+
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">
+      <pre>- Nombre de réponses faites : {repondu} / {totalQuestions}<br>- Votre score est de {score} / {scoreMaxiQQ} (score minimum : {scoreMiniQQ}) <br>- Votre temps de réponse est de {duree}</pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</body></html>

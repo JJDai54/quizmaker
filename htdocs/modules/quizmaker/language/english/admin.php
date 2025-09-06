@@ -34,12 +34,12 @@ define('_AM_QUIZMAKER_ADD_NEW_ANSWER', "Add a suggestion");
 define('_AM_QUIZMAKER_ADD_QUESTIONS', "Add new questions");
 define('_AM_QUIZMAKER_ADD_QUIZ', "Add a new quiz");
 define('_AM_QUIZMAKER_ALLOW_ALL_ORDER', "Allow reverse order");
-define('_AM_QUIZMAKER_ANSWERS_ACHIEVED', "Number of answers completed");
+define('_AM_QUIZMAKER_PROPOSITIONS_ACHIEVED', "Number of answers completed");
 define('_AM_QUIZMAKER_ID', "Id");
-define('_AM_QUIZMAKER_ANSWERS_LIST', "Answer list");
-define('_AM_QUIZMAKER_ANSWERS_PROPOSITION', "Proposition");
-define('_AM_QUIZMAKER_ANSWERS_QUESTION_ID', "Question id");
-define('_AM_QUIZMAKER_ANSWERS_TOTAL', "Total number of questions");
+define('_AM_QUIZMAKER_PROPOSITIONS_LIST', "Answer list");
+define('_AM_QUIZMAKER_PROPOSITIONS_PROPOSITION', "Proposition");
+define('_AM_QUIZMAKER_PROPOSITIONS_QUESTION_ID', "Question id");
+define('_AM_QUIZMAKER_PROPOSITIONS_TOTAL', "Total number of questions");
 define('_AM_QUIZMAKER_AUTO', "Automatic");
 define('_AM_QUIZMAKER_BACKGROUND', "Background color");
 define('_AM_QUIZMAKER_BAD_PROPOSITIONS', "Wrong answers");
@@ -118,6 +118,7 @@ define('_AM_QUIZMAKER_FORM_DELETE_OK', "Deleted successfully");
 define('_AM_QUIZMAKER_FORM_OK', "Saved successfully");
 define('_AM_QUIZMAKER_FORM_SURE_DELETE', "Are you sure you want to delete: <b><span style='color: Red;'>[#%s] %s</span></b>");
 define('_AM_QUIZMAKER_FORM_SURE_DELETE_LIST', "Are you sure you want to delete this list: <b><span style='color: Red;'>[#%s] %s</span></b>");
+define('_AM_QUIZMAKER_FORM_SURE_CLONE', "Êtes-vous sûr de cloner : <b><span style='color : Red;'>[#%s] %s</span></b>");
 define('_AM_QUIZMAKER_FORM_TYPE_SHORT', "Form");
 define('_AM_QUIZMAKER_GROUP', "Group");
 define('_AM_QUIZMAKER_GROUP_ALL', "All Groups");
@@ -437,7 +438,8 @@ define('_AM_QUIZMAKER_VISIBLE_DESC', "The question will not be generated in the 
 define('_AM_QUIZMAKER_WEIGHT', "Weight");
 define('_AM_QUIZMAKER_INSTALL_QUIZ_EXAMPLE', "Install the example");
 
-define('_AM_QUIZMAKER_ANSWER', "Answer");
+define('_AM_QUIZMAKER_PROPOSITIONS', "Propositions");
+define('_AM_QUIZMAKER_PROPOSITION', "Answer");
 define('_AM_QUIZMAKER_UNIT_PERCENT', "%");
 define('_AM_QUIZMAKER_DELAI_COOKIE', "Cookie timeout in seconds");
 define('_AM_QUIZMAKER_DELAI_COOKIE_DESC', "The user will not be able to retry this quiz before the cookie expires.");
@@ -456,9 +458,9 @@ define('_AM_QUIZMAKER_SUBMIT', "Submit");
 
 define('_AM_QUIZMAKER_NO_OPTIONS', "There are no specific options for this plugin");
 define('_AM_QUIZMAKER_NO_CLASSE', "00-none");
-define('_AM_QUIZMAKER_ANSWERS_EDIT', "Edit proposition");
-define('_AM_QUIZMAKER_ANSWERS_GROUP', "Group");
-define('_AM_QUIZMAKER_ANSWERS_POINTS', "Points");
+define('_AM_QUIZMAKER_PROPOSITIONS_EDIT', "Edit proposition");
+define('_AM_QUIZMAKER_PROPOSITIONS_GROUP', "Group");
+define('_AM_QUIZMAKER_PROPOSITIONS_POINTS', "Points");
 
 define('_AM_QUIZMAKER_INPUTS', "Inputs");
 define('_AM_QUIZMAKER_NEXT_SLIDE_PARAMS', "Slide Message Parameters");

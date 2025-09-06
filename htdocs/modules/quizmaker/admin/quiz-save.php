@@ -110,7 +110,7 @@ $quizObj->setVar('quiz_background',        Request::getString('quiz_background',
         }
 
         //recupe du background
-        $quizBackground = $pluginsHandler->save_img($ans, 'quiz_background', $path, $newFolder, 'quiz-', $nameOrg);
+        $quizBackground = $pluginsHandler->save_img($ans, 'quiz_background', $path, 'quiz-', $nameOrg);
         //enregistrement de background
         if ($quizBackground) $quizObj->setVar('quiz_background', $quizBackground);
         //------------------------------------------------------------

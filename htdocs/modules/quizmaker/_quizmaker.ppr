@@ -211,8 +211,8 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
-				+quiz-org
+			+js
+				-quiz-org
 					-_plugin-JS-Modele
 						-img
 							-buttons
@@ -359,7 +359,7 @@ _quizmaker
 						assets\js\quiz-org\language\index.html
 						assets\js\quiz-org\language\quiz-english.js
 						assets\js\quiz-org\language\quiz-french.js
-					-plugins
+					+plugins
 						-alphaSimple
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.css
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.js
@@ -410,7 +410,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\matchItems\index.html
 							assets\js\quiz-org\plugins\matchItems\matchItems.css
 							assets\js\quiz-org\plugins\matchItems\matchItems.js
-						-multiQuestions
+						+multiQuestions
 							assets\js\quiz-org\plugins\multiQuestions\index.html
 							assets\js\quiz-org\plugins\multiQuestions\multiQuestions.css
 							assets\js\quiz-org\plugins\multiQuestions\multiQuestions.js
@@ -615,11 +615,11 @@ _quizmaker
 				assets\js\index.html
 				assets\js\quizmaker.js
 			assets\index.html
-		-blocks
+		+blocks
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
-		+class
+		-class
 			-Common
 				class\Common\Breadcrumb.php
 				class\Common\Configurator.php
@@ -668,7 +668,6 @@ _quizmaker
 			config\index.html
 			config\paths.php
 		+docs
-			docs\~$ide-quizmaker.docx
 			docs\changelog.txt
 			docs\credits.txt
 			docs\guide-quizmaker.docx
@@ -680,7 +679,7 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		-include
+		+include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
@@ -699,7 +698,7 @@ _quizmaker
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		-language
+		+language
 			-english
 				-help
 					-img
@@ -818,7 +817,7 @@ _quizmaker
 				language\french\feedback.php
 				language\french\main.php
 				language\french\modinfo.php
-		-plugins
+		+plugins
 			-alphaSimple
 				-img
 					-dispositions
@@ -871,7 +870,7 @@ _quizmaker
 						plugins\findObjects\language\english\constants.php
 						plugins\findObjects\language\english\help.html
 						plugins\findObjects\language\english\index.html
-					-french
+					+french
 						plugins\findObjects\language\french\constants.php
 						plugins\findObjects\language\french\help.html
 						plugins\findObjects\language\french\index.html
@@ -1035,7 +1034,7 @@ _quizmaker
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.php
 				plugins\listboxClassItems\plugin_listboxClassItems.zip
-			-matchItems
+			+matchItems
 				-img
 					plugins\matchItems\img\index.html
 				-language
@@ -1043,7 +1042,7 @@ _quizmaker
 						plugins\matchItems\language\english\constants.php
 						plugins\matchItems\language\english\help.html
 						plugins\matchItems\language\english\index.html
-					-french
+					+french
 						plugins\matchItems\language\french\constants.php
 						plugins\matchItems\language\french\help.html
 						plugins\matchItems\language\french\index.html
@@ -1136,12 +1135,12 @@ _quizmaker
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.php
 			-pageInfo
-				-language
+				+language
 					-english
 						plugins\pageInfo\language\english\constants.php
 						plugins\pageInfo\language\english\help.html
 						plugins\pageInfo\language\english\index.html
-					-french
+					+french
 						plugins\pageInfo\language\french\constants.php
 						plugins\pageInfo\language\french\help.html
 						plugins\pageInfo\language\french\index.html
@@ -1277,12 +1276,12 @@ _quizmaker
 						plugins\textareaMixte\img\dispositions\disposition-01.png
 						plugins\textareaMixte\img\dispositions\dispositions.svg
 						plugins\textareaMixte\img\dispositions\index.html
-				-language
-					-english
+				+language
+					+english
 						plugins\textareaMixte\language\english\constants.php
 						plugins\textareaMixte\language\english\help.html
 						plugins\textareaMixte\language\english\index.html
-					-french
+					+french
 						plugins\textareaMixte\language\french\constants.php
 						plugins\textareaMixte\language\french\help.html
 						plugins\textareaMixte\language\french\index.html
@@ -1334,12 +1333,12 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		+sql
+		-sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
-			+admin
+		+templates
+			-admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_answers.tpl
 				templates\admin\quizmaker_admin_categories.tpl
@@ -1361,7 +1360,7 @@ _quizmaker
 				templates\admin\quizmaker_admin_quiz_inline-old.tpl
 				templates\admin\quizmaker_admin_quiz_outline.tpl
 				templates\admin\quizmaker_admin_results.tpl
-			-blocks
+			+blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
 				templates\blocks\quizmaker_block_quiz-02.tpl
@@ -1418,94 +1417,42 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=admin\export.php
-1=admin\quiz-list.php
-2=class\OptionsHandler.php
-3=docs\todo.txt
-4=sql\mysql.sql
-5=index.php
-6=class\CategoriesHandler.php
-7=categories.php
-8=class\Quiz.php
-9=quiz_display.php
-10=admin\build_quiz_cat.php
-11=plugins\listboxClassItems\listboxClassItems.php
-12=class\Utilities\QuizBuildUtility.php
-13=admin\questions-save.php
-14=admin\import-quiz.php
-15=admin\import-plugin.php
-16=class\Categories.php
-17=class\Options.php
-18=language\french\main.php
-19=solutions.php
-20=xoops_version.php
-21=docs\changelog.txt
+0=class\Quiz.php
+1=language\french\admin.php
+2=quiz_display.php
+3=include\common.php
+4=templates\blocks\quizmaker_block_quiz.tpl
+5=blocks\quiz.php
+6=language\french\blocks.php
+7=docs\changelog.txt
+8=xoops_version.php
 [Selected Project Files]
 Main=
 Selected=docs\changelog.txt
-[admin\export.php]
-TopLine=41
-Caret=1,47
-[admin\quiz-list.php]
-TopLine=65
-Caret=48,90
-[class\OptionsHandler.php]
-TopLine=372
-Caret=1,425
-[docs\todo.txt]
-TopLine=1
-Caret=1,1
-[sql\mysql.sql]
-TopLine=1
-Caret=12,17
-[index.php]
-TopLine=48
-Caret=11,75
-[class\CategoriesHandler.php]
-TopLine=1
-Caret=1,1
-[categories.php]
-TopLine=19
-Caret=59,34
 [class\Quiz.php]
-TopLine=154
-Caret=55,174
+TopLine=149
+Caret=1,167
+[language\french\admin.php]
+TopLine=441
+Caret=66,491
 [quiz_display.php]
-TopLine=104
-Caret=12,125
-[admin\build_quiz_cat.php]
-TopLine=15
-Caret=13,59
-[plugins\listboxClassItems\listboxClassItems.php]
-TopLine=196
-Caret=1,217
-[class\Utilities\QuizBuildUtility.php]
-TopLine=379
-Caret=7,418
-[admin\questions-save.php]
-TopLine=79
-Caret=1,100
-[admin\import-quiz.php]
-TopLine=80
-Caret=11,129
-[admin\import-plugin.php]
-TopLine=77
-Caret=15,97
-[class\Categories.php]
-TopLine=73
-Caret=42,108
-[class\Options.php]
-TopLine=80
-Caret=48,100
-[language\french\main.php]
-TopLine=42
-Caret=49,84
-[solutions.php]
-TopLine=34
-Caret=3,61
+TopLine=63
+Caret=33,74
+[include\common.php]
+TopLine=11
+Caret=26,46
+[templates\blocks\quizmaker_block_quiz.tpl]
+TopLine=85
+Caret=1,116
+[blocks\quiz.php]
+TopLine=214
+Caret=1,262
+[language\french\blocks.php]
+TopLine=1
+Caret=65,38
+[docs\changelog.txt]
+TopLine=1
+Caret=5,7
 [xoops_version.php]
 TopLine=1
 Caret=38,33
-[docs\changelog.txt]
-TopLine=1
-Caret=1,1

@@ -46,5 +46,10 @@ define('_LG_PLUGIN_TEXTAREAMIXTE_CLEAR_ALL_ACCOLADES', "Supprimer toutes les acc
 
 define('_LG_PLUGIN_TEXTAREAMIXTE_ADD_BAD_EXP', "Ajouter des mots ou expressions parasites.<br>Ces expressions ont pour but de pertuber l'utilisateur.<br><b>Important</b> : cette liste n'est utilisée qu'avec les listes déroulantes (voir plus haut l'option \"Présentation\").");
 
+define('_LG_PLUGIN_TEXTAREAMIXTE_TOKEN_COLOR',"Couleur des balises");
+define('_LG_PLUGIN_TEXTAREAMIXTE_WORD_COLOR',"Couleur des mots choisis");
+define('_LG_PLUGIN_TEXTAREAMIXTE_LINE_HEIGHT',"Hauteur des interlignes (em)");
+define('_LG_PLUGIN_TEXTAREAMIXTE_FONT_SIZE',"Taille de la police (em)");
+
 
 ?>

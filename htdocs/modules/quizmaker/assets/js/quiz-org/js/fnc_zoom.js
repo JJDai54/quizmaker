@@ -34,13 +34,13 @@ function zoom_getHtmlBtn(slideNumber, btnZoomStatus, btnNext=false){
 //alert(`===>getHtmlZoomBtn : ${clQuestion.question.question}\nslideNumber = ${slideNumber}\nbtnZoomStatus = ${btnZoomStatus}\nclsStatus = ${clsStatus}`);
  
 
-    var btnZoom = `<img id='${clQuestion.getId('zoom')}' src='${quiz_config.urlCommonImg}/plus.png'  class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_action(event, ${slideNumber},1);' title='Zoom +'>`;
+    var btnZoom = `<img id='${clQuestion.getId('zoom')}' src='${quiz_config.urlCommonImg}/zoom_plus_01.png'  class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_action(event, ${slideNumber},1);' title='Zoom +'>`;
     
 
     var clsStatus = (btnNext) ? 'quiz_btnZoomEnable' : 'quiz_btnZoomDisable';
-    var btnNextSlide = `<img id='${clQuestion.getId('zoomNext')}' src='${quiz_config.urlCommonImg}/next.png' class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_moins(event, ${slideNumber}, true);' title='${quiz_messages.btnNext}'>`;
+    var btnNextSlide = `<img id='${clQuestion.getId('zoomNext')}' src='${quiz_config.urlCommonImg}/zoom_next_01.png' class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_moins(event, ${slideNumber}, true);' title='${quiz_messages.btnNext}'>`;
     
-    return `<div class='quiz_div_btn'>${btnZoom} ${btnNextSlide}</div>`;
+    return `<div class='quiz_divZoomBtn'>${btnZoom} ${btnNextSlide}</div>`;
 
 }
 
@@ -61,24 +61,24 @@ console.log(`===>zoom_setBtnZoomStatus : slideNumber = ${slideNumber} - btnZoomS
         case -2:
             btn.classList.remove("quiz_btnZoomEnable");
             btn.classList.add("quiz_btnZoomDisable");
-            btn.src = quiz_config.urlCommonImg + '/moins.png'; 
+            btn.src = quiz_config.urlCommonImg + '/zoom_moins_01.png'; 
             break;
         case -1:
             btn.classList.remove("quiz_btnZoomDisable");
             btn.classList.add("quiz_btnZoomEnable");
-            btn.src = quiz_config.urlCommonImg + '/moins.png';
+            btn.src = quiz_config.urlCommonImg + '/zoom_moins_01.png';
             btn.onclick = function () {zoom_action(event, slideNumber,-1);}; 
             break;
         case 1:
             btn.classList.remove("quiz_btnZoomDisable");
             btn.classList.add("quiz_btnZoomEnable");
-            btn.src = quiz_config.urlCommonImg + '/plus.png'; 
+            btn.src = quiz_config.urlCommonImg + '/zoom_plus_01.png'; 
             btn.onclick = function () {zoom_action(event, slideNumber,1);}; 
             break;
         case 2:
             btn.classList.remove("quiz_btnZoomEnable");
             btn.classList.add("quiz_btnZoomDisable");
-            btn.src = quiz_config.urlCommonImg + '/plus.png'; 
+            btn.src = quiz_config.urlCommonImg + '/zoom_plus_01.png'; 
             break;
     }
    
@@ -142,9 +142,16 @@ console.log('===>zoom_plus');
 //alert('zoom_setBtnZoomStatus(slideNumber,  -1, 1)');
     zoom_setBtnZoomStatus(slideNumber,  -1, 1);    
     ev.stopPropagation();
- quiz_set_mask(true);   
-
+    quiz_set_mask(true);   
+    //setTimeout(zoom_realignWindow,3000,idContenair1);
     return true;
+}
+/* ***************************************
+
+**************************************** */
+function zoom_realignWindow(objId){
+    if(quiz.realignWindowPos){moveWindowPosTo(objId);}
+
 }
 
 /* ***************************************

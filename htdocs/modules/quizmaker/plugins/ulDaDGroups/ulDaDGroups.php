@@ -263,15 +263,14 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
     $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
 //    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");
     //recherche du dossier upload du quiz
-    $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-    $path =  QUIZMAKER_URL_UPLOAD_QUIZ . "/" . $quiz->getVar('quiz_folderJS') . "/images";
-    $tplImg = "<img src='{$path}/%s' alt='' title='%s' height='64px'>";
+    $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
+
     
     $tImg = array();
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
         if ($ans['group'] == 0) {
-            $tImg[] = sprintf($tplImg, $ans['proposition'], $ans['proposition']);
+            $tImg[] = sprintf(QUIZMAKER_TPL_IMG1, $urlImg , $ans['image1'], $ans['image1']);
         }
 	}
     $html[] = implode("\n", $tImg);
@@ -297,18 +296,18 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
         $points = intval($ans['points']);
-        $imgUrl = sprintf($tplImg, $ans['proposition'], $ans['proposition']);
+        $tokenImg = sprintf(QUIZMAKER_TPL_IMG1, $urlImg, $ans['image1'], $ans['image1']);
         if ($points > 0) {
             $scoreMax += $points;
             $color = QUIZMAKER_POINTS_POSITIF;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
         }elseif ($points < 0) {
             $scoreMin += $points;
             $color = QUIZMAKER_POINTS_NEGATIF;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
         }elseif($boolAllSolutions){
             $color = QUIZMAKER_POINTS_NULL;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
         }
 	}
     $html[] = "</table>";

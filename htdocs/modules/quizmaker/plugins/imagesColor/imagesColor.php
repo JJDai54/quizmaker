@@ -177,7 +177,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         $weight = 0;
         $imgPath = QUIZMAKER_PATH_QUIZ_JS . '/images/substitut';
         $imgUrl = QUIZMAKER_URL_QUIZ_JS . '/images/substitut';
-        $imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
+        //$imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
 //$this->echoAns ($imgList,'{$imgPath}', false);   
       
         $tbl = $this->getNewXoopsTableXtray();
@@ -190,8 +190,8 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
             //-------------------------------------------------
             
-            $inpPropositionImg = $this->getXoopsFormImage($proposition, $this->getName()."_proposition_{$i}", $path, 80, '<br>');
-            $inpProposition = new \XoopsFormHidden($this->getName($i,'proposition'), $proposition);            
+            $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$i}", $path, 80, '<br>');
+            $inpImageName1 = new \XoopsFormHidden($this->getName($i,'image1'), $image1);            
             $inpCaption = new \XoopsFormText(_AM_QUIZMAKER_CAPTION,  $this->getName($i,'caption'), $this->lgMot1, $this->lgMot1, $caption);
             $inpWeight = new \XoopsFormNumber(_AM_QUIZMAKER_WEIGHT,  $this->getName($i,'weight'), $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 900);
@@ -200,11 +200,12 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 
             $inpColor= new XoopsFormColorPicker('', $this->getName($i,'color'), $color);
             ///------------------------------------------------------------------------------   
-            $tbl->addElement($inpPropositionImg, ++$col, $k);
+            $tbl->addElement($inpImage1, ++$col, $k);
+            $tbl->addElement($inpImageName1, $col, $k);
              
             $tbl->addElement($inpCaption, ++$col, $k);
             $tbl->addElement($inpWeight, $col, $k);
-            $tbl->addElement($inpPoints, $col, $k);
+            $tbl->addElement($inpPoints, ++$col, $k);
             
             $tbl->addElement($inpColor, ++$col, $k);
            
@@ -224,8 +225,8 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
  	{
         global $utility, $answersHandler, $pluginsHandler, $quizHandler;
         
-        $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-        $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
+        $pathImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
+
         //$this->echoAns ($answers, $questId, $bExit = false);    
         //--------------------------------------------------------       
        foreach ($answers as $key=>$ans){
@@ -235,7 +236,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //---------------------------------------------------           
             
 //             //Suppression de la proposition et de l'image
-//             if(isset($ans['delete_Proposition'])) $this->delete_answer_by_image($ans,$path);  
+//             if(isset($ans['delete_Proposition'])) $this->delete_answer_by_image($ans,$pathImg);  
             
             
             //enregistrement de l'image
@@ -246,16 +247,17 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             //un pour le champ "proposition" qui stocke l'image principale
             //et un pour le champ imge qui stocke l'image de substitution
             $prefix = "quiz-{$questId}-{$ans['chrono']}";
-            $formName = $this->getName()."_proposition_" . ($ans['chrono']-1);
-            $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix, $nameOrg);
+            $formName = $this->getName()."_image1_" . ($ans['chrono']-1);
+            $newImg = $this->save_img($ans, $formName, $pathImg, $prefix, $nameOrg);
             if($newImg == ''){
-                //$ansObj->setVar('answer_proposition', $ans['proposition']);        
+                //$ansObj->setVar('answer_image1', $ans['image1']);        
             }else{
-                $ansObj->setVar('answer_proposition', $newImg);        
+                $ansObj->setVar('answer_image1', $newImg);        
             if(!$ans['caption']) $ans['caption'] = $nameOrg;
             //exit ($nameOrg);
             }
             
+            $ansObj->setVar('answer_proposition', QUIZMAKER_PROPOSITION_VIDE);
             $ansObj->setVar('answer_caption', $ans['caption']);
             $ansObj->setVar('answer_weight', $ans['weight']);
             $ansObj->setVar('answer_points', $ans['points']); 
@@ -267,7 +269,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
      }
      //suppression des propositions qui n'ont pas d'image de definie
      $criteria = new CriteriaCompo(new Criteria('answer_quest_id', $questId, '='));
-     $criteria->add(new Criteria('', 0, '=',null,'length(answer_proposition)'),"AND");
+     $criteria->add(new Criteria('', 0, '=',null,'length(answer_image1)'),"AND");
      $answersHandler->deleteAll($criteria);
      //exit ("<hr>===>saveAnswers<hr>" . $criteria->renderWhere() ."<hr>");
     }
@@ -297,21 +299,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
     $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
 //    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");
     //recherche du dossier upload du quiz
-    $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-    $path =  QUIZMAKER_URL_UPLOAD_QUIZ . "/" . $quiz->getVar('quiz_folderJS') . "/images";
-    $tplImg = "<img src='{$path}/%s' alt='' title='%s' style='height:64px;background:%s'>";
-/*
-    $tImg = array();
-	foreach(array_keys($answersAll) as $i) {
-		$ans = $answersAll[$i]->getValuesAnswers();
-        if ($ans['group'] == 0) {
-            $tImg[] = sprintf($tplImg, $ans['proposition'], $ans['proposition'], $ans['color']);
-        }
-	}
-    $html[] = implode("\n", $tImg);
-    $html[] = "<hr>";
-*/    
-    
+    $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
        
     //-------------------------------------------
     $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
@@ -330,18 +318,18 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
         $points = intval($ans['points']);
-        $imgUrl = sprintf($tplImg, $ans['proposition'], $ans['proposition'], $ans['color']);
+        $tokenImg = sprintf(QUIZMAKER_TPL_IMG2, $urlImg, $ans['image1'], $ans['image1'], $ans['color']);
         if ($points > 0) {
             $scoreMax += $points;
             $color = QUIZMAKER_POINTS_POSITIF;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
         }elseif ($points < 0) {
             $scoreMin += $points;
             $color = QUIZMAKER_POINTS_NEGATIF;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
         }elseif($boolAllSolutions){
             $color = QUIZMAKER_POINTS_NULL;
-            $html[] = sprintf($tpl, $imgUrl, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
         }
 	}
     $html[] = "</table>";

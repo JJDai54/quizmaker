@@ -29,6 +29,7 @@ define('_MA_QUIZMAKER_ANSWERS_AT', "Answered to");
 define('_MA_QUIZMAKER_ANSWERS_POINTS', "Points");
 define('_MA_QUIZMAKER_AVERAGE', "Average");
 define('_MA_QUIZMAKER_BROKEN', "Notify broken");
+define('_MA_QUIZMAKER_CATEGORIE', "Catégorie");
 define('_MA_QUIZMAKER_CATEGORIES', "Categories");
 define('_MA_QUIZMAKER_CATEGORIES_DESC', "Category descriptions");
 define('_MA_QUIZMAKER_CATEGORIES_TITLE', "Category titles");

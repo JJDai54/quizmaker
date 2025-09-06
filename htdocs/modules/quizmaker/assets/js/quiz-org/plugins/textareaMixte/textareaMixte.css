@@ -1,9 +1,19 @@
-﻿.textareaMixte_table{
+﻿.matchItems table{
+    width:100%;
+    background:transparent;
+    border: 0px;
+}
+
+.textareaMixte_table{
     min-width:600px;
     margin:20px;
+  background: transparent;
+  border: 0px solid;
 }
-.textareaMixte tdz{
-    width:100%;
+.textareaMixte td{
+    /* width:100%; */
+  background: transparent;
+  border: 0px solid;
 }
 
 .textareaMixte_select{
@@ -13,9 +23,8 @@
 }
 
 .textareaMixte_shadowbox {
-  line-height:1.5; 
+ 
   font-size:1.2em;
-
 
   border: 1px solid #333;
   box-shadow: 8px 8px 5px #444;

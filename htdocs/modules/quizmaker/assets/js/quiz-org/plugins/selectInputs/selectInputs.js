@@ -45,7 +45,7 @@ get_optionsList(){
     var name = this.getName();
 //alert("image : " + currentQuestion.image);
     const htmlArr = [];
-    this.data.styleCSS = getMarginStyle(currentQuestion.answers.length);
+    this.data.styleCSS = getMarginStyle(currentQuestion.answers.length,2);
     htmlArr.push(`<div id="${name}-famille" style="text-align:left;margin-left:10px;">`);
     htmlArr.push(this.getHtmlInputKeys(name, this.data.inputType, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));  
     htmlArr.push(`</div>`);

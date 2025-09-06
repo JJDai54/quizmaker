@@ -74,12 +74,12 @@ onDragStart="dad_start(event);"`;
         var ansImg =  tAns[k];
         var ansCap =  tCap[k];
         
-        src = `${quiz_config.urlQuizImg}/${ansImg.proposition}`;
+        src = `${quiz_config.urlQuizImg}/${ansImg.image1}`;
         //au cas ou caption n'a pas ete renseigné, affiche le nom de l'image
-        caption = (ansCap.caption) ? qbr +  ansCap.caption : ansCap.proposition; 
+        caption = (ansCap.caption) ? qbr +  ansCap.caption : ansCap.image1; 
         img = `<div class='imagesDaDMatchItems_div_img'>`
-            + `<img id="${ansImg.ansId}" etat="1"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg='${ansCap.proposition}' title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
-            + `<span id=${ansCap.idCaption}>${caption}</span></div>`;
+            + `<img id="${ansImg.ansId}" etat="1"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg='${ansCap.image1}' title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+            + `<span id=${ansCap.idCaption} class='imagesDaDMatchItems_span'>${caption}</span></div>`;
         
         tHtmlSequence.push(img);
         
@@ -126,10 +126,10 @@ onDragStart="dad_start(event);"`;
             var ans =  tShuffle[k];
             //console.log("ans.idImg = " + ans.idImg);
             if(ans.isOk) {
-                src = `${quiz_config.urlQuizImg}/${ans.image1}`;
+                src = `${quiz_config.urlQuizImg}/${ans.image2}`;
                 caption = (ans.caption) ? qbr + ans.caption : ''; 
                 img = `<div class='imagesDaDMatchItems_div_img'>`
-                    + `<img id="${ans.ansId}" etat="1"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+                    + `<img id="${ans.ansId}" etat="1"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.image1} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
                     + `<span>${caption}</span></div>`;        
                 tHtmlSequence.push(img);
             }
@@ -138,11 +138,11 @@ onDragStart="dad_start(event);"`;
         for(var k in tShuffle){
             var ans =  tShuffle[k];
             //console.log("ans.idImg = " + ans.idImg);
-            if(ans.image1) {
-                src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
+            if(ans.image2) {
+                src = `${quiz_config.urlQuizImg}/${ans.image1}`;
                 caption = (ans.caption) ? qbr + ans.caption : ''; 
                 img = `<div class='imagesDaDMatchItems_div_img'>`
-                    + `<img id="${ans.ansId}" etat="2"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.proposition} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
+                    + `<img id="${ans.ansId}" etat="2"  class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${src}" goodImg=${ans.image1} title="" alt="" ${eventImgToStyle} ${eventImgToEvent}>`
                     + `<span>${caption}</span></div>`;        
                 tHtmlSequence.push(img);
             }
@@ -158,7 +158,7 @@ onDragStart="dad_start(event);"`;
     //ces images doivent avoir points=0
     for(var k in tShuffle){
         var ans =  tShuffle[k];
-        if(!ans.image1 || bShuffle){
+        if(!ans.image2 || bShuffle){
             var idBasket = this.getId('basket',k);
             // a propos de etat : 
             // etat = 0 : valeur quand tout est mélangé. affecte l'image dorine à la destination et supprime l'image d'origine
@@ -166,8 +166,8 @@ onDragStart="dad_start(event);"`;
             // etat = 2 : indique que la destination a déjà été affecté une fois au moins, et fait un swap des images
             var etat = (bShuffle) ? 0 : 1;
             //console.log("ans.idImg = " + ans.idImg);
-            src = `${quiz_config.urlQuizImg}/${ans.proposition}`;
-            img = `<img id="${idBasket}" etat="${etat}" class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${quiz_config.urlQuizImg}/${ans.proposition}" title=""  ${eventImgFromStyle} alt=""  ${eventImgFrom}>`;
+            src = `${quiz_config.urlQuizImg}/${ans.image1}`;
+            img = `<img id="${idBasket}" etat="${etat}" class='imagesDaDMatchItems_img imagesDaDMatchItems_myimg1' src="${quiz_config.urlQuizImg}/${ans.image1}" title=""  ${eventImgFromStyle} alt=""  ${eventImgFrom}>`;
             tHtmlSuggestion.push(img);
         }
     }
@@ -243,7 +243,7 @@ getAllReponses (flag = 0){
 
     for(var k in this.data.sequence){
         var ans = this.data.sequence[k];
-        var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
+        var img = `<img src="${quiz_config.urlQuizImg}/${ans.image1}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
         tReponses.push ([img, ans.caption, ans.points]);
     }          
      
@@ -252,7 +252,7 @@ getAllReponses (flag = 0){
     for(var k in this.data.suggestion){
         var ans = this.data.suggestion[k];
         if (ans.points<=0){
-          var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
+          var img = `<img src="${quiz_config.urlQuizImg}/${ans.image1}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
           tReponses.push ([img, ans.caption, ans.points]);
         }
 

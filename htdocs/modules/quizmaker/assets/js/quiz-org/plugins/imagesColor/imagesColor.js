@@ -51,8 +51,8 @@ var img = '';
                                    .replace('{idImg}', ans.ansId)
                                    .replace('{idSelectColor}', ans.idColor);
         
-              
-        src = `${quiz_config.urlQuizImg}/${ans.proposition}`;        
+if(ans.image1 == 'quiz-683714500ce90.jpg' ) alert(ans.ansId);             
+        src = `${quiz_config.urlQuizImg}/${ans.image1}`;        
         img = tplDiv.replace('{src}',src)
                     .replace('{name}',ans.name)
                     .replace('{id}',ans.ansId)
@@ -89,7 +89,7 @@ var img = '';
      for(var k in allAns){
         var ans = allAns[k];
         
-        src = `${quiz_config.urlQuizImg}/${ans.proposition}`;        
+        src = `${quiz_config.urlQuizImg}/${ans.image1}`;        
         img = tplDiv.replace('{src}',src)
                     .replace('{name}',ans.name)
                     .replace('{id}',ans.ansId)
@@ -204,7 +204,7 @@ var img = '';
         var ans = allAns[k];
         
               
-        src = `${quiz_config.urlQuizImg}/${ans.proposition}`;        
+        src = `${quiz_config.urlQuizImg}/${ans.image1}`;        
         img = tpl.replace('{src}',src)
                  .replace('{name}',ans.name)
                  .replace('{id}',ans.ansId)

@@ -164,11 +164,6 @@ class Quiz extends \XoopsObject
             
 
         //-------------------------------------------------------
-        define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
-        define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
-        define('_AM_QUIZMAKER_MAX_FLYING', "Maximum de tentives");
-        define('_AM_QUIZMAKER_MAX_FLYING_DESC', "0 : pas de limite de tatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
-        
         // quiz_delai_cookie
         $name = 'quiz_delai_cookie';
 		$inpDuration = new \XoopsFormDuration( _AM_QUIZMAKER_COOKIE_DURATION, $name, $this->getVar($name));
@@ -327,6 +322,7 @@ class Quiz extends \XoopsObject
         global $quizUtility, $categoriesHandler;
 		$quizmakerHelper  = \XoopsModules\Quizmaker\Helper::getInstance();
 		$utility = new \XoopsModules\Quizmaker\Utility();
+        
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']                = $this->getVar('quiz_id');
 		$ret['cat_id']            = $this->getVar('quiz_cat_id');
@@ -410,6 +406,30 @@ class Quiz extends \XoopsObject
         return $flags;
 }                                      
 
+	/**
+	 * Returns folder with prefix de categorie si il est defini
+	 * $parram $ret : 0 : return folder
+	 *                1 : return full path
+	 *                2 : return full URL
+	 * @param $subfolder string
+	 * @return folder
+	 */
+	public function getFolderJS($ret = 0, $subfolder='')
+	{
+        $fldJS = $this->getVar('quiz_folderJS');
+        if ($subfolder) $fldJS .= '/' . $subfolder;
+        
+        switch($ret){
+            case 1: return QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $fldJS; break;
+            case 2: return QUIZMAKER_URL_UPLOAD_QUIZ  . '/' . $fldJS; break;
+            default: return $fldJS; break;
+        }
+        
+        return false;
+    }
+        
+
+     
 	/**
 	 * Returns an array representation of the object
 	 *

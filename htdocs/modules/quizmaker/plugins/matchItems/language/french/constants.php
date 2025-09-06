@@ -39,12 +39,17 @@ define('_LG_PLUGIN_MATCHITEMS_LABEL', "Label");
 define('_LG_PLUGIN_MATCHITEMS_TEXTBOX', "Zone de saisie");
 define('_LG_PLUGIN_MATCHITEMS_LISTBOX', "Liste déroulante");
 define('_LG_PLUGIN_MATCHITEMS_CONJONCTION', "Conjonction");
+define('_LG_PLUGIN_MATCHITEMS_IMAGE1', "Images n°1");
+define('_LG_PLUGIN_MATCHITEMS_IMAGE2', "Images n°2");
+
 define('_LG_PLUGIN_MATCHITEMS_GLOBALS_OPTIONS', "Options globales");
 
 define('_LG_PLUGIN_MATCHITEMS_TITLE_LIST', "Titre de la liste : ");
 define('_LG_PLUGIN_MATCHITEMS_TITLE_DEFAULT', "Liste : ");
 define('_LG_PLUGIN_MATCHITEMS_INTRUS', "Intrus (séparateurs acceptés : \"<b> , ; | </b>\")");
 define('_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH', "Lageur de la liste : ");
+define('_LG_PLUGIN_MATCHITEMS_IMG_HEIGHT', "Hauteur des images");
+define('_LG_PLUGIN_MATCHITEMS_IMG_HEIGHT_DESC', "Utilisé uniquement par les colonnes définies comme des images");
 
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN', "Alignement");
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT', "Gauche");

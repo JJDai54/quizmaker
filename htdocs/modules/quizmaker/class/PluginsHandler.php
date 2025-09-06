@@ -475,7 +475,7 @@ public function getPluginPath($pluginName, $includefiles = false )
 /* *************************************************
 
 *************************************************** */
-function save_img(&$answer, $formName, $path, $folderQuiz, $prefix, &$nameOrg=''){
+function save_img(&$answer, $formName, $path, $prefix, &$nameOrg=''){
 global $quizmakerHelper, $quizUtility;
 //echoArray(func_get_args());
     //if (!is_array($formName)) return false;
@@ -622,7 +622,7 @@ public function getXoopsFormImageDiv($imgName,
                                       $caption = '', 
                                       $description = '')
     {
-    
+//echo "<hr>PluginHandler === > getXoopsFormImageDiv ===> delChkName ===> {$delChkName}<hr>";    
      //echo "getXoopsFormImage - image : {$imgName}<br>";
         global $quizmakerHelper;
         $fulName = QUIZMAKER_PATH_UPLOAD . $path . "/" . $imgName;  

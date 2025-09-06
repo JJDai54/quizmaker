@@ -320,7 +320,6 @@ for($h=0; $h<strlen($values['options']); $h++){
         $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['image']          = self::sanitise($values['quest_image']);
         $tQuest['zoom']           = self::sanitise($values['quest_zoom']);
-        $tQuest['zoom']           = self::sanitise($values['quest_zoom']);
         $tQuest['background']     = self::sanitise($values['quest_background']);
         $tQuest['height']         = self::sanitise($values['quest_height']);
         $tQuest['points']         = $values['points'];

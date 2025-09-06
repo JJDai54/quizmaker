@@ -459,3 +459,12 @@ function getAbsolutePosition(element) {
   return { 'x': x, 'y': y };
 }
 
+/* ******************************************
+
+********************************************* */   
+function moveWindowPosTo (objId) {
+    var container = document.getElementById(objId);
+    var newPos = container.offsetTop;
+    console.log('===> moveWindowPosTo : ' + newPos);
+    window.scroll(0, newPos);
+  }

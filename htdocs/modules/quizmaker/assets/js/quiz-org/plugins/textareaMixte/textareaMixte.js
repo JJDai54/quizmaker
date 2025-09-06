@@ -59,10 +59,12 @@ getInnerHTML_allbox (){
       var textboxClass = "textareaMixte_shadowbox";    
     }
     
+      var tplNum = `<span style="color:${currentQuestion.options.tokenColor};font-size:1.2em;padding-bottom:5px;">{numbering}</span>`;
     
-    
-    
-    var textbox = `<div id="${this.data.textId}" name="${name}" class="${textboxClass}" rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
+    //alert(currentQuestion.options.lineheight);
+    var fontSize = (((currentQuestion.options.fontsize*1)+10)*0.1).toFixed(1);                   
+    var lineHeight = (((currentQuestion.options.lineheight*1)+10)*0.1).toFixed(1);                   
+    var textbox = `<div id="${this.data.textId}" name="${name}" class="${textboxClass}" style="font-size:${fontSize};line-height:${lineHeight}em;"rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
 
 //------------------------------------------------------------------
     var htmlArr = [];
@@ -75,7 +77,7 @@ getInnerHTML_allbox (){
         }else{
             var box = this.get_all_textbox(k);
         }
-        htmlArr.push(`${getNumAlpha(k*1,currentQuestion.numbering,0)}${box}`);        
+        htmlArr.push(tplNum.replace('{numbering}', getNumAlpha(k*1,4,0)) + box);        
     }
     var allBox = htmlArr.join("<br>\n"); 
 //------------------------------------------------------------------
@@ -87,18 +89,19 @@ getInnerHTML_allbox (){
 
 //---------------------------------------------------
 get_all_listbox (k){
-
+    var listId = this.getId(k,'tlb');
     var tAllWords = shuffleNewArray(this.data.allWords);
     var onclick = `onchange="return textareaMixte_update_event(event,'${this.data.textId}', '${this.data.listId}', ${this.slideNumber},'select');" style="margin-bottom:2px"`;
     var cssClass = "class='textareaMixte_select'";
-    var obList = getHtmlCombobox( this.getName('inp'), this.getId('tlb'),tAllWords, cssClass +' '+ onclick, false);
-    return obList;
+    var obList = getHtmlCombobox( this.getName('inp'), listId,tAllWords, cssClass +' '+ onclick, false);
+    var btlClear = `<input type='button' value='...'style="width:25px;" title='' onclick="clearListbox('${listId}');">`;
+    return obList +  btlClear;
 }
 //---------------------------------------------------
 get_all_textbox (k){
 
     var oninput=`oninput="return textareaMixte_update_event(event,'${this.data.textId}','${this.data.listId}',${this.slideNumber},'input');"`;
-    var obInput = `<input type="text" id="${this.getId('tlb')}" name="${this.getName('inp')}" value="" class="slide-proposition2" ${oninput}>`;
+    var obInput = `<input type="text" id="${this.getId(k,'tlb')}" name="${this.getName('inp')}" value="" class="slide-proposition2" ${oninput}>`;
 
     return obInput;
 }
@@ -115,7 +118,7 @@ prepareData(){
     switch(this.question.options.presentation){
         case 'listbox' : 
         case 'textbox' : 
-            this.data = transformTextWithToken(currentQuestion.answers[0].proposition, currentQuestion.options.tokenColor);
+            this.data = transformTextWithToken(currentQuestion.answers[0].proposition, currentQuestion.options.tokenColor, this.getName('token'));
             break;
         default: 
         case 'textarea': 
@@ -281,7 +284,25 @@ function textareaMixte_update_event(e, idText, idParentList, slideNumber, tag) {
     });
     obExp.innerHTML = exp;
 
-computeAllScoreEvent();
+    
+    //change la couleur des mots choisis
+    obLists.forEach( (obInput, index) => {
+        if(obInput.value != ""){
+            var  tokenName = clQuestion.getName('token',index);
+            tokens = document.getElementsByName(tokenName);
+            //alert(tokens.length);
+            //alert(tokenName + ' - ' + tokens[0].innerHTML + '===>' + tokens[0].style.color);
+            tokens.forEach( (token, index) => {
+                token.style.color = clQuestion.question.options.wordColor;
+            });
+        }
+    });
+
+
+
+
+
+    computeAllScoreEvent();
     if(e) {e.stopPropagation();}    
     return false;
 }
@@ -338,10 +359,11 @@ var ret = {textOk:'', text:'', words:[], nbRows:0};
 /* *******************************
 *
 * *** */
-function transformTextWithToken(exp, tokenColor = '#0000FF'){
+function transformTextWithToken(exp, tokenColor = '#0000FF', tokenName){
 var ret = {textOk:'', text:'', words:[], nbRows:0};
 var textOk = '';
-
+    
+    //remplace les accollades 
     ret.nbRows = exp.split("\n").length; //nombre de ligne du texte
     exp = exp.replaceAll("\n", qbr); //avec mise en forme de crlf
     textOk = exp.replaceAll('{','').replaceAll('}','');
@@ -352,12 +374,13 @@ var textOk = '';
     var tWordsA = exp.match(regex);
     tWordsA = [...new Set(tWordsA)];
 
-    var tpl = "<span style='color:{tokenColor};'>{word}</span>";
+    var tpl = "<span name='{name}' style='color:{tokenColor};'>{word}</span>";
     //remplacement des mots entre accolades par des chifres entre accolade
     var exp2 = exp;
     for (var i in tWordsA) {
         var token = "{" + (i*1+1) + "}";
         var word =  tpl.replace("{word}", token)
+                       .replace("{name}", tokenName + "-" + i) 
                        .replace("{tokenColor}", tokenColor); 
 // blob("token = " + token +  "-" + tWordsA[i]);
         
@@ -378,8 +401,14 @@ var textOk = '';
         
     ret.text    = exp2;         //texte avec token  : {1}{2}{3} ...
     ret.words   = tWordsA;      //Tableau des mots entre accolades
-    ret.textOk  = textOk;       //texte sans les accollades
+    ret.textOk  = textOk;       //texte sans les accolades
     return ret;
 //-------------------------------------------------
 
 }  
+
+function clearListbox(listId){
+    var obList =  document.getElementById(listId);
+    obList.selectedIndex = -1;
+    obList.onchange();
+}

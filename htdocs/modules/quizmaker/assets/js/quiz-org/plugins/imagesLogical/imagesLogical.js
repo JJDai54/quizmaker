@@ -52,12 +52,12 @@ getInnerHTML(bShuffle = true){
         var ans =  this.data.sequence[k];
         //alert('inputs = ' + ans.inputs);
         if (ans.points*1 > 0){
-            var src = `${urlQuizImg}/${ans.image1}`;
+            var src = `${urlQuizImg}/${ans.image2}`;
             tempImgIdTofind.push(ans.ansId);
         }else{
-            var src = `${urlQuizImg}/${ans.proposition}`;
+            var src = `${urlQuizImg}/${ans.image1}`;
         }
-        img = `<img id="${ans.ansId}" src="${src}" title="${ans.proposition}" alt="zzz" height="${imgHeight1}">`;        
+        img = `<img id="${ans.ansId}" src="${src}" title="${ans.image1}" alt="zzz" height="${imgHeight1}">`;        
         tHtmlSequence.push(img);
     }
     //--------------------------------------------------------------
@@ -72,7 +72,7 @@ getInnerHTML(bShuffle = true){
           var idFrom = seqToFind.ansId + "-bis"; //this.getId('suggestion',k);
           var idTo = seqToFind.ansId; //this.getId('suggestion',k);
           var onclick = onclickTpl.replace('{idFrom}', idFrom).replace('{idTo}', tempImgIdTofind[j]);
-          tHtmlSuggestion.push(`<img id='${idFrom}' src="${urlQuizImg}/${seqToFind.image1}" title="" alt="xxx" height="${imgHeight2}" ${onclick} isselectable>`);
+          tHtmlSuggestion.push(`<img id='${idFrom}' src="${urlQuizImg}/${seqToFind.image2}" title="" alt="xxx" height="${imgHeight2}" ${onclick} isselectable>`);
           tHtmlSuggestion.push(`<img src="${urlPlugin}/img/2points-green.png" title="" alt="xxx" height="${imgHeight2}">`);
           
         var sug = duplicateArray(this.data.suggestion);
@@ -83,7 +83,7 @@ getInnerHTML(bShuffle = true){
               var onclick = onclickTpl.replace('{idFrom}', idFrom);
               var onclick = onclick.replace('{idTo}', this.getId(this.data.toFind[j]) );
               //alert(onclick);
-              img = `<img id="${idFrom}" src="${urlQuizImg}/${ans.proposition}" ${onclick} title="${ans.proposition}" alt="xxx" height="${imgHeight2}" isselectable>`;
+              img = `<img id="${idFrom}" src="${urlQuizImg}/${ans.image1}" ${onclick} title="${ans.image1}" alt="xxx" height="${imgHeight2}" isselectable>`;
               tHtmlSuggestion.push(img);
           }
     }
@@ -148,13 +148,12 @@ var points = 0;
         var ans = this.data.sequence[k];
         if (ans.points*1 > 0){
           var obImg = document.getElementById(ans.ansId);
-          //alert(obImg.getAttribute('src') + "\n" + `${quiz_config.urlQuizImg}/${ans.proposition}`);
-          if (obImg.getAttribute('src') == `${quiz_config.urlQuizImg}/${ans.proposition}`)        
+          //alert(obImg.getAttribute('src') + "\n" + `${quiz_config.urlQuizImg}/${ans.image1}`);
+          if (obImg.getAttribute('src') == `${quiz_config.urlQuizImg}/${ans.image1}`)        
                 points += ans.points*1;
         }      
                     
     }
-    //return ((currentQuestion.points > 0) ? currentQuestion.points : points);
     return points;
 }
 
@@ -197,7 +196,7 @@ getAllReponses (flag = 0){
     for(var k in this.data.sequence){
     //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.data.sequence[k];
-        var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
+        var img = `<img src="${quiz_config.urlQuizImg}/${ans.image1}" title="" alt="" height="${currentQuestion.options.imgHeight1}px">`; 
         tReponses.push ([img, ans.points]);
 
     }          
@@ -209,7 +208,7 @@ getAllReponses (flag = 0){
     //for(var k = 0; k < currentQuestion.answers.length; k++){
         var ans = this.data.suggestion[k];
         if (ans.points<=0){
-          var img = `<img src="${quiz_config.urlQuizImg}/${ans.proposition}" title="" alt="" height="${currentQuestion.options.imgHeight2}px">`; 
+          var img = `<img src="${quiz_config.urlQuizImg}/${ans.image1}" title="" alt="" height="${currentQuestion.options.imgHeight2}px">`; 
           tReponses.push ([img, ans.points]);
         }
 
@@ -230,11 +229,11 @@ getAllReponses (flag = 0){
 //alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
       for(var k = 0; k < this.data.sequence.length; k++){
         var ans = this.data.sequence[k];
-//        alert(`propo = ${ans.proposition} - points = ${ans.points}` );
+//        alert(`propo = ${ans.image1} - points = ${ans.points}` );
           if (ans.points*1 > 0){
             var obImg = document.getElementById(ans.ansId);
 //            alert(obImg.getAttribute('src'));
-            obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${ans.proposition}`);
+            obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${ans.image1}`);
           } 
       }
 
@@ -252,12 +251,12 @@ getAllReponses (flag = 0){
 //alert('showGoodAnswers - sequence.length: ' + this.data.sequence.length);
       for(var k = 0; k < this.data.sequence.length; k++){
         var ans = this.data.sequence[k];
-//        alert(`propo = ${ans.proposition} - points = ${ans.points}` );
+//        alert(`propo = ${ans.image1} - points = ${ans.points}` );
           if (ans.points*1 > 0){
             var idFrom = getRandom(this.data.suggestion.length -1);
             var obImg = document.getElementById(ans.ansId);
 //            alert(obImg.getAttribute('src'));
-            obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${this.data.suggestion[idFrom].proposition}` );
+            obImg.setAttribute('src', `${quiz_config.urlQuizImg}/${this.data.suggestion[idFrom].image1}` );
           } 
       }
      return true;

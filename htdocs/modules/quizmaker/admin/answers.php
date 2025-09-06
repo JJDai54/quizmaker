@@ -162,7 +162,7 @@ switch($op) {
 	case 'new':
 		$templateMain = 'quizmaker_admin_answers.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('answers.php'));
-		$adminObject->addItemButton(_AM_QUIZMAKER_ANSWERS_LIST, 'answers.php', 'list');
+		$adminObject->addItemButton(_AM_QUIZMAKER_PROPOSITIONS_LIST, 'answers.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Form Create
 		$answersObj = $answersHandler->create();
@@ -220,7 +220,7 @@ switch($op) {
 		$templateMain = 'quizmaker_admin_answers.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('answers.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_ANSWERS, 'answers.php?op=new', 'add');
-		$adminObject->addItemButton(_AM_QUIZMAKER_ANSWERS_LIST, 'answers.php', 'list');
+		$adminObject->addItemButton(_AM_QUIZMAKER_PROPOSITIONS_LIST, 'answers.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		// Get Form
 		$answersObj = $answersHandler->get($answerId);

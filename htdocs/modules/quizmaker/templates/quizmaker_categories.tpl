@@ -2,6 +2,8 @@
 <div style="text-align: center; background-color: black;"><span style="color: yellow;">Template : <{$smarty.template}></span></div>
 <{/if}>
 
+<{include file='db:quizmaker_header.tpl' }>
+
 <style>
    .run_quiz img:last-child {
 	  display: none;  
@@ -18,9 +20,11 @@
 }
 </style>
 
+<{*
 <{if $categoriesCount > 1}>
     <{include file='db:quizmaker_categories_theme.tpl' }>
 <{/if}>
+*}>
 <{* ************************************************ *}>
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='categories.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
@@ -101,7 +105,7 @@
                 <{$Quiz.countQuestions}>  
             </td>
             <{* =========================================================== *}>
-            <{if $Quiz.stat.statOk}>
+            <{if $Quiz.statOk}>
                 <td class='left' width="100px">
                     <{$smarty.const._MA_QUIZMAKER_SCORE}> : <{$Quiz.stat.bestScore}> / <{$Quiz.stat.scoreMax}>
                 <br>
@@ -119,7 +123,7 @@
             
                 <{if $Quiz.periodeOK}>
                   <{if $Quiz.publishQuiz == 1}>
-                      <a class='run_quiz' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>" >
+                      <a class='run_quiz' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&player_id=<{$player_id}>" >
                           <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
                           <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' height='16px'/>
                           <{$smarty.const._MA_QUIZMAKER_RUN}>
@@ -137,7 +141,7 @@
                 <{/if}>
             <br>
                 <{if $Quiz.publishResultsOk}>
-                  <a class='run_quiz' href="results.php?op=list&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}>&sender=quiz_id" >
+                  <a class='run_quiz' href="results.php?op=list&cat_id=<{$Quiz.cat_id}>&player_id=<{$player_id}>&quiz_id=<{$Quiz.id}>&sender=quiz_id" >
                       <img src="<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/sigma-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RESULTS}>' height='16px'/>
                       <img src="<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/sigma-02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RESULTS}>' height='16px'/>
                       <{$smarty.const._MA_QUIZMAKER_SCORES}>
@@ -146,7 +150,7 @@
                 <{/if}>
             <br>
                 <{if $Quiz.publishAnswersOk}>
-                    <a class='run_quiz' href='solutions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                    <a class='run_quiz' href='solutions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&player_id=<{$player_id}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
                         <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='16px'/>
                         <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='16px'/>
                         <{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>
@@ -155,6 +159,15 @@
                 <{else}>
                         <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='16px'/>
                         <{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>
+                <{/if}>
+            <br>
+                <{if $isAdmin}>
+                    <a class='run_quiz' href='admin/questions.php?op=list&sender=&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}> ' title='<{$smarty.const._MA_QUIZMAKER_ADMIN}>' target='blank'>
+                        <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/admin-01" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_ADMIN}>' height='16px'/>
+                        <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/admin-01" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_ADMIN}>' height='16px'/>
+                        <{$smarty.const._MA_QUIZMAKER_ADMIN}>
+              
+                    </a>
                 <{/if}>
             </td>
 

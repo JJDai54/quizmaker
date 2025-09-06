@@ -106,6 +106,8 @@ var $noClass = "00-none";
             $name = 'btnColor'; 
             $path = $this->pathArr['img'] . "/buttons"; 
             $btnColors = new \XoopsFormIconSelect(_AM_QUIZMAKER_BUTTONS_COLOR, "{$optionName}[{$name}]", $tValues[$name], $path);
+            $btnColors->setExtension(false);
+
             $btnColors->setHorizontalIconNumber(3);
             $trayOptions->addElementOption($btnColors);     
        
@@ -333,8 +335,7 @@ var $noClass = "00-none";
 //         echoArray("PGF");
 //         $this->echoAns ($answers, $questId, $bExit = true);    
         //--------------------------------------------------------     
-        $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-        $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";   
+        $pathImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
         $tPropos = array();
         $tPoints = array();
         foreach ($answers as $ansKey=>$ans){
@@ -355,7 +356,7 @@ var $noClass = "00-none";
             
             $prefix = "quiz-{$questId}-{$ans['chrono']}";        
             $imgFormName = $this->getName()."_image1_" . ($ans['chrono']-1);
-            $newImg = $this->save_img($ans, $imgFormName, $path, $quiz->getVar('quiz_folderJS'), $prefix, $nameOrg);
+            $newImg = $this->save_img($ans, $imgFormName, $pathImg, $prefix, $nameOrg);
             if($newImg == ''){
                 //$ansObj->setVar('answer_proposition', $ans['proposition']);        
             }else{
@@ -364,7 +365,7 @@ var $noClass = "00-none";
             }
 
             $imgFormName = $this->getName()."_image2_" . ($ans['chrono']-1);
-            $newImg = $this->save_img($ans, $imgFormName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
+            $newImg = $this->save_img($ans, $imgFormName, $pathImg, $prefix);
             if($newImg == ''){
                 //$ansObj->setVar('answer_proposition', $ans['proposition']);        
             }else{

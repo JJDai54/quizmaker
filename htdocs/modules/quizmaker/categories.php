@@ -92,6 +92,7 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         
         $catObj = $categoriesHandler->get($catId);
 		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIE . ' : <b>' . $catArr[$catId] . '</b>'];        
         //-------------------------------------
         
 //         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
@@ -101,7 +102,11 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 //   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
 //         $selector['inpQuiz'] = $inpQuiz->render();
   	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
+  	    $GLOBALS['xoopsTpl']->assign('player_id', $playerId);
         // ----- /Listes de selection pour filtrage -----   
+
+  	    //$GLOBALS['xoopsTpl']->assign('isAdmin', $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid()));
+  	    $GLOBALS['xoopsTpl']->assign('isAdmin', $quizmakerHelper->isUserAdmin());
 
 //-----------------------------------------------------------
     
@@ -115,8 +120,8 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 		foreach(array_keys($allQuiz) as $j) {
             //if (!in_array($j, $quizPerm)) continue;
             $tQuiz = $allQuiz[$j]->getValuesQuiz();
-            //si $inpPlayer = 1 on ne prenda que si la clé de $quizPlayer existe
-            //si $inpPlayer = 2 on ne prenda que si la clé de $quizPlayer ,'existe pasexiste
+            //si $inpPlayer = 1 on ne prenda que si la clé de $quizPlayer 'existe'
+            //si $inpPlayer = 2 on ne prenda que si la clé de $quizPlayer ,'existe pas'
             //si $inpPlayer = 0 on prenda tout
            if($playerId == 1){
                 if (!isset($quizPlayer[$tQuiz['id']])) continue;
@@ -127,16 +132,17 @@ $utility = new \XoopsModules\Quizmaker\Utility();
             
             
             //Ajout des statistiques
-            
+            $stat = $quizHandler->getStatistics($j);
+            //echoArray($stat);       
             
 			//if(	$tQuiz['periodeOK']) $quizArr[$j] = $tQuiz;
 			$quizArr[$j] = $tQuiz;
-            
-            if (isset($stat[$j])){
+            if (isset($stat[$j]) && $stat[$j]['statOk']){
                 $quizArr[$j]['stat'] = $stat[$j];
+                $quizArr[$j]['statOk'] = true;
             }else{
+                $quizArr[$j]['statOk'] = false;
             }
-            $quizArr[$j]['statOk'] = isset($stat[$j]);
             
 		}
         $i=0;

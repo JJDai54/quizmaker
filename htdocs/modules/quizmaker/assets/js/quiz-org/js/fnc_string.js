@@ -191,7 +191,7 @@ function decodeHTMLEntities(text) {
         if(minutes == 0){
             var tplFormatChrono = quiz_messages.formatDureeS;
         }else{
-            var tplFormatChrono = quiz_messages.formarDureeMS;
+            var tplFormatChrono = quiz_messages.formatDureeMS;
         }
 
         return tplFormatChrono.replace("{minutes}", expMinutes)

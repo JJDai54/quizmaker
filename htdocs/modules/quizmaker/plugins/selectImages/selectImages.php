@@ -200,7 +200,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
 
         $imgPath = QUIZMAKER_PATH_QUIZ_JS . '/images/substitut';
         $imgUrl = QUIZMAKER_URL_QUIZ_JS . '/images/substitut';
-        $imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
+        //$imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
 //$this->echoAns ($imgList,'{$imgPath}', false);   
       
         $tbl = $this->getNewXoopsTableXtray();
@@ -265,10 +265,10 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
  	{
         global $utility, $answersHandler, $pluginsHandler, $quizHandler;
         
-        $quiz = $quizHandler->get($quizId,"quiz_folderJS");
-        $path = QUIZMAKER_PATH_UPLOAD . "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
+        $pathImgImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
         //--------------------------------------------------------       
 //  echoArray($_FILES);       
+//echoArray($answers,'',true);  
 
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
@@ -289,7 +289,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             
             $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);  
             if(!$ans['proposition'] && !$ans['image1'] &&  !$ans['image2']){
-              if($ans['id']>0) $this->delete_answer_by_image($ans,$path);
+              if($ans['id']>0) $this->delete_answer_by_image($ans,$pathImg);
               continue;
             }
             
@@ -307,7 +307,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             $formName = $this->getName()."_image1_" . ($ans['chrono']-1);
             $prefix = "quiz-{$questId}-{$ans['chrono']}";
 
-            $newImg = $this->save_img($ans, $formName, $path, $quiz->getVar('quiz_folderJS'), $prefix);
+            $newImg = $this->save_img($ans, $formName, $pathImg, $prefix);
             if($newImg == ''){
                 //$ansObj->setVar('answer_proposition', $ans['proposition']);        
             }else{
@@ -352,10 +352,8 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
     $html = array();
     
     if($question->getVar('quest_image')){
-        $quiz = $quizHandler->get($question->getVar('quest_quiz_id'));
-        $folderJS = $quiz->getVar('quiz_folderJS');
-        $sourcePath = QUIZMAKER_URL_UPLOAD_QUIZ . "/{$folderJS}/images";
-        $html[] = "<center><img src='{$sourcePath}/{$question->getVar('quest_image')}' height='90px' title='' ></center>";
+        $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
+        $html[] = "<center><img src='{$urlImg}/{$question->getVar('quest_image')}' height='90px' title='' ></center>";
     }
     $html[] = "<table class='quizTbl'>";
     

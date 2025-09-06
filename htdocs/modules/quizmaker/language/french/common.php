@@ -101,7 +101,7 @@ define('_CO_QUIZMAKER_NEW', 'Nouveau');
 
 define('_CO_QUIZMAKER_PLAYER_STATUS', "Etat");
 define('_CO_QUIZMAKER_PLAYER_ALL', "Tous les quiz");
-define('_CO_QUIZMAKER_PLAYER_NONE', "Quiz non fait");
-define('_CO_QUIZMAKER_PLAYER_YES', "Quiz déjà fait");
+define('_CO_QUIZMAKER_PLAYER_NONE', "Quiz à faire");
+define('_CO_QUIZMAKER_PLAYER_YES', "Quiz déjà faits");
 
 ?>

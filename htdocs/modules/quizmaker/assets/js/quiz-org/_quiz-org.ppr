@@ -95,7 +95,7 @@ _quiz-org
 				css\infobulle\exemple-01.html
 				css\infobulle\index.html
 				css\infobulle\infobulle.css
-			-progressbarr
+			+progressbarr
 				css\progressbarr\index.html
 				css\progressbarr\shaded-blue.png
 				css\progressbarr\shaded-green.png
@@ -148,7 +148,7 @@ _quiz-org
 			images\moins.png
 			images\next.png
 			images\plus.png
-		+js
+		-js
 			js\fnc_array.js
 			js\fnc_htmlObjects.js
 			js\fnc_progressBar.js
@@ -160,12 +160,12 @@ _quiz-org
 			js\quiz_events.js
 			js\quiz_functions.js
 			js\quiz_main.js
-		+language
+		-language
 			language\index.html
 			language\quiz-english.js
 			language\quiz-french.js
 		+plugins
-			+alphaSimple
+			-alphaSimple
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
@@ -211,7 +211,7 @@ _quiz-org
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.css
 				plugins\listboxClassItems\listboxClassItems.js
-			-matchItems
+			+matchItems
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
@@ -400,7 +400,7 @@ _quiz-org
 				plugins\sortItems\index.html
 				plugins\sortItems\sortItems.css
 				plugins\sortItems\sortItems.js
-			-textareaMixte
+			+textareaMixte
 				plugins\textareaMixte\index.html
 				plugins\textareaMixte\textareaMixte.css
 				plugins\textareaMixte\textareaMixte.js
@@ -415,30 +415,46 @@ _quiz-org
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=js\quiz_functions.js
-1=js\quiz_main.js
-2=language\quiz-french.js
-3=language\quiz-english.js
-4=js\fnc_string.js
-5=plugins\textareaMixte\textareaMixte.js
+0=plugins\matchItems\matchItems.js
+1=_plugin-JS-Modele\PluginName.js
+2=js\plugin_prototype.js
+3=plugins\textareaMixte\textareaMixte.js
+4=plugins\sortItems\sortItems.js
+5=plugins\ulDaDGroups\ulDaDGroups.js
+6=plugins\imagesLogical\imagesLogical.js
+7=plugins\imagesDaDGroups\imagesDaDGroups.js
+8=plugins\matchItems\matchItems.css
+9=plugins\textareaMixte\textareaMixte.css
 [Selected Project Files]
 Main=
-Selected=js\fnc_string.js
-[js\quiz_functions.js]
-TopLine=68
-Caret=1,84
-[js\quiz_main.js]
+Selected=plugins\textareaMixte\textareaMixte.css
+[plugins\matchItems\matchItems.js]
 TopLine=1
-Caret=7,13
-[language\quiz-french.js]
-TopLine=3
-Caret=9,39
-[language\quiz-english.js]
-TopLine=3
-Caret=9,39
-[js\fnc_string.js]
-TopLine=117
-Caret=5,129
+Caret=22,23
+[_plugin-JS-Modele\PluginName.js]
+TopLine=34
+Caret=1,55
+[js\plugin_prototype.js]
+TopLine=405
+Caret=1,422
 [plugins\textareaMixte\textareaMixte.js]
-TopLine=340
-Caret=1,360
+TopLine=150
+Caret=60,162
+[plugins\sortItems\sortItems.js]
+TopLine=490
+Caret=22,516
+[plugins\ulDaDGroups\ulDaDGroups.js]
+TopLine=172
+Caret=1,193
+[plugins\imagesLogical\imagesLogical.js]
+TopLine=136
+Caret=1,157
+[plugins\imagesDaDGroups\imagesDaDGroups.js]
+TopLine=128
+Caret=30,148
+[plugins\matchItems\matchItems.css]
+TopLine=1
+Caret=1,20
+[plugins\textareaMixte\textareaMixte.css]
+TopLine=1
+Caret=1,17
