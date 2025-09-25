@@ -91,7 +91,7 @@ function addNewChild(parentId){
 		</thead>
 		<{if $questions_count}>
 		<tbody>
-            <{assign var="indexJS" value = -1}>
+            <{assign var="indexJS" value = 0}>
             <{assign var="previousGroupId" value=0}>
             
 			<{foreach item=Questions from=$questions_list name=quest key=index}>
@@ -132,11 +132,11 @@ function addNewChild(parentId){
 				<td class='center' <{$styleParent}> ></td>      
                 <{/if}>
                          
-                <{if $Questions.actif}>
+                <{if $Questions.actif AND $Questions.isQuestion}>
                     <{assign var="indexJS" value=$indexJS+1}>
-				    <td class='center width5' <{$styleParent}> ><{$index}>/<{$indexJS}></td>
+				    <td class='center width5' <{$styleParent}> ><{$index}>/q-<{$indexJS}></td>
                 <{else}>
-				    <td class='center width5' <{$styleParent}> ><{$index}>/##</td>
+				    <td class='center width5' <{$styleParent}> ><{$index}>/##<{$Question.isQuestion}></td>
                 <{/if}>
                 
 				<td class='center' <{$styleParent}> ><a name='question-<{$Questions.id}>' /><{$Questions.id}></td>
@@ -203,7 +203,7 @@ function addNewChild(parentId){
                 <td class='center width10' <{$styleParent}> >
                       <{$Questions.inpTimer}><{$Questions.inpStartTimer}>
                 </td>
-                
+    
 				<{* <td class='center' <{$styleParent}> ><{$Questions.creation}></td> *}>
                 
 				<td class="center  width10" <{$styleParent}> >
@@ -211,6 +211,9 @@ function addNewChild(parentId){
                     <{if $Questions.isQuestion}>
                         |<a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_numbering&modulo=4"  title='<{$smarty.const._AM_QUIZMAKER_NUMBERING}>' >
                             <{$Questions.flags.numbering}>
+                            </a>|
+                        |<a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_shuffleAnswers&modulo=2"  title='<{$smarty.const._AM_QUIZMAKER_SHUFFLE_ANSWERS}>' >
+                            <{$Questions.flags.shuffle}>
                             </a>|
                     <{/if}>
 				</td>
@@ -231,12 +234,12 @@ function addNewChild(parentId){
                         <img src="<{xoModuleIcons16}>/edit.png" alt="questions" />
                         </a>
                         
-                    <{if $Questions.canDelete}>
+                    <{if $Questions.canDelete OR $isAdmin}>
 <{* action du clone a revoir : probleme : copie de la table enfant au détriment de la questionsource
 *}>                     
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
-                            </a>
+                        </a>
     					<a href="questions.php?op=delete&quest_id=<{$Questions.id}>" title="<{$smarty.const._DELETE}>">
                             <img src="<{xoModuleIcons16}>/delete.png" alt="questions" />
                             </a>

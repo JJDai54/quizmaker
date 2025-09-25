@@ -38,8 +38,10 @@ $quizId = Request::getInt('quiz_id');
 $sender = Request::getString('');
 //-----------------------------------------------------------
 //recherche des categories autorisées
-$clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+//$clPerms->addPermissions($criteriaCatAllowed, 'global_ac', QUIZMAKER_PERMIT_CATMAN);
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CATMAN,'QUIZMAKER_PERMIT_CATMAN', "index.php");
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
+
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
 

@@ -8,7 +8,7 @@
 
 .pageEnd h1{
   font-size:1.2em;
-  font-bold:weight;
+  font-weight:bold;
   color:black;
 }
 .pageEnd h1:hover{

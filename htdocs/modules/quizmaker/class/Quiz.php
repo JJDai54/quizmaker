@@ -56,6 +56,7 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_publishResults', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_publishAnswers', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_theme', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_background', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_libBegin', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_libEnd', XOBJ_DTYPE_TXTBOX);
@@ -230,6 +231,18 @@ class Quiz extends \XoopsObject
 		$form->addElement($inpTheme, false);
 
         //--------------------------------------------
+        // Form Text quiz_image
+// 
+//         $imgCat = QUIZMAKER_URL_QUIZ_JS . "/{$folderJS}/images/" . $this->getVar('quiz_image');
+//         $inpImgQuiz = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'quiz_image', $quizmakerHelper->getConfig('maxsize_image'), $this->getVar('quiz_image'),  QUIZMAKER_URL_QUIZ_JS . '/categories');
+// 		$form->addElement($inpImgQuiz);
+
+        $image = $this->getVar('quiz_image');
+
+        $inpImage = $pluginsHandler->getFormImage(_AM_QUIZMAKER_IMAGE_MAIN, 'quiz_image', $image, $folderJS);
+        $inpImage->setCaption(_AM_QUIZMAKER_IMAGE_MAIN);
+        $form->addElement($inpImage);     
+        //--------------------------------------------
         // Form Text quiz_background
         $background = $this->getVar('quiz_background');
 
@@ -355,6 +368,7 @@ class Quiz extends \XoopsObject
 
         
 		$ret['theme']             = $this->getVar('quiz_theme');
+		$ret['image']             = $this->getVar('quiz_image');
 		$ret['background']        = $this->getVar('quiz_background');
 		$ret['libBegin']          = $this->getVar('quiz_libBegin');
 		$ret['libEnd']            = $this->getVar('quiz_libEnd');
@@ -535,7 +549,15 @@ class Quiz extends \XoopsObject
 //exit;    
      
     //--------------------------------------------------
-     //liste des images dant le champ "quest_background" de la table quiz
+     //liste des images dant le champ "quiz_image" de la table quiz
+    $sql = "SELECT quiz_image FROM " . $xoopsDB->prefix('quizmaker_quiz')
+         . " WHERE quiz_id = {$quiz_id} AND quiz_image <> ''";
+     $result = $xoopsDB->query($sql);
+     while ($row = $xoopsDB->fetchArray($result)){
+        if ($row['quiz_image']) $quizTblImg[] = $row['quiz_image'];
+     }
+    //--------------------------------------------------
+     //liste des images dant le champ "quiz_background" de la table quiz
     $sql = "SELECT quiz_background FROM " . $xoopsDB->prefix('quizmaker_quiz')
          . " WHERE quiz_id = {$quiz_id} AND quiz_background <> ''";
      $result = $xoopsDB->query($sql);

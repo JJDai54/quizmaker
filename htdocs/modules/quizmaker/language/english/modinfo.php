@@ -153,8 +153,9 @@ define('_MI_QUIZMAKER_SHOW_SAMPLE_BUTTON_DESC', "If yes, the \"Add sample data\"
 define('_MI_QUIZMAKER_SHOW_TPL_NAME', "Show template name");
 define('_MI_QUIZMAKER_SHOW_TPL_NAME_DESC', "Option to use for development, disable it in production");
 define('_MI_QUIZMAKER_SIZE_MB', "MB");
-define('_MI_QUIZMAKER_SMNAME1', "Summary");
-define('_MI_QUIZMAKER_SMNAME14', "Results");
+define('_MI_QUIZMAKER_MENU_CATEGORIES', "Categories");
+define('_MI_QUIZMAKER_MENU_QUIZ', "Quiz");
+define('_MI_QUIZMAKER_MENU_RESULTS', "Results");
 define('_MI_QUIZMAKER_TABLE_TYPE', "Table type");
 define('_MI_QUIZMAKER_UPLOAD_GROUPS', "Upload group permissions");
 define('_MI_QUIZMAKER_UPLOAD_GROUPS_DESC', "Which groups are allowed to upload files");

@@ -177,6 +177,7 @@ $shortcut = [_AM_QUIZMAKER_HEADER,
 		$permissionUpload = $grouppermHandler->checkRight('upload_groups', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
 		xoops_load('XoopsFormLoader');
 
+        $questId = $this->getVar('quest_id');
         //===========================================================        
 		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
         // recupe de la classe du type de question
@@ -223,9 +224,10 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
             $inpPlugin = new \XoopsFormSelect( '', 'quest_plugin', $pluginName);
             $inpPlugin->addOption('Empty');
             $inpPlugin->addOptionArray($pluginsHandler->getListKeyName(null, true));
-            $inpPlugin->setExtra("onchange='reloadPluginSnapshoots(\"modelesPluginId\");'");
+            $inpPlugin->setExtra("onchange='reloadPluginSnapshoots(\"modelesPluginId\");' " . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_PLUGIN));
             $trayPlugin->addElement($inpPlugin);
             $trayPlugin->addElement(new \XoopsFormLabel('', _CO_QUIZMAKER_PLUGIN_DESC));
+
           
         }else{
             $form->addElement(new \XoopsFormHidden('quest_plugin', $pluginName));
@@ -243,7 +245,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         if($clPlugin->isQuestion()){         
             $tParent = $questionsHandler->getParents($this->getVar('quest_quiz_id'), true);         
             $parentId = ($this->getVar('quest_parent_id') == 0) ? array_keys($tParent)[0] : $this->getVar('quest_parent_id');
-            $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_PARENT, 'quest_parent_id', $parentId);
+            $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_GROUP, 'quest_parent_id', $parentId);
             $inpParent->addOptionArray($tParent);
             $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
 
@@ -259,7 +261,36 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $inpParent->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
         $form->addElement($inpParent);
 
-        $questId = $this->getVar('quest_id');
+//test coches
+/*
+        $inpCoche = new \XoopsFormCheckBoxImage('togodo', 'togodo', [0],'<br>');    
+        $inpCoche->switchImage(false);                    
+        $inpCoche->showCaption(true);                    
+        $inpCoche->addOption(0, _AM_QUIZMAKER_DELETE);
+        $inpCoche->addOption(1, _AM_QUIZMAKER_DELETE);
+        $inpCoche->setImgArr(2,1);
+        $this->_imgArr = array($valueFalse, $valueTrue);
+		$form->addElement($inpCoche);
+*/
+
+
+
+        // Form Text questWeight
+		$form->addElement($inpWeight);
+        
+		// Form Text quest_identifiant
+        if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', 'slide_' . rand(10000,99999));
+  /*
+        $inpIdentifiant = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', 120, 255, $this->getVar('quest_identifiant') );
+        $inpIdentifiant->setDescription(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
+		$form->addElement($inpIdentifiant, false);
+  */
+
+        $inpIdentifiant = new \XoopsFormTextPlus(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant',20,20, $this->getVar('quest_identifiant'));
+        $inpIdentifiant->setHelp(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
+		$form->addElement($inpIdentifiant, false);
+        
+        
         //----------------------------------------------------------
         $this->insertShorcuts($form, _AM_QUIZMAKER_PARAMETRES, 'yellow', 'black');        
         //-------------------------------------------
@@ -287,17 +318,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		// Form Editor DhtmlTextArea questComment1
         $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
 		$form->addElement($inpComment1);
-        
-		// Form Text quest_identifiant
-        //$this->setVar('quest_identifiant', $this->getVar('quest_question') ); 
-        if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', 'slide_' . rand(10000,99999));        
-        $inpIdentifiant = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', 120, 255, $this->getVar('quest_identifiant') );
-        $inpIdentifiant->setDescription(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
-		$form->addElement($inpIdentifiant, false);
-		
-        // Form Text questWeight
-		$form->addElement($inpWeight);
-
+  
+     
 		// Form Editor DhtmlTextArea quest_explanation
         $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $quizmakerHelper);        
 		$form->addElement($inpExplanation);
@@ -555,7 +577,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 		$ret['id']             = $this->getVar('quest_id');
 		$ret['parent_id']      = $this->getVar('quest_parent_id');
 		$ret['quiz_id']        = $this->getVar('quest_quiz_id');
-		$ret['plugin']  = $pluginName; //$this->getVar('quest_plugin');
+		$ret['plugin']         = $pluginName; //$this->getVar('quest_plugin');
 		$ret['question']       = $this->getVar('quest_question');
 		$ret['identifiant']    = $this->getVar('quest_identifiant');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
@@ -591,7 +613,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 		$ret['actif']          = $this->getVar('quest_actif');
 		$ret['flags']          = $this->getFlags($ret);
         
-		$ret['isQuestion']        = $clPlugin->isQuestion;
+		//$ret['isQuestion']        = $clPlugin->isQuestion;
         if($clPlugin){
     		$ret['isParent']       = $clPlugin->isParent;
     		$ret['isQuestion']     = $clPlugin->isQuestion;
@@ -604,6 +626,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
     		$ret['canDelete']      = false;
     		$ret['typeForm']       = false;
 		    $ret['typeForm_lib']  = '???';
+            
         }
         
         
@@ -618,6 +641,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         $flags['shuffleAnswers'] = quizFlagAscii($ret['shuffleAnswers'], "M");
         
         $flags['numbering'] = quizFlagAlpha($ret['numbering'], _CO_QUIZMAKER_NUM_NONE . "|123|ABC|abc|{123}","red|green|blue|blue");
+        $flags['shuffle'] = quizFlagAlpha($ret['shuffleAnswers'], "M|M","red|green|blue|blue");
                                            
         return $flags;
                                       

@@ -44,12 +44,15 @@ var $nbMaxColumns = 5;
 
         $this->optionsDefaults = ['nbColumns' => 2,
                                   'nbMaxColumns' => $this->nbMaxColumns,
-                                  'imgHeight1'   => 96];
+                                  'imgHeight1'   => 96,
+                                  'fontSize'     => '1.1',
+                                  'background'   => '#EEEEEE'];
         for ($h = 0; $h < $this->nbMaxColumns; $h++){
           $this->optionsDefaults["list{$h}_type"] = 0;
           $this->optionsDefaults["list{$h}_title"] = '';
           $this->optionsDefaults["list{$h}_intrus"] = '';
           $this->optionsDefaults["list{$h}_width"] = 25;
+          $this->optionsDefaults["list{$h}_background"] = "#EEEEEE";
           $this->optionsDefaults["list{$h}_textalign"] = 'left';
         }
                                   
@@ -89,6 +92,7 @@ var $nbMaxColumns = 5;
                        4 => _LG_PLUGIN_MATCHITEMS_IMAGE1,
                        5 => _LG_PLUGIN_MATCHITEMS_IMAGE2);
 
+
       $textalignArr = array ('left'   => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT,
                              'center' => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER,
                              'right'  => _LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE);  
@@ -110,13 +114,20 @@ var $nbMaxColumns = 5;
           
       $trayOptions->addElementOption($inpNbColumns);      
 
-
+      $name = 'fontSize';  
+      $inpFontSize = new \XoopsFormNumber(_AM_QUIZMAGER_PLUGIN_FONT_SIZE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpFontSize->setMinMax(0.5, 4, _AM_QUIZMAKER_UNIT_EM, "0.1");
+      $trayOptions->addElementOption($inpFontSize);     
+      
       $name = 'imgHeight1';
       $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
       $inpHeight0->setDescription(_LG_PLUGIN_MATCHITEMS_IMG_HEIGHT_DESC);
       $trayOptions ->addElementOption($inpHeight0);     
       
+      $name = 'background';  
+      $inpBackground = new XoopsFormColorPicker(_LG_PLUGIN_MATCHITEMS_BACKGROUND_ITEMS, "{$optionName}[{$name}]", $tValues[$name]);
+      $trayOptions->addElementOption($inpBackground);     
     //--------------------------------------------------
 
       for ($h = 0; $h < $nbColumns; $h++){
@@ -144,6 +155,13 @@ var $nbMaxColumns = 5;
           $inpWidth->setExtra("style='background:#FFCC99;'");
           $inpWidth->setMinMax(5, 80, _AM_QUIZMAKER_UNIT_PERCENT);
           $trayOptions->addElementOption($inpWidth);  
+          
+          /*
+          $name = "list{$h}_background";  
+          $inpBackground = new XoopsFormColorPicker(_LG_PLUGIN_BACKGROUND, "{$optionName}[{$name}]", $tValues[$name]);
+          $trayOptions->addElementOption($inpBackground);     
+          */
+
           
           $name = "list{$h}_title"; 
           $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
@@ -205,6 +223,7 @@ var $nbMaxColumns = 5;
               $tbl->addTdStyle($j, "width:{$width}%;");
         //echo "<hr>column {$j} - width : {$width}<hr>";
           }
+          $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_BACKGROUND);        
           $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_POINTS);        
           $tbl->addTitle(_AM_QUIZMAKER_PLUGIN_WEIGHT);        
           
@@ -228,8 +247,11 @@ var $nbMaxColumns = 5;
             $inpWeight = new XoopsFormNumber('', $name, $this->lgPoints, $this->lgPoints, $weight);
             $inpWeight->setMinMax(0, 1000);
 
+                  $name = $this->getName($k, "background"); 
+                  $inpBackground = new XoopsFormColorPicker('', $name, $background);
             //--------------------------------------------------------------
             for($h = 0; $h < $nbColumns; $h++){
+                //sont-ce des images
                 if ($options["list{$h}_type"] == 4 || $options["list{$h}_type"] == 5){
                     if ($options["list{$h}_type"] == 4){
                         $fldImg = 'image1';
@@ -253,17 +275,24 @@ var $nbMaxColumns = 5;
                     $name = $this->getName($k, "exp", $h); 
                     $inpExp = new XoopsFormText('', $name, $this->lgMot1, $this->lgMot3, $tPropos[$h]);       
                     
-                    //peti cacul simpliste pour donner un aperçu de la largeur des colonnes dans le quiz
-                    //l'environnement étant différent, c'est juste une approche du résultat finel
+                    //petit cacul simpliste pour donner un aperçu de la largeur des colonnes dans le quiz
+                    //l'environnement étant différent, c'est juste une approche du résultat final
                     $width = $options["list{$h}_width"];
                     $inpWidth = ($width < 20) ? 60 : 80;
                     $inpExp->setExtra("style='text-align:left;width:{$inpWidth}%;'");
-              $tbl->addElement($inpExp, ++$col, $k);
+                    
+                    $tbl->addElement($inpExp, ++$col, $k);
+
                 }
 
                    
             }
             
+                  $name = $this->getName($k, "background"); 
+                  $inpBackground = new XoopsFormColorPicker('', $name, $background);
+                  $tbl->addElement($inpBackground, ++$col, $k);
+            if ($options["list{$h}_type"] != 4 || $options["list{$h}_type"] != 5){
+            }
             
             $tbl->addElement($inpPoints, ++$col, $k);
             $tbl->addElement($inpWeight, ++$col, $k);
@@ -341,6 +370,7 @@ var $nbMaxColumns = 5;
           	$ansObj->setVar('answer_proposition', implode(',', $answers[$key]['exp']));
           	$ansObj->setVar('answer_points', $ans['points']);
           	$ansObj->setVar('answer_weight', $ans['weight']);
+          	$ansObj->setVar('answer_background', $ans['background']);
               
           	$ansObj->setVar('answer_caption', '');
           	$ansObj->setVar('answer_inputs', 0);

@@ -198,7 +198,7 @@ define('_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ', "Permissions to import quizzes")
 define('_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ', "Permissions to import questions");
 define('_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS', "Permissions to view categories");
 define('_AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ', "Permissions to view quizzes");
-define('_AM_QUIZMAKER_PERMIT_CATMAN', "Manage categories");
+define('_AM_QUIZMAKER_PERMIT_MANAGE_CATS', "Manage categories");
 define('_AM_QUIZMAKER_PERMIT_CLONE', "Clone the module");
 define('_AM_QUIZMAKER_PERMIT_EXPORT', "Export");
 define('_AM_QUIZMAKER_PERMIT_IMPORTA', "Advanced imports");
@@ -244,7 +244,6 @@ define('_AM_QUIZMAKER_POSITION_NONE', "Invisible");
 define('_AM_QUIZMAKER_POSITION_TL', "Top left");
 define('_AM_QUIZMAKER_POSITION_TR', "Top right");
 define('_AM_QUIZMAKER_PREVIOUS_QUESTION', "Previous");
-define('_AM_QUIZMAKER_PROPOSITIONS', "Propositions");
 define('_AM_QUIZMAKER_PROPOSITIONS_ANSWERS', "Answer suggestions");
 define('_AM_QUIZMAKER_PUBLISH', "Publish");
 define('_AM_QUIZMAKER_PUBLISH_ANSWERS', "Publish answers");
@@ -423,6 +422,7 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_PLUGIN', "Importing a plugin");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST', "Importing questions only");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ', "Import a single quiz");
 define('_AM_QUIZMAKER_UNIT_PIXELS', "pixels");
+define('_AM_QUIZMAKER_UNIT_EM', "em");
 define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 define('_AM_QUIZMAKER_UNIT_SECONDS', "Seconds");
 define('_AM_QUIZMAKER_UNIT_MILLISECONDS', "Milliseconds");
@@ -477,5 +477,7 @@ define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR1', "The quiz cannot be exported.<br>It is 
 define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR2', "The quiz cannot be exported.<br>There are probably no questions in this quiz yet!");
 define('_AM_QUIZMAKER_LOAD_JANUS', "<center><hr><div style='font-size:1.5em;'>To use this module the \"Janus\" framework must be installed.<br>Framework download link:<br><a href='https://github.com/JJDai54/janus'>Janus Framework</a></div><hr></center>");
 
+define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE', "Font size (in em, default=1.1)");
+define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE_DESC', "Font size");
 
 ?>

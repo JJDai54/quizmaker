@@ -39,6 +39,8 @@ define('_LG_PLUGIN_SORTITEMS_CLASSE_LISTBOX', "Listbox");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX', "Combobox");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_LISTUL', "Liste à puce");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD', "Images");
+define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_FH', "Images hauteur fixe");
+define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_WH', "Images largeur fixe");
 
 define('_LG_PLUGIN_SORTITEMS_CLASSE_SELECT', "Sélectionnez une classe,  validez et rechargez le formulaire");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_DESC', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
@@ -55,6 +57,7 @@ define('_LG_PLUGIN_SORTITEMS_DIRECTIVE_DESC', "Action à faire affichée sur le 
 define('_LG_PLUGIN_SORTITEMS_DIRECTIVE_LIB', "Cliquez sur les images et déplacez les pour les mettre dans l'ordre.");
 define('_LG_PLUGIN_SORTITEMS_IMG1_HEIGHT', "Hauteur des images à déplacer");
 define('_LG_PLUGIN_SORTITEMS_IMG2_HEIGHT', "Hauteur des images de référence");
+define('_LG_PLUGIN_SORTITEMS_IMG1_WIDTH', "Largeur des images");
 
 define('_LG_PLUGIN_SORTITEMS_FLIP', "Echange les images");
 define('_LG_PLUGIN_SORTITEMS_INSERT', "Insert et décale les images sans carret");

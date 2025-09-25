@@ -55,6 +55,7 @@ define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN', "Alignement");
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT', "Gauche");
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN_DROITE', "Droite");
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN_CENTER', "Centre");
+define('_LG_PLUGIN_MATCHITEMS_BACKGROUND_ITEMS', "Couleur de fond par défaut des items");
 
 //define('_LG_PLUGIN_MATCHITEMS_LIST_DESC', "Il faut définir au moins deux listes avec au moins une de type Select ou !text.");
 ?>

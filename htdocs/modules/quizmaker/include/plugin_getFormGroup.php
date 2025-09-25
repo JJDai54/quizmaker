@@ -34,7 +34,7 @@
       $vArr['quest_id']     = 0;
       $vArr['proposition']  = '';
       $vArr['buffer']       = '';
-      $vArr['points']       = $points;
+      $vArr['points']       = (isset($points) ? $points : 0);
       $vArr['image1']       = '';
       $vArr['image2']       = '';
       $vArr['caption']      = '';
@@ -72,7 +72,7 @@
       //-------------------------------------------------
       if($tbl){
         $col = 0;
-        $tbl->addTdStyle($col, 'min-width:80px;font-size:1.5em;vertical-align:middle;padding-top:10px;');
+        $tbl->addTdStyle($col, 'min-width:80px;max-width:100px;font-size:1.5em;vertical-align:middle;padding-top:10px;');
         $tbl->addXoopsFormHidden($this->getName($i,'id'), $answerId);
         $tbl->addXoopsFormHidden($this->getName($i,'chrono'), $i+1, $col, $k, '');
         $tbl->addElement($delProposition, $col, $k, '');

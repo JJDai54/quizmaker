@@ -28,8 +28,9 @@ require __DIR__ . '/header.php';
 $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_IMPORTG,'QUIZMAKER_PERMIT_IMPORTG', "index.php");
 //-----------------------------------------------------------
 //recherche des categories autorisées
-$clPerms->addPermissions($criteriaCatAllowed, 'export_quiz', 'cat_id');
+$clPerms->addPermissions($criteriaCatAllowed, 'import_quiz', 'cat_id');
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
+
 //if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $fromCatId  = Request::getInt('from_cat_id', array_key_first($catArr));
 if($fromCatId <= 0) $fromCatId = array_key_first($catArr);

@@ -46,9 +46,8 @@ define('_MA_QUIZMAKER_HOW_TO_SHOW_SOLUTIONS', "Pour voir les solutions cliquez s
 define('_MA_QUIZMAKER_INVALID_PARAM', "Paramètre invalide");
 define('_MA_QUIZMAKER_LEARN_MORE', "Pour en savoir plus");
 define('_MA_QUIZMAKER_NAME', "Nom");
-define('_MA_QUIZMAKER_NB_QUESTIONS', "Questions");
 define('_MA_QUIZMAKER_NO_RESULTS', "Il n'y a pas encore de résultats pour ce quiz");
-define('_MA_QUIZMAKER_NO_SCORE', "--- Néant ---");
+define('_MA_QUIZMAKER_NO_SCORE', "Pas encore de scores");
 define('_MA_QUIZMAKER_NOTE', "Note");
 define('_MA_QUIZMAKER_OF_TOTAL', "Au total");
 define('_MA_QUIZMAKER_PARTICIPATION', "Participation");
@@ -75,6 +74,7 @@ define('_MA_QUIZMAKER_RUN', "Lancer");
 define('_MA_QUIZMAKER_RUN_QUIZ', "Lancer le quiz");
 define('_MA_QUIZMAKER_SCORE', "Score");
 define('_MA_QUIZMAKER_SCORES', "Scores");
+define('_MA_QUIZMAKER_SCORES_BEST', "Meilleur scores");
 define('_MA_QUIZMAKER_SEE_ALSO', "Voir aussi");
 define('_MA_QUIZMAKER_SELECTION', "Sélection");
 define('_MA_QUIZMAKER_SOLUTIONS', "Solutions");

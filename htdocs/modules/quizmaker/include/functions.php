@@ -59,13 +59,17 @@ function quizmaker_utf8_encode($exp)
  * @param  $cats 
  * @return string
  */
-function getStyle($background='', $color='')
+function getStyle($background='', $color='', $addStyleVarName = true)
 {
-    $style = " style='";
+    $style = '';
     if ($background) $style .= "background:{$background};";
     if ($color) $style .= "color:{$color};";
-    $style .= "'";
-    return $style;
+    
+    if($addStyleVarName){
+        return " style='" . $style . "'";
+    }else{
+        return $style;  
+    }
 }
 
 /**
@@ -427,3 +431,96 @@ function getArray($list){
 
 }
 
+/* *************************************************
+
+*************************************************** */
+function save_images2($formName, $path, $optionsArr, &$nameOrg=''){
+    if(!$_POST['xoops_upload_file']) return false;    
+    if(!$_FILES[$formName]['name']) return '';
+    include_once XOOPS_ROOT_PATH . '/class/uploader.php';    
+    $prefix = (isset($optionsArr['prefix'])) ? $optionsArr['prefix'] : '';
+    $renameImage = (isset($optionsArr['renameImage'])) ? $optionsArr['renameImage'] : false;
+
+    $nameOrg = '';
+    $keyFile = array_search($formName, $_POST['xoops_upload_file']);    
+    $savedFilename = '';
+    $uploaderErrors = '';
+    $uploader = new \XoopsMediaUploader($path , $optionsArr['mimetypes_image'], $optionsArr['maxsize_image'], null, null);
+
+
+    if ($uploader->fetchMedia($_POST['xoops_upload_file'][$keyFile])) {
+
+        $uploader->setPrefix($prefix);
+        $uploader->fetchMedia($_POST['xoops_upload_file'][$keyFile]);
+        if (!$uploader->upload()) {
+            $uploaderErrors = $uploader->getErrors();
+        } else {
+            $savedFilename = $uploader->getSavedFileName();
+
+            $nameOrg = $_FILES[$_POST['xoops_upload_file'][$keyFile]]['name'];       
+            if($this->renameImage){
+                //echo "===>savedFilename : {$savedFilename}<br>";  
+                //modification du nom pour les repérer dans le dossier   
+                $newName = $prefix . '-' . sanitiseFileName($nameOrg);
+                rename($path.'/'. $savedFilename,  $path.'/' . $newName);
+                $savedFilename = $newName;
+            }
+            //retir l'extension et remplace les _ par des espaces
+            $h= strrpos($nameOrg,'.');
+            $i=0;
+            $nameOrg = str_replace('_', ' ', substr($nameOrg, $i, $h));
+
+        }
+
+
+    } else {
+        //if ($filename > '') {
+            $uploaderErrors = $uploader->getErrors();
+        //}
+        // il faut garder l'image existante si il n'y a pas eu de nouvelle selection
+        // ou l'image sélectionée dans la liste
+        //$slidesObj->setVar('sld_image', Request::getString('sld_image'));
+        $savedFilename = '';
+    }
+    //exit ($savedFilename);
+    return $savedFilename;
+}
+/* ************************************************
+*
+* ************************************************* */
+function sanitiseFileName($str, $replaceBlankBy = '_'){
+    $str = utf8_decode($str);
+    $str = str_replace(
+			array(
+				'à', 'â', 'ä', 'á', 'ã', 'å',
+				'î', 'ï', 'ì', 'í', 
+				'ô', 'ö', 'ò', 'ó', 'õ', 'ø', 
+				'ù', 'û', 'ü', 'ú', 
+				'é', 'è', 'ê', 'ë', 
+				'ç', 'ÿ', 'ñ',
+				'À', 'Â', 'Ä', 'Á', 'Ã', 'Å',
+				'Î', 'Ï', 'Ì', 'Í', 
+				'Ô', 'Ö', 'Ò', 'Ó', 'Õ', 'Ø', 
+				'Ù', 'Û', 'Ü', 'Ú', 
+				'É', 'È', 'Ê', 'Ë', 
+				'Ç', 'Ÿ', 'Ñ'
+			),
+			array(
+				'a', 'a', 'a', 'a', 'a', 'a', 
+				'i', 'i', 'i', 'i', 
+				'o', 'o', 'o', 'o', 'o', 'o', 
+				'u', 'u', 'u', 'u', 
+				'e', 'e', 'e', 'e', 
+				'c', 'y', 'n', 
+				'A', 'A', 'A', 'A', 'A', 'A', 
+				'I', 'I', 'I', 'I', 
+				'O', 'O', 'O', 'O', 'O', 'O', 
+				'U', 'U', 'U', 'U', 
+				'E', 'E', 'E', 'E', 
+				'C', 'Y', 'N'
+			),$str);
+  
+   if ($replaceBlankBy) $str = strtr($str," ", $replaceBlankBy);
+
+return $str;
+}

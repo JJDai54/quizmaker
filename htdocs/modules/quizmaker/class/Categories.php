@@ -43,6 +43,7 @@ class Categories extends \XoopsObject
 		$this->initVar('cat_name', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_actif', XOBJ_DTYPE_INT);
 		$this->initVar('cat_description', XOBJ_DTYPE_OTHER);
+		$this->initVar('cat_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_theme', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_weight', XOBJ_DTYPE_INT);
 		$this->initVar('cat_creation', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
@@ -130,6 +131,11 @@ class Categories extends \XoopsObject
         //$inpTheme->addOptionArray($quizUtility::get_css_color());
         $inpTheme->addOptionArray( \JANUS\get_css_color());
 		$form->addElement($inpTheme );
+
+
+        $imgCat = QUIZMAKER_URL_UPLOAD . '/categories/' . $this->getVar('cat_image');
+        $inpImgCat2 = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'cat_image', $quizmakerHelper->getConfig('maxsize_image'), $this->getVar('cat_image'),  QUIZMAKER_URL_UPLOAD . '/categories');
+		$form->addElement($inpImgCat2);
 
 		// Form Text cat_weight
         //$cat_weight = $this->isNew() ? '0' : $this->getVar('cat_weight');
@@ -224,6 +230,7 @@ class Categories extends \XoopsObject
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
 		$ret['theme']             = $this->getVar('cat_theme');
+		$ret['image']             = $this->getVar('cat_image');
 		$ret['weight']            = $this->getVar('cat_weight');
 		$ret['creation']          = \JANUS\getDateSql2Str($this->getVar('cat_creation'));
 		$ret['update']            = \JANUS\getDateSql2Str($this->getVar('cat_update'));

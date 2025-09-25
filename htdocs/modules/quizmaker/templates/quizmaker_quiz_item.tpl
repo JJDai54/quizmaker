@@ -1,23 +1,122 @@
 <{if $smarty.const.QUIZMAKER_SHOW_TPL_NAME==1}>
 <div style="text-align: center; background-color: black;"><span style="color: yellow;">Template : <{$smarty.template}></span></div>
 <{/if}>
+<{assign var='iconHeight' value='16px'}>
+          <tr>
+            <td colspan='3'>
+                <{if $Quiz.image}>
+                    <img class='left' src="<{$smarty.const.QUIZMAKER_URL_UPLOAD_QUIZ}>/<{$Quiz.folderJS}>/images/<{$Quiz.image}>" height='80px'>
+                <{/if}>
+                  <{if $Quiz.publishQuiz == 1}>
+                      <a class='quiz_title' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>" >
+                        <{$Quiz.name}>
+                      </a>
+                  <{elseif $Quiz.publishQuiz == 2}>
+                      <a class='quiz_title' href='<{$Quiz.quiz_html}>?<{$getForQuiz}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                        <{$Quiz.name}>
+                      </a>
+                  <{else}>
+                        <{$Quiz.name}>
+                  <{/if}>
+            </td>
+          </tr>
 
-<i id='quizId_<{$Quiz.quiz_id}>'></i>
-<div class='panel-heading'>
-</div>
-<div class='panel-body'>
-</div>
-<div class='panel-foot'>
-	<div class='col-sm-12 right'>
-		<{if $showItem}>
-			<a class='btn btn-success right' href='quiz.php?op=list&amp;#quizId_<{$Quiz.quiz_id}>' title='<{$smarty.const._MA_QUIZMAKER_QUIZ_LIST}>'><{$smarty.const._MA_QUIZMAKER_QUIZ_LIST}></a>
-		<{else}>
-			<a class='btn btn-success right' href='quiz.php?op=show&amp;quiz_id=<{$Quiz.quiz_id}>' title='<{$smarty.const._MA_QUIZMAKER_DETAILS}>'><{$smarty.const._MA_QUIZMAKER_DETAILS}></a>
-		<{/if}>
-		<{if $permEdit}>
-			<a class='btn btn-primary right' href='quiz.php?op=edit&amp;quiz_id=<{$Quiz.quiz_id}>' title='<{$smarty.const._EDIT}>'><{$smarty.const._EDIT}></a>
-			<a class='btn btn-danger right' href='quiz.php?op=delete&amp;quiz_id=<{$Quiz.quiz_id}>' title='<{$smarty.const._DELETE}>'><{$smarty.const._DELETE}></a>
-		<{/if}>
-		<a class='btn btn-warning right' href='quiz.php?op=broken&amp;quiz_id=<{$Quiz.quiz_id}>' title='<{$smarty.const._MA_QUIZMAKER_BROKEN}>'><{$smarty.const._MA_QUIZMAKER_BROKEN}></a>
-	</div>
-</div>
+
+
+
+          <tr>
+            <td width="25%" style='vertical-align:top'>
+                  <{if $Quiz.author <> ''}><{$smarty.const._MA_QUIZMAKER_QUIZ_PROPOSED_BY}> : <{$Quiz.author}><{/if}>
+            </td>
+            <td class='center' width="25%" style='vertical-align:top'>
+                <{$Quiz.countQuestions}>  <{$smarty.const._MA_QUIZMAKER_QUESTIONS}>
+            </td>
+            <{* =========================================================== *}>
+            <{if $Quiz.statOk}>
+                <td class='left' width="100px">
+                    <{$smarty.const._MA_QUIZMAKER_SCORES_BEST}> : <{$Quiz.stat.bestScore}> / <{$Quiz.stat.scoreMax}>
+                <br>
+                    <{$smarty.const._MA_QUIZMAKER_AVERAGE}> : <{$Quiz.stat.avgScore}>  
+                <br>
+                    <{$smarty.const._MA_QUIZMAKER_PARTICIPATION}> : <{$Quiz.stat.countResults}>  
+                </td>
+            <{else}>
+                <td class='center' width="250px">
+                    <{$smarty.const._MA_QUIZMAKER_NO_SCORE}>
+                </td>
+            <{/if}> 
+          </tr>
+            <{* =========================================================== *}>
+            <tr>
+            <td class='right' width="100%" colspan='3'>
+           
+                <{if $Quiz.periodeOK}>
+                  <{if $Quiz.publishQuiz == 1}>
+                      <a class='quiz_button quiz_button_run'  href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&player_id=<{$player_id}>" >
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <{$smarty.const._MA_QUIZMAKER_RUN}>
+                      </a>
+                  <{elseif $Quiz.publishQuiz == 2}>
+                      <a class='quiz_button quiz_button_run' href='<{$Quiz.quiz_html}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <{$smarty.const._MA_QUIZMAKER_RUN}>
+                      </a>
+                  <{else}>
+                      <span class='quiz_button quiz_button_disabled'>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_03.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_03.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <{$smarty.const._MA_QUIZMAKER_CLOSED}>
+                      </span>
+                  <{/if}>
+                <{else}>
+                      <span class='quiz_button quiz_button_disabled'>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_03.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/run_quiz_03.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <{$smarty.const._MA_QUIZMAKER_CLOSED}>
+                      </span>
+                <{/if}>
+
+                <{if $Quiz.publishResultsOk}>
+                  <a class='quiz_button quiz_button_scores' href="results.php?op=list&cat_id=<{$Quiz.cat_id}>&player_id=<{$player_id}>&quiz_id=<{$Quiz.id}>&sender=quiz_id" >
+                      <img src="<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/sigma-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RESULTS}>' title='<{$smarty.const._MA_QUIZMAKER_SCORES}>' nheight='<{$iconHeight}>'/>
+                      <img src="<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/sigma-02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RESULTS}>' title='<{$smarty.const._MA_QUIZMAKER_SCORES}>' height='<{$iconHeight}>'/>
+                      <{$smarty.const._MA_QUIZMAKER_SCORES}>
+                  </a>
+                <{else}>
+                      <span class='quiz_button quiz_button_disabled'>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/sigma-03.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/sigma-03.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+
+                          <{$smarty.const._MA_QUIZMAKER_SCORES}>
+                      </span>
+                <{/if}>
+
+                <{if $Quiz.publishAnswersOk}>
+                    <a class='quiz_button quiz_button_solutions' href='solutions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&player_id=<{$player_id}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
+                        <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='<{$iconHeight}>'/>
+                        <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-02.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>' height='<{$iconHeight}>'/>
+                        <{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>
+                        
+                    </a>
+                <{else}>
+                      <span class='quiz_button quiz_button_disabled'>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/solution-00.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' title='<{$smarty.const._MA_QUIZMAKER_RUN}>' height='<{$iconHeight}>'/>
+                          <{$smarty.const._MA_QUIZMAKER_SOLUTIONS}>
+
+                      </span>
+                <{/if}>
+
+                <{if $isAdmin}>
+                    <a class='quiz_button quiz_button_admin' href='admin/questions.php?op=list&sender=&cat_id=<{$Quiz.cat_id}>&quiz_id=<{$Quiz.id}> ' title='<{$smarty.const._MA_QUIZMAKER_ADMIN}>' target='blank'>
+                        <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/admin-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_ADMIN}>' height='<{$iconHeight}>'/>
+                        <img src="<{$smarty.const.QUIZMAKER_URL_IMAGE}>/admin-01.png" alt="quiz" title='<{$smarty.const._MA_QUIZMAKER_ADMIN}>' height='<{$iconHeight}>'/>
+                        <{$smarty.const._MA_QUIZMAKER_ADMIN}>
+              
+                    </a>
+                <{/if}>
+            </td>
+            </tr>
+

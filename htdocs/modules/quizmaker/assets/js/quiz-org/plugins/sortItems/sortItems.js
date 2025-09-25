@@ -3,12 +3,14 @@
     switch(question.options.classe){
     case '02-combobox'    : return new sortItems_combobox(question, slideNumber, 'sortItems_combobox'); break;
     case '03-listeapuces' : return new sortItems_ulDaDList(question, slideNumber, 'sortItems_ulDaDList'); break;
-    case '04-imagesdad'   : return new imgDaDSortItems(question, slideNumber, 'imgDaDSortItems'); break;
+    case '04-imagesdadFixedHeight' : return new imgDaDSortItems(question, slideNumber, 'imgDaDSortItems'); break;
+    case '05-imagesdadFixedWidth'  : return new imgDaDSortItems(question, slideNumber, 'imgDaDSortItems'); break;
     case '01-listbox': 
     default               : return new sortItems_listbox(question, slideNumber, 'sortItems_listbox')
     }
     //return new sortItems_combobox(question, slideNumber);
-}
+}  
+
  /*******************************************************************
   *                     sortItems
   * *****************************************************************/
@@ -124,9 +126,9 @@ getInnerHTML(bShuffle = true){
     var tPropositions = [];
     for(var i = 0; i < tWords.length; i++){
         var id = `${this.getId(i)}`;                 
-        tPropositions.push(`<tr><td  ${this.data.styleCSS}>${getNumAlpha(i,currentQuestion.numbering)}</td>`);
+        tPropositions.push(`<tr><td  style='${this.data.styleCSS}'>${getNumAlpha(i,currentQuestion.numbering)}</td>`);
         var obList = getHtmlCombobox(name,  id, tWords, false);
-        tPropositions.push(`<td ${this.data.styleCSS}>${obList}</td></tr>`);
+        tPropositions.push(`<td style='${this.data.styleCSS}'>${obList}</td></tr>`);
     }
     
     var tpl = this.combobox_getDisposition(currentQuestion.image);
@@ -692,7 +694,11 @@ getInnerHTML_img_ref(bShuffle = false){
     this.data.imagesRefExists = true;
       
     var posCaption = currentQuestion.options.showCaptions;    
-    var ImgStyle=`style="height:${currentQuestion.options.imgHeight2}px;"`;
+    if (currentQuestion.options.classe == '05-imagesdadFixedWidth'){
+        var ImgStyle=`style="width:${currentQuestion.options.imgWidth1}px;"`;
+    }else{
+        var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
+    }
 
 
     if (bShuffle){
@@ -743,8 +749,13 @@ getInnerHTML_subs(bShuffle = true){
     //var tpl = `<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td id="${this.data.idSelection}" name="${this.data.idSelection}">{selection}</td></tr><tr><td> id="${this.data.idSuggestion }" name="${this.data.idSuggestion }">{suggestion}</td></tr></table>`;
 var posCaption = currentQuestion.options.showCaptions;    
 if (this.data.imagesRefExists) {posCaption = "none";}
-var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
-var tpl =`<center><div id="${this.getId('img')}" sequence>\n{sequence}\n</div></center>`;
+    if (currentQuestion.options.classe == '05-imagesdadFixedWidth'){
+        var ImgStyle=`style="width:${currentQuestion.options.imgWidth1}px;"`;
+    }else{
+        var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
+    }
+
+    var tpl =`<center><div id="${this.getId('img')}" sequence>\n{sequence}\n</div></center>`;
 
 var eventImgToEvent=`
 onDragStart="imgDaDSortItems_subs_start(event);"
@@ -802,7 +813,12 @@ getInnerHTML_ins(bShuffle = true){
 
     //var tpl = `<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td id="${this.data.idSelection}" name="${this.data.idSelection}">{selection}</td></tr><tr><td> id="${this.data.idSuggestion }" name="${this.data.idSuggestion }">{suggestion}</td></tr></table>`;
 var posCaption = currentQuestion.options.showCaptions;    
-var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
+    if (currentQuestion.options.classe == '05-imagesdadFixedWidth'){
+        var ImgStyle=`style="width:${currentQuestion.options.imgWidth1}px;"`;
+    }else{
+        var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
+    }
+
      
     var tpl =`<center><div id="${this.getId('img')}" sequence>\n{sequence}\n</div></center>`;
 
@@ -971,6 +987,7 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
   } 
 
 } // ----- fin de la classe ------     
+
 
 ////////////////////////////////////////////////////////////////////////////
 /* **************************************************************** */

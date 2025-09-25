@@ -49,13 +49,14 @@ getInnerHTML_textarea (){
 getInnerHTML_allbox (){
 
     var currentQuestion = this.question;
+    var options = this.question.options;
     var name = this.getName();
     
     if(currentQuestion.options.disposition == "disposition-01"){
-      var tpl0 = `{image}<table class='textareaMixte_table'><tr><td width='50%'>{textbox}</td><td style='padding-left:15px;' width='50%'><div id='${this.data.listId}' style='text-align:right;padding-right:70px' >{listbox}</div></td></tr></table>`;
+      var tpl0 = `{image}<table class='textareaMixte_table'><tr><td width='${currentQuestion.options.textWidth}%'>{textbox}</td><td style='padding-left:15px;'><div id='${this.data.listId}' style='text-align:right;padding-right:8px' >{listbox}</div></td></tr></table>`;
       var textboxClass = "textareaMixte_shadowbox";    
     }else{
-      var tpl0 = `{image}<table class='textareaMixte_table'><tr><td>{textbox}</td></tr><tr><td style='text-align:center;padding-top:10px;'><div id='${this.data.listId}'>{listbox}</div></td></tr></table>`;
+      var tpl0 = `{image}<table class='textareaMixte_table'><tr><td width='${currentQuestion.options.textWidth}%'>{textbox}</td></tr><tr><td style='text-align:center;padding-top:10px;'><div id='${this.data.listId}'>{listbox}</div></td></tr></table>`;
       var textboxClass = "textareaMixte_shadowbox";    
     }
     
@@ -64,7 +65,7 @@ getInnerHTML_allbox (){
     //alert(currentQuestion.options.lineheight);
     var fontSize = (((currentQuestion.options.fontsize*1)+10)*0.1).toFixed(1);                   
     var lineHeight = (((currentQuestion.options.lineheight*1)+10)*0.1).toFixed(1);                   
-    var textbox = `<div id="${this.data.textId}" name="${name}" class="${textboxClass}" style="font-size:${fontSize};line-height:${lineHeight}em;"rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
+    var textbox = `<div id="${this.data.textId}" name="${name}" class="${textboxClass}" style="font-size:${fontSize};line-height:${lineHeight}em;" rows="${this.data.nbRows}" disabled>${this.data.text}</div>`;
 
 //------------------------------------------------------------------
     var htmlArr = [];

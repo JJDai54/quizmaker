@@ -46,6 +46,7 @@ $permArr = ['global_ac'         => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC,
             'import_quiz'       => _AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,
             'importquest_quiz'  => _AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ,
             'export_quiz'       => _AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ];
+//            'manage_cats'       => _AM_QUIZMAKER_PERMIT_MANAGE_CATS,
             
 $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new \XoopsFormSelect('', 'op', $op);
@@ -68,7 +69,7 @@ echo '===>' . $op . '--->' . '_AM_QUIZMAKER_PERMISSIONS_' . strtoupper($domaines
 //exit;
 switch($domaines[1]) {
 	case 'ac':
-		$permArr = array(QUIZMAKER_PERMIT_CATMAN    => _AM_QUIZMAKER_PERMIT_CATMAN, 
+		$permArr = array(QUIZMAKER_PERMIT_CATMAN    => _AM_QUIZMAKER_PERMIT_MANAGE_CATS, 
                          QUIZMAKER_PERMIT_IMPORTG   => _AM_QUIZMAKER_PERMIT_IMPORTG, 
                          QUIZMAKER_PERMIT_IMPORTA   => _AM_QUIZMAKER_PERMIT_IMPORTA,
                          QUIZMAKER_PERMIT_EXPORT    => _AM_QUIZMAKER_PERMIT_EXPORT,

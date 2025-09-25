@@ -115,7 +115,8 @@ function quizmaker() {
   function buildQuiz(){
 //    alert ("02 : " + myQuestions);
 
-//alert('===>buildQuiz');    
+//alert('===>buildQuiz');   
+//une première passe pour calculer les stat qui seront utilisé dans les slides
 getStatAllSlides();
 
 var content = `  
@@ -338,59 +339,55 @@ return `<div id="quiz_div_progressbar_main" name="quiz_div_progressbar_main" sty
  * ************************************************************************/
 
 function getHtmlAllSlides(){
-var newQuestions = [];
-var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et pageGroup
-var questionNumber = 0;     //n° du slide hors page_begin, page_end et page_group,
-//alert ("zz : " + myQuestions.length);
-// alert ("zz : " + myQuestions[0].question);
     const output = [];
 
-    myQuestions.forEach((currentQuestion, index) => {
-      if(currentQuestion){
-      
-      //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + " - \n" + currentQuestion.question);
-            // debut du type de slide a traiter
-            //if(currentQuestion.type == 'sortItems'){
-                var clQuestion = getTplNewClass2 (currentQuestion, slideNumber++);
-//             }else{
-//                 var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
-//             }
-
-            if(clQuestion){
-                clQuestion.question.questionNumber = (clQuestion.isQuestion) ? ++questionNumber : 0;
-                quizard.push(clQuestion);
-
-                output.push(getHtmlSlide (clQuestion));
-            }
-      }
+    quizard.forEach((clQuestion, numSlide) => {
+        output.push(getHtmlSlide (clQuestion));    
     });
+
     return output.join("\n");
 }
 
 /**************************************************************************
- *   
+ *   preparation de quizard
  * ************************************************************************/
 function getStatAllSlides(){
 
-var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et pageGroup
-
-//alert ("zz : " + myQuestions.length);
+var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et pageGroup ...
+var questionNumber = 0;     //n° du de la question sans les pageBegin, pageEnd et pageGroup ...
+ 
+//alert ("getStatAllSlides : nb questions = " + myQuestions.length);
 // alert ("zz : " + myQuestions[0].question);
+    statsTotal.quiz_questions  = 0;
+    statsTotal.quiz_score_maxi = 0;
+    statsTotal.quiz_score_mini = 0;
 
     myQuestions.forEach((currentQuestion, index) => {
+//          alert (`getHtmlAllSlides : index = ${index}`);
+
       if(currentQuestion){
-      //alert ("getHtmlAllSlides : nb quizard = " +  quizard.length + "\n" + currentQuestion.type + "\n" + currentQuestion.question);
+      console.log ("getHtmlAllSlides : nb myQuestions = " +  myQuestions.length 
+                 + "\n type : " + currentQuestion.type 
+                 + "\n question : " + currentQuestion.question
+                 + "\n quesId : " + currentQuestion.questId);
       
             // debut du type de slide a traiter
-            //if(currentQuestion.type == 'sortItems'){
-                var clQuestion = getTplNewClass2 (currentQuestion, slideNumber++);
-            //}else{
-            //    var clQuestion = getTplNewClass (currentQuestion, slideNumber++);
-            //}
+            var clQuestion = getTplNewClass2 (currentQuestion, slideNumber);
+
             if(clQuestion){
-                statsTotal.quiz_questions  += (clQuestion.isQuestion ? 1 : 0);
-                statsTotal.quiz_score_maxi += clQuestion.scoreMaxiQQ;
-                statsTotal.quiz_score_mini += clQuestion.scoreMiniQQ;
+                
+                if(clQuestion.isQuestion){
+                    clQuestion.questionNumber = ++questionNumber;
+                    statsTotal.quiz_questions  += 1;
+                    statsTotal.quiz_score_maxi += clQuestion.scoreMaxiQQ;
+                    statsTotal.quiz_score_mini += clQuestion.scoreMiniQQ;
+                }else{
+                    clQuestion.questionNumber = 0;
+                }
+ 
+
+                quizard.push(clQuestion);
+                slideNumber++;
                 
 
             }
@@ -403,13 +400,14 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
  * ************************************************************************/
   function getHtmlSlide (clQuestion){
 //  alert(clQuestion.typeName);
-    var questionNumber = clQuestion.question.questionNumber;
     var slideNumber = clQuestion.slideNumber;
         
  //alert(`getHtmlSlide - maxiQQ = ${clQuestion.scoreMaxiQQ}\n${clQuestion.question.question}\n${statsTotal.quiz_score_maxi}`)  ;    
        //quiz.questPosComment1 = 2; 
        var comment1 = '';  
        var comment2 = '';  
+       var expQuestionNumber = '';
+       //----------------------------------------------------
        if (!quiz.questPosComment1) {quiz.questPosComment1 = 1;}
        if (!clQuestion.question.posComment1) {clQuestion.question.posComment1 = 0;}
        var posComment1 = (clQuestion.question.posComment1 == 0 ) ? quiz.questPosComment1 : clQuestion.question.posComment1;
@@ -452,7 +450,11 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
        //alert(question) ;
          
          
-       var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${slideNumber}/${statsTotal.quiz_questions}${quiz_messages.twoPoints}${question}${comment1}</div>`;
+       if(clQuestion.questionNumber > 0){
+            var expQuestionNumber = `${clQuestion.questionNumber}/${statsTotal.quiz_questions}${quiz_messages.twoPoints}`;
+        }
+        var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${expQuestionNumber}${question}${comment1}</div>`;
+
 
         // add this question and its answers to the output    
        var output = [];
@@ -465,19 +467,10 @@ var slideNumber = 0;        //n° du slide y compris les pageBegin, pageEnd et p
             var htmlSlide = clQuestion.buildSlide();
         } 
         
-//         if (clQuestion.question.hasZoom){
-//             if(clQuestion.question.zoom > 0){
-//                 var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 1, false);
-//             }else{
-//                 var htmlSlide = clQuestion.buildSlide();
-//             }
-//         }else{
-//             var htmlSlide = clQuestion.buildSlide();
-//         } 
 //alert(`hasZoom = ${clQuestion.question.hasZoom}`);
         
         output.push(
-          `<div id="slide[${questionNumber}]" name="slide${questionNumber}"  class="${classCSS}" >
+          `<div id="slide[${slideNumber}]" name="slide${slideNumber}"  class="${classCSS}" >
             <div class="quiz_plugin_question_main ${quiz_css.question}" >
                 <div class="quiz_plugin_question">${title}</div>
                 
@@ -1284,6 +1277,20 @@ function event_show_popup_result(currentSlide) {
 /* ***********************************************
 *
 * */
+function getArrayIndex(firstValue, lastValue, bShuffle = true){
+    var tIndex = [];
+    //alert("getArrayIndex : " + firstValue + " / " + lastValue);
+    for(var h = firstValue; h <=lastValue; h++){
+        tIndex.push(h);
+    }
+    if(bShuffle){
+        tIndex =  shuffleArray(tIndex);
+    }
+    return tIndex;
+}
+/* ***********************************************
+*
+* */
 function shuffleMyquiz () {
     //rechercher des groupes
     var i = 0;
@@ -1305,17 +1312,20 @@ function shuffleMyquiz () {
             j = h;
         }
     }
-    console.log("++++++++++++++++++++++++++++++++++++++++++++");
+    //console.log("++++++++++++++++++++++++++++++++++++++++++++");
     //---------------------------------------------------------------
     if(allGroups.length == 0){
-        // il n'y a pas de groupe
-        var newQuestions = myQuestions.slice(1,myQuestions.length-1);
-        newQuestions = shuffleArray(newQuestions);
-
-        newQuestions.unshift(myQuestions[0]);    
-        newQuestions.push(myQuestions[myQuestions.length-1]);    
-
-    }{
+        var newQuestions = [];
+        var tIndex = getArrayIndex(1, myQuestions.length-2);
+        newQuestions.push(myQuestions[0]);
+        
+        for(var h = 0; h < tIndex.length; h++){
+            var index = tIndex[h];
+            newQuestions.push(myQuestions[index]);
+        }
+        newQuestions.push(myQuestions[myQuestions.length-1]);
+        
+    }else{
             //un ou plusieurs groupes
         var nbq = 0;
         allGroups = shuffleArray(allGroups);    

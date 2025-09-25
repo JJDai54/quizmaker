@@ -95,7 +95,7 @@ _quiz-org
 				css\infobulle\exemple-01.html
 				css\infobulle\index.html
 				css\infobulle\infobulle.css
-			+progressbarr
+			-progressbarr
 				css\progressbarr\index.html
 				css\progressbarr\shaded-blue.png
 				css\progressbarr\shaded-green.png
@@ -148,7 +148,10 @@ _quiz-org
 			images\moins.png
 			images\next.png
 			images\plus.png
-		-js
+			images\zoom_moins_01.png
+			images\zoom_next_01.png
+			images\zoom_plus_01.png
+		+js
 			js\fnc_array.js
 			js\fnc_htmlObjects.js
 			js\fnc_progressBar.js
@@ -219,7 +222,7 @@ _quiz-org
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
 				plugins\multiQuestions\multiQuestions.js
-			-pageBegin
+			+pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
@@ -231,7 +234,7 @@ _quiz-org
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.css
 				plugins\pageGroup\pageGroup.js
-			-pageInfo
+			+pageInfo
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
@@ -280,7 +283,6 @@ _quiz-org
 						plugins\selectImages\img\coches\coche-06.png
 						plugins\selectImages\img\coches\coche-07.png
 						plugins\selectImages\img\coches\coche-08.png
-						plugins\selectImages\img\coches\coche-09.jpg
 						plugins\selectImages\img\coches\coche-10.png
 						plugins\selectImages\img\coches\coche-11.png
 						plugins\selectImages\img\coches\coche-12.png
@@ -288,11 +290,83 @@ _quiz-org
 						plugins\selectImages\img\coches\coche-14.png
 						plugins\selectImages\img\coches\coche-15.png
 						plugins\selectImages\img\coches\coche-16.png
+						plugins\selectImages\img\coches\radio-01.png
+						plugins\selectImages\img\coches\radio-02.png
+						plugins\selectImages\img\coches\radio-03.png
+						plugins\selectImages\img\coches\radio-04.png
+						plugins\selectImages\img\coches\radio-05.png
+						plugins\selectImages\img\coches\radio-06.png
+						plugins\selectImages\img\coches\radio-07.png
+						plugins\selectImages\img\coches\radio-08.png
+						plugins\selectImages\img\coches\radio-09.png
+						plugins\selectImages\img\coches\radio-10.png
+						plugins\selectImages\img\coches\radio-11.png
 					plugins\selectImages\img\index.html
 				plugins\selectImages\index.html
+				plugins\selectImages\selectCoches.css
+				plugins\selectImages\selectCoches.js
 				plugins\selectImages\selectImages.css
 				plugins\selectImages\selectImages.js
 			-selectInputs
+				-img
+					-buttons
+						plugins\selectInputs\img\buttons\Button_Icon_Black.png
+						plugins\selectInputs\img\buttons\Button_Icon_Blue.png
+						plugins\selectInputs\img\buttons\Button_Icon_BlueSky.png
+						plugins\selectInputs\img\buttons\Button_Icon_Brown.png
+						plugins\selectInputs\img\buttons\Button_Icon_Cyan.png
+						plugins\selectInputs\img\buttons\Button_Icon_Fuchsia.png
+						plugins\selectInputs\img\buttons\Button_Icon_Lime.png
+						plugins\selectInputs\img\buttons\Button_Icon_Orange.png
+						plugins\selectInputs\img\buttons\Button_Icon_Pink.png
+						plugins\selectInputs\img\buttons\Button_Icon_Red.png
+						plugins\selectInputs\img\buttons\Button_Icon_Turquoise.png
+						plugins\selectInputs\img\buttons\Button_Icon_Violet.png
+						plugins\selectInputs\img\buttons\Button_Icon_Yellow.png
+						plugins\selectInputs\img\buttons\Button_to_push_green.png
+						plugins\selectInputs\img\buttons\Button_to_push_red.png
+						plugins\selectInputs\img\buttons\index.html
+						plugins\selectInputs\img\buttons\-no_icon.png
+						plugins\selectInputs\img\buttons\pingouin-bleu.png
+						plugins\selectInputs\img\buttons\pingouin-gris.png
+						plugins\selectInputs\img\buttons\pingouin-marron.png
+						plugins\selectInputs\img\buttons\pingouin-or.png
+						plugins\selectInputs\img\buttons\pingouin-rose.png
+						plugins\selectInputs\img\buttons\pingouin-rouge.png
+						plugins\selectInputs\img\buttons\pingouin-vert.png
+						plugins\selectInputs\img\buttons\pingouin-vertdegris.png
+						plugins\selectInputs\img\buttons\pingouin-violet.png
+					-coches0
+						plugins\selectInputs\img\coches0\coche-02.png
+						plugins\selectInputs\img\coches0\coche-04.png
+						plugins\selectInputs\img\coches0\coche-08.png
+						plugins\selectInputs\img\coches0\coche-10.png
+						plugins\selectInputs\img\coches0\coche-11.png
+						plugins\selectInputs\img\coches0\coche-12.png
+						plugins\selectInputs\img\coches0\coche-13.png
+						plugins\selectInputs\img\coches0\coche-15.png
+						plugins\selectInputs\img\coches0\coche-16.png
+						plugins\selectInputs\img\coches0\-no_icon.png
+						plugins\selectInputs\img\coches0\smiley-054.png
+						plugins\selectInputs\img\coches0\smiley-064.png
+					-coches1
+						plugins\selectInputs\img\coches1\Button_Icon_Green.png
+						plugins\selectInputs\img\coches1\Button_Icon_GreenBlue.png
+						plugins\selectInputs\img\coches1\Button_Icon_GreenForest.png
+						plugins\selectInputs\img\coches1\coche-01.png
+						plugins\selectInputs\img\coches1\coche-03.png
+						plugins\selectInputs\img\coches1\coche-05.png
+						plugins\selectInputs\img\coches1\coche-06.png
+						plugins\selectInputs\img\coches1\coche-07.png
+						plugins\selectInputs\img\coches1\coche-09.jpg
+						plugins\selectInputs\img\coches1\coche-10.png
+						plugins\selectInputs\img\coches1\coche-11.png
+						plugins\selectInputs\img\coches1\coche-13.png
+						plugins\selectInputs\img\coches1\coche-14.png
+						plugins\selectInputs\img\coches1\coche-15.png
+						plugins\selectInputs\img\coches1\coche-16.png
+						plugins\selectInputs\img\coches1\-no_icon.png
+					plugins\selectInputs\img\index.html
 				plugins\selectInputs\index.html
 				plugins\selectInputs\selectInputs.css
 				plugins\selectInputs\selectInputs.js
@@ -400,7 +474,7 @@ _quiz-org
 				plugins\sortItems\index.html
 				plugins\sortItems\sortItems.css
 				plugins\sortItems\sortItems.js
-			+textareaMixte
+			-textareaMixte
 				plugins\textareaMixte\index.html
 				plugins\textareaMixte\textareaMixte.css
 				plugins\textareaMixte\textareaMixte.js
@@ -415,46 +489,34 @@ _quiz-org
 		_quiz-org.ppr
 		index.html
 [Open project files]
-0=plugins\matchItems\matchItems.js
-1=_plugin-JS-Modele\PluginName.js
+0=js\quiz_main.js
+1=js\quiz_functions.js
 2=js\plugin_prototype.js
-3=plugins\textareaMixte\textareaMixte.js
-4=plugins\sortItems\sortItems.js
-5=plugins\ulDaDGroups\ulDaDGroups.js
-6=plugins\imagesLogical\imagesLogical.js
-7=plugins\imagesDaDGroups\imagesDaDGroups.js
-8=plugins\matchItems\matchItems.css
-9=plugins\textareaMixte\textareaMixte.css
+3=plugins\pageInfo\pageInfo.js
+4=plugins\pageBegin\pageBegin.js
+5=plugins\radioMultiple\radioMultiple.js
+6=plugins\matchItems\matchItems.js
 [Selected Project Files]
 Main=
-Selected=plugins\textareaMixte\textareaMixte.css
-[plugins\matchItems\matchItems.js]
-TopLine=1
-Caret=22,23
-[_plugin-JS-Modele\PluginName.js]
-TopLine=34
-Caret=1,55
-[js\plugin_prototype.js]
-TopLine=405
-Caret=1,422
-[plugins\textareaMixte\textareaMixte.js]
+Selected=plugins\matchItems\matchItems.js
+[js\quiz_main.js]
+TopLine=360
+Caret=31,380
+[js\quiz_functions.js]
 TopLine=150
-Caret=60,162
-[plugins\sortItems\sortItems.js]
-TopLine=490
-Caret=22,516
-[plugins\ulDaDGroups\ulDaDGroups.js]
-TopLine=172
-Caret=1,193
-[plugins\imagesLogical\imagesLogical.js]
-TopLine=136
-Caret=1,157
-[plugins\imagesDaDGroups\imagesDaDGroups.js]
-TopLine=128
-Caret=30,148
-[plugins\matchItems\matchItems.css]
+Caret=1,170
+[js\plugin_prototype.js]
 TopLine=1
-Caret=1,20
-[plugins\textareaMixte\textareaMixte.css]
+Caret=42,29
+[plugins\pageInfo\pageInfo.js]
 TopLine=1
-Caret=1,17
+Caret=1,1
+[plugins\pageBegin\pageBegin.js]
+TopLine=1
+Caret=1,1
+[plugins\radioMultiple\radioMultiple.js]
+TopLine=190
+Caret=20,211
+[plugins\matchItems\matchItems.js]
+TopLine=19
+Caret=1,46

@@ -43,6 +43,9 @@ define('_LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX', "Combobox");
 
 define('_LG_PLUGIN_SORTITEMS_CLASSE_LISTUL', "Bulleted list");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD', "Images");
+define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_FH', "Images fixed height");
+define('_LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_WH', "Images fixed width");
+
 
 define('_LG_PLUGIN_SORTITEMS_CLASSE_SELECT', "Select a class, validate and reload the form");
 define('_LG_PLUGIN_SORTITEMS_CLASSE_DESC', "The principle is the same regardless of the structure; it involves sorting a list that comes in different forms:"
@@ -59,6 +62,7 @@ define('_LG_PLUGIN_SORTITEMS_DIRECTIVE_DESC', "Action to perform displayed on th
 define('_LG_PLUGIN_SORTITEMS_DIRECTIVE_LIB', "Click on the images and drag them to order them.");
 define('_LG_PLUGIN_SORTITEMS_IMG1_HEIGHT', "Height of the images to move");
 define('_LG_PLUGIN_SORTITEMS_IMG2_HEIGHT', "Height of the reference images");
+define('_LG_PLUGIN_SORTITEMS_IMG1_WIDTH', "Width of images");
 
 define('_LG_PLUGIN_SORTITEMS_FLIP', "Swaps the images");
 define('_LG_PLUGIN_SORTITEMS_INSERT', "Inserts and shifts images without a square");

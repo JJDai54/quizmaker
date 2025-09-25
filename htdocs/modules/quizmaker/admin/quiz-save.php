@@ -35,11 +35,14 @@ use XoopsModules\Quizmaker\Utility;
 		if ($quizId > 0) {
             $clPerms->checkAndRedirect('edit_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 			$quizObj = $quizHandler->get($quizId);
+            $newQuiz = true;
 		} else {
             $clPerms->checkAndRedirect('create_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}");
 			$quizObj = $quizHandler->create();
     		$quizObj->setVar('quiz_creation', \JANUS\getSqlDate());
+            $newQuiz = false;
 		}
+
 		$quizObj->setVar('quiz_update', \JANUS\getSqlDate());
 		// Set Vars
 		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
@@ -55,6 +58,7 @@ use XoopsModules\Quizmaker\Utility;
             $newFolder = $quizHandler->getFolderJSValid($newFolder);
 		    $quizObj->setVar('quiz_folderJS',  $newFolder);
         }
+        $newFolder = $oldFolder;
         
 		$quizObj->setVar('quiz_description', Request::getText('quiz_description', ''));
 		$quizObj->setVar('quiz_weight', Request::getInt('quiz_weight', 0));
@@ -90,12 +94,30 @@ use XoopsModules\Quizmaker\Utility;
 
 		$quizObj->setVar('quiz_delai_cookie',      Request::getInt('quiz_delai_cookie', 0));
 		$quizObj->setVar('quiz_max_flying',        Request::getInt('quiz_max_flying', 0));
+// 		$quizObj->setVar('quiz_image',             Request::getInt('quiz_image', ''));
+// 		$quizObj->setVar('quiz_background',        Request::getInt('quiz_background', ''));
 
 
-             
-$quizObj->setVar('quiz_background',        Request::getString('quiz_background', ''));
-        //------------------------------------------------------------
          $path =  QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$newFolder}/images"; 
+             
+        //-----------------------------------------------------
+        //recupe de l'image
+        $delImage = Request::getInt('del_quiz_image', 0);
+        if($delImage == 1){ //    || $questImage
+            $fullName = $path . '/' . $quizObj->getVar('quiz_image');
+            unlink($fullName);
+            $quizObj->setVar('quiz_image', '');
+//            echoArray('gp');exit;             
+
+        }
+        
+        //recupe du background
+        $quizImage = $pluginsHandler->save_img($ans, 'quiz_image', $path, 'quiz-', $nameOrg);
+        //enregistrement d'image
+        if ($quizImage != '') $quizObj->setVar('quiz_image', $quizImage);
+//      echo "<hr>image : {$quizImage}<br>===>". 	$quizObj->getVar('quiz_image') ."<hr>"; exit;
+        //------------------------------------------------------------
+//$quizObj->setVar('quiz_background',        Request::getString('quiz_background', ''));
          
         $delBackground = Request::getInt('del_quiz_background', 0);
         if($delBackground == 1){ //    || $questImage
@@ -112,20 +134,21 @@ $quizObj->setVar('quiz_background',        Request::getString('quiz_background',
         //recupe du background
         $quizBackground = $pluginsHandler->save_img($ans, 'quiz_background', $path, 'quiz-', $nameOrg);
         //enregistrement de background
-        if ($quizBackground) $quizObj->setVar('quiz_background', $quizBackground);
+        if ($quizBackground != '') $quizObj->setVar('quiz_background', $quizBackground);
         //------------------------------------------------------------
 //exit($quizBackground);
         
 //echoGPF();exit;
 		// Insert Data
 		if ($quizHandler->insert($quizObj)) {
+
     		if ($quizId == 0) {
-			 $quizId = $quizObj->getNewInsertedIdQuiz();
              $newQuiz = true;
             }else{$newQuiz = false;}
             
 		// Set Vars
         if($newQuiz){
+			 $quizId = $quizObj->getNewInsertedIdQuiz();
              
              //------------------------------------------------------------------
              //ajout automatique des pages d'info et de résultat

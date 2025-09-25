@@ -79,15 +79,17 @@ function shuffleArrayKeys(arrKeys)
 function shuffleNewArray (arraySource) {
   newArray = duplicateArray(arraySource);
 
-  var currentIndex = newArray.length, temporaryValue, randomIndex;
+  var currentIndex = newArray.length;
+  var temporaryValue, randomIndex;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
 
     // Pick a remaining element...
     //randomIndex = Math.floor(Math.random() * currentIndex);
-    randomIndex = getRandom(currentIndex);
+    //randomIndex = getRandom(currentIndex-1); //correction JJDai
     currentIndex -= 1;
+    randomIndex = getRandom(currentIndex); //correction JJDai faire le random apres la   dcrementation
 
     // And swap it with the current element.
     temporaryValue = newArray[currentIndex];

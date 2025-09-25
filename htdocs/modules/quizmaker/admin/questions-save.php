@@ -139,6 +139,11 @@ echoArray($_POST,'_POST',false);
         
         //enregistrement de l'image
         if ($questImage) $questionsObj->setVar('quest_image', $questImage);
+        
+        //au cas ou le fichier n'existerait plus
+        $fullName = $pathImg . '/' . $questionsObj->getVar('quest_image');
+        if(!file_exists($fullName)) $questionsObj->setVar('quest_image', '');
+        
         //------------------------------------------------------------
         $delBackground = Request::getInt('del_quest_background', 0);
         if($delBackground == 1){ //    || $questImage
@@ -157,6 +162,7 @@ echoArray($_POST,'_POST',false);
 		if ($questionsHandler->insert($questionsObj)) {
             $questId = $questionsObj->getVar('quest_id');
 
+		    // *************** Insert propositions / answers ********************* 
             $clsPlugin->saveAnswers(Request::getArray('answers', []), $questId, $quizId);
         
        

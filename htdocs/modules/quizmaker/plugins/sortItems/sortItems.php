@@ -50,6 +50,7 @@ var $noClass = "00-none";
                                   'liBgHover'   => '#00FF00',
                                   'imgHeight1'  => 64, 
                                   'imgHeight2'  => 64, 
+                                  'imgWidth1'   => 64, 
                                   'moveMode'    => 1, 
                                   'showCaptions'=> 'B',
                                   'directive'   => _CO_QUIZMAKER_NEW];
@@ -88,7 +89,9 @@ var $noClass = "00-none";
       $inpClasse->addOption('01-listbox', _LG_PLUGIN_SORTITEMS_CLASSE_LISTBOX);
       $inpClasse->addOption('02-combobox', _LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX);
       $inpClasse->addOption('03-listeapuces', _LG_PLUGIN_SORTITEMS_CLASSE_LISTUL);
-      $inpClasse->addOption('04-imagesdad', _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD);
+      $inpClasse->addOption('04-imagesdadFixedHeight', _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_FH);
+      $inpClasse->addOption('05-imagesdadFixedWidth', _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_WH);
+
       $inpClasse->setDescription(_LG_PLUGIN_SORTITEMS_CLASSE_DESC);
       // change la couleur de fond selon que la classe a été selectionnée ou pas
       if($tValues['classe'] == $this->noClass){ 
@@ -136,19 +139,27 @@ var $noClass = "00-none";
             $trayOptions->addElementOption($inpLiBgHover);     
             break;
             
-        case '04-imagesdad' : 
+        case '04-imagesdadFixedHeight' : 
+        case '05-imagesdadFixedWidth' : 
             /* *********************************************************** */  
             $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_SORTITEMS_OPTIONS_DADIMAGE . "</div>");  
-
-            $name = 'imgHeight1';  
-            $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG1_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
-            $trayOptions ->addElementOption($inpHeight1);     
             
-            $name = 'imgHeight2';  
-            $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG2_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpHeight2->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
-            $trayOptions ->addElementOption($inpHeight2);     
+            if($tValues['classe'] == '04-imagesdadFixedHeight'){
+                $name = 'imgHeight1';  
+                $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG1_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+                $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+                $trayOptions ->addElementOption($inpHeight1);     
+                
+                $name = 'imgHeight2';  
+                $inpHeight2 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG2_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+                $inpHeight2->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+                $trayOptions ->addElementOption($inpHeight2);     
+            }else{ // '05-imagesdadFixedWidth'
+                $name = 'imgWidth1';  
+                $inpWidth1 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG1_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+                $inpWidth1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
+                $trayOptions ->addElementOption($inpWidth1);     
+            }
             
             $name = 'showCaptions';  
             $inputShowCaption = new \XoopsFormRadio(_AM_QUIZMAKER_SHOW_CAPTIONS, "{$optionName}[{$name}]", $tValues[$name], ' ');
@@ -244,7 +255,8 @@ var $noClass = "00-none";
             $trayOptions->addElementHidden($hiddenArr['directive']);     
             break;
             
-        case '04-imagesdad' : 
+        case '04-imagesdadFixedHeight' : 
+        case '05-imagesdadFixedWidth' : 
             /* *********************************************************** */  
             $trayOptions->addElementHidden($hiddenArr['btnColor']);     
             $trayOptions->addElementHidden($hiddenArr['btnHeight']);     
@@ -279,9 +291,8 @@ var $noClass = "00-none";
         $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
         if (!$options['classe'] || $options['classe'] == $this->noClass) return null;
         //echo "===> " . $options['classe'] . "<hr>";exit;
-        $isImage = ($options['classe'] == '04-imagesdad');
+        $isImage = ($options['classe'] == '04-imagesdadFixedHeight' || $options['classe'] == '05-imagesdadFixedWidth');
         
-
         //-------------------------------------------------
         //element definissat un objet ou un ensemble
         $weight = 0;

@@ -78,6 +78,7 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_quiz.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_questions.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
+	['file' => 'quizmaker_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_plugins.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_answers.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_results.tpl', 'description' => '', 'type' => 'admin'],
@@ -147,12 +148,16 @@ $modversion['comments']['callback'] = [
 $currdirname  = isset($GLOBALS['xoopsModule']) && is_object($GLOBALS['xoopsModule']) ? $GLOBALS['xoopsModule']->getVar('dirname') : 'system';
 if ($currdirname == $moduleDirName) {
 	$modversion['sub'][] = [
-		'name' => _MI_QUIZMAKER_SMNAME1,
-		'url'  => 'index.php',
+		'name' => _MI_QUIZMAKER_MENU_CATEGORIES,
+		'url'  => 'categories.php',
+	];
+	$modversion['sub'][] = [
+		'name' => _MI_QUIZMAKER_MENU_QUIZ,
+		'url'  => 'quiz.php',
 	];
 	// Sub quiz
 	$modversion['sub'][] = [
-		'name' => _MI_QUIZMAKER_SMNAME14,
+		'name' => _MI_QUIZMAKER_MENU_RESULTS,
 		'url'  => 'results.php',
 	];
 }

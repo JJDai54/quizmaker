@@ -135,18 +135,34 @@ global $utility, $xoopsConfig, $messagesHandler;
     $allPluginsCSS = array();
     $allPluginsJS = array();
     $allPlugins = array();
-    $allFolders = \JANUS\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, true);        
+    $allFolders = \JANUS\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, true);
+            
     foreach  ($allFolders as $fld=>$pluginPath){
         $allPlugins[] = $fld;
         $files2include = \JANUS\FSO\getFilePrefixedBy($pluginPath, array('css','js'), '', false, false,false);
+    //echoArray($files2include,$pluginPath . '==>' . $fld);
+    
+    //ajout de la classe et du CSS principale 
+    //pour permettre l'héritage dans certains plugins en les déclarant avant
+    $allPluginsJS[]  = $fld . '/' . $fld . '.js';
+    //pas besoin de le faire pour le CSS principal
+    //$allPluginsCSS[] = $fld . '/' . $fld . '.css';
+    
         foreach($files2include as $key=>$f){
+            //if($key == "{$fld}.js") continue;
+            $fullName = $fld . '/' . $f;
+            
             if (substr($f,-3) == 'css'){
-                $allPluginsCSS[] = $fld . '/' . $f;
+                $allPluginsCSS[] = $fullName;
             }else if(substr($f,-2) == 'js'){
-                $allPluginsJS[] = $fld . '/' . $f;
+                //la classe principale a déjà été ajoutée
+                if(in_array($fullName, $allPluginsJS)) continue;
+                $allPluginsJS[] = $fullName;
             }
         }
     }
+   // echoArray($allPluginsJS,'allPluginsJS');
+   // exit;
 // echoArray($allFolders,'$allFolders');        
 // echoArray($allPluginsJS,'$allPluginsJS');        
 // echoArray($allPluginsCSS,'$allPluginsCSS');        
@@ -282,7 +298,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
     $criteria->setsort("quest_weight");
     $criteria->setOrder("ASC");
     $questions = $questionsHandler->getObjects($criteria);
-//    echoArray($questions,'',true);
+//    echoArray($questions, count($questions),true);
     foreach (array_keys($questions) as $i) {
         $values=$questions[$i]->getValuesQuestions();
         $clPlugin = $pluginsHandler->getPlugin($values['plugin']);
@@ -382,7 +398,7 @@ global $quizHandler, $questionsHandler, $answersHandler;
     foreach (array_keys($answers) as $i) {
         $values = $answers[$i]->getValuesAnswers();
         $tVals = array();
-        if(!$values['proposition']) continue;
+        if(!$values['proposition'] && !$values['image1'] && !$values['image2']) continue;
         $tVals['answerId']      = $values['answer_id'];
         $tVals['proposition']   = self::sanitise($values['proposition']);
         //$tVals['reponse']       = 0;//$values[''];

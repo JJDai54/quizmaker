@@ -52,6 +52,7 @@ const maxPropositions = 1;
                                   'disposition'     => 'disposition-01',
                                   'fontsize'        => 3,
                                   'lineheight'      => 3,
+                                  'textWidth'       => 50,
                                   'tokenColor'      => '#FF0000',
                                   'wordColor'       => '#008000'];
 
@@ -110,7 +111,7 @@ const maxPropositions = 1;
       $trayOptions->addElementOption($inpWordColor);   
         
       $name = 'fontsize';  
-      $inpFontSize = new XoopsFormSelect(_LG_PLUGIN_TEXTAREAMIXTE_FONT_SIZE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpFontSize = new XoopsFormSelect(_AM_QUIZMAGER_PLUGIN_FONT_SIZE, "{$optionName}[{$name}]", $tValues[$name]);
       for($h=0; $h<15;$h++){
         $inpFontSize->addOption($h, ($h+10)*0.1);
       }
@@ -122,6 +123,12 @@ const maxPropositions = 1;
         $inpLineHeight->addOption($h, ($h+10)*0.1);
       }
       $trayOptions->addElementOption($inpLineHeight);     
+
+      $name = 'textWidth';  
+      $inpTextWidth = new \XoopsFormNumber(_LG_PLUGIN_TEXTAREAMIXTE_TEXT_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpTextWidth->setMinMax(30, 70, _AM_QUIZMAKER_UNIT_PERCENT);
+      $inpTextWidth->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TIMER));
+      $trayOptions->addElementOption($inpTextWidth);     
 
       $name = 'scoreByGoodWord';  
       $inpScoreByGoodWord = new \XoopsFormNumber(_LG_PLUGIN_TEXTAREAMIXTE_SCORE_BY_WORD,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);

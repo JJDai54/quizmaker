@@ -23,222 +23,146 @@
 use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
+use XoopsModules\Quizmaker\Utlity;
 
 require __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'quizmaker_quiz.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
+//-----------------------------------------------------------
+//recherche des categories autorisées
+$clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+$criteriaCatAllowed->add(new \criteria('cat_actif',1,'='));
+
+$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
+$catId  = Request::getInt('cat_id', array_key_first($catArr));
+$playerId  = Request::getInt('player_id', 2);
+
+//echoArray($catArr);
+// $pg = array_merge($_GET, $_POST);
+// echo "<hr>GET/POST : <pre>" . print_r($pg, true) . "</pre><hr>";
 
 $op    = Request::getCmd('op', 'list');
 $start = Request::getInt('start', 0);
-$limit = Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
-$quizId = Request::getInt('quiz_id', 0);
+$limit = 0;//Request::getInt('limit', $quizmakerHelper->getConfig('userpager'));
 
 // Define Stylesheet
-$GLOBALS['xoTheme']->addStylesheet( $style, null );
+\JANUS\load_css('', false);
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
+$GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
+$GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
+$GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
+$GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
+
 $keywords = [];
+//----------------------------------------------------
+$utility = new \XoopsModules\Quizmaker\Utility();
+//echoArray("gp");
+//----------------------------------------------------
+        $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
+        // ----- Listes de selection pour filtrage -----  
+        $selector = array();
+        $style="style='width:80%;'";
 
-//$permEdit = getPermissionsOld(8, 'global_ac')
-$GLOBALS['xoopsTpl']->assign('permEdit', $permEdit);
-$GLOBALS['xoopsTpl']->assign('showItem', $quizId > 0);
-
-///--------------------------------------------
-recherche de cat_id pour gerer les permissions
-if ($quizId > 0) {
-  $quizObj = $quizHandler->get($quizId);
-  $quizCat_id = $quizObj->getVar('quiz_cat_id');
-
-}else{
-  $quizObj = null;
-  $quizCat_id = 0;
-}
-//---------------------------------------------
-
-
- 	
-switch($op) {
-	case 'show':
-	case 'list':
-	default:
-		$crQuiz = new \CriteriaCompo();
-		if ($quizId > 0) {
-			$crQuiz->add( new \Criteria( 'quiz_id', $quizId ) );
-		}
-		$quizCount = $quizHandler->getCount($crQuiz);
-		$GLOBALS['xoopsTpl']->assign('quizCount', $quizCount);
-		$crQuiz->setStart( $start );
-		$crQuiz->setLimit( $limit );
-		$quizAll = $quizHandler->getAll($crQuiz);
-		if ($quizCount > 0) {
-			$quiz = [];
-			// Get All Quiz
-			foreach(array_keys($quizAll) as $i) {
-				$quiz[$i] = $quizAll[$i]->getValuesQuiz();
-				$keywords[$i] = $quizAll[$i]->getVar('quiz_cat_id');
-			}
-			$GLOBALS['xoopsTpl']->assign('quiz', $quiz);
-			unset($quiz);
-			// Display Navigation
-			if ($quizCount > $limit) {
-				include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-				$pagenav = new \XoopsPageNav($quizCount, $limit, $start, 'start', 'op=list&limit=' . $limit);
-				$GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
-			}
-			$GLOBALS['xoopsTpl']->assign('type', $quizmakerHelper->getConfig('table_type'));
-			$GLOBALS['xoopsTpl']->assign('divideby', $quizmakerHelper->getConfig('divideby'));
-			$GLOBALS['xoopsTpl']->assign('numb_col', $quizmakerHelper->getConfig('numb_col'));
-		}
-	break;
-	case 'save':
-		// Security Check
-		if (!$GLOBALS['xoopsSecurity']->check()) {
-			redirect_header('quiz.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
-		}
-		// Check permissions
-		if (!$clPerms->getPermissionsOld(8,'global_ac')) {
-			redirect_header('quiz.php?op=list', 3, _NOPERM);
-		}
-		if ($quizId > 0) {
-			$quizObj = $quizHandler->get($quizId);
-		} else {
-			$quizObj = $quizHandler->create();
-		}
-		$quizObj->setVar('quiz_cat_id', Request::getInt('quiz_cat_id', 0));
-		$quizObj->setVar('quiz_name', Request::getString('quiz_name', ''));
-		$quizObj->setVar('quiz_author', Request::getString('quiz_author', ''));
-		$quizObj->setVar('quiz_folderJS', Request::getString('quiz_folderJS', ''));
-		$quizObj->setVar('quiz_description', Request::getText('quiz_description', ''));
-		$quizObj->setVar('quiz_weight', Request::getInt('quiz_weight', 0));
-		$QuizCreationArr = Request::getArray('quiz_creation');
-		$QuizCreation = strtotime($QuizCreationArr['date']) + (int)$QuizCreationArr['time'];
-		$quizObj->setVar('quiz_creation', $QuizCreation);
-		$QuizUpdateArr = Request::getArray('quiz_update');
-		$QuizUpdate = strtotime($QuizUpdateArr['date']) + (int)$QuizUpdateArr['time'];
-		$quizObj->setVar('quiz_update', $QuizUpdate);
-		$QuizDateBeginArr = Request::getArray('quiz_dateBegin');
-		$QuizDateBegin = strtotime($QuizDateBeginArr['date']) + (int)$QuizDateBeginArr['time'];
-		$quizObj->setVar('quiz_dateBegin', $QuizDateBegin);
-		$QuizDateEndArr = Request::getArray('quiz_dateEnd');
-		$QuizDateEnd = strtotime($QuizDateEndArr['date']) + (int)$QuizDateEndArr['time'];
-		$quizObj->setVar('quiz_dateEnd', $QuizDateEnd);
-		$quizObj->setVar('quiz_publishQuiz', Request::getInt('quiz_publishQuiz', 0));
-		$quizObj->setVar('quiz_publishResults', Request::getInt('quiz_publishResults', 0));
-		$quizObj->setVar('quiz_publishAnswers', Request::getInt('quiz_publishAnswers', 0));
-		$quizObj->setVar('quiz_theme', Request::getString('quiz_theme', 'default'));
-        $quizObj->setVar('quiz_background', Request::getString('quiz_background', 'default'));
-		$quizObj->setVar('quiz_libBegin', Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
-		$quizObj->setVar('quiz_libEnd', Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
-		$quizObj->setVar('quiz_questPosComment1', Request::getInt('quiz_questPosComment1', 1));
-		$quizObj->setVar('quiz_legend', Request::getText('quiz_legend', ''));
-		$quizObj->setVar('quiz_dateBeginOk', Request::getInt('quiz_dateBeginOk', 0));
-		$quizObj->setVar('quiz_dateEndOk', Request::getInt('quiz_dateEndOk', 0));
-		$quizObj->setVar('quiz_build', Request::getInt('quiz_build', 0));
-		$quizObj->setVar('quiz_optionsIhm', Request::getInt('quiz_optionsIhm', 0));
-		$quizObj->setVar('quiz_optionsDev', Request::getInt('quiz_optionsDev', 0));
-		$quizObj->setVar('quiz_actif', Request::getInt('quiz_actif', 1));
-		$quizObj->setVar('quiz_delai_cookie', Request::getInt('quiz_actif', 3600));
-		$quizObj->setVar('quiz_max_flying', Request::getInt('quiz_actif', 1));
-		$quizObj->setVar('quiz_showConsigne', Request::getInt('quiz_showConsigne', 0));
-		$quizObj->setVar('quiz_showTimer', Request::getInt('quiz_showTimer', 0));
+        $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+        $inpCategory->addOptionArray($catArr);
+        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="width:50%;"');
+  	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
+        $selector['inpCategory'] = $inpCategory->render();
         
-		// Insert Data
-		if ($quizHandler->insert($quizObj)) {
-			$newQuizId = $quizId > 0 ? $quizId : $quizObj->getNewInsertedIdQuiz();
-			// Handle notification
-			$quizCat_id = $quizObj->getVar('quiz_cat_id');
-			$tags = [];
-			$tags['ITEM_NAME'] = $quizCat_id;
-			$tags['ITEM_URL']  = XOOPS_URL . '/modules/quizmaker/quiz.php?op=show&quiz_id=' . $quizId;
-			$notificationHandler = xoops_getHandler('notification');
-			if ($quizId > 0) {
-				// Event modify notification
-				$notificationHandler->triggerEvent('global', 0, 'global_modify', $tags);
-				$notificationHandler->triggerEvent('quiz', $newQuizId, 'Quiz_modify', $tags);
-			} else {
-				// Event new notification
-				$notificationHandler->triggerEvent('global', 0, 'global_new', $tags);
-			}
-			// redirect after insert
-			if ('' !== $uploaderErrors) {
-				redirect_header('quiz.php?op=edit&quiz_id=' . $newQuizId, 5, $uploaderErrors);
-			} else {
-				redirect_header('quiz.php?op=list', 2, _MA_QUIZMAKER_FORM_OK);
-			}
-		}
-		// Get Form Error
-		$GLOBALS['xoopsTpl']->assign('error', $quizObj->getHtmlErrors());
-		$form = $quizObj->getFormQuiz();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-	break;
-	case 'new':
-		// Check permissions
-		if (!$clPerms->getPermissionsOld(8,'global_ac')) {
-			redirect_header('quiz.php?op=list', 3, _NOPERM);
-		}
-		// Form Create
-		$quizObj = $quizHandler->create();
-		$form = $quizObj->getFormQuiz();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-	break;
-	case 'edit':
-		// Check permissions
-		if (!$clPerms->getPermissionsOld(8,'global_ac')) {
-			redirect_header('quiz.php?op=list', 3, _NOPERM);
-		}
-		// Check params
-		if (0 == $quizId) {
-			redirect_header('quiz.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
-		}
-		// Get Form
-		$quizObj = $quizHandler->get($quizId);
-		$form = $quizObj->getFormQuiz();
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());
-	break;
-	case 'delete':
-		// Check permissions
-		if (!$clPerms->getPermissions('delete_quiz', $quizCat_id)) exit;
-			redirect_header('quiz.php?op=list', 5, _NOPERM);
-		// Check params
-		if ($quizId == 0) 
-			redirect_header('quiz.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
-		//---------------------------------------------------
-		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
-			if (!$GLOBALS['xoopsSecurity']->check()) {
-				redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-			}
-			if ($quizHandler->delete($quizObj)) {
-				// Event delete notification
-				$tags = [];
-				$tags['ITEM_NAME'] = $quizCat_id;
-				$notificationHandler = xoops_getHandler('notification');
-				$notificationHandler->triggerEvent('global', 0, 'global_delete', $tags);
-				$notificationHandler->triggerEvent('quiz', $quizId, 'Quiz_delete', $tags);
-				redirect_header('quiz.php', 3, _MA_QUIZMAKER_FORM_DELETE_OK);
-			} else {
-				$GLOBALS['xoopsTpl']->assign('error', $quizObj->getHtmlErrors());
-			}
-		} else {
-			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], sprintf(_MA_QUIZMAKER_FORM_SURE_DELETE, $quizObj->getVar('quiz_cat_id')));
-		}
-	break;
-}
+        
+        if($xoopsUser){
+            //$inpPlayer = new \XoopsFormSelect(_CO_QUIZMAKER_PLAYER_STATUS, 'player_id', $playerId);
+            $inpPlayer = new \XoopsFormRadio(_CO_QUIZMAKER_PLAYER_STATUS, 'player_id', $playerId);
+            $inpPlayer->addOption(0, _CO_QUIZMAKER_PLAYER_ALL);
+            $inpPlayer->addOption(1, _CO_QUIZMAKER_PLAYER_YES);
+            $inpPlayer->addOption(2, _CO_QUIZMAKER_PLAYER_NONE);
+            $inpPlayer->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+      	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
+            
+            $criteria =  new \CriteriaCompo(new \Criteria("result_uid", $xoopsUser->uid(), '='));
+            $quizPlayer = array_flip($resultsHandler->getList($criteria));
+            //echoArray($quizPlayer, "userId : {$xoopsUser->uid()}");
+        }else{
+            $inpPlayer = new \XoopsFormLabel(_CO_QUIZMAKER_PLAYER_STATUS, _CO_QUIZMAKER_PLAYER_ALL);
+        }
+        $selector['inpPlayer'] = $inpPlayer->render();
+        
+        $catObj = $categoriesHandler->get($catId);
+		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => XOOPS_URL . "/modules/quizmaker/categories.php"];        
+$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ . ' : <b>' . $catArr[$catId] . '</b>'];        
+        //-------------------------------------
+        
+//         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
+//         $tQuiz = $quizHandler->getListKeyName($catId,null,null,'view');
+//         $inpQuiz->addOptionArray($tQuiz);
+//         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+//   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
+//         $selector['inpQuiz'] = $inpQuiz->render();
+  	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
+  	    $GLOBALS['xoopsTpl']->assign('player_id', $playerId);
+        // ----- /Listes de selection pour filtrage -----   
 
-// Breadcrumbs
-$xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ];
+  	    //$GLOBALS['xoopsTpl']->assign('isAdmin', $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid()));
+  	    $GLOBALS['xoopsTpl']->assign('isAdmin', $quizmakerHelper->isUserAdmin());
 
-// Keywords
-FQUIZMAKER\metaKeywords($quizmakerHelper->getConfig('keywords').', '. implode(',', $keywords));
-unset($keywords);
+//-----------------------------------------------------------
+    
+    //$catObj = $categoriesHandler->get($catId);
+    $allQuiz = $quizHandler->getAllQuizAllowed($catId);    
+    $quizCount = count($allQuiz);  
+//echoArray($allQuiz, "nbQuiz : {$quizCount}");   
+	if ($quizCount > 0) {
 
-// Description
-FQUIZMAKER\metaDescription(_MA_QUIZMAKER_QUIZ_DESC);
-$GLOBALS['xoopsTpl']->assign('xoops_mpageurl', QUIZMAKER_URL_MODULE.'/quiz.php');
-$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
+		// Get All Categories
+		foreach(array_keys($allQuiz) as $j) {
+            //if (!in_array($j, $quizPerm)) continue;
+            $tQuiz = $allQuiz[$j]->getValuesQuiz();
+            //si $inpPlayer = 1 on ne prenda que si la clé de $quizPlayer 'existe'
+            //si $inpPlayer = 2 on ne prenda que si la clé de $quizPlayer ,'existe pas'
+            //si $inpPlayer = 0 on prenda tout
+           if($playerId == 1){
+                if (!isset($quizPlayer[$tQuiz['id']])) continue;
+           }else if($playerId == 2){
+                if (isset($quizPlayer[$tQuiz['id']])) continue;
+           }
+            
+            
+            
+            //Ajout des statistiques
+            $stat = $quizHandler->getStatistics($j);
+            //echoArray($stat);       
+            
+			//if(	$tQuiz['periodeOK']) $quizArr[$j] = $tQuiz;
+			$quizArr[$j] = $tQuiz;
+            if (isset($stat[$j]) && $stat[$j]['statOk']){
+                $quizArr[$j]['stat'] = $stat[$j];
+                $quizArr[$j]['statOk'] = true;
+            }else{
+                $quizArr[$j]['statOk'] = false;
+            }
+            
+		}
+        $i=0;
+        //mis dans un tableau pour compatibilite quand toutes les categories puvaient etre affichées.
+        //a modifier à l'ocation en assignat le tableau des quiz directement
+        $catObj = $categoriesHandler->get($catId);
+        $categories[$i] = $catObj->getValuesCategoriesLight();
+        $categories[$i]['quiz'] = $quizArr;
+    }
+    
+    //recherche des quiz de la catégorie
+    $GLOBALS['xoopsTpl']->assign('paramsForQuiz', FQUIZMAKER\getParamsForQuiz(1));
+    
+	$GLOBALS['xoopsTpl']->assign('categories', $categories);
+    $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));        
+//echoArray($categories);    
+		unset($categories);
+////////////////////////////////////////////////////////////
 
-// View comments
-require_once XOOPS_ROOT_PATH . '/include/comment_view.php';
-
+        
 require __DIR__ . '/footer.php';

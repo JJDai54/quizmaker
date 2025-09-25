@@ -4,7 +4,17 @@
 Ajout des bloc "Dernier quiz" et "Catégories"
 Correction du plugin "multiQuestions" :
     suppression des doublons dans les listes de propositions quand la bonne réponse est aussi dans les intrus.
-    
+SortItems : remplacement dans de imgDadSoritems     par imgDadSoritemsHeight et imgDadSoritemsWitdh
+            dans le 2eme cas cela permet d'aligner les images verticalement
+Plugin selectImages : creation de deux classe "Image + Coche" et "Texte + Coche"
+
+Javascript : 
+    priorisation du chargement de la classe principale des plugins pour permettre l'héritage dans le cas de plusieur classes pour un même plugin.
+
+ajout des champs cat_image et quiz image
+transfert du code de categories.php dans quiz.php
+refonte de quiz.php avec les image de la categorie et des liens sous forme de boutons
+               
 ---------------------------------------------------
 2025-06-20 v 6.14 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------

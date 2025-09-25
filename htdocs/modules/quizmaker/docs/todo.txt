@@ -1,3 +1,15 @@
+<a class="ui-corner-all tooltip" title="Initialisation du poids" onclick="document.quizmaker_select_filter.op.value='init_weight';document.quizmaker_select_filter.submit();">
+<img src="http://127.0.0.16/modules/quizmaker/assets/icons/16/generer-1.png" title="" alt="">Initialisation du poids</a>
+
+
+
+
+2025-09-19a
+ALTER TABLE `x2511_quizmaker_categories` ADD `cat_image` VARCHAR(255) NOT NULL AFTER `cat_description`; 
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_image` VARCHAR(255) NOT NULL AFTER `quiz_description`; 
+
+------------------------------------------------------------------------------------
+
       $h = strrpos($k, ".");
       $indexKey = substr($k,0 , $h);
 -----------------------------------------------

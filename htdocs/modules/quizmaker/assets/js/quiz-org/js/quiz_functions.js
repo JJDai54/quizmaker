@@ -58,25 +58,31 @@ function getRandomBool() {
 /***********************************
  * 
  * ********************************/
-function getNumAlpha(index, mode=0, offset=0){
+function getNumAlpha(index, mode=0, offset=0, separateur = quiz_messages.twoPoints, extra=''){
 //alert ("mode = " + mode + " - offset = " + offset);
     switch (mode){
     case 1:         // renvoi l'index tel que
-        return (index*1)+1+offset + quiz_messages.twoPoints;
+        var numbering =  (index*1)+1+offset + separateur;
     case 2:         //renvoi la numerotation en lettre majuscule "A B C ..."
-        return String.fromCharCode((index*1)+65+offset) + quiz_messages.twoPoints; 
+        var numbering =  String.fromCharCode((index*1)+65+offset) + separateur; 
         break;
     case 3:         //renvoi la numerotation en lettre minuscule "a b c ..."
-        return String.fromCharCode((index*1)+65+offset).toLowerCase() + quiz_messages.twoPoints; 
+        var numbering =  String.fromCharCode((index*1)+65+offset).toLowerCase() + separateur; 
         break;
     case 4:         // renvoi l'index tel que
-        return '{' + ((index*1)+1+offset) + '}' + quiz_messages.twoPoints;
+        var numbering =  '{' + ((index*1)+1+offset) + '}' + separateur;
         break;
     case 0:         //pas de numérotation, a utiliser de préférence avec ldes images par exemple
     default:         
         return "";
         break;
  
+    }
+    
+    if(extra){
+        return `<span style=${extra}>${numbering}</span>`;
+    }else{
+        return numbering;
     }
 
  }
@@ -200,19 +206,35 @@ var tRet = [];
 /* ***************************************
 * calcule une marge moyenne selon le nombre d'item afin d'arer la présentation
 * *** */
-function getMarginStyle(nbItems, numStyle=0, extra='', min=2, max=8){
+// function getMarginStyle2(nbItems, numStyle=0, extra='', min=2, max=8){
+//     var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
+//     
+//     //var margin = Math.trunc((250-10) / (nbItems * 2));
+//     margin = Math.min(Math.max(parseInt(margin), min), max);
+//     switch(numStyle){
+//         case 1:  var strStyle =`style='line-height: ${margin*3}px;${extra}' `; break;
+//         case 2:  var strStyle =`style='padding-top: ${margin}px;padding-bottom: ${margin}px;${extra};'`; break;
+//         default: var strStyle =`style='margin:${margin}px 10px ${margin}px 0px;${extra}' `; break;
+//     }
+//     return strStyle;
+// }
+
+/* ***************************************
+* calcule une marge moyenne selon le nombre d'item afin d'arer la présentation
+* *** */
+function getMarginStyle(nbItems, numStyle=0, extra='', min=3, max=8, unit='px'){
     var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
     
     //var margin = Math.trunc((250-10) / (nbItems * 2));
-    margin = Math.min(Math.max(parseInt(margin), min), max);
+    margin = (min == max) ? min : Math.min(Math.max(parseInt(margin), min), max);
+
     switch(numStyle){
-        case 1:  var strStyle =`style='line-height: ${margin*3}px;${extra}' `; break;
-        case 2:  var strStyle =`style='padding: ${margin}px;${extra}'`; break;
-        default: var strStyle =`style='margin:${margin}px 10px ${margin}px 0px;${extra}' `; break;
+        case 1:  var strStyle =`line-height: ${margin*3}${unit};${extra}`; break;
+        case 2:  var strStyle =`padding-top: ${margin}${unit};padding-bottom: ${margin}${unit};${extra};`; break;
+        default: var strStyle =`margin:${margin}${unit} 10${unit} ${margin}${unit} 0${unit};${extra};`; break;
     }
     return strStyle;
 }
-
 
 /* ***************************************
 *

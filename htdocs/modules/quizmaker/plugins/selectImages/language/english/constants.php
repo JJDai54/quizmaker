@@ -30,8 +30,8 @@ define('_LG_PLUGIN_SELECTIMAGES_CONSIGNE', "Instructions to complete");
 
 define('_LG_PLUGIN_SELECTIMAGES_TYPE', "Selection type");
 define('_LG_PLUGIN_SELECTIMAGES_TYPE_DESC', "");
-define('_LG_PLUGIN_SELECTIMAGES_TYPE_0', "Multiple choice");
-define('_LG_PLUGIN_SELECTIMAGES_TYPE_1', "Single choice");
+define('_LG_PLUGIN_SELECTIMAGES_TYPE_CHECKBOX', "Multiple choice");
+define('_LG_PLUGIN_SELECTIMAGES_TYPE_RADIO', "Single choice");
 define('_LG_PLUGIN_SELECTIMAGES_TYPE_2', "Single choice and advance to the next slide");
 
 define('_LG_PLUGIN_SELECTIMAGES_IMG_HEIGHT', "Height of the images in the suggestions");
@@ -39,9 +39,6 @@ define('_LG_PLUGIN_SELECTIMAGES_COCHE', "Check mark");
 define('_LG_PLUGIN_SELECTIMAGES_COCHE_IMG_HEIGHT', "Height of the check marks");
 define('_LG_PLUGIN_SELECTIMAGES_IMG_TOP', "Label height position");
 define('_LG_PLUGIN_SELECTIMAGES_IMG_TOP_DESC', "Up < 50% > Down");
-define('_LG_PLUGIN_SELECTIMAGES_FONT_SIZE', "Font size (in em, default=1.1)");
-
-define('_LG_PLUGIN_SELECTIMAGES_FONT_SIZE_DESC', "Font size");
 
 define('_LG_PLUGIN_SELECTIMAGES_DISPOSITION', "Layout");
 

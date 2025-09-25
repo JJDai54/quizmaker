@@ -116,7 +116,16 @@ switch($op) {
 		$categoriesObj->setVar('cat_theme', Request::getString('cat_theme', 'default'));
         
 		$categoriesObj->setVar('cat_update', \JANUS\getSqlDate());
-
+        //-----------------------------------------------------
+        $path = QUIZMAKER_PATH_UPLOAD . '/categories';
+        $optionsArr = array('mimetypes_image'=>$quizmakerHelper->getConfig('mimetypes_image'),
+                            'maxsize_image'=>$quizmakerHelper->getConfig('maxsize_image'),
+                            'prefix'=>'cat'); 
+        $clSaveImage = new \XoopsFormSaveImage();
+        $imgName = $clSaveImage->save('cat_image', $path, $optionsArr, $nameOrg);
+		if($imgName) $categoriesObj->setVar('cat_image', $imgName);
+//echoArray('gpf'); exit;
+        //-----------------------------------------------------
         
 		// Insert Data
 		if ($categoriesHandler->insert($categoriesObj)) {
@@ -133,8 +142,10 @@ switch($op) {
             $clPerms->savePermission('import_quiz',      $permId, $_POST['import_quiz']);
             $clPerms->savePermission('importquest_quiz', $permId, $_POST['importquest_quiz']);
             $clPerms->savePermission('export_quiz',      $permId, $_POST['export_quiz']);
-
-			redirect_header('categories.php?op=list', 2, _AM_QUIZMAKER_FORM_OK);
+            
+            $msg = _AM_QUIZMAKER_FORM_OK;
+            if($clSaveImage->isError()) $msg .= $clSaveImage->getError();
+            redirect_header('categories.php?op=list', 3, $msg);
 		}
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $categoriesObj->getHtmlErrors());

@@ -29,7 +29,7 @@ use XoopsModules\Quizmaker\Constants;
   	    $GLOBALS['xoopsTpl']->assign('buttons', '');
   	    $GLOBALS['xoopsTpl']->assign('form', '');
 		// Define Stylesheet
-		$GLOBALS['xoTheme']->addStylesheet( $style, null );
+//		$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
         
@@ -156,7 +156,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
         
-
+		$GLOBALS['xoopsTpl']->assign('isAdmin', $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid()));
    
         
 		// Table view questions

@@ -263,7 +263,8 @@ position:relative;
   -webkit-border-radius: 8px 8px 8px 8px;
   -khtml-border-radius: 8px 8px 8px 8px;
   border-radius: 8px 8px 8px 8px;
-
+    margin:0px;
+    padding:0px;
 }
 
 

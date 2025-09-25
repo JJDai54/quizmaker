@@ -45,7 +45,7 @@ get_optionsList(){
     var name = this.getName();
 //alert("image : " + currentQuestion.image);
     const htmlArr = [];
-    this.data.styleCSS = getMarginStyle(currentQuestion.answers.length,2);
+    this.data.styleCSS = `style='${getMarginStyle(currentQuestion.answers.length,2)}'`;
     htmlArr.push(`<div id="${name}-famille" style="text-align:left;margin-left:10px;">`);
     htmlArr.push(this.getHtmlInputKeys(name, this.data.inputType, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));  
     htmlArr.push(`</div>`);
@@ -100,6 +100,32 @@ ${getNumAlpha(j,numerotation,offset)}${item.word}
 /* ******************************************
 *
 * ******************************************** */
+ geInputImg(name, group, proposition, value){
+    var currentQuestion = this.question;
+    var tHtml=[];
+    var onClick = "selectInputs_cocheImg(event,'zzzzzzzzzz')";
+    switch(currentQuestion.options.inputType*1){
+        case 0 :
+            typeInp = 'checkbox';
+            break;
+        default:
+        case 1:
+            typeInp = 'radio';
+        break;
+    }
+    
+    tHtml.push('<label>');
+    tHtml.push(`<img  src='${currentQuestion.urlPlugin}/img/coches/${cocheImgName0}' title='' alt='' ${onClick}>`);
+    tHtml.push(`<img  src='${currentQuestion.urlPlugin}/img/coches/${cocheImgName0}' title='' alt='' ${onClick}>`);
+    tHtml.push(`${proposition}`);
+    tHtml.push(`<input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}"caption="${item.key}" ${eventOnClick}>`);
+
+    
+    tHtml.push('</label>');
+ }
+/* ******************************************
+*
+* ******************************************** */
  getHtmlInputKeys_old(name, typeInp2, tItems, numerotation, offset=0, extra="", sep="<br>"){
 var item;
     var currentQuestion = this.question;
@@ -129,11 +155,6 @@ var item;
                  </td><td style='text-indent:0;'><label style='text-indent:0;'>${getNumAlpha(j,numerotation,offset)}${item.word}
                  </label><td></tr>`);
     
-    
-//         tHtml.push(`<label style='text-indent: -3em;'>
-//                  <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
-//                  ${getNumAlpha(j,numerotation,offset)}${item.word}
-//                  </label>${sep}`);
     }
     tHtml.push('</table>');
     return tHtml.join("\n");
@@ -149,7 +170,7 @@ get_listFamilywords(){
 //alert (currentQuestion.options.familyWords);
 
     var fw = splitAllSep(currentQuestion.options.familyWords);
-        this.data.styleCSSTxt = getMarginStyle(fw.length);
+    this.data.styleCSSTxt = `style='${getMarginStyle(fw.length)}'`;    
    
     return getHtmlSpan2(name, "familyWords", this.shuffleArray(fw), currentQuestion.numbering, 0, this.data.styleCSSTxt , "<br>");
 }
@@ -469,6 +490,13 @@ var sDispo = disposition + ((bolImage) ? "1" : "0") + ((bolFamilyWords) ? "1" : 
 }
 
 } // ----- fin de la classe ------
+
+/* *******************************************
+* * Affecte la réponse et passe au slide suivant
+* ********** */
+function selectInputs_cocheImg(ev, id){
+    aler('selectInputs_cocheImg');
+}
 
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant

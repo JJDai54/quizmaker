@@ -49,6 +49,5 @@ define('_LG_PLUGIN_TEXTAREAMIXTE_ADD_BAD_EXP', "Add unwanted words or phrases.<b
 define('_LG_PLUGIN_TEXTAREAMIXTE_TOKEN_COLOR',"Token color");
 define('_LG_PLUGIN_TEXTAREAMIXTE_WORD_COLOR',"Token color");
 define('_LG_PLUGIN_TEXTAREAMIXTE_LINE_HEIGHT',"Line spacing height (em)");
-define('_LG_PLUGIN_TEXTAREAMIXTE_FONT_SIZE',"Font size (em)");
 
 ?>

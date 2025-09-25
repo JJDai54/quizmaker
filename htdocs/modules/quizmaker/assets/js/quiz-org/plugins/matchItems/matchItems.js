@@ -28,13 +28,13 @@ getInnerHTML(bShuffle = true){
     var allAns = this.shuffleAnswers();
     var item ='';
     //var allAns = currentQuestion.answers;
-    var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="" {disabled} style='text-align:{textalign};'} {typeobjet}></td>`; 
+    var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="" {disabled} style='text-align:{textalign};background:{background};'} {typeobjet}></td>`; 
     //var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="{listName}" ansIndex='{index}'></td>`;
     var tplListbox     = `<td style='width:{width}%;'>{itemValue}</td>`; 
-    var tplConjonction = `<td style='width:{width}%;text-align:{textalign};'>{itemValue}</td>`; 
+    var tplConjonction = `<td style='width:{width}%;background:{background};text-align:{textalign};'>{itemValue}</td>`; 
     var tplImage       = `<td style='width:{width}%;text-align:{textalign};'><img src="${quiz_config.urlQuizImg}/{image1}"  alt='' title='' height={height}px'></td>`; 
-    var tplnumbering   = `<td style='width:3%;text-align:right;font-size:1.2em'>{numbering}</td>`; 
-    var tplEmpty       = `<td style='width:{width}%;'></td>`; 
+    var tplnumbering   = `<td style='width:3%;background:{background};text-align:right;font-size:1.2em'>{numbering}</td>`; 
+    var tplEmpty       = `<td style='width:{width}%;background:{background};'></td>`; 
     var tplTitle       = `<td style='width:{width}%;text-align:center;''>{title}</td>`; 
     var nbColumns = currentQuestion.options.nbColumns;
 
@@ -43,10 +43,8 @@ getInnerHTML(bShuffle = true){
         delta -= this.data.listArr[h].width;
     }
 
-
-    
 console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQuestion.options.list2_type}`);    
-    htmlArr.push(`${this.getImage()}<center><table>`);
+    htmlArr.push(`${this.getImage()}<center><table style="font-size:${currentQuestion.options.fontSize}em;">`);
     if(this.data.titleExists){
         if(delta  > 0){
             htmlArr.push(tplEmpty.replace('{width}', delta / 2));
@@ -77,10 +75,12 @@ console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQue
             item = tplnumbering.replace('{numbering}', getNumAlpha(k,currentQuestion.numbering));
             htmlArr.push(item);
         }
- 
+        var background = (ans.background == '#000000') ? currentQuestion.options.background : ans.background;
+        //alert(`background : ${currentQuestion.options.background} ===> ${ans.background}`);
         for(var h = 0; h < this.data.nbList; h++){
             //var listWidth = (h == this.data.nbList) ? this.data.listArr[h].width+delta : this.data.listArr[h].width;
             var listWidth = this.data.listArr[h].width;
+            //var background = this.data.listArr[h].background;
             var textalign = this.data.listArr[h].textalign;
             //ajout du numero de colonne dans l'id
             var itemId   = ans.ansId + `-${h}`;
@@ -93,11 +93,13 @@ console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQue
                                      .replace('{itemId}', itemId)
                                      .replace('{textalign}', textalign)
                                      .replace('{disabled}', 'disabled')
-                                     .replace('{width}', listWidth);
+                                     .replace('{width}', listWidth)
+                                     .replace('{background}', background);
                     break;
                 case 1 : //combobox
                     //var newItems = shuffleNewArray(this.data.listArr[h].items);
-                    item = tplListbox.replace('{itemValue}' , getHtmlCombobox(itemName, itemId, this.data.listArr[h].items, textalign))
+                    var styleItem = `style='text-align:${textalign};background:${background};'`; 
+                    item = tplListbox.replace('{itemValue}' , getHtmlCombobox(itemName, itemId, this.data.listArr[h].items, styleItem))
                                      .replace('{width}', listWidth);
                     if(k == 0) this.focusId = itemId; 
                     break;
@@ -108,7 +110,8 @@ console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQue
                                      .replace('{listName}', this.data.list1Name)
                                      .replace('{textalign}', textalign)
                                      .replace('{disabled}', '')
-                                     .replace('{width}', listWidth);
+                                     .replace('{width}', listWidth)
+                                     .replace('{background}', background);
 
                     if(k == 0) this.focusId = itemId; 
                     break;
@@ -126,7 +129,7 @@ console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQue
                 default:
                     item = tplConjonction.replace('{itemValue}', ans.items[h].replaceAll(' ', '&nbsp;'))
                                          .replace('{textalign}', textalign)
-                                         .replace('{width}', listWidth); 
+                                         .replace('{width}', listWidth);
                     break;
              }
             htmlArr.push(item);
@@ -174,6 +177,7 @@ prepareData(){
         collist.id = this.getId(`list${h}`);
         collist.type = currentQuestion.options[`list${h}_type`];
         collist.width = currentQuestion.options[`list${h}_width`];
+        //collist.background = currentQuestion.options[`list${h}_background`];
         collist.textalign = currentQuestion.options[`list${h}_textalign`];
         collist.title = currentQuestion.options[`list${h}_title`];
         collist.intrus = currentQuestion.options[`list${h}_intrus`].replaceAll(';','|').replaceAll(',','|');
@@ -225,7 +229,10 @@ prepareData(){
     //mélange des items pour les combobox
     for (var i = 0; i < listArr.length; i++){
         if(listArr[i].type*1 == 1){
+//    var lg1 = listArr[i].items.length;
             listArr[i].items = shuffleNewArray(listArr[i].items);
+//    var lg2 = listArr[i].items.length;
+//    if(lg1 != lg2) alert('problème');
         }
     }
  

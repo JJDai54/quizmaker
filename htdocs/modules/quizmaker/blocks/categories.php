@@ -78,7 +78,8 @@ function b_quizmaker_categories_show($options)
 		foreach(array_keys($cats) as $i) {
             $catId = $cats[$i]['cat_id'];
 			$block['data'][$catId]['id'] = $catId;            
-			$block['data'][$catId]['name'] = $cats[$catId]['cat_name'];            
+			$block['data'][$catId]['name']  = $cats[$catId]['cat_name'];            
+			$block['data'][$catId]['image'] = $cats[$catId]['cat_image'];            
 			$block['data'][$catId]['theme'] = $cats[$catId]['cat_theme'];            
 		}
 	}

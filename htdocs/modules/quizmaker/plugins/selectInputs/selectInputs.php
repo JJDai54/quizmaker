@@ -48,6 +48,9 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
                                   'nextSlideBG'      =>'#FFCC00',
                                   'nextSlideMessage' => ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : ''),
                                   'familyWords'      => '',
+                                  'cocheImgName0'      => 'coche-01.png',
+                                  'cocheImgName1'      => 'coche-01.png',
+                                  'cocheImgHeight'    => 25,  
                                   'disposition'      => 'disposition-0'];
 
         $this->hasImageMain = true;
@@ -100,6 +103,30 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
       include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
 
       //--------------------------------------------------------------------           
+/* transferé dans selectImages
+      $name = 'cocheImgName0'; 
+      $path = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/coches0';
+      $inpCocheImg = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_SELECTIMAGES_COCHE, "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inpCocheImg->setSelectedIconSize(64, 64);
+      $inpCocheImg->setIconSize(64, 64);
+      $inpCocheImg->setGridIconNumber(4);
+      $trayOptions->addElementOption($inpCocheImg);     
+
+      $name = 'cocheImgName1'; 
+      $path = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/coches1';
+      $inpCocheImg = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_SELECTIMAGES_COCHE, "{$optionName}[{$name}]", $tValues[$name], $path);
+      $inpCocheImg->setSelectedIconSize(64, 64);
+      $inpCocheImg->setIconSize(64, 64);
+      $inpCocheImg->setGridIconNumber(4);
+      $trayOptions->addElementOption($inpCocheImg);     
+
+      $name = 'cocheImgHeight';  
+      $inpCocheHeight1 = new \XoopsFormNumber(_LG_PLUGIN_SELECTIMAGES_COCHE_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpCocheHeight1->setMinMax(12, 48, _AM_QUIZMAKER_UNIT_PIXELS);
+      $trayOptions->addElementOption($inpCocheHeight1);     
+*/
+      
+      //--------------------------------------------------------------------           
       
       return $trayOptions;
     }
@@ -131,7 +158,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         
   reset($answers);
         $tbl = $this->getNewXoopsTableXtray();
-        $tbl->addTdStyle(1, "width:500px;");
+        $tbl->addTdStyle(1, "width:100%;");
         $tbl->addTdStyle(2, "width:120px;text-align:center");
         $tbl->addTdStyle(3, "width:120px;text-align:center");
         
@@ -161,9 +188,9 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             $tbl->addElement($inpPropos, ++$col, $k);
             $tbl->addElement($inpPoints, ++$col, $k);
             $tbl->addElement($inpWeight, ++$col, $k);
-            $tbl->addElement($inpGroup, $col, $k, '');
+           // $tbl->addElement($inpGroup, $col, $k, '');
             
-            $tbl->addElement($inpGroup, ++$col, $k, '');
+           // $tbl->addElement($inpGroup, ++$col, $k, '');
         }
         
         $trayAllAns->addElement($tbl);

@@ -19,7 +19,7 @@ Extensions=*.*
 _quizmaker
 	+quizmaker
 		-.vscode
-		-admin
+		+admin
 			admin\about.php
 			admin\answers.php
 			admin\build_quiz_cat.php
@@ -60,8 +60,7 @@ _quizmaker
 			admin\quiz-new.php
 			admin\quiz-save.php
 			admin\results.php
-			admin\traitements.php
-		-assets
+		+assets
 			-css
 				-admin
 					assets\css\admin\index.html
@@ -211,8 +210,8 @@ _quizmaker
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			+js
-				-quiz-org
+			-js
+				+quiz-org
 					-_plugin-JS-Modele
 						-img
 							-buttons
@@ -343,7 +342,7 @@ _quizmaker
 						assets\js\quiz-org\images\moins.png
 						assets\js\quiz-org\images\next.png
 						assets\js\quiz-org\images\plus.png
-					+js
+					-js
 						assets\js\quiz-org\js\fnc_array.js
 						assets\js\quiz-org\js\fnc_htmlObjects.js
 						assets\js\quiz-org\js\fnc_progressBar.js
@@ -410,7 +409,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\matchItems\index.html
 							assets\js\quiz-org\plugins\matchItems\matchItems.css
 							assets\js\quiz-org\plugins\matchItems\matchItems.js
-						+multiQuestions
+						-multiQuestions
 							assets\js\quiz-org\plugins\multiQuestions\index.html
 							assets\js\quiz-org\plugins\multiQuestions\multiQuestions.css
 							assets\js\quiz-org\plugins\multiQuestions\multiQuestions.js
@@ -434,7 +433,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\radioMultiple\index.html
 							assets\js\quiz-org\plugins\radioMultiple\radioMultiple.css
 							assets\js\quiz-org\plugins\radioMultiple\radioMultiple.js
-						-selectImages
+						+selectImages
 							-img
 								-buttons
 									assets\js\quiz-org\plugins\selectImages\img\buttons\Button_Icon_Black.png
@@ -485,6 +484,7 @@ _quizmaker
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-16.png
 								assets\js\quiz-org\plugins\selectImages\img\index.html
 							assets\js\quiz-org\plugins\selectImages\index.html
+							assets\js\quiz-org\plugins\selectImages\selectCoches.js
 							assets\js\quiz-org\plugins\selectImages\selectImages.css
 							assets\js\quiz-org\plugins\selectImages\selectImages.js
 						-selectInputs
@@ -615,6 +615,7 @@ _quizmaker
 				assets\js\index.html
 				assets\js\quizmaker.js
 			assets\index.html
+			admin\traitements.php
 		+blocks
 			blocks\categories.php
 			blocks\index.html
@@ -667,7 +668,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		+docs
+		-docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\guide-quizmaker.docx
@@ -699,7 +700,7 @@ _quizmaker
 			include\update.php
 			include\xoops_version.inc.php
 		+language
-			-english
+			+english
 				-help
 					-img
 						language\english\help\img\_barre_de_dev.jpg
@@ -1176,7 +1177,7 @@ _quizmaker
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\plugin_radioMultiple.zip
 				plugins\radioMultiple\radioMultiple.php
-			-selectImages
+			+selectImages
 				-img
 					-dispositions
 						plugins\selectImages\img\dispositions\disposition-01.png
@@ -1191,7 +1192,7 @@ _quizmaker
 						plugins\selectImages\language\english\constants.php
 						plugins\selectImages\language\english\help.html
 						plugins\selectImages\language\english\index.html
-					-french
+					+french
 						plugins\selectImages\language\french\constants.php
 						plugins\selectImages\language\french\help.html
 						plugins\selectImages\language\french\index.html
@@ -1204,7 +1205,7 @@ _quizmaker
 				plugins\selectImages\index.html
 				plugins\selectImages\plugin_selectImages.zip
 				plugins\selectImages\selectImages.php
-			-selectInputs
+			+selectInputs
 				-img
 					-dispositions
 						plugins\selectInputs\img\dispositions\disposition-0.png
@@ -1251,12 +1252,12 @@ _quizmaker
 						plugins\sortItems\img\classes\dispositions.svg
 						plugins\sortItems\img\classes\index.html
 					plugins\sortItems\img\index.html
-				-language
-					-english
+				+language
+					+english
 						plugins\sortItems\language\english\constants.php
 						plugins\sortItems\language\english\help.html
 						plugins\sortItems\language\english\index.html
-					-french
+					+french
 						plugins\sortItems\language\french\constants.php
 						plugins\sortItems\language\french\help.html
 						plugins\sortItems\language\french\index.html
@@ -1333,12 +1334,12 @@ _quizmaker
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		-sql
+		+sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		+templates
-			-admin
+		-templates
+			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_answers.tpl
 				templates\admin\quizmaker_admin_categories.tpl
@@ -1360,6 +1361,7 @@ _quizmaker
 				templates\admin\quizmaker_admin_quiz_inline-old.tpl
 				templates\admin\quizmaker_admin_quiz_outline.tpl
 				templates\admin\quizmaker_admin_results.tpl
+				templates\quizmaker_quiz_item_3.tpl
 			+blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
@@ -1377,7 +1379,6 @@ _quizmaker
 			templates\quizmaker_index.tpl
 			templates\quizmaker_quiz.tpl
 			templates\quizmaker_quiz_display.tpl
-			templates\quizmaker_quiz_item.tpl
 			templates\quizmaker_quiz_list.tpl
 			templates\quizmaker_quiz_solutions.tpl
 			templates\quizmaker_results_list.tpl
@@ -1417,42 +1418,18 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=class\Quiz.php
-1=language\french\admin.php
-2=quiz_display.php
-3=include\common.php
-4=templates\blocks\quizmaker_block_quiz.tpl
-5=blocks\quiz.php
-6=language\french\blocks.php
-7=docs\changelog.txt
-8=xoops_version.php
+0=xoops_version.php
+1=include\common.php
+2=plugins\matchItems\matchItems.php
 [Selected Project Files]
 Main=
-Selected=docs\changelog.txt
-[class\Quiz.php]
-TopLine=149
-Caret=1,167
-[language\french\admin.php]
-TopLine=441
-Caret=66,491
-[quiz_display.php]
-TopLine=63
-Caret=33,74
-[include\common.php]
-TopLine=11
-Caret=26,46
-[templates\blocks\quizmaker_block_quiz.tpl]
-TopLine=85
-Caret=1,116
-[blocks\quiz.php]
-TopLine=214
-Caret=1,262
-[language\french\blocks.php]
-TopLine=1
-Caret=65,38
-[docs\changelog.txt]
-TopLine=1
-Caret=5,7
+Selected=plugins\matchItems\matchItems.php
 [xoops_version.php]
-TopLine=1
-Caret=38,33
+TopLine=85
+Caret=1,104
+[include\common.php]
+TopLine=61
+Caret=34,80
+[plugins\matchItems\matchItems.php]
+TopLine=90
+Caret=33,96

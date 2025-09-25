@@ -130,8 +130,8 @@ define('_AM_QUIZMAKER_GROUP_TO_DESC', "Optionel, permet d'ajouter les questions 
 define('_AM_QUIZMAKER_HELP', "Aide");
 define('_AM_QUIZMAKER_ICONE', "Icone");
 define('_AM_QUIZMAKER_IMAGE', "Image");
-define('_AM_QUIZMAKER_IMAGE_MAIN', "Image principale");
 define('_AM_QUIZMAKER_BACKGROUND_MAIN', "Image de fond (texture)");
+define('_AM_QUIZMAKER_IMAGE_MAIN', "Image principale");
 define('_AM_QUIZMAKER_IMG_HEIGHT1', "Hauteur de l'image");
 define('_AM_QUIZMAKER_IMG_SUBSTITUT', "Image de Substitution");
 define('_AM_QUIZMAKER_IMPORT', "Importation");
@@ -199,7 +199,7 @@ define('_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ', "Autorisations d'importer des qu
 define('_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ', "Autorisations d'importer des questions");
 define('_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS', "Autorisations de voir les catégories");
 define('_AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ', "Autorisations de voir les quiz");
-define('_AM_QUIZMAKER_PERMIT_CATMAN', "Gérer les catégories");
+define('_AM_QUIZMAKER_PERMIT_MANAGE_CATS', "Gérer les catégories");
 define('_AM_QUIZMAKER_PERMIT_CLONE', "Cloner le module");
 define('_AM_QUIZMAKER_PERMIT_EXPORT', "Exporter");
 define('_AM_QUIZMAKER_PERMIT_IMPORTA', "Importations avancées");
@@ -245,7 +245,6 @@ define('_AM_QUIZMAKER_POSITION_NONE', "Invisible");
 define('_AM_QUIZMAKER_POSITION_TL', "Haut gauche");
 define('_AM_QUIZMAKER_POSITION_TR', "Haut droite");
 define('_AM_QUIZMAKER_PREVIOUS_QUESTION', "Précédente");
-define('_AM_QUIZMAKER_PROPOSITIONS', "Propositions");
 define('_AM_QUIZMAKER_PROPOSITIONS_ANSWERS', "Propositions de réponses");
 define('_AM_QUIZMAKER_PUBLISH', "Publication");
 define('_AM_QUIZMAKER_PUBLISH_ANSWERS', "Publier les réponses");
@@ -424,6 +423,7 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_PLUGIN', "Importation d'un plugin");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST', "Importation des questions uniquement");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ', "Importation d'un quiz unique");
 define('_AM_QUIZMAKER_UNIT_PIXELS', "pixels");
+define('_AM_QUIZMAKER_UNIT_EM', "em");
 define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 define('_AM_QUIZMAKER_UNIT_SECONDS', "Secondes");
 define('_AM_QUIZMAKER_UNIT_MILLISECONDS', "Milli-Secondes");
@@ -489,6 +489,11 @@ define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
 define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
 define('_AM_QUIZMAKER_MAX_FLYING', "Maximum de tentatives");
 define('_AM_QUIZMAKER_MAX_FLYING_DESC', "0 : pas de limite de tentatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
-        
+define('_AM_QUIZMAKER_PLUGIN_FORECOLOR', 'Textes');
+define('_LG_PLUGIN_BACKGROUND', 'Couleur de fond');
 
+define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE', "Taille de la police (en em, defaut=1.1)");
+define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE_DESC', "Taille de la police");
+
+       
 ?>

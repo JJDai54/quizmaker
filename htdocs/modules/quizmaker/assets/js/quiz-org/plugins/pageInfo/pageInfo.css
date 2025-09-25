@@ -7,7 +7,7 @@ max-height:250px;
 }
 .pageInfo h1{
   font-size:1.2em;
-  font-bold:weight;
+  font-weight:bold;
   color:black;
 }
 .pageInfo h1:hover{

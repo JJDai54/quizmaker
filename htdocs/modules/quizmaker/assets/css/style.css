@@ -117,3 +117,67 @@ table.quizTbl {
 .quizTbl th{
   border: solid 0px black;
 }
+
+.quiz_button{
+    cursor:pointer; /* apparence du curseur */
+    display: inline-block; /* autorise les marges sur un élément &quot;a&quot; */
+    border: solid 1px #ff6347; /* applique une bordure rouge */
+    border-radius:12px;
+
+    padding: 5px; /* espace entre la bordure et le texte */
+
+
+    box-shadow: 2px 2px 3px #444;
+
+    font-size: 12px;
+    font-weight: normal;	
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin-left:16px;
+    width:100px;
+}
+.quiz_title{
+    cursor:pointer; /* apparence du curseur */
+    font-size: 1.2em;
+    font-weight: bolder;	
+}
+.quiz_button_run{
+    color:black ;
+    background:#FFCCFF;
+}
+.quiz_button_scores{
+    color:black ;
+    background:#CCFFFF;
+}
+.quiz_button_solutions{
+    color:black ;
+    background:#99FFCC;
+}
+.quiz_button_disabled{
+    color:#A0A0A0 ;
+    background:#E0E0E0;
+    cursor: not-allowed;
+}
+
+.quiz_button_admin{
+    color:white ;
+    background:silver;
+}
+
+.quiz_button img:last-child {
+    display: none;  
+}
+.quiz_button:hover img:last-child {
+  display: inline;  
+  /* margin-left:10px; */
+  font-weight:bolder;
+}
+.quiz_button:hover {
+  font-weight:900;
+}
+.quiz_button:hover img:first-child {
+    display: none;  
+}
+
+
+
