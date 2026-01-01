@@ -280,9 +280,11 @@ define('_AM_QUIZMAKER_QUIZ_ADD', "Add a new quiz");
 define('_AM_QUIZMAKER_QUIZ_ALLOWED_PREVIOUS', "Backspace");
 define('_AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC', "Allow to return to previous questions");
 define('_AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT', "Submit button");
-define('_AM_QUIZMAKER_QUIZ_ANSWER_BEFORENEXT', "Required answer");
-define('_AM_QUIZMAKER_QUIZ_ANSWERBEFORENEXT_DESC', "The user must provide an answer before moving on to the next question");
+define('_AM_QUIZMAKER_QUIZ_SUBMIT_BUTTON', "Submit Button");
+define('_AM_QUIZMAKER_QUIZ_SUBMIT_BUTTON_DESC', "yes: displays the quiz submit button in the slide body - no: displays the button in the footer.");define('_AM_QUIZMAKER_QUIZ_SHOW_SLIDEBAR', "Slide scroll bar");
+define('_AM_QUIZMAKER_QUIZ_SHOW_SLIDEBAR_DESC', "Displays the horizontal slide scroll bar");
 define('_AM_QUIZMAKER_QUIZ_AUTHOR', "Author");
+define('_CO_QUIZMAKER_QUIZ_SUBJECT_DESC', "Allows you to create subcategories");
 define('_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK', "The quiz options have been changed,<br> and the quiz has been successfully regenerated.<br>Generation number: %s");
 define('_AM_QUIZMAKER_QUIZ_BUILD', "Generation");
 define('_AM_QUIZMAKER_QUIZ_BUILD_OK', "The quiz has been successfully generated.<br>Generation number: %s");
@@ -417,6 +419,7 @@ define('_AM_QUIZMAKER_TRUNCAT_FOLDER', "Empty the folder <span style='color:blue
 define('_AM_QUIZMAKER_TRUNCAT_OK', "The folder <br><span style='color:blue;'>%s</span><br> has been emptied successfully");
 define('_AM_QUIZMAKER_TYPE_IMPORT', "Import type");
 define('_AM_QUIZMAKER_TYPE_IMPORT_BATCH', "Importing a batch of quizzes");
+define('_AM_QUIZMAKER_TYPE_IMPORT_CLONE_QUIZ', "Clone a quiz");
 define('_AM_QUIZMAKER_TYPE_IMPORT_LOCAL', "Importing questions from another local quiz");
 define('_AM_QUIZMAKER_TYPE_IMPORT_PLUGIN', "Importing a plugin");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST', "Importing questions only");
@@ -457,7 +460,7 @@ define('_AM_QUIZMAKER_DELAI_TO_NEXT_SLIDE_DESC', "Only active if the \"Single ch
 define('_AM_QUIZMAKER_SUBMIT', "Submit");
 
 define('_AM_QUIZMAKER_NO_OPTIONS', "There are no specific options for this plugin");
-define('_AM_QUIZMAKER_NO_CLASSE', "00-none");
+define('_AM_QUIZMAKER_NO_VARIANT', "00-none");
 define('_AM_QUIZMAKER_PROPOSITIONS_EDIT', "Edit proposition");
 define('_AM_QUIZMAKER_PROPOSITIONS_GROUP', "Group");
 define('_AM_QUIZMAKER_PROPOSITIONS_POINTS', "Points");
@@ -479,5 +482,6 @@ define('_AM_QUIZMAKER_LOAD_JANUS', "<center><hr><div style='font-size:1.5em;'>To
 
 define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE', "Font size (in em, default=1.1)");
 define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE_DESC', "Font size");
+define('_AM_QUIZMAGER_MISCELLANEOUS', "Miscellaneous");
 
 ?>

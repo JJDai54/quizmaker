@@ -9,20 +9,20 @@
                 <{/if}>
                   <{if $Quiz.publishQuiz == 1}>
                       <a class='quiz_title' href="quiz_display.php?op=run&quiz_id=<{$Quiz.id}>" >
-                        <{$Quiz.name}>
+                        <{$Quiz.name}><{if $showQuizSet}> (<{$Quiz.subject}>)<{/if}>
                       </a>
                   <{elseif $Quiz.publishQuiz == 2}>
                       <a class='quiz_title' href='<{$Quiz.quiz_html}>?<{$getForQuiz}>' title='<{$smarty.const._MA_QUIZMAKER_RUN_QUIZ}>' target='blank'>
-                        <{$Quiz.name}>
+                        <{$Quiz.name}><{if $showQuizSet}> (<{$Quiz.subject}>)<{/if}>
                       </a>
                   <{else}>
-                        <{$Quiz.name}>
+                        <{$Quiz.name}><{if $showQuizSet}> (<{$Quiz.subject}>)<{/if}>
                   <{/if}>
+                <{if $Quiz.difficulty > 0}>
+                <{$smarty.const._CO_QUIZMAKER_DIFFICULT}> : <img src='<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/difficulty/<{$Quiz.difficulty_icon}>' title='', alt=''>&nbsp;<{$Quiz.difficulty_lib}>
+                <{/if}>
             </td>
           </tr>
-
-
-
 
           <tr>
             <td width="25%" style='vertical-align:top'>

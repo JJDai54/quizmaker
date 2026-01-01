@@ -20,7 +20,7 @@
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<https://xoopsfr.kiolo.fr>
  */
 use XoopsModules\Quizmaker AS FQUIZMAKER;
-include_once("../class/Helper.php");
+//include_once("../class/Helper.php");
 $dirname       = basename(dirname(__DIR__));
 $moduleHandler = xoops_getHandler('module');
 $xoopsModule   = XoopsModule::getByDirname($dirname);
@@ -91,8 +91,6 @@ $adminmenu[] = [
 }
 
 if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)){
-// if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_MINIFY)
-//     && $quizmakerHelper->getConfig('use_minified_files')){
 $adminmenu[] = [
   	'title' => _MI_QUIZMAKER_MINIFY,
   	'link' => 'admin/minify.php',

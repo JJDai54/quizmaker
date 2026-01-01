@@ -310,4 +310,4 @@ var ansFound = -1;
     });
   } 
   
-} // ----- fin de la classe ------
+} // ----- fin de la class ------

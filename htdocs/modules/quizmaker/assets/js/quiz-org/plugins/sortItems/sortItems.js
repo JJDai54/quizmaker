@@ -1,6 +1,6 @@
 ﻿function getPlugin_sortItems(question, slideNumber){
 //alert(question.options.disposition);
-    switch(question.options.classe){
+    switch(question.options.variant){
     case '02-combobox'    : return new sortItems_combobox(question, slideNumber, 'sortItems_combobox'); break;
     case '03-listeapuces' : return new sortItems_ulDaDList(question, slideNumber, 'sortItems_ulDaDList'); break;
     case '04-imagesdadFixedHeight' : return new imgDaDSortItems(question, slideNumber, 'imgDaDSortItems'); break;
@@ -15,7 +15,7 @@
   *                     sortItems
   * *****************************************************************/
 /*
-mettre dans la classe sortItems les methodes communes et faire hériter les deuxautre sur srtItemd
+mettre dans le plugin sortItems les methodes communes et faire hériter les deux autre sur sortItems
 */
 class sortItems extends Plugin_Prototype{
 name = "sortItems";
@@ -40,7 +40,7 @@ var tItems = [];
     //currentQuestion.shuffleAnswers = 1;
     var tWords = [];
     for(var k=0; k < currentQuestion.answers.length; k++){
-        tWords.push(currentQuestion.answers[k].proposition); 
+        tWords.push(replaceDoubleSlash(currentQuestion.answers[k].proposition)); 
     }
 
     
@@ -248,7 +248,7 @@ showBadAnswers()
  
   
  
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 //////////////////////////////////////////////////
  /*******************************************************************
@@ -403,7 +403,7 @@ showBadAnswers()
      this.reloadQuestion(); 
 }
  
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
  /*******************************************************************
   *                     sortItems_ulDaDList
@@ -625,7 +625,7 @@ showBadAnswers()
     };
   }
 } 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
  /*******************************************************************
   *                     imgDaDSortItems
@@ -694,7 +694,7 @@ getInnerHTML_img_ref(bShuffle = false){
     this.data.imagesRefExists = true;
       
     var posCaption = currentQuestion.options.showCaptions;    
-    if (currentQuestion.options.classe == '05-imagesdadFixedWidth'){
+    if (currentQuestion.options.variant == '05-imagesdadFixedWidth'){
         var ImgStyle=`style="width:${currentQuestion.options.imgWidth1}px;"`;
     }else{
         var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
@@ -706,18 +706,18 @@ getInnerHTML_img_ref(bShuffle = false){
     }else{
         var newSequence = duplicateArray(this.question.answers);
     }
-
+//alert(currentQuestion.question);
     for(var k in newSequence){
         var ans =  newSequence[k];
         if (ans.image2){
             var src = `${quiz_config.urlQuizImg}/${ans.image2}`;
             switch (posCaption){
-                case 'T': captionTop    = ans.proposition + qbr ; break;
-                case 'B': captionBottom = qbr + ans.proposition ; break;
+                case 'T': captionTop    = replaceDoubleSlash(ans.proposition) + qbr ; break;
+                case 'B': captionBottom = qbr + replaceDoubleSlash(ans.proposition) ; break;
                 default: break;
             }
             tHtmlmg.push(`
-                <div id="${ans.ansId}-div-img2" divRefMode="1"> 
+                <div id="${ans.ansId}-div-img2" divRefMode="1">${captionTop}
                 <img id="${ans.ansId}-img2"  src="${src}" title="${ans.image2}" ${ImgStyle} alt="" >
                 ${captionBottom}</div>`);
         }else{
@@ -749,7 +749,7 @@ getInnerHTML_subs(bShuffle = true){
     //var tpl = `<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td id="${this.data.idSelection}" name="${this.data.idSelection}">{selection}</td></tr><tr><td> id="${this.data.idSuggestion }" name="${this.data.idSuggestion }">{suggestion}</td></tr></table>`;
 var posCaption = currentQuestion.options.showCaptions;    
 if (this.data.imagesRefExists) {posCaption = "none";}
-    if (currentQuestion.options.classe == '05-imagesdadFixedWidth'){
+    if (currentQuestion.options.variant == '05-imagesdadFixedWidth'){
         var ImgStyle=`style="width:${currentQuestion.options.imgWidth1}px;"`;
     }else{
         var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
@@ -779,8 +779,8 @@ onmouseover="testMouseOver(event);"`;
         var ans =  newSequence[k];
         var src = `${quiz_config.urlQuizImg}/${ans.image1}`;
         switch (posCaption){
-            case 'T': captionTop    = ans.proposition + qbr ; break;
-            case 'B': captionBottom = qbr + ans.proposition ; break;
+            case 'T': captionTop    = replaceDoubleSlash(ans.proposition) + qbr ; break;
+            case 'B': captionBottom = qbr + replaceDoubleSlash(ans.proposition) ; break;
             default: break;
         }
         
@@ -813,7 +813,7 @@ getInnerHTML_ins(bShuffle = true){
 
     //var tpl = `<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td id="${this.data.idSelection}" name="${this.data.idSelection}">{selection}</td></tr><tr><td> id="${this.data.idSuggestion }" name="${this.data.idSuggestion }">{suggestion}</td></tr></table>`;
 var posCaption = currentQuestion.options.showCaptions;    
-    if (currentQuestion.options.classe == '05-imagesdadFixedWidth'){
+    if (currentQuestion.options.variant == '05-imagesdadFixedWidth'){
         var ImgStyle=`style="width:${currentQuestion.options.imgWidth1}px;"`;
     }else{
         var ImgStyle=`style="height:${currentQuestion.options.imgHeight1}px;"`;
@@ -856,8 +856,8 @@ var  tplEncar = `<div id="{id}-encart" encart="1" style="height:${currentQuestio
         var src = `${quiz_config.urlQuizImg}/${ans.image1}`;
 
         switch (posCaption){
-            case 'T': captionTop    = ans.proposition + qbr ; break;
-            case 'B': captionBottom = qbr + ans.proposition ; break;
+            case 'T': captionTop    = replaceDoubleSlash(ans.proposition) + qbr ; break;
+            case 'B': captionBottom = qbr + replaceDoubleSlash(ans.proposition) ; break;
             default: break;
         }
         
@@ -986,7 +986,7 @@ var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 
   } 
 
-} // ----- fin de la classe ------     
+} // ----- fin de la class ------     
 
 
 ////////////////////////////////////////////////////////////////////////////

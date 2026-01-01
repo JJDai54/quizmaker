@@ -33,7 +33,7 @@
 <script>
 
 /**************************************************************************
- *   get instance de classe
+ *   get instance de plugin
  * ************************************************************************/
   function getTplNewClass (currentQuestion, chrono){
 
@@ -45,10 +45,10 @@
         case "<{$className}>" : obj = new (<{$className}>)(currentQuestion, chrono); break;
     <{/foreach}>
     
-    default: alert("getTplNewClass - Classe absente : " + currentQuestion.type); break;
+    default: alert("getTplNewClass - Plugin absent : " + currentQuestion.pluginName); break;
     }
 
-    blob("getTplNewClass - Classe : " + currentQuestion.type);
+    blob("getTplNewClass - Plugin : " + currentQuestion.pluginName);
     return obj;
 }
 </script>

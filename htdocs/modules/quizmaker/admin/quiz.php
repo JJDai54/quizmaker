@@ -35,12 +35,13 @@ use XoopsModules\Quizmaker\Utility;
 $op = Request::getCmd('op', 'list');
 // Request quiz_id
 $quizId = Request::getInt('quiz_id');
+$quizSubject = Request::getString('quiz_subject', '');
 $sender = Request::getString('');
 //-----------------------------------------------------------
 //recherche des categories autorisées
 //$clPerms->addPermissions($criteriaCatAllowed, 'global_ac', QUIZMAKER_PERMIT_CATMAN);
-$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CATMAN,'QUIZMAKER_PERMIT_CATMAN', "index.php");
-$catArr = $categoriesHandler->getList($criteriaCatAllowed);
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CATMAN,'QUIZMAKER_PERMIT_CATMAN', "index.php", QUIZMAKER_ADMIN_PERM);
+$catArr = $categoriesHandler->getList();
 
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $catId  = Request::getInt('cat_id', array_key_first($catArr));
@@ -81,23 +82,30 @@ switch($op) {
 	case 'build_quiz':
         //modules/quizmaker/admin/quiz.php?op=build_quiz&quiz_id=3&cat_id=2
         checkRightEditQuiz('edit_quiz',$catId);
-        $build = $quizUtility::buildQuiz($quizId);
-		//redirect_header('quiz.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$build));
+        $buildArr = $quizUtility::buildQuiz($quizId);        
+
+        //$utility::export_questions2Jason($quizId);
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$buildArr['name'],$buildArr['id'],$buildArr['build']);
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, $msg);
 	   break;    
 
 	case 'build_all_quiz_cat':
         $quizHandler->updateAll('quiz_flag', 0,null,true);
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria("quiz_cat_id",$catId,"="));
+        //exit($quizSubject);
+        if($quizSubject && $quizSubject != QUIZMAKER_ALL_ITEMS_KEY) $criteria->add(new Criteria("quiz_subject",$quizSubject,"="));
         $allQuiz = $quizHandler->getAllQuiz($criteria);
- 
+        
+        $msgArr = [];
 		foreach(array_keys($allQuiz) as $j) {
             $quizId = $allQuiz[$j]->getVar('quiz_id');
-            $build = $quizUtility::buildQuiz($quizId);
+            $buildArr = $quizUtility::buildQuiz($quizId);
             $quizHandler->setValue($quizId,'quiz_flag', 3);
+            $msgArr[] = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK2,$buildArr['name'],$buildArr['id'],$buildArr['build']);;
         }            
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, _AM_QUIZMAKER_QUIZ_BUILD_ALL_OK);
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_ALL_OK, count($allQuiz)) . '<br>-------------<br>' . implode("<br>", $msgArr);
+        redirect_header("quiz.php?op=list&cat_id={$catId}&quiz_subject={$quizSubject}", 12, $msg);
 	   break;    
        
 	case 'build_all_quiz_cat_old':
@@ -144,7 +152,8 @@ switch($op) {
         $optId = Request::getInt('opt_id');
         $quizHandler->setBinOptions($quizId, $optId);
         $build = $quizUtility::buildQuiz($quizId);
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK,$build));
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK, $buildArr['name'],$buildArr['id'],$buildArr['build']);
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK,$msg));
 
 	break;
     

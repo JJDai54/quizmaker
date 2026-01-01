@@ -142,7 +142,7 @@ console.log('===>zoom_plus');
 //alert('zoom_setBtnZoomStatus(slideNumber,  -1, 1)');
     zoom_setBtnZoomStatus(slideNumber,  -1, 1);    
     ev.stopPropagation();
-    quiz_set_mask(true);   
+    quiz_subject_mask(true);   
     //setTimeout(zoom_realignWindow,3000,idContenair1);
     return true;
 }
@@ -212,7 +212,7 @@ console.log(`===>zoom_end : gotoNextSlide = ${gotoNextSlide}`);
     obContenair1.style.position = '';
     obContenair1.style.left = '';
     obContenair1.style.top ='';
-    quiz_set_mask(false);   
+    quiz_subject_mask(false);   
     console.log('zoom_end' + '->' + obContenair1.classList);
     
     if(gotoNextSlide){

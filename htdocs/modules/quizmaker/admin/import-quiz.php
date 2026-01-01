@@ -26,6 +26,10 @@ use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
 //echoArray('gp',"ici->$typeImport");exit;
+$toCatId = Request::getInt('to_cat_id', 0);
+if($toCatId == 0) $toCatId = array_key_first($catArr);
+$toQuizSet = Request::getString('to_quiz_subject', '');
+
 
     switch($op){
     case 'getform':
@@ -57,7 +61,7 @@ use XoopsModules\Quizmaker\Utility;
 
 
                
-		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+//		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}
@@ -72,25 +76,28 @@ use XoopsModules\Quizmaker\Utility;
 		$title = _AM_QUIZMAKER_IMPORT;        
 		// Get Theme Form
 		//xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form_import', 'import.php', 'post', true);
+		$form = new \XoopsThemeForm($title, $formName, $importMainFile, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
+        
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'import'));
-        $form->addElement(new \XoopsFormHidden('type_import', 'quiz'));
         $form->addElement(new \XoopsFormHidden('sender', ''));
+        addXformImportType($form, $typeImportName, $typeImport);
 
+        // ----- Listes de selection pour filtrage -----  
+  	    $form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_SELECT_DEST_TO_CLONE));
         
+        addXformCat  ($form, 'to_cat_id',   $toCatId, true);
+        addXformSet  ($form, 'to_quiz_subject', $toQuizSet, $toCatId, false);
+
+        //---------------------------------------------------  
+  	    $form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_SELECT_QUIZ_TO_IMPORT));
+        //---------------------------------------------------  
+      
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     
         $uploadTray->setDescription(_AM_QUIZMAKER_FILE_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE . " ($upload_size)", intval($upload_size / 1024)), '<br>');
         $form->addElement($uploadTray, true);
 
-        // ----- Listes de selection pour filtrage -----  
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-        $inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
-        $inpCategory->addOptionArray($catArr);
-        $inpCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);
-        $inpCategory->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
-  	    $form->addElement($inpCategory);
 
 
         //----------------------------------------------- 
@@ -113,7 +120,7 @@ use XoopsModules\Quizmaker\Utility;
             }else{
               $msg = _AM_QUIZMAKER_IMPORT_ERROR_02;
               //$url = "import.php?op=error&numerr=2";
-              $url = "import.php?=type_import={$type_import}&cat_id={$catId}";
+              $url = "import.php?={$typeImportName}={$typeImport}&cat_id={$catId}";
             }
             
         }else{

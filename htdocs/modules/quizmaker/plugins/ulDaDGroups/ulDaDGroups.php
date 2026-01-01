@@ -40,7 +40,7 @@ var $maxGroups = 4;
 	 */
 	public function __construct()
 	{
-        parent::__construct("ulDaDGroups", 0, "dragAndDrop");
+        parent::__construct("ulDaDGroups", 0, "groups");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
         $this->hasZoom = true;
 
@@ -81,10 +81,10 @@ var $maxGroups = 4;
       
       //--------------------------------------
       // groupes
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_groups.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_groups.php");
 
       // disposition
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       
       return $trayOptions;
@@ -148,8 +148,9 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         //----------------------------------------------------------
         for($k = 0 ; $k < $maxItems ; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
+            $points = 1;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             $isBackground = ($background) ? 1 : 0;
             
@@ -216,7 +217,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         //--------------------------------------------------------       
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
 
@@ -258,58 +259,45 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
     $html = array();
  
     //-------------------------------------------
-    // commençons par la solution
-    $answersAll = $answersHandler->getListByParent($questId, 'answer_weight,answer_id');
-    $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
-//    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");
-    //recherche du dossier upload du quiz
-    $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
-
-    
-    $tImg = array();
-	foreach(array_keys($answersAll) as $i) {
-		$ans = $answersAll[$i]->getValuesAnswers();
-        if ($ans['group'] == 0) {
-            $tImg[] = sprintf(QUIZMAKER_TPL_IMG1, $urlImg , $ans['image1'], $ans['image1']);
-        }
-	}
-    $html[] = implode("\n", $tImg);
-    $html[] = "<hr>";
-    
-       
+    $questObj = $questionsHandler->get($questId);
+    $quizId = $questObj->getVar("quest_quiz_id");
+    $options = json_decode(html_entity_decode($questObj->getVar('quest_options')),true); 
+//    echoArray($options);   exit;
     //-------------------------------------------
-    $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
+    
+    // commençons par la solution
+    $answersAll = $answersHandler->getListByParent($questId, 'answer_group, answer_points DESC,answer_weight,answer_id');
+
 //if(!$boolAllSolutions) exit;    
 //    echoArray($answersAll);
     $ret = array();
     $scoreMax = 0;
     $scoreMin = 0;
-    $tpl = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
-             . "<td><span style='color:%5\$s;'>%6\$s</span></td>" 
-             . "<td><span style='color:%5\$s;'>%2\$s</span></td>" 
-             . "<td style='text-align:right;padding-right:5px;'><span style='color:%5\$s;'>%3\$s</span></td>"
-             . "<td><span style='color:%5\$s;'>%4\$s</span></td></tr>";
 
+    $tplRow = "<tr><td>%1\$s</td>" 
+            . "<td>&nbsp;===>&nbsp;</td>" 
+            . "<td>%2\$s</td>"
+            . "</tr>";
+            
+    $tplGroup = "<tr><td colspan='4'><center><b>%1\$s</b></center></td></tr>";
+            
     $html[] = "<table class='quizTbl'>";
-    
+    $currentGroup = '';
     
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
         $points = intval($ans['points']);
-        $tokenImg = sprintf(QUIZMAKER_TPL_IMG1, $urlImg, $ans['image1'], $ans['image1']);
-        if ($points > 0) {
-            $scoreMax += $points;
-            $color = QUIZMAKER_POINTS_POSITIF;
-            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
-        }elseif ($points < 0) {
-            $scoreMin += $points;
-            $color = QUIZMAKER_POINTS_NEGATIF;
-            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
-        }elseif($boolAllSolutions){
-            $color = QUIZMAKER_POINTS_NULL;
-            $html[] = sprintf($tpl, $tokenImg, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color, $ans['caption']);
+        $group = $options["group" . $ans['group']];
+        $proposition = $ans['proposition'];
+        $scoreMax += $ans['points'];
+        
+        if($currentGroup != $group){
+	       $html[] = sprintf($tplGroup, $group);
+           $currentGroup = $group;
+        }else{
         }
-	}
+	    $html[] = sprintf($tplRow, $proposition, $points);
+    }
     $html[] = "</table>";
  
     $ret['answers'] = implode("\n", $html);
@@ -319,4 +307,4 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

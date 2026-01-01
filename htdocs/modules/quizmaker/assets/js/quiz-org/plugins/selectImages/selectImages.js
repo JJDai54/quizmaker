@@ -4,7 +4,7 @@
 function getPlugin_selectImages(question, slideNumber){
     //return new selectImages(question, slideNumber);
 
-    switch(question.options.classe){
+    switch(question.options.variant){
     case '02-texte'  : return new selectCoches(question, slideNumber, 'selectCoches'); break;
     case '01-image'  : 
     default          : return new selectImages(question, slideNumber, 'selectImages')
@@ -116,6 +116,7 @@ onFinalyse() {
     
     for(var k in currentQuestion.answers){
        var ans = currentQuestion.answers[k];
+        ans.proposition = this.sanityse_exp(ans.proposition, 127);
         ans.cocheId = ans.ansId + quiz_config.suffixCoche;
         if((ans.points*1) !=0 ) this.countAnsNotNull++;
     }
@@ -313,7 +314,7 @@ var tpl="";
   //alert(disposition);  
     switch(disposition){
     case 'disposition-02':
-        tpl = `<center><table><tr><td>{image}</td><td><div class='${this.name}_divMaitre'>{options}</div></td></tr></table></center>`;
+        tpl = `<center><table><tr><td style='padding-left:20px;padding-right:20px;'>{image}</td><td><div class='${this.name}_divMaitre'>{options}</div></td></tr></table></center>`;
         break;
         
     case 'disposition-03':
@@ -321,7 +322,7 @@ var tpl="";
         break;
         
     case 'disposition-01':
-        tpl = `{image}<br><div class='${this.name}_divMaitre'>{options}</div>`;
+        tpl = `{image}<br><div class='${this.name}_divMaitre'>{options}<br><br></div>`;
         break;
         
     case 'disposition-00':
@@ -332,7 +333,7 @@ var tpl="";
     return tpl;
 }
 
-} // *************** fin de la classe ********************
+} // *************** fin de la class ********************
 
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant
@@ -356,8 +357,12 @@ function selectImages_event_gotoNextSlide(ev, slideNumber){
         }
     }
 
+    //alert (clQuestion.getScoreByProposition() + " / " + clQuestion.scoreMaxiBP);
     if(gotoNexSlide){
-        quiz_show_avertissement (options.nextSlideMessage, options.nextSlideDelai, options.nextSlideBG);
+        var msg = (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP) ? options.nextSlideMessageWinner : options.nextSlideMessageLooser;
+        msg = fo_sprint(msg);
+        
+        quiz_show_avertissement (msg, options.nextSlideDelai, options.nextSlideBG);
     }  
     ev.stopPropagation();
 }

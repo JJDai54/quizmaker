@@ -41,7 +41,7 @@
 <script>
 
 /**************************************************************************
- *   get instance de classe
+ *   get instance de plugin
  * ************************************************************************/
   function getTplNewClass2 (currentQuestion, chrono){
 
@@ -53,10 +53,10 @@
         case "<{$className}>" : obj = getPlugin_<{$className}>(currentQuestion, chrono); break;
     <{/foreach}>
     
-    default: alert(quiz_messages.majCtrlF5 + "\n___________________\n" + "getTplNewClass - Classe absente : " + currentQuestion.type); break;
+    default: console.log('=====>' + quiz_messages.majCtrlF5 + "\n___________________\n" + "getTplNewClass - Plugin absent : " + currentQuestion.pluginName); break;
     }
 
-    //blob("getTplNewClass - Classe : " + currentQuestion.type);
+    //blob("getTplNewClass - Plugin : " + currentQuestion.pluginName);
     return obj;
 }
 </script>

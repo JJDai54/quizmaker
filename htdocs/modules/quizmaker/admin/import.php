@@ -25,7 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 require __DIR__ . '/header.php';
-$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_IMPORTG,'QUIZMAKER_PERMIT_IMPORTG', "index.php");
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_IMPORTG,'QUIZMAKER_PERMIT_IMPORTG', "index.php", QUIZMAKER_ADMIN_PERM);
 //-----------------------------------------------------------
 //recherche des categories autorisées
 $clPerms->addPermissions($criteriaCatAllowed, 'import_quiz', 'cat_id');
@@ -49,11 +49,21 @@ $pg = array_merge($_GET, $_POST);
  if(count($_POST)>0) echo "<hr>POST : <pre>" . print_r($_POST, true) . "</pre><hr>";
  if(count($_FILES)>0) echo "<hr>FILES : <pre>" . print_r($_FILES, true) . "</pre><hr>";
 */
+//Variable globale a utiliser pour tous les types d'import
+//$eventOnChange = "onchange='document.form_import.type_import.value=\"{$typeImport}\";document.form_import.op.value=\"getForm\";document.form_import.submit()'";
+
+/****   declaration des variables globale utilisée dans tous les type d'import ********* */
+$formName = "form_import";
+$typeImportName = 'type_import';
+$importMainFile = "import.php";
+$eventOnChange = "onchange='document.{$formName}.op.value=\"getForm\";document.{$formName}.submit()'";
+$styleBreakLine = "<div style='background:#FFCCCC;'><center><b>%s</b></center></div>";
+//--------------------------------------------------
 
 $templateMain = 'quizmaker_admin_import.tpl';
 $op = Request::getCmd('op', 'getform');
 $quizId = Request::getInt('quiz_id');
-$typeImport = Request::getString('type_import','quiz');
+$typeImport = Request::getString($typeImportName,'quiz');
 $pluginName = Request::getString('plugin','');
 
 
@@ -76,6 +86,7 @@ $upload_size = $quizmakerHelper->getConfig('maxsize_import'); //$upload_size = 1
 if (!is_dir(QUIZMAKER_PATH_UPLOAD_IMPORT)) mkdir(QUIZMAKER_PATH_UPLOAD_IMPORT);
 if (!is_dir($pathImport)) mkdir($pathImport);
 
+//echoArray('gp');
 
 ////////////////////////////////////////////////////////////////////////
 function loadFileTo($fldImportDest, &$pathImport, &$savedFilename, $clearFldBefore=true, $deleteArchivesImported=true){
@@ -129,25 +140,143 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
  // exit("{$msg}<br>{$url}");
         return $bolOk;
 }
+/* ***********************************************
+
+************************************************** */
+function addXformImportType(&$form, $postName, $value){
+global $typeImport, $clPerms, $eventOnChange;
+    
+      $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, $postName, $typeImport);
+      //$inpTypeImport->setDescription(_AM_QUIZMAKER_IMPORT_SELECT_TYPE);
+      $inpTypeImport->addOption('quiz',  _AM_QUIZMAKER_TYPE_IMPORT_QUIZ);
+      $inpTypeImport->addOption('clone', _AM_QUIZMAKER_TYPE_IMPORT_CLONE_QUIZ);
+      $inpTypeImport->addOption('batch', _AM_QUIZMAKER_TYPE_IMPORT_BATCH);
+
+      if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG, true)){
+        $inpTypeImport->addOption('quest', _AM_QUIZMAKER_TYPE_IMPORT_QUEST);
+        $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_LOCAL);
+        $inpTypeImport->addOption('plugin', _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN);
+      }
+
+      $inpTypeImport->setExtra($eventOnChange . ' ' . getXformStyle($postName));      
+
+      $form->addElement($inpTypeImport);
+      return true;
+
+}
+/* ***********************************************
+
+************************************************** */
+function getXformStyle($postName){
+
+    $t = explode("_", $postName);
+    switch ($t[0]){
+      case 'from'   : $bg = QUIZMAKER_BG_LIST_FROM;       break;
+      case 'to'     : $bg = QUIZMAKER_BG_LIST_TO;         break;
+      case 'type'   : $bg = QUIZMAKER_BG_LIST_TYPEIMPORT; break;
+      default       : $bg = QUIZMAKER_BG_LIST_NONE;       break;
+    }
+
+    return FQUIZMAKER\getStyle($bg);
+}
+/* ***********************************************
+
+************************************************** */
+function addXformCat(&$form, $postName, $value, $addEvent = false, $description = ''){
+global $catArr,$eventOnChange ;
+        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, $postName, $value);
+        $inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
+        $inpCategory->addOptionArray($catArr);
+        if ($description) $inpCategory->setDescription($description);
+        if ($addEvent)
+            $inpCategory->setExtra($eventOnChange . ' ' . getXformStyle($postName));
+        else
+            $inpCategory->setExtra(getXformStyle($postName));
+        
+        $form->addElement($inpCategory);
+        return true;
+}
+/* ***********************************************
+
+************************************************** */
+function addXformSet(&$form, $postName, $value, $catId, $addEvent = false, $description = ''){
+global $catArr, $eventOnChange, $quizHandler;
 
 
+    $setArr =  $quizHandler->getFieldList('quiz_subject', $catId);
+    if(count($setArr) > 1){
+        $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT, $postName, $value);
+        if ($description) $inpSet->setDescription($description);
+        $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
+        $inpSet->addOptionArray($setArr);
+        if ($addEvent)
+            $inpSet->setExtra($eventOnChange . ' ' . getXformStyle($postName));
+        else
+            $inpSet->setExtra(getXformStyle($postName));
+            
+        $form->addElement($inpSet);
+    }else{$fromQuizSet = '';}
+
+    return true;
+}
+
+/* ***********************************************
+
+************************************************** */
+function addXformQuiz(&$form, $postName, $value, $catId, $quizSubject, $addEvent = false, $description = ''){
+global $catArr, $eventOnChange, $quizHandler;
+
+
+    $quizArr = $quizHandler->getListKeyName($catId, $quizSubject);
+
+    $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, $postName, $value);
+    if ($description) $inpQuiz->setDescription($description);
+    $inpQuiz->addOptionArray($quizArr);
+        if ($addEvent)
+            $inpQuiz->setExtra($eventOnChange . ' ' . getXformStyle($postName));
+        else
+            $inpQuiz->setExtra(getXformStyle($postName));
+
+  	$form->addElement($inpQuiz);
+
+    return true;
+
+}
+/* ***********************************************
+
+************************************************** */
+function addXformQestOrderBy(&$form, $postName, $value, $addEvent = false, $description = ''){
+global $eventOnChange;
+
+        //if(!$value) $value = 'quest_plugin';
+        $inpOrderBy = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_ORDER_BY, $postName, $value);
+        $inpOrderBy->addOptionArray(['quest_question' => _AM_QUIZMAKER_QUIZ_ORDER_BY_QUESTION,
+                                     'quest_weight'   => _AM_QUIZMAKER_QUIZ_ORDER_BY_WEIGHT,
+                                     'quest_plugin'   => _AM_QUIZMAKER_QUIZ_ORDER_BY_PLUGINS,
+                                     'quest_id'       => _AM_QUIZMAKER_QUIZ_ORDER_BY_ID]);
+
+        if ($addEvent)
+            $inpOrderBy->setExtra($eventOnChange . ' ' . getXformStyle($postName));
+        else
+            $inpOrderBy->setExtra(getXformStyle($postName));
+            
+  	    $form->addElement($inpOrderBy);
+
+    return true;
+
+}
+/* ***********************************************
+
+************************************************** */
+function addXformBtnSubmit(&$form, $caption = _AM_QUIZMAKER_IMPORTER){
+    $form->addElement(new \XoopsFormButton('', _SUBMIT, $caption, 'submit'));
+}
+/* ***************** actions ********************** */
 
 // It recovered the value of argument op in URL$
 list_on_errors:
 
         // ----- selection du type d'importation -----  
-        
-        $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, 'type_import', $typeImport);
-        $inpTypeImport->addOption('quiz',  _AM_QUIZMAKER_TYPE_IMPORT_QUIZ);
-        $inpTypeImport->addOption('batch', _AM_QUIZMAKER_TYPE_IMPORT_BATCH);
-        if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG, true)){
-          $inpTypeImport->addOption('quest', _AM_QUIZMAKER_TYPE_IMPORT_QUEST);
-          $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_LOCAL);
-          $inpTypeImport->addOption('plugin', _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN);
-        }
-        $inpTypeImport->setExtra('onchange="document.quizmaker_select_import.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEIMPORT));
-              
-		$GLOBALS['xoopsTpl']->assign('inpTypeImport', $inpTypeImport->render());
 
 //echoArray('gp',"ici->$typeImport");exit;
         switch($typeImport){
@@ -166,6 +295,9 @@ list_on_errors:
                 break;
             case 'plugin':
                 include_once "import-plugin.php";
+                break;
+            case 'clone':
+                include_once "import-clone_quiz.php";
                 break;
             case 'quiz':
             default:

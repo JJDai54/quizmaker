@@ -1,3 +1,167 @@
+Meilleurs vœux à tous les Xoopiens, et que 2026 ne nous apporte que de bonnes choses !
+
+Je voulais d'ailleurs vous proposer un nouvea module pour Noêl, mais j'ai encore beaucoup à faire dessus dont l'aide car il est assez complexe, et la traduxtion en anglais.
+En attendant il est en production sur une des sites dont je m'occupe, vous pouvez d'ors et déjà faire mumuse avec.
+Il s'agit d'un module de quiz, mais pas que. 
+JJDai
+
+SELECT * FROM `x2511_quizmaker_questions` WHERE `quest_options` LIKE "%listbox1%";
+
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_reference_id` INT NOT NULL DEFAULT '0' AFTER `quest_parent_id`, ADD INDEX `question_reference_id` (`quest_reference_id`); 
+ALTER TABLE `x2511_quizmaker_quiz` CHANGE `quiz_set` `quiz_subject` VARCHAR(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL; 
+
+//--------------------------------------------------------------------
+//-mise à jour du champ quest_flag avec le nouveau tableau json qui cumul taille, ompbre et arrondi
+//a faire uin fine :
+// - supprimer les champ "quest_height" et "quest_ombre";
+// - regénérer tous les quiz par lot
+
+update `x251_quizmaker_questions` SET `quest_flag`= 0 WHERE 1;
+update `x251_quizmaker_questions` SET `quest_flag`= 1  WHERE `quest_image_style`='';
+
+
+
+UPDATE `x251_quizmaker_questions` 
+SET `quest_image_style`='{"height":{"name":"height","value":"_height_","type":"number","_caption_":"Hauteur","min":25,"max":300,"size":5,"unit":"px"},"shadow":{"name":"shadow","value":"#000000","type":"palette","_caption_":"Ombre","palette":"classic"},"borderRound":{"name":"borderRound","value":"12","type":"number","_caption_":"Arrondi","min":0,"max":150,"size":5,"unit":"px"}}'
+WHERE `quest_flag`= 1; 
+
+UPDATE `x251_quizmaker_questions` 
+SET `quest_image_style`=  REPLACE(`quest_image_style`, '_height_', `quest_height`)        
+WHERE `quest_flag`= 1; 
+//-----------------------------------------------------------------------
+
+
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_difficulty` INT NOT NULL DEFAULT '0' AFTER `quiz_description`; 
+
+ajouter title dans formJson
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_image_style` VARCHAR(500) NOT NULL DEFAULT '' AFTER `quest_image`; 
+
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_shadow` VARCHAR(10) NOT NULL DEFAULT '#000000' AFTER `quest_image`; 
+
+UPDATE x2511_quizmaker_questions
+SET quest_options = REPLACE(quest_options, 'classe', 'variant')
+WHERE quest_options LIKE "%classe%"
+
+SELECT * FROM `x2511_quizmaker_questions` WHERE `quest_options` LIKE "%classe%"
+
+
+ 
+ALTER TABLE `x251_quizmaker_categories` ADD INDEX  `quizmaker_categories_01` (`cat_actif`,`cat_parent_id`,`cat_weight`); 
+
+ALTER TABLE `x251_quizmaker_quiz` ADD UNIQUE `quizmaker_quiz_folderJS` (`quiz_folderJS`); 
+ALTER TABLE `x251_quizmaker_quiz` ADD INDEX `quizmaker_quiz_01` (`quiz_actif`, `quiz_weight`, `quiz_name`, `quiz_cat_id`); 
+ALTER TABLE `x251_quizmaker_quiz` ADD INDEX `quizmaker_quiz_02` (`quiz_actif`, `quiz_cat_id`, `quiz_subject`); 
+ALTER TABLE `x251_quizmaker_quiz` ADD INDEX  `quizmaker_quiz_flag` (`quiz_flag`); 
+ALTER TABLE `x251_quizmaker_quiz` ADD INDEX `quizmaker_quiz_periode` (`quiz_dateEnd`,`quiz_dateBegin`);
+
+ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_flag` (`quest_flag`); 
+ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_01` (`quest_actif`,`quest_quiz_id`,`quest_weight`); 
+ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_weight` (`quest_weight`,`quest_actif`); 
+ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_quiz_id` (`quest_quiz_id`); 
+
+ALTER TABLE `x251_quizmaker_answers` ADD INDEX  `quizmaker_answer_flag` (`answer_flag`); 
+ALTER TABLE `x251_quizmaker_answers` ADD INDEX  `quizmaker_answer_01` (`answer_quest_id`,`answer_weight`,`answer_id`); 
+
+ALTER TABLE `x251_quizmaker_results` ADD INDEX  `quizmaker_results_result_quiz_id` (`result_quiz_id`); 
+
+CREATE TABLE `quizmaker_categories` (
+  `cat_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `` int(8) NOT NULL DEFAULT '0',
+  `cat_name` varchar(255) NOT NULL DEFAULT '',
+  ``  tinyint(1) NOT NULL DEFAULT '1', 
+  `cat_description` text NOT NULL,
+  `cat_image` varchar(255) NOT NULL DEFAULT '0',
+  `cat_theme` varchar(50) NOT NULL DEFAULT '0',
+  `` int(11) NOT NULL DEFAULT '0',
+  `cat_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+  `cat_update` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+  PRIMARY KEY (`cat_id`)
+) ENGINE=InnoDB;
+
+
+CREATE TABLE `quizmaker_results` (
+  `result_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `result_quiz_id` int(8) NOT NULL DEFAULT '0',
+  `result_uid` int(8) NOT NULL DEFAULT '0',
+  `result_uname` varchar(50) NOT NULL,
+  `result_ip` varchar(50) NOT NULL,
+  `result_score_achieved` int(8) NOT NULL DEFAULT '0',
+  `result_score_max` int(8) NOT NULL DEFAULT '0',
+  `result_score_min` int(8) NOT NULL DEFAULT '0',
+  `result_answers_achieved` int(8) NOT NULL DEFAULT '0',
+  `result_answers_total` int(8) NOT NULL DEFAULT '0',
+  `result_duration` int(8) NOT NULL DEFAULT '0',
+  `result_note` float NOT NULL DEFAULT '0',
+  `result_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+  `result_update` datetime(6) NOT NULL,
+  `result_attempts` int(8) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`result_id`)
+) ENGINE=InnoDB;
+
+
+
+
+
+/* ***********************************************
+
+************************************************** */
+function getImportTypeSelect(){
+global $typeImport, $clPerms;
+      $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, 'type_import', $typeImport);
+      $inpTypeImport->addOption('quiz',  _AM_QUIZMAKER_TYPE_IMPORT_QUIZ);
+      $inpTypeImport->addOption('batch', _AM_QUIZMAKER_TYPE_IMPORT_BATCH);
+      $inpTypeImport->addOption('clone', _AM_QUIZMAKER_TYPE_IMPORT_CLONE_QUIZ);
+
+      if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG, true)){
+        $inpTypeImport->addOption('quest', _AM_QUIZMAKER_TYPE_IMPORT_QUEST);
+        $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_LOCAL);
+        $inpTypeImport->addOption('plugin', _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN);
+      }
+      $inpTypeImport->setExtra('onchange="document.quizmaker_select_import.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEIMPORT));
+      return $inpTypeImport;
+
+}
+
+
+//////////////////////////////////////////////////
+        $setArr =  $quizHandler->getFieldList('quiz_subject', $catId);
+        if(count($setArr) > 1){
+            $inpSet = new \XoopsFormSelect('', 'quiz_subject', $quizSubject);
+            $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
+            $inpSet->addOptionArray($setArr);
+            $inpSet->setExtra($event);
+            $selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $inpSet->render();
+        }else{
+            //$selectors['subject'] = '';
+            //$selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $quizSubject;
+            $selectors['select']['subject'] = '';
+       }
+  	    $form->addElement($inpSet);
+
+
+
+
+ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_subject` VARCHAR(80) NOT NULL AFTER `quiz_name`; 
+
+
+                   uploads/quizmaker/quiz-js/Neurons_Club_Juin_2024/images/quiz-68da8e7173912.png
+https://sages91.fr/uploads/quizmaker/quiz-js/Neurons_Club_Septembre_2025_(JJD)/images/quiz-68da8e7173912.png
+
+
+Sacré Inès elle avait toujours eu {une araignée dans le plafond}, mais là elle {voyait  les rats}.
+La {cloporte} bavait et criait à qui voulait l'entendre qu'elle {avait la guêpe} à cause de {la fourmi} qui venait de tomber au coin de la rue.
+C'est vrai que {les serpents}, ils nous en faisait avaler des couleuvres.
+Ils étaient partout ces temps-ci. même {le requin} il ne circulait plus {qu'en rampant} !
+
+Sacré Inès elle avait toujours eu {un grain de folie}, mais là elle {est paranoïaque}.
+La {concierge} bavait et criait à qui voulait l'entendre qu'elle {est en manque} à cause {le petit dileur} qui venait de tomber au coin de la rue.
+C'est vrai que {les policiers en civile}, ils nous en faisait avaler des couleuvres.
+Ils étaient partout ces temps-ci. même {le commissaire de police} il ne circulait plus {qu'en taxi} !
+-------------------------------------------------------------------
+
+Le Belmond Hiram Bingham|Le Tren a las Nubes|Le Ghan|Le Royal Scotsman|Le Gotthard Panorama Express
+-------------------------------------------------------------------
+
 <a class="ui-corner-all tooltip" title="Initialisation du poids" onclick="document.quizmaker_select_filter.op.value='init_weight';document.quizmaker_select_filter.submit();">
 <img src="http://127.0.0.16/modules/quizmaker/assets/icons/16/generer-1.png" title="" alt="">Initialisation du poids</a>
 
@@ -89,11 +253,11 @@ WHERE tq.quest_id is null;
 
 
 DELETE FROM `x2511_quizmaker_questions` tq
-WHERE tq.quest_plugin='textboxMultiple';
+WHERE tq.quest_plugin='multiQuestions';
 
 SELECT tz.* FROM `x2511_quizmaker_questions` tq, x2511_quizmaker_quiz as tz
 WHERE tq.quest_quiz_id=tz.quiz_id
-AND tq.quest_plugin='textboxMultiple';
+AND tq.quest_plugin='multiQuestions';
 
 
 
@@ -103,14 +267,14 @@ SELECT tq.quest_plugin, ta.* FROM `x2511_quizmaker_answers` as ta, x2511_quizmak
 WHERE ta.answer_quest_id = tq.quest_id
 AND tq.quest_quiz_id = tz.quiz_id
 AND tz.quiz_id=146
-AND tq.quest_plugin='textboxMultiple';
+AND tq.quest_plugin='multiQuestions';
 
 
 SELECT tq.quest_plugin, ta.* FROM `x2511_quizmaker_answers` as ta
 inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
 inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
 WHERE tz.quiz_id=146
-AND tq.quest_plugin='textboxMultiple';
+AND tq.quest_plugin='multiQuestions';
  
 
 
@@ -119,7 +283,7 @@ inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
 inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
 SET ta.answer_buffer = ta.answer_caption
 WHERE tz.quiz_id=146
-AND tq.quest_plugin='textboxMultiple';
+AND tq.quest_plugin='multiQuestions';
  
 
 update `x2511_quizmaker_answers` as ta
@@ -127,13 +291,13 @@ inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
 inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
 SET ta.answer_buffer = 'aaa,bbb,ccc', ta.answer_points=1, ta.answer_inputs=5, ta.answer_group=1
 WHERE tz.quiz_id=146
-AND tq.quest_plugin='textboxMultiple';
+AND tq.quest_plugin='multiQuestions';
 
 update x2511_quizmaker_questions as tq 
 inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
 SET tq.quest_plugin='multiQuestions'
 WHERE tz.quiz_id=146
-AND tq.quest_plugin='textboxMultiple';
+AND tq.quest_plugin='multiQuestions';
 
 
 

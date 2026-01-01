@@ -64,7 +64,7 @@ switch($op) {
         $inpCatTQ->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
   	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
 
-        $catId = $categoriesHandler->getId(QUIZMAKER_CAT_NAME_FOR_EXEMPLE, true,true);
+        $catId = $categoriesHandler->getId(QUIZMAKER_CAT_NAME_FOR_EXEMPLE, true, false);
         $allQuiz = $quizHandler->getKeysByCat($catId, 'quiz_name');
 //        echoArray($allQuiz,"=========================================");
         

@@ -236,6 +236,6 @@ function arrayToArrayNum(strArr){
 /* *********************************
 *
 * */
-function splitAllSep(exp, newSep = "|") {
+function splitArrayAllSep(exp, newSep = "|") {
   return setAllSepByNewSep(exp, newSep).split(newSep);
 }

@@ -133,7 +133,7 @@ class Categories extends \XoopsObject
 		$form->addElement($inpTheme );
 
 
-        $imgCat = QUIZMAKER_URL_UPLOAD . '/categories/' . $this->getVar('cat_image');
+        //$imgCat = QUIZMAKER_URL_UPLOAD . '/categories/' . $this->getVar('cat_image');
         $inpImgCat2 = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'cat_image', $quizmakerHelper->getConfig('maxsize_image'), $this->getVar('cat_image'),  QUIZMAKER_URL_UPLOAD . '/categories');
 		$form->addElement($inpImgCat2);
 

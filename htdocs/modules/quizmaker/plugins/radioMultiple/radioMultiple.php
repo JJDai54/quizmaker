@@ -39,7 +39,7 @@ var $nbMaxColumns = 5;
 	 */
 	public function __construct()
 	{
-        parent::__construct("radioMultiple", 0, "basic");
+        parent::__construct("radioMultiple", 0, "classique");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->optionsDefaults = ['orientation' => 'horitontal', 
@@ -131,7 +131,7 @@ var $nbMaxColumns = 5;
         for($k = 0; $k < $this->maxPropositions; $k++){        
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             if($isNew) $points = 0; //correction du nombre de points pour les nouveaux enregistrement
             
@@ -173,7 +173,7 @@ var $nbMaxColumns = 5;
    
         foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
             $tMots = array(); 
@@ -246,5 +246,5 @@ var $nbMaxColumns = 5;
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class
 

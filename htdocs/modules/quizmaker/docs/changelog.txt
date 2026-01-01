@@ -1,4 +1,46 @@
 ---------------------------------------------------
+2025-11-17a v 6.16 beta 5 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+intégration de XoopsFormJason pour stocker les attributs de dtyle dans un seul champ(question->image_style qui rempce plusieur champs image_height, image_shadow, ...)
+Ajout de la dificulté d'un quiz
+Dans l'admin des question ajout d'un bouton(point d'interrogation" pour acceder au quiz dans l'interface user afin de faciliter la mise en page des slides.
+Ajout d'index sur les tables question et quiz pour optimiser les temps de réponse.
+ajout du champ 'subject' comme sous catégorie simpliée.
+divers corrections et mise en forme
+Sur pageEnd, soummission automatique quand il y a un timer et que focer=true
+
+Onglet "Questions" : 
+    - ajout de la fonction "Ajout d'une page d'information" à une question.
+    - ajout du champ "quest_reference_id" pour lier la question et la page d'information
+    - L'idée est de faire suivre la question par la bonne réponse avec des explication reprise dans "quest_explanation" de la queestion.
+    - A faire recalculer le poids en fonction de cette liaison
+
+Plugin "textMixte" :
+    - Transfert des intrus dans les options pour la variante "listbox1"
+    - Correction des listes d'intrux pour la variante "litbox2"     
+---------------------------------------------------
+2025-10-22 v 6.16 beta 4 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+refonte de l'onglet "Import"
+Ajout de l'option "Cloner un quiz" dans l'import
+refonte de l'insertion des messages de transition :
+    - un message pour les réponses correctres
+    - un message pour les réponses incorrectes
+Mutualisation des messages et individualistion si besoin (cas de findObjets qui tient compte du nombre d'essais)
+déplacement des fichiers inclus dans la gestion des plugins dans "plugins_include"
+plugins concernés : alphasimple, find***objets, selectInputs, selectImages 
+    
+Refonte du plugin multiQuestions
+    - Ajout de l'image principale
+    - mise en forme sur une ou plusieurs pour chaque question
+
+Réorganisation des catégories des plugins pour faciliter le choix du plugin
+Remplacement de l'option "Réponse obligatoire" obsolette par "showSlideBarr".
+    Elle affiche une barre de défilement horizontale et permet d'accéder directement à une question en moe dev.
+
+Remplacement de "classe" pour désigner des comportement différents des plugins par "variant"
+            
+---------------------------------------------------
 2025-09-06 v 6.16 beta 3 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 Ajout des bloc "Dernier quiz" et "Catégories"
@@ -14,6 +56,8 @@ Javascript :
 ajout des champs cat_image et quiz image
 transfert du code de categories.php dans quiz.php
 refonte de quiz.php avec les image de la categorie et des liens sous forme de boutons
+ 
+Ajout du champ "quiz_subject" pour permetre d'avoir des sous-catégories sans hiérarchie à gérer
                
 ---------------------------------------------------
 2025-06-20 v 6.14 beta 3 - JJDai - jjdelalandre@orange.fr
@@ -69,7 +113,7 @@ quest_background : valeur spécifique pour le slide courant, elle prime sur "qui
 
 plugins : selectInputs, selectImages, alphaSimple, findObjects :
     refonte  du passage au slide suivant si "nextSlideDelai" est > 0
-    harmonisation des variables utilisées et transfert des inputs dans "plugin_options_avertissement.php"
+    harmonisation des variables utilisées et transfert des inputs dans "plugin_options_transition.php"
     qui par le fait utilise les même noms de variable et simplifie la compréhension du code
     Côté javascript simplification par le tranfert des fonctions des plugins dans "functions.js".
 
@@ -154,7 +198,7 @@ Plugin matchItems : refonte
     - suppression dans les options de "conjonction" remplacé par une liste paramétrable
     - Possibilité de définir 5 liste en colonne, de type label, textbox, listbox ou conjontion
     - Ajout de paramètres pour chacune de ces liste : type de liste, titre, intrux, largeur de colonne, ...
-Plugin textboxMultiple par le plugin questionMultiple
+Plugin multiQuestions par le plugin questionMultiple
     Ce plugin prend en charge en plus des textbox, les listbox,les checkbox et les boutons radio.
         
 ---------------------------------------------------
@@ -249,7 +293,7 @@ Onglet Permissions : déplacement dans JANUS_Framework afinde mutualisée cette 
  -remplacement dans les fichier help.html .
   de  : <meta http-equiv="content-type" content="text/html; charset=windows-1252">.
   par : <meta http-equiv="content-type" content="text/html; charset=UTF-8" />.
-- Correction plugin textareaMixte : "score by good word".
+- Correction plugin textMixte : "score by good word".
 - Plugin imagesDaDItems : Ajout des couleurs de fond pour silhouette et source.
 
 ---------------------------------------------------

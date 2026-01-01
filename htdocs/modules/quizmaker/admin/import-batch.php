@@ -34,6 +34,9 @@ $pg = array_merge($_GET, $_POST);
  if(count($_FILES)>0) echo "<hr>FILES : <pre>" . print_r($_FILES, true) . "</pre><hr>";
 */
 
+$toCatId = Request::getInt('to_cat_id', 0);
+if($toCatId == 0) $toCatId = array_key_first($catArr);
+$toQuizSet = Request::getString('to_quiz_subject', '');
 
 ////////////////////////////////////////////////////////////////////////
     switch($op){
@@ -41,28 +44,31 @@ $pg = array_merge($_GET, $_POST);
         //----------------------------------------------- 
         //affichage des imports par lot
         //----------------------------------------------- 
-          $form_batchIimport = new \XoopsThemeForm(_AM_QUIZMAKER_BATCH_IMPORT, 'form_import_batch', 'import.php', 'post', true);
-          $form_batchIimport->setExtra('enctype="multipart/form-data"');
-          // To Save
-          $form_batchIimport->addElement(new \XoopsFormHidden('op', 'import'));
-          $form_batchIimport->addElement(new \XoopsFormHidden('type_import', 'batch'));
-          $form_batchIimport->addElement(new \XoopsFormHidden('sender', ''));
-          $form_batchIimport->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_BATCH_IMPORT_DESC));
+        $form = new \XoopsThemeForm($title, $formName, $importMainFile, 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // To Save
+        $form->addElement(new \XoopsFormHidden('op', 'import'));
+        $form->addElement(new \XoopsFormHidden('sender', ''));
+        addXformImportType($form, $typeImportName, $typeImport);
           
+        //---------------------------------------------------  
+    	$form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_SELECT_DEST_TO_CLONE));
+        //---------------------------------------------------  
           
+        // ----- Listes de selection From pour filtrage -----  
+        $form->addElement(new XoopsFormLabel('',_AM_QUIZMAKER_BATCH_IMPORT_DESC));
+            
         $allQuiz2Import = XoopsLists::getFileListByExtension(QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH,  array('zip'), '');        
 //echo QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH . "<br>";
 //echoArray($allQuiz2Import,'liste des zip');
         if(count($allQuiz2Import) > 0){
-          $lstQuiz = array();
+          // ----- Listes de selection To pour filtrage -----  
+          addXformCat  ($form, 'to_cat_id',   $toCatId, true);
+          addXformSet  ($form, 'to_quiz_subject', $toQuizSet, $toCatId, true);
 
-
-          $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-          $inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
-          $inpCategory->addOptionArray($catArr);
-          $inpCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);
-          $inpCategory->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
-          $form_batchIimport->addElement($inpCategory);
+          //---------------------------------------------------  
+    	  $form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_SELECT_QUIZ_TO_IMPORT));
+          //---------------------------------------------------  
 
           $inpCheckbox = new \XoopsFormCheckboxAll('Import', 'zipFiles', 1, '<br>');
           $inpCheckbox->addOptionCheckAll('Tous les fichiers',-1);
@@ -70,18 +76,17 @@ $pg = array_merge($_GET, $_POST);
           foreach($allQuiz2Import as $key=>$quiz){   
             $inpCheckbox->addOption($key, $key);
             $inpFullName = new XoopsFormHidden("fullName[{$key}]", QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH . "/" . $quiz);
-            $form_batchIimport->addElement($inpFullName);
+            $form->addElement($inpFullName);
           }
-          $form_batchIimport->addElement($inpCheckbox);
+          $form->addElement($inpCheckbox);
 
 
-		$form_batchIimport->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_IMPORTER, 'submit'));
-        
-        
-		$form_batchIimport->addElement($validation);
+          //-------------------------------------------------------------------
+          addXformBtnSubmit($form);
    
         }
-		$GLOBALS['xoopsTpl']->assign('form', $form_batchIimport->render()); 
+		$GLOBALS['xoopsTpl']->assign('form', $form->render()); 
+
 //echoArray($ret, 'getPluginPath');   
         break;
     case 'confirm':

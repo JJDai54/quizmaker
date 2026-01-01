@@ -52,6 +52,7 @@ use XoopsModules\Quizmaker\Constants;
         $pluginName = Request::getString('quest_plugin', '');
 		$questionsObj->setVar('quest_plugin', $pluginName);
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
+		$questionsObj->setVar('quest_reference_id', Request::getInt('quest_reference_id', 0));
 		$questionsObj->setVar('quest_question', FQUIZMAKER\sanityse_inpValue(Request::getString('quest_question', '')));
 		$questionsObj->setVar('quest_identifiant', Request::getString('quest_identifiant', ''));
         
@@ -97,7 +98,7 @@ use XoopsModules\Quizmaker\Constants;
 /*
 echoArray($options,'options',true);   
 echoArray('gpf','options',true);       
-echoArray($_POST,'_POST',false);     
+echoArray($_POST,'_POST',true);     
 */        
 //echoArray($_FILES,'_FILES',true);     
    
@@ -111,7 +112,9 @@ echoArray($_POST,'_POST',false);
 		$questionsObj->setVar('quest_see_also', Request::getString('quest_see_also', ''));
 		$questionsObj->setVar('quest_points', Request::getInt('quest_points', 0));
 		$questionsObj->setVar('quest_zoom', Request::getInt('quest_zoom', 0));
-		$questionsObj->setVar('quest_height', Request::getInt('quest_height', 0));
+		$questionsObj->setVar('quest_height', Request::getInt('quest_height', ''));
+		$questionsObj->setVar('quest_shadow', Request::getString('quest_shadow', ''));
+		$questionsObj->setVar('quest_image_style', Request::getString('quest_image_style', ''));
 		$questionsObj->setVar('quest_numbering', Request::getInt('quest_numbering', 2));
 		$questionsObj->setVar('quest_shuffleAnswers', Request::getInt('quest_shuffleAnswers', 0));
 		$questionsObj->setVar('quest_weight', Request::getInt('quest_weight', 0));
@@ -120,6 +123,9 @@ echoArray($_POST,'_POST',false);
 		$questionsObj->setVar('quest_visible', Request::getInt('quest_visible', 1));
 		$questionsObj->setVar('quest_actif', Request::getInt('quest_actif', 1));
 		$questionsObj->setVar('quest_update', \JANUS\getSqlDate());
+//         echoGPF('p');
+//         exit('=====>quest_palette1 : ' . Request::getString('quest_palette1', ''));
+//         exit(Request::getString('quest_image_style', ''));
 
 
         //suppression de l'image existant si besoin si la case a ete coche 
@@ -160,6 +166,7 @@ echoArray($_POST,'_POST',false);
         
 		// Insert Data
 		if ($questionsHandler->insert($questionsObj)) {
+        //exit('insert');
             $questId = $questionsObj->getVar('quest_id');
 
 		    // *************** Insert propositions / answers ********************* 
@@ -180,6 +187,7 @@ echoArray($_POST,'_POST',false);
 
             
 		}
+        //exit('error');
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());
 		$form = $questionsObj->getFormQuestions();

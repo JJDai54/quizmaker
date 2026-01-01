@@ -177,7 +177,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
         for($k = 0 ; $k < $maxItems ; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             //if ($answerId == 0) $ans['input'] = $inputs; //Correction du groupe pour les nouveaux enregistremens
             
@@ -248,7 +248,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
         */ 
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
         
@@ -386,4 +386,4 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

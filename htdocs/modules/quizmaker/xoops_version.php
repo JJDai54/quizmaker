@@ -25,12 +25,11 @@ $moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 
-
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 6.16,
-	'module_status'       => 'Beta 3',
-	'release_date'        => '2025/09/06',
+	'version'             => 6.016,
+	'module_status'       => 'Beta 6',
+	'release_date'        => '2025/12/20',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -112,7 +111,7 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_results_item.tpl', 'description' => ''],
 
 	['file' => 'quizmaker_breadcrumbs.tpl', 'description' => ''],
-	['file' => 'quizmaker_search.tpl', 'description' => ''],
+//	['file' => 'quizmaker_search.tpl', 'description' => ''],
 	['file' => 'quizmaker_footer.tpl', 'description' => ''],
 	['file' => 'quizmaker_categories_theme.tpl', 'description' => ''],
 ];
@@ -134,6 +133,7 @@ $modversion['search'] = [
 	'file' => 'include/search.inc.php',
 	'func' => 'quizmaker_search',
 ];
+
 // ------------------- Comments ------------------- //
 $modversion['hasComments'] = 1;
 $modversion['comments']['pageName'] = 'quiz.php';
@@ -449,6 +449,16 @@ $modversion['config'][] = [
 	'title'       => '_MI_QUIZMAKER_USE_MINIFIED_FILES',
 	'description' => '_MI_QUIZMAKER_USE_MINIFIED_FILES_DESC',
 	'formtype'    => 'yesno',
+	'valuetype'   => 'int',
+	'default'     => 0,
+];
+
+// Javascript is minified
+$modversion['config'][] = [
+	'name'        => 'action_on_del_cat',
+	'title'       => '_MI_QUIZMAKER_ACTION_ON_DEL_QUIZ',
+	'description' => '_MI_QUIZMAKER_ACTION_ON_DEL_QUIZ_DESC',
+	'formtype'    => 'textbox',
 	'valuetype'   => 'int',
 	'default'     => 0,
 ];

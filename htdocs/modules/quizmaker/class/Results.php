@@ -197,6 +197,13 @@ class Results extends \XoopsObject
 		$ret['duration2']        = $this->format_duration($this->getVar('result_duration'),_CO_QUIZMAKER_HOUR,_CO_QUIZMAKER_MINUTES,_CO_QUIZMAKER_SECONDS, ' ');     
 
 		$ret['note']             = $this->getVar('result_note');
+        
+        //-------------------------------------------------------
+        //si $ret['score_max'] == 0 revoir les points attribués aux propositions des questions
+        //il n'est probablement renseigné, laissé à o pour toutes les propositions de toutes les questions
+        if($ret['score_max'] == 0) $ret['score_max'] = 1; 
+        //-------------------------------------------------------
+        
         $colorNote = round($ret['score_achieved'] / $ret['score_max'] * 5 , 0);
 //echo "<hr>{$ret['score_achieved'] } - {$ret['score_max']} - {$colorNote}<hr>";
         if ($colorNote < 0)  $colorNote = 0;

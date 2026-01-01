@@ -476,5 +476,5 @@ removeAll(){
 }
 
 
-} // ------ fin de la classe ----
+} // ------ fin de la class ----
 

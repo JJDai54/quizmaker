@@ -40,24 +40,13 @@ use XoopsModules\Quizmaker\Constants;
         $quiz = $quizHandler->get($quizId);
         $quizValues = $quiz->getValuesQuiz();
         
-//  echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";     
-//  echo "<br>quiz->gerVar('quiz_id') = " .  $quiz->getVar('quiz_id') . "<br>";
-        // ----- Listes de selection pour filtrage -----  
-
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-        $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
-  	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-        
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizArr);
-        $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
-  	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
+        $selectors = $questionsHandler->getSelector($catId, $quizSubject,$quizId);        
+  	    $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
        // ----- /Listes de selection pour filtrage -----     
           
-  	    $GLOBALS['xoopsTpl']->assign('cat_id', $catId);
-  	    $GLOBALS['xoopsTpl']->assign('quiz_id', $quizId);
-  	    $GLOBALS['xoopsTpl']->assign('quest_id', $questId);
+//   	    $GLOBALS['xoopsTpl']->assign('cat_id', $catId);
+//   	    $GLOBALS['xoopsTpl']->assign('quiz_id', $quizId);
+//   	    $GLOBALS['xoopsTpl']->assign('quest_id', $questId);
 
         //---------------------------------------------        
         //Liste des types de question
@@ -69,9 +58,9 @@ use XoopsModules\Quizmaker\Constants;
         $GLOBALS['xoopsTpl']->assign('inpTypeQuest', $inpTypeQuest->render());
 \JANUS\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
-        //liste des images de type de question - a faire
+        //liste des images du plugin - a faire
         global $quizUtility, $pluginsHandler;
-        // recupe de la classe du type de question
+        // recupe de la classe du plugin
         $clPlugin = $pluginsHandler->getPlugin($quest_plugin);
         if($clPlugin){
           $imgModelesHtml = new \XoopsFormLabel('', $clPlugin->getHtmlImgModeles(null,$imgModelesHeight));  
@@ -109,12 +98,20 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //test du quiz : affiche l'icone avec un "?" bleu si le quiz a ete générérer, permet de le tester
         if($quiz && $quizValues["quiz_html"] != ''){
             $lib =  _AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'];
-            $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1) );
-            $imgTestHtml->setExtra("target='blank'");
+            $url = XOOPS_URL . "/modules/quizmaker/quiz_display.php?op=run&quiz_id={$quizValues['id']}&cat_id={$quizValues['cat_id']}&player_id=";
+            $imgTestHtml2 = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-1.png", $url);
+            $imgTestHtml2->setExtra("target='blank'");
+            
+            $lib =  _AM_QUIZMAKER_TEST_QUIZ . ' : ' . $quizValues['build'];
+            $url = $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1);
+            $imgTestHtml1 = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-2.png", $url);
+            $imgTestHtml1->setExtra("target='blank'");
         }else{
-              $imgTestHtml = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
+              $imgTestHtml1 = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
+              $imgTestHtml2 = new XoopsFormImg($lib, QUIZMAKER_URL_ICONS . "/32/quiz-0.png");
         }        
-  		$GLOBALS['xoopsTpl']->assign('imgTestHtml', $imgTestHtml->render());
+  		$GLOBALS['xoopsTpl']->assign('imgTestHtml1', $imgTestHtml1->render());
+  		$GLOBALS['xoopsTpl']->assign('imgTestHtml2', $imgTestHtml2->render());
         
         
         

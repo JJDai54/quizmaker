@@ -26,9 +26,13 @@ getInnerHTML(bShuffle = true){
     var id = this.getName;
     var currentQuestion = this.question;
     //var width = Math.floor(600 / this.data.nbInputsMax);        
+    var interligne = `<div style='width:100%;height:${currentQuestion.options.interligne}px'></div>`
+    var br = this.getBr(currentQuestion.options.disposition);
+    var tpl = this.getDisposition(currentQuestion.options.disposition);
+    //-----------------------------------------------------
     var html = [];  
-    html.push(this.getImage());  
-
+    //html.push(this.getImage());  
+    
     
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
@@ -37,18 +41,16 @@ getInnerHTML(bShuffle = true){
         
         switch(ans.group){
             case 1: //textbox
-                html.push(this.getHtmlMultiTextbox(k, ans.inputs*1));
+                html.push(this.getHtmlMultiTextbox(k, ans.inputs*1, br));
                 break;
             case 2: //checkbox
             case 3: //radio
                 var strType = (ans.group == 3) ? 'radio' : 'checkbox';
-                var extra='';
-                var sep = '&nbsp;';
-                html.push(this.getHtmlMultiCheckbox(k, ans.itemsArr, strType, sep));          
+                html.push(this.getHtmlMultiCheckbox(k, ans.itemsArr, strType, br));          
                 break;
             case 0: //listbox
             default:
-                html.push(this.getHtmlMultiListbox(k, ans.itemsArr, ans.inputs*1));
+                html.push(this.getHtmlMultiListbox(k, ans.itemsArr, ans.inputs*1, br));
                 break;
         }
         html.push('<br><br>');
@@ -56,67 +58,73 @@ getInnerHTML(bShuffle = true){
 //         ans['intrusArr'] = currentQuestion.answers[k].buffer.split(",");        
 //         ans['itemsArr'] = ans['proposArr'].concat(ans['intrusArr']);        
         
+        html.push(interligne);
                 
     }
 
 //     html = html.replace ("{image}", this.getImage())
 //                .replace ("{input}", this.getHtmlTextbox(sep));
-    return html.join("\n");
+    return tpl.replace('{options}', html.join("\n"))
+              .replace('{image}', this.getImage())  ;
 
 
 
  }
 //---------------------------------------------------
-getHtmlMultiListbox(k, listArr, nbInp, sep = '&nbsp;'){
+getHtmlMultiListbox(k, listArr, nbInp, br){
     var itemName = this.getId(k);
 
     var tHtml = [];
     var  size = 50/nbInp;
-    var listWidth = 600 / nbInp;
+    var  inpWidth = (br) ? 80 : 80/nbInp;
 console.log('===>getHtmlTextbox : nbInp = ' + nbInp)    ; 
     for (var j = 0; j < nbInp; j++){
         var itemId = this.getId(k, j);
       //tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${width}%">`);
       //tHtml.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" minlength="4" size="${size}" maxlength="${maxLength}">`);
-      tHtml.push(getHtmlCombobox(itemName, itemId, listArr, `left style='width:${listWidth}px;'`));
+      tHtml.push(getHtmlCombobox(itemName, itemId, listArr, `left style='width:${inpWidth}%;'`));
     }
 
  
-    return tHtml.join("\n");
+    var sep = (br) ? '<br>' : '&nbsp;';
+    return tHtml.join(sep);
 }
 //---------------------------------------------------
-getHtmlMultiTextbox(k, nbInp, sep = '&nbsp;'){
+getHtmlMultiTextbox(k, nbInp, br){
     var name = this.getId(k);
 
     var tHtml = [];
-    var  size = 50/nbInp;
-    var maxLength=80;
+    var  inpWidth = (br) ? 80 : 80/nbInp;
+    var maxLength= (br) ? 50 : 50/nbInp;
 console.log('===>getHtmlTextbox : nbInp = ' + nbInp)    ; 
     for (var j = 0; j < nbInp; j++){
-      //tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${width}%">`);
-      tHtml.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" minlength="4" size="${size}" maxlength="${maxLength}">`);
+      //tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${inpWidth}%">`);
+      tHtml.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${inpWidth}%;margin:2px 0px 2px 0px;" minlength="${maxLength}"   maxlength="${maxLength}">`);
     }
 
-
-    return tHtml.join("\n");
+    var sep = (br) ? '<br>' : '&nbsp;';
+    return tHtml.join(sep);
 }
 
 //---------------------------------------------------
-getHtmlMultiCheckbox(k, itemsArr, strType, sep = '&nbsp;'){
+getHtmlMultiCheckbox(k, itemsArr, strType, br){
     var tHtml = [];
     var name = this.getId(k);
     
    // var itemsArr = shuffleArray(itemsArr);
+   var nbInp = itemsArr.length;
+    var  inpWidth = (br) ? 80 : 80/nbInp;
     
     for (var j = 0; j < itemsArr.length; j++){
       var itemId = this.getId(k, j);
       //var sel = (j == itemDefault) ? "checked" : "" ;  
-      tHtml.push(`<label class="quiz" >
+      tHtml.push(`<label class="quiz"style="width:${inpWidth}%;margin:2px 0px 2px 0px;" >
                  <input type="${strType}" id="${itemId}" name="${name}" value="${sanityseTextForComparaison(itemsArr[j])}" caption="${itemsArr[j]}">
-                 ${itemsArr[j]}</label>${sep}`);
+                 ${itemsArr[j]}</label>`);
 
     }
-    return tHtml.join("\n");
+    var sep = (br) ? '<br>' : '&nbsp;';
+    return tHtml.join(sep);
 }
 
 //---------------------------------------------------
@@ -124,23 +132,24 @@ getHtmlMultiCheckbox(k, itemsArr, strType, sep = '&nbsp;'){
     
     var currentQuestion = this.question;
     
-    
+    var newSep = '|';
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
         var idx = 0;
             
-        ans['proposArr']  = ans.proposition.split(",");        
-        ans['sanitysArr'] = sanityseTextForComparaison(ans.proposition.replaceAll(',','|')).split("|");        
-        ans['intrusArr']  = ans.buffer.split(",");    
-        
-        //supression des bonnes répopnses dans les intrus pour éviter de les avoir en double dans les listes déroulantes, les checkbox, ...
-        for(var h=0; h< ans['proposArr'].length; h++){
-            idx = ans['intrusArr'].indexOf(ans['proposArr'][h]);
-            if (idx >=0 ){
-                ans['intrusArr'].splice(idx,idx);
-            } 
-        }
-        
+        ans['proposArr']  = ans.proposition.split(",");      
+        ans['sanitysArr'] =  sanityseTextForComparaison(setAllSepByNewSep(ans.proposition, newSep)).split(newSep);
+        //ans['intrusArr']  =  sanityseTextForComparaison(setAllSepByNewSep(ans.buffer, newSep)).split(newSep);
+        ans['intrusArr']  =  setAllSepByNewSep(ans.buffer, newSep).split(newSep);
+    
+            //supression des bonnes répopnses dans les intrus pour éviter de les avoir en double dans les listes déroulantes, les checkbox, ...
+            for(var h=0; h< ans['proposArr'].length; h++){
+                idx = ans['intrusArr'].indexOf(ans['proposArr'][h]);
+                if (idx >= 0 ){
+                    ans['intrusArr'].splice(idx,idx);
+                } 
+            }
+
         ans['itemsArr']   = shuffleArray(ans['proposArr'].concat(ans['intrusArr']));        
         
         //pour faciliter le code
@@ -149,7 +158,6 @@ getHtmlMultiCheckbox(k, itemsArr, strType, sep = '&nbsp;'){
     }
     this.initMinMaxQQ(2);
 }
-
 
 //---------------------------------------------------
 getScoreByProposition (answerContainer){
@@ -352,6 +360,67 @@ console.clear();
     
  }
 
+  /* *********************************************
+  
+  ************************************************ */
+getBr(disposition){
+
+    switch(disposition){
+    case 'disposition-11':
+    case 'disposition-21':
+        var br = true;
+        break;
+    default:
+    case 'disposition-10':
+    case 'disposition-20':
+        var br = false;
+        break;
+    }
+    return br;
+}    
+  /* *********************************************
+  
+  ************************************************ */
+getDisposition(disposition, contenairId){
+    var currentQuestion = this.question;
+
+var tpl="";
+
+    if(this.isImage()) {disposition += '-img';}
+    
+// alert(disposition)  ; 
+    switch(disposition){
+    case 'disposition-10-img':
+    case 'disposition-11-img':
+        tpl = `<center>{image}</center>{options}`;
+        break;
+    
+    
+    
+    case 'disposition-20-img':
+    case 'disposition-21-img':
+        tpl = `<center><table><tr>
+               <td style='padding-right:12px;'>{image}</td>
+               <td>{options}</td>
+               </tr></table></center>`;
+        
+        break;
+        
+    default:
+    case 'disposition-10':
+    case 'disposition-20':
+    case 'disposition-11':
+    case 'disposition-21':
+        tpl = `{options}`;
+        break;
+    }
+    
+    
+    
+
+    //return `${disposition}<br>` + tpl;
+    return tpl;
+}
  
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 

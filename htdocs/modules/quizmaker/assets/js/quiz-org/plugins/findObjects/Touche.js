@@ -312,4 +312,4 @@ toString(toLog = true){
 }
 
 
-} // ------ fin de la classe ----
+} // ------ fin de la class ----

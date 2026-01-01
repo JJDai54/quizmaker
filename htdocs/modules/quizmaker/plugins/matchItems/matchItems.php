@@ -39,14 +39,17 @@ var $nbMaxColumns = 5;
 	 */
 	public function __construct()
 	{
-        parent::__construct("matchItems", 0, "other");
+        parent::__construct("matchItems", 0, "matchitems");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
+        $this->hasZoom = true;
 
         $this->optionsDefaults = ['nbColumns' => 2,
                                   'nbMaxColumns' => $this->nbMaxColumns,
                                   'imgHeight1'   => 96,
                                   'fontSize'     => '1.1',
-                                  'background'   => '#EEEEEE'];
+                                  'background'   => '#EEEEEE',
+                                  'disposition'  => 'disposition-01'];
+                                  
         for ($h = 0; $h < $this->nbMaxColumns; $h++){
           $this->optionsDefaults["list{$h}_type"] = 0;
           $this->optionsDefaults["list{$h}_title"] = '';
@@ -127,7 +130,11 @@ var $nbMaxColumns = 5;
       
       $name = 'background';  
       $inpBackground = new XoopsFormColorPicker(_LG_PLUGIN_MATCHITEMS_BACKGROUND_ITEMS, "{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOption($inpBackground);     
+      $trayOptions->addElementOption($inpBackground);   
+
+      // disposition 
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
+        
     //--------------------------------------------------
 
       for ($h = 0; $h < $nbColumns; $h++){
@@ -164,14 +171,14 @@ var $nbMaxColumns = 5;
 
           
           $name = "list{$h}_title"; 
-          $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-          $inpµIntrus->setExtra("style='background:" . self::bgColor1 . ";'");
-          $trayOptions->addElementOption($inpµIntrus);
+          $inpTitle = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpTitle->setExtra("style='background:" . self::bgColor1 . ";'");
+          $trayOptions->addElementOption($inpTitle);
           
           $name = "list{$h}_intrus"; 
-          $inpµIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-          $inpµIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
-          $trayOptions->addElementOption($inpµIntrus);
+          $inpIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
+          $trayOptions->addElementOption($inpIntrus);
            
           //$trayOptions ->addElement(new XoopsFormLabel('<hr>', ''));   
       }
@@ -232,7 +239,7 @@ var $nbMaxColumns = 5;
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
             $points = 1;
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             if($isNew) $tPropos = array('','','','','','');
 
@@ -317,7 +324,7 @@ var $nbMaxColumns = 5;
         //--------------------------------------------------------        
         foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
         
@@ -363,11 +370,7 @@ var $nbMaxColumns = 5;
             }
             //----------------------------------------------------
       
-      
-      
-      
-            
-          	$ansObj->setVar('answer_proposition', implode(',', $answers[$key]['exp']));
+          	$ansObj->setVar('answer_proposition', implode(QUIZMAKER_SEP_EXP, $answers[$key]['exp']));
           	$ansObj->setVar('answer_points', $ans['points']);
           	$ansObj->setVar('answer_weight', $ans['weight']);
           	$ansObj->setVar('answer_background', $ans['background']);
@@ -414,7 +417,10 @@ var $nbMaxColumns = 5;
 
         $htmlArr[] = '<tr>';
         
-        $tExp = explode(',', $ans['proposition']);
+       //grosse bidouille pour forcer le separateur a QUIZMAKER_SEP_EXP dans les futur versions (erreur de jeunesse)
+        $sep = (strpos($ans['proposition'], QUIZMAKER_SEP_EXP) === false) ? ','  : QUIZMAKER_SEP_EXP;
+        
+        $tExp = explode($sep, $ans['proposition']);
 //echo $ans['proposition'] . '<br>';        
         for($h = 0; $h < count($tExp); $h++){
             if($tExp[$h]){
@@ -488,7 +494,7 @@ var $nbMaxColumns = 5;
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class
 
 
 

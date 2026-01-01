@@ -29,7 +29,7 @@ use Common\FilesManagement; // Files Management Trait
 //-----------------------------------------------
 
 require __DIR__ . '/header.php';
-$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_MINIFY,'QUIZMAKER_PERMIT_MINIFY', "index.php");
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_MINIFY,'QUIZMAKER_PERMIT_MINIFY', "index.php", QUIZMAKER_ADMIN_PERM);
 
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');

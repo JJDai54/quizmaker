@@ -32,15 +32,14 @@ use XoopsModules\Quizmaker\Utility;
 //recheche des categories autorisées
 //echoArray($catArr,'',true);
 //echoarray($catArr);
-if($quizId > 0 && $sender != 'cat_id'){
-  $quiz = $quizHandler->get($quizId);
-  $catId = $quiz->getVar('quiz_cat_id');
-
-        if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
+        if($quizId > 0 && $sender != 'cat_id'){
+            $quiz = $quizHandler->get($quizId);
+            $catId = $quiz->getVar('quiz_cat_id');
+            if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
         }else{
             $quizId = array_key_first($catArr);    
         }
-        $clPerms->checkAndRedirect('view_cats',$catId,'$catId',"categories.php?op=list&cat_id={$catId}");
+        $clPerms->checkAndRedirect('view_cats',$catId,'$catId',"categories.php?op=list&cat_id={$catId}", QUIZMAKER_ADMIN_PERM);
 
         
 		// Define Stylesheet
@@ -52,20 +51,31 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_QUIZ, "quiz.php?op=new&cat_id={$catId}", 'add');
         
 		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, "quiz.php?op=init_weight&cat_id={$catId}", 'update');
-		$adminObject->addItemButton(_AM_QUIZMAKER_BUILD_ALL_QUIZ, "quiz.php?op=build_all_quiz_cat&cat_id={$catId}&in_use=0&nbdone=0", "synchronized");
+		$adminObject->addItemButton(_AM_QUIZMAKER_BUILD_ALL_QUIZ, "quiz.php?op=build_all_quiz_cat&cat_id={$catId}&quiz_subject={$quizSubject}&in_use=0&nbdone=0", "synchronized");
+        
+		$GLOBALS['xoopsTpl']->assign('isAdmin', $isAdmin);
         
         //update weight 
 //         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 // 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
+    
+//     $criteriaSet = new CriteriaCompo(new Criteria('quiz_subject', $quizSubject));
+//     $criteriaSet->add(new Criteria('quiz_cat_id', $catId));
         
-        
+    //$setArr =  $quizHandler->getAll($criteriaSet, 'quiz_subject,quiz_name', false);
+    $setArr =  $quizHandler->getFieldList('quiz_subject', $catId);
+    //echoArray($setArr, "catId = {$catId} - quiz_subject = {$quizSubject}");
+           
         
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 		$quizCount = $quizHandler->getCountQuiz();
         
         $criteria = new CriteriaCompo();
         if ($catId > 0)
-        $criteria->add(new Criteria('quiz_cat_id',$catId));
+            $criteria->add(new Criteria('quiz_cat_id',$catId));
+        if ($quizSubject != '' && array_key_exists($quizSubject, $setArr))
+            $criteria->add(new Criteria('quiz_subject',$quizSubject));
+            
 		//$criteria->setSort('quiz_weight');        
         //$criteria->setOrder('ASC');
 		$quizAll = $quizHandler->getAllQuiz($criteria, $start, $limit, 'quiz_weight ASC, quiz_cat_id ASC,quiz_id');
@@ -74,12 +84,9 @@ if($quizId > 0 && $sender != 'cat_id'){
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
       // ----- Listes de selection pour filtrage -----  
-      //echo "<hr>===>addPermissions => " . $criteriaCatAllowed->renderWhere(). "<hr>";      exit;
-      $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-      $inpCategory->addOptionArray($catArr);
-      $inpCategory->setExtra('onchange="document.quizmaker_select_filter.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
-	  $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-
+      $selectors = $quizHandler->getSelector($catId, $quizSubject);        
+      $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
+     // ----- /Listes de selection pour filtrage -----        
 
      // ----- /Listes de selection pour filtrage -----        
 	  //pour affichage de la categorie dans la liste

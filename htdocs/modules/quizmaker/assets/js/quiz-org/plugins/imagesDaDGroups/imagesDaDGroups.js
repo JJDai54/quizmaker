@@ -541,7 +541,7 @@ for (var h = 0; h < 4; h++){
         return tpl;
 }
 
-}  // FIN DE LA CLASSE
+}  // FIN DE LA VARIANT
 
 /* ******************************************************************** */
 /*       Fonction de Drag And drop sur des images                       */

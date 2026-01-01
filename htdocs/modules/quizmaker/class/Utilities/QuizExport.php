@@ -172,4 +172,4 @@ public static function quiz_exportToYml($quizId, $modeName = 0)
 }
  
 
-}  //fin de la classe
+}  //fin de la class

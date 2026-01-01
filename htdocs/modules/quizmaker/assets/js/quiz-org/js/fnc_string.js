@@ -46,9 +46,13 @@ var ret = {textOk:'', text:'', words:[], nbRows:0};
 * - remplace les caractères accetués
 * *********************************************** */
 function compareExp(exp1, exp2, bolToLower = true){
-    exp1 = sanityseTextForComparaison(exp1, bolToLower);
-    exp2 = sanityseTextForComparaison(exp2, bolToLower);
-    return (exp1 == exp2);
+    var newExp1 = sanityseTextForComparaison(exp1, bolToLower);
+    var newExp2 = sanityseTextForComparaison(exp2, bolToLower);
+    //alert(`compareExp=====>|${newExp1}|===|${newExp2}|`);
+    //var bolOk = (newExp1 == newExp2) ? 'true' : 'false';
+    //console.log (`compareExp==${bolOk}===>|${newExp1}|===|${newExp2}|`);
+    
+    return (newExp1 == newExp2) ? true : false;
 }
 
 
@@ -62,7 +66,7 @@ function strip_tag(string) {
 /* *********************************************
 * prépare un texte pour une comparaison avec un autre texte saisi
 * - supprime les "<br>" et les  "|n"
-* - supprime les caractères de poncuation
+* - supprime les caractères de ponctuation
 * - remplace les caractères accetués
 * *********************************************** */
 function sanityseTextForComparaison(exp, bolToLower = true){
@@ -73,11 +77,13 @@ var car2rep;
     exp = strip_tag(exp);
     var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").trim(); //.replaceAll(" ","")
     
-    var cars2del = new RegExp('[\ \'\.\!\?\,\;-@]', 'gi');
+    var cars2del = new RegExp('[\ \'\.\!\?\,\;\@]', 'gi');
         
     reponse = reponse.replaceAll(cars2del, "");
+    reponse = reponse.replaceAll('-', "");
     reponse = sanityseAccents(reponse);
-    
+    //console.log (`sanityseTextForComparaison=====>|${reponse}|`);
+    //alert(reponse);    
     return reponse;
 }
 
@@ -88,8 +94,8 @@ var car2rep;
 function sanityseAccents(exp, setCasse=0){
 var regAccent;
 var car2rep;
-var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü', 'cçnñ',
-                         'AÀÂÄ', 'EÉÈÊË', 'IÎÏ', 'OÔÖ', 'UÙÜÜ', 'CÇNÑ');
+var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü', 'cç', 'nñ',
+                         'AÀÂÄ', 'EÉÈÊË', 'IÎÏ', 'OÔÖ', 'UÙÜÜ', 'CÇ', 'NÑ');
 
 var reponse = '';
     
@@ -154,12 +160,42 @@ function replaceBalisesByValues(exp, questId = 0)
     var newExp = newExp.replaceAll('\/\/',  '<br>');
     return newExp;
     
-  } 
+  }
+  
+/* *******************************************
+* remplace les code entre accollades par leur valeur
+* ********** */
+function fo_sprint(exp, attempts=0, collectionLength=0){
+    if(!exp) {return'?????'};
+    exp = exp.replace('{winning}',attempts.winning)
+             .replace('{total}', attempts.total)
+             .replace('{max}', attempts.max)
+             .replace('{length}', collectionLength);
+
+    exp = exp.replace('\/\/', '<br>');
+//    exp = exp.replace('\/', '<br>');
+    exp = exp.replace('//', '<br>');
+        
+    return exp;
+}
+/* *******************************************
+* remplace les // par des reoiur a la ligne
+* ********** */
+function replaceDoubleSlash(exp, newString='<br>'){
+    if(!exp) {return'?????'};
+      
+    exp = exp.replaceAll('\/\/', newString);
+//    exp = exp.replace('\/', newString);
+    exp = exp.replaceAll('//', newString);
+       
+    return exp;
+}
+  
 /* *********************************
 * remplace tout separateur potentiel par le seul separateur newSep, par defaut : "|"
 * */
 function setAllSepByNewSep(exp, newSep = "|") {
-//alert(exp + "===>" + newSep);
+//alert('setAllSepByNewSep : ' + exp + "===>" + newSep);
   //return exp.replaceAll(/\;\,\_\|/gi, newSep); // a revoir
   return exp.trim().replaceAll(';',newSep)
                    .replaceAll('-',newSep)

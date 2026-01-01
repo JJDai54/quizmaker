@@ -25,8 +25,8 @@
 
 }
 
-
 .selectCoches_divMaitre label:hover{
   padding-left:12px;
   font-weight:bold;
+  color:red;
 }

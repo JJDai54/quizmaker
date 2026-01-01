@@ -25,6 +25,12 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
+
+$toCatId = Request::getInt('to_cat_id', 0);
+if($toCatId == 0) $toCatId = array_key_first($catArr);
+$toQuizSet = Request::getString('to_quiz_subject', '');
+$toQuizId = Request::getInt('to_quiz_id', 0);
+
     switch($op){
     case 'getform':
         if(!isset($errors)) {
@@ -55,7 +61,7 @@ use XoopsModules\Quizmaker\Utility;
 
 
                
-		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+//		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 // 		if (false === $action) {
 // 			$action = $_SERVER['REQUEST_URI'];
 // 		}
@@ -70,33 +76,25 @@ use XoopsModules\Quizmaker\Utility;
 		$title = _AM_QUIZMAKER_IMPORT;        
 		// Get Theme Form
 		//xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form_import', 'import.php', 'post', true);
+		$form = new \XoopsThemeForm($title, $formName, $importMainFile, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'import'));
-        $form->addElement(new \XoopsFormHidden('type_import', 'quest_import'));
-		$form->addElement(new \XoopsFormHidden('sender', ''));
-
+        $form->addElement(new \XoopsFormHidden('sender', ''));
+        addXformImportType($form, $typeImportName, $typeImport);
+        
+        // ----- Listes de selection From pour filtrage -----  
+  	    $form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_SELECT_DEST_TO_CLONE));
   	    $form->addElement(new XoopsFormLabel(_AM_QUIZMAKER_IMPORT_QUEST_CAUTION1,_AM_QUIZMAKER_IMPORT_QUEST_CAUTION2));
         
-        // ----- Listes de selection pour filtrage -----  
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-        //$inpCategory->addOption(0, _AM_QUIZMAKER_SELECT_CATEGORY_ORG);
-        $inpCategory->addOptionArray($catArr);
-        //$inpCategory->setDescription(_AM_QUIZMAKER_SELECT_CATEGORY_DESC);
-        $inpCategory->setExtra("onchange='quizmaker_reload_import_quest(event,\"{$typeImport}\");'".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
-  	    $form->addElement($inpCategory);
-
-        $quizArr = $quizHandler->getListKeyName($catId);
-        if ($quizId == 0 || !$quiz) {
-            $quizId = array_key_first($quizArr);
-            $quiz = $quizHandler->get($quizId);
-        }
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_TO, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizArr);
-        $inpQuiz->setDescription(_AM_QUIZMAKER_QUIZ_TO_DESC);
-        $inpQuiz->setExtra( FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
-  	    $form->addElement($inpQuiz);
+        
+        addXformCat  ($form, 'to_cat_id',   $toCatId, true);
+        addXformSet  ($form, 'to_quiz_subject', $toQuizSet, $toCatId, true);
+        addXformQuiz ($form, 'to_quiz_id',  $toQuizId, $toCatId, $toQuizSet, $addEvent = false);
+        
+        //-------------------------------------------------------        
+  	    $form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_IMPORT_SELECT_PLUGINS));
+        //-------------------------------------------------------        
 
         //Liste des types de question
         $inpCheckbox = new \XoopsFormCheckboxAll(_CO_QUIZMAKER_PLUGIN, 'plugins_selected', 1, '<br>');
@@ -105,18 +103,15 @@ use XoopsModules\Quizmaker\Utility;
         $inpCheckbox->addOptionArray($pluginsHandler->getListKeyName(null, true));    
         $form->addElement($inpCheckbox);
 
+        //-------------------------------------------------------        
+  	    $form->insertBreak(sprintf($styleBreakLine, _AM_QUIZMAKER_IMPORT_SELECT_QUIZ_ARCHIVE));
+        //-------------------------------------------------------        
         $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_FILE_TO_LOAD, 'quizmaker_files', $upload_size);     
         $uploadTray->setDescription(_AM_QUIZMAKER_FILE_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE . " ($upload_size)", intval($upload_size / 1024)), '<br>');
         $form->addElement($uploadTray, true);
 
-
-
-
-
-
-
-        //----------------------------------------------- 
-		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_IMPORTER, 'submit'));
+        //-------------------------------------------------------------------
+        addXformBtnSubmit($form);
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
         
         break;
@@ -129,7 +124,7 @@ use XoopsModules\Quizmaker\Utility;
         if (loadFile2Import()){
             $pluginNameSelected = Request::getArray('plugins_selected',null);
 
-            $newQuizId = $quizUtility::quiz_importOnlyQuestFromYml($pathImport, $quizId, $pluginNameSelected, array('pageBegin','pageEnd'));                      
+            $newQuizId = $quizUtility::quiz_importOnlyQuestFromYml($pathImport, $toQuizId, $pluginNameSelected, array('pageBegin','pageEnd'));                      
 
             $msg = sprintf(_AM_QUIZMAKER_IMPORT_OK,$newQuizId);
             $url = "questions.php?op=list&quiz_id={$newQuizId}&sender=&libErr={$msg}";

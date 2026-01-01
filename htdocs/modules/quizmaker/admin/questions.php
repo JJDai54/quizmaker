@@ -33,6 +33,7 @@ if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $catId  = Request::getInt('cat_id', 0);
 $quizId  = Request::getInt('quiz_id', 0);
 $questId  = Request::getInt('quest_id', 0);
+$quizSubject = Request::getString('quiz_subject', '');
 
 if($quizId > 0 && $catId == 0){
     $quiz = $quizHandler->get($quizId);
@@ -44,7 +45,7 @@ if($catId == 0 || !isset($catArr[$catId]))
     $catId = array_key_first($catArr);
 
 //recherche de quizId
-$quizArr = $quizHandler->getListKeyName($catId);
+$quizArr = $quizHandler->getListKeyName($catId, $quizSubject);
 
 if ($quizId == 0  || !isset($quizArr[$quizId])) 
     $quizId = array_key_first($quizArr);
@@ -74,12 +75,26 @@ $sender  = Request::getString('sender', '');
 
 $quest_plugin = Request::getString('quest_plugin', '');
 
-function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0, $questId = 0){
+function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0, $questId = 0, $subject=""){
 global $quizHandler;
     $catId = $quizHandler->getParentId($quizId);
-    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}&quest_id={$questId}";
+    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}&quest_id={$questId}&subject={$subject}";
 }
-
+function getParams2list2($questObj, $quizSubject, $sender = ""){
+global $quizHandler, $quest_Handler;
+    $quizId = $questObj->getVar('quest_quiz_id');    
+    $catId = $quizHandler->getParentId($quizId);
+    $params = array();
+    $params[] = "cat_id={$catId}";
+    $params[] = "quiz_id={$quizId}";
+    $params[] = "quest_plugin={$questObj->getVar('quest_plugin')}";
+    $params[] = "quest_parent_id={$questObj->getVar('quest_parent_id')}";
+    $params[] = "quest_id={$questObj->getVar('quest_id')}";
+    $params[] = "quiz_subject={$quizSubject}";
+    $params[] = "sender={$sender}";
+    //echoArray($params,"",true);
+    return $params = implode('&', $params);
+}
 //////////////////////////////////////////////
 switch($op) {
 	default:
@@ -91,6 +106,7 @@ switch($op) {
 	case 'clone':
 	case 'save':
 	case 'delete':
+	case 'addinfo':
         include_once("questions-{$op}.php");
         break;
     
@@ -98,13 +114,13 @@ switch($op) {
         $questionsHandler->incrementeWeight($quizId);
         $url = "quiz.php?op=list&quiz_id={$quizId}";
         \redirect_header($url, 0, "");
-	break;
+	    break;
     
     case 'init_weight':
         $questionsHandler->incrementeWeight($quizId);
         $url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
         \redirect_header($url, 0, "");
-	break;
+	    break;
     
     case 'weight':
         $action = Request::getString('sens', "down") ;
@@ -115,12 +131,10 @@ switch($op) {
         break;
 
 	case 'build_quiz':
-        $build = $quizUtility::buildQuiz($quizId);
-        //$utility::export_questions2Jason($quizId);
-        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$build));
-		//redirect_header('questions.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
-        
-	break;
+        $buildArr = $quizUtility::buildQuiz($quizId);
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$buildArr['name'],$buildArr['id'],$buildArr['build']);
+        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, $msg);
+	    break;
         
 	case 'change_etat':
         $field = Request::getString('field');
@@ -128,7 +142,7 @@ switch($op) {
         $doItForGroup = ($field == 'quest_actif') ? true : false;
         $questionsHandler->changeEtat($questId, $field, $modulo, $doItForGroup);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
-	break;
+	    break;
     
 	case 'set_value':
         $field = Request::getString('field');
@@ -136,7 +150,7 @@ switch($op) {
         $doItForGroup = Request::getInt('doItForGroup', 0);
         $questionsHandler->setValue($questId, $field, $value, $doItForGroup);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
-	break;
+	    break;
     //------------------------------------------------------
 	case 'export_quiz':
         $quizUtility::quiz_export($quizId);
@@ -144,7 +158,7 @@ switch($op) {
         $download = 1;
         include_once("questions-{$op}.php");
         //redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Export effectué");
-	break;
+	    break;
     
 	case 'purger_images':
         $nbImg = $quizHandler->purgerImages($quizId);
@@ -152,7 +166,7 @@ switch($op) {
         $msg = sprintf(_AM_QUIZMAKER_QUIZ_IMAGES_DELETED, $nbImg);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, $msg);
 
-	break;
+	    break;
     
 // 	case 'restor_quiz':
 //         $quizUtility->quiz_loadData($quizId);
@@ -164,11 +178,11 @@ switch($op) {
         $quizUtility->quiz_importFromYml($quizId);
 //         $quizHandler->changeEtat($quizId, $field);
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Etat de {$field} Changé");
-	break;
+	    break;
 
 	case 'edit_quiz':
         redirect_header("quiz.php?op=edit&quiz_id={$quizId}&sender=",0,"");
-	break;
+	    break;
     
 	case 'update_list':
 

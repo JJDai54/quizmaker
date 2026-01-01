@@ -49,10 +49,11 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
                                   'propositions'   => '', 
                                   'disposition'    => '',
                                   'ignoreAccents'  => 0,
-                                  'togodo'=>0,
-                                  'nextSlideDelai'      => 0,
-                                  'nextSlideBG'         =>'#FFCC00',
-                                  'nextSlideMessage' =>  ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : '')];
+                                  'togodo'         => 0,
+                                  'nextSlideMessageWinner'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_WINNER_0 : ''),
+                                  'nextSlideMessageLooser'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0 : ''),
+                                  'nextSlideDelai'              => 0,
+                                  'nextSlideBG'                 =>'#FFCC00'];
 
         $this->hasImageMain = true;
         $this->multiPoints = true;
@@ -124,15 +125,14 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       //-----------------------------------------------------
       
       // disposition 
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       //--------------------------------------------------------------------   
-      define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE', "Message");        
-      define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE_DESC', "Message affiche lors du passage au slide suivant en mose automatique");        
-      define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE0', "Bravo !");        
-      $arrConst = ['nextSlideMessage' => '_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE'];
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_avertissement.php");
-      
+      //insertion des messages de transition
+      $prefixPluginWinner = '';
+      $prefixPluginLlooser = '';
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
+
       //--------------------------------------------------------------------           
       
       return $trayOptions;
@@ -174,7 +174,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers, $titleGroup, $first
         for($k = 0; $k < $maxItems; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             $inpPropos = new \XoopsFormText('', $this->getName($i,'proposition'), $this->lgMot2, $this->lgMot2, $proposition);
            
@@ -208,7 +208,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers, $titleGroup, $first
         //--------------------------------------------------------        
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
        
@@ -230,45 +230,6 @@ public function getFormGroup(&$trayAllAns, $group, $answers, $titleGroup, $first
      }
     }
     
-// /* ********************************************
-// *
-// *********************************************** */
-//   public function getSolutions($questId, $boolAllSolutions = true){
-//   global $answersHandler;
-//   /*
-// 		$ret = $this->getValues($keys, $format, $maxDepth);
-// 		$ret['id']          = $this->getVar('answer_id');
-// 		$ret['quest_id']    = $this->getVar('answer_quest_id');
-// 		$ret['caption']      = $this->getVar('answer_caption');
-// 		$ret['proposition'] = $this->getVar('answer_proposition');
-// 		$ret['points']      = $this->getVar('answer_points');
-// 		$ret['weight']      = $this->getVar('answer_weight');
-// 		$ret['inputs']      = $this->getVar('answer_inputs');
-//   
-//   */
-//     $answersAll = $answersHandler->getListByParent($questId);
-// //    echoArray($answersAll);
-//     $answers = array();
-//     $totalPoints = 0;
-//     $html = array();
-//     $html[] = "<table style='margin:0px 20px 0px 20px;' width='90%'>";
-// 	foreach(array_keys($answersAll) as $i) {
-// 		$ans = $answersAll[$i]->getValuesAnswers();
-// 
-//         if ($ans['points'] > 0){
-//             $html[] = "<tr><td>- {$ans['proposition']}</td><td>&nbsp;===>&nbsp;</td><td>{$ans['points']}</td></tr>";
-//             $totalPoints += intval($ans['points']);
-//         }
-// 	}
-//     
-//         $p = sprintf(_CO_QUIZMAKER_POINTS_FOR_ANSWER2, $totalPoints); 
-//         $html[] = "<tr><td colspan='2'><hr class='grey1-hr-style-one'></td></tr>";   
-//         $html[] = "<tr><td colspan='2'>{$p}</td></tr>";   
-//     $html[] = "</table>";
-// 
-//     return implode("\n", $html);
-//      }
-
 
 /* ********************************************
 *
@@ -326,4 +287,4 @@ public function getFormGroup(&$trayAllAns, $group, $answers, $titleGroup, $first
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

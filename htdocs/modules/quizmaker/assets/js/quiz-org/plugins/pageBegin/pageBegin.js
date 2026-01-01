@@ -48,9 +48,23 @@ var name = this.getName();
     }
 
     htmlArr.push(qbr);    
+
+    if(quiz.startBtnPosition){
+        htmlArr.push(this.getHtmlStartBtn());
+    }
+    
     return htmlArr.join("\n");
 
   }
+//---------------------------------------------------
+getHtmlStartBtn(){
+    var style=`margin-top:50px;font-size:1.5em;height:40px;padding: 0px 24px 0px 24px;`;
+    var onclick = `startQuiz();`;
+    var caption = (quiz.libBegin)   ? quiz.libBegin   : quiz_messages.btnSubmit;
+        
+    var html = `<input type='button' value='${caption}' style='${style}'' onclick='${onclick}'>`;
+    return html;
+}
 //---------------------------------------------------
 isInputOk (answerContainer){
     return false;
@@ -78,7 +92,7 @@ onEnter() {
   
 
 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 
 function quiz_input_pseudo_event(ev, id) {
@@ -111,6 +125,11 @@ function quiz_input_pseudo_event(ev, id) {
         btn.disabled = '';
     }
 
+} // ---------- fin de la class ----------------------
+
+function startQuiz(){
+    var btnStartQuiz = document.getElementById("quiz_btn_startQuiz");
+    btnStartQuiz.click();
 }
 
 

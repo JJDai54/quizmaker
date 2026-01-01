@@ -10,7 +10,9 @@
 
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='quiz.php?op=list' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
     <input type="hidden" name="op" value="list" />
-    <{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}> : <{$inpCategory}>
+    <input type="hidden" name="sender" value="" />
+    <{$selectors.select.cat}>
+    <{$selectors.select.subject}>
 </form>
 
 <style>				
@@ -28,6 +30,7 @@ img{
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<{if $allCategories}><th class="center"><{$smarty.const._AM_QUIZMAKER_CATEGORY_NAME}></th><{/if}>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}>/<{$smarty.const._AM_QUIZMAKER_FOLDER_JS}></th>
+				<th class="center"><{$smarty.const._CO_QUIZMAKER_QUIZ_SUBJECT}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<{* <th class="center"><{$smarty.const._AM_QUIZMAKER_FOLDER_JS}></th> *}>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTIONS}></th>
@@ -66,7 +69,13 @@ img{
 				
                 <td class='left'>
 					<b><a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
-                        <{$Quiz.name}></a></b><br><{$Quiz.quiz_folderJS}>
+                        <{$Quiz.name}></a></b>
+                        <{if $isAdmin}> [build = <{$Quiz.build}>]<{/if}>
+                    <br><{$Quiz.quiz_folderJS}>
+                </td>
+                <td class='left'>
+					<b><a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
+                        <{$Quiz.subject}>
                 </td>
                         
                 <{* ---------------- Arrows Weight -------------------- *}>
@@ -151,7 +160,7 @@ img{
                    <{assign var="urlOptionsIhm" value="quiz.php?op=set_bit&cat_id=`$Quiz.cat_id`&quiz_id=`$Quiz.id`&field=quiz_optionsIhm"}>
                    IHM :&nbsp;
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ALLOWEDSUBMIT}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT}>' >
-                        <{$Quiz.flags.allowedSubmit}>
+                        <{$Quiz.flags.submitBtnPosition}>
                         </a>|
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_SCOREMINMAX}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX}>' >
                         <{$Quiz.flags.showScoreMinMax}>
@@ -159,8 +168,8 @@ img{
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_ALLSOLUTIONS}>"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' >
                         <{$Quiz.flags.showAllSolutions}>
                         </a>|
-                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ANSWERBEFORENEXT}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ANSWER_BEFORENEXT}>' >
-                        <{$Quiz.flags.answerBeforeNext}>
+                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_SLIDEBAR}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_SLIDEBAR}>' >
+                        <{$Quiz.flags.showSlideBar}>
                         </a>|
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ALLOWEDPREVIOUS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWED_PREVIOUS}>' >
                         <{$Quiz.flags.allowedPrevious}>
@@ -243,7 +252,7 @@ img{
                         <img src="<{xoModuleIcons16}>/download.png" alt="quiz" />
                         </a>
 
-                    <a href='<{$smarty.const.QUIZMAKER_URL_MODULE}>/admin/questions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&sender=suiz_id'  title="<{$smarty.const._AM_QUIZMAKER_QUESTIONS}>">
+                    <a href='<{$smarty.const.QUIZMAKER_URL_MODULE}>/admin/questions.php?quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>&sender=quiz_id'  title="<{$smarty.const._AM_QUIZMAKER_QUESTIONS}>">
                         <img src="<{xoModuleIcons16}>/inserttable.png" alt="" />
                         </a>
                         

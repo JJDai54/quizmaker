@@ -13,11 +13,11 @@
     <table width='80%'>
         <tr>
             <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_CATEGORIES}> : </td>
-            <td class="left" style='padding:5px;'><{$selector.inpCategory}></td>
+            <td class="left" style='padding:5px;'><{$selectors.inpCategory}></td>
         </tr>
         <tr>
             <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_QUIZ}> : </td>
-            <td class="left" style='padding:5px;'><{$selector.inpQuiz}></td>
+            <td class="left" style='padding:5px;'><{$selectors.inpQuiz}></td>
         </tr>
     </table>
       

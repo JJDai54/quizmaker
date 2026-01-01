@@ -28,7 +28,7 @@ use XoopsModules\Quizmaker\Constants;
 
 
 require __DIR__ . '/header.php';
-$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_RESULT,'QUIZMAKER_PERMIT_RESULT', "index.php");
+$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_RESULT,'QUIZMAKER_PERMIT_RESULT', "index.php", QUIZMAKER_ADMIN_PERM);
 
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');

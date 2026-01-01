@@ -81,13 +81,13 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
         // ----- Listes de selection pour filtrage -----  
-        $selector = array();
+        $selectors = array();
         $style="style='width:80%;'";
         $inpCategory = new \XoopsFormSelect(_MA_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
         $inpCategory->addOptionArray($catArr);
         $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-        $selector['inpCategory'] = $inpCategory->render();
+        $selectors['inpCategory'] = $inpCategory->render();
         
         $catObj = $categoriesHandler->get($catId);
 		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
@@ -100,8 +100,8 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
         
         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
-        $selector['inpQuiz'] = $inpQuiz->render();
-  	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
+        $selectors['inpQuiz'] = $inpQuiz->render();
+  	    $GLOBALS['xoopsTpl']->assign('selector', $selectors);
         // ----- /Listes de selection pour filtrage -----   
 
         // recherche des résultats

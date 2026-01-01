@@ -44,7 +44,7 @@
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/selectImages/selectImages.css" type="text/css" />
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/selectInputs/selectInputs.css" type="text/css" />
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/sortItems/sortItems.css" type="text/css" />
-            <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/textareaMixte/textareaMixte.css" type="text/css" />
+            <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/textMixte/textMixte.css" type="text/css" />
             <link rel="stylesheet" href="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/ulDaDGroups/ulDaDGroups.css" type="text/css" />
     
     <!-- Insertion des fichier JS des plugins itou les classes de ces plugins -->
@@ -67,7 +67,7 @@
             <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/selectImages/selectImages.js"></script>
             <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/selectInputs/selectInputs.js"></script>
             <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/sortItems/sortItems.js"></script>
-            <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/textareaMixte/textareaMixte.js"></script>
+            <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/textMixte/textMixte.js"></script>
             <script src="http://127.0.0.16/modules/quizmaker/assets/js/quiz-org/plugins/ulDaDGroups/ulDaDGroups.js"></script>
          
 
@@ -99,7 +99,7 @@
                     case "selectImages" : obj = getPlugin_selectImages(currentQuestion, chrono); break;
                     case "selectInputs" : obj = getPlugin_selectInputs(currentQuestion, chrono); break;
                     case "sortItems" : obj = getPlugin_sortItems(currentQuestion, chrono); break;
-                    case "textareaMixte" : obj = getPlugin_textareaMixte(currentQuestion, chrono); break;
+                    case "textMixte" : obj = getPlugin_textMixte(currentQuestion, chrono); break;
                     case "ulDaDGroups" : obj = getPlugin_ulDaDGroups(currentQuestion, chrono); break;
         
     default: alert("getTplNewClass - Classe absente : " + currentQuestion.type); break;

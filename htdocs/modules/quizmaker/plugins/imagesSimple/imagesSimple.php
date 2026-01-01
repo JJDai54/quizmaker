@@ -123,7 +123,7 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElementOption($inpDirective);     
 
       // disposition 
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
       
       return $trayOptions;
 
@@ -230,7 +230,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             $isNew = !isset($answers[$k]);
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             $inpInputs = new \XoopsFormHidden($this->getName($i,'inputs'), $inputs);       
                  
@@ -300,7 +300,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
         */ 
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
         
@@ -415,4 +415,4 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

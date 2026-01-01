@@ -214,7 +214,7 @@ _quiz-org
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.css
 				plugins\listboxClassItems\listboxClassItems.js
-			+matchItems
+			-matchItems
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
@@ -222,7 +222,7 @@ _quiz-org
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
 				plugins\multiQuestions\multiQuestions.js
-			+pageBegin
+			-pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
@@ -234,7 +234,7 @@ _quiz-org
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.css
 				plugins\pageGroup\pageGroup.js
-			+pageInfo
+			-pageInfo
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
@@ -307,7 +307,7 @@ _quiz-org
 				plugins\selectImages\selectCoches.js
 				plugins\selectImages\selectImages.css
 				plugins\selectImages\selectImages.js
-			-selectInputs
+			+selectInputs
 				-img
 					-buttons
 						plugins\selectInputs\img\buttons\Button_Icon_Black.png
@@ -370,7 +370,7 @@ _quiz-org
 				plugins\selectInputs\index.html
 				plugins\selectInputs\selectInputs.css
 				plugins\selectInputs\selectInputs.js
-			-sortItems
+			+sortItems
 				-img
 					-buttons
 						-blue
@@ -474,10 +474,18 @@ _quiz-org
 				plugins\sortItems\index.html
 				plugins\sortItems\sortItems.css
 				plugins\sortItems\sortItems.js
-			-textareaMixte
-				plugins\textareaMixte\index.html
-				plugins\textareaMixte\textareaMixte.css
-				plugins\textareaMixte\textareaMixte.js
+			-textMixte
+				plugins\textMixte\index.html
+				plugins\textMixte\textListbox1.css
+				plugins\textMixte\textListbox1.js
+				plugins\textMixte\textListbox2.css
+				plugins\textMixte\textListbox2.js
+				plugins\textMixte\textMixte.css
+				plugins\textMixte\textMixte.js
+				plugins\textMixte\textTextarea.css
+				plugins\textMixte\textTextarea.js
+				plugins\textMixte\textTextbox.css
+				plugins\textMixte\textTextbox.js
 			-ulDaDGroups
 				-plugin_findObjects
 					plugins\ulDaDGroups\plugin_findObjects\index.html
@@ -488,35 +496,68 @@ _quiz-org
 			plugins\index.html
 		_quiz-org.ppr
 		index.html
+		Nouveau1.js
 [Open project files]
-0=js\quiz_main.js
-1=js\quiz_functions.js
-2=js\plugin_prototype.js
-3=plugins\pageInfo\pageInfo.js
-4=plugins\pageBegin\pageBegin.js
-5=plugins\radioMultiple\radioMultiple.js
-6=plugins\matchItems\matchItems.js
+0=js\plugin_prototype.js
+1=plugins\multiQuestions\multiQuestions.js
+2=plugins\findObjects\findObjects.js
+3=plugins\selectInputs\selectInputs.js
+4=js\fnc_string.js
+5=js\quiz_functions.js
+6=plugins\selectImages\selectImages.js
+7=plugins\alphaSimple\alphaSimple.js
+8=js\quiz_main.js
+9=js\fnc_progressBar.js
+10=css\quiz.css
+11=plugins\pageEnd\pageEnd.js
+12=plugins\pageBegin\pageBegin.js
+13=js\fnc_timer.js
+14=plugins\sortItems\sortItems.js
 [Selected Project Files]
 Main=
-Selected=plugins\matchItems\matchItems.js
-[js\quiz_main.js]
-TopLine=360
-Caret=31,380
-[js\quiz_functions.js]
-TopLine=150
-Caret=1,170
+Selected=js\fnc_string.js
 [js\plugin_prototype.js]
-TopLine=1
-Caret=42,29
-[plugins\pageInfo\pageInfo.js]
-TopLine=1
-Caret=1,1
+TopLine=562
+Caret=66,579
+[plugins\multiQuestions\multiQuestions.js]
+TopLine=88
+Caret=24,115
+[plugins\findObjects\findObjects.js]
+TopLine=367
+Caret=124,383
+[plugins\selectInputs\selectInputs.js]
+TopLine=174
+Caret=1,179
+[js\fnc_string.js]
+TopLine=161
+Caret=1,190
+[js\quiz_functions.js]
+TopLine=414
+Caret=10,423
+[plugins\selectImages\selectImages.js]
+TopLine=341
+Caret=1,346
+[plugins\alphaSimple\alphaSimple.js]
+TopLine=437
+Caret=24,477
+[js\quiz_main.js]
+TopLine=1028
+Caret=3,1049
+[js\fnc_progressBar.js]
+TopLine=28
+Caret=17,48
+[css\quiz.css]
+TopLine=177
+Caret=19,181
+[plugins\pageEnd\pageEnd.js]
+TopLine=22
+Caret=30,43
 [plugins\pageBegin\pageBegin.js]
-TopLine=1
-Caret=1,1
-[plugins\radioMultiple\radioMultiple.js]
-TopLine=190
-Caret=20,211
-[plugins\matchItems\matchItems.js]
-TopLine=19
-Caret=1,46
+TopLine=89
+Caret=1,132
+[js\fnc_timer.js]
+TopLine=58
+Caret=3,75
+[plugins\sortItems\sortItems.js]
+TopLine=843
+Caret=10,785

@@ -34,22 +34,22 @@ define('_LG_PLUGIN_SELECTIMAGES_TYPE_CHECKBOX', "Choix multiple");
 define('_LG_PLUGIN_SELECTIMAGES_TYPE_RADIO', "Choix unique");
 define('_LG_PLUGIN_SELECTIMAGES_TYPE_2', "Choix unique et passage au slide suivant");
 
-define('_LG_PLUGIN_SELECTIMAGES_CLASSE', "Style");
-define('_LG_PLUGIN_SELECTIMAGES_CLASSE_IMAGE', "Image + coche");
-define('_LG_PLUGIN_SELECTIMAGES_CLASSE_TEXTE', "Texte + coche");
-//define('_LG_PLUGIN_SELECTIMAGES_CLASSE_DESC', "0 : affiche une image qu'il faut cliquer et le texte est placé sr l'image.<br>1 : affiche la coche qu'il faut cliquer et le text à côté");
+define('_LG_PLUGIN_SELECTIMAGES_VARIANT', "Style");
+define('_LG_PLUGIN_SELECTIMAGES_VARIANT_IMAGE', "Image + coche");
+define('_LG_PLUGIN_SELECTIMAGES_VARIANT_TEXTE', "Texte + coche");
+//define('_LG_PLUGIN_SELECTIMAGES_VARIANT_DESC', "0 : affiche une image qu'il faut cliquer et le texte est placé sr l'image.<br>1 : affiche la coche qu'il faut cliquer et le text à côté");
 
-define('_LG_PLUGIN_SELECTIMAGES_CLASSE_SELECT', "Sélectionnez une classe,  validez et rechargez le formulaire");
-define('_LG_PLUGIN_SELECTIMAGES_CLASSE_DESC1', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
-. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_CLASSE_IMAGE . "</b> : Image et coche"
-. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_CLASSE_TEXTE . "</b> : Texte et coche"
+define('_LG_PLUGIN_SELECTIMAGES_VARIANT_SELECT', "Sélectionnez une variante,  validez et rechargez le formulaire");
+define('_LG_PLUGIN_SELECTIMAGES_VARIANT_DESC1', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
+. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_VARIANT_IMAGE . "</b> : Image et coche"
+. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_VARIANT_TEXTE . "</b> : Texte et coche"
 . "<br><span style='color:red;'><b>Important : </b>Valider cette option avant de passer à la suite des paramètres afin d'actualiser l'affichage selon l'option choisie.</span>"
 . "<br><span style='color:red;'>Pour faire apparaitre les paramètres selon l'option choisie cliquez sur <b>\"soumettre et recharger la question\"</b>.</span>"
 . "<br><span style='color:red;'>Il est toujours possible de changer ensuite mais au risque de devoir reparamètrer les nouvelles options qui n'étaient pas disponibles et de perdre les autres.</span>");
 
-define('_LG_PLUGIN_SELECTIMAGES_CLASSE_DESC2', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
-. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_CLASSE_IMAGE . "</b> : Image et coche"
-. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_CLASSE_TEXTE . "</b> : Texte et coche"
+define('_LG_PLUGIN_SELECTIMAGES_VARIANT_DESC2', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
+. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_VARIANT_IMAGE . "</b> : Image et coche"
+. "<br><b>" . _LG_PLUGIN_SELECTIMAGES_VARIANT_TEXTE . "</b> : Texte et coche"
 . "<br><span style='color:red;'>Il est toujours possible de changer ensuite mais au risque de devoir reparamètrer les nouvelles options qui n'étaient pas disponibles et de perdre les autres.</span>");
       
 define('_LG_PLUGIN_SELECTIMAGES_IMG_HEIGHT', "Hauteur des images des propositions");

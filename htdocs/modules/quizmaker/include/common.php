@@ -33,8 +33,8 @@ if(isset($quizmakerHelper)){
 // else 
 //     define('QUIZMAKER_SHOW_TPL_NAME', 0);
  
- 
- 
+define ('QUIZMAKER_ADMIN_PERM', true); 
+
  
 if (!defined('XOOPS_ICONS32_PATH')) {
 	define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
@@ -68,6 +68,7 @@ define('QUIZMAKER_PATH_UPLOAD_IMPORT', QUIZMAKER_PATH_UPLOAD. QUIZMAKER_FLD_IMPO
 define('QUIZMAKER_PATH_UPLOAD_IMPORT_BATCH', QUIZMAKER_PATH_UPLOAD.QUIZMAKER_FLD_IMPORT_BATCH);
 define('QUIZMAKER_PATH_UPLOAD_QUIZ', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_UPLOAD_QUIZ_JS);
 
+define('QUIZMAKER_PATH_PLUGINS_INCLUDE', QUIZMAKER_PATH_MODULE . "/plugins_include");
 //-------------- url ------------------------------
 define('QUIZMAKER_URL_MODULE', XOOPS_URL . QUIZMAKER_FLD_MODULE);
 define('QUIZMAKER_URL_ADMIN', QUIZMAKER_URL_MODULE . '/admin/index.php');
@@ -125,6 +126,7 @@ return $root . $fld;
 //-------------- autres constantes ------------------------------
 define('QUIZMAKER_CAT_NAME_FOR_EXEMPLE', 'Plugins QuizMaker');
 define('QUIZMAKER_PROPOSITION_VIDE', '$_void_$');
+define('QUIZMAKER_SEP_EXP', '|');
 
 
 define('QUIZMAKER_SELECT_ONCHANGE', 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
@@ -145,7 +147,8 @@ define('QUIZMAKER_TYPE_FORM_END', 3);
 define('QUIZMAKER_TYPE_FORM_INFO', 4);
 
 define('QUIZMAKER_ALL', '__ALL__');
-define('QUIZMAKER_ALL_SELECTION', '(*) ');
+define('QUIZMAKER_ALL_ITEMS_KEY', '(*)');
+define('QUIZMAKER_ALL_ITEMS_LIB', '(*)');
 define('QUIZMAKER_TIMER_MAX', 240);
 
 define('QUIZMAKER_PREFIX_OPTIONS_NAME', 'quest_options');
@@ -162,15 +165,22 @@ define('QUIZMAKER_BG_LIST_GROUP', 'lightblue');
 define('QUIZMAKER_BG_LIST_POINTS', '#FFCC99');    
 define('QUIZMAKER_BG_LIST_TIMER', '#FFCC99');    
 
+define('QUIZMAKER_BG_LIST_FROM', '#CCFF99');    
+define('QUIZMAKER_BG_LIST_TO', '#FFE100');    
+define('QUIZMAKER_BG_LIST_NONE', '#EAEAEA');    
+
+
+
 $h = 0;
-define('QUIZMAKER_BIT_ALLOWEDSUBMIT', $h++);
+define('QUIZMAKER_BIT_START_BUTTON', $h++);
 define('QUIZMAKER_BIT_SHOW_SCOREMINMAX', $h++);
 define('QUIZMAKER_BIT_SHOW_ALLSOLUTIONS', $h++);
-define('QUIZMAKER_BIT_ANSWERBEFORENEXT', $h++);
+define('QUIZMAKER_BIT_SHOW_SLIDEBAR', $h++);
 define('QUIZMAKER_BIT_ALLOWEDPREVIOUS', $h++);
 define('QUIZMAKER_BIT_USETIMER', $h++);
 define('QUIZMAKER_BIT_SHUFFLEQUESTIONS', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTPOPUP', $h++);
+define('QUIZMAKER_BIT_SUBMIT_BUTTON', $h++);
 
 $h = 0;
 define('QUIZMAKER_BIT_SHOW_PLUGIN', $h++);
@@ -183,6 +193,7 @@ define('QUIZMAKER_BIT_SHOW_RESULTALLWAYS', $h++);
 define('QUIZMAKER_BIT_SHOW_REPONSESBOTTOM', $h++);
 define('QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU', $h++);
 
+/* constantes obsolettes mises en table : quizmaker_options
 define('QUIZMAKER_CONFIG_IHM_PROD1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
                                    | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX));
 define('QUIZMAKER_CONFIG_DEV_PROD1', 0);
@@ -202,8 +213,22 @@ define('QUIZMAKER_CONFIG_DEV_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
                                   | pow(2, QUIZMAKER_BIT_SHOW_BADANSWERS)
                                   | pow(2, QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU)
                                   | pow(2, QUIZMAKER_BIT_SHOW_RESULTALLWAYS));
+*/
 
 //-----------------------------------------------------
+
+$h=10;
+define('QUIZMAKER_PLUGIN_CAT_PAGE', $h++);
+define('QUIZMAKER_PLUGIN_CAT_CLASSIQUE', $h++);
+define('QUIZMAKER_PLUGIN_CAT_MATCHITEMS', $h++);
+define('QUIZMAKER_PLUGIN_CAT_GROUPS', $h++);
+define('QUIZMAKER_PLUGIN_CAT_ORDRE', $h++);
+define('QUIZMAKER_PLUGIN_CAT_TEXT', $h++);
+define('QUIZMAKER_PLUGIN_CAT_IMAGES', $h++);
+define('QUIZMAKER_PLUGIN_CAT_MISCELLANEOUS', $h++);
+define('QUIZMAKER_PLUGIN_CAT_FIRST_LAST', $h++);
+
+
 $h=1;
 define('QUIZMAKER_PERMIT_CATMAN',  $h++);
 define('QUIZMAKER_PERMIT_IMPORTG', $h++);
@@ -219,6 +244,7 @@ define('QUIZMAKER_NO_ICON', '-no_icon.png');
 
 define('QUIZMAKER_TPL_IMG1', "<img src='%s/%s' alt='' title='%s' style='height:64px;'>");
 define('QUIZMAKER_TPL_IMG2', "<img src='%s/%s' alt='' title='%s' style='height:64px;background:%s'>");
+define('QUIZMAKER_TPL_DELETE', "<span style='color:red'>X</span>");
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';

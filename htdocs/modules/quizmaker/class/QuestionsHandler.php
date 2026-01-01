@@ -542,5 +542,65 @@ public function getPluginOf($quizId){
     return $pluginName;
 }
 
+/****************************************************************************
+ * getSelector ===> Listes de selection pour filtrage des questions
+ * $quizId int : id de la categorie
+ * $quizSubject string : subject de quiz
+ * $asObject bool : true :  return des XoopsForm - False renvoie les render() des XopsForms
+ * $prefixName string : prefix des id afin de permettre plusieurs instance (ex : voir import)
+ * $quizId int : id du quiz
+ * retour arr renvoie un tableau des liste de sélection pour l'interface:
+ ****************************************************************************/
+public function getSelector($catId, $quizSubject, $quizId, $asObject=false, $prefixName = '', $addCaption = true){
+global $categoriesHandler, $quizHandler, $clPerms;
+    $selectors = array();
+    $sep = ' : ';
+    //$event = 'onchange="document.quizmaker_select_filter.op.value='list';document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT);
+    $event = "onchange='document.quizmaker_select_filter.op.value=\"list\";document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();'" . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT);
 
-} //Fin de la classe
+    $clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
+    $selectors['arr']['cat'] = $categoriesHandler->getList($criteriaCatAllowed);
+    
+    if ($catId == 0) $catId = array_key_first($selectors['arr']['cat']);
+//echoArray($selectors['arr']['cat']);
+    $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, $prefixName . 'cat_id', $catId);
+    $inpCategory->addOptionArray($selectors['arr']['cat']);
+    $inpCategory->setExtra($event);
+    if($asObject) 
+        $selectors['select']['cat'] = $inpCategory;
+    else
+        $selectors['select']['cat'] = (($addCaption) ? _AM_QUIZMAKER_CATEGORIES_NAME . $sep : '') . $inpCategory->render();
+
+    //-------------------------------------------------------------------
+    $selectors['arr']['subject'] =  $quizHandler->getFieldList('quiz_subject', $catId);
+    if(count($selectors['arr']['subject']) > 1){
+        $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT, $prefixName . 'quiz_subject', $quizSubject);
+        $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
+        $inpSet->addOptionArray($selectors['arr']['subject']);
+        $inpSet->setExtra($event);
+        if($asObject) 
+            $selectors['select']['subject'] = $inpSet;
+        else
+            $selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $inpSet->render();
+    }else{
+        //$selectors['subject'] = '';
+        //$selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $quizSubject;
+        $selectors['select']['subject'] = '';
+   }
+//echoArray($selectors['arr']['subject'], $quizSubject);
+    
+    //-------------------------------------------------------------------
+    $selectors['arr']['quiz'] = $quizHandler->getListKeyName($catId, $quizSubject);
+    $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, $prefixName . 'quiz_id', $quizId);
+    $inpQuiz->addOptionArray($selectors['arr']['quiz']);
+    $inpQuiz->setExtra($event);
+    if($asObject) 
+        $selectors['select']['quiz'] = $inpQuiz;
+    else
+        $selectors['select']['quiz'] = (($addCaption) ? _AM_QUIZMAKER_QUIZ_NAME . $sep : '') . $inpQuiz->render();
+          
+    //-------------------------------------------------------------------
+    return $selectors;
+}
+
+} // Fin de la class

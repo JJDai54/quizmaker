@@ -94,7 +94,7 @@ var tLetters = this.data.allExp;
     this.data.tWords = getExpInAccolades(this.question.question);  
 //alert( this.data.tWords.join('-')) ;  
     //var listExp = setAllSepByNewSep(this.question.options.propositions, sep);  
-    var tExp =  splitAllSep(this.question.options.propositions, sep);  
+    var tExp =  splitArrayAllSep(this.question.options.propositions, sep);  
     
     var tItems = new Object;
     
@@ -436,13 +436,14 @@ var divDirective = '<span class="alphaSimple_directive">{directive}</span>';
     }
     return tpl;
 }
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 //-------------------------------
 //----- Evenements du slide -----
 //-------------------------------
 function eventOnClickAlpha(slideNumber, newValue){
     var clQuestion = quizard[slideNumber];
+    var options = clQuestion.question.options;
     
 var idReponse = clQuestion.idDivReponse;
 var nbSoluces = clQuestion.data.nbSoluces;
@@ -468,9 +469,14 @@ console.log (nbSoluces + "-" + tRep.length);
         clQuestion.data.nbClicks++;
 
     }
-
-    if(clQuestion.question.options.nextSlideDelai * 1 > 0 && clQuestion.data.nbClicks == nbSoluces){
-        quiz_show_avertissement( clQuestion.question.options.nextSlideMessage , clQuestion.question.options.nextSlideDelai, clQuestion.question.options.nextSlideBG);
+    
+    var gotoNexSlide = (clQuestion.question.options.nextSlideDelai * 1 > 0 && clQuestion.data.nbClicks == nbSoluces);
+    //alert (clQuestion.getScoreByProposition() + " / " + clQuestion.scoreMaxiBP);
+    if(gotoNexSlide){
+        var msg = (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP) ? options.nextSlideMessageWinner : options.nextSlideMessageLooser;
+        msg = fo_sprint(msg);
+        quiz_show_avertissement (msg, options.nextSlideDelai, options.nextSlideBG);
     }  
+    ev.stopPropagation();
 
 }

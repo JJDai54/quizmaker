@@ -43,7 +43,7 @@ var $maxMots = 0;
 	 */
 	public function __construct()
 	{
-        parent::__construct("multiQuestions", 0, "basic");
+        parent::__construct("multiQuestions", 0, "miscellaneous");
         $this->setVersion('1.1', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         $this->hasImageMain = true;
@@ -52,9 +52,10 @@ var $maxMots = 0;
         $this->inpSize = $this->lgMot1;
         $this->inpMaxlength = $this->lgMot2;
 
-        $this->optionsDefaults = ['disposition'  => 'disposition-01',
-                                  'inpSize'      => $this->inpSize,
-                                  'inpMaxlength' => $this->inpMaxlength];
+        $this->optionsDefaults = ['disposition'   => 'disposition-10',
+                                  'inpSize'       => $this->inpSize,
+                                  'inpMaxlength'  => $this->inpMaxlength,
+                                  'interligne'    => '0'];
 
     }
 
@@ -79,9 +80,21 @@ var $maxMots = 0;
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------  
-      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
+      define('_AM_QUIZMAKER_PLUGIN_INTERLIGNE',"Interligne");
+      define('_AM_QUIZMAKER_PLUGIN_INTERLIGNE_DESC',"Interval vertical entre chaque ligne d'items");
+      
+      $name = 'interligne';  
+      $inpInterligne = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_INTERLIGNE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpInterligne->setMinMax(-40, 40, _AM_QUIZMAKER_UNIT_PIXELS, "1");
+      $inpInterligne->setDescription(_AM_QUIZMAKER_PLUGIN_INTERLIGNE_DESC);
+      $trayOptions->addElementOption($inpInterligne);     
+
+      //--------------------------------------------------------------------  
+      //$trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
          
       //--------------------------------------------------------------------           
+      // disposition 
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       return $trayOptions;
     }
@@ -123,7 +136,7 @@ $input = 5;
         for($k = 0; $k < $this->maxPropositions; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             if($isNew) $points = 1;
             //else $tExp = explode(',', $proposition);
@@ -243,7 +256,7 @@ $input = 5;
         foreach ($answers as $anskey=>$ans){
         echo ("===>id = {$ans['id']}<br>");
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
           	if (!$ans['caption']) continue;
@@ -334,7 +347,7 @@ $input = 5;
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class
 
 
 

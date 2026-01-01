@@ -22,6 +22,7 @@ function initFindObject(){
     messages = new Messages('log');
 
     mydiv1 = document.getElementById("divImg_answers_image1");
+    if(!mydiv1) return false;
     mydiv1.onmousemove = mousemove;
     mydiv1.onclick = eventSetNewTouche;
 

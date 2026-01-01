@@ -25,33 +25,42 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
 require __DIR__ . '/header.php';
+//recherche des categories autorisées
 $clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
-$catId  = Request::getInt('cat_id', array_key_first($catArr));
 
+$catId  = Request::getInt('cat_id', 0);
+$quizId  = Request::getInt('quiz_id', 0);
+$questId  = Request::getInt('quest_id', 0);
+$quizSubject = Request::getString('quiz_subject', '');
 
-
-// It recovered the value of argument op in URL$
-$op = Request::getCmd('op', 'list');
-// Request answer_id
-
-// echo "<hr><pre>" . print_r($_POST, true) . "</pre><hr>";
-
-$sender  = Request::getString('sender', '');
-$catId   = Request::getInt('cat_id', 1);
-
-if($sender == 'cat_id'){
-    $quizId  = $quizHandler->getFirstIdOfParent($catId);
-    $questId = $questionsHandler->getFirstIdOfParent($quizId);
-}else if ($sender == 'quiz_id'){
-    $quizId  = Request::getInt('quiz_id', 1);
-    $questId = $questionsHandler->getFirstIdOfParent($quizId);
-}else{
-    $quizId  = Request::getInt('quiz_id', 1);
-    $questId = Request::getInt('quest_id', -1);
-    //exit("zzzz");
+if($quizId > 0 && $catId == 0){
+    $quiz = $quizHandler->get($quizId);
+    $catId = $quiz->getVar('quiz_cat_id');
 }
+
+//recherche de catId
+if($catId == 0 || !isset($catArr[$catId]))
+    $catId = array_key_first($catArr);
+
+//recherche de quizId
+$quizArr = $quizHandler->getListKeyName($catId, $quizSubject);
+
+if ($quizId == 0  || !isset($quizArr[$quizId])) 
+    $quizId = array_key_first($quizArr);
+
+//$quiz = $quizHandler->get($quizId);
+// echoArray('gp');
+// echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";
+
+
+
+
+
+
+$op = Request::getCmd('op', 'list');
+
 
 $answerId = Request::getInt('answer_id');
 // echo "op = {$op}<br>sender = {$sender}<br>catId = {$catId}<br>quizId = {$quizId}<br>questId = {$questId}<br>";
@@ -94,30 +103,24 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
         // ----- Listes de selection pour filtrage -----  
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-        $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT) );
-  	    $GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
+        $selectors = $questionsHandler->getSelector($catId, $quizSubject, $quizId);        
 
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
-  	    $GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
         
         $inpQuest = new \XoopsFormSelect(_AM_QUIZMAKER_QUESTION, 'quest_id', $questId);
         $inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));
         $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
-  	    $GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
+  	    //$GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
+        $selectors['select']['questions'] = $inpQuest->render();
         
         $inpNextQuestion = new XoopsFormButton('', 'btnNextQuestion', _AM_QUIZMAKER_NEXT_QUESTION);
         $inpNextQuestion->setExtra("onclick='showNexQuestion(1);'");
-  	    $GLOBALS['xoopsTpl']->assign('inpNextQuestion', $inpNextQuestion->render());
+        $selectors['select']['nextQuestion'] = $inpNextQuestion->render();
         
         $inpNextQuestion = new XoopsFormButton('', 'btnPrevioustQuestion', _AM_QUIZMAKER_PREVIOUS_QUESTION);
         $inpNextQuestion->setExtra("onclick='showNexQuestion(-1);'");
-  	    $GLOBALS['xoopsTpl']->assign('inpPreviousQuestion', $inpNextQuestion->render());
+        $selectors['select']['previousQuestion'] = $inpNextQuestion->render();
         
-
+  	    $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
        // ----- /Listes de selection pour filtrage -----
 /*
         $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
@@ -133,7 +136,8 @@ switch($op) {
         if($questId > 0){
             $obQuest = $questionsHandler->get($questId);
 		    $GLOBALS['xoopsTpl']->assign('questOptions', $obQuest->getVar('quest_options'));
-		    $GLOBALS['xoopsTpl']->assign('quesPlugin', $obQuest->getVar('quest_plugin'));
+		    $GLOBALS['xoopsTpl']->assign('questPlugin', $obQuest->getVar('quest_plugin'));
+		    $GLOBALS['xoopsTpl']->assign('questPlugin', $obQuest->getVar('quest_plugin'));
         }  
         //--------------------------------------------
         

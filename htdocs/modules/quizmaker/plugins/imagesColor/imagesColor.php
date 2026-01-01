@@ -75,7 +75,7 @@ var $maxGroups = 4;
       //Taille des images à regrouper
       $name = 'imgHeight1';
       $inpHeight0 = new \XoopsFormNumber(_LG_PLUGIN_IMAGESCOLOR_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpHeight0->setMinMax(32, 128, _AM_QUIZMAKER_UNIT_PIXELS);
+      $inpHeight0->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElementOption($inpHeight0);     
 
         
@@ -96,10 +96,10 @@ var $maxGroups = 4;
       $trayOptions->addElementOption($inpColorDefault);     
       
       $name = 'colorSelectMode';  
-      $inputDisposition = new \XoopsFormRadio(_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE, "{$optionName}[{$name}]", $tValues[$name]);
-      $inputDisposition->addOption(0, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST);
-      $inputDisposition->addOption(1, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID);
-      $trayOptions->addElementOption($inputDisposition);     
+      $inputSelectMode = new \XoopsFormRadio(_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inputSelectMode->addOption(0, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST);
+      $inputSelectMode->addOption(1, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID);
+      $trayOptions->addElementOption($inputSelectMode);     
       //--------------------------------------
 
       return $trayOptions;
@@ -187,7 +187,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             $points=1;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             
             $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$i}", $path, 80, '<br>');
@@ -231,7 +231,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         //--------------------------------------------------------       
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
             
@@ -341,4 +341,4 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

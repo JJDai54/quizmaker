@@ -127,7 +127,7 @@ class QuizHandler extends \XoopsPersistableObjectHandler
  * renvoie une liste "id=>name" pour les formSelect 
  * *********************** */
 
-    public function getListKeyName($quiz_cat_id = 0, $addAll=false, $addNull=false, $short_permtype='')
+    public function getListKeyName($quiz_cat_id = 0, $quizSubject = '', $addAll=false, $addNull=false, $short_permtype='')
 
     {
         $ret     = array();
@@ -135,9 +135,14 @@ class QuizHandler extends \XoopsPersistableObjectHandler
 //         if ($addNull) $inpList->addOption('_NULL_', _AM_CARTOUCHES_NULL);
 
         $criteria = new \CriteriaCompo();
-        if($quiz_cat_id > 0){
-            $criteria = new \CriteriaCompo(new \Criteria('quiz_cat_id' , $quiz_cat_id, '='));
-        }
+        
+        if($quiz_cat_id > 0)
+            $criteria = $criteria->add(new \Criteria('quiz_cat_id' , $quiz_cat_id, '='));
+        
+        if($quizSubject && $quizSubject != QUIZMAKER_ALL_ITEMS_KEY)
+            $criteria = $criteria->add(new \Criteria('quiz_subject' , $quizSubject, '='));
+        
+        
         $criteria->setSort('quiz_name');
         $criteria->setOrder('ASC');
         
@@ -160,6 +165,29 @@ class QuizHandler extends \XoopsPersistableObjectHandler
         
         return $ret;
     }
+
+/* ********************************
+* revoi une liste desrmes distinct d'un champ
+* ******************************* */
+public function getFieldList($FieldName, $quizCatId = 0, $addNull = false){
+    $sql = "SELECT DISTINCT {$FieldName}"
+         . " FROM ". $this->table;
+    if($quizCatId > 0){
+        $sql .=" WHERE quiz_cat_id = {$quizCatId}";
+    }
+    if($addNull == false){
+        $sql .=" AND ({$FieldName} <> '' AND {$FieldName} is not null)";
+    }
+    $sql .= " ORDER BY {$FieldName} ASC";
+         
+    $quizSubjectArr = array();
+    $rst = $this->db->query($sql);
+    //echoArray($rst);
+    while (false !== ($row = $this->db->fetchArray($rst))) {
+        $quizSubjectArr[$row[$FieldName]] =  $row[$FieldName];
+    }
+    return $quizSubjectArr;
+}
 
 /* *************************************************
  * renvoie une liste "id=>name" pour les formSelect 
@@ -262,6 +290,18 @@ class QuizHandler extends \XoopsPersistableObjectHandler
         $quizObj = $this->get($quizId);
         return $quizObj->getFolderJS($ret, $subfolder);
     }
+/****************************************************************************
+ * getFolderJSValid : renvoie un nom de dossier valid pour les JS du quiz
+ * retour err bool:
+ ****************************************************************************/
+public function getFolderJSValid($folderJS){
+
+    $newFolder = $folderJS;
+    while (!$this->isFolderJSValid($newFolder)){
+        $newFolder = $folderJS . '-' . rand(10000,99999);
+    }
+    return $newFolder;
+   }
     
 /* ******************************
  *  
@@ -515,7 +555,7 @@ public function setBinOptions($quizId, $optId)
      * @param string  $permName nom de la permission : gpermName)
     * @return array   Liste des quiz
      */
-	public function getAllQuizAllowed($catId, $asKeyNameArr=false, $sorted='quiz_weight,quiz_name,quiz_id', $order="ASC", $permName = 'view_cats'){
+	public function getAllQuizAllowed($catId, $asKeyNameArr=false, $sorted='quiz_weight DESC,quiz_subject,quiz_name,quiz_id', $order="ASC", $permName = 'view_cats'){
         global $categoriesHandler, $quizmakerHelper, $clPerms;
         if(!$categoriesHandler) $categoriesHandler = $quizmakerHelper->getHandler('Categories');
         
@@ -668,7 +708,7 @@ $fldMasterId =  "quiz_cat_id";
       break;
       
     }
-    $sql = "update {$this->table} SET {$newWeight} WHERE {$fldId} = {$quiz_id};";    
+    $sql = "update {$this->table} SET 'quiz_weight'={$newWeight} WHERE {$fldId} = {$quiz_id};";    
     $result = $this->db->queryf($sql);
  
     $this->incrementeWeight($quiz_cat_id, 'ASC', $step);
@@ -676,6 +716,15 @@ $fldMasterId =  "quiz_cat_id";
     return true;
  }
 
+ /* ******************************
+ * Update weight
+ * *********************** */
+ public function updatField($field, $value, $quiz_id){
+
+    $sql = "update {$this->table} SET {$field}='{$value}' WHERE quiz_id = {$quiz_id};";    
+    $result = $this->db->queryf($sql);
+    return $result;
+ }
  /* ******************************
  *  purgerImages
  * *********************** */
@@ -743,16 +792,89 @@ public function isFolderJSValid($folderJS){
     return true;
    }
  
-/****************************************************************************
- * getFolderJSValid : renvoie un nom de dossier valid pour les JS du quiz
- * retour err bool:
- ****************************************************************************/
-public function getFolderJSValid($folderJS){
 
-    $newFolder = $folderJS;
-    while (!$this->isFolderJSValid($newFolder)){
-        $newFolder = $folderJS . '-' . rand(10000,99999);
-    }
-    return $newFolder;
+/****************************************************************************
+ * getSelector ===> Listes de selection pour filtrage des questions
+ * $quizId int : id de la categorie
+ * $quizSubject string : subject de quiz
+ * $quizId int : id du quiz
+ * retour arr renvoie un tableau des liste de sélection pour l'interface:
+ ****************************************************************************/
+// public function getSelectorObj($catId, $quizSubject, $addCaption = true){
+// global $categoriesHandler, $quizHandler, $clPerms;
+// 
+//     $selectors = array();
+//     $sep = ' : ';
+//     $event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="display:inline;width:auto;"';
+//     $clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
+//     $selectors['arr']['cat'] = $categoriesHandler->getList($criteriaCatAllowed);
+// //echoArray($selectors['arr']['cat']);
+//     $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
+//     $inpCategory->addOptionArray($selectors['arr']['cat']);
+//     $inpCategory->setExtra($event);
+//     $selectors['xform']['cat'] = $inpCategory;
+// 
+//     $selectors['arr']['subject'] =  $quizHandler->getFieldList('quiz_subject', $catId);
+//     if(count($selectors['arr']['subject']) > 1){
+//         $inpSet = new \XoopsFormSelect('', 'quiz_subject', $quizSubject);
+//         $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
+//         $inpSet->addOptionArray($selectors['arr']['subject']);
+//         $inpSet->setExtra($event);
+//         $selectors['xform']['subject'] = $inpSet;
+//     }else{
+//         //$selectors['subject'] = '';
+//         //$selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $quizSubject;
+//         $selectors['select']['subject'] = '';
+//    }
+// //echoArray($setArr, $quizSubject);
+//           
+//     return $selectors;
+// }
+public function getSelector($catId, $quizSubject, $asObject=false, $prefixName = '', $addCaption = true){
+global $categoriesHandler, $quizHandler, $clPerms;
+//     if(!isset(formOptions['formName']) formOptions['formName'] = 'quizmaker_select_filter';
+//     if(!isset(formOptions['formName']) formOptions['formName'] = 'quizmaker_select_filter';
+    
+    $selectors = array();
+    $sep = ' : ';
+    $event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="display:inline;width:auto;"';
+    $clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+    $selectors['arr']['cat'] = $categoriesHandler->getList($criteriaCatAllowed);
+    if ($catId == 0) $catId = array_key_first($selectors['arr']['cat']);
+    
+//echoArray($selectors['arr']['cat']);
+    $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, $prefixName . 'cat_id', $catId);
+    $inpCategory->addOptionArray($selectors['arr']['cat']);
+    $inpCategory->setExtra($event);
+
+    if($asObject) 
+        $selectors['select']['cat'] =  $inpCategory;
+    else
+        $selectors['select']['cat'] = (($addCaption) ? _CO_QUIZMAKER_CATEGORIES . $sep : '') . $inpCategory->render();
+
+
+
+
+
+    $selectors['arr']['subject'] =  $quizHandler->getFieldList('quiz_subject', $catId);
+    if(count($selectors['arr']['subject']) > 1){
+        $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT,  $prefixName . 'quiz_subject', $quizSubject);
+        $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
+        $inpSet->addOptionArray($selectors['arr']['subject']);
+        $inpSet->setExtra($event);
+        
+        if($asObject) 
+            $selectors['select']['subject'] = $inpSet;
+        else
+            $selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $inpSet->render();
+
+    }else{
+        //$selectors['subject'] = '';
+        //$selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $quizSubject;
+        $selectors['select']['subject'] = '';
    }
-} // Fin de la classe
+          
+    return $selectors;
+}
+
+} // fin de la class

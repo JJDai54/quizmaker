@@ -206,34 +206,89 @@ var tRet = [];
 /* ***************************************
 * calcule une marge moyenne selon le nombre d'item afin d'arer la présentation
 * *** */
-// function getMarginStyle2(nbItems, numStyle=0, extra='', min=2, max=8){
-//     var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
-//     
-//     //var margin = Math.trunc((250-10) / (nbItems * 2));
-//     margin = Math.min(Math.max(parseInt(margin), min), max);
-//     switch(numStyle){
-//         case 1:  var strStyle =`style='line-height: ${margin*3}px;${extra}' `; break;
-//         case 2:  var strStyle =`style='padding-top: ${margin}px;padding-bottom: ${margin}px;${extra};'`; break;
-//         default: var strStyle =`style='margin:${margin}px 10px ${margin}px 0px;${extra}' `; break;
-//     }
-//     return strStyle;
-// }
-
-/* ***************************************
-* calcule une marge moyenne selon le nombre d'item afin d'arer la présentation
-* *** */
 function getMarginStyle(nbItems, numStyle=0, extra='', min=3, max=8, unit='px'){
     var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
     
     //var margin = Math.trunc((250-10) / (nbItems * 2));
     margin = (min == max) ? min : Math.min(Math.max(parseInt(margin), min), max);
-
+    if(extra){
+        extra += ";";
+    }
     switch(numStyle){
         case 1:  var strStyle =`line-height: ${margin*3}${unit};${extra}`; break;
-        case 2:  var strStyle =`padding-top: ${margin}${unit};padding-bottom: ${margin}${unit};${extra};`; break;
-        default: var strStyle =`margin:${margin}${unit} 10${unit} ${margin}${unit} 0${unit};${extra};`; break;
+        case 2:  var strStyle =`padding-top: ${margin}${unit};padding-bottom: ${margin}${unit};${extra}`; break;
+        default: var strStyle =`margin:${margin}${unit} 10${unit} ${margin}${unit} 0${unit};${extra}`; break;
     }
     return strStyle;
+}
+/* ***************************************
+* todo : rempacer la fonction "getMarginStyle" par "getStyleArr" 
+* qui permet des changement au retour avant insertion du style dans les balises html
+* calcule une marge moyenne selon le nombre d'item afin d'arer la présentation
+* *** */
+function getMarginStyleArr(nbItems, numStyle=0, min=3, max=8, unit='px'){
+    var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
+    margin = (min == max) ? min : Math.min(Math.max(parseInt(margin), min), max);
+    var styleArr=[];
+    
+    switch(numStyle){
+        case 1:  
+            styleArr['line-height'] = `${margin*3}${unit}`;
+            break;
+        case 2: 
+            styleArr['padding-top'] = `${margin}${unit}`;
+            styleArr['padding-bottom'] = `${margin}${unit}`;
+            break;
+        default: 
+            styleArr['padding-top:'] = `${margin}${unit}`;
+            styleArr['padding-bottom'] = `${margin}${unit}`;
+            break;
+    }
+    
+    return styleArr;
+}
+function getStyleFromArr(styleArr, extra = ''){
+    var retArr = [];
+    for(var key in styleArr){
+        retArr.push(`${key}:${styleArr[key]}`);
+    }
+    var styleStr = retArr.join(';')
+    if(extra) styleStr += extra + ";";
+    return `style='${styleStr};'`;
+}
+/* ***************************************
+* todo : rempacer la fonction "getMarginStyle" par "getStyleArr" 
+* qui permet des changement au retour avant insertion du style dans les balises html
+* calcule une marge moyenne selon le nombre d'item afin d'arer la présentation
+* *** */
+function getMarginStyleArr2(nbItems, numStyle=0, min=3, max=8, unit='px'){
+    var margin = Math.trunc((400-100-(10*nbItems)) / (nbItems * 2));
+    margin = (min == max) ? min : Math.min(Math.max(parseInt(margin), min), max);
+    var styleArr = [];
+    
+    switch(numStyle){
+        case 1:  
+            styleArr.push(`line-height: ${margin*3}${unit}`);
+            styleArr.push(`${extra}`);
+            break;
+        case 2:  var strStyle = 
+            styleArr.push(`padding-top: ${margin}${unit}`);
+            styleArr.push(`padding-bottom: ${margin}${unit}`);
+            //styleArr.push(`${extra}`);
+            break;
+        default: 
+            styleArr.push(`padding-top:${margin}${unit}`);
+            styleArr.push(`padding-bottom:${margin}${unit}`);
+            //styleArr.push(`${extra}`);
+            break;
+    }
+    
+    return styleArr;
+}
+function getStyleFromArr2(styleArr, extra = ''){
+    var styleStr = styleArr.join(';')
+    if(extra) styleStr += extra + ";";
+    return `style='${styleStr};'`;
 }
 
 /* ***************************************
@@ -406,7 +461,7 @@ function playSound(src){
 /* *******************************************
 * affiche un message d'avertissement et passe au slide suivant
 * ********** */
-function quiz_set_mask(visible){
+function quiz_subject_mask(visible){
  
     divMask =  document.getElementById('quiz_mask');    
     if(visible){
@@ -422,7 +477,7 @@ function quiz_set_mask(visible){
 * ********** */
 function quiz_show_avertissement(message, nextSlideDelai, background='#FFCCFF'){
  
-    quiz_set_mask(true);
+    quiz_subject_mask(true);
     var avertissementID = 'quiz_avertissement';
     divAvertissement =  document.getElementById(avertissementID); 
 
@@ -458,7 +513,7 @@ function quiz_hidde_avertissement(avertissementId){
     divAvertissement.classList.remove('avertissement_fondu');        
 
     divAvertissement.style.visibility = 'hidden';
-    quiz_set_mask(false);
+    quiz_subject_mask(false);
 //alert('ok'); 
 }
 

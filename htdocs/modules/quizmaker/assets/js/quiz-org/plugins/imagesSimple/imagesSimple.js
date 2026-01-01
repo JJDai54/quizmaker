@@ -278,7 +278,7 @@ var hr = '<hr class="quiz-style-two">';
     return tpl;
 }
 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 function moveToNewParent(idToMove, idToNewParent, idParrentForReturn=''){
 //alert(`moveToNewParent : \n${idToMove}\n${idToNewParent}`);

@@ -64,6 +64,18 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 	}
 
 	/**
+	 * retrieve a field
+	 *
+	 * @param int $i field id
+	 * @param null fields
+	 * @return mixed reference to the {@link Get} object
+	 */
+	public function exists($i)
+	{
+		return (parent::get($i, $fields)) ? true : false;
+	}
+
+	/**
 	 * get inserted id
 	 *
 	 * @param null
@@ -477,4 +489,4 @@ $fldWeight = 'cat_weight';
       return $ret;
   }
 
-} // fin de la classe
+} // fin de la class

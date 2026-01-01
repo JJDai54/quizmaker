@@ -44,7 +44,7 @@ trait QuizImport
 /* ***********************
 
 ************************** */
-public static function quiz_import_sql($questIdsArr, $quizIdFrom, $quizIdTo, $groupTo = ''){
+public static function quiz_import_sql($questIdsArr, $quizIdFrom, $quizIdTo, $toGroup = ''){
 global $quizHandler, $questionsHandler, $answersHandler, $xoopsDB;
 
 $idGroup = 0;
@@ -52,11 +52,11 @@ $tblQuiz  =  $xoopsDB->prefix('quizmaker_quuiz');
 $tblQuest =  $xoopsDB->prefix('quizmaker_questions');
 $tblAns   =  $xoopsDB->prefix('quizmaker_answers');
     
-    if($groupTo){
+    if($toGroup){
 		$questionsObj = $questionsHandler->create();
         $questionsObj->setVar('quest_quiz_id', $quizIdTo);
         $questionsObj->setVar('quest_plugin', 'pageGroup');
-        $questionsObj->setVar('quest_question', $groupTo);
+        $questionsObj->setVar('quest_question', $toGroup);
         $questionsObj->setVar('quest_weight', $questionsHandler->getMax("quest_weight", $quizIdTo)+10);
         
         
@@ -218,7 +218,7 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
     
     //champs obsolettes , pour import d'ancienne version
     self::delFiledsObsolettes($row,'quiz_binOptions','quiz_onClickSimple',
-           'quiz_allowedSubmit','quiz_answerBeforeNext','quiz_allowedPrevious',
+           'quiz_submitBtnPosition','quiz_showSlideBar','quiz_allowedPrevious',
            'quiz_useTimer','quiz_showResultAllways','quiz_showReponsesBottom',
            'quiz_showLog','quiz_shuffleQuestions','quiz_showGoodAnswers',
            'quiz_showBadAnswers','quiz_showReloadAnswers','quiz_minusOnShowGoodAnswers',
@@ -280,8 +280,8 @@ public static function quiz_import_quest($pathSource, $newQuizId, $pluginNameYes
     //lecture du fichier et chargement dans un tableau
     $tabledata = \Xmf\Yaml::readWrapped($pathSource . "/". $questShortName . '.yml');
     //modificaion des champs
-//$pluginNameYes = array('listboxIntruders1','listboxSortItems','textboxMultiple');    
-//$pluginNameNo = array('listboxIntruders1','listboxSortItems','textboxMultiple','pageGroup');    
+//$pluginNameYes = array('listboxIntruders1','listboxSortItems','multiQuestions');    
+//$pluginNameNo = array('listboxIntruders1','listboxSortItems','multiQuestions','pageGroup');    
 //echoArray($pluginNameYes,"pluginNameFilter");
     //balayage de toutes les questions
     $newTblData = array(); //table filtrée
@@ -532,4 +532,4 @@ public static function quiz_getPluginFromYML($pathSource)
     return $pluginName;
 }
 
-}  //fin de la classe
+}  //fin de la class

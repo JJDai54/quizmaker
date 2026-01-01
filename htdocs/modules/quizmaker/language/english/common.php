@@ -102,5 +102,6 @@ define('_CO_QUIZMAKER_PLAYER_STATUS', "Status");
 define('_CO_QUIZMAKER_PLAYER_ALL', "All quizzes");
 define('_CO_QUIZMAKER_PLAYER_NONE', "Quiz not taken");
 define('_CO_QUIZMAKER_PLAYER_YES', "Quiz already taken");
+define('_CO_QUIZMAKER_QUIZ_SUBJECT', "Set");
 
 ?>

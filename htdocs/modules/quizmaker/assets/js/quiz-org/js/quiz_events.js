@@ -30,7 +30,7 @@ function quiz_textareaInput_event(eventName, id, name, slideNumber) {
         break;
 
     case "reload":
-        //transferer dans la classe
+        //transfert dans la classe
         break;
     }
 }
@@ -55,7 +55,7 @@ function quiz_textareaListbox_event(e, action, idText, idParentList, slideNumber
         break;
 
     case "reload":
-        //transfeé dans la classe
+        //transfert dans la classe
         break;
     }
 

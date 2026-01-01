@@ -62,10 +62,10 @@ function get_color_picker(){
 /* ============ evenements ============================================ */
 /* ******************************************************************** */
 function PickerColor_close(e){
-if(e.currentTarget.id = obPicker.id){
-    imagesColor_showPicker(event);
-    //alert('PickerColor_close : ' + e.currentTarget.id);
-}
+  if(e.currentTarget.id = obPicker.id){
+      imagesColor_showPicker(event);
+      //alert('PickerColor_close : ' + e.currentTarget.id);
+  }
 }
 function imagesColor_showPicker(e, etat=0, chrono=0){
 //    alert('imagesColor_showPicker : etat = ' + etat);

@@ -51,8 +51,11 @@
 				<td class='left'> 
                    <{assign var="urlOptionsIhm" value="options.php?op=set_bit&opt_id=`$binOpt.id`&field=opt_optionsIhm"}>
 
-                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ALLOWEDSUBMIT}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWEDSUBMIT}>' >
-                        <{$binOpt.flags.allowedSubmit}>
+                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_START_BUTTON}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_START_BUTTON}>' >
+                        <{$binOpt.flags.startBtnPosition}>
+                        </a>|
+                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SUBMIT_BUTTON}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SUBMIT_BUTTON}>' >
+                        <{$binOpt.flags.submitBtnPosition}>
                         </a>|
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_SCOREMINMAX}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX}>' >
                         <{$binOpt.flags.showScoreMinMax}>
@@ -60,8 +63,8 @@
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_ALLSOLUTIONS}>"  title='<{$smarty.const._AM_QUIZMAKER_VIEW_ALL_SOLUTIONS}>' >
                         <{$binOpt.flags.showAllSolutions}>
                         </a>|
-                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ANSWERBEFORENEXT}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ANSWER_BEFORENEXT}>' >
-                        <{$binOpt.flags.answerBeforeNext}>
+                   <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_SHOW_SLIDEBAR}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_SHOW_SLIDEBAR}>' >
+                        <{$binOpt.flags.showSlideBar}>
                         </a>|
                    <a href="<{$urlOptionsIhm}>&bitIndex=<{$smarty.const.QUIZMAKER_BIT_ALLOWEDPREVIOUS}>"  title='<{$smarty.const._AM_QUIZMAKER_QUIZ_ALLOWED_PREVIOUS}>' >
                         <{$binOpt.flags.allowedPrevious}>

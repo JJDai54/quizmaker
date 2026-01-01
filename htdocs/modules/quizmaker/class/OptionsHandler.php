@@ -423,4 +423,4 @@ public function setBitOn($optId, $field, $bitIndex, $newValue = -1)
       return $ret;
   }
 
-} // fin de la classe
+} // fin de la class

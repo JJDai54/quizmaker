@@ -7,7 +7,7 @@
    viewBox="0 0 297 210"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    sodipodi:docname="binOptions.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -25,7 +25,7 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.32026164"
-     inkscape:cx="206.0815"
+     inkscape:cx="207.64273"
      inkscape:cy="1056.9483"
      inkscape:window-width="1904"
      inkscape:window-height="989"
@@ -239,7 +239,7 @@
        x2="-73.553635"
        y2="44.105782"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-61.134909,2.4784418)" />
+       gradientTransform="translate(-112.35605,-143.74965)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient5945"
@@ -275,7 +275,7 @@
        xlink:href="#linearGradient4883"
        id="linearGradient4156"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-616.82815,-118.2758)"
+       gradientTransform="translate(-345.85179,-145.53867)"
        x1="135.43253"
        y1="192.82179"
        x2="207.18704"
@@ -286,6 +286,16 @@
        id="linearGradient4178"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-61.134909,85.093185)"
+       x1="-147.06067"
+       y1="44.105782"
+       x2="-73.553635"
+       y2="44.105782" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5335"
+       id="linearGradient1"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-247.84423,-161.09875)"
        x1="-147.06067"
        y1="44.105782"
        x2="-73.553635"
@@ -353,8 +363,8 @@
     <circle
        style="fill:url(#linearGradient5337);fill-opacity:1;fill-rule:evenodd;stroke:#aa8800;stroke-width:1.32292;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill"
        id="circle3449"
-       cx="-176.55357"
-       cy="46.584225"
+       cx="-227.77472"
+       cy="-99.643875"
        r="30.980528"
        inkscape:export-filename="binoption-07.png"
        inkscape:export-xdpi="6.4200001"
@@ -393,8 +403,8 @@
     <circle
        style="fill:url(#linearGradient4156);fill-opacity:1;fill-rule:evenodd;stroke:#d40000;stroke-width:1.32292;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill"
        id="circle4154"
-       cx="-449.75363"
-       cy="74.546005"
+       cx="-178.77727"
+       cy="47.283138"
        r="30.980528"
        inkscape:export-filename="binoption-07.png"
        inkscape:export-xdpi="6.4200001"
@@ -432,14 +442,24 @@
          style="font-size:64px;line-height:1.25;font-family:Elephant;-inkscape-font-specification:Elephant;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect428);fill:#ff0000;stroke:#000000;stroke-width:0.364648;stroke-linecap:round;stroke-linejoin:round;stop-color:#000000"><tspan
            x="-515.20312"
            y="1163.5234"
-           id="tspan667"><tspan
+           id="tspan2"><tspan
              style="font-weight:bold;font-family:Arial;-inkscape-font-specification:'Arial Bold';fill:#000000;stroke:none"
-             id="tspan665">?</tspan></tspan></text>
+             id="tspan1">?</tspan></tspan></text>
     </g>
     <text
        xml:space="preserve"
        transform="scale(0.26458333)"
        id="text586"
        style="fill:#000000;stop-color:#000000;font-size:64px;line-height:1.25;-inkscape-font-specification:'Arial Bold';font-family:Arial;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;stroke-linecap:round;stroke-linejoin:round;stroke:none;font-weight:bold;font-style:normal;font-stretch:normal;font-variant:normal;white-space:pre;shape-inside:url(#rect588)" />
+    <circle
+       style="fill:url(#linearGradient1);fill-opacity:1;fill-rule:evenodd;stroke:#aa8800;stroke-width:1.32292;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;paint-order:markers stroke fill"
+       id="circle1"
+       cx="-363.26291"
+       cy="-116.99297"
+       r="30.980528"
+       inkscape:export-filename="binoption-07.png"
+       inkscape:export-xdpi="6.4200001"
+       inkscape:export-ydpi="6.4200001"
+       transform="rotate(-90)" />
   </g>
 </svg>

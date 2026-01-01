@@ -135,6 +135,9 @@ function onHoverTr(e, chrono){
     obDivTouche.style.background = clTouche.borderColor;
     obDivTouche.classList.add('fade-in-element');
 //     setTimeout(remove_fadin,800,chrono);
+
+/*
+*/
      setTimeout(clignote_touche,800,chrono);
     if (idClignotant) clearInterval(idClignotant);
     idClignotant = setInterval(clignote_touche, 2000, chrono);

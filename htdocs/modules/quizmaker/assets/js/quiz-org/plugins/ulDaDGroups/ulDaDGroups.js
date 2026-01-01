@@ -568,7 +568,7 @@ groupes.push(`
 }
 
 
-}  // FIN DE LA CLASSE
+}  // FIN DE LA VARIANT
 
 function ul_start(e, isDiv=false){
     e.dataTransfer.effectAllowed = "move";

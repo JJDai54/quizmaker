@@ -291,4 +291,4 @@ return $str;
 
 
 
-}  //fin de la classe
+}  //fin de la class

@@ -76,14 +76,14 @@ class PluginsHandler
 	}
 
 	/**
-	 * Get Count Quiz in the database
+	 * Get Count plugins in the modules
 	 * @param int    $start 
 	 * @param int    $limit 
 	 * @param string $sort 
 	 * @param string $order 
 	 * @return int
 	 */
-	public function getCountQuiz()
+	public function getCountPlugins()
 	{
         
 		return count($this->getListKeyName());
@@ -93,18 +93,23 @@ class PluginsHandler
 
 ************************** */
 public function getListKeyName($category = null, $boolShowCode = false, $addPagesBeginEnd = false){
-        $listTQ = $this->getAll($category);
+        $listPlugins = $this->getAll($category, true);
         $ret = array();
-
+//echoArray($listPlugins);
         
-        foreach ($listTQ as $key=>$arr){
+        foreach ($listPlugins as $key=>$arr){
            if($arr['obsolette']) continue;
-           if (!$addPagesBeginEnd && ($key == "pageBegin" || $key == "pageEnd")) continue;
+// echo "plugin 1 ===>{$key} ===> {$arr['type']}<br>";
+           //if (!$addPagesBeginEnd && ($key == "pageBegin" || $key == "pageEnd")) continue;
+           if (!$addPagesBeginEnd && $arr['category'] == 'first_last') continue;
+//echo "plugin 2 --->{$key} ---> {$arr['type']}<br>";
            $ret[$arr['type']] = (($boolShowCode) ? $arr['type'] . ' : ' : '') . $arr['name'];  
         }
 
        //tri sur le poids poids 
+//echoArray($ret);
        ksort ($ret);
+//echoArray($ret);
        return $ret;
 
 }
@@ -113,16 +118,24 @@ public function getListKeyName($category = null, $boolShowCode = false, $addPage
 
 ************************** */
 public function getListByGroup($boolCode = false, $addPagesBeginEnd = false){
-    $allTQ = $this->getAll(null, true);
+    $allPlugins = $this->getAll(null, true);
     $list = array();
+    $prefixPlugin = '-1-';
+    $prefixCat = '-0-';
 
-    foreach($allTQ as $key => $arr) {
+    foreach($allPlugins as $key => $arr) {
        if($arr['obsolette']) continue;
-       if (!$addPagesBeginEnd && ($key == "pageBegin" || $key == "pageEnd")) continue;
-       if(!isset($list[$arr['category']])) $list[$arr['category']] = $arr['category'];
+       //if (!$addPagesBeginEnd && ($key == "pageBegin" || $key == "pageEnd")) continue;
+       if (!$addPagesBeginEnd && $arr['category'] == 'first_last') continue;
        
-       $key = $arr['category'] .'-' . $arr['type'];
-       $list[$key] = $arr['type'];
+       $keyCat = "{$arr['categoryWeight']}{$prefixCat}{$arr['category']}";
+       $keyPlugin = "{$arr['categoryWeight']}{$prefixPlugin}{$arr['pluginName']}";
+       
+       if(!isset($list[$keyCat])) $list[$keyCat] = $arr['category'];
+       
+       //$key = $arr['category'] .'-' . $arr['type'];
+       $key = $keyPlugin . "-{$arr['pluginName']}";       
+       $list[$key] = $arr['pluginName'];
        
     }
     ksort($list);
@@ -130,27 +143,28 @@ public function getListByGroup($boolCode = false, $addPagesBeginEnd = false){
 
     //--------------------------------------------------------
     $ret = array();
-    $prefix = '--- ';
     
     foreach($list as $key => $v) {
-        if ($key == $v){
+        if(substr($key,2,3) == $prefixCat){
             $ret['>' . $v] = constant(QUIZMAKER_PREFIX_CAT .  strToUpper($v));
         }else{
-            $lib = $allTQ[$v]['name'];
-            $ret[$v] = $prefix . $lib . (($boolCode) ? " [{$v}]"  : '') ;
+            $lib = $allPlugins[$v]['name'];
+            $ret[$v] = '--- ' . $lib . (($boolCode) ? " [{$v}]"  : '') ;
         }
+        
     }
     
     //echoArray($ret);
     return $ret;    
 }
+
 /* ***********************
 
 ************************** */
 public function getCategories($addAll = false){
     $allTQ = $this->getAll(null, true);
     $cat = array();    
-    if($addAll) $cat[QUIZMAKER_ALL] = '(*)';
+    if($addAll) $cat[QUIZMAKER_ALL] = QUIZMAKER_ALL_ITEMS_KEY;
     foreach($allTQ as $key => $arr) {
         if(!array_key_exists($arr['category'], $cat))
             $cat[$arr['category']] = $arr['category'] . " - " . constant(QUIZMAKER_PREFIX_CAT . strToUpper($arr['category']));
@@ -320,7 +334,7 @@ public function getNewPluginName(&$pluginName){
             $pluginName = 'radioMultiple'; 
             break;
         case 'multiTextbox' :
-            $pluginName = 'textboxMultiple'; 
+            $pluginName = 'multiQuestions'; 
             break;
         case 'imagesDaDLogical' :
             $pluginName = 'imagesDaDMatchItems'; 
@@ -331,7 +345,7 @@ public function getNewPluginName(&$pluginName){
         case 'textareaSimple' :
         case 'textareaListbox' :
         case 'textareaInput' :
-            $pluginName = 'textareaMixte'; 
+            $pluginName = 'textMixte'; 
             break;
         case 'comboboxMatchItems' :
         case 'textboxMatchItems' :
@@ -352,6 +366,7 @@ public function getNewPluginName(&$pluginName){
             $pluginName = 'selectImages'; 
             break;
         case 'textboxMultiple' :
+        case 'textboxMultiples' :
             $pluginName = 'multiQuestions'; 
             break;
         case 'classicSelect' :
@@ -361,7 +376,11 @@ public function getNewPluginName(&$pluginName){
         case 'choiceImages' :
             $pluginName = 'selectImages'; 
             break;
+        case 'textareaMixte' :
+            $pluginName = 'textMixte'; 
+            break;
   }
+  
 }
 /* ////////////////////////////////////////////////////////////////////// */
 
@@ -378,7 +397,7 @@ public function getAllPlugins($category=null, $bolKeyType = false){
     if (!$category) $category=QUIZMAKER_ALL;
     
     $allPluginsName =  \XoopsLists::getDirListAsArray(QUIZMAKER_PATH_PLUGINS_PHP);
-//echoArray($allPluginsName, QUIZMAKER_PATH_PLUGINS_PHP);    
+//echoArray($allPluginsName, QUIZMAKER_PATH_PLUGINS_PHP);    exit;
     $ret = array();    
     foreach($allPluginsName as $key=>$pluginName){    
           
@@ -393,7 +412,7 @@ public function getAllPlugins($category=null, $bolKeyType = false){
         }
         
     }
-//echoArray($ret, 'getPluginPath');   
+//echoArray($ret, 'getPluginPath');    exit;
     return $ret;     
 }
 

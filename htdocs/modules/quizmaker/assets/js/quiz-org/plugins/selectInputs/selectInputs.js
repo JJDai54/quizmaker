@@ -45,7 +45,29 @@ get_optionsList(){
     var name = this.getName();
 //alert("image : " + currentQuestion.image);
     const htmlArr = [];
-    this.data.styleCSS = `style='${getMarginStyle(currentQuestion.answers.length,2)}'`;
+    
+    var styleArr = getMarginStyleArr(currentQuestion.answers.length,2);
+
+    if(!currentQuestion.options.trHeight){currentQuestion.options.trHeight = 0;}
+    if(currentQuestion.options.trHeight == 0){
+        //to : a revoir
+        var trHeight = 12; //Math.floor((350/(this.data.items.length+1)));
+    }else{
+        var trHeight = currentQuestion.options.trHeight;
+            delete(styleArr['padding-top']);
+            delete(styleArr['padding-bottom']);
+    styleArr['height'] = `${trHeight}px`;
+    styleArr['vertical-align'] = 'middle';
+    }
+    
+//var height = 'height:' + trHeight + 'px;';
+
+    
+    this.data.styleCSS = getStyleFromArr(styleArr);    
+    //this.data.styleCSS = `style='${getMarginStyle(currentQuestion.answers.length,2)}${height}'`;    
+
+    
+    
     htmlArr.push(`<div id="${name}-famille" style="text-align:left;margin-left:10px;">`);
     htmlArr.push(this.getHtmlInputKeys(name, this.data.inputType, this.shuffleArrayKeys(this.data.items), currentQuestion.numbering, 0, this.data.styleCSS));  
     htmlArr.push(`</div>`);
@@ -60,11 +82,13 @@ get_optionsList(){
  getHtmlInputKeys(name, typeInp2, tItems, numerotation, offset=0, extra="", sep="<br>"){
 var item;
     var currentQuestion = this.question;
+    var options = currentQuestion.options;
     var keys = Object.keys(tItems);
     var typeInp = '';
     var eventOnClick = '';
-   
-    switch(currentQuestion.options.inputType*1){
+//alert(extra);  
+
+    switch(options.inputType*1){
         case 0 :
             typeInp = 'checkbox';
             break;
@@ -73,24 +97,24 @@ var item;
             typeInp = 'radio';
         break;
     }
-    var eventOnClick = `onclick="selectInputs_event_gotoNextSlide(event, ${this.slideNumber}, ${currentQuestion.options.msgNextSlideDelai});"`;
+    var eventOnClick = `onclick="selectInputs_event_gotoNextSlide(event, ${this.slideNumber}, ${options.msgNextSlideDelai});"`;
 
     var tHtml = [];
     tHtml.push('<table>');
     for(var j=0; j < keys.length; j++){
         item = tItems[keys[j]];
-        tHtml.push(`<tr><td proposition ${extra} >       
+        tHtml.push(`<tr><td proposition ${extra}>       
 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}"caption="${item.key}" ${eventOnClick}>
 </td><td>`);
 
 if(numerotation==0){
-    tHtml.push(`<td proposition' ${extra} ><label for="${name}-${j}" style='text-indent:0;margin:0px 0px 0px 0px'>
+    tHtml.push(`<td proposition ${extra} ><label for="${name}-${j}" style='text-indent:0;margin:0px 0px 0px 0px'>
     ${item.word}
 </label><td>`);
 }else{
-    tHtml.push(`<td proposition ${extra} ><label for="${name}-${j}"><p>
+    tHtml.push(`<td proposition ${extra}><label for="${name}-${j}">
 ${getNumAlpha(j,numerotation,offset)}${item.word}
-</p></label></td>`);
+</label></td>`);
 }
     }
     tHtml.push('</table>');
@@ -169,7 +193,7 @@ get_listFamilywords(){
     var currentQuestion = this.question;
 //alert (currentQuestion.options.familyWords);
 
-    var fw = splitAllSep(currentQuestion.options.familyWords);
+    var fw = splitArrayAllSep(currentQuestion.options.familyWords);
     this.data.styleCSSTxt = `style='${getMarginStyle(fw.length)}'`;    
    
     return getHtmlSpan2(name, "familyWords", this.shuffleArray(fw), currentQuestion.numbering, 0, this.data.styleCSSTxt , "<br>");
@@ -269,7 +293,7 @@ var ans = null;
 }
 
 //---------------------------------------------------
-getScoreByProposition ( answerContainer){
+getScoreByProposition ( answerContainer = null){
 var points = 0;
 var bolOk = 1;
 //alert("getScoreByProposition");
@@ -489,7 +513,7 @@ var sDispo = disposition + ((bolImage) ? "1" : "0") + ((bolFamilyWords) ? "1" : 
     //return this.getDisposition(bolImage, bolFamilyWords);
 }
 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant
@@ -516,11 +540,14 @@ function selectInputs_event_gotoNextSlide(ev, slideNumber, msgNextSlideDelai){
             gotoNexSlide = (obs.length == clQuestion.countAnsNotNull);
         }
     }
-    
+    //alert (clQuestion.getScoreByProposition() + " / " + clQuestion.scoreMaxiBP);
     if(gotoNexSlide){
-        quiz_show_avertissement (options.nextSlideMessage, options.nextSlideDelai, options.nextSlideBG);
+        var msg = (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP) ? options.nextSlideMessageWinner : options.nextSlideMessageLooser;
+        msg = fo_sprint(msg);
+        
+        quiz_show_avertissement (msg, options.nextSlideDelai, options.nextSlideBG);
     }  
-    ev.stopPropagation();
+    ev.stopPropagation();   
 }
 
 

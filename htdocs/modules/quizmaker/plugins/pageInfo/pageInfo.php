@@ -165,4 +165,4 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
     return $ret;
 }
 
-} // ----------------- FIN DE LA CLASSE ------------------
+} // ----------------- FIN DE LA VARIANT ------------------

@@ -71,8 +71,8 @@ define('_CO_QUIZMAKER_NO_PERM', "Vous n'avez pas les permissions pour accéder �
 define('_CO_QUIZMAKER_NUM_NONE', "Sans");
 define('_CO_QUIZMAKER_OFF', "<span style='font-weight: bold;'>NON</span>");
 define('_CO_QUIZMAKER_ON', "<span style='font-weight: bold;'>OUI</span>");
-define('_CO_QUIZMAKER_PLUGIN', "Type de question");
-define('_CO_QUIZMAKER_PLUGIN_DESC', "Vos pouvez changer le type de question mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir les ressaisir.");
+define('_CO_QUIZMAKER_PLUGIN', "Plugin");
+define('_CO_QUIZMAKER_PLUGIN_DESC', "Vos pouvez changer le plugin mais attention tous les types ne sont pas compatibles<br>Par exemple le type radioSimple n'est pas compatible avec le type textboxSimple.<br>Le risque quand on change le type est de perdre les réponses et de devoir les ressaisir.");
 define('_CO_QUIZMAKER_POINTS', "Points");
 define('_CO_QUIZMAKER_POINTS_FOR_ANSWER2', "Cette question comptait pour un score minimum de %1\$s points et un score maximum de %2\$s points.");
 define('_CO_QUIZMAKER_POINTS_UNDER_DEV', "<span style='color:red;'><b>Fonction en cours de développement.</b></span>");
@@ -91,17 +91,30 @@ define('_CO_QUIZMAKER_SPHPINI', "<span style='font-weight: bold;'>Informations e
 define('_CO_QUIZMAKER_TIME', "Date/Heure");
 define('_CO_QUIZMAKER_UPLOADPATHDSC', "Noter. Le chemin de téléchargement *DOIT* contenir le chemin complet du serveur de votre dossier de téléchargement.");
 
-define('_CO_QUIZMAKER_PLUGIN_CAT_BASIC', "Questions de base");
-define('_CO_QUIZMAKER_PLUGIN_CAT_DRAGANDDROP', "Cliquer déplacer");
-define('_CO_QUIZMAKER_PLUGIN_CAT_IMAGES', "Images simples");
-define('_CO_QUIZMAKER_PLUGIN_CAT_OTHER', "Autres types de question");
-define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages de début, de fin et de regroupement");
+define('_CO_QUIZMAKER_PLUGIN_CAT_PAGE', "Pages intermédiaires");
+define('_CO_QUIZMAKER_PLUGIN_CAT_CLASSIQUE', "Questions classiques (cases à cocher et boutons radio)");
+define('_CO_QUIZMAKER_PLUGIN_CAT_MATCHITEMS', "Associer des images ou des expressions");
+define('_CO_QUIZMAKER_PLUGIN_CAT_GROUPS', "Regrouper et rassembler  des images ou des expressions");
+define('_CO_QUIZMAKER_PLUGIN_CAT_ORDRE', "Ordonner et classer des images ou des expressions");
 define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
-define('_CO_QUIZMAKER_NEW', 'Nouveau');
+define('_CO_QUIZMAKER_PLUGIN_CAT_IMAGES', "Images à délpacer ou à cliquer");
+define('_CO_QUIZMAKER_PLUGIN_CAT_MISCELLANEOUS', "Divers plugins inclassables");
+define('_CO_QUIZMAKER_PLUGIN_CAT_FIRST_LAST', "Pages de débutet de fin");
 
+define('_CO_QUIZMAKER_NEW', 'Nouveau');
 define('_CO_QUIZMAKER_PLAYER_STATUS', "Etat");
 define('_CO_QUIZMAKER_PLAYER_ALL', "Tous les quiz");
 define('_CO_QUIZMAKER_PLAYER_NONE', "Quiz à faire");
 define('_CO_QUIZMAKER_PLAYER_YES', "Quiz déjà faits");
+define('_CO_QUIZMAKER_QUIZ_SUBJECT', "Sujet");
+define('_CO_QUIZMAKER_QUESTIONS',"Questions");
+
+define('_CO_QUIZMAKER_DIFFICULT',"Difficulté");
+define('_CO_QUIZMAKER_DIFFICULT_ALL',"Toutes difficultés");
+define('_CO_QUIZMAKER_DIFFICULT_0',"Indéfini");
+define('_CO_QUIZMAKER_DIFFICULT_1',"Facile");
+define('_CO_QUIZMAKER_DIFFICULT_2',"Difficile");
+define('_CO_QUIZMAKER_DIFFICULT_3',"Très difficile");
+define('_CO_QUIZMAKER_DIFFICULT_4',"Expert");
 
 ?>

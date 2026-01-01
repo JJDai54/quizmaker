@@ -32,5 +32,16 @@ use XoopsModules\Quizmaker\Constants;
         $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		// Get Form
 		$questionsObj = $questionsHandler->get($questId);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 		$form = $questionsObj->getFormQuestions();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());

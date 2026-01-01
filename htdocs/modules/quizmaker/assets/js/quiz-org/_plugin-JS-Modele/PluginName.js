@@ -132,7 +132,7 @@ getAllReponses (flag = 0){
 getDisposition(disposition, contenairId){
     var currentQuestion = this.question;
 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant

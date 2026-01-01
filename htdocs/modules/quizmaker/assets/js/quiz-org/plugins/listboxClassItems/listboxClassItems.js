@@ -288,7 +288,7 @@ showBadAnswers()
     this.loadAlllistBox(false);
 }
  
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 
 /************************************************************************
  *                       quiz_listBox
@@ -321,7 +321,7 @@ getSelect(){
 setToParent(idParent){
     document.getElementById().appendChild(this.select);
 }
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 /************************************************************************
  *                       quiz_listBox
  * **********************************************************************/
@@ -371,5 +371,5 @@ renderOptions(value=null){
       return tHtml.join("\n");
 }
 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------
 

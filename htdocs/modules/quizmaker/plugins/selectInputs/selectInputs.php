@@ -39,19 +39,21 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
 	 */
 	public function __construct()
 	{
-        parent::__construct("selectInputs", 0, "basic");
+        parent::__construct("selectInputs", 0, "classique");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
-        
-        $this->optionsDefaults = ['inputType'        => 0, //'multipleChoice' => 0, unique choice => 1,
-                                  'nextSlideDelai'   => 0,
-                                  'nextSlideBG'      =>'#FFCC00',
-                                  'nextSlideMessage' => ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : ''),
-                                  'familyWords'      => '',
-                                  'cocheImgName0'      => 'coche-01.png',
-                                  'cocheImgName1'      => 'coche-01.png',
-                                  'cocheImgHeight'    => 25,  
-                                  'disposition'      => 'disposition-0'];
+        $this->optionsDefaults = ['inputType'                   => 0, //'multipleChoice' => 0, unique choice => 1,
+                                  'familyWords'                 => '',
+                                  'cocheImgName0'               => 'coche-01.png',
+                                  'cocheImgName1'               => 'coche-01.png',
+                                  'cocheImgHeight'              => 25,  
+                                  'disposition'                 => 'disposition-0',
+                                  'nextSlideMessageWinner'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_WINNER_0 : ''),
+                                  'nextSlideMessageLooser'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0 : ''),
+                                  'nextSlideDelai'              => 0,
+                                  'nextSlideBG'                 =>'#FFCC00',
+                                  'trHeight'                    => 1];
+
 
         $this->hasImageMain = true;
         $this->multiPoints = true;
@@ -89,9 +91,10 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
       $trayOptions->addElementOption($inpType);     
       
       //--------------------------------   
-      
-      $arrConst = ['msgNextSlideTxt' => '_LG_PLUGIN_SELECTINPUTS_NEXT_SLIDE'];
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_avertissement.php");
+      //insertion des messages de transition
+      $prefixPluginWinner  = '_LG_PLUGIN_SELECTINPUTS_NEXT_SLIDE';
+      $prefixPluginLlooser = '_LG_PLUGIN_SELECTINPUTS_NEXT_SLIDE';
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
       
       //--------------------------------------------------------------------           
       $name = 'familyWords';  
@@ -100,7 +103,7 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElementOption($inputFamilyWords);     
       
       // disposition 
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       //--------------------------------------------------------------------           
 /* transferé dans selectImages
@@ -127,6 +130,11 @@ class Plugin_selectInputs extends XoopsModules\Quizmaker\Plugins
 */
       
       //--------------------------------------------------------------------           
+      $name = 'trHeight';  
+      $inpTrHeight = new \XoopsFormNumber(_LG_PLUGIN_SELECTIMAGES_TR_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpTrHeight->setMinMax(0, 80, _AM_QUIZMAKER_UNIT_PIXELS, "1");
+      $inpTrHeight->setDescription(_LG_PLUGIN_SELECTIMAGES_TR_HEIGHT_DESC);
+      $trayOptions->addElementOption($inpTrHeight);     
       
       return $trayOptions;
     }
@@ -172,7 +180,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         for($k = 0; $k < $maxItems; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             
             $inpPropos = new \XoopsFormText('', $this->getName($k,'proposition'), $this->lgMot4, $this->lgMot5, $proposition);
@@ -209,7 +217,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
         //--------------------------------------------------------        
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
             $ans['proposition']  = FQUIZMAKER\sanityse_inpValue($ans['proposition']);
@@ -287,4 +295,4 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

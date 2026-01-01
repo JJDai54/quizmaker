@@ -19,7 +19,7 @@ Extensions=*.*
 _quizmaker
 	+quizmaker
 		-.vscode
-		+admin
+		-admin
 			admin\about.php
 			admin\answers.php
 			admin\build_quiz_cat.php
@@ -32,6 +32,7 @@ _quizmaker
 			admin\help_pdf.php
 			admin\import.php
 			admin\import-batch.php
+			admin\import-clone_quiz.php
 			admin\import-plugin.php
 			admin\import-quest.php
 			admin\import-quest_sql.php
@@ -47,6 +48,7 @@ _quizmaker
 			admin\plugins.php
 			admin\plugins_help.php
 			admin\questions.php
+			admin\questions-addinfo.php
 			admin\questions-clone.php
 			admin\questions-delete.php
 			admin\questions-edit.php
@@ -60,6 +62,7 @@ _quizmaker
 			admin\quiz-new.php
 			admin\quiz-save.php
 			admin\results.php
+			admin\traitements.php
 		+assets
 			-css
 				-admin
@@ -153,8 +156,11 @@ _quizmaker
 					assets\icons\16\retour.png
 					assets\icons\16\retour-1.png
 					assets\icons\16\retour-2.png
+					assets\icons\16\selectImages.png
 					assets\icons\16\sigma-01.png
 					assets\icons\16\sigma-02.png
+					assets\icons\16\sigma-03.png
+					assets\icons\16\spinner.gif
 					assets\icons\16\status0.png
 					assets\icons\16\status1.png
 					assets\icons\16\status2.png
@@ -193,9 +199,15 @@ _quizmaker
 					assets\icons\32\wizard.png
 				assets\icons\index.html
 			-images
+				assets\images\14625513 - Copie.gif
+				assets\images\14625513.gif
+				assets\images\4705921.png
+				assets\images\admin-01.png
+				assets\images\admin-02.png
 				assets\images\ampoule-05.jpg
 				assets\images\blank.gif
 				assets\images\blank.png
+				assets\images\fleche_verte_01.png
 				assets\images\index.html
 				assets\images\jean-jacques_delalandre_logo.png
 				assets\images\logoModule.png
@@ -206,11 +218,12 @@ _quizmaker
 				assets\images\run_quiz_01.jpg
 				assets\images\run_quiz_01.png
 				assets\images\run_quiz_02.png
+				assets\images\run_quiz_03.png
 				assets\images\solution-00.png
 				assets\images\solution-01.png
 				assets\images\solution-02.png
 				assets\images\solution-03.png
-			-js
+			+js
 				+quiz-org
 					-_plugin-JS-Modele
 						-img
@@ -342,7 +355,10 @@ _quizmaker
 						assets\js\quiz-org\images\moins.png
 						assets\js\quiz-org\images\next.png
 						assets\js\quiz-org\images\plus.png
-					-js
+						assets\js\quiz-org\images\zoom_moins_01.png
+						assets\js\quiz-org\images\zoom_next_01.png
+						assets\js\quiz-org\images\zoom_plus_01.png
+					+js
 						assets\js\quiz-org\js\fnc_array.js
 						assets\js\quiz-org\js\fnc_htmlObjects.js
 						assets\js\quiz-org\js\fnc_progressBar.js
@@ -433,7 +449,7 @@ _quizmaker
 							assets\js\quiz-org\plugins\radioMultiple\index.html
 							assets\js\quiz-org\plugins\radioMultiple\radioMultiple.css
 							assets\js\quiz-org\plugins\radioMultiple\radioMultiple.js
-						+selectImages
+						-selectImages
 							-img
 								-buttons
 									assets\js\quiz-org\plugins\selectImages\img\buttons\Button_Icon_Black.png
@@ -474,7 +490,6 @@ _quizmaker
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-06.png
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-07.png
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-08.png
-									assets\js\quiz-org\plugins\selectImages\img\coches\coche-09.jpg
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-10.png
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-11.png
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-12.png
@@ -482,12 +497,83 @@ _quizmaker
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-14.png
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-15.png
 									assets\js\quiz-org\plugins\selectImages\img\coches\coche-16.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-01.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-02.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-03.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-04.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-05.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-06.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-07.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-08.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-09.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-10.png
+									assets\js\quiz-org\plugins\selectImages\img\coches\radio-11.png
 								assets\js\quiz-org\plugins\selectImages\img\index.html
 							assets\js\quiz-org\plugins\selectImages\index.html
+							assets\js\quiz-org\plugins\selectImages\selectCoches.css
 							assets\js\quiz-org\plugins\selectImages\selectCoches.js
 							assets\js\quiz-org\plugins\selectImages\selectImages.css
 							assets\js\quiz-org\plugins\selectImages\selectImages.js
 						-selectInputs
+							-img
+								-buttons
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Black.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Blue.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_BlueSky.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Brown.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Cyan.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Fuchsia.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Lime.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Orange.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Pink.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Red.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Turquoise.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Violet.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_Icon_Yellow.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_to_push_green.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\Button_to_push_red.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\index.html
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\-no_icon.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-bleu.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-gris.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-marron.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-or.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-rose.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-rouge.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-vert.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-vertdegris.png
+									assets\js\quiz-org\plugins\selectInputs\img\buttons\pingouin-violet.png
+								-coches0
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-02.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-04.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-08.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-10.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-11.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-12.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-13.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-15.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\coche-16.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\-no_icon.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\smiley-054.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches0\smiley-064.png
+								-coches1
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\Button_Icon_Green.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\Button_Icon_GreenBlue.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\Button_Icon_GreenForest.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-01.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-03.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-05.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-06.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-07.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-09.jpg
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-10.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-11.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-13.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-14.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-15.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\coche-16.png
+									assets\js\quiz-org\plugins\selectInputs\img\coches1\-no_icon.png
+								assets\js\quiz-org\plugins\selectInputs\img\index.html
 							assets\js\quiz-org\plugins\selectInputs\index.html
 							assets\js\quiz-org\plugins\selectInputs\selectInputs.css
 							assets\js\quiz-org\plugins\selectInputs\selectInputs.js
@@ -595,10 +681,18 @@ _quizmaker
 							assets\js\quiz-org\plugins\sortItems\index.html
 							assets\js\quiz-org\plugins\sortItems\sortItems.css
 							assets\js\quiz-org\plugins\sortItems\sortItems.js
-						-textareaMixte
-							assets\js\quiz-org\plugins\textareaMixte\index.html
-							assets\js\quiz-org\plugins\textareaMixte\textareaMixte.css
-							assets\js\quiz-org\plugins\textareaMixte\textareaMixte.js
+						+textMixte
+							assets\js\quiz-org\plugins\textMixte\index.html
+							assets\js\quiz-org\plugins\textMixte\textListbox1.css
+							assets\js\quiz-org\plugins\textMixte\textListbox1.js
+							assets\js\quiz-org\plugins\textMixte\textListbox2.css
+							assets\js\quiz-org\plugins\textMixte\textListbox2.js
+							assets\js\quiz-org\plugins\textMixte\textMixte.css
+							assets\js\quiz-org\plugins\textMixte\textMixte.js
+							assets\js\quiz-org\plugins\textMixte\textTextarea.css
+							assets\js\quiz-org\plugins\textMixte\textTextarea.js
+							assets\js\quiz-org\plugins\textMixte\textTextbox.css
+							assets\js\quiz-org\plugins\textMixte\textTextbox.js
 						-ulDaDGroups
 							-plugin_findObjects
 								assets\js\quiz-org\plugins\ulDaDGroups\plugin_findObjects\index.html
@@ -609,14 +703,14 @@ _quizmaker
 						assets\js\quiz-org\plugins\index.html
 					assets\js\quiz-org\_quiz-org.ppr
 					assets\js\quiz-org\index.html
+					assets\js\quiz-org\Nouveau1.js
 				assets\js\admin.js
 				assets\js\functions.js
 				assets\js\highslide.js
 				assets\js\index.html
 				assets\js\quizmaker.js
 			assets\index.html
-			admin\traitements.php
-		+blocks
+		-blocks
 			blocks\categories.php
 			blocks\index.html
 			blocks\quiz.php
@@ -668,7 +762,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\guide-quizmaker.docx
@@ -680,27 +774,21 @@ _quizmaker
 			docs\structures_div.svg
 			docs\test_div_scroll.html
 			docs\todo.txt
-		+include
+		-include
 			include\comment_functions.php
 			include\common.php
 			include\functions.php
 			include\index.html
 			include\install.php
 			include\notification.inc.php
-			include\plugin_getFormGroup.php
-			include\plugin_options_avertissement.php
-			include\plugin_options_disposition.php
-			include\plugin_options_groups.php
-			include\plugin_options_zoom.php
-			include\plugin_saveAnswers.php
 			include\quizFlagAscii.php
 			include\search.inc.php
 			include\uninstall.php
 			include\unused constants as is.php
 			include\update.php
 			include\xoops_version.inc.php
-		+language
-			+english
+		-language
+			-english
 				-help
 					-img
 						language\english\help\img\_barre_de_dev.jpg
@@ -799,7 +887,7 @@ _quizmaker
 					language\french\help\index.html
 					language\french\help\install.html
 					language\french\help\plugins.html
-				-mail_template
+				-mailÿ em ?? e
 					language\french\mail_template\Categories_approve_notify.tpl
 					language\french\mail_template\Categories_delete_notify.tpl
 					language\french\mail_template\Categories_modify_notify.tpl
@@ -849,18 +937,8 @@ _quizmaker
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\plugin_alphaSimple.zip
 			-findObjects
+				-Dossier 1501
 				-img
-					-dispositions
-						-old
-							plugins\findObjects\img\dispositions\old\disposition-01.png
-							plugins\findObjects\img\dispositions\old\disposition-02h.png
-							plugins\findObjects\img\dispositions\old\disposition-02v.png
-						plugins\findObjects\img\dispositions\disposition-01h.png
-						plugins\findObjects\img\dispositions\disposition-01v.png
-						plugins\findObjects\img\dispositions\disposition-02h.png
-						plugins\findObjects\img\dispositions\disposition-02v.png
-						plugins\findObjects\img\dispositions\dispositions.svg
-						plugins\findObjects\img\dispositions\index.html
 				-js
 					plugins\findObjects\js\colorPicker.js
 					plugins\findObjects\js\findObject_events.js
@@ -1035,15 +1113,25 @@ _quizmaker
 				plugins\listboxClassItems\index.html
 				plugins\listboxClassItems\listboxClassItems.php
 				plugins\listboxClassItems\plugin_listboxClassItems.zip
-			+matchItems
+			-matchItems
 				-img
+					-dispositions
+						-old
+							plugins\matchItems\img\dispositions\old\disposition-01.png
+							plugins\matchItems\img\dispositions\old\disposition-02h.png
+							plugins\matchItems\img\dispositions\old\disposition-02v.png
+						plugins\matchItems\img\dispositions\disposition-01.png
+						plugins\matchItems\img\dispositions\disposition-02.png
+						plugins\matchItems\img\dispositions\disposition-03.png
+						plugins\matchItems\img\dispositions\dispositions.svg
+						plugins\matchItems\img\dispositions\index.html
 					plugins\matchItems\img\index.html
 				-language
 					-english
 						plugins\matchItems\language\english\constants.php
 						plugins\matchItems\language\english\help.html
 						plugins\matchItems\language\english\index.html
-					+french
+					-french
 						plugins\matchItems\language\french\constants.php
 						plugins\matchItems\language\french\help.html
 						plugins\matchItems\language\french\index.html
@@ -1059,8 +1147,9 @@ _quizmaker
 			-multiQuestions
 				-img
 					-dispositions
-						plugins\multiQuestions\img\dispositions\disposition-00.png
-						plugins\multiQuestions\img\dispositions\disposition-01.png
+						-zzz
+							plugins\multiQuestions\img\dispositions\zzz\disposition-00.png
+							plugins\multiQuestions\img\dispositions\zzz\disposition-01.png
 						plugins\multiQuestions\img\dispositions\disposition-10.png
 						plugins\multiQuestions\img\dispositions\disposition-11.png
 						plugins\multiQuestions\img\dispositions\disposition-20.png
@@ -1136,12 +1225,12 @@ _quizmaker
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.php
 			-pageInfo
-				+language
+				-language
 					-english
 						plugins\pageInfo\language\english\constants.php
 						plugins\pageInfo\language\english\help.html
 						plugins\pageInfo\language\english\index.html
-					+french
+					-french
 						plugins\pageInfo\language\french\constants.php
 						plugins\pageInfo\language\french\help.html
 						plugins\pageInfo\language\french\index.html
@@ -1149,6 +1238,7 @@ _quizmaker
 				-snapshoot
 					plugins\pageInfo\snapshoot\index.html
 					plugins\pageInfo\snapshoot\snapshoot-000.jpg
+					plugins\pageInfo\snapshoot\snapshoot-001.jpg
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.php
 			-radioMultiple
@@ -1177,7 +1267,7 @@ _quizmaker
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\plugin_radioMultiple.zip
 				plugins\radioMultiple\radioMultiple.php
-			+selectImages
+			-selectImages
 				-img
 					-dispositions
 						plugins\selectImages\img\dispositions\disposition-01.png
@@ -1192,7 +1282,7 @@ _quizmaker
 						plugins\selectImages\language\english\constants.php
 						plugins\selectImages\language\english\help.html
 						plugins\selectImages\language\english\index.html
-					+french
+					-french
 						plugins\selectImages\language\french\constants.php
 						plugins\selectImages\language\french\help.html
 						plugins\selectImages\language\french\index.html
@@ -1205,7 +1295,7 @@ _quizmaker
 				plugins\selectImages\index.html
 				plugins\selectImages\plugin_selectImages.zip
 				plugins\selectImages\selectImages.php
-			+selectInputs
+			-selectInputs
 				-img
 					-dispositions
 						plugins\selectInputs\img\dispositions\disposition-0.png
@@ -1252,12 +1342,12 @@ _quizmaker
 						plugins\sortItems\img\classes\dispositions.svg
 						plugins\sortItems\img\classes\index.html
 					plugins\sortItems\img\index.html
-				+language
-					+english
+				-language
+					-english
 						plugins\sortItems\language\english\constants.php
 						plugins\sortItems\language\english\help.html
 						plugins\sortItems\language\english\index.html
-					+french
+					-french
 						plugins\sortItems\language\french\constants.php
 						plugins\sortItems\language\french\help.html
 						plugins\sortItems\language\french\index.html
@@ -1270,32 +1360,32 @@ _quizmaker
 				plugins\sortItems\index.html
 				plugins\sortItems\plugin_sortItems.zip
 				plugins\sortItems\sortItems.php
-			-textareaMixte
+			-textMixte
 				-img
 					-dispositions
-						plugins\textareaMixte\img\dispositions\disposition-00.png
-						plugins\textareaMixte\img\dispositions\disposition-01.png
-						plugins\textareaMixte\img\dispositions\dispositions.svg
-						plugins\textareaMixte\img\dispositions\index.html
-				+language
-					+english
-						plugins\textareaMixte\language\english\constants.php
-						plugins\textareaMixte\language\english\help.html
-						plugins\textareaMixte\language\english\index.html
-					+french
-						plugins\textareaMixte\language\french\constants.php
-						plugins\textareaMixte\language\french\help.html
-						plugins\textareaMixte\language\french\index.html
-					plugins\textareaMixte\language\index.html
+						plugins\textMixte\img\dispositions\disposition-00.png
+						plugins\textMixte\img\dispositions\disposition-01.png
+						plugins\textMixte\img\dispositions\dispositions.svg
+						plugins\textMixte\img\dispositions\index.html
+				-language
+					-english
+						plugins\textMixte\language\english\constants.php
+						plugins\textMixte\language\english\help.html
+						plugins\textMixte\language\english\index.html
+					-french
+						plugins\textMixte\language\french\constants.php
+						plugins\textMixte\language\french\help.html
+						plugins\textMixte\language\french\index.html
+					plugins\textMixte\language\index.html
 				-snapshoot
-					plugins\textareaMixte\snapshoot\index.html
-					plugins\textareaMixte\snapshoot\snapshoot-000.jpg
-					plugins\textareaMixte\snapshoot\snapshoot-001.jpg
-					plugins\textareaMixte\snapshoot\snapshoot-002.jpg
-				plugins\textareaMixte\index.html
-				plugins\textareaMixte\plugin_textareaMixte.zip
-				plugins\textareaMixte\textareaMixte.js
-				plugins\textareaMixte\textareaMixte.php
+					plugins\textMixte\snapshoot\index.html
+					plugins\textMixte\snapshoot\snapshoot-000.jpg
+					plugins\textMixte\snapshoot\snapshoot-001.jpg
+					plugins\textMixte\snapshoot\snapshoot-002.jpg
+				plugins\textMixte\index.html
+				plugins\textMixte\plugin_textMixte.zip
+				plugins\textMixte\textMixte.js
+				plugins\textMixte\textMixte.php
 			-ulDaDGroups
 				-img
 					-dispositions
@@ -1330,15 +1420,23 @@ _quizmaker
 				plugins\ulDaDGroups\ulDaDGroups.php
 			plugins\index.html
 			plugins\plugins-JS.lnk
+		-plugins_include
+			plugins_include\getFormGroup.php
+			plugins_include\index.html
+			plugins_include\options_disposition.php
+			plugins_include\options_groups.php
+			plugins_include\options_transition.php
+			plugins_include\options_zoom.php
+			plugins_include\saveAnswers.php
 		-preloads
 			preloads\autoloader.php
 			preloads\core.php
 			preloads\index.html
-		+sql
+		-sql
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		-templates
+		+templates
 			+admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_answers.tpl
@@ -1361,12 +1459,12 @@ _quizmaker
 				templates\admin\quizmaker_admin_quiz_inline-old.tpl
 				templates\admin\quizmaker_admin_quiz_outline.tpl
 				templates\admin\quizmaker_admin_results.tpl
-				templates\quizmaker_quiz_item_3.tpl
-			+blocks
+			-blocks
 				templates\blocks\quizmaker_block_categories.tpl
 				templates\blocks\quizmaker_block_quiz.tpl
 				templates\blocks\quizmaker_block_quiz-02.tpl
 			templates\index.html
+			templates\publisher_search.tpl
 			templates\quizmaker_breadcrumbs.tpl
 			templates\quizmaker_categories.tpl
 			templates\quizmaker_categories_cat.tpl
@@ -1379,6 +1477,9 @@ _quizmaker
 			templates\quizmaker_index.tpl
 			templates\quizmaker_quiz.tpl
 			templates\quizmaker_quiz_display.tpl
+			templates\quizmaker_quiz_item.tpl
+			templates\quizmaker_quiz_item_1.tpl
+			templates\quizmaker_quiz_item_2.tpl
 			templates\quizmaker_quiz_list.tpl
 			templates\quizmaker_quiz_solutions.tpl
 			templates\quizmaker_results_list.tpl
@@ -1418,18 +1519,50 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=xoops_version.php
-1=include\common.php
-2=plugins\matchItems\matchItems.php
+0=assets\js\quiz-org\plugins\textMixte\textListbox2.js
+1=assets\js\quiz-org\plugins\textMixte\textListbox1.js
+2=assets\js\quiz-org\plugins\textMixte\textTextbox.js
+3=assets\js\quiz-org\plugins\textMixte\textMixte.js
+4=plugins\textMixte\textMixte.php
+5=plugins\matchItems\matchItems.php
+6=class\Plugins.php
+7=docs\todo.txt
+8=assets\js\quiz-org\js\fnc_string.js
+9=assets\js\quiz-org\js\quiz_main.js
+10=docs\changelog.txt
 [Selected Project Files]
 Main=
-Selected=plugins\matchItems\matchItems.php
-[xoops_version.php]
-TopLine=85
-Caret=1,104
-[include\common.php]
-TopLine=61
-Caret=34,80
+Selected=docs\changelog.txt
+[assets\js\quiz-org\plugins\textMixte\textListbox2.js]
+TopLine=68
+Caret=93,96
+[assets\js\quiz-org\plugins\textMixte\textListbox1.js]
+TopLine=59
+Caret=11,83
+[assets\js\quiz-org\plugins\textMixte\textTextbox.js]
+TopLine=6
+Caret=1,23
+[assets\js\quiz-org\plugins\textMixte\textMixte.js]
+TopLine=278
+Caret=5,307
+[plugins\textMixte\textMixte.php]
+TopLine=275
+Caret=72,291
 [plugins\matchItems\matchItems.php]
-TopLine=90
-Caret=33,96
+TopLine=156
+Caret=52,181
+[class\Plugins.php]
+TopLine=35
+Caret=12,60
+[docs\todo.txt]
+TopLine=1
+Caret=1,8
+[assets\js\quiz-org\js\fnc_string.js]
+TopLine=131
+Caret=24,155
+[assets\js\quiz-org\js\quiz_main.js]
+TopLine=449
+Caret=63,466
+[docs\changelog.txt]
+TopLine=1
+Caret=1,18

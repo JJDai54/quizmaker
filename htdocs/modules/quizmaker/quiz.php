@@ -35,8 +35,10 @@ $criteriaCatAllowed->add(new \criteria('cat_actif',1,'='));
 
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
-$catId  = Request::getInt('cat_id', array_key_first($catArr));
-$playerId  = Request::getInt('player_id', 2);
+$catId      = Request::getInt('cat_id', array_key_first($catArr));
+$playerId   = Request::getInt('player_id', 2);
+$quizSubject    = Request::getString('quiz_subject', '');
+$difficulty = Request::getInt('difficulty', 0);
 
 //echoArray($catArr);
 // $pg = array_merge($_GET, $_POST);
@@ -63,17 +65,12 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 //echoArray("gp");
 //----------------------------------------------------
         $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
-        // ----- Listes de selection pour filtrage -----  
-        $selector = array();
-        $style="style='width:80%;'";
+  
+      // ----- Listes de selection pour filtrage -----  
+         $selectors = $quizHandler->getSelector($catId, $quizSubject);        
 
-        $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, 'cat_id', $catId);
-        $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="width:50%;"');
-  	    //$GLOBALS['xoopsTpl']->assign('inpCategory', $inpCategory->render());
-        $selector['inpCategory'] = $inpCategory->render();
-        
-        
+
+          
         if($xoopsUser){
             //$inpPlayer = new \XoopsFormSelect(_CO_QUIZMAKER_PLAYER_STATUS, 'player_id', $playerId);
             $inpPlayer = new \XoopsFormRadio(_CO_QUIZMAKER_PLAYER_STATUS, 'player_id', $playerId);
@@ -89,11 +86,28 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         }else{
             $inpPlayer = new \XoopsFormLabel(_CO_QUIZMAKER_PLAYER_STATUS, _CO_QUIZMAKER_PLAYER_ALL);
         }
-        $selector['inpPlayer'] = $inpPlayer->render();
+        $selectors['select']['inpPlayer'] = $inpPlayer->render();
+        
+
+		$quizDifficulty = new \XoopsFormRadio( _CO_QUIZMAKER_DIFFICULT, 'difficulty', $difficulty);
+		$quizDifficulty->addOption(0, _CO_QUIZMAKER_DIFFICULT_ALL);
+		$quizDifficulty->addOption(1, _CO_QUIZMAKER_DIFFICULT_1);
+		$quizDifficulty->addOption(2, _CO_QUIZMAKER_DIFFICULT_2);
+		$quizDifficulty->addOption(3, _CO_QUIZMAKER_DIFFICULT_3);
+		$quizDifficulty->addOption(4, _CO_QUIZMAKER_DIFFICULT_4);
+        $quizDifficulty->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $selectors['select']['difficulty'] = $quizDifficulty->render();
+        
+        
+        
+        //--------------------------------------------------------
+        $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
+     // ----- /Listes de selection pour filtrage -----        
         
         $catObj = $categoriesHandler->get($catId);
 		$GLOBALS['xoopsTpl']->assign('catTheme', $catObj->getVar('cat_theme'));        
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => XOOPS_URL . "/modules/quizmaker/categories.php"];        
+//$xoBreadcrumbs[] = ['title' => 'zzz' . $catObj->getVar('cat_name'), 'link' => "categories.php?cat_id={$catId}&player_id={$playerId}"];
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ . ' : <b>' . $catArr[$catId] . '</b>'];        
         //-------------------------------------
         
@@ -102,9 +116,10 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ . ' : <b>' . $catArr[$catId] .
 //         $inpQuiz->addOptionArray($tQuiz);
 //         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
 //   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
-//         $selector['inpQuiz'] = $inpQuiz->render();
-  	    $GLOBALS['xoopsTpl']->assign('selector', $selector);
-  	    $GLOBALS['xoopsTpl']->assign('player_id', $playerId);
+//         $selectors['inpQuiz'] = $inpQuiz->render();
+  	    $GLOBALS['xoopsTpl']->assign('selector', $selectors);
+  	    //$GLOBALS['xoopsTpl']->assign('player_id', $playerId);
+  	    $GLOBALS['xoopsTpl']->assign('showQuizSet', ($quizSubject == QUIZMAKER_ALL_ITEMS_KEY));
         // ----- /Listes de selection pour filtrage -----   
 
   	    //$GLOBALS['xoopsTpl']->assign('isAdmin', $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid()));
@@ -122,6 +137,9 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ . ' : <b>' . $catArr[$catId] .
 		foreach(array_keys($allQuiz) as $j) {
             //if (!in_array($j, $quizPerm)) continue;
             $tQuiz = $allQuiz[$j]->getValuesQuiz();
+
+            if($difficulty > 0 && $tQuiz['difficulty'] != $difficulty) continue;
+            if($quizSubject!='' && $tQuiz['subject'] != $quizSubject && $quizSubject !=QUIZMAKER_ALL_ITEMS_KEY && count($selectors['arr']['subject'])>1) continue;
             //si $inpPlayer = 1 on ne prenda que si la clé de $quizPlayer 'existe'
             //si $inpPlayer = 2 on ne prenda que si la clé de $quizPlayer ,'existe pas'
             //si $inpPlayer = 0 on prenda tout

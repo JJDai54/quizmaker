@@ -257,4 +257,4 @@ var hasSelected = false; var selectBox = myform.item[A][amount];for (i = 0; i < 
         return ucfirst(mb_strtolower(trim($str)));
     }
 
-}  //fin de la classe
+}  //fin de la class

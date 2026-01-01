@@ -19,6 +19,8 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<https://xoopsfr.kiolo.fr>
  */
+ 
+//echo "<hr>" . __FILE__ . "<hr>";
 include dirname(dirname(__DIR__)) . '/mainfile.php';
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include __DIR__ . '/include/common.php';

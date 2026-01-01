@@ -8,7 +8,7 @@ divMainId = "";
 question = Object;
 typeName = '';
 slideNumber = 0;     // numero du slide y compris les pageBegin, pageEnd, pageGroup et page Info
-questionNumber  = 0; //numero desslide question uniquement
+questionNumber  = 0; //numero des slide question uniquement
 timer = 0;
 scoreMiniBP = 0;
 scoreMaxiBP = 0;
@@ -43,7 +43,7 @@ stats = {
     this.proto_initSlide();
     this.prepareData();
 //    this.computeScoresMinMax();
-    
+//alert(this.typeName)    
     }
 
   
@@ -59,8 +59,8 @@ proto_initSlide (){
     var currentQuestion = this.question;
     var ans = null;
     var points = 0;
-    
-    //calcul des poins min et max standarts
+ 
+    //calcul des points min et max standarts
     for(var k in currentQuestion.answers){
         ans = currentQuestion.answers[k];
         //identifiant global du slide , contient le nom du plugin et le numero du slide tout slide compris 
@@ -275,9 +275,58 @@ computeScoresMinMaxByProposition(){return 0;}
 getImage(){
     var name = this.getName();
     var currentQuestion = this.question;
+    if (!currentQuestion.image) {return '';}
+    
+    if (currentQuestion.image_style) {
+        //alert(currentQuestion.image_style);
+        //var obStyle = Object.create(currentQuestion.image_style);
+        //var obStyle = JSON.parse(JSON.stringify(currentQuestion.image_style));
+        var obStyle = JSON.parse(currentQuestion.image_style);
+        //alert(obStyle.join("\n"));
+        //alert(obStyle.height.value + "=" + obStyle.shadow.value);
+        
+        var $style = `height:${obStyle.height.value}px;max-width:800px;`;   
+
+            if(obStyle.shadow.value.toUpperCase() != '#FFFFFF'){
+                $style += `box-shadow: 8px 8px 5px ${obStyle.shadow.value};`;
+            }
+        var borderRound = (obStyle.borderRound) ? obStyle.borderRound.value : 8;
+        $style += `border-radius:${borderRound}px;`;
+        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='quiz_image_main' alt="" title="" style="${$style}"></center>`;
+        
+    }else{
+        return this.getImage_old();
+    }
+        
+}
+/* ***************************************
+*
+* *** */
+getImage_old(){
+    var name = this.getName();
+    var currentQuestion = this.question;
+    
+    if (currentQuestion.image_style) {
+    alert(currentQuestion.image_style);
+    //var obStyle = Object.create(currentQuestion.image_style);
+    //var obStyle = JSON.parse(JSON.stringify(currentQuestion.image_style));
+    var obStyle = JSON.parse(currentQuestion.image_style);
+    //alert(obStyle.join("\n"));
+    alert(obStyle.height.value);
+    }
+        
     if (currentQuestion.image) {
+        var $style = `height:${currentQuestion.height}px;max-width:800px;`;   
+        if(currentQuestion.shadow){
+            if(currentQuestion.shadow.toUpperCase() != '#FFFFFF'){
+                $style += `box-shadow: 8px 8px 5px ${currentQuestion.shadow};`;
+            }
+        }else{
+                $style += `box-shadow: 8px 8px 5px #000000`;
+        }
+        
         //return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
-        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='quiz_image_main' alt="" title="" style="height:${currentQuestion.height}px;max-width:800px"></center>`;
+        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='quiz_image_main' alt="" title="" style="${$style}"></center>`;
     }else{
         return "";
     }
@@ -431,7 +480,7 @@ var points = 0;
 
     var currentQuestion = this.question;
     var score = this.getScoreByProposition(answerContainer);
-    //alert('currentQuestion.question : ' + score);
+   //alert('currentQuestion.question : ' + score + `===> this.scoreMaxiBP = ${this.scoreMaxiBP}`);
     this.blob(`===> getScore : ${this.getName()} : score=${score} - scoreMaxiBP=${this.scoreMaxiBP} - scoreMaxiQQ=${this.scoreMaxiQQ}`);
     
     if(currentQuestion.points > 0 && score == this.scoreMaxiBP){
@@ -502,21 +551,41 @@ onFinalyse() {
 
 //---------------------------------------------------
 getDisposition(disposition, tableId=null){}  
-//---------------------------------------------------
-balises2Values(exp, bReplaceSlash = false)
+
+/* ************************************
+*
+* **** */
+sanityse_exp(exp, binValue = 127)
 {
-    var newExp = exp.replaceAll("{scoreMaxiQQ}", this.scoreMaxiQQ);
+    var newExp = exp;
+    //remplace les underscore par des espace inséquable
+    if(isBitOk(0, binValue)){
+        newExp = newExp.replaceAll('_', '&nbsp;');
+    }
+    
+    //remplace le / par des retour à la ligne
+    if(isBitOk(1, binValue)){
+        newExp = newExp.replaceAll('//', qbr);
+    }
+    
+    //supprime les acollades 
+    if(isBitOk(1, binValue)){
+        newExp = newExp.replaceAll('{', '').replaceAll('}', '');
+    }
+    
+    //remplace le codes balisés par les valeurs des statistique
+    if(isBitOk(2, binValue)){
+        newExp = newExp.replaceAll("{scoreMaxiQQ}", this.scoreMaxiQQ);
         newExp = newExp.replaceAll("{timer}", this.question.timer);
-        
-    newExp = newExp.replaceAll('{', '').replaceAll('}', '');
-    if (bReplaceSlash) {newExp = newExp.replaceAll('/', qbr);}
+    }
 
     return newExp;
     
   } 
+  
 sanityse_question(bReplaceSlash = false)
 {
-    var newExp = this.balises2Values(this.question.question, true); 
+    var newExp = this.sanityse_exp(this.question.question); 
     return newExp;
     
   } 
@@ -588,4 +657,4 @@ blob(message, bForcer=false)
     }
   } 
 
-}  // ----- fin de la classe ------
+}  // ----- fin de la class ------

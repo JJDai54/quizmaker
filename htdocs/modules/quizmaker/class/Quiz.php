@@ -44,7 +44,9 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_flag', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_cat_id', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_name', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_subject', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_author', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quiz_difficulty', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_folderJS', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_description', XOBJ_DTYPE_OTHER);
 		$this->initVar('quiz_weight', XOBJ_DTYPE_INT);
@@ -131,10 +133,74 @@ class Quiz extends \XoopsObject
 		$quizCat_idSelect->addOptionArray($categoriesHandler->getListKeyName());
 		$form->addElement($quizCat_idSelect, true);
         
-		
         // Form Text quizName
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
+
+        /* test form style*/
+        /*
+        */
+// $styleCss = "height:120px;width:152px;color:#FF00FF";
+// 
+//  $inpJson = new \XoopsFormJson('test XoopsFormStyleCss', 'quiz_img_style', $styleCss, 'Editer le style', 'Soumettre le style');
+//  $inpJson->setMinMax('height', 25,300,8);
+//  $inpJson->setMinMax('width', 15,600);
+//  $inpJson->addAttribute('background', '#00FF00', 'color2');
+//   $inpJson->addAttribute('border-color', '#000F00', 'color2');
+// 
+//  $inpJson->addAttributeArr(['name'=>'font-size', 'value'=>'12', 'type'=>'number' , 'min'=>'8', 'max'=>'32', 'unit'=>'em']);        
+//  $inpJson->addAttributeArr(['name'=>'text-align', 'value'=>'right', 'type'=>'list' , 'options'=>'left,center,right']);        
+//  $inpJson->setTextBoxVisible(false);        
+// $form->addElement($inpJson);
+//         
         
+        // Form Text quiz_subject
+        $fldName = 'quiz_subject';
+        $catId = $this->getVar('quiz_cat_id');
+        if (!$this->getVar($fldName)) $this->setVar($fldName, _AM_QUIZMAGER_MISCELLANEOUS);
+        $allSet =  $quizHandler->getFieldList($fldName, $catId);
+        if (count($allSet) > 0) {
+            //echoArray($allSet);
+            $inpSet = new \XoopsEditList(_CO_QUIZMAKER_QUIZ_SUBJECT, $fldName, $this->getVar($fldName), 50) ; 
+            $inpSet->addOptionArray($allSet);
+            $inpSet->setBackground('#E0FFE0');
+            $inpSet->setWidth(250);
+            
+            //$inpSet->setHeight(80);
+        }else{
+            $inpSet = new \XoopsFormText( _CO_QUIZMAKER_QUIZ_SUBJECT, $fldName, 50, 255, $this->getVar($fldName));
+            $inpSet->setDescription(_CO_QUIZMAKER_QUIZ_SUBJECT_DESC);
+        }  
+        $form->addElement($inpSet, false);
+/* **************
+
+
+  $k = "colediteur";
+  $searchEditeur = ($t['idEditeur']) ?  "AND idEditeur={$t['idEditeur']}" : '';
+  $tCollection = $this->handler->getDistinct('colediteur', "colediteur <> '' {$searchEditeur}", "ASC", false);
+ 
+  $tCollection = array_values($tCollection);
+  $xf[$k] = new XoopsEditList($k, sprintf($xName,$k), $t[$k], 100) ; 
+  $xf[$k]->addOptionArray($tCollection);
+  $xf[$k]->setBackground('#C4DDF3');
+
+  $xf[$k]->setHeight(80);
+  $form->addElement($xf[$k], false);     
+  
+  $name = sprintf($xName,'old_'.$k);
+  $xf[$name] = new XoopsFormHidden($name,$t[$k]);
+  $form->addElement($xf[$name], false);     
+
+
+***************** */        
+        // Form Select quiz_difficulty
+		$quizDifficulty = new \XoopsFormSelect( _CO_QUIZMAKER_DIFFICULT, 'quiz_difficulty', $this->getVar('quiz_difficulty'));
+		$quizDifficulty->addOption(0, _CO_QUIZMAKER_DIFFICULT_0);
+		$quizDifficulty->addOption(1, _CO_QUIZMAKER_DIFFICULT_1);
+		$quizDifficulty->addOption(2, _CO_QUIZMAKER_DIFFICULT_2);
+		$quizDifficulty->addOption(3, _CO_QUIZMAKER_DIFFICULT_3);
+		$quizDifficulty->addOption(4, _CO_QUIZMAKER_DIFFICULT_4);
+		$form->addElement($quizDifficulty, true);
+		
         // Form Text quiz_author
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_AUTHOR, 'quiz_author', 50, 255, $this->getVar('quiz_author') ), false);
 
@@ -231,27 +297,19 @@ class Quiz extends \XoopsObject
 		$form->addElement($inpTheme, false);
 
         //--------------------------------------------
-        // Form Text quiz_image
-// 
-//         $imgCat = QUIZMAKER_URL_QUIZ_JS . "/{$folderJS}/images/" . $this->getVar('quiz_image');
-//         $inpImgQuiz = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'quiz_image', $quizmakerHelper->getConfig('maxsize_image'), $this->getVar('quiz_image'),  QUIZMAKER_URL_QUIZ_JS . '/categories');
-// 		$form->addElement($inpImgQuiz);
-
+        $urlImg =  QUIZMAKER_URL_UPLOAD_QUIZ . "/{$folderJS}/images";
+        $maxSize = $quizmakerHelper->getConfig('maxsize_image');
+        
         $image = $this->getVar('quiz_image');
-
-        $inpImage = $pluginsHandler->getFormImage(_AM_QUIZMAKER_IMAGE_MAIN, 'quiz_image', $image, $folderJS);
-        $inpImage->setCaption(_AM_QUIZMAKER_IMAGE_MAIN);
-        $form->addElement($inpImage);     
+        $inpImage = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'quiz_image', $maxSize, $image,  $urlImg);
+		$form->addElement($inpImage);
+        
         //--------------------------------------------
         // Form Text quiz_background
         $background = $this->getVar('quiz_background');
-
-        $inpBakground = $pluginsHandler->getFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN, 'quiz_background', $background, $folderJS);
-        $inpBakground->setCaption(_AM_QUIZMAKER_BACKGROUND_MAIN);
-        $form->addElement($inpBakground);     
-
-
-
+        $inpBakground = new \XoopsFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN , 'quiz_background', $maxSize, $background,  $urlImg);
+		$form->addElement($inpBakground);
+        
         // Form Text quiz_libBegin
         $libBegin = ($this->getVar('quiz_libBegin')) ? $this->getVar('quiz_libBegin') :  _CO_QUIZMAKER_LIB_BEGIN_DEFAULT;
         $inpLibBegin = new \XoopsFormText(_CO_QUIZMAKER_LIB_BEGIN , 'quiz_libBegin', 120, 120, $libBegin);  
@@ -340,7 +398,12 @@ class Quiz extends \XoopsObject
 		$ret['id']                = $this->getVar('quiz_id');
 		$ret['cat_id']            = $this->getVar('quiz_cat_id');
 		$ret['name']              = $this->getVar('quiz_name');
+		$ret['subject']           = $this->getVar('quiz_subject');
 		$ret['author']            = $this->getVar('quiz_author');
+		$ret['difficulty']        = $this->getVar('quiz_difficulty');
+        $difArr = [_CO_QUIZMAKER_DIFFICULT_0,_CO_QUIZMAKER_DIFFICULT_1,_CO_QUIZMAKER_DIFFICULT_2,_CO_QUIZMAKER_DIFFICULT_3,_CO_QUIZMAKER_DIFFICULT_4];
+		$ret['difficulty_lib']    = $difArr[$ret['difficulty']];
+		$ret['difficulty_icon']   = 'difficulty-0' . $ret['difficulty'] . '.png';
 		$ret['folderJS']          = $this->getVar('quiz_folderJS');
 		$ret['description']       = $this->getVar('quiz_description', 'e');
 		$ret['weight']            = $this->getVar('quiz_weight');

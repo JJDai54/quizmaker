@@ -34,6 +34,8 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_flag` int NOT NULL,
   `quiz_cat_id` int NOT NULL DEFAULT '0',
   `quiz_name` varchar(255) NOT NULL DEFAULT '',
+  `quiz_difficulty` TINYINT NOT NULL DEFAULT '0', 
+  `quiz_subject` varchar(80) NOT NULL DEFAULT '',
   `quiz_author` varchar(80) NOT NULL DEFAULT '',
   `quiz_fileName` varchar(80) NOT NULL,
   `quiz_folderJS` varchar(80) NOT NULL,
@@ -76,6 +78,7 @@ CREATE TABLE `quizmaker_quiz` (
 CREATE TABLE `quizmaker_questions` (
   `quest_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `quest_parent_id` int(11) NOT NULL DEFAULT '0',
+  `quest_reference_id` int(11) NOT NULL DEFAULT '0',
   `quest_flag` int(8) NOT NULL,
   `quest_quiz_id` int(10) NOT NULL DEFAULT '0',
   `quest_question` varchar(255) NOT NULL DEFAULT '',
@@ -88,9 +91,11 @@ CREATE TABLE `quizmaker_questions` (
   `quest_learn_more` varchar(255) NOT NULL DEFAULT '',
   `quest_see_also` varchar(255) NOT NULL DEFAULT '',
   `quest_image` varchar(255) NOT NULL DEFAULT '',
+  `quest_height` int(11) NOT NULL DEFAULT '80',
+  `quest_shadow` varchar(10) NOT NULL DEFAULT '#00000',
+  `quest_image_style  text NOT NULL,
   `quest_zoom` tinyint(1) NOT NULL DEFAULT '0',
   `quest_background` varchar(255) NOT NULL DEFAULT '',
-  `quest_height` int(11) NOT NULL DEFAULT '80',
   `quest_points`  tinyint(1) NOT NULL DEFAULT '0',
   `quest_comment2` text NOT NULL,
   `quest_weight` int(11) NOT NULL DEFAULT '0',
@@ -179,6 +184,24 @@ CREATE TABLE `quizmaker_options` (
   PRIMARY KEY (`opt_id`)
 ) ENGINE=InnoDB;
 
+ALTER TABLE quizmaker_categories ADD INDEX  `quizmaker_categories_01` (`cat_actif`,`cat_parent_id`,`cat_weight`);
+
+ALTER TABLE quizmaker_quiz ADD UNIQUE `quizmaker_quiz_folderJS` (`quiz_folderJS`); 
+ALTER TABLE quizmaker_quiz ADD INDEX `quizmaker_quiz_01` (`quiz_actif`, `quiz_weight`, `quiz_name`, `quiz_cat_id`); 
+ALTER TABLE quizmaker_quiz ADD INDEX `quizmaker_quiz_02` (`quiz_actif`, `quiz_cat_id`, `quiz_subject`); 
+ALTER TABLE quizmaker_quiz ADD INDEX  `quizmaker_quiz_flag` (`quiz_flag`); 
+ALTER TABLE quizmaker_quiz ADD INDEX `quizmaker_quiz_periode` (`quiz_dateEnd`,`quiz_dateBegin`);
+
+ALTER TABLE quizmaker_questions ADD INDEX  `quizmaker_quest_flag` (`quest_flag`); 
+ALTER TABLE quizmaker_questions ADD INDEX  `quizmaker_quest_01` (`quest_actif`,`quest_quiz_id`,`quest_weight`); 
+ALTER TABLE quizmaker_questions ADD INDEX  `quizmaker_quest_weight` (`quest_weight`,`quest_actif`); 
+ALTER TABLE quizmaker_questions ADD INDEX  `quizmaker_quest_quiz_id` (`quest_quiz_id`); 
+
+ALTER TABLE quizmaker_answers ADD INDEX  `quizmaker_answer_flag` (`answer_flag`); 
+ALTER TABLE quizmaker_answers ADD INDEX  `quizmaker_answer_01` (`answer_quest_id`,`answer_weight`,`answer_id`); 
+ 
+ALTER TABLE quizmaker_results ADD INDEX  `quizmaker_results_result_quiz_id` (`result_quiz_id`);
+
 INSERT INTO quizmaker_options (opt_id, opt_name, opt_actif, opt_icone, opt_optionsIhm, opt_optionsDev) VALUES
 (1, 'Production simple', 1, 'binoption-01.png', b'0000000000000011', b'0000000000000000'),
 (2, 'Production + timer', 0, 'binoption-02.png', b'0000000000100011', b'0000000000000000'),
@@ -190,6 +213,9 @@ INSERT INTO quizmaker_options (opt_id, opt_name, opt_actif, opt_icone, opt_optio
 (8, 'Personal 2', 0, 'binoption-08.png', b'0000000011110111', b'0000000000000000');
 
 
-INSERT INTO quizmaker_categories( cat_name, cat_actif, cat_description,  cat_theme, cat_weight) VALUES 
-('Test', 'Catégorie de test', 1, 'default', 0);
+INSERT INTO quizmaker_categories(cat_id, cat_name, cat_actif, cat_description,  cat_theme, cat_weight) VALUES 
+(1, 'Plugins QuizMaker', 'Catégorie de test', 1, 'default', 900),
+(2, 'Quiz en préapaparation', 'Catégorie de test', 1, 'default', 992),
+(3, 'Quiz à tester', 'Catégorie de test', 1, 'default', 994),
+(4, 'Quiz à supprimer', 'Catégorie de test', 1, 'default', 996);
 

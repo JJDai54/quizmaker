@@ -32,18 +32,17 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_selectImages extends XoopsModules\Quizmaker\Plugins
 {
-var $noClass = "00-none";     
 	/**
 	 * Constructor 
 	 *
 	 */
 	public function __construct()
 	{
-        parent::__construct("selectImages", 0, "images");
+        parent::__construct("selectImages", 0, "classique");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
         
-        $this->optionsDefaults = ['classe'            => $this->noClass, 
+        $this->optionsDefaults = ['variant'           => $this::noClass, 
                                   'inputType'         => 'checkbox',
                                   'imgHeight1'        => 64,
                                   'cocheImgName'      => 'coche-01.png',
@@ -55,12 +54,13 @@ var $noClass = "00-none";
                                   'trHeight'          => '0',
                                   'repartition'       => '321',
                                   'disposition'       => 'disposition-00',
-                                  'nextSlideDelai'   => 0,
-                                  'nextSlideBG'      =>'#FFCC00',
-                                  'nextSlideMessage' => ((defined("_AM_QUIZMAKER_NEXT_SLIDE_MSG0")) ? _AM_QUIZMAKER_NEXT_SLIDE_MSG0 : '')];
+                                  'nextSlideMessageWinner'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_WINNER_0 : ''),
+                                  'nextSlideMessageLooser'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0 : ''),
+                                  'nextSlideDelai'              => 0,
+                                  'nextSlideBG'                 =>'#FFCC00'];
                                    
     
-        $this->maxPropositions = 9;	
+        $this->maxPropositions = 12;	
         $this->hasImageMain = true;
         $this->hasShuffleAnswers = true;
         $this->multiPoints = true;
@@ -87,32 +87,31 @@ var $noClass = "00-none";
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
-      
-      $name = 'classe';  
-      //$inpClasse = new \XoopsFormRadio(_LG_PLUGIN_SELECTIMAGES_CLASSE, "{$optionName}[{$name}]", $tValues[$name]);
-      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_SELECTIMAGES_CLASSE, "{$optionName}[{$name}]", $tValues[$name]);
-      if (!$tValues[$name] || $tValues[$name] == $this->noClass) $inpClasse->addOption($this->noClass, _LG_PLUGIN_SELECTIMAGES_CLASSE_SELECT);
-      $inpClasse->addOptionArray(['01-image' => _LG_PLUGIN_SELECTIMAGES_CLASSE_IMAGE,
-                                  '02-texte' => _LG_PLUGIN_SELECTIMAGES_CLASSE_TEXTE]);
+      $name = 'variant';  
+      //$inpClasse = new \XoopsFormRadio(_LG_PLUGIN_SELECTIMAGES_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_SELECTIMAGES_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
+      if (!$tValues[$name] || $tValues[$name] == $this::noClass) $inpClasse->addOption($this::noClass, _LG_PLUGIN_SELECTIMAGES_VARIANT_SELECT);
+      $inpClasse->addOptionArray(['01-image' => _LG_PLUGIN_SELECTIMAGES_VARIANT_IMAGE,
+                                  '02-texte' => _LG_PLUGIN_SELECTIMAGES_VARIANT_TEXTE]);
                                 
-      // change la couleur de fond selon que la classe a été selectionnée ou pas
-      if($tValues['classe'] == $this->noClass){ 
+      // change la couleur de fond selon que la variante a été selectionnée ou pas
+      if($tValues['variant'] == $this::noClass){ 
             $inpClasse->setExtra('style="background:#FFCCCC;color:red"');
-            $inpClasse->setDescription(_LG_PLUGIN_SELECTIMAGES_CLASSE_DESC1);                          
+            $inpClasse->setDescription(_LG_PLUGIN_SELECTIMAGES_VARIANT_DESC1);                          
       }else{
             $inpClasse->setExtra('style="background:lime;"');
-            $inpClasse->setDescription(_LG_PLUGIN_SELECTIMAGES_CLASSE_DESC2);                          
+            $inpClasse->setDescription(_LG_PLUGIN_SELECTIMAGES_VARIANT_DESC2);                          
       }
       $trayOptions->addElementOption($inpClasse);     
       // =======================================================
-//       switch($tValues['classe']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
+//       switch($tValues['variant']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
 //         case '01-listbox' : 
 //             break; 
 //         case '01-listbox' :
 //             break; 
 //     }
 
-      if($tValues['classe'] != $this->noClass){ 
+      if($tValues['variant'] != $this::noClass){ 
           $name = 'inputType';  
           $inpType = new \XoopsFormRadio(_LG_PLUGIN_SELECTIMAGES_TYPE, "{$optionName}[{$name}]", $tValues[$name]);
           $inpType->addOptionArray(['checkbox' => _LG_PLUGIN_SELECTIMAGES_TYPE_CHECKBOX,
@@ -120,12 +119,14 @@ var $noClass = "00-none";
           $inpType->setDescription(_LG_PLUGIN_SELECTIMAGES_TYPE_DESC);                          
           $trayOptions->addElementOption($inpType);     
           
-          // avertissement
-          $arrConst = ['nextSlideMessage' => '_LG_PLUGIN_SELECTIMAGES_NEXT_SLIDE'];
-          include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_avertissement.php");
+          // ===== messages de transition =====
+          //insertion des messages de transition
+          $prefixPluginWinner = '';
+          $prefixPluginLlooser = '';
+          include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
           
           //--------------------------------------------------------------------           
-        if($tValues['classe'] == '01-image'){ 
+        if($tValues['variant'] == '01-image'){ 
             $name = 'imgHeight1';  
             $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_SELECTIMAGES_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
             $inpHeight1->setMinMax(32, 256, _AM_QUIZMAKER_UNIT_PIXELS);
@@ -138,13 +139,18 @@ var $noClass = "00-none";
             $trayOptions->addElementOption($inpTopLib);     
             
             $name = 'repartition';  
-            $inpRepartition = new \XoopsFormTextPlus(_LG_PLUGIN_SELECTIMAGES_DISPOSITION, "{$optionName}[{$name}]",20,20, $tValues[$name]);
+            $inpRepartition = new \XoopsEditList(_LG_PLUGIN_SELECTIMAGES_DISPOSITION, "{$optionName}[{$name}]", $tValues[$name], 12) ; 
+            $inpRepartition->setBackground('#E0FFE0');
+            $inpRepartition->setWidth(12);
             $inpRepartition->addBtnClear("X");
-            $inpRepartition->addBtn("123", '123');
-            $inpRepartition->addBtn("232", '232');
-            $inpRepartition->addBtn("323", '323');
+            $inpRepartition->addBtnArray(['321','323','222','232']);
             $inpRepartition->setHelp(_LG_PLUGIN_SELECTIMAGES_DISPOSITION_DESC . QBR);
             $trayOptions->addElementOption($inpRepartition);     
+
+            //$inpNextSlideMsgWin->addOptionArray($allSet);
+            
+ 
+
             
         }
         
@@ -156,19 +162,20 @@ var $noClass = "00-none";
           $inpCocheImg->setSelectedIconSize(64, 64);
           $inpCocheImg->setIconSize(64, 64);
           $inpCocheImg->setGridIconNumber(4);
-          $trayOptions->addElementOption($inpCocheImg);     
+          //$trayOptions->addElementOption($inpCocheImg);     
 
           $name = 'cocheImgHeight';  
           $inpCocheHeight1 = new \XoopsFormNumber(_LG_PLUGIN_SELECTIMAGES_COCHE_IMG_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
           $inpCocheHeight1->setMinMax(12, 48, _AM_QUIZMAKER_UNIT_PIXELS);
-          $trayOptions->addElementOption($inpCocheHeight1);     
+          //$trayOptions->addElementOption($inpCocheHeight1);     
 
           $name = 'cocheOpacity';  
           $inpCocheOpacity = new \XoopsFormNumber(_LG_PLUGIN_SELECTIMAGES_OPACITY,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
           $inpCocheOpacity->setDescription(_LG_PLUGIN_SELECTIMAGES_OPACITY_DESC);
           $inpCocheOpacity->setMinMax(0, 100, _AM_QUIZMAKER_UNIT_PERCENT, "1");
-          $trayOptions->addElementOption($inpCocheOpacity);     
-          
+          //$trayOptions->addElementOption($inpCocheOpacity);     
+
+FQUIZMAKER\addXoopsFormTray($trayOptions, 'CCoche', [$inpCocheImg,$inpCocheHeight1,$inpCocheOpacity], '<br>');          
          $trayOptions->insertBreak("<div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'><center><b>" . _AM_QUIZMAKER_PARAMS_OTHERS . "</b></center></div>",-1,false);
 
           $name = 'fontSize';  
@@ -177,7 +184,7 @@ var $noClass = "00-none";
           $trayOptions->addElementOption($inpFontSize);     
 
 
-        if($tValues['classe'] == '01-image'){ 
+        if($tValues['variant'] == '01-image'){ 
             $name = 'intervalVertical';  
             $inpIntervalVertical = new \XoopsFormNumber(_LG_PLUGIN_SELECTIMAGES_INTERVAL_VERTICAL,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
             $inpIntervalVertical->setMinMax(-40, 40, _AM_QUIZMAKER_UNIT_PIXELS, "1");
@@ -192,7 +199,7 @@ var $noClass = "00-none";
         }
 
           // disposition 
-          include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+          include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       }
 
@@ -230,7 +237,9 @@ var $noClass = "00-none";
         $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>');  
         $quest =  $questionsHandler->get($questId, 'quest_options');
         $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
-        if (!$options['classe'] || $options['classe'] == $this->noClass) return null;
+        
+        if (!$options['variant'] && $options['classe']) $options['variant'] = $options['classe'];
+        if (!$options['variant'] || $options['variant'] == $this::noClass) return null;
         //-------------------------------------------------------------
         // affichage de la séquence correcte
         $i = $this->getFormGroup($trayAllAns, $options, $answers, _AM_QUIZMAKER_SEQUENCE, 0, $this->maxPropositions, $path);
@@ -252,7 +261,7 @@ var $noClass = "00-none";
 * ************************************************** */
 public function getFormGroup(&$trayAllAns, &$options, &$answers, $titleGroup, $firstItem, $maxItems, $path)
 { 
-        $isImage = ($options['classe'] == '01-image');
+        $isImage = ($options['variant'] == '01-image');
             
         //suppression des enregistrement en trop
         if(count($answers) > $maxItems) $this->deleteToMuchItems($answers, $maxItems);
@@ -286,7 +295,7 @@ public function getFormGroup(&$trayAllAns, &$options, &$answers, $titleGroup, $f
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
             $color = "#000000";
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             $inpPropos = new \XoopsFormText('', $this->getName($k,'proposition'), $this->lgMot2, $this->lgMot3, $proposition);
             //$inpPropos->setExtra('required');
@@ -354,7 +363,7 @@ public function getFormGroup(&$trayAllAns, &$options, &$answers, $titleGroup, $f
 
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
             
@@ -429,7 +438,9 @@ public function getFormGroup(&$trayAllAns, &$options, &$answers, $titleGroup, $f
 		$ret['inputs']      = $this->getVar('answer_inputs');
   
   */
-  $question = $questionsHandler->get($questId);
+    $question = $questionsHandler->get($questId);
+    $quizId = $question->getVar('quest_quiz_id');
+    //$quiz = $quizHandler->get();
     // = "<tr style='color:%5\$s;'><td>%1\$s</td><td>%2\$s</td><td>%3\$s</td><td>%4\$s</td></tr>";
     $tpl = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
              . "<td><span style='color:%5\$s;'>%2\$s</span></td>" 
@@ -451,18 +462,19 @@ public function getFormGroup(&$trayAllAns, &$options, &$answers, $titleGroup, $f
     
 	foreach(array_keys($answersAll) as $i) {
 		$ans = $answersAll[$i]->getValuesAnswers();
+        $proposition = str_replace('_', ' ', $ans['proposition'],);
         $points = intval($ans['points']);
         if ($points > 0) {
             $scoreMax += $points;
             $color = QUIZMAKER_POINTS_POSITIF;
-            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
+            $html[] = sprintf($tpl, $proposition, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }elseif ($points < 0) {
             $scoreMin += $points;
             $color = QUIZMAKER_POINTS_NEGATIF;
-            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
+            $html[] = sprintf($tpl, $proposition, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }elseif($boolAllSolutions){
             $color = QUIZMAKER_POINTS_NULL;
-            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
+            $html[] = sprintf($tpl, $proposition, '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
         }
 	}
     $html[] = "</table>";
@@ -474,4 +486,4 @@ public function getFormGroup(&$trayAllAns, &$options, &$answers, $titleGroup, $f
     return $ret;
      }
      
-} // fin de la classe
+} // fin de la class

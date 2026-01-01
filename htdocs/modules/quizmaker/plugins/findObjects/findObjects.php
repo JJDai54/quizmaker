@@ -57,12 +57,17 @@ var $maxGroups = 4;
                                   'defaultHeight' => 36,
                                   'defaultBorderWidth'  =>  3,
                                   'defaultBorderRadius' => 25,
+                                  'nextSlideMessageWinner'      => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN_0,
+                                  'nextSlideMessageLooser'      => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX_1,
+                                  'nextSlideDelai'              => 0,
+                                  'nextSlideBG'                 =>'#FFCC00'];
+    }
+/*
                                   'nextSlideDelai'      => 0,
                                   'nextSlideBG'         =>'#FFCC00',
                                   'nextSlideMessageWin' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN0,
                                   'nextSlideMessageMax' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX0];
-    }
-
+*/
 	/**
 	 * @static function &getInstance
 	 *
@@ -122,7 +127,7 @@ var $maxGroups = 4;
       $trayOptions ->addElementOption($inpMaxAttemps);  
       
       // disposition 
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       $name = 'imgWidth1';
       $inpWidth1 = new \XoopsFormNumber(sprintf(_LG_PLUGIN_FINDOBJECTS_WIDTH,1),  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
@@ -135,12 +140,12 @@ var $maxGroups = 4;
       $trayOptions->addElementOption($inpWidth2);     
 
       //---------------------------------------------------------
-      // avertissement
       //ajout des message d'avertissement au passge du slide suivant  
-      // un message en cs de victoire et un si le nombre d'essais est dépassé  
-      $arrConst = ['nextSlideMessageWin' => '_LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN', 
-                   'nextSlideMessageMax' => '_LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX'];
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_avertissement.php");
+      // un message en cas de victoire et un si le nombre d'essais est dépassé  
+      $msgArr = [true, false, true];
+      $prefixPluginWinner  = '_LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN_';
+      $prefixPluginLlooser = '_LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX_';
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
       //---------------------------------------------------------
       
       $trayOptions->insertBreak("<div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'><center><b>" . _LG_FINDOBJECTS_TOUCHES_PARAMS . "</b></center></div>",-1,false);
@@ -233,7 +238,7 @@ public function getFormImg(&$trayAllAns, $group, $answers,$titleGroup, $firstIte
         //----------------------------------------------------------
         $tbl = null;
         $ans = (isset($answers[$k])) ? $answers[$k] : null;
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
         $tbl = $this->getNewXoopsTableXtray();
         $tbl->addTdStyle(0, 'vertical-align: top;width:50%;');
         $tbl->addTdStyle(1, 'vertical-align: top;');
@@ -385,7 +390,7 @@ __inpDivImg__;
 
         $ans = $answers[0];
 //        echoArray($answers);exit;
-        include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+        include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
        
         $prefix = "quiz-{$questId}-{$ans['chrono']}";
         $formName = $this->getName()."_image1";
@@ -549,4 +554,4 @@ __inpDivImg__;
     return $ret;
      }
 
-} // fin de la classe
+} // fin de la class

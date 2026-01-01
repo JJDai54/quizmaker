@@ -83,7 +83,12 @@ global $quizHandler, $questionsHandler, $answersHandler;
     $newBuild = $quiz->getVar('quiz_build') + 1; 
     $quiz->setVar('quiz_build', $newBuild);
     $quizHandler->insert($quiz);
-    return $newBuild;
+    
+    return array('name'   => $quiz->getVar('quiz_name'),
+                 'id'     => $quiz->getVar('quiz_id'),
+                 'quizId' => $quiz->getVar('quiz_id'),
+                 'build'  => $quiz->getVar('quiz_build'));
+    //return $newBuild;
 }
 
 
@@ -142,7 +147,7 @@ global $utility, $xoopsConfig, $messagesHandler;
         $files2include = \JANUS\FSO\getFilePrefixedBy($pluginPath, array('css','js'), '', false, false,false);
     //echoArray($files2include,$pluginPath . '==>' . $fld);
     
-    //ajout de la classe et du CSS principale 
+    //ajout de la classedu plugin  et du CSS principale 
     //pour permettre l'héritage dans certains plugins en les déclarant avant
     $allPluginsJS[]  = $fld . '/' . $fld . '.js';
     //pas besoin de le faire pour le CSS principal
@@ -335,9 +340,11 @@ for($h=0; $h<strlen($values['options']); $h++){
         $tQuest['learn_more']     = self::sanitise($values['quest_learn_more']);
         $tQuest['see_also']       = self::sanitise($values['quest_see_also']);
         $tQuest['image']          = self::sanitise($values['quest_image']);
+        $tQuest['height']         = self::sanitise($values['quest_height']);
+        $tQuest['shadow']         = self::sanitise($values['quest_shadow']);
+        $tQuest['image_style']    = self::sanitise($values['quest_image_style']);
         $tQuest['zoom']           = self::sanitise($values['quest_zoom']);
         $tQuest['background']     = self::sanitise($values['quest_background']);
-        $tQuest['height']         = self::sanitise($values['quest_height']);
         $tQuest['points']         = $values['points'];
         $tQuest['numbering']      = $values['numbering'];
         $tQuest['shuffleAnswers'] = $values['shuffleAnswers'];
@@ -445,4 +452,4 @@ global $pluginsHandler;
    
 }
 
-}  //fin de la classe
+}  //fin de la class

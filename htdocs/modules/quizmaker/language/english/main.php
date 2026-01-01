@@ -82,7 +82,7 @@ define('_MA_QUIZMAKER_STILL_ANSWER', "You have already taken this quiz.<br>Pleas
 define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Thank you for your participation");
 define('_MA_QUIZMAKER_TITLE', "Quiz");
 define('_MA_QUIZMAKER_UNAME', "Username");
-define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>You are not yet allowed to see the solutions for this quiz.<br>You must have participated by being registered and be logged in to the site.</span>");
+define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>Your score is 0 points !<br>You are not yet allowed to see the solutions for this quiz.<br>You must have participated by being registered and be logged in to the site.</span>");
 
 define('_MA_QUIZMAKER_MAX_FLYING_EXCEEDS', "<span style='color:blue;font-weight:bold'>You have already played or attempted to play this quiz one or more times.<br>You have reached the maximum number of attempts allowed for this quiz.<br>You will need to wait <span style='color:red;font-weight:bold'>%1\$s</span> before trying again.</span>");
 
@@ -90,4 +90,6 @@ define('_MA_QUIZMAKER_UNIT_DAYS', "days");
 define('_MA_QUIZMAKER_UNIT_HOURS', "hours");
 define('_MA_QUIZMAKER_UNIT_MINUTES', "minutes");
 define('_MA_QUIZMAKER_UNIT_SECONDS', "seconds");
+define('_MA_QUIZMAKER_QUIZ_SUBJECT', "Set");
+
 ?>

@@ -32,28 +32,10 @@
 
     <div class="item-round-top <{$catTheme}>-item-head"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
     <div class="item-round-none <{$catTheme}>-item-body" style="padding:8px 0px 8px 0px;"><center>
-                <{$selector.inpCategory}><br><{$selector.inpPlayer}>    
+       <{$selectors.select.cat}>&nbsp;<{$selectors.select.subject}>         
+                <br><{$selectors.select.inpPlayer}>    
+                <br><{$selectors.select.difficulty}>    
     
-    
-    
- <{*
-    <table width='80%'>
-        <tr>
-            <td class="right" style='padding:5px;'><{$smarty.const._MA_QUIZMAKER_CATEGORIES}> : </td>
-            <td class="left" style='padding:5px;'>
-                <{$selector.inpCategory}><br><{$selector.inpPlayer}>
-            </td>
-        </tr>
-        
-        <tr>
-            <td class="right" style='padding:5px;'><{$smarty.const._CO_QUIZMAKER_PLAYER_STATUS}> : </td>
-            <td class="left" style='padding:5px;'><{$selector.inpPlayer}></td>
-        </tr>
-        
-    </table>
- *}>
-      
-      
     </center></div>
     <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
 </form>
@@ -79,15 +61,6 @@
 
       <div class="item-round-none <{$cat.theme}>-item-body">
       <table class='quizTbl'>
-      <{*
-		<thead>
-			<tr class='head'>
-				<th class="center"><{$smarty.const._MA_QUIZMAKER_NAME}></th>
-				<th class="center"><{$smarty.const._MA_QUIZMAKER_QUESTIONS}></th>
-				<th class="center"><{$smarty.const._MA_QUIZMAKER_SCORES}></th>
-			</tr>
-		</thead>
-      *}>
       
       <{foreach item=Quiz from=$cat.quiz name=quizItem}>
           <{if $Quiz.quiz_html <> '' }>

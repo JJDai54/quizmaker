@@ -31,7 +31,7 @@ getInnerHTML(bShuffle = true){
     var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="" {disabled} style='text-align:{textalign};background:{background};'} {typeobjet}></td>`; 
     //var tplTextBox     = `<td style='width:{width}%;'><input type="text" id="{itemId}" value="{itemValue}" name="{listName}" ansIndex='{index}'></td>`;
     var tplListbox     = `<td style='width:{width}%;'>{itemValue}</td>`; 
-    var tplConjonction = `<td style='width:{width}%;background:{background};text-align:{textalign};'>{itemValue}</td>`; 
+    var tplConjonction = `<td style='width:{width}%;background:{background};text-align:{textalign};padding-left:12px;padding-right:12px;'>{itemValue}</td>`; 
     var tplImage       = `<td style='width:{width}%;text-align:{textalign};'><img src="${quiz_config.urlQuizImg}/{image1}"  alt='' title='' height={height}px'></td>`; 
     var tplnumbering   = `<td style='width:3%;background:{background};text-align:right;font-size:1.2em'>{numbering}</td>`; 
     var tplEmpty       = `<td style='width:{width}%;background:{background};'></td>`; 
@@ -44,7 +44,7 @@ getInnerHTML(bShuffle = true){
     }
 
 console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQuestion.options.list2_type}`);    
-    htmlArr.push(`${this.getImage()}<center><table style="font-size:${currentQuestion.options.fontSize}em;">`);
+    htmlArr.push(`<center><table style="font-size:${currentQuestion.options.fontSize}em;">`);
     if(this.data.titleExists){
         if(delta  > 0){
             htmlArr.push(tplEmpty.replace('{width}', delta / 2));
@@ -143,15 +143,17 @@ console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQue
     }
     
     
-/////////////////////////////////
-
 ///////////////////////////////////
-
     
     htmlArr.push(`</table></center>`);
-   
+    //var html = htmlArr.join("\n"); 
+    var tpl = this.getDisposition(currentQuestion.options.disposition);
+    var html = tpl.replace('{image}', this.getImage())
+                  .replace('{allAnswers}', htmlArr.join("\n"));
+    
+    
     //return "en construction";
-    return htmlArr.join("\n");
+    return html;
 
     
  }
@@ -202,9 +204,13 @@ prepareData(){
     
     for(var k = 0; k < answers.length; k++){
         var ans = answers[k];
+        
         console.log(k + "--->" + ans.proposition);
         ans.items = [];
-        var tExp = ans.proposition.split(","); 
+        
+        var sep = (ans.proposition.indexOf('|') == -1 ) ? ',' : '|';
+         
+        var tExp = ans.proposition.split(sep); 
         for (var i = 0; i < nbColumns; i++){
             if(tExp[i] || ans.image1 || ans.image2){
                 ans.items.push(tExp[i]);
@@ -270,7 +276,9 @@ getScoreByProposition (answerContainer){
                 case 2 : //textbox
                     nbRep++;
                     var obInp = document.getElementById(itemId);
-                    if(sanityseTextForComparaison(obInp.value) == sanityseTextForComparaison(ans.items[h])) {nbGood++;}
+                    //if(sanityseTextForComparaison(obInp.value) == sanityseTextForComparaison(ans.items[h])) {nbGood++;}
+                    if(compareExp(obInp.value, ans.items[h], true)) {nbGood++;}
+                    //if((obInp.value.trim()) == (ans.items[h].trim() )) {nbGood++;}
                     break;
                     
                 //compte pour rien    
@@ -359,31 +367,9 @@ getAllReponses (flag = 0){
 
 //---------------------------------------------------
 getGoodReponses (){
-/*
-    var currentQuestion = this.question;
-     var tReponses = [];
-
-    var newKeys = this.data.keys;     
-    var tKeyWords = this.data.kitems;     
-     
-    for(var k = 0; k< newKeys.length; k++){
-        var key = newKeys[k];
-        tReponses.push(`${tKeyWords[key].key} => ${tKeyWords[key].match} => ${tKeyWords[key].points}`);
-     }
-
-    return tReponses.join("<br>");
-  
-*/
-  
-  
 console.log('getGoodReponses');  
   
-  
-  
-  
-  
-  
-      var currentQuestion = this.question;
+    var currentQuestion = this.question;
     var htmlArr = [];
 
     //alert(currentQuestion.answers.length)
@@ -495,88 +481,54 @@ console.log('===========> showAnswers');
         }
      }
 
-
-
-
-
-/*
-
-
-
-
-
-
-
-
-
-
-    var currentQuestion = this.question;
-    var tag = '';
-    var obs = this.getObDivMain;
-    var itemId = '';
-    var allItems = null;
-    var ansIndex = '';
-    var couple = null;
-    var rndIdx = 0;
-    
-    switch(currentQuestion.options.list1_type*1){
-        case 0 : tag = 'zzz'    ; break; //label
-        case 1 : tag = 'select' ; break; //combobox
-        case 2 : tag = 'input'  ; break; //textbox
-        default: tag = "?????"  ; break;
-     }
-
-    allItems = document.getElementsByName(this.data.list1Name);
-    console.log('nb item by name : ' + allItems.length);
-    allItems.forEach( (obInput, index) => {
-    
-//     
-         var t = obInput.id.split('-');
-//         ansIndex = t[3]*1;
-//     console.log('ansIndex = ' + obInput.id + ' / ' + t[3] + ' / ' + ansIndex);
-//     
-        ansIndex = obInput.id.split('-')[3]*1;
-    
-     console.log('list 1 : ansIndex = ' + obInput.id + ' / ' + t[3] + ' / ' + ansIndex);
-    
-        if(goodAnswers){
-            couple = currentQuestion.answers[ansIndex].proposition.split(',');
-            obInput.value = couple[0];
-        }else{
-            obInput.value = getRandomArray(this.data.allItems1);
-        }
-    });
-        
-    //========================================================
-    switch(currentQuestion.options.list1_type*2){
-        case 0 : tag = 'zzz'    ; break; //label
-        case 1 : tag = 'select' ; break; //combobox
-        case 2 : tag = 'input'  ; break; //textbox
-        default: tag = "?????"  ; break;
-     }
-
-    allItems = document.getElementsByName(this.data.list2Name);
-    allItems.forEach( (obInput, index) => {
-        ansIndex = obInput.id.split('-')[3]*1;
-        if(goodAnswers){
-            couple = currentQuestion.answers[ansIndex].proposition.split(',');
-            obInput.value = couple[1];
-        }else{
-            obInput.value = getRandomArray(this.data.allItems2);
-        }
-        
-//      //console.log('list 2 : ansIndex = ' + obInput.id + ' / ' + t[3] + ' / ' + ansIndex);
-//      console.log('list 2 : ansIndex = ' + obInput.id + ' / ' + ansIndex);
-// 
-// console.log('proposition : ' + index + " = " + currentQuestion.answers[ansIndex].proposition);
-// console.log('obInput.value : ' + index + " = " + obInput.value);
-// console.log('couple : ' + couple[0] + " = " + couple[1]);
-
-//alert('ici -> ' + obInput.id);
-    });
-*/
         
 }
 
+  /* *********************************************
+  
+  ************************************************ */
+getDisposition(disposition, tableId = ''){
+    var currentQuestion = this.question;
+    var tpl = '';
 
-} // ----- fin de la classe ------
+    if(!this.isImage()) {disposition = 'disposition-00';}
+
+    switch(disposition) {
+    case 'disposition-01':
+        tpl = '{image}<br>{allAnswers}';
+        break;
+    
+    case 'disposition-02':
+        tpl = `<table>
+                <tbody>
+                  <tr>
+                    <td>{image}</td>
+                    <td>{allAnswers}</td>
+                  </tr>
+                </tbody>
+              </table>`;
+        break;
+    
+    case 'disposition-03':
+        tpl = `<table>
+                <tbody>
+                  <tr>
+                    <td>{allAnswers}</td>
+                    <td>{image}</td>
+                  </tr>
+                </tbody>
+              </table>`;
+        break;
+    
+    case 'disposition-00':
+    default:
+        tpl = '{allAnswers}';
+        break;
+    
+    }    
+
+    return tpl + '<br>';
+
+}
+
+} // ----- fin de la class ------

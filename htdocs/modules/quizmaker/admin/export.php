@@ -40,6 +40,7 @@ $catId  = Request::getInt('cat_id', 0);
 $quizId = Request::getInt('quiz_id', 0);
 $modeName = Request::getInt('mode_name', 0);
 $suffix = Request::getInt('suffix', 0);
+$quizSubject = Request::getString('quiz_subject', '');
 
 $objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
@@ -49,7 +50,7 @@ $templateMain = 'quizmaker_admin_export.tpl';
 list_on_errors:        
 switch($op) {
 	case 'export_ok':
-        //$clPerms->checkAndRedirect('export_quiz', $catId, "{$catId}", "index.php");
+        //$clPerms->checkAndRedirect('export_quiz', $catId, "{$catId}", "index.php", QUIZMAKER_ADMIN_PERM);
         if ($quizId > 0) $quizUtility::quiz_export($quizId, $modeName, $suffix);
         
     case 'export':
@@ -74,33 +75,20 @@ switch($op) {
 		$title = _AM_QUIZMAKER_EXPORT_YML;        
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form_export', 'export.php', 'post', true);
+		$form = new \XoopsThemeForm($title, 'quizmaker_select_filter', 'export.php', 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'export_ok'));
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
-        if ($catId == 0) $catId = array_key_first($catArr);        
-        $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, 'cat_id', $catId);
-        $inpCategory->addOptionArray($catArr);
-        $inpCategory->setExtra("onchange=\"document.form_export.op.value='list';document.form_export.sender.value=this.name;document.form_export.submit();\"".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
-  	    $form->addElement($inpCategory);
-    
+  	    $form->addElement(new XoopsFormHidden('sender',''));
+        $selectors = $questionsHandler->getSelector($catId, $quizSubject,$quizId, true);        
+  	    $form->addElement($selectors['select']['cat']);
+  	    $form->addElement($selectors['select']['subject']);
+  	    $form->addElement($selectors['select']['quiz']);
 
-
-        $quizArr = $quizHandler->getListKeyName($catId);        
-        if ($quizId == 0 || !$quiz) {
-            $quizId = array_key_first($quizArr);
-            $quiz = $quizHandler->get($quizId);
-        }
-        
-        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, 'quiz_id', $quizId);
-        $inpQuiz->addOptionArray($quizHandler->getListKeyName($catId));
-        //$inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
-        $inpQuiz->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));
-  	    $form->addElement($inpQuiz);
-
+        //--------------------------------------------------------
         $inpModeName = new \XoopsFormRadio(_AM_QUIZMAKER_FILE_NAME, 'mode_name', $modeName, '<br>');
         $inpModeName->addOption(0, _AM_QUIZMAKER_FILE_NAME_QUIZ_NAME);     
         $inpModeName->addOption(1, _AM_QUIZMAKER_FILE_NAME_FOLDERJS_NAME);        

@@ -262,4 +262,4 @@ getAllReponses (flag = 0){
      return true;
   } 
 
-} // ----- fin de la classe ------
+} // ----- fin de la class ------

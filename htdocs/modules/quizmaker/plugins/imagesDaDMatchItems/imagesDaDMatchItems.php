@@ -39,7 +39,7 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
 	 */
 	public function __construct()
 	{
-        parent::__construct("imagesDaDMatchItems", 0, "dragAndDrop");
+        parent::__construct("imagesDaDMatchItems", 0, "matchitems");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
         $this->hasZoom = true;
 
@@ -105,7 +105,7 @@ class Plugin_imagesDaDMatchItems extends XoopsModules\Quizmaker\Plugins
       $trayOptions->addElementOption($inpBgSilhouette);     
 
       // disposition 
-      include (QUIZMAKER_PATH_MODULE . "/include/plugin_options_disposition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
       
       //---------------------------------------------------------
 
@@ -171,7 +171,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
             $points = 1;
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
 
             
@@ -244,7 +244,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
         */ 
        foreach ($answers as $key=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
         
@@ -377,4 +377,4 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
      }
 
 
-} // fin de la classe
+} // fin de la class

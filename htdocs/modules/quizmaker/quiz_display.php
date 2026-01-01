@@ -54,6 +54,7 @@ $quizObj = $quizHandler->get($quizId);
 $maxTentatives = $quizObj->getVar('quiz_max_flying');
 $delai = $quizObj->getVar('quiz_delai_cookie'); //delai du cookie en secondes
 $catId = $quizObj->getVar('quiz_cat_id');
+$catObj = $categoriesHandler->get($catId);
 /*
 */
 // 
@@ -201,6 +202,7 @@ function formatDelai ($timestamp1, $timestamp2 = null){
 ////////////////////////////////////////////////
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => "categories.php?cat_id={$catId}&player_id={$playerId}"];
+$xoBreadcrumbs[] = ['title' => $catObj->getVar('cat_name'), 'link' => "quiz.php?cat_id={$catId}&player_id={$playerId}"];
 $xoBreadcrumbs[] = ['title' => $quizValues['name']];
 
 // Keywords

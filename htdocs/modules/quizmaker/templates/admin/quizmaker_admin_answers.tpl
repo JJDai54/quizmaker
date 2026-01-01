@@ -9,9 +9,8 @@
 
 
 <div class="floatleft">
-<{$smarty.const._AM_QUIZMAKER_CATEGORIES_NAME}> : <{$inpCategory}>
-<{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}> : <{$inpQuiz}>
-<br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$inpPreviousQuestion}> <{$inpNextQuestion}> <b><{$quesPlugin}></b> <{$inpQuest}> 
+<{$selectors.select.cat}>&nbsp;<{$selectors.select.subject}>&nbsp;<{$selectors.select.quiz}>
+<br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$selectors.select.previousQuestion}> <{$selectors.select.nextQuestion}> <b><{$questPlugin}></b> <{$selectors.select.questions}> 
 </div>
 
 <{* 
@@ -30,7 +29,8 @@
 </form>
 
 <{if $questOptions}>
-    <hr><{$smarty.const._AM_QUIZMAKER_QUEST_OPTIONS}><br><{$questOptions}><hr>
+    <hr><{$smarty.const._AM_QUIZMAKER_QUEST_OPTIONS}> [<{$questPlugin}>]
+    <br><{$questOptions}><hr>
 <{/if}>
 <{if $answersCount > 0}>
 	<table class='table table-bordered'>
@@ -59,7 +59,7 @@
                 
 				<td class='left'>
 					<a href="answers.php?op=edit&amp;answer_id=<{$Answers.id}>" title="<{$smarty.const._EDIT}>">
-                    <{$Answers.proposition}></a></td>
+                    <{$Answers.proposition}></a><br><{$Answers.buffer}></td>
                     
 				<td class='center'>
                     <{$Answers.group}></td>

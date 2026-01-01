@@ -37,10 +37,10 @@ var $noClass = "00-none";
 	 */
 	public function __construct()
 	{
-        parent::__construct("sortItems", 0, "other");
+        parent::__construct("sortItems", 0, "ordre");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
-        $this->optionsDefaults = ['classe'      => $this->noClass, 
+        $this->optionsDefaults = ['variant'      => $this::noClass, 
                                   'orderStrict' => 'N', 
                                   'title'       => '', 
                                   'btnColor'    => 'blue', 
@@ -83,25 +83,25 @@ var $noClass = "00-none";
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
      
-      $name = 'classe';
-      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_SORTITEMS_CLASSE, "{$optionName}[{$name}]", $tValues[$name]);
-      if (!$tValues[$name] || $tValues[$name] == $this->noClass) $inpClasse->addOption($this->noClass, _LG_PLUGIN_SORTITEMS_CLASSE_SELECT);
-      $inpClasse->addOption('01-listbox', _LG_PLUGIN_SORTITEMS_CLASSE_LISTBOX);
-      $inpClasse->addOption('02-combobox', _LG_PLUGIN_SORTITEMS_CLASSE_COMBOBOX);
-      $inpClasse->addOption('03-listeapuces', _LG_PLUGIN_SORTITEMS_CLASSE_LISTUL);
-      $inpClasse->addOption('04-imagesdadFixedHeight', _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_FH);
-      $inpClasse->addOption('05-imagesdadFixedWidth', _LG_PLUGIN_SORTITEMS_CLASSE_IMAGEDAD_WH);
+      $name = 'variant';
+      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_SORTITEMS_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
+      if (!$tValues[$name] || $tValues[$name] == $this::noClass) $inpClasse->addOption($this::noClass, _LG_PLUGIN_SORTITEMS_VARIANT_SELECT);
+      $inpClasse->addOption('01-listbox', _LG_PLUGIN_SORTITEMS_VARIANT_LISTBOX);
+      $inpClasse->addOption('02-combobox', _LG_PLUGIN_SORTITEMS_VARIANT_COMBOBOX);
+      $inpClasse->addOption('03-listeapuces', _LG_PLUGIN_SORTITEMS_VARIANT_LISTUL);
+      $inpClasse->addOption('04-imagesdadFixedHeight', _LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_FH);
+      $inpClasse->addOption('05-imagesdadFixedWidth', _LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_WH);
 
-      $inpClasse->setDescription(_LG_PLUGIN_SORTITEMS_CLASSE_DESC);
-      // change la couleur de fond selon que la classe a été selectionnée ou pas
-      if($tValues['classe'] == $this->noClass){ 
+      $inpClasse->setDescription(_LG_PLUGIN_SORTITEMS_VARIANT_DESC);
+      // change la couleur de fond selon que la variante a été selectionnée ou pas
+      if($tValues['variant'] == $this::noClass){ 
             $inpClasse->setExtra('style="background:#FFCCCC;color:red"');
       }else{
             $inpClasse->setExtra('style="background:lime;"');
       }
       $trayOptions->addElementOption($inpClasse, true);     
 
-      switch($tValues['classe']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
+      switch($tValues['variant']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
         case '01-listbox' : 
             /* *********************************************************** */  
             $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX . "</div>");  
@@ -144,7 +144,7 @@ var $noClass = "00-none";
             /* *********************************************************** */  
             $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_SORTITEMS_OPTIONS_DADIMAGE . "</div>");  
             
-            if($tValues['classe'] == '04-imagesdadFixedHeight'){
+            if($tValues['variant'] == '04-imagesdadFixedHeight'){
                 $name = 'imgHeight1';  
                 $inpHeight1 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG1_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
                 $inpHeight1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
@@ -170,7 +170,7 @@ var $noClass = "00-none";
             
             $name = 'moveMode';  
             $inpMoveMode = new \xoopsFormRadio(_AM_QUIZMAKER_MOVE_MODE, "{$optionName}[{$name}]" ,$tValues[$name] , ' ');
-            $inpMoveMode->addOptionArray(['0'=>_LG_PLUGIN_SORTITEMS_FLIP, "1"=>_LG_PLUGIN_SORTITEMS_INSERT, "2"=>_LG_PLUGIN_SORTITEMS_CARRET]);
+            $inpMoveMode->addOptionArray(['0'=>_LG_PLUGIN_SORTITEMS_FLIP, "1"=>_LG_PLUGIN_SORTITEMS_INSERT, "2"=>_LG_PLUGIN_SORTITEMS_CARET]);
             $trayOptions ->addElementOption($inpMoveMode);     
 
             $name = 'directive';  
@@ -182,7 +182,7 @@ var $noClass = "00-none";
       
 
      }
-    if($tValues['classe'] != $this->noClass){ // si la classe n'a pas été selectionner pas d'affichage des opttions commune
+    if($tValues['variant'] != $this::noClass){ // si la variante n'a pas été selectionner pas d'affichage des opttions commune
         $name = 'orderStrict';  
         $inputOrder = new \XoopsFormRadio(_AM_QUIZMAKER_ORDER_ALLOWED . ' : ', "{$optionName}[{$name}]", $tValues[$name], ' ');
         $inputOrder->addOption("N", _AM_QUIZMAKER_ONLY_ORDER_NAT);            
@@ -196,13 +196,13 @@ var $noClass = "00-none";
 
 
       /* *********************************************************** */  
-      // Petite bidouille pour conserver les options non utiliséees selon la classe au cas ou il y aurait plusieurs fois un changement de classe par erreur  
+      // Petite bidouille pour conserver les options non utiliséees selon la variante au cas ou il y aurait plusieurs fois un changement de variante par erreur  
       $hiddenArr = array();
       foreach($this->optionsDefaults as $name=>$v){
           $hiddenArr[$name] = new \XoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]);
       }
 /*
-      $trayOptions->addElementHidden($hiddenArr['classe']);     
+      $trayOptions->addElementHidden($hiddenArr['variant']);     
       $trayOptions->addElementHidden($hiddenArr['orderStrict']);     
       $trayOptions->addElementHidden($hiddenArr['title']);     
       $trayOptions->addElementHidden($hiddenArr['btnColor']);     
@@ -217,8 +217,8 @@ var $noClass = "00-none";
       $trayOptions->addElementHidden($hiddenArr['directive']);     
 */
 
-     // on ajoute les xoopsFormHidden pour completer et conserver les valeurs suite à un changement de classe par erreur
-      switch($tValues['classe']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
+     // on ajoute les xoopsFormHidden pour completer et conserver les valeurs suite à un changement de variante par erreur
+      switch($tValues['variant']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
         case '01-listbox' : 
             /* *********************************************************** */  
             $trayOptions->addElementHidden($hiddenArr['liBgDefault']);     
@@ -289,12 +289,12 @@ var $noClass = "00-none";
         //-------------------------------------------------
         $quest =  $questionsHandler->get($questId, 'quest_options');
         $options = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
-        if (!$options['classe'] || $options['classe'] == $this->noClass) return null;
-        //echo "===> " . $options['classe'] . "<hr>";exit;
-        $isImage = ($options['classe'] == '04-imagesdadFixedHeight' || $options['classe'] == '05-imagesdadFixedWidth');
+        if (!$options['variant'] || $options['variant'] == $this::noClass) return null;
+        //echo "===> " . $options['variant'] . "<hr>";exit;
+        $isImage = ($options['variant'] == '04-imagesdadFixedHeight' || $options['variant'] == '05-imagesdadFixedWidth');
         
         //-------------------------------------------------
-        //element definissat un objet ou un ensemble
+        //element definissant un objet ou un ensemble
         $weight = 0;
         $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
         $tbl->addTdStyle(2, 'text-align:left;width:50px;');
@@ -307,7 +307,7 @@ var $noClass = "00-none";
         for($k = 0; $k < $this->maxPropositions; $k++){
             $ans = (isset($answers[$k])) ? $answers[$k] : null;
             //chargement préliminaire des éléments nécéssaires et initialistion du tableau $tbl
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_getFormGroup.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             $name = $this->getName($k, 'proposition');
             $inpProposition = new \XoopsFormText("", $name, $this->lgMot2, $this->lgMot2, $proposition);
@@ -351,7 +351,7 @@ var $noClass = "00-none";
         $tPoints = array();
         foreach ($answers as $ansKey=>$ans){
             //chargement des operations communes à tous les plugins
-            include(QUIZMAKER_PATH_MODULE . "/include/plugin_saveAnswers.php");
+            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;
             //---------------------------------------------------           
             
@@ -369,10 +369,10 @@ var $noClass = "00-none";
             $imgFormName = $this->getName()."_image1_" . ($ans['chrono']-1);
             $newImg = $this->save_img($ans, $imgFormName, $pathImg, $prefix, $nameOrg);
             if($newImg == ''){
-                //$ansObj->setVar('answer_proposition', $ans['proposition']);        
+                //$ansObj->setVar('answer_proposition', $ans['proposition']);       
             }else{
                 $ansObj->setVar('answer_image1', $newImg);        
-                if(!$ans['proposition']) $ans['proposition'] = $nameOrg;
+                //if(!$ans['proposition']) $ans['proposition'] = $nameOrg;
             }
 
             $imgFormName = $this->getName()."_image2_" . ($ans['chrono']-1);
@@ -383,7 +383,7 @@ var $noClass = "00-none";
                 $ansObj->setVar('answer_image2', $newImg);        
             }
 
-            if (!$ans['proposition']) continue;
+            if (! $ansObj->getVar('answer_image1')) continue;
         	$ansObj->setVar('answer_proposition', $ans['proposition']);
         	$ansObj->setVar('answer_weight', $ans['weight']);
             
@@ -394,8 +394,33 @@ var $noClass = "00-none";
 *
 *********************************************** */
   public function getSolutions($questId, $boolAllSolutions = true){
-  global $answersHandler;
-
+  global $answersHandler, $quizHandler, $questionsHandler;
+  
+  
+     //-------------------------------------------
+    $questObj = $questionsHandler->get($questId);
+    $quizId = $questObj->getVar("quest_quiz_id");
+    $options = json_decode(html_entity_decode($questObj->getVar('quest_options')),true); 
+    //echoArray($options);   exit;
+    //-------------------------------------------
+    switch($options['variant']){
+    case '04-imagesdadFixedHeight' : 
+    case '05-imagesdadFixedWidth' : 
+        return $this->getSolutionsImg($questId, $questObj, $boolAllSolutions);
+        break;
+    default :
+        return $this->getSolutionsItems($questId, $questObj, $boolAllSolutions);
+        break;
+    }
+  
+  
+}
+/* ********************************************
+*
+*********************************************** */
+  public function getSolutionsItems($questId, &$questObj, $boolAllSolutions = true){
+  global $answersHandler, $quizHandler, $questionsHandler;
+  
     $tpl = "<tr><td><span style='color:%2\$s;'>%1\$s</span></td></tr>";
 
     $answersAll = $answersHandler->getListByParent($questId);
@@ -420,7 +445,46 @@ var $noClass = "00-none";
     $ret['scoreMin'] = $scoreMin;
     //echoArray($ret);
     return $ret;
-     }
-
-} // fin de la classe
+  }
+/* ********************************************
+*
+*********************************************** */
+  public function getSolutionsImg($questId, &$questObj, $boolAllSolutions = true){
+  global $answersHandler, $quizHandler, $questionsHandler;
+  
+    $quizId = $questObj->getVar("quest_quiz_id"); 
+    $urlQuiz = $quizHandler->getFolderJS($quizId, 2, 'images');
+    $answersAll = $answersHandler->getListByParent($questId, 'answer_weight');     
+	$tplImg = "<td><img src='%1\$s' style='height:200px;'></td>";
+	$tplProposition = "<td>%1\$s</td>";
+    
+    $html[] = "<center><table><tr>";
+    foreach(array_keys($answersAll) as $i) {
+		$ans = $answersAll[$i]->getValuesAnswers();
+        $urlImg = $urlQuiz . "/" . $ans['image1'];
+        $group = $options["group" . $ans['group']];
+        $proposition = $ans['proposition'];
+        $scoreMax += $ans['points'];
+    $html[] = sprintf($tplImg, $urlImg);
+    //$html[] = $urlImg . '<br>';
+        
+    }  
+    $html[] = "</tr><tr";
+    foreach(array_keys($answersAll) as $i) {
+		$ans = $answersAll[$i]->getValuesAnswers();
+        //$html[] = sprintf($tplProposition, $ans['proposition']);
+        $html[] = sprintf($i);
+        //$html[] = $urlImg . '<br>';
+        
+    }  
+  
+    $html[] = "</tr></table></center>";
+   
+    $ret['answers'] = implode("\n", $html);
+    $ret['scoreMax'] =  intval($questObj->getVar('quest_points'));
+    $ret['scoreMin'] = 0;
+    //echoArray($ret);
+    return $ret;
+  }
+} // fin de la class
 

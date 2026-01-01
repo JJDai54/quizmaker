@@ -75,7 +75,7 @@ onEnter() {
 //---------------------------------------------------
 initSlide() {
     var currentQuestion = this.question;
-    var ans = null;    //document.getElementById('quiz_btn_nextSlide').disabled = '';
+    var ans = null;    
     var points = 0;
     //alert("onEnter");
     //this.colTouches = new Touches()
@@ -321,7 +321,7 @@ getDisposition(disposition, contenairId){
         
 }
 
-} // ================== FIN DE LA CLASSE ======================
+} // ================== FIN DE LA VARIANT ======================
 
 
 
@@ -374,13 +374,13 @@ console.log("=====>isToucheOk");
     if( attempts.winning == clQuestion.colTouches.attempts.totalWinning && clQuestion.question.options.nextSlideDelai*1 > 0){
     //if( attempts.winning == clQuestion.colTouches.nbTouches && clQuestion.question.options.nextSlideDelai*1 > 0){
         zoom_moins(e, slideNumber);   
-        message = fo_sprint(clQuestion.question.options.nextSlideMessageWin,attempts, clQuestion.colTouches.attempts.totalWinning);
+        message = fo_sprint(clQuestion.question.options.nextSlideMessageWinner, attempts, clQuestion.colTouches.attempts.totalWinning);
         quiz_show_avertissement( message ,  clQuestion.question.options.nextSlideDelai*1, clQuestion.question.options.nextSlideBG);
     
     }else if( attempts.total >= attempts.max && clQuestion.question.options.nextSlideDelai*1 > 0){
         zoom_moins(e, slideNumber);  
  
-        message = fo_sprint(clQuestion.question.options.nextSlideMessageMax,attempts, clQuestion.colTouches.nbTouches);
+        message = fo_sprint(clQuestion.question.options.nextSlideMessageLooser, attempts, clQuestion.colTouches.nbTouches);
         quiz_show_avertissement(message ,  clQuestion.question.options.nextSlideDelai*1, clQuestion.question.options.nextSlideBG);
     }else if( attempts.winning == clQuestion.colTouches.attempts.totalWinning){
         //document.getElementById(clQuestion.data.idBravo).innerHTML = `BRAVO ! : ${attempts.winning}/${clQuestion.colTouches.attempts.totalWinning}`; 
@@ -391,20 +391,6 @@ console.log("=====>isToucheOk");
          
 }
 
-/* *******************************************
-* remplace les code entre accollades par leur valeur
-* ********** */
-function fo_sprint(exp, attempts, collectionLength){
-
-    exp = exp.replace('{winning}',attempts.winning)
-             .replace('{total}', attempts.total)
-             .replace('{max}', attempts.max)
-             .replace('{length}', collectionLength);
-
-    exp = exp.replace('\/\/', '<br>');
-        
-    return exp;
-}
 
 /* ***************************************
 

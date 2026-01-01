@@ -42,26 +42,11 @@ use XoopsModules\Quizmaker\Utility;
         //----------------------------------------------------
           $GLOBALS['xoopsTpl']->assign('buttons', '');        
       
-          //$quizUtility::deleteTree($pathImport);                      
-          //$quizUtility::rmAllDir($pathImport);     exit;  
-//           $quizUtility::deleteDirectory(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_plugin");                      
-//           $quizUtility::createFolder(QUIZMAKER_PATH_UPLOAD_IMPORT . "/files_new_plugin");                      
                       
   //  exit(QUIZMAKER_PATH_UPLOAD_IMPORT);       
           $utility = new FQuizmaker\Utility();
           //$utility::rrmdir($pathImport . '/images');
-
-          //$utility::clearFolder($pathImport );
-      
-          /** @var Quizmaker\Utility $utility */
-      
    
-
-                 
-  		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-  // 		if (false === $action) {
-  // 			$action = $_SERVER['REQUEST_URI'];
-  // 		}
   		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
   		// Permissions for uploader
   		$grouppermHandler = xoops_getHandler('groupperm');
@@ -72,17 +57,16 @@ use XoopsModules\Quizmaker\Utility;
           // Title
   		$title = _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN;        
   		// Get Theme Form
-  		//xoops_load('XoopsFormLoader');
-  		$form = new \XoopsThemeForm($title, 'form_import', 'import.php', 'post', true);
-  		$form->setExtra('enctype="multipart/form-data"');
-  		// To Save
-  		$form->addElement(new \XoopsFormHidden('op', 'import'));
-		$form->addElement(new \XoopsFormHidden('type_import', 'plugin'));
+		$form = new \XoopsThemeForm($title, $formName, $importMainFile, 'post', true);
+		$form->setExtra('enctype="multipart/form-data"');
+		// To Save
+		$form->addElement(new \XoopsFormHidden('op', 'import'));
         $form->addElement(new \XoopsFormHidden('sender', ''));
-        
-          $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_PLUGIN_TO_INSTALL, 'quizmaker_files', $upload_size);     
-          $uploadTray->setDescription(_AM_QUIZMAKER_PLUGIN_TO_INSTALL_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE . " ($upload_size)", intval($upload_size / 1024)), '<br>');
-          $form->addElement($uploadTray, true);
+        addXformImportType($form, $typeImportName, $typeImport);
+
+        $uploadTray = new \XoopsFormFile(_AM_QUIZMAKER_PLUGIN_TO_INSTALL, 'quizmaker_files', $upload_size);     
+        $uploadTray->setDescription(_AM_QUIZMAKER_PLUGIN_TO_INSTALL_DESC . '<br>' . sprintf(_AM_QUIZMAKER_FILE_UPLOADSIZE . " ($upload_size)", intval($upload_size / 1024)), '<br>');
+        $form->addElement($uploadTray, true);
 
 
           //----------------------------------------------- 
@@ -101,7 +85,7 @@ use XoopsModules\Quizmaker\Utility;
             
             $ret = $pluginsHandler->install($pluginName, $pathImport);
             $msg = constant('_AM_QUIZMAKER_IMPORT_PLUGIN_ERR_' . $ret);
-            redirect_header('import.php?type_import=plugin&op=getform', 8, sprintf($msg, $ret, $pluginName));
+            redirect_header("import.php?{$typeImportName}=plugin&op=getform", 8, sprintf($msg, $ret, $pluginName));
             //    exit("===>confirmed import du plugin : {$newPlugin}");
                 
 		} else {
@@ -111,7 +95,7 @@ use XoopsModules\Quizmaker\Utility;
             $pluginName = array_shift($allFld);    
             if($pluginsHandler->exists($pluginName)){
                 $msg = sprintf(_AM_QUIZMAKER_IMPORT_PLUGIN_CONFIRM_NEW, $pluginName);
-                xoops_confirm(['ok' => 1, 'plugin' => $plugin, 'op' => 'import', 'type_import' => 'plugin' , 'pluginName' => $pluginName,'fullPath'=>$fullPath], $_SERVER['REQUEST_URI'], $msg);
+                xoops_confirm(['ok' => 1, 'plugin' => $plugin, 'op' => 'import', $typeImportName => 'plugin' , 'pluginName' => $pluginName,'fullPath'=>$fullPath], $_SERVER['REQUEST_URI'], $msg);
                 //exit("===>confirm import du plugin : {$pluginName$pluginName}");
             }else{
                 //le plugin ,n'existe pas il est installé directement
@@ -120,7 +104,7 @@ use XoopsModules\Quizmaker\Utility;
 
                 $ret = $pluginsHandler->install($pluginName, $pathImport);
             $msg = constant('_AM_QUIZMAKER_IMPORT_PLUGIN_ERR_' . $ret);
-            redirect_header('import.php?type_import=plugin&op=getform', 8, sprintf($msg, $ret, $pluginName));
+            redirect_header("import.php?{$typeImportName}=plugin&op=getform", 8, sprintf($msg, $ret, $pluginName));
             }
 		}
                 

@@ -359,6 +359,6 @@ public function deleteId ($id) {
 // 
 //         return $handler->deleteAll($criteria, $force, $asObject);
 //     }
-} // Fin de la classe
+} // fin de la class
    
 

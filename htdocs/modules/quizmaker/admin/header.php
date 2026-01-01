@@ -19,6 +19,7 @@
  * @min_xoops      2.5.9
  * @author         Jean-Jacques Delalandre - Email:<jjdelalandre@orange.fr> - Website:<https://xoopsfr.kiolo.fr>
  */
+// echo "<hr>" . __FILE__ . "<hr>";
 include dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 include_once dirname(__DIR__) . '/include/common.php';
@@ -36,6 +37,7 @@ if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
 	include_once XOOPS_ROOT_PATH . '/class/template.php';
 	$xoopsTpl = new \XoopsTpl();
 }
+$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 
 // Load languages
 xoops_loadLanguage('admin');
@@ -82,14 +84,14 @@ xoops_loadLanguage('common', $moduleDirName);
 // Get instance of module
 // $mid = $GLOBALS['xoopsModule']->getVar('mid');
 // echo "<hr>===>mid = {$mid}<hr>";
+$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 $quizHandler = $quizmakerHelper->getHandler('Quiz');
 $questionsHandler = $quizmakerHelper->getHandler('Questions');
-$categoriesHandler = $quizmakerHelper->getHandler('Categories');
-$pluginsHandler = $quizmakerHelper->getHandler('Plugins');
 $answersHandler = $quizmakerHelper->getHandler('Answers');
 $resultsHandler = $quizmakerHelper->getHandler('Results');
-$messagesHandler = $quizmakerHelper->getHandler('Messages');
+$pluginsHandler = $quizmakerHelper->getHandler('Plugins');
 $optionsHandler = $quizmakerHelper->getHandler('Options');
+$messagesHandler = $quizmakerHelper->getHandler('Messages');
 
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 

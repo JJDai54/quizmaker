@@ -41,6 +41,7 @@ class Questions extends \XoopsObject
 	{
 		$this->initVar('quest_id', XOBJ_DTYPE_INT);
 		$this->initVar('quest_parent_id', XOBJ_DTYPE_INT);
+		$this->initVar('quest_reference_id', XOBJ_DTYPE_INT);
 		$this->initVar('quest_flag', XOBJ_DTYPE_INT);
 		$this->initVar('quest_quiz_id', XOBJ_DTYPE_INT);
 		$this->initVar('quest_plugin', XOBJ_DTYPE_TXTBOX);
@@ -54,9 +55,12 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_see_also', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_posComment1', XOBJ_DTYPE_INT);
 		$this->initVar('quest_image', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_height', XOBJ_DTYPE_INT);
+		$this->initVar('quest_shadow', XOBJ_DTYPE_TXTBOX);
+		//$this->initVar('quest_image_style', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_image_style', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_zoom', XOBJ_DTYPE_INT);
 		$this->initVar('quest_background', XOBJ_DTYPE_TXTBOX);
-		$this->initVar('quest_height', XOBJ_DTYPE_INT);
 		$this->initVar('quest_points', XOBJ_DTYPE_INT);
 		$this->initVar('quest_numbering', XOBJ_DTYPE_INT);
 		$this->initVar('quest_shuffleAnswers', XOBJ_DTYPE_INT);
@@ -168,18 +172,17 @@ $shortcut = [_AM_QUIZMAKER_HEADER,
 	 */
  	public function getFormQuestions($action = false, $sender="")
  	{
-        global $quizHandler, $utility, $quizUtility, $pluginsHandler, $xoTheme;
-        
+        global $quizmakerHelper, $quizHandler, $utility, $quizUtility, $pluginsHandler, $xoTheme;
 		// Permissions for uploader
         $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
-		$grouppermHandler = xoops_getHandler('groupperm');
-		$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
-		$permissionUpload = $grouppermHandler->checkRight('upload_groups', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
+		//$grouppermHandler = xoops_getHandler('groupperm');
+		//$groups = is_object($GLOBALS['xoopsUser']) ? $GLOBALS['xoopsUser']->getGroups() : XOOPS_GROUP_ANONYMOUS;
+		//$permissionUpload = $grouppermHandler->checkRight('upload_groups', 32, $groups, $GLOBALS['xoopsModule']->getVar('mid')) ? true : false;
 		xoops_load('XoopsFormLoader');
 
         $questId = $this->getVar('quest_id');
         //===========================================================        
-		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
+		//$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
         // recupe de la classe du type de question
         $clPlugin = $this->getPlugin($pluginName);
 		$questionsHandler = $quizmakerHelper->getHandler('Questions'); // Questions Handler
@@ -222,7 +225,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         if ($clPlugin->isQuestion){
             // Form Select questPlugin
             $inpPlugin = new \XoopsFormSelect( '', 'quest_plugin', $pluginName);
-            $inpPlugin->addOption('Empty');
+            //$inpPlugin->addOption('Empty');
+            //echoArray($pluginsHandler->getListKeyName(null, true));exit;
             $inpPlugin->addOptionArray($pluginsHandler->getListKeyName(null, true));
             $inpPlugin->setExtra("onchange='reloadPluginSnapshoots(\"modelesPluginId\");' " . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_PLUGIN));
             $trayPlugin->addElement($inpPlugin);
@@ -242,7 +246,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$form->addElement($trayPlugin);
         //----------------------------------------------------------
 		// Form Select quest_parent_id         
-        if($clPlugin->isQuestion()){         
+        if($clPlugin->isQuestion() || $clPlugin->pluginName == 'pageInfo'){         
             $tParent = $questionsHandler->getParents($this->getVar('quest_quiz_id'), true);         
             $parentId = ($this->getVar('quest_parent_id') == 0) ? array_keys($tParent)[0] : $this->getVar('quest_parent_id');
             $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_GROUP, 'quest_parent_id', $parentId);
@@ -252,8 +256,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         }elseif($clPlugin->pluginName == 'pageGroup'){
             $inpParent = new \XoopsFormHidden('quest_parent_id', 0);        
             $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
-        }
-        else{
+        }else{
             //c'est la page de debut ou de fin on affiche pas le poids et pas de parent;
             $inpParent = new \XoopsFormHidden('quest_parent_id', 0);        
             $inpWeight = new \XoopsFormHidden('quest_weight', $this->getVar('quest_weight'));        
@@ -280,17 +283,10 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         
 		// Form Text quest_identifiant
         if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', 'slide_' . rand(10000,99999));
-  /*
-        $inpIdentifiant = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', 120, 255, $this->getVar('quest_identifiant') );
-        $inpIdentifiant->setDescription(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
+        $inpIdentifiant = new \XoopsEditList(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', $this->getVar('quest_identifiant'), 20) ; 
+        $inpIdentifiant->setHelp(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);      
 		$form->addElement($inpIdentifiant, false);
-  */
-
-        $inpIdentifiant = new \XoopsFormTextPlus(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant',20,20, $this->getVar('quest_identifiant'));
-        $inpIdentifiant->setHelp(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);
-		$form->addElement($inpIdentifiant, false);
-        
-        
+    
         //----------------------------------------------------------
         $this->insertShorcuts($form, _AM_QUIZMAKER_PARAMETRES, 'yellow', 'black');        
         //-------------------------------------------
@@ -463,20 +459,90 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
               $inpImage = $clPlugin->getFormImage(_AM_QUIZMAKER_IMAGE_MAIN, 'quest_image', $image, $folderJS);
                   $inpImage->setCaption('');
                   //$form->addElement($inpImage, false);
+                  
+                  $name = 'quest_image_style';  
+                  $style = $this->getVar($name);  
+                  //$style = '';  
+   
+                  $inpJson = new \XoopsFormJson('', $name, $style);                  
+                  //$inpJson->setTextBoxVisible(true);        
+                  //$inpJson->setPreviewVisible(true);        
+                  $inpJson->addNewOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>300, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addNewOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
+                  $inpJson->addNewOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+                  if($inpJson->isNew){
+                        $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
+                        $inpJson->updateOptions('shadow', ['value'=>$this->getVar('quest_shadow')]);
+                  }       
+                    
+                  $inpTrayImg = new \XoopsFormElementTray(_AM_QUIZMAKER_IMAGE_MAIN, "");
+                  $inpTrayImg->addElement($inpImage);
+                  
+                  
 
-                  $name = 'imgHeight';  
-                  $height = ( $this->getVar('quest_height')) ?  $this->getVar('quest_height') : 32;
-                  $inpHeight1 = new \XoopsFormNumber('',  "quest_height", 5, 3, $height);
+/*
+                  $style = $this->getVar($name);  
+                  //echo "<hr>{$style}<hr>"; 
+                  //$style = '';   
+                  $inpJson = new \XoopsFormJson('', $name, $style);                  
+                  $inpJson->setCaptions('Editer le style', 'Soumettre le style', 'Annuler');        
+                  $inpJson->setTextBoxVisible(true);        
+                  $inpJson->setPreviewVisible(true);        
+                  $inpJson->addNewOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>300, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addNewOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
+                  $inpJson->addNewOption('shadow2', '#000000', 'palette', ['_caption_' => 'Ombre']);
+                  $inpJson->addNewOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addNewOption('borderColor', '#000000', 'color', ['_caption_' => 'Bordure']);
+                  $inpJson->addNewOption('alignement', 'left', 'list', ['_caption_'=> 'Alignement', 'options'=>'left,center,right']);                 
+                  $inpJson->addNewOption('aaaa', 'left', 'radio', ['_caption_'=> 'aaaaa', 'options'=>'left,center,right']);                 
+                  $inpJson->addNewOption('bbbb', 'right', 'radio', ['_caption_'=> 'bbbb', 'options'=>'left,center,right']);                 
+                  $inpJson->addNewOption('cccc', 'top,right,bottom', 'checkbox', ['_caption_'=> 'case a cocher', 'options'=>'top,right,bottom,left']);                 
+                  //$inpJson->removeOption('borderColor');         
+                  if($inpJson->isNew){
+                        $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
+                        $inpJson->updateOptions('shadow', ['value'=>$this->getVar('quest_shadow')]);
+                  }       
+                    
+                  $inpTrayImg = new \XoopsFormElementTray(_AM_QUIZMAKER_IMAGE_MAIN, "");
+                  $inpTrayImg->addElement($inpImage);
+                  
+                  
+                  $inpPalette = new \XoopsFormPalette('test palette n°1', 'quest_palette1', 'lime');                 
+                  $inpTrayImg->addElement($inpPalette);
+                  $inpPalette = new \XoopsFormPalette('test palette n°2', 'quest_palette2', 'yellow', '16c');                 
+                  $inpTrayImg->addElement($inpPalette);
+                  $inpPalette = new \XoopsFormPalette('test palette n°3', 'quest_palette3', 'cyan');
+                  $inpPalette->setUserPalette("black,red,lime,blue,white", 5,32);                 
+                  $inpTrayImg->addElement($inpPalette);
+*/                  
+                  
+                  
+/*
+                  $name = 'quest_height';  
+                  $height = ( $this->getVar($name)) ?  $this->getVar($name) : 32;
+                  $inpHeight1 = new \XoopsFormNumber(_AM_QUIZMAKER_IMG_HEIGHT1 . " : ",  $name, 5, 3, $height);
                   $inpHeight1->setMinMax(32, 500, _AM_QUIZMAKER_UNIT_PIXELS);
                   //$form->addElement($inpHeight1);     
-
-                  $inpTrayImg = new \XoopsFormElementTray(_AM_QUIZMAKER_IMAGE_MAIN, "-> " . _AM_QUIZMAKER_IMG_HEIGHT1 . " : ");
-                  $inpTrayImg->addElement($inpImage);
+ 
+                  $name = 'quest_shadow';  
+                  $shadow = ( $this->getVar($name)) ?  $this->getVar($name) : '#000000';
+                  $inpShadow = new \XoopsFormPalette(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $shadow);                 
+                  //$inpShadow = new \XoopsFormColorPicker(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $shadow);
+                  
                   $inpTrayImg->addElement($inpHeight1);
+                  $inpTrayImg->addElement($inpShadow);
+*/
+
+
+                  $inpShadowDesc = new \XoopsFormLabel('', _AM_QUIZMAKER_SHADOW_COLOR_DESC);
+                  
+                  //$inpTrayImg->addElement($inpShadowDesc);
+
+$inpTrayImg->addElement($inpJson);
                   $form->addElement($inpTrayImg);     
 
               }
-            
+           
             //--------------------------------------------
             $background = $this->getVar('quest_background');
             $inpBakground = $clPlugin->getFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN, 'quest_background', $background, $folderJS);
@@ -576,6 +642,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 		$ret = $this->getValues($keys, $format, $maxDepth);
 		$ret['id']             = $this->getVar('quest_id');
 		$ret['parent_id']      = $this->getVar('quest_parent_id');
+		$ret['reference_id']   = $this->getVar('quest_reference_id');
 		$ret['quiz_id']        = $this->getVar('quest_quiz_id');
 		$ret['plugin']         = $pluginName; //$this->getVar('quest_plugin');
 		$ret['question']       = $this->getVar('quest_question');
@@ -597,9 +664,11 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
  		$ret['learn_more']     = $this->getVar('quest_learn_more', 'e');
  		$ret['see_also']       = $this->getVar('quest_see_also', 'e');
  		$ret['image']          = $this->getVar('quest_image', 'e');
+ 		$ret['height']         = $this->getVar('quest_height');
+ 		$ret['shadow']         = $this->getVar('quest_shadow');
+ 		$ret['image_style']    = $this->getVar('quest_image_style');
  		$ret['zoom']           = $this->getVar('quest_zoom');
  		$ret['background']     = $this->getVar('quest_background', 'e');
- 		$ret['height']         = $this->getVar('quest_height');
 		$ret['points']         = $this->getVar('quest_points');
 		$ret['numbering']      = $this->getVar('quest_numbering');
 		$ret['shuffleAnswers'] = $this->getVar('quest_shuffleAnswers');
@@ -675,14 +744,14 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
     }
 
 /* ******************************
- *  getPlugin : renvoie la class du type de question
- * @return : classe héritée du type de question
+ *  getPlugin : renvoie la class du plugin
+ * @return : classe héritée du plugin
  * *********************** */
     public function getPlugin(&$pluginName = null)
     {
     //echo "<hr>{$default}<hr>";
         global $quizUtility, $pluginsHandler;
-        // recupe de la classe du type de question
+        // recupe de la classe du plugin
         $pluginName = $this->getVar('quest_plugin');
         //if ($pluginName == '') $pluginName = $default;
         return $pluginsHandler->getPlugin($pluginName);
@@ -717,7 +786,7 @@ exit('move');
    }
  
  
-}//------------------- FIN DE LA CLASSE ---------------------------------
+}//------------------- FIN DE LA VARIANT ---------------------------------
 
 
 
