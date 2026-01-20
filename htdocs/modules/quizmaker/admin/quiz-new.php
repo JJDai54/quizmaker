@@ -26,16 +26,25 @@ use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 //use JANUS;
 
-        $clPerms->checkAndRedirect('create_quiz', $catId,'$catId', "quiz.php?op=list&cat_id={$catId}", QUIZMAKER_ADMIN_PERM);
-
+        $clPerms->checkAndRedirect('create_quiz', $catId,'catId', "quiz.php?op=list&cat_id={$catId}", QUIZMAKER_ADMIN_PERM);
+        
 		$templateMain = 'quizmaker_admin_quiz.tpl';
 		$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('quiz.php'));
 		$adminObject->addItemButton(_AM_QUIZMAKER_QUIZ_LIST, 'quiz.php', 'list');
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        
+        //pour recupe des valeur par defaut dans la categories
+        $catObject = $categoriesHandler->get($catId);
+        
 		// Form Create
 		$quizObj = $quizHandler->create();
         $quizObj->setVar('quiz_weight', $quizHandler->getMax("quiz_weight", $catId) + 10);
         $quizObj->setVar('quiz_cat_id', $catId);
+        
+        //recupe des valeur par defaut de la categorie
+        $quizObj->setVar('quiz_theme', $catObject->getVar('cat_theme'));
+        $quizObj->setVar('quiz_max_attempts', $catObject->getVar('cat_max_attempts'));
+        $quizObj->setVar('quiz_delai_cookie', $catObject->getVar('cat_delai_cookie'));
 
 		$form = $quizObj->getFormQuiz();
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());

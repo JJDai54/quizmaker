@@ -209,7 +209,7 @@ console.log("getScoreByProposition.obImg" + ans.ansId + "-img");
 /* **************************************************
 
 ***************************************************** */
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
     var currentQuestion = this.question;
     var img = '';
     var src = '';

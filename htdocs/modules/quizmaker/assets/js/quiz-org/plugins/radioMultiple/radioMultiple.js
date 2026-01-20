@@ -238,7 +238,7 @@ var nbExp2Found = 0 ;
 
 
 //---------------------------------------------------
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
     var currentQuestion = this.question;
    // var tReponses = [];
 var tRep = [];

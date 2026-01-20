@@ -34,6 +34,7 @@ $catId  = Request::getInt('cat_id', 0);
 $quizId  = Request::getInt('quiz_id', 0);
 $questId  = Request::getInt('quest_id', 0);
 $quizSubject = Request::getString('quiz_subject', '');
+$quizDifficulty = Request::getInt('quiz_difficulty', 0);
 
 if($quizId > 0 && $catId == 0){
     $quiz = $quizHandler->get($quizId);
@@ -103,8 +104,7 @@ switch($op) {
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
         // ----- Listes de selection pour filtrage -----  
-        $selectors = $questionsHandler->getSelector($catId, $quizSubject, $quizId);        
-
+        $selectors = FQUIZMAKER\getQuestionsSelector($catId, $quizSubject,$quizDifficulty,$quizId);
         
         $inpQuest = new \XoopsFormSelect(_AM_QUIZMAKER_QUESTION, 'quest_id', $questId);
         $inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));

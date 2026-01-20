@@ -171,7 +171,7 @@ computeScoresMinMaxByProposition(){
 /* **************************************************
 
 ***************************************************** */
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
     var  currentQuestion = this.question;
     var tReponses = [];
     
@@ -333,12 +333,24 @@ getDisposition(disposition, contenairId){
 function findObjects_isToucheOk(e, slideNumber)
 {
 console.log("=====>isToucheOk");
-
     //alert(`findObjects_isToucheOk : x = ${e.offsetX} - y = ${e.offsetY} - Slide n° ${slideNumber}`);
     var clQuestion = quizard[slideNumber];
     var urlSound = '';
     var attempts = clQuestion.colTouches.attempts;
     var PlaySound  = false;  
+    
+    //le nombre d'essai a été atteind, l'utilisateur doit passer au slide suivant
+    if(attempts.winning == clQuestion.colTouches.attempts.totalWinning){
+      alert(quiz_messages.goToNextSlideRequired2);
+      return true;
+    }else if( attempts.total >= attempts.max || attempts.winning == clQuestion.colTouches.attempts.totalWinning){
+      alert(quiz_messages.goToNextSlideRequired1);
+      return true;
+    }
+//     if( attempts.total > attempts.max){
+//     alert(quiz_messages.goToNextSlideRequired);
+//     return true;
+// }
     
     var clTouche = clQuestion.colTouches.findToucheInXY(e.currentTarget, e.offsetX, e.offsetY, true);
     if(clTouche){
@@ -370,23 +382,28 @@ console.log("=====>isToucheOk");
     //si le nombre d'essai est atteind et si nextSlide=auto on passe au prochan slide   
 //    alert(`delai = ${clQuestion.question.options.nextSlideDelai}`) ; 
     if( attempts.max < 0){return true;}
-    
+ 
+// return true;   
     if( attempts.winning == clQuestion.colTouches.attempts.totalWinning && clQuestion.question.options.nextSlideDelai*1 > 0){
     //if( attempts.winning == clQuestion.colTouches.nbTouches && clQuestion.question.options.nextSlideDelai*1 > 0){
-        zoom_moins(e, slideNumber);   
+        zoom_moins_event(e, slideNumber);   
         message = fo_sprint(clQuestion.question.options.nextSlideMessageWinner, attempts, clQuestion.colTouches.attempts.totalWinning);
         quiz_show_avertissement( message ,  clQuestion.question.options.nextSlideDelai*1, clQuestion.question.options.nextSlideBG);
-    
     }else if( attempts.total >= attempts.max && clQuestion.question.options.nextSlideDelai*1 > 0){
-        zoom_moins(e, slideNumber);  
+        zoom_moins_event(e, slideNumber);  
  
         message = fo_sprint(clQuestion.question.options.nextSlideMessageLooser, attempts, clQuestion.colTouches.nbTouches);
         quiz_show_avertissement(message ,  clQuestion.question.options.nextSlideDelai*1, clQuestion.question.options.nextSlideBG);
+        
+    }else if( attempts.total >= attempts.max){
+    //alert("dddddddd");
+        return true
     }else if( attempts.winning == clQuestion.colTouches.attempts.totalWinning){
         //document.getElementById(clQuestion.data.idBravo).innerHTML = `BRAVO ! : ${attempts.winning}/${clQuestion.colTouches.attempts.totalWinning}`; 
-        zoom_moins(e, slideNumber);   
+        zoom_moins_event(e, slideNumber, false);   
+        return false;
     }else if( attempts.total >= attempts.max){
-        zoom_moins(e, slideNumber);   
+        zoom_moins_event(e, slideNumber);   
     }
          
 }

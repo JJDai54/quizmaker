@@ -234,15 +234,36 @@ function formatArray1(tReponses, sep='===>', unite="points"){
 //-----------------------------------------------------------------------
 
 function formatArray2(tReponses, sep='===>', unite="points"){
+    var tplTable = "<table>{content}</table>";
+    var tplTr = `<tr><td>{proposition}</td><td>{sep}</td><td>{points} ${unite}</td></tr>`;
+    
+    var tHtml = [];
+    for (var k=0; k < tReponses.length; k++){
+        var exp = tplTr.replace("{proposition}",tReponses[k].inputs).replace("{sep}",sep).replace("{points}",tReponses[k].points);
+//alert(`formatArray2 : ${tReponses[k].inputs}`);
+        tHtml.push(exp);
+    }
+    
+    
+    return tplTable.replace("{content}", tHtml.join("\n"));
+/*
+    
+    tplReponseTable : "<table>{content}</table>",
+*/    
+    
+
+}
+
+function formatArray3(tReponses, sep='===>', unite="points"){
     var tplDblTable = "<table><tr>{content}</tr></table>";
     var tplDblTD = "<td><table class='showResult'>{content}</table></td>";
     var tplTD = `<tr><td>{word}</td><td>{sep}</td><td>{points} ${quiz_messages.points}</td></tr>`;
     
     var tHtml = [];
-    for (var j=0; j < tReponses.length; j++){
+    for (var k=0; k < tReponses.length; k++){
         var tTdHtml = [];
-        for (var k=0; k < tReponses[j].length; k++){
-            tTdHtml.push(tplTD.replace("{word}",tReponses[j][k].inputs).replace("{sep}",sep).replace("{points}",tReponses[j][k].points));
+        for (var j=0; j < tReponses[k].length; j++){
+            tTdHtml.push(tplTD.replace("{word}",tReponses[k][j].inputs).replace("{sep}",sep).replace("{points}",tReponses[k][j].points));
         }
         tHtml.push(tplDblTD.replace('{content}',tTdHtml.join("\n")));
     }

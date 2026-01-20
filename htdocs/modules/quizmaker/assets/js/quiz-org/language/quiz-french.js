@@ -12,7 +12,8 @@ emoji_text_00 : "Hélas vous n'avez pas fait les bons choix",
 emoji_text_01 : "Bravo vous avez bien répondu !",
 emoji_text_02 : "Pas mal mais il y a une erreur ou plusieurs erreurs",
 forChrono : " en {timer} secondes",
-formatDureeMS : "{minutes},{secondes} minutes",
+// formatDureeMS : "{minutes},{secondes} minutes",
+formatDureeMS : "{minutes} min et {secondes} sec",
 formatDureeS : "{secondes} secondes",
 forPoints0 : "Pour {pointsMax} points",
 forPoints1 : "Pour {pointsMin} à {pointsMax} points",
@@ -39,5 +40,7 @@ resultThisSlide : "Votre score pour ce slide est de {score} / {scoreMaxi} points
 libScore : "Score",
 showReponses : "Affichage pour le dev des réponses possibles (réponse ===> points)",
 twoPoints : "&nbsp;:&nbsp;",
+goToNextSlideRequired1 : "Vous avez atteint le nombre d'essais autorisés.\nVous devez passer au slide suivant pour continuer",
+goToNextSlideRequired2 : "Vous avez trouvé tous les objets\nVous pouvez passer passer au slide suivant pour continuer",
 version : "{name} Version {version} du {date_release} - contact : <a href='mailto:{email}?subject={name}'>{author}</a>"
 };

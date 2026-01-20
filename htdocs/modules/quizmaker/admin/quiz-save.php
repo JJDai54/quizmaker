@@ -95,11 +95,12 @@ use XoopsModules\Quizmaker\Utility;
 		$quizObj->setVar('quiz_actif',             Request::getInt('quiz_actif', 1));
 		$quizObj->setVar('quiz_showConsigne',      Request::getInt('quiz_showConsigne', 0)) ;
 		$quizObj->setVar('quiz_showTimer',         Request::getInt('quiz_showTimer', 0)) ;
+		$quizObj->setVar('quiz_timerSize',         Request::getInt('quiz_timerSize', 48)) ;
 		$quizObj->setVar('quiz_libBegin',          Request::getString('quiz_libBegin', _CO_QUIZMAKER_LIB_BEGIN_DEFAULT));
 		$quizObj->setVar('quiz_libEnd',            Request::getString('quiz_libEnd', _CO_QUIZMAKER_LIB_END_DEFAULT));
 
 		$quizObj->setVar('quiz_delai_cookie',      Request::getInt('quiz_delai_cookie', 0));
-		$quizObj->setVar('quiz_max_flying',        Request::getInt('quiz_max_flying', 0));
+		$quizObj->setVar('quiz_max_attempts',        Request::getInt('quiz_max_attempts', 0));
 // 		$quizObj->setVar('quiz_image',             Request::getInt('quiz_image', ''));
 // 		$quizObj->setVar('quiz_background',        Request::getInt('quiz_background', ''));
 
@@ -183,7 +184,7 @@ use XoopsModules\Quizmaker\Utility;
                  $questionsObj->setVar('quest_actif', 1);
                  $questionsObj->setVar('quest_parent_id', 0);
                  $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_PRESENTATION);
-                 $questionsObj->setVar('quest_identifiant', 'slide_' . rand(10000,100000));
+                 $questionsObj->setVar('quest_identifiant1', 'slide_' . rand(10000,100000));
     		     $questionsHandler->insert($questionsObj);      
     			 $questId = $questionsObj->getNewInsertedIdQuestions();
                  
@@ -207,7 +208,8 @@ use XoopsModules\Quizmaker\Utility;
                  $questionsObj->setVar('quest_actif', 1);
                  $questionsObj->setVar('quest_parent_id', 0);
                  $questionsObj->setVar('quest_question', _AM_QUIZMAKER_QUIZ_RESULTATS);
-                 $questionsObj->setVar('quest_identifiant', 'slide_' . rand(10000,100000));
+                 $questionsObj->setVar('quest_identifiant1', 'slide_' . rand(10000,100000));
+                 $questionsObj->setVar('quest_identifiant2', '');
     		     $questionsHandler->insert($questionsObj);      
     			 $questId = $questionsObj->getNewInsertedIdQuestions();
                  

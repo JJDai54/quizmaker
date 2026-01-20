@@ -25,7 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 require __DIR__ . '/header.php';
-$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_IMPORTG,'QUIZMAKER_PERMIT_IMPORTG', "index.php", QUIZMAKER_ADMIN_PERM);
+//$clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_IMPORTG,'QUIZMAKER_PERMIT_IMPORTG', "index.php", QUIZMAKER_ADMIN_PERM);
 //-----------------------------------------------------------
 //recherche des categories autorisées
 $clPerms->addPermissions($criteriaCatAllowed, 'import_quiz', 'cat_id');
@@ -56,6 +56,7 @@ $pg = array_merge($_GET, $_POST);
 $formName = "form_import";
 $typeImportName = 'type_import';
 $importMainFile = "import.php";
+//$importMainFile = "import_debug.php";
 $eventOnChange = "onchange='document.{$formName}.op.value=\"getForm\";document.{$formName}.submit()'";
 $styleBreakLine = "<div style='background:#FFCCCC;'><center><b>%s</b></center></div>";
 //--------------------------------------------------
@@ -65,8 +66,6 @@ $op = Request::getCmd('op', 'getform');
 $quizId = Request::getInt('quiz_id');
 $typeImport = Request::getString($typeImportName,'quiz');
 $pluginName = Request::getString('plugin','');
-
-
 //echoArray($catArr,array_key_first($catArr));
 //echo "<hr>fromCatId = {$fromCatId}<hr>";
 $fromQuizId = Request::getInt('from_quiz_id');
@@ -86,8 +85,10 @@ $upload_size = $quizmakerHelper->getConfig('maxsize_import'); //$upload_size = 1
 if (!is_dir(QUIZMAKER_PATH_UPLOAD_IMPORT)) mkdir(QUIZMAKER_PATH_UPLOAD_IMPORT);
 if (!is_dir($pathImport)) mkdir($pathImport);
 
-//echoArray('gp');
-
+//echoArray('gpf');
+$jjd = Request::getString('jjd','');
+//if($jjd == 'stop') exit ($jjd);
+//exit;
 ////////////////////////////////////////////////////////////////////////
 function loadFileTo($fldImportDest, &$pathImport, &$savedFilename, $clearFldBefore=true, $deleteArchivesImported=true){
 global $upload_size, $quizUtility;
@@ -116,10 +117,11 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
           $fileName = $fldImportDest; 
               $uploader->setPrefix($fileName . "-");
               $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
+// exit ("===> bbbbbbbbbbbbbbbbb");
               if (!$uploader->upload()) {
                   $uploaderErrors = $uploader->getErrors();
                   echo "<hr>02-Errors upload : {$uploaderErrors}<hr>";
-                  exit;
+                  exit("error");
               } else {
                  $savedFilename = $uploader->getSavedFileName();
                   
@@ -133,10 +135,11 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
                   if ($deleteArchivesImported) unlink($fullName);
               }
             }else{
+ //exit ("zzzzzzzzzz : " . $_POST['xoops_upload_file'][0]);
                   $bolOk = false;
             } 
  
-// exit ("===> savedFilename : {$savedFilename}<br>pathImport : {$pathImport}");
+ //exit ("===> savedFilename : {$savedFilename}<br>pathImport : {$pathImport}");
  // exit("{$msg}<br>{$url}");
         return $bolOk;
 }
@@ -278,7 +281,6 @@ list_on_errors:
 
         // ----- selection du type d'importation -----  
 
-//echoArray('gp',"ici->$typeImport");exit;
         switch($typeImport){
             case 'error':
                 $errors = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko"); 
@@ -301,6 +303,7 @@ list_on_errors:
                 break;
             case 'quiz':
             default:
+//echoArray('gp',"ici->$typeImport");exit("zzzzzzzz");
                 include_once "import-quiz.php";
                 break;
         }

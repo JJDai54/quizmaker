@@ -40,7 +40,7 @@ use XoopsModules\Quizmaker\Constants;
         $quiz = $quizHandler->get($quizId);
         $quizValues = $quiz->getValuesQuiz();
         
-        $selectors = $questionsHandler->getSelector($catId, $quizSubject,$quizId);        
+        $selectors = FQUIZMAKER\getQuestionsSelector($catId, $quizSubject,$quizDifficulty,$quizId);        
   	    $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
        // ----- /Listes de selection pour filtrage -----     
           
@@ -69,13 +69,24 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
           $GLOBALS['xoopsTpl']->assign('imgModelesHtml', "");
         }
 
-        
         //---------------------------------------------        
         //Ajout d'une question selon le type de selectPlugin
         $btnNewQuestion = $quizUtility->getNewBtn('<=== ' . _ADD . '===>', 'new', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_SELECT_TYPE_BEFORE_ADD);
 		$GLOBALS['xoopsTpl']->assign('btnNewQuestion', $btnNewQuestion);
         
-
+        $inpActions = new XoopsFormSelect('Actions', 'actions');
+        $inpActions->addOption('no-action', _AM_QUIZMAKER_ACTIONS);
+        $inpActions->addOption('edit_quiz', _AM_QUIZMAKER_EDIT_QUIZ);
+        $inpActions->addOption('goto_category', _AM_QUIZMAKER_CATEGORY);
+        $inpActions->addOption('init_weight', _AM_QUIZMAKER_COMPUTE_WEIGHT);
+        $inpActions->addOption('purger_images', _AM_QUIZMAKER_PURGER_IMAGES);
+        $inpActions->addOption('disable_pageanswer', _AM_QUIZMAKER_DISABLE_PAGE_ANSWER);
+        $inpActions->addOption('enable_pageanswer', _AM_QUIZMAKER_ENABLE_PAGE_ANSWER);
+        $inpActions->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpActions->setExtra('style="display:inline;width:auto;' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST,'',false) . '"');
+        //exit('style="display:inline;width:auto;' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST,'',false) . '"');
+ 		$GLOBALS['xoopsTpl']->assign('actions', $inpActions->render());
+/*
         //---------------------------------------------       
         //edition du quiz 
         $btnEditQuiz = $quizUtility->getNewBtn(_AM_QUIZMAKER_EDIT_QUIZ, 'edit_quiz', QUIZMAKER_URL_ICONS."/16/edit.png",  _EDIT);
@@ -89,6 +100,13 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //update weight 
         $btnInitWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 		$GLOBALS['xoopsTpl']->assign('btnInitWeight', $btnInitWeight);
+        
+        //---------------------------------------------       
+        //purger les images
+        $btnPurgerImg = $quizUtility->getNewBtn(_AM_QUIZMAKER_PURGER_IMAGES, 'purger_images', QUIZMAKER_URL_ICONS."/16/delete.png",  _AM_QUIZMAKER_QUIZ_PURGER_IMAGES);
+		$GLOBALS['xoopsTpl']->assign('btnPurgerImg', $btnPurgerImg);
+        
+*/        
         //---------------------------------------------      
         //export jSon : génération du quiz en Html
         $btnBuildHtml = $quizUtility->getNewBtn(_AM_QUIZMAKER_BUILD_QUIZ, 'build_quiz', QUIZMAKER_URL_ICONS."/16/film.png",  _AM_QUIZMAKER_BUILD_QUIZ);
@@ -113,15 +131,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
   		$GLOBALS['xoopsTpl']->assign('imgTestHtml1', $imgTestHtml1->render());
   		$GLOBALS['xoopsTpl']->assign('imgTestHtml2', $imgTestHtml2->render());
         
-        
-        
-        
-        
-        
-        
-        $btnPurgerImg = $quizUtility->getNewBtn(_AM_QUIZMAKER_PURGER_IMAGES, 'purger_images', QUIZMAKER_URL_ICONS."/16/delete.png",  _AM_QUIZMAKER_QUIZ_PURGER_IMAGES);
-		$GLOBALS['xoopsTpl']->assign('btnPurgerImg', $btnPurgerImg);
-        
+     
         $btnExportQuiz = $quizUtility->getNewBtn(_AM_QUIZMAKER_EXPORT_YML, 'export_quiz', QUIZMAKER_URL_ICONS."/16/download.png",  _AM_QUIZMAKER_EXPORT_QUIZ_YML);
 		$GLOBALS['xoopsTpl']->assign('btnExportQuiz', $btnExportQuiz);
 
@@ -152,6 +162,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$GLOBALS['xoopsTpl']->assign('questions_count', $questionsCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
+		$GLOBALS['xoopsTpl']->assign('update_quiz_id', $quizId);
+		$GLOBALS['xoopsTpl']->assign('update_cat_id', $catId);
         
 		$GLOBALS['xoopsTpl']->assign('isAdmin', $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid()));
    

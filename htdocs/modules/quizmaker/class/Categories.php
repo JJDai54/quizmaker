@@ -46,6 +46,8 @@ class Categories extends \XoopsObject
 		$this->initVar('cat_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_theme', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_weight', XOBJ_DTYPE_INT);
+		$this->initVar('cat_max_attempts', XOBJ_DTYPE_INT);
+		$this->initVar('cat_delai_cookie', XOBJ_DTYPE_INT);
 		$this->initVar('cat_creation', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 		$this->initVar('cat_update', XOBJ_DTYPE_OTHER); //XOBJ_DTYPE_DATETIME
 	}
@@ -141,6 +143,22 @@ class Categories extends \XoopsObject
         //$cat_weight = $this->isNew() ? '0' : $this->getVar('cat_weight');
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'cat_weight', 20, 50,  $this->getVar('cat_weight')) );
 		
+		// Form Text cat_max_attempts
+        $name = 'cat_max_attempts';
+        $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
+        $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_MAX_ATTEMPTS_UNIT);
+        $inpMaxAttempts->setDescription(_AM_QUIZMAKER_MAX_ATTEMPTS_DESC);
+        $form->addElement($inpMaxAttempts);     
+        
+        
+        // quiz_delai_cookie
+        $name = 'cat_delai_cookie';
+		$inpDuration = new \XoopsFormDuration( _AM_QUIZMAKER_COOKIE_DURATION, $name, $this->getVar($name));
+        $inpDuration->setDescription(_AM_QUIZMAKER_COOKIE_DURATION_DESC);
+        $inpDuration->setCompteurs("dhms");
+		$form->addElement($inpDuration);
+        
+        
 /*
         // Form Text Select questTimer
         $inpTimer = new \XoopsFormText( _AM_QUIZMAKER_TIMER, 'quest_timer', 20, 50,  $this->getVar('quest_timer'));
@@ -232,6 +250,8 @@ class Categories extends \XoopsObject
 		$ret['theme']             = $this->getVar('cat_theme');
 		$ret['image']             = $this->getVar('cat_image');
 		$ret['weight']            = $this->getVar('cat_weight');
+		$ret['max_attempts']      = $this->getVar('cat_max_attempts');
+		$ret['delai_cookie']      = $this->getVar('cat_delai_cookie');
 		$ret['creation']          = \JANUS\getDateSql2Str($this->getVar('cat_creation'));
 		$ret['update']            = \JANUS\getDateSql2Str($this->getVar('cat_update'));
         

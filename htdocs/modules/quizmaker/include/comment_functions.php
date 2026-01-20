@@ -67,3 +67,4 @@ function quizmakerCommentsApprove(&$comment)
 	return true;
 
 }
+

@@ -38,7 +38,7 @@ if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 $catId      = Request::getInt('cat_id', array_key_first($catArr));
 $playerId   = Request::getInt('player_id', 2);
 $quizSubject    = Request::getString('quiz_subject', '');
-$difficulty = Request::getInt('difficulty', 0);
+$quizDifficulty = Request::getInt('quiz_difficulty', 0);
 
 //echoArray($catArr);
 // $pg = array_merge($_GET, $_POST);
@@ -67,7 +67,7 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
   
       // ----- Listes de selection pour filtrage -----  
-         $selectors = $quizHandler->getSelector($catId, $quizSubject);        
+         $selectors = FQUIZMAKER\getQuizSelector($catId, $quizSubject, $quizDifficulty);        
 
 
           
@@ -86,19 +86,8 @@ $utility = new \XoopsModules\Quizmaker\Utility();
         }else{
             $inpPlayer = new \XoopsFormLabel(_CO_QUIZMAKER_PLAYER_STATUS, _CO_QUIZMAKER_PLAYER_ALL);
         }
-        $selectors['select']['inpPlayer'] = $inpPlayer->render();
-        
-
-		$quizDifficulty = new \XoopsFormRadio( _CO_QUIZMAKER_DIFFICULT, 'difficulty', $difficulty);
-		$quizDifficulty->addOption(0, _CO_QUIZMAKER_DIFFICULT_ALL);
-		$quizDifficulty->addOption(1, _CO_QUIZMAKER_DIFFICULT_1);
-		$quizDifficulty->addOption(2, _CO_QUIZMAKER_DIFFICULT_2);
-		$quizDifficulty->addOption(3, _CO_QUIZMAKER_DIFFICULT_3);
-		$quizDifficulty->addOption(4, _CO_QUIZMAKER_DIFFICULT_4);
-        $quizDifficulty->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
-        $selectors['select']['difficulty'] = $quizDifficulty->render();
-        
-        
+        $selectors['inpPlayer']['select'] = $inpPlayer->render();
+        $selectors['inpPlayer']['value'] = $playerId;
         
         //--------------------------------------------------------
         $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
@@ -138,8 +127,8 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_QUIZ . ' : <b>' . $catArr[$catId] .
             //if (!in_array($j, $quizPerm)) continue;
             $tQuiz = $allQuiz[$j]->getValuesQuiz();
 
-            if($difficulty > 0 && $tQuiz['difficulty'] != $difficulty) continue;
-            if($quizSubject!='' && $tQuiz['subject'] != $quizSubject && $quizSubject !=QUIZMAKER_ALL_ITEMS_KEY && count($selectors['arr']['subject'])>1) continue;
+            if($quizDifficulty > 0 && $tQuiz['difficulty'] != $quizDifficulty) continue;
+            if($quizSubject!='' && $tQuiz['subject'] != $quizSubject && $quizSubject !=QUIZMAKER_ALL_ITEMS_KEY && count($selectors['subject']['arr'])>1) continue;
             //si $inpPlayer = 1 on ne prenda que si la clé de $quizPlayer 'existe'
             //si $inpPlayer = 2 on ne prenda que si la clé de $quizPlayer ,'existe pas'
             //si $inpPlayer = 0 on prenda tout

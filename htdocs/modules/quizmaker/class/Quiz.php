@@ -69,9 +69,10 @@ class Quiz extends \XoopsObject
 		$this->initVar('quiz_optionsDev', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_actif', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_delai_cookie', XOBJ_DTYPE_INT);
-		$this->initVar('quiz_max_flying', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_max_attempts', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_showConsigne', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_showTimer', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_timerSize', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_dateBeginOk', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_dateEndOk', XOBJ_DTYPE_INT);
         
@@ -231,6 +232,13 @@ class Quiz extends \XoopsObject
             
 
         //-------------------------------------------------------
+        // quiz_max_attempts : Maximum de tentives pour une meme cession
+        $name = 'quiz_max_attempts';
+        $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
+        $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_MAX_ATTEMPTS_UNIT);
+        $inpMaxAttempts->setDescription(_AM_QUIZMAKER_MAX_ATTEMPTS_DESC);
+        $form->addElement($inpMaxAttempts);    
+         
         // quiz_delai_cookie
         $name = 'quiz_delai_cookie';
 		$inpDuration = new \XoopsFormDuration( _AM_QUIZMAKER_COOKIE_DURATION, $name, $this->getVar($name));
@@ -238,13 +246,6 @@ class Quiz extends \XoopsObject
         $inpDuration->setCompteurs("dhms");
 		$form->addElement($inpDuration);
         
-
-        // quiz_max_flying : Maximum de tentives pour une meme cession
-        $name = 'quiz_max_flying';
-        $inpMaxFlying = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_FLYING,  $name, 3, 1, $this->getVar($name));
-        $inpMaxFlying->setMinMax(0, 10);
-        $inpMaxFlying->setDescription(_AM_QUIZMAKER_MAX_FLYING_DESC);
-        $form->addElement($inpMaxFlying);     
         //-------------------------------------------------------
 
 		// Form Check Box quizDateBegin
@@ -349,6 +350,27 @@ class Quiz extends \XoopsObject
         $quizShowTimer->addOption(3, _AM_QUIZMAKER_POSITION_BR);
         $quizShowTimer->addOption(4, _AM_QUIZMAKER_POSITION_BL);
 		$form->addElement($quizShowTimer);
+        
+        
+		// Form Check Box quiz_timerSize
+        $name = 'quiz_timerSize';
+        $inpTimerSize = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER_SIZE,  $name, 3, 1, $this->getVar($name));
+        $inpTimerSize->setMinMax(48, 200, _AM_QUIZMAKER_UNIT_PIXELS);
+        $inpTimerSize->setDescription(_AM_QUIZMAKER_TIMER_SIZE_DESC);
+        $form->addElement($inpTimerSize);    
+
+//         $inpTimerJson = new \XoopsFormJson(_AM_QUIZMAKER_TIMER_SIZE, $name, $style);                  
+//         //$inpTimerJson->setTextBoxVisible(true);        
+//         //$inpTimerJson->setPreviewVisible(true);        
+//         $inpTimerJson->addNewOption('height', 48, 'number', ['_caption_' => 'Hauteur', 'min'=>48,'max'=>250, 'size'=>48, 'unit'=>'px']);
+//         $inpTimerJson->addNewOption('font_size', 14, 'number', ['_caption_' => 'Font_size', 'min'=>12,'max'=>250,'size' => 48, 'unit' => 'px']);
+// 
+// //         if($inpTimerJson->isNew){
+// //               $inpTimerJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
+// //               $inpTimerJson->updateOptions('font_size', ['value'=>$this->getVar('quest_fontSize')]);
+// //         }       
+//         $form->addElement($inpTimerJson);    
+
 /*
         // Form Editor DhtmlTextArea quizLegend
         $editLegend = \JANUS\getformTextarea(_AM_QUIZMAKER_LEGEND, 'quiz_legend', $this->getVar('quiz_legend', 'e'), _AM_QUIZMAKER_LEGEND_DESC);
@@ -446,9 +468,10 @@ class Quiz extends \XoopsObject
 		$ret['optionsDev']        = $this->getVar('quiz_optionsDev');
 		$ret['actif']             = $this->getVar('quiz_actif');
 		$ret['delai_cookie']      = $this->getVar('quiz_delai_cookie');
-		$ret['max_flying']        = $this->getVar('quiz_max_flying');
+		$ret['max_attempts']      = $this->getVar('quiz_max_attempts');
 		$ret['showConsigne']      = $this->getVar('quiz_showConsigne');
 		$ret['showTimer']         = $this->getVar('quiz_showTimer');
+		$ret['timerSize']         = $this->getVar('quiz_timerSize');
 
         //verifie que le quiz a été généré
         $quiz_html = QUIZMAKER_PATH_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.html"; 

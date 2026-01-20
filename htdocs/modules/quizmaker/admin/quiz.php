@@ -36,6 +36,7 @@ $op = Request::getCmd('op', 'list');
 // Request quiz_id
 $quizId = Request::getInt('quiz_id');
 $quizSubject = Request::getString('quiz_subject', '');
+$quizDifficulty = Request::getInt('quiz_difficulty', 0);
 $sender = Request::getString('');
 //-----------------------------------------------------------
 //recherche des categories autorisées
@@ -56,8 +57,8 @@ if($quizId > 0 && $sender != 'cat_id'){
   if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
 }
 //-----------------------------------------------------------
-//echoArray("gp");
-
+// echoArray("gp");
+// echo "sujet = {$quizSubject}<hr>";
 $utility = new \XoopsModules\Quizmaker\Utility();  
 //   $gp = array_merge($_GET, $_POST);
 //   echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
@@ -128,7 +129,9 @@ switch($op) {
         $field = Request::getString('field');
         $modulo = Request::getInt('modulo', 2);
         $quizHandler->changeEtat($quizId, $field, $modulo);
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Etat de {$field} Changé");
+        $url = "quiz.php?op=list&cat_id={$catId}&quiz_subject={$quizSubject}&quiz_difficulty={$quizDifficulty}";
+        redirect_header($url, 5, "Etat de {$field} Changé");
+        
 	break;
 
 	case 'set_bit':

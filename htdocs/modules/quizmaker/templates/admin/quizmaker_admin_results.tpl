@@ -31,6 +31,7 @@
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_QUIZ_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_NAME}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER_IP}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_NOTE}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_RESULTS_SCORE_MINMAX}></th>
@@ -42,27 +43,30 @@
 		</thead>
 		<{if $results_count}>
 		<tbody>
-			<{foreach item=Results from=$results_list}>
+			<{foreach item=Result from=$results_list}>
 			<tr class='<{cycle values='odd, even'}>'>
-				<td class='center'><{$Results.id}></td>
-				<td class='center'><{$Results.quiz_id}></td>
+				<td class='center'><{$Result.id}></td>
+				<td class='center'><{$Result.quiz_id}></td>
 				<td class='left'>
-                    /* <a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"  > */
-                        <{$Results.result_uname}> (#<{$Results.uid}>)
-                    /* </a> */
+                     <{*<a href="results.php?op=edit&amp;result_id=<{$Result.id}>" title="<{$smarty.const._EDIT}>"  > *}>
+                        <{$Result.result_uname}> (#<{$Result.uid}>)
+                     <{*</a> *}>
 
                 </td>
-				<td class='center'><{$Results.score_achieved}> / <{$Results.score_max}></td>
-				<td class='center'><{$Results.note}> / 100</td>
-				<td class='center'><{$Results.score_min}> / <{$Results.score_max}></td>
-				<td class='center'><{$Results.answers_achieved}> / <{$Results.answers_total}></td>
-				<td class='center'><{$Results.duration}></td>
-				<td class='center'><{$Results.creation}></td>
+				<td class='left'>
+                      <{$Result.ip}>
+                </td>
+				<td class='center'><{$Result.score_achieved}> / <{$Result.score_max}></td>
+				<td class='center'><{$Result.note}> / 100</td>
+				<td class='center'><{$Result.score_min}> / <{$Result.score_max}></td>
+				<td class='center'><{$Result.answers_achieved}> / <{$Result.answers_total}></td>
+				<td class='center'><{$Result.duration}></td>
+				<td class='center'><{$Result.creation}></td>
 				<td class="center  width5">
                     <{*
                     *}>
-					<a href="results.php?op=edit&amp;result_id=<{$Results.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16}>/edit.png" alt="results" /></a>
-					<a href="results.php?op=delete&amp;quiz_id=<{$Results.quiz_id}>&amp;result_id=<{$Results.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16}>/delete.png" alt="results" /></a>
+					<a href="results.php?op=edit&amp;result_id=<{$Result.id}>" title="<{$smarty.const._EDIT}>"><img src="<{xoModuleIcons16}>/edit.png" alt="results" /></a>
+					<a href="results.php?op=delete&amp;quiz_id=<{$Result.quiz_id}>&amp;result_id=<{$Result.id}>" title="<{$smarty.const._DELETE}>"><img src="<{xoModuleIcons16}>/delete.png" alt="results" /></a>
 				</td>
 			</tr>
 			<{/foreach}>

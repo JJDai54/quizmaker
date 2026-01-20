@@ -499,6 +499,7 @@ global $quizmakerHelper, $quizUtility;
 //echoArray(func_get_args());
     //if (!is_array($formName)) return false;
 //echoArray($_FILES,'save_img',true);
+//echoArray("GPF");
     if(!$_POST['xoops_upload_file']) return false;    
     $nameOrg = '';
     $keyFile = array_search($formName, $_POST['xoops_upload_file']);    

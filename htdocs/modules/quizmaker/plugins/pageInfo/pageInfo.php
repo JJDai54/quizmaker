@@ -27,6 +27,7 @@ include_once QUIZMAKER_PATH_MODULE . "/class/Plugins.php";
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
+
 /**
  * Class Object Answers
  */

@@ -24,7 +24,8 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 
-//   echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";exit;
+//  echo "<hr>POST<pre>" . print_r($_POST, true) . "</pre><hr>";exit;
+//echoArray("GPF","debut du save",true);
 //
         $quizId = Request::getInt('quest_quiz_id', 0);
 		$quest_parent_id = Request::getInt('quest_parent_id', 0);
@@ -54,7 +55,8 @@ use XoopsModules\Quizmaker\Constants;
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 		$questionsObj->setVar('quest_reference_id', Request::getInt('quest_reference_id', 0));
 		$questionsObj->setVar('quest_question', FQUIZMAKER\sanityse_inpValue(Request::getString('quest_question', '')));
-		$questionsObj->setVar('quest_identifiant', Request::getString('quest_identifiant', ''));
+		$questionsObj->setVar('quest_identifiant1', Request::getString('quest_identifiant1', FQUIZMAKER\getNewIdentifiant()));
+		$questionsObj->setVar('quest_identifiant2', Request::getString('quest_identifiant2', ''));
         
         $options = Request::getArray(QUIZMAKER_PREFIX_OPTIONS_NAME, null);
 		//$questionsObj->setVar('quest_options', implode('|', $options));
@@ -166,7 +168,7 @@ echoArray($_POST,'_POST',true);
         
 		// Insert Data
 		if ($questionsHandler->insert($questionsObj)) {
-        //exit('insert');
+
             $questId = $questionsObj->getVar('quest_id');
 
 		    // *************** Insert propositions / answers ********************* 

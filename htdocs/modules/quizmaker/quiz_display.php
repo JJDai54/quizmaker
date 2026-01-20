@@ -51,7 +51,7 @@ if (0 == $quizId) {
 $quizObj = $quizHandler->get($quizId);
         
 // geestion des cookies pour verifier si k'utilisateur a dé&hà tenter ce quiz sans le valider dans le temps imparti par le cookie
-$maxTentatives = $quizObj->getVar('quiz_max_flying');
+$maxTentatives = $quizObj->getVar('quiz_max_attempts');
 $delai = $quizObj->getVar('quiz_delai_cookie'); //delai du cookie en secondes
 $catId = $quizObj->getVar('quiz_cat_id');
 $catObj = $categoriesHandler->get($catId);
@@ -64,7 +64,7 @@ $catObj = $categoriesHandler->get($catId);
 //     if($tentatives > $maxTentatives) {
 //         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
 //         //setcookie($coookieName, "", time() - 3600);
-//         redirect_header('categories.php?cat_id=' . $catId, 8, _MA_QUIZMAKER_MAX_FLYING_EXCEEDS);
+//         redirect_header('categories.php?cat_id=' . $catId, 8, _MA_QUIZMAKER_MAX_ATTEMPTS_EXCEEDS);
 //         exit;
 //     }
 //     setcookie($coookieName, $tentatives+1, time()+$delai);  /* expire dans 1 heure */
@@ -81,7 +81,7 @@ if ($maxTentatives > 0){
         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
         //setcookie($coookieName, "", time() - 3600);
         $strDelai = formatDelai($cookieArr[1]);
-        $msg = sprintf(_MA_QUIZMAKER_MAX_FLYING_EXCEEDS, $strDelai);
+        $msg = sprintf(_MA_QUIZMAKER_MAX_ATTEMPTS_EXCEEDS, $strDelai);
         redirect_header("categories.php?cat_id={$catId}&player_id={$playerId}", 8, $msg);
         exit;
     }

@@ -1,9 +1,62 @@
-Meilleurs vœux à tous les Xoopiens, et que 2026 ne nous apporte que de bonnes choses !
+UPDATE `x251_quizmaker_questions` 
+SET quest_identifiant1= concat('slide_', FLOOR(RAND()*(19999-10000+1)+10000))
+WHERE quest_quiz_id = 182
 
-Je voulais d'ailleurs vous proposer un nouvea module pour Noêl, mais j'ai encore beaucoup à faire dessus dont l'aide car il est assez complexe, et la traduxtion en anglais.
-En attendant il est en production sur une des sites dont je m'occupe, vous pouvez d'ors et déjà faire mumuse avec.
-Il s'agit d'un module de quiz, mais pas que. 
-JJDai
+UPDATE x251_quizmaker_questions ta,  x251_quizmaker_questions tb 
+SET ta.quest_plugin = 'pageAnswer', 
+    ta.quest_identifiant2 = tb.quest_identifiant1 
+WHERE tb.quest_id = ta.quest_id-1
+AND ta.quest_plugin='pageInfo' 
+AND ta.quest_quiz_id=184 
+AND tb.quest_quiz_id=184
+AND ta.quest_question LIKE "Réponse%";
+
+
+
+
+
+UPDATE `x251_quizmaker_questions` SET `quest_plugin`='pageAnswer', quest_identifiant1='' WHERE `quest_plugin`='pageInfo' AND quest_quiz_id=000;
+
+UPDATE `x2511_quizmaker_questions` 
+SET quest_identifiant1= concat('slide_', FLOOR(RAND()*(19999-10000+1)+10000))
+WHERE quest_quiz_id = 183 AND `quest_plugin` = 'pageAnswer';
+
+
+
+
+
+ALTER TABLE `x2511_quizmaker_questions` CHANGE `quest_identifiant` `quest_identifiant1` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL; 
+ALTER TABLE `x2511_quizmaker_questions` ADD `quest_identifiant2` VARCHAR(50) NOT NULL AFTER `quest_identifiant1`; 
+
+UPDATE `x2511_quizmaker_questions` 
+SET quest_isQuestion = 0
+WHERE quest_plugin LIKE "%page%";
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+select ta.quest_quiz_id, ta.quest_id, ta.quest_identifiant1, ta.quest_identifiant2,
+       tq.quest_quiz_id, tq.quest_id, tq.quest_identifiant1, tq.quest_identifiant2
+from x2511_quizmaker_questions ta,  x2511_quizmaker_questions tq 
+WHERE ta.quest_plugin='pageAnswer' AND ta.quest_quiz_id=69 AND  tq.quest_quiz_id=69 ;
+
+SELECT FLOOR(RAND()*(19999-10000+1)+10000);
+
+SELECT `quest_id`, `quest_question`, quest_plugin, `quest_isQuestion` 
+FROM `x2511_quizmaker_questions` 
+WHERE quest_plugin LIKE "%page%"
+ORDER BY `x2511_quizmaker_questions`.`quest_plugin` ASC;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_timerStyle` VARCHAR(250) NOT NULL AFTER `quiz_showTimer`; 
+
+ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_timerSize` TINYINT NOT NULL DEFAULT '48' AFTER `quiz_showTimer`; 
+
+
+ALTER TABLE `x251_quizmaker_categories` ADD `cat_max_attempts` INT NOT NULL DEFAULT '1' AFTER `cat_weight`; 
+ALTER TABLE `x251_quizmaker_categories` ADD `cat_delai_cookie` INT NOT NULL DEFAULT '3600' AFTER `cat_max_attempts`; 
+ALTER TABLE `x251_quizmaker_quiz` CHANGE `quiz_max_flying` `quiz_max_attempts` INT NOT NULL DEFAULT '1'; 
+
+
 
 SELECT * FROM `x2511_quizmaker_questions` WHERE `quest_options` LIKE "%listbox1%";
 

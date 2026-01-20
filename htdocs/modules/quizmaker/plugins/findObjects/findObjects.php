@@ -214,6 +214,7 @@ var $maxGroups = 4;
         
         //----------------------------------------------------------------
         $this->initFormForQuestion();
+           
         $this->trayGlobal->addElement($trayAllAns);
         //$this->trayGlobal->insertBreak( 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
 		return $this->trayGlobal;
@@ -269,8 +270,10 @@ public function getFormImg(&$trayAllAns, $group, $answers,$titleGroup, $firstIte
             $tbl->addElement($inpImage2Name, $col, $k);
              
             //$tbl->addElement($inpCaption, $col, $k);
-
-            $tbl->addElement($this->getFormInpDivImg($answers, $options), ++$col, $k);
+            $inpImgSize = new \XoopsFormLabel('',"<span style='color:red;'>" . sprintf(_AM_QUIZMAKER_IMG_SIZE_MIN,600) . '</span>');
+            $inpImgSize->setExtra("style='color:red;'");
+            $tbl->addElement($inpImgSize , ++$col, $k);
+            $tbl->addElement($this->getFormInpDivImg($answers, $options), $col, $k);
            
         
         

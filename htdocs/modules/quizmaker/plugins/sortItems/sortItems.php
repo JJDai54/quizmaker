@@ -310,7 +310,7 @@ var $noClass = "00-none";
             include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
             //-------------------------------------------------
             $name = $this->getName($k, 'proposition');
-            $inpProposition = new \XoopsFormText("", $name, $this->lgMot2, $this->lgMot2, $proposition);
+            $inpProposition = new \XoopsFormText("", $name, $this->lgMot2, $this->lgMot3, $proposition);
             $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$i}", $path);
             $inpImage2 = $this->getXoopsFormImage($image2, $this->getName()."_image2_{$i}", $path);
                         
@@ -340,8 +340,8 @@ var $noClass = "00-none";
 *
 * ************************************************** */
  	public function saveAnswers($answers, $questId, $quizId)
- 	{
-    //echoArray($answers,'saveAnswers',true);
+ 	{           
+//    echoArray($answers,'saveAnswers',false);
         global $utility, $answersHandler, $pluginsHandler, $quizHandler;
 //         echoArray("PGF");
 //         $this->echoAns ($answers, $questId, $bExit = true);    
@@ -352,7 +352,11 @@ var $noClass = "00-none";
         foreach ($answers as $ansKey=>$ans){
             //chargement des operations communes à tous les plugins
             include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
-            if (is_null($ansObj)) continue;
+            if (is_null($ansObj)) {
+              exit ("<hr>ansObj n'existe pas<hr>");
+              continue;
+            }
+
             //---------------------------------------------------           
             
 
@@ -383,12 +387,14 @@ var $noClass = "00-none";
                 $ansObj->setVar('answer_image2', $newImg);        
             }
 
-            if (! $ansObj->getVar('answer_image1')) continue;
+            if (!$ans['proposition'] && !$ansObj->getVar('answer_image1')) continue;
         	$ansObj->setVar('answer_proposition', $ans['proposition']);
         	$ansObj->setVar('answer_weight', $ans['weight']);
             
         	$ret = $answersHandler->insert($ansObj);
+
         }
+        //exit;
     }
 /* ********************************************
 *

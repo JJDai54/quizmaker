@@ -187,7 +187,7 @@
 }
 
 .ulDaDSortList {
- width:60%;
+ width:90%;
   
  text-align:center;
  font-size:1.2em;
@@ -215,7 +215,7 @@
   cursor: grab;
   -moz-border-radius:8px;
   border-radius:8px;
-  width:90%;
+  width:95%;
 }
 
 /* (B) DRAG-AND-DROP HINT 

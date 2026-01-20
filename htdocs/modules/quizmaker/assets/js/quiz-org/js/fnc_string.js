@@ -129,7 +129,7 @@ var reponse = '';
 * remplace tous les token par leur valeur
 * utilisé pour l'affichage des score notamment dans "pageEnd" et "pageGroup"
 * *********************************************** */
-function replaceBalisesByValues(exp, questId = 0)
+function replaceBalisesByValues(exp, questId = 0, replaceDblSlash = true)
 {
     var newExp = exp;
     
@@ -156,8 +156,11 @@ function replaceBalisesByValues(exp, questId = 0)
     if (newExp.search('{groups}') >= 0)       {newExp = newExp.replaceAll("{groups}", get_sommaire(1,0));}
     if (newExp.search('{allquestions}') >= 0) {newExp = newExp.replaceAll("{allquestions}", get_sommaire(2,0));}
     if (newExp.search('{questions}') >= 0)    {newExp = newExp.replaceAll("{questions}", get_sommaire(2, questId));}
-   
-    var newExp = newExp.replaceAll('\/\/',  '<br>');
+    
+    if(newExp.indexOf('http') < 0){
+        newExp = newExp.replaceAll('\/\/',  '<br>');
+    }
+
     return newExp;
     
   }
@@ -217,12 +220,17 @@ function decodeHTMLEntities(text) {
 /* *******************************
 *
 * *** */
-  function formatChrono (chrono){
+  function formatChrono (chrono, nbDigits = 0){
         var minutes = Math.floor(chrono/60);
-        var expMinutes = minutes.toString().padStart(2, '0');
-
         var secondes = chrono - (minutes*60);
-        var expSecondes = secondes.toString().padStart(2, '0');
+        
+        if(nbDigits > 0){
+          var expMinutes = minutes.toString().padStart(2, '0');
+          var expSecondes = secondes.toString().padStart(2, '0');
+        }else{
+          var expMinutes = minutes.toString();
+          var expSecondes = secondes.toString();
+        }
     
         if(minutes == 0){
             var tplFormatChrono = quiz_messages.formatDureeS;

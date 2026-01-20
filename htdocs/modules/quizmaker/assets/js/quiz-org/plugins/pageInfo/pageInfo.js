@@ -26,12 +26,17 @@ getInnerHTML(bShuffle = true){
 var currentQuestion=this.question;
 var name = this.getName();
 
-      const htmlArr = [];
-      htmlArr.push(this.getImage());
+    var img = this.getImage();
+    //alert((this.isLettrine) ? 'c est une lettrine' : 'pas de lettrine');
+    const htmlArr = [];
+    if(!this.isLettrine) {htmlArr.push(img);}
 
       for(var k in currentQuestion.answers){
         var id = this.getId(k);
         if(currentQuestion.answers[k].proposition == '') continue;
+        if(k==0 && this.isLettrine) {
+          currentQuestion.answers[k].proposition = img + currentQuestion.answers[k].proposition;
+        }
         console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
         //Les div seront remplis dazns le update
         htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);

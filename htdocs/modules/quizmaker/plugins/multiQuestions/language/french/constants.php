@@ -43,4 +43,9 @@ define('_LG_PLUGIN_MULTIQUESTIONS_CONSIGNE', "A definir");
 define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH', "Taille des zones d'entrèes en nombre de caractères");
 define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH_DESC', "Nombre de caractères maximum à saisir");
 
+define('_LG_PLUGIN_MULTIQUESTIONS_COUNT_MODE',"Mode de comptage");
+define('_LG_PLUGIN_MULTIQUESTIONS_COUNT_MODE_DESC',"Mode de comptage des points par question");
+define('_LG_PLUGIN_MULTIQUESTIONS_COUNT_GLOBAL',"Global : Il faut répondre correctement à toutes les réponses pour obtenir le nombre de points indiqués pour la question.");
+define('_LG_PLUGIN_MULTIQUESTIONS_COUNT_BY_ITEM',"Par item : Chaque bonne réponse rapporte le nombre de points indiqués pour la question");
+
 ?>

@@ -88,19 +88,21 @@ console.log('onTimesUp');
 }
 
 /**************************************************************************
- *  Affiche le bouton 'consignes'
- *  mis à par pour envisager un placement personaliser, à voir
+ *  
+ *  
  * ************************************************************************/
-function initTimer_for_quiz(position, divSize, fontSize){
+function initTimer_for_quiz(position, divSize, fontSize=0){
 console.log('initTimer_for_quiz');
  // voir la classe quiz_infobulle
+//alert(`initTimer_for_quiz : position = ${position}`) ;   
+    if (divSize == 0) {divSize = 48;} // pour compatibilité
+    if (fontSize == 0) {fontSize = Math.round(divSize * 0.3);}
 
-    if(timerIsRunning) return false;
-
-var divSizePix = divSize + 'px';
+    if(timerIsRunning) return false; // voir startChronometre
+timerIsRunning = true;
+    var divSizePix = divSize + 'px';
     
     //document.getElementById('app').setAttribute('display','block');
-    
     var obTimer = document.getElementById('chronometre');
     console.log(obTimer.id + "-" + obTimer.getAttribute('width'));
     obTimer.style.width  = divSizePix;
@@ -108,7 +110,7 @@ var divSizePix = divSize + 'px';
     //obTimer.style.display ='block';
     //obTimer.style.top='';
     switch(position){  
-    case 0: return '';        
+    case 0: return '';break;        
     case 2:  obTimer.style.top    = "+200px"; obTimer.style.right  = "5px"; break;    // Top/Right
     case 3:  obTimer.style.bottom =   "+5px"; obTimer.style.right  = "5px"; break;    // Bottom/Right
     case 4:  obTimer.style.bottom =   "+5px"; obTimer.style.left   = "5px"; break;    // Bottom/Left
@@ -127,33 +129,6 @@ var divSizePix = divSize + 'px';
     
 }
 
-function initTimer(divSize, divLeft, divTop, fontSize){
-console.log('initTimer');
-//if(document.getElementById('app').innerHTML=='') build_timer_html();
-    if(timerIsRunning) return false;
-
-var divSizePix = divSize + 'px';
-    
-    //document.getElementById('app').setAttribute('display','block');
-    
-    var obTimer = document.getElementById('chronometre');
-    console.log(obTimer.id + "-" + obTimer.getAttribute('width'));
-    obTimer.style.width  = divSizePix;
-    obTimer.style.height = divSizePix;
-    obTimer.style.left   = divLeft + 'px';
-    obTimer.style.top    = divTop + 'px';
-    obTimer.style.display ='block';
-    
-    var obLabel = document.getElementById('base-timer-label');
-    obLabel.style.width=divSizePix;
-    obLabel.style.height=divSizePix;
-    obLabel.style.color='red';
-    //obLabel.setAttribute('fontSize', '8px');    
-    obLabel.style.fontSize = fontSize + 'px';    
-    //obLabel.style.background='yellow';
-
-
-}
 function razTimer(chrono) {
 console.log('razTimer');
     if(timerIsRunning) return false;
@@ -181,7 +156,7 @@ function startChronometre(chrono) {
 console.log('startChronometre');
     if(timerIsRunning) return false;
      razTimer(chrono);
-    timerIsRunning = true;
+    timerIsRunning = false;
     document.getElementById('chronometre').style.display ='block';;
     //--------------------------------------------------
   timerInterval = setInterval(() => {

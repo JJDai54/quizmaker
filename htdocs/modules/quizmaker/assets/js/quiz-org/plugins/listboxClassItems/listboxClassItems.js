@@ -243,7 +243,7 @@ var isScoreOk = 1; //si une reponse a un nombre de points egal à zéro le score
 *
 * ******** */
 
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
     var currentQuestion = this.question;
     console.log (`===> ${currentQuestion.question}`);
 

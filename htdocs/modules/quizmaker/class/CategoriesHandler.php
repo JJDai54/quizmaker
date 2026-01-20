@@ -367,7 +367,7 @@ class CategoriesHandler extends \XoopsPersistableObjectHandler
 //     $
 // }
 /* ******************************
- *  
+ *  todo : verifier la pertinence de cette function : voir getId
  * *********************** */
 public function getNewCat($name){
     $categoriesObj = $this->create();
@@ -376,6 +376,8 @@ public function getNewCat($name){
 	$categoriesObj->setVar('cat_name', $name);
     $categoriesObj->setVar('cat_description', '');        
     $categoriesObj->setVar('cat_weight', 0);
+    $categoriesObj->setVar('cat_max_attempts', 1);
+    $categoriesObj->setVar('cat_delai_cookie', 3600);
     $categoriesObj->setVar('cat_image', '');
     $categoriesObj->setVar('cat_theme', 'default');
     $categoriesObj->setVar('cat_update', \JANUS\getSqlDate());
@@ -417,6 +419,8 @@ global $xoopsDB;
 	$categoriesObj->setVar('cat_actif', 1);
 	$categoriesObj->setVar('cat_description', '');
 	$categoriesObj->setVar('cat_weight',  0);
+	$categoriesObj->setVar('cat_max_attempts',  1);
+	$categoriesObj->setVar('cat_delai_cookie',  3600);
 	$categoriesObj->setVar('cat_image', '');
 	$categoriesObj->setVar('cat_theme', 'default');
     $categoriesObj->setVar('cat_creation', \JANUS\getSqlDate());

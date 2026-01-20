@@ -297,8 +297,8 @@ getScoreByProposition (answerContainer){
 }
 
 // //---------------------------------------------------
-getAllReponses (flag = 0){
- console.log('getAllReponses');  
+getAllPropositions (flag = 0){
+ console.log('getAllPropositions');  
    var currentQuestion = this.question;
     var htmlArr = [];
 

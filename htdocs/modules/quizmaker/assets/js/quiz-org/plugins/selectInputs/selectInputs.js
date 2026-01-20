@@ -313,10 +313,10 @@ var bolOk = 1;
   }
 
 //---------------------------------------------------
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
     var  currentQuestion = this.question;
     var tReponses = [];
-    
+return currentQuestion.explanation;    
     for(var i in currentQuestion.answers){
         var rep = currentQuestion.answers[i];
         if(rep.points > 0 || flag == 0) {

@@ -25,8 +25,11 @@ getInnerHTML(bShuffle = true){
 var currentQuestion=this.question;
 var name = this.getName();
 
+
+    var img = this.getImage();
+    //alert((this.isLettrine) ? 'c est une lettrine' : 'pas de lettrine');
     const htmlArr = [];
-    htmlArr.push(this.getImage());
+    if(!this.isLettrine) {htmlArr.push(img);}
           
     //si l'utilisateur n'est pas connecté on lui demande de saisir un pseudo
     if ( quiz_rgp.isAnonymous){
@@ -41,9 +44,12 @@ var name = this.getName();
     for(var k in currentQuestion.answers){
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
+      if(k==0 && this.isLettrine) {
+        currentQuestion.answers[k].proposition = img + currentQuestion.answers[k].proposition;
+      }
       console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
       //Les div seront remplis dans le update
-      htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);
+      htmlArr.push(`<center><div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div></center>`);
         
     }
 
@@ -56,6 +62,7 @@ var name = this.getName();
     return htmlArr.join("\n");
 
   }
+
 //---------------------------------------------------
 getHtmlStartBtn(){
     var style=`margin-top:50px;font-size:1.5em;height:40px;padding: 0px 24px 0px 24px;`;

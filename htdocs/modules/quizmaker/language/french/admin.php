@@ -534,8 +534,9 @@ define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_QUIZ_ID',"Quiz %s fait");
 
 define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
 define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
-define('_AM_QUIZMAKER_MAX_FLYING', "Maximum de tentatives");
-define('_AM_QUIZMAKER_MAX_FLYING_DESC', "0 : pas de limite de tentatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
+define('_AM_QUIZMAKER_MAX_ATTEMPTS', "Maximum de tentatives");
+define('_AM_QUIZMAKER_MAX_ATTEMPTS_DESC', "0 : pas de limite de tentatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
+define('_AM_QUIZMAKER_MAX_ATTEMPTS_UNIT', "Tentative(s)");
 define('_AM_QUIZMAKER_PLUGIN_FORECOLOR', 'Textes');
 define('_LG_PLUGIN_BACKGROUND', 'Couleur de fond');
 
@@ -562,5 +563,16 @@ define('_AM_QUIZMAKER_PAGEINFO_ALREADY_EXISTS', "Il y a déjà une page d'inform
 define('_AM_QUIZMAKER_PAGEINFO_ADDED_OK', "La page d'information a été ajoutée avec succès.");
 define('_AM_QUIZMAKER_PAGEINFO_CONFIRM_ADD', "Vous allez ajouter une page d'information liée à la question :<br>[%s] %s<br><br>Confirmez cette action !.");
 define('_AM_QUIZMAKER_REFERENCE_ID', "Référence");
-       
+define('_AM_QUIZMAKER_ACTIVE_DESACTIVE_DEBUG_MOD', "Active ou désactive le mode \"debug\"");
+define('_AM_QUIZMAKER_IMG_SIZE_MIN', "<span style='color:red;font-size:1.2em;'><b>Important</b> : La taille des images doit être de %s pixels minimum.</span>");
+define('_AM_QUIZMAKER_IP', "IP");
+define('_AM_QUIZMAKER_QUIZ_SHOW_HORLOGE', "Hologe");
+define('_AM_QUIZMAKER_QUIZ_SHOW_HORLOGE_DESC', "Affiche l'horloge qui compte le temps global que met l'utilisateur");
+define('_AM_QUIZMAKER_TIMER_SIZE', "Chronomètre");
+define('_AM_QUIZMAKER_TIMER_SIZE_DESC', "Taille du chronomètre en pixels");
+define('_AM_QUIZMAKER_DISABLE_PAGE_ANSWER', "Désactiver les slides réponses [\"pagesAnswer\"]");
+define('_AM_QUIZMAKER_ENABLE_PAGE_ANSWER', "Activer les slides réponses [\"pagesAnswer\"]");
+define('_AM_QUIZMAKER_ADD_ANSWER', "Ajouter une réponse");
+
+
 ?>

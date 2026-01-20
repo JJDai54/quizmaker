@@ -49,6 +49,31 @@ var tItems = [];
     this.idListbox =  this.getId('list',1);
 } 
 //---------------------------------------------------
+verifNbItems(){
+    if(this.data.words.length == 0){
+        var  currentQuestion = this.question;
+        var msg = `Question ${this.questionNumber} : ${currentQuestion.question}\nLa liste des expressions est vide\nVérifiez la !`;
+        alert(msg);
+        return false
+    }
+
+    return true;
+}
+//---------------------------------------------------
+shuffleItems(){
+    var  currentQuestion = this.question;
+    if(!this.verifNbItems()) return null;
+    
+    var tItems = shuffleArray(this.data.words);
+    var h=5;
+    while(this.isListSorted(tItems) && h > 0){
+        tItems = shuffleArray(this.data.words);
+        h--;
+    }
+    return tItems;
+}
+
+//---------------------------------------------------
 computeScoresMinMaxByProposition(){
     //il n'y a pas de points par proposition, il faut trouver un ordre
     //on suppose que chaque items à sa place compte pour 1 points 
@@ -61,7 +86,7 @@ computeScoresMinMaxByProposition(){
 *
 * ******** */
 
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
       var  currentQuestion = this.question;
 
 
@@ -79,13 +104,18 @@ getAllReponses (flag = 0){
 *
 * ******** */
 isListSorted(tRep){
+
     var  currentQuestion = this.question;
     
+    //transforme les listes des items en une chaine 
+    //qui pourra etre comparée dans son ensemble au lieu de parrcourir les tableaux
     var strRep = tRep.join(',');
     var strProposition = this.data.words.join(',');
+    
+    //verifie si les deux chaine sont egales
     var bolOk = (strRep == strProposition);
     
-    // test l'ordre inverse     
+    // si les deux chaine sont différente test l'ordre inverse si il est autorisé     
     if(!bolOk && currentQuestion.options.orderStrict == "R"){
         tRep.reverse();
         var strRep = tRep.join(',');
@@ -265,12 +295,12 @@ name = "sortItems_listbox";
 getInnerHTML(bShuffle = true){
 //alert("sortItems -getInnerHTML ");
     var  currentQuestion = this.question;
-    var name = this.getName();
+    
+    if(!this.verifNbItems()) return "";
 
-    var tItems = shuffleArray(this.data.words);
-    while(this.isListSorted(tItems)){
-        tItems = shuffleArray(this.data.words);
-    }
+    var tItems = this.shuffleItems();
+    if(!tItems) {return "";}
+
     var extra = ''; 
     var listItems = getHtmlListbox(name, this.idListbox, tItems, tItems.length, -1, currentQuestion.numbering, 0, extra);
     var urlPlugin   = currentQuestion.urlPlugin;    
@@ -432,10 +462,9 @@ getInnerHTML_alone(){
     var  currentQuestion = this.question;
     var name = this.getName();
     var id = this.getName();
-    var tItems = shuffleArray(this.data.words);
-    while(this.isListSorted(tItems)){
-        tItems = shuffleArray(this.data.words);
-    }
+
+    var tItems = this.shuffleItems();
+    if(!tItems) {return "";}
 
     const html = [];
 //     html.push("<hr>ca commence ici<pre><code>");
@@ -524,11 +553,10 @@ reloadQuestion() {
     var currentQuestion = this.question;
     var id = this.getName();
     var listObj = document.getElementById(id);
-    var tItems = shuffleArray(this.data.words);
-    while(this.isListSorted(tItems)){
-        tItems = shuffleArray(this.data.words);
-    }
-    
+
+    var tItems = this.shuffleItems();
+    if(!tItems) {return "";}
+
     var options = listObj.getElementsByTagName("li"), current = null;
     
     for (var i = 0; i < options.length ; i++) {
@@ -941,7 +969,7 @@ this.blob((bolOk) ? 'oui' : 'non');
 /* **************************************************
 
 ***************************************************** */
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
      var currentQuestion = this.question;
      var tPropos = this.data.reponses;
      var tPoints = this.data.points;

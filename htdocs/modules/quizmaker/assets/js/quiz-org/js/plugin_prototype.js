@@ -19,6 +19,7 @@ data  = [];
 focusId = '';
 boolDog = false;
 isZoomed = false;
+isLettrine = false;
 
 stats = {
       scoreMin:  0,
@@ -45,7 +46,9 @@ stats = {
 //    this.computeScoresMinMax();
 //alert(this.typeName)    
     }
-
+zzzzz(){
+    return this.isZoomed;
+}
   
 /* **********************************************************
 Initialise toutes les données communes à tous les plugins
@@ -282,17 +285,42 @@ getImage(){
         //var obStyle = Object.create(currentQuestion.image_style);
         //var obStyle = JSON.parse(JSON.stringify(currentQuestion.image_style));
         var obStyle = JSON.parse(currentQuestion.image_style);
+        
+        
+        
+        //affectation de valeu par defaut pour palier au quiz qui qui n'aurait pas été regéné après maj des questions
+        this.isLettrine = (obStyle.lettrine)       ? obStyle.lettrine.value*1 : 0;
+        var imgHeight   = (obStyle.height)         ? obStyle.height.value : 120;
+        var borderRound = (obStyle.borderRound)    ? obStyle.borderRound.value   : 8;
+        var shadowColor = (obStyle.shadowColor)    ? obStyle.shadowColor.value.toUpperCase() : '#000000';
+        var shadowOffset = (obStyle.shadow_offset) ? obStyle.shadow_offset.value : 8;
+        
+        
+        
         //alert(obStyle.join("\n"));
         //alert(obStyle.height.value + "=" + obStyle.shadow.value);
         
-        var $style = `height:${obStyle.height.value}px;max-width:800px;`;   
+        //alert(`lettrine = ${obStyle.lettrine.value}`);
+        //if(obStyle.lettrine) (this.isLettrine = (obStyle.lettrine.value*1 == 1));
+//this.isLettrine=false;       
+        var imgStyle = `height:${obStyle.height.value}px;max-width:800px;`;   
+        if(this.isLettrine) {
+            imgStyle += 'float:left;margin:0px 16px 12px 0px;';
+        }
 
-            if(obStyle.shadow.value.toUpperCase() != '#FFFFFF'){
-                $style += `box-shadow: 8px 8px 5px ${obStyle.shadow.value};`;
-            }
-        var borderRound = (obStyle.borderRound) ? obStyle.borderRound.value : 8;
-        $style += `border-radius:${borderRound}px;`;
-        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='quiz_image_main' alt="" title="" style="${$style}"></center>`;
+        
+        if(shadowColor != '#FFFFFF' && shadowOffset != 0){
+            imgStyle += `box-shadow: ${shadowOffset}px ${shadowOffset}px 5px ${obStyle.shadow.value};`;
+        }
+        
+        imgStyle += `border-radius:${borderRound}px;`;
+        
+        //---------------------------------------------
+        if(this.isLettrine){
+            return `<img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='' alt="" title="" style="${imgStyle}">`;
+        }else{
+            return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='' alt="" title="" style="${imgStyle}"></center>`;
+        }
         
     }else{
         return this.getImage_old();
@@ -504,10 +532,25 @@ isInputOk (answerContainer){
 
 /* *******************************************
 * getAllReponses : renvoie les réponse à la question
+* @ flag int: 0 = aucune réponse  1 = toutes les réponses / 2 = que les bonnes réponses
+* ********** */
+getAllReponses (flag=0){
+//    return ('Fonction "getGoodReponses" à développer pour la classe : ' + this.name);
+    if(quiz.showReponsesBottom){
+        return this.question.explanation + '<hr>' + this.getAllPropositions (0);    
+    }else{
+        return this.question.explanation;
+    }
+    //return this.getAllReponses (1);
+ }
+
+/* *******************************************
+* getAllPropositions : renvoie les réponse à la question
 * @ flag int: 0 = toutes les réponses / 1 = que les bonnes réponses
 * ********** */
-getAllReponses (flag=0){return "";}
-
+getAllPropositions (flag=0){
+    return '';
+}
 //---------------------------------------------------
 getGoodReponses (){
 //    return ('Fonction "getGoodReponses" à développer pour la classe : ' + this.name);
@@ -544,7 +587,7 @@ onFinalyse() {
     }
 
     if(currentQuestion.zoom == 2) {
-        zoom_plus(event, this.slideNumber);  
+        zoom_plus_event(event, this.slideNumber);  
     }  
     
 }

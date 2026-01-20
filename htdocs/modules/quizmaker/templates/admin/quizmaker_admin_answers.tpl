@@ -9,7 +9,7 @@
 
 
 <div class="floatleft">
-<{$selectors.select.cat}>&nbsp;<{$selectors.select.subject}>&nbsp;<{$selectors.select.quiz}>
+<{$selectors.cat.select}>&nbsp;<{$selectors.subject.select}>&nbsp;<{$selectors.difficulty.select}>&nbsp;<{$selectors.quiz.select}>
 <br><{$smarty.const._AM_QUIZMAKER_QUESTIONS}> : <{$selectors.select.previousQuestion}> <{$selectors.select.nextQuestion}> <b><{$questPlugin}></b> <{$selectors.select.questions}> 
 </div>
 

@@ -25,11 +25,11 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
+
 //echoArray('gp',"ici->$typeImport");exit;
 $toCatId = Request::getInt('to_cat_id', 0);
 if($toCatId == 0) $toCatId = array_key_first($catArr);
 $toQuizSet = Request::getString('to_quiz_subject', '');
-
 
     switch($op){
     case 'getform':
@@ -81,6 +81,7 @@ $toQuizSet = Request::getString('to_quiz_subject', '');
         
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'import'));
+		$form->addElement(new \XoopsFormHidden('jjd', 'stop'));
         $form->addElement(new \XoopsFormHidden('sender', ''));
         addXformImportType($form, $typeImportName, $typeImport);
 
@@ -103,14 +104,16 @@ $toQuizSet = Request::getString('to_quiz_subject', '');
         //----------------------------------------------- 
 		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_IMPORTER, 'submit'));
 		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
+
         break;
         
     case 'confirm':
         break;
         
     case 'import':
-    $catId  = Request::getInt('cat_id', 0);
-   //echoArray('gpf',"import : catId = {$catId}");
+    $catId  = Request::getInt('to_cat_id', 0);
+// echo "catId = {$catId}<hr>";exit;       
+    
         if (loadFileTo("files_new_quiz", $pathImport, $savedFilename)){
             $ret = $quizUtility::quiz_importFromYml($pathImport, $catId, $newQuizId);
 //exit($ret .  '===>' . $pathImport);
@@ -127,8 +130,9 @@ $toQuizSet = Request::getString('to_quiz_subject', '');
             //echo "<hr>03-Errors upload : {$uploaderErrors}<hr>";
             $msg = sprintf(_AM_QUIZMAKER_IMPORT_ERROR_01, $upload_size/1000 . "ko");
             $url = "import.php?op=error&numerr=1";
+//  exit("=====>{$msg}<br>{$url}");
         }
-//  exit("{$msg}<br>{$url}");
+        
         redirect_header($url, 5, $msg);
     
         break;

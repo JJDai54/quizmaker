@@ -56,7 +56,7 @@
                 
   			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Result.chrono}></td>
-				<td class='left'><{$Result.uname}></td>
+				<td class='left'><{$Result.uname}> [ip : <{$Result.ip}>]</td>
 				<td class='right'><{$Result.score_achieved}> / <{$Result.score_max}></td>
 				<td class='right'><{$Result.answers_achieved}> / <{$Result.answers_total}></td>
 				<td class='center'><{$Result.duration}></td>

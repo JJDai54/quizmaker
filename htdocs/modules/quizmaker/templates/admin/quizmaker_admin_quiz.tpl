@@ -11,8 +11,9 @@
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='quiz.php?op=list' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
     <input type="hidden" name="op" value="list" />
     <input type="hidden" name="sender" value="" />
-    <{$selectors.select.cat}>
-    <{$selectors.select.subject}>
+    <{$selectors.cat.select}>
+    <{$selectors.subject.select}>
+    <{$selectors.difficulty.select}>
 </form>
 
 <style>				
@@ -74,8 +75,12 @@ img{
                     <br><{$Quiz.quiz_folderJS}>
                 </td>
                 <td class='left'>
+                    <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_subject=<{$selectors.subject.value}>&quiz_difficulty=<{$selectors.difficulty.value}>&quiz_id=<{$Quiz.id}>&field=quiz_difficulty&modulo=<{$smarty.const.QUIZMAKER_DIFFICUTY_MODULO}>"   title='<{$smarty.const._AM_QUIZMAKER_DIFFICULTY}>' >
+                        <img src='<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/difficulty/<{$Quiz.difficulty_icon}>' title='<{$Quiz.difficulty_lib}>', alt=''>
+                    </a>
 					<b><a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
                         <{$Quiz.subject}>
+                     </a>
                 </td>
                         
                 <{* ---------------- Arrows Weight -------------------- *}>
@@ -294,7 +299,7 @@ img{
 
 <script>
 tth_set_value('last_asc', true);
-tth_trierTableau('quiz_quiz_list', 3, "1,2,3,4,5,6");  
+tth_trierTableau('quiz_quiz_list', 4, "1,2,3,4,5,6");  
 </script>
 
 <!-- Footer -->

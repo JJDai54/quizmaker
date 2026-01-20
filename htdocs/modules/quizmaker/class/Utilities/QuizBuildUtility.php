@@ -249,6 +249,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['questPosComment1']         = $quizValues['questPosComment1'];
     $optionsArr['showConsigne']             = $quizValues['showConsigne'];
     $optionsArr['showTimer']                = $quizValues['quiz_showTimer'];
+    $optionsArr['timerSize']                = $quizValues['quiz_timerSize'];
     //$optionsArr['minusOnShowGoodAnswers']   = $quizValues['minusOnShowGoodAnswers'];
     $optionsArr['build']                    = $quizValues['quiz_build'];
     $optionsArr['folderJS']                 = $quizValues['folderJS'];
@@ -317,7 +318,8 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
         $tQuest['pluginName']     = $values['plugin'];
         $tQuest['typeForm']       = $values['typeForm'];
         $tQuest['question']       = self::sanitise($values['quest_question']);
-        $tQuest['identifiant']    = self::sanitise($values['identifiant']);
+        $tQuest['explanation']    = self::sanitise($values['quest_explanation']);
+        $tQuest['identifiant1']   = self::sanitise($values['identifiant1']);
  
         //$tQuest['options']        = json_decode($values['quest_options'],true);    
         $tQuest['options']        = json_decode($values['options'],true);    

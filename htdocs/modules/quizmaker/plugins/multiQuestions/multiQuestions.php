@@ -55,7 +55,8 @@ var $maxMots = 0;
         $this->optionsDefaults = ['disposition'   => 'disposition-10',
                                   'inpSize'       => $this->inpSize,
                                   'inpMaxlength'  => $this->inpMaxlength,
-                                  'interligne'    => '0'];
+                                  'interligne'    => 0,
+                                  'countMode'     => 0];
 
     }
 
@@ -89,6 +90,12 @@ var $maxMots = 0;
       $inpInterligne->setDescription(_AM_QUIZMAKER_PLUGIN_INTERLIGNE_DESC);
       $trayOptions->addElementOption($inpInterligne);     
 
+      $name = 'countMode';  
+      $inpCountMode = new \XoopsFormRadio(_LG_PLUGIN_MULTIQUESTIONS_COUNT_MODE,  "{$optionName}[{$name}]", "","<br>");
+      $inpCountMode->setDescription(_LG_PLUGIN_MULTIQUESTIONS_COUNT_MODE_DESC);
+      $inpCountMode->addOption(0, _LG_PLUGIN_MULTIQUESTIONS_COUNT_GLOBAL);   
+      $inpCountMode->addOption(1, _LG_PLUGIN_MULTIQUESTIONS_COUNT_BY_ITEM);   
+      $trayOptions->addElementOption($inpCountMode);     
       //--------------------------------------------------------------------  
       //$trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
          

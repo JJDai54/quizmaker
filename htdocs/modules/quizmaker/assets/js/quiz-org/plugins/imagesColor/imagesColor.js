@@ -189,7 +189,7 @@ var obImg = null;
 /* **************************************************
 
 ***************************************************** */
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
 
 var currentQuestion = this.question;
     

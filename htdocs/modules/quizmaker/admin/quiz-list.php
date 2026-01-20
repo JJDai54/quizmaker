@@ -75,6 +75,8 @@ use XoopsModules\Quizmaker\Utility;
             $criteria->add(new Criteria('quiz_cat_id',$catId));
         if ($quizSubject != '' && array_key_exists($quizSubject, $setArr))
             $criteria->add(new Criteria('quiz_subject',$quizSubject));
+        if ($quizDifficulty != 0 )
+            $criteria->add(new Criteria('quiz_difficulty', $quizDifficulty));
             
 		//$criteria->setSort('quiz_weight');        
         //$criteria->setOrder('ASC');
@@ -82,9 +84,12 @@ use XoopsModules\Quizmaker\Utility;
 		$GLOBALS['xoopsTpl']->assign('quiz_count', $quizCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
+// 		$GLOBALS['xoopsTpl']->assign('quiz_subject', $quizSubject);
+// 		$GLOBALS['xoopsTpl']->assign('quiz_difficulty', $quizDifficulty);
 
       // ----- Listes de selection pour filtrage -----  
-      $selectors = $quizHandler->getSelector($catId, $quizSubject);        
+      $selectors = FQUIZMAKER\getQuizSelector($catId, $quizSubject, $quizDifficulty);      
+      
       $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
      // ----- /Listes de selection pour filtrage -----        
 

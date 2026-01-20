@@ -147,7 +147,35 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
 /* ******************************
  * renvoie une liste "id=>name" pour les formSelect 
  * *********************** */
-    public function getListKeyName($quiz_id = 0, $fieldsName = 'quest_question', $addAll=false, $addNull=false)
+    public function getListKeyName($quiz_id = 0, $criteria = null, $keyField=null, $nameField = null, $addAll=false, $addNull=false)
+    {
+        if(!$keyField) $nameField = 'quest_id';
+        if(!$nameField) $nameField = 'quest_question';
+//         if ($addNull) $inpList->addOption('_NULL_', _AM_CARTOUCHES_NULL);
+        if(!$criteria && $quiz_id > 0) {
+            $criteria = new CriteriaCompo();
+        }
+        if($quiz_id > 0) $criteria->add(new \Criteria('quest_quiz_id', $quiz_id, '='));
+        
+        $obs = $this->getObjects($criteria, true);
+        $ret = array();
+        if ($addAll) $ret[0] = "(*)";
+        
+        foreach (array_keys($obs) as $i) {
+            $key = $obs[$i]->getVar($keyField);
+            //echo "i = {$i} - key = {$key}<br>";
+            $ret[$key] = ((QUIZMAKER_ADD_ID) ? " (#{$key}) - " : "") . $obs[$i]->getVar($nameField) ;
+            //$ret[$key] = $obs[$i]->getVar($nameField) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
+        
+        }
+        //echoArray($ret);exit;
+        return $ret;
+    }
+
+/* ******************************
+ * renvoie une liste "id=>name" pour les formSelect 
+ * *********************** */
+    public function getListKeyName_old($quiz_id = 0, $keyField='quest_id', $nameField = 'quest_question', $addAll=false, $addNull=false)
 
     {
 
@@ -163,14 +191,15 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
         
         $obs = $this->getObjects($criteria, true);
         foreach (array_keys($obs) as $i) {
-            $key = $obs[$i]->getVar('quest_id');
-            $ret[$key] = ((QUIZMAKER_ADD_ID) ? " (#{$key}) - " : "") . $obs[$i]->getVar($fieldsName) ;
-            //$ret[$key] = $obs[$i]->getVar($fieldsName) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
+            $key = $obs[$i]->getVar($keyField);
+            $ret[$key] = ((QUIZMAKER_ADD_ID) ? " (#{$key}) - " : "") . $obs[$i]->getVar($nameField) ;
+            //$ret[$key] = $obs[$i]->getVar($nameField) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
         
         }
+        //echo "<hr>{}<hr>";
+        echoArray($ret);exit;
         return $ret;
     }
-
  /* ******************************
  * renvoie l'id parent pour l'idEnfant
  * *********************** */
@@ -240,6 +269,14 @@ __SQL__;
     $result = $this->db->queryf($sql);
     //return $result;
 
+     $sql = "UPDATE {$this->table}  ta, {$this->table}  tq"  
+          . " SET ta.quest_weight = tq.quest_weight+2"
+          . " WHERE  ta.quest_identifiant2 = tq.quest_identifiant1"
+          . " AND ta.quest_plugin='pageAnswer'"   
+          . " AND ta.quest_quiz_id={$quiz_id} "   
+          . " AND tq.quest_quiz_id={$quiz_id} ;";   
+    $result = $this->db->queryf($sql);
+//echo "<hr>{$sql}<hr>";
     $sql = "update {$this->table} SET quest_weight = -99999 WHERE quest_quiz_id='{$quiz_id}'"
          . " AND quest_plugin='pageBegin';";    
     $result = $this->db->queryf($sql);
@@ -247,6 +284,7 @@ __SQL__;
     $sql = "update {$this->table} SET quest_weight = 99999 WHERE quest_quiz_id='{$quiz_id}'"
          . " AND quest_plugin='pageEnd';";    
     $result = $this->db->queryf($sql);
+//exit;
 
    
 }
@@ -255,6 +293,7 @@ __SQL__;
  * Update weight
  * *********************** */
  public function updateWeight($quest_id, $action){
+
           $currentEnr = $this->get($quest_id); 
           $quiz_id = $currentEnr->getVar('quest_quiz_id');
           $quest_weight = $currentEnr->getVar('quest_weight');
@@ -286,6 +325,7 @@ __SQL__;
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('quest_quiz_id', $quiz_id));
         $criteria->add(new \Criteria('quest_weight', $quest_weight, $sens));
+        $criteria->add(new \Criteria('quest_plugin', 'pageAnswer', '<>'));
         
         // selection du parent ou du groupe des enfants
         $selectParent = ($quest_parent_id == 0) ? '=' : '>';
@@ -321,7 +361,6 @@ __SQL__;
 
             case 'first'; 
             case 'last'; 
-              
                 $keys = array_keys($allObjects);
               
 //echo "<hr>quest_id = {$quest_id}<br>quest_weight = {$quest_weight}<br>quiz_id = {$quiz_id}<br><pre>" . print_r($keys, true) . "</pre><hr>";              
@@ -343,6 +382,48 @@ __SQL__;
             break;
             
          }
+         
+/*
+          $this->incrementeWeight($quiz_id);         
+         //$currentEnr = $this->get($quest_id); 
+         //$quest_weight = $currentEnr->getVar('quest_weight') + 2;
+         //$sql = "UPDATE {$this->table} SET quest_weight = {$quest_weight} WHERE quest_parent_id = {$quest_id} AND plugin='pageAnswer'" ;               
+         //$sql = "UPDATE {$this->table} SET quest_weight = {$quest_weight} WHERE quest_reference_id = {$quest_id} AND quest_plugin='pageAnswer'" ;               
+//          $sql = "UPDATE {$this->table} ta"
+//               . " INNER JOIN  {$this->table} tq ON ta.quest_parent_id = tq.quest_id"
+//               . " SET ta.quest_weight = tq.quest_weight+2"
+//               . " WHERE ta.quest_plugin='pageAnswer'" ;   
+              
+         $this->db->queryf($sql);
+              
+          
+     $sql = "UPDATE {$this->table}  ta, {$this->table}  tq"  
+          . " SET ta.quest_weight = tq.quest_weight+2"
+          . " WHERE  ta.quest_reference_id = tq.quest_id"
+          . " AND ta.quest_plugin='pageAnswer' ;";   
+    echo "<hr>{$sql}<hr>";          
+     $sql = "UPDATE {$this->table}  ta, {$this->table}  tq"  
+          . " SET ta.quest_weight = tq.quest_weight+2"
+          . " WHERE  ta.quest_parent_id = tq.quest_id"
+          . " AND ta.quest_plugin='pageAnswer' ;";   
+         
+
+UPDATE x2511_quizmaker_questions ta, 
+   x2511_quizmaker_questions tq 
+   SET ta.quest_weight = tq.quest_weight+2
+WHERE  ta.quest_parent_id = tq.quest_id
+AND ta.quest_plugin='pageAnswer' ;   
+
+
+
+
+SELECT * FROM x2511_quizmaker_questions ta, 
+   x2511_quizmaker_questions tq 
+WHERE  ta.quest_parent_id = tq.quest_id
+AND ta.quest_plugin='pageAnswer';
+*/              
+                          
+//exit;
          return true;
  }
 
@@ -465,35 +546,27 @@ __SQL__;
 /* ******************************
  * affecte la valeur d'un champ et du groupe si besoin
  * *********************** */
-    public function setValue2($questId, $field, $value, $doItForGroup = false)
+ /* ******************************
+ * affecte la valeur d'un champ et du groupe si besoin
+ * *********************** */
+    public function setValue2QuestOfQuiz($quizId, $field, $value, $criteria = false)
     {
-    
-        $questObj = $this->get($questId);
-        $questObj->setVar($field,$value);
-        $this->insert($questObj);
-       
-        //si c'est un pageGroup recupere  quest_id du groupe sinon recupere quest_parent_id  de la question
-        $idParent = ($questObj->getVar('quest_plugin') == 'pageGroup') ? $questObj->getVar('quest_id') : $questObj->getVar('quest_parent_id');
-        
-        
-        //si $doItForGroup>0 affecte $value a tous le groupe
-        if($doItForGroup && $idParent > 0){
-              $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_parent_id={$questId};";            
-              $ret = $this->db->queryf($sql);
-        }else{
-              $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quest_id={$questId};";            
-              $ret = $this->db->queryf($sql);
-        }
+        $sql = "UPDATE " . $this->table . " SET {$field} = {$value}"
+             . " WHERE quest_quiz_id={$quizId}"
+             . " AND quest_plugin<>'pageBegin' AND quest_plugin<>'pageEnd'";
+        if($criteria) $sql .= ' AND ' . $criteria . ';';
+        $ret = $this->db->queryf($sql);
         return $ret;
     }
+
 
 /* ********************************
 *
 * ******************************* */
-public function getParents($quizId, $addNone = true){
+public function getParents($quizId, $plugin = 'pageGroup', $addNone = true){
     $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $quizId, '='));
-    $criteria->add(new \Criteria('quest_parent_id', 0, '='));
-    $criteria->add(new \Criteria('quest_plugin', 'pageGroup', '='));    
+    //$criteria->add(new \Criteria('quest_parent_id', 0, '='));
+    $criteria->add(new \Criteria('quest_plugin', $plugin, '='));    
     $criteria->setOrder('ASC');
     $criteria->setSort('quest_weight,quest_question');
     $rst = $this->getAll($criteria);
@@ -540,67 +613,6 @@ public function getPluginOf($quizId){
         $pluginName[$row['quest_plugin']] =  $row['quest_plugin'];
     }
     return $pluginName;
-}
-
-/****************************************************************************
- * getSelector ===> Listes de selection pour filtrage des questions
- * $quizId int : id de la categorie
- * $quizSubject string : subject de quiz
- * $asObject bool : true :  return des XoopsForm - False renvoie les render() des XopsForms
- * $prefixName string : prefix des id afin de permettre plusieurs instance (ex : voir import)
- * $quizId int : id du quiz
- * retour arr renvoie un tableau des liste de sélection pour l'interface:
- ****************************************************************************/
-public function getSelector($catId, $quizSubject, $quizId, $asObject=false, $prefixName = '', $addCaption = true){
-global $categoriesHandler, $quizHandler, $clPerms;
-    $selectors = array();
-    $sep = ' : ';
-    //$event = 'onchange="document.quizmaker_select_filter.op.value='list';document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"'.FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT);
-    $event = "onchange='document.quizmaker_select_filter.op.value=\"list\";document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();'" . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT);
-
-    $clPerms->addPermissions($criteriaCatAllowed, 'edit_quiz', 'cat_id');
-    $selectors['arr']['cat'] = $categoriesHandler->getList($criteriaCatAllowed);
-    
-    if ($catId == 0) $catId = array_key_first($selectors['arr']['cat']);
-//echoArray($selectors['arr']['cat']);
-    $inpCategory = new \XoopsFormSelect(_AM_QUIZMAKER_CATEGORIES_NAME, $prefixName . 'cat_id', $catId);
-    $inpCategory->addOptionArray($selectors['arr']['cat']);
-    $inpCategory->setExtra($event);
-    if($asObject) 
-        $selectors['select']['cat'] = $inpCategory;
-    else
-        $selectors['select']['cat'] = (($addCaption) ? _AM_QUIZMAKER_CATEGORIES_NAME . $sep : '') . $inpCategory->render();
-
-    //-------------------------------------------------------------------
-    $selectors['arr']['subject'] =  $quizHandler->getFieldList('quiz_subject', $catId);
-    if(count($selectors['arr']['subject']) > 1){
-        $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT, $prefixName . 'quiz_subject', $quizSubject);
-        $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
-        $inpSet->addOptionArray($selectors['arr']['subject']);
-        $inpSet->setExtra($event);
-        if($asObject) 
-            $selectors['select']['subject'] = $inpSet;
-        else
-            $selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $inpSet->render();
-    }else{
-        //$selectors['subject'] = '';
-        //$selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $quizSubject;
-        $selectors['select']['subject'] = '';
-   }
-//echoArray($selectors['arr']['subject'], $quizSubject);
-    
-    //-------------------------------------------------------------------
-    $selectors['arr']['quiz'] = $quizHandler->getListKeyName($catId, $quizSubject);
-    $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, $prefixName . 'quiz_id', $quizId);
-    $inpQuiz->addOptionArray($selectors['arr']['quiz']);
-    $inpQuiz->setExtra($event);
-    if($asObject) 
-        $selectors['select']['quiz'] = $inpQuiz;
-    else
-        $selectors['select']['quiz'] = (($addCaption) ? _AM_QUIZMAKER_QUIZ_NAME . $sep : '') . $inpQuiz->render();
-          
-    //-------------------------------------------------------------------
-    return $selectors;
 }
 
 } // Fin de la class

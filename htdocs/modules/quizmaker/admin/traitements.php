@@ -25,6 +25,7 @@ use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 use XoopsModules\Quizmaker\Utility;
 
+//require __DIR__ . '../../mainfile.php';
 require __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', '');
@@ -51,10 +52,17 @@ switch ($op){
         }
         break;
         
+    case 'active_desactive_debug_mode':
+    global $xoopsDB;
+        $sql = "UPDATE " . $xoopsDB->prefix('config') . " SET conf_value = mod(CAST(conf_value AS UNSIGNED)+1,2) WHERE conf_name='debug_mode';";
+        //$sql = "UPDATE " . $xoopsDB->prefix('config') . " SET conf_value = if(conf_value='1','0','1') WHERE conf_name='debug_mode';";
+        $xoopsDB->queryf($sql);
+        redirect_header("index.php", 3, $msg);
+        break;
+    
     case 'autres traitements a venir':
         $msg = "___???___";
         break;
-    
 }
 require __DIR__ . '/footer.php';
 

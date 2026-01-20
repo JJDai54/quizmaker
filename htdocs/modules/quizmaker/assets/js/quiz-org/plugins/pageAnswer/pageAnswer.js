@@ -1,0 +1,74 @@
+﻿/*******************************************************************
+*                     pageAnswer
+* *****************************************************************/
+function getPlugin_pageAnswer(question, slideNumber){
+    return new pageAnswer(question, slideNumber);
+}
+
+ /*******************************************************************
+  *                     pageAnswer
+  * *****************************************************************/
+
+class pageAnswer extends Plugin_Prototype{
+name = "pageAnswer";
+
+//---------------------------------------------------
+buildSlide (bShuffle = true){
+    var currentQuestion = this.question;
+    return this.getInnerHTML(bShuffle);
+ }
+  
+/* ***************************************
+*
+* *** */
+getInnerHTML(bShuffle = true){
+
+var currentQuestion=this.question;
+var name = this.getName();
+
+    var img = this.getImage();
+    //alert((this.isLettrine) ? 'c est une lettrine' : 'pas de lettrine');
+    const htmlArr = [];
+    if(!this.isLettrine) {htmlArr.push(img);}
+
+    for(var k in currentQuestion.answers){
+        var id = this.getId(k);
+        if(currentQuestion.answers[k].proposition == '') continue;
+        if(k==0 && this.isLettrine) {
+          currentQuestion.answers[k].proposition = img + currentQuestion.answers[k].proposition;
+        }
+        console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+        //Les div seront remplis dazns le update
+        htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);
+          
+    }
+    
+      //pour que l'ombre du bas du dernier texte ne soit pas coupé, un padding serait peut être mieux
+      htmlArr.push(qbr); 
+      return htmlArr.join("\n");
+
+  }
+//---------------------------------------------------
+isInputOk (answerContainer){
+    return false;
+ }
+  
+/* *********************************************
+Mise à jour de l'affichage des scores pour cette page intermédiaire
+************************************************ */
+onEnter() {
+  var currentQuestion=this.question;  
+
+  for(var k in currentQuestion.answers){
+    var id = this.getId(k);
+    if(currentQuestion.answers[k].proposition == '') continue;
+    console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+      var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
+      document.getElementById(id).innerHTML = exp;
+  }
+}
+  
+  
+
+
+} // ----- fin de la class ------

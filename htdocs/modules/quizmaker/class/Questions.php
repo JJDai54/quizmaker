@@ -46,7 +46,8 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_quiz_id', XOBJ_DTYPE_INT);
 		$this->initVar('quest_plugin', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_question', XOBJ_DTYPE_TXTBOX);
-		$this->initVar('quest_identifiant', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_identifiant1', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_identifiant2', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_options', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_comment1', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_explanation', XOBJ_DTYPE_OTHER);
@@ -181,6 +182,8 @@ $shortcut = [_AM_QUIZMAKER_HEADER,
 		xoops_load('XoopsFormLoader');
 
         $questId = $this->getVar('quest_id');
+        $quizId =  $this->getVar('quest_quiz_id');
+        
         //===========================================================        
 		//$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
         // recupe de la classe du type de question
@@ -222,7 +225,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $trayPlugin = new \XoopsFormElementTray  ("", $delimeter = '<br>');  //_AM_QUIZMAKER_QUESTIONS_PLUGIN
 
         
-        if ($clPlugin->isQuestion){
+        if ($clPlugin->isQuestion || $clPlugin->typeForm == QUIZMAKER_TYPE_FORM_INFO){
+        //exit("pluginName-> = {$clPlugin->pluginName} - ->isQuestion = {$clPlugin->isQuestion} - ->typeForm = {$clPlugin->typeForm} - ->typeForm_lib = {$clPlugin->typeForm_lib}");
             // Form Select questPlugin
             $inpPlugin = new \XoopsFormSelect( '', 'quest_plugin', $pluginName);
             //$inpPlugin->addOption('Empty');
@@ -247,12 +251,20 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //----------------------------------------------------------
 		// Form Select quest_parent_id         
         if($clPlugin->isQuestion() || $clPlugin->pluginName == 'pageInfo'){         
-            $tParent = $questionsHandler->getParents($this->getVar('quest_quiz_id'), true);         
+            $tParent = $questionsHandler->getParents($this->getVar('quest_quiz_id'), 'pageGroup', true);         
             $parentId = ($this->getVar('quest_parent_id') == 0) ? array_keys($tParent)[0] : $this->getVar('quest_parent_id');
             $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_GROUP, 'quest_parent_id', $parentId);
             $inpParent->addOptionArray($tParent);
             $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
 
+        }elseif($clPlugin->pluginName == 'pageAnswer'){         
+            $criteria = new \CriteriaCompo(new \Criteria('quest_isQuestion', 1));
+            $tParent = $questionsHandler->getListKeyName($quizId, $criteria, 'quest_identifiant1', 'quest_question', false);  
+                 
+            $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTION, 'quest_identifiant2', $this->getVar('quest_identifiant2'));
+            $inpParent->addOptionArray($tParent);
+            $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
+            
         }elseif($clPlugin->pluginName == 'pageGroup'){
             $inpParent = new \XoopsFormHidden('quest_parent_id', 0);        
             $inpWeight = new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quest_weight', 20, 50,  $this->getVar('quest_weight'));
@@ -281,9 +293,9 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         // Form Text questWeight
 		$form->addElement($inpWeight);
         
-		// Form Text quest_identifiant
-        if (!$this->getVar('quest_identifiant')) $this->setVar('quest_identifiant', 'slide_' . rand(10000,99999));
-        $inpIdentifiant = new \XoopsEditList(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant', $this->getVar('quest_identifiant'), 20) ; 
+		// Form Text quest_identifiant1
+        if (!$this->getVar('quest_identifiant1')) $this->setVar('quest_identifiant1', 'slide_' . rand(10000,99999));
+        $inpIdentifiant = new \XoopsEditList(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant1', $this->getVar('quest_identifiant1'), 20) ; 
         $inpIdentifiant->setHelp(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);      
 		$form->addElement($inpIdentifiant, false);
     
@@ -469,7 +481,16 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                   //$inpJson->setPreviewVisible(true);        
                   $inpJson->addNewOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>300, 'size'=>5, 'unit'=>'px']);
                   $inpJson->addNewOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
+                  $inpJson->addNewOption('shadow_offset', 8, 'number', ['_caption_' => "Décalage de l'ombre", 'min'=>1,'max'=>16, 'size'=>5, 'unit'=>'px']);
                   $inpJson->addNewOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+                  //si c'est une question on ne donne pas la possibilite de mettre l'image principale en lettrine
+                  //cett option n'est dispponible que pour pageBegin, pageEnd, pageInfo, ...
+                  if ($clPlugin->isQuestion){
+                    $inpJson->addNewOption('lettrine', 0, 'hidden');
+                  }else{
+                    $inpJson->addNewOption('lettrine', 0, 'radio', ['_caption_'=> 'Lettrine', 'options'=>'non=0,Oui=1']);
+                  }
+                  $inpJson->setOrder("lettrine,height,borderRound,shadow,shadow_offset");
                   if($inpJson->isNew){
                         $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
                         $inpJson->updateOptions('shadow', ['value'=>$this->getVar('quest_shadow')]);
@@ -483,7 +504,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 /*
                   $style = $this->getVar($name);  
                   //echo "<hr>{$style}<hr>"; 
-                  //$style = '';   
+                  //$style = '';   hidden
                   $inpJson = new \XoopsFormJson('', $name, $style);                  
                   $inpJson->setCaptions('Editer le style', 'Soumettre le style', 'Annuler');        
                   $inpJson->setTextBoxVisible(true);        
@@ -497,6 +518,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                   $inpJson->addNewOption('aaaa', 'left', 'radio', ['_caption_'=> 'aaaaa', 'options'=>'left,center,right']);                 
                   $inpJson->addNewOption('bbbb', 'right', 'radio', ['_caption_'=> 'bbbb', 'options'=>'left,center,right']);                 
                   $inpJson->addNewOption('cccc', 'top,right,bottom', 'checkbox', ['_caption_'=> 'case a cocher', 'options'=>'top,right,bottom,left']);                 
+                  $inpJson->addNewOption('test_red', 'red', 'hidden');
+                  $inpJson->addNewOption('test_zzz', 'red', 'textbox');
                   //$inpJson->removeOption('borderColor');         
                   if($inpJson->isNew){
                         $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
@@ -579,6 +602,7 @@ $inpTrayImg->addElement($inpJson);
         $this->insertShorcuts($form, _AM_QUIZMAKER_SUBMIT, 'black', 'cyan');        
         
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
+		$form->addElement(new \XoopsFormHidden('quest_id', $questId));
         
         $btnTray = new \XoopsFormElementTray  ('', '&nbsp;');
         
@@ -646,7 +670,8 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 		$ret['quiz_id']        = $this->getVar('quest_quiz_id');
 		$ret['plugin']         = $pluginName; //$this->getVar('quest_plugin');
 		$ret['question']       = $this->getVar('quest_question');
-		$ret['identifiant']    = $this->getVar('quest_identifiant');
+		$ret['identifiant1']   = $this->getVar('quest_identifiant1');
+		$ret['identifiant2']   = $this->getVar('quest_identifiant2');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
         
         //getVar genere une transformation facheuse 

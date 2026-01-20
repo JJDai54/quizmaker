@@ -145,6 +145,7 @@ define('QUIZMAKER_TYPE_FORM_BEGIN',  1);
 define('QUIZMAKER_TYPE_FORM_GROUP', 2);
 define('QUIZMAKER_TYPE_FORM_END', 3);
 define('QUIZMAKER_TYPE_FORM_INFO', 4);
+define('QUIZMAKER_TYPE_FORM_ANSWER', 5);
 
 define('QUIZMAKER_ALL', '__ALL__');
 define('QUIZMAKER_ALL_ITEMS_KEY', '(*)');
@@ -181,6 +182,7 @@ define('QUIZMAKER_BIT_USETIMER', $h++);
 define('QUIZMAKER_BIT_SHUFFLEQUESTIONS', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTPOPUP', $h++);
 define('QUIZMAKER_BIT_SUBMIT_BUTTON', $h++);
+define('QUIZMAKER_BIT_SHOW_HORLOGE', $h++);
 
 $h = 0;
 define('QUIZMAKER_BIT_SHOW_PLUGIN', $h++);
@@ -245,6 +247,10 @@ define('QUIZMAKER_NO_ICON', '-no_icon.png');
 define('QUIZMAKER_TPL_IMG1', "<img src='%s/%s' alt='' title='%s' style='height:64px;'>");
 define('QUIZMAKER_TPL_IMG2', "<img src='%s/%s' alt='' title='%s' style='height:64px;background:%s'>");
 define('QUIZMAKER_TPL_DELETE', "<span style='color:red'>X</span>");
+
+define('QUIZMAKER_SELECTOR_DIFFICUT_MODE', 1); //0= boutons radio - 1 = liste déroulante
+define('QUIZMAKER_DIFFICUTY_MODULO', 5); //4+1
+define('QUIZMAKER_MAX_ATTEMPTS', 12); //maximium de tentatives par défaut
 
 // Module Information
 $localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';

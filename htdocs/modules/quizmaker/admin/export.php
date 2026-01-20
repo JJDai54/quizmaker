@@ -41,6 +41,7 @@ $quizId = Request::getInt('quiz_id', 0);
 $modeName = Request::getInt('mode_name', 0);
 $suffix = Request::getInt('suffix', 0);
 $quizSubject = Request::getString('quiz_subject', '');
+$quizDifficulty = Request::getInt('quiz_difficulty', 0);
 
 $objError = new \XoopsObject();        
 $utility = new \XoopsModules\Quizmaker\Utility();  
@@ -76,17 +77,19 @@ switch($op) {
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
 		$form = new \XoopsThemeForm($title, 'quizmaker_select_filter', 'export.php', 'post', true);
-		$form->setExtra('enctype="multipart/form-data"');
+		return $form;
 		// To Save
 		$form->addElement(new \XoopsFormHidden('op', 'export_ok'));
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
   	    $form->addElement(new XoopsFormHidden('sender',''));
-        $selectors = $questionsHandler->getSelector($catId, $quizSubject,$quizId, true);        
-  	    $form->addElement($selectors['select']['cat']);
-  	    $form->addElement($selectors['select']['subject']);
-  	    $form->addElement($selectors['select']['quiz']);
+        $selectors = FQUIZMAKER\getQuestionsSelector($catId, $quizSubject,$quizDifficulty,$quizId);
+           
+  	    $form->addElement($selectors['cat']['select']);
+  	    $form->addElement($selectors['subject']['select']);
+  	    //$form->addElement($selectors['difficulty']['select']);
+  	    $form->addElement($selectors['quiz']['select']);
 
         //--------------------------------------------------------
         $inpModeName = new \XoopsFormRadio(_AM_QUIZMAKER_FILE_NAME, 'mode_name', $modeName, '<br>');

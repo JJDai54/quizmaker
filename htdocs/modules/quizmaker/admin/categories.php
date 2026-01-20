@@ -113,6 +113,8 @@ switch($op) {
 		$categoriesObj->setVar('cat_actif', Request::getInt('cat_actif', 1));
 		$categoriesObj->setVar('cat_description', Request::getText('cat_description', ''));
 		$categoriesObj->setVar('cat_weight', Request::getString('cat_weight', 0));
+		$categoriesObj->setVar('cat_max_attempts', Request::getString('cat_max_attempts', 0));
+		$categoriesObj->setVar('cat_delai_cookie', Request::getString('cat_delai_cookie', 3600));
 		$categoriesObj->setVar('cat_theme', Request::getString('cat_theme', 'default'));
         
 		$categoriesObj->setVar('cat_update', \JANUS\getSqlDate());

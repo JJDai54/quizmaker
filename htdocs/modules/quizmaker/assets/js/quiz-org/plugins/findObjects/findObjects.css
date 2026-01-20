@@ -41,6 +41,9 @@ display: float;
     border-top-left-radius: 25px 25px;
     border-top-right-radius: 25px 25px;
     box-shadow: 8px 8px 5px #444;
+    
+background:transparent;
+user-select: none;
 }
 
 
@@ -54,6 +57,7 @@ display: float;
     padding:0px;
 cursor: crosshair;
 display: float;
+user-select: none;
 }
 
 .findObjects_divImageRef2 img{

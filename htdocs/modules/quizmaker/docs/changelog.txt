@@ -1,13 +1,27 @@
 ---------------------------------------------------
+2026-01-19a v 6.18 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------
+onglet admin->quactioins
+    - remplacement des boutons d'actions par une liste déroulante pour allé l'interface
+table questions
+    - ajout du champ "quest_explanation_img"
+    - mise à jour des formulaires et classes
+    - ajout du transgert de quest_explanation et quest_explanation_img vers les javascript
+ Slides : 
+       pour les slides qui ne sont pas des questions, ajout d'une option qui permet de mettre l'imgage principale en lettrine.
+       
+---------------------------------------------------
 2025-11-17a v 6.16 beta 5 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
 intégration de XoopsFormJason pour stocker les attributs de dtyle dans un seul champ(question->image_style qui rempce plusieur champs image_height, image_shadow, ...)
 Ajout de la dificulté d'un quiz
-Dans l'admin des question ajout d'un bouton(point d'interrogation" pour acceder au quiz dans l'interface user afin de faciliter la mise en page des slides.
+Dans l'admin des questions ajout d'un bouton(point d'interrogation" pour accéder au quiz dans l'interface user afin de faciliter la mise en page des slides.
 Ajout d'index sur les tables question et quiz pour optimiser les temps de réponse.
 ajout du champ 'subject' comme sous catégorie simpliée.
 divers corrections et mise en forme
 Sur pageEnd, soummission automatique quand il y a un timer et que focer=true
+Ajout de la dificulté dans les filtres du back-office et du front-office
+Mutualisation de la fonction getSelector pour les onglets des quiz et des questions
 
 Onglet "Questions" : 
     - ajout de la fonction "Ajout d'une page d'information" à une question.
@@ -17,7 +31,12 @@ Onglet "Questions" :
 
 Plugin "textMixte" :
     - Transfert des intrus dans les options pour la variante "listbox1"
-    - Correction des listes d'intrux pour la variante "litbox2"     
+    - Correction des listes d'intrux pour la variante "litbox2"  
+    
+Plugin "multi*questions" ajout du mode de comptage des points dans les options du plugin
+    - 0 : score = nombre de points de la question si toutes les réponses sont exactes.
+    - 1 : score = nombre de points de la question * nombre de bonnes réponses.
+          
 ---------------------------------------------------
 2025-10-22 v 6.16 beta 4 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------
@@ -226,7 +245,7 @@ plugin selectImages
     - mise à jour de l'aide du plugin.
 
 quiz :
-    - Ajout des champ quiz_delai_cookie et quiz_max_flying
+    - Ajout des champ quiz_delai_cookie et quiz_max_attempts
     - gestion des cookies dans display_quiz.php pour empecher les joueur de ne pas valiser et recommencer à l'infini
     
 ---------------------------------------------------

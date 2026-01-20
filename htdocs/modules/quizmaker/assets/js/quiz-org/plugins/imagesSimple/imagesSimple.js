@@ -191,7 +191,7 @@ var bolOk = true;
 /* **************************************************
 
 ***************************************************** */
-getAllReponses (flag = 0){
+getAllPropositions (flag = 0){
      var currentQuestion = this.question;
      var tPropos = this.data.reponses;
      var tPoints = this.data.points;

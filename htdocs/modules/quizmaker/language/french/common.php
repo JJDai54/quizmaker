@@ -117,4 +117,5 @@ define('_CO_QUIZMAKER_DIFFICULT_2',"Difficile");
 define('_CO_QUIZMAKER_DIFFICULT_3',"Très difficile");
 define('_CO_QUIZMAKER_DIFFICULT_4',"Expert");
 
+define('_CO_QUIZMAKER_FORM_ANSWER',"Réponse");
 ?>

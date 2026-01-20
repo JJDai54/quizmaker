@@ -31,12 +31,18 @@
 <input type="hidden" name="sender" value="" />
 
     <div class="item-round-top <{$catTheme}>-item-head"><center><{$smarty.const._MA_QUIZMAKER_SELECTION}></center></div>
+
     <div class="item-round-none <{$catTheme}>-item-body" style="padding:8px 0px 8px 0px;"><center>
-       <{$selectors.select.cat}>&nbsp;<{$selectors.select.subject}>         
-                <br><{$selectors.select.inpPlayer}>    
-                <br><{$selectors.select.difficulty}>    
-    
+<{if $smarty.const.QUIZMAKER_SELECTOR_DIFFICUT_MODE == 1}>
+        <{$selectors.cat.select}>&nbsp;<{$selectors.subject.select}>&nbsp;<{$selectors.difficulty.select}>          
+        <br><{$selectors.inpPlayer.select}>
+<{else}>
+        <{$selectors.cat.select}>&nbsp;<{$selectors.subject.select}>         
+        <br><{$selectors.inpPlayer.select}>    
+        <br><{$selectors.difficulty.select}>    
+<{/if}>    
     </center></div>
+
     <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
 </form>
 

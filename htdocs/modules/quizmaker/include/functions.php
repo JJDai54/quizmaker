@@ -59,11 +59,11 @@ function quizmaker_utf8_encode($exp)
  * @param  $cats 
  * @return string
  */
-function getStyle($background='', $color='', $addStyleVarName = true)
+function getStyle($background='', $foreColor='', $addStyleVarName = true)
 {
     $style = '';
     if ($background) $style .= "background:{$background};";
-    if ($color) $style .= "color:{$color};";
+    if ($foreColor) $style .= "color:{$foreColor};";
     
     if($addStyleVarName){
         return " style='" . $style . "'";
@@ -301,6 +301,21 @@ function format_caractere($car, $color, $size="11px"){
  * getParamsForQuiz : renvoi une chaine de parametre pour personaliser le quiz
  * Tout n'est pas utile uname et name sont probablement suffisant, a voir
  **********************************************************************/
+function canYouPlayQuiz ($quizId, $MaxAttempt){
+global $xoopsUser, $quizHandler, $resultsµHandler;  
+    $uid = $xoopsUser->uid();
+    $ip = \Xmf\IPAddress::fromRequest()->asReadable();
+            
+    $criteria = new \CriteriaCompo(new \Citeria('result_quiz_id', $quizId, "="));
+    $criteria->add(new \Citeria('result_uid', $uid, "="));
+    $criteria->add(new \Citeria('result_ip', $ip, "="));
+
+    return true; //provisoir    
+}
+/**********************************************************************
+ * getParamsForQuiz : renvoi une chaine de parametre pour personaliser le quiz
+ * Tout n'est pas utile uname et name sont probablement suffisant, a voir
+ **********************************************************************/
 function getParamsForQuiz ($asString = false, $resultId=0){
 global $xoopsUser;
         xoops_load('XoopsUserUtility');
@@ -340,6 +355,7 @@ function getBinOptionsArr ($binName){
 $arr = array(
 QUIZMAKER_BIT_START_BUTTON      => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_START_BUTTON, _AM_QUIZMAKER_QUIZ_START_BUTTON_DESC),
 QUIZMAKER_BIT_SUBMIT_BUTTON     => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SUBMIT_BUTTON, _AM_QUIZMAKER_QUIZ_SUBMIT_BUTTON_DESC),
+QUIZMAKER_BIT_SHOW_HORLOGE      => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_HORLOGE, _AM_QUIZMAKER_QUIZ_SHOW_HORLOGE_DESC),
 QUIZMAKER_BIT_SHOW_SCOREMINMAX  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX, _AM_QUIZMAKER_QUIZ_SHOW_SCORE_MIN_MAX_DESC),
 QUIZMAKER_BIT_SHOW_ALLSOLUTIONS => sprintf("%s (%s)", _AM_QUIZMAKER_VIEW_ALL_SOLUTIONS, _AM_QUIZMAKER_SHOW_ALL_SOLUTIONS_DESC),
 QUIZMAKER_BIT_SHOW_SLIDEBAR     => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SLIDEBAR, _AM_QUIZMAKER_QUIZ_SHOW_SLIDEBAR_DESC),
@@ -536,4 +552,130 @@ function addXoopsFormTray(&$xtray, $caption, $formsArr, $sep = '&nbsp;-&nbsp;'){
     }
     $xtray->addElementOption($inpTray);
     return true;
+}
+
+/****************************************************************************
+ * getSelector ===> Listes de selection pour filtrage des questions
+ * $quizId int : id de la categorie
+ * $quizSubject string : subject de quiz
+ * $quizId int : id du quiz
+ * retour arr renvoie un tableau des liste de sélection pour l'interface:
+ ****************************************************************************/
+function getQuizSelector($catId, $quizSubject, $quizDifficulty, $asObject=false, $prefixName = '', $addCaption = true){
+    return getSelector('quiz', $catId, $quizSubject, $quizDifficulty, 0, $asObject, $prefixName, $addCaption);
+}
+function getQuestionsSelector($catId, $quizSubject, $quizDifficulty, $quizId, $asObject=false, $prefixName = '', $addCaption = true){
+    return getSelector('question', $catId, $quizSubject, $quizDifficulty, $quizId, $asObject, $prefixName, $addCaption);
+}
+
+function getSelector($domaine, $catId, $quizSubject, $quizDifficulty, $quizId=0, $asObject=false, $prefixName = '', $addCaption = true){
+global $categoriesHandler, $quizHandler, $clPerms;
+//     if(!isset(formOptions['formName']) formOptions['formName'] = 'quizmaker_select_filter';
+//     if(!isset(formOptions['formName']) formOptions['formName'] = 'quizmaker_select_filter';
+  $bolUnset = false;
+    $selectors = array();
+    $sep = ' : ';
+    $event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="display:inline;width:auto;"';
+    
+
+    //------ selection du sujet de quiz -----
+    $name = 'cat';
+    $field = 'cat_id';
+    $clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
+    $selectors[$name]['arr'] = $categoriesHandler->getList($criteriaCatAllowed);
+    if ($catId == 0) $catId = array_key_first($selectors[$name]['arr']);
+    
+    $selectors[$name]['value'] = $catId;
+    
+//echoArray($selectors[$name]['arr']);
+    $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, $prefixName . $field, $catId);
+    $inpCategory->addOptionArray($selectors[$name]['arr']);
+    $inpCategory->setExtra($event);
+
+    if($asObject) 
+        $selectors[$name]['select'] =  $inpCategory;
+    else
+        $selectors[$name]['select'] = (($addCaption) ? _CO_QUIZMAKER_CATEGORIES . $sep : '') . $inpCategory->render();
+    if($bolUnset) unset($selectors[$name]['arr']);  
+
+
+
+
+    //------ selection du sujet de quiz -----
+    $name = 'subject';
+    $field = 'quiz_subject';
+    $selectors[$name]['value'] = $quizSubject;
+    $selectors[$name]['arr'] =  $quizHandler->getFieldList($field, $catId);
+    if(count($selectors[$name]['arr']) > 1){
+        $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT,  $prefixName . $field, $quizSubject);
+        $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
+        $inpSet->addOptionArray($selectors[$name]['arr']);
+        $inpSet->setExtra($event);
+        
+        if($asObject) 
+            $selectors[$name]['select'] = $inpSet;
+        else
+            $selectors[$name]['select']= (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $inpSet->render();
+
+    }else{
+        $selectors[$name] ['select']= '';
+   }
+    if($bolUnset) unset($selectors[$name]['arr']);  
+          
+    //------ selection de la difficulté -----
+    $name = 'difficulty';
+    $field = 'quiz_difficulty';
+    $selectors[$name]['value'] = $quizDifficulty;
+    $selectors[$name]['arr'] =  $quizHandler->getFieldList($field, $catId);
+    //exit("nb difficultés = " . count($selectors[$name]['arr']));
+    if(count($selectors[$name]['arr']) > 1){
+        if(QUIZMAKER_SELECTOR_DIFFICUT_MODE == 1){
+          $inpDifficulty = new \XoopsFormSelect(_CO_QUIZMAKER_DIFFICULT,  $prefixName . $field, $quizDifficulty);
+        }else{
+          $inpDifficulty = new \XoopsFormRadio(_CO_QUIZMAKER_DIFFICULT,  $prefixName . $field, $quizDifficulty);
+        }
+		$inpDifficulty->addOption(0, QUIZMAKER_ALL_ITEMS_LIB); //_CO_QUIZMAKER_DIFFICULT_ALL
+		$inpDifficulty->addOption(1, _CO_QUIZMAKER_DIFFICULT_1);
+		$inpDifficulty->addOption(2, _CO_QUIZMAKER_DIFFICULT_2);
+		$inpDifficulty->addOption(3, _CO_QUIZMAKER_DIFFICULT_3);
+		$inpDifficulty->addOption(4, _CO_QUIZMAKER_DIFFICULT_4);
+        $inpDifficulty->setExtra($event);
+        
+        if($asObject) 
+            $selectors[$name]['select'] = $inpDifficulty;
+        else
+            $selectors[$name]['select'] = (($addCaption) ? _CO_QUIZMAKER_DIFFICULT . $sep : '') . $inpDifficulty->render();
+
+    }else{
+        $selectors[$name]['select'] = '';
+   }
+   if($bolUnset) unset($selectors[$name]['arr']);  
+
+    //------ selection de la difficulté -----
+    if($domaine == 'question'){
+        $name = 'quiz';
+        $field = 'quiz_id';
+        $selectors[$name]['value'] = $quizId;
+        
+       
+        $selectors[$name]['arr'] = $quizHandler->getListKeyName($catId, $quizSubject, $quizDifficulty); 
+        $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, $prefixName . $field, $quizId);
+        $inpQuiz->addOptionArray($selectors[$name]['arr']);
+        $inpQuiz->setExtra($event);
+        if($asObject) 
+            $selectors[$name] ['select']= $inpQuiz;
+        else
+            $selectors[$name]['select'] = (($addCaption) ? _AM_QUIZMAKER_QUIZ_NAME . $sep : '') . $inpQuiz->render();
+    }
+    
+    
+    //-------------------------------------------------------------------
+    
+    
+// echoArray($selectors);
+// echo "difficulté = {$quizDifficulty}<hr>";
+    return $selectors;
+}
+function getNewIdentifiant($prefixe='slide', $min=10000, $max=100000){
+    return $prefixe . '_' . rand($min,$max);
 }

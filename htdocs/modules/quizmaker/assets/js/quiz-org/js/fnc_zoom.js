@@ -38,7 +38,7 @@ function zoom_getHtmlBtn(slideNumber, btnZoomStatus, btnNext=false){
     
 
     var clsStatus = (btnNext) ? 'quiz_btnZoomEnable' : 'quiz_btnZoomDisable';
-    var btnNextSlide = `<img id='${clQuestion.getId('zoomNext')}' src='${quiz_config.urlCommonImg}/zoom_next_01.png' class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_moins(event, ${slideNumber}, true);' title='${quiz_messages.btnNext}'>`;
+    var btnNextSlide = `<img id='${clQuestion.getId('zoomNext')}' src='${quiz_config.urlCommonImg}/zoom_next_01.png' class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_moins_event(event, ${slideNumber}, true);' title='${quiz_messages.btnNext}'>`;
     
     return `<div class='quiz_divZoomBtn'>${btnZoom} ${btnNextSlide}</div>`;
 
@@ -98,16 +98,16 @@ console.log(`===>zoom_setBtnZoomStatus : slideNumber = ${slideNumber} - btnZoomS
 **************************************** */
 function zoom_action(ev, slideNumber, action){
     if(action == 1){
-        zoom_plus(ev, slideNumber);
+        zoom_plus_event(ev, slideNumber);
     }else if(action == -1){
-        zoom_moins(ev, slideNumber,false);
+        zoom_moins_event(ev, slideNumber,false);
     }
 }
 /* ***************************************
 
 **************************************** */
-function zoom_plus(ev, slideNumber){
-console.log('===>zoom_plus');
+function zoom_plus_event(ev, slideNumber){
+console.log('===>zoom_plus_event');
     var clQuestion = quizard[slideNumber];
     if(clQuestion.isZoomed == true) {return true;}
 //return false;
@@ -117,7 +117,9 @@ console.log('===>zoom_plus');
     var obContenair1 = document.getElementById(idContenair1);
     var absolutePosition = getAbsolutePosition(obContenair1);
     
-
+    var obChronometre = document.getElementById('chronometre');
+    obContenair1.appendChild(obChronometre);
+    
     //alert( decalageH);
 
     document.body.appendChild(obContenair1);
@@ -135,8 +137,8 @@ console.log('===>zoom_plus');
     if(obContenair1.classList.contains('quiz_div_zoom_moins_begin')){
         obContenair1.classList.remove('quiz_div_zoom_moins_begin');
     } 
-    if(!obContenair1.classList.contains('quiz_div_zoom_plus_begin')){
-        obContenair1.classList.add('quiz_div_zoom_plus_begin');
+    if(!obContenair1.classList.contains('quiz_div_zoom_plus_event_begin')){
+        obContenair1.classList.add('quiz_div_zoom_plus_event_begin');
     }
     clQuestion.isZoomed = true;
 //alert('zoom_setBtnZoomStatus(slideNumber,  -1, 1)');
@@ -157,13 +159,19 @@ function zoom_realignWindow(objId){
 /* ***************************************
 
 **************************************** */
-function zoom_moins(ev, slideNumber, gotoNextSlide = false){
+function zoom_moins_event(ev, slideNumber, gotoNextSlide = false){
 console.log(`===>zoom_moins : gotoNextSlide = ${gotoNextSlide}`);
+if(!slideNumber) return false;
+//    alert(`zoom_moins : slideNumber = ${slideNumber}`);
     var clQuestion = quizard[slideNumber];
+//    alert(clQuestion.question.question);
+    if(!clQuestion.zzzzz()){return false;}
     if(clQuestion.isZoomed == false){
         var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
         btnNextSlide.disabled = '';
-        btnNextSlide.click();
+        if(gotoNextSlide){
+            btnNextSlide.click();
+        }
 
         return false;
     }
@@ -177,16 +185,21 @@ console.log('===>zoom_moins : ' + 2);
 console.log('===>zoom_moins : ' + 3);
     /*
     */
-     obContenair1.classList.remove('quiz_div_zoom_plus_begin');
+     obContenair1.classList.remove('quiz_div_zoom_plus_event_begin');
      obContenair1.classList.add('quiz_div_zoom_moins_begin');
 
 
     setTimeout(zoom_end,1000, idContenair1, idContenair2, gotoNextSlide);
     clQuestion.isZoomed = false;
 console.log('===>zoom_moins : ' + 4);
-    zoom_setBtnZoomStatus(slideNumber,  1, -1);    
-    ev.stopPropagation();
 
+
+    var obChronometre = document.getElementById('chronometre');
+    var obDivMain = document.getElementById('quiz_div_main');
+    obDivMain.appendChild(obChronometre);
+
+
+    zoom_setBtnZoomStatus(slideNumber,  1, -1);    
 }
 
 function zoom_end(idContenair1, idContenair2, gotoNextSlide){
@@ -218,7 +231,8 @@ console.log(`===>zoom_end : gotoNextSlide = ${gotoNextSlide}`);
     if(gotoNextSlide){
         var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
         btnNextSlide.disabled = '';
-        btnNextSlide.click();
+        //btnNextSlide.click();
     }
+    if(ev) {ev.stopPropagation();}
 
 }

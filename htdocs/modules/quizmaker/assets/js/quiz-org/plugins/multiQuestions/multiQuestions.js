@@ -131,6 +131,9 @@ getHtmlMultiCheckbox(k, itemsArr, strType, br){
  prepareData(){
     
     var currentQuestion = this.question;
+    // a virer quand tous les quiz de test auront ete regénérés
+    if(!currentQuestion.options.countMode) {currentQuestion.options.countMode = 0};
+    var maxPoints = 0;
     
     var newSep = '|';
     for(var k in currentQuestion.answers){
@@ -154,9 +157,27 @@ getHtmlMultiCheckbox(k, itemsArr, strType, br){
         
         //pour faciliter le code
         ans.typeInput = ans.group;
+        
+        //si le mode de comptage est par item et que le type d'input n'est pas des boutons radio
+        if(currentQuestion.options.countMode == 1 && ans.typeInput != 3){
+ //       alert(`points = ${ans.points} - maxPoints = ${maxPoints}`);
+            maxPoints += (ans.points*1) * (ans.inputs*1);
+ //       alert(`points = ${ans.points} - maxPoints = ${maxPoints}`);
+        }else{
+            maxPoints += ans.points*1;
+        }
+        
                 
     }
-    this.initMinMaxQQ(2);
+
+ //alert(`countMode = ${currentQuestion.options.countMode} - maxPoints = ${maxPoints}`);
+    this.scoreMaxiBP = maxPoints;
+    this.scoreMiniBP = 0;
+
+    this.scoreMaxiQQ = maxPoints;
+    this.scoreMiniQQ = 0;
+    
+    //this.initMinMaxQQ(2);
 }
 
 //---------------------------------------------------
@@ -167,8 +188,9 @@ getScoreByProposition (answerContainer){
 
      for (var k=0; k < currentQuestion.answers.length; k++){
         var ans = currentQuestion.answers[k];
-        var bolOk = this.getValuesArr(k, ans);
-        if (bolOk) {points += ans.points;}
+//         var bolOk = this.getValuesArr(k, ans);
+//         if (bolOk) {points += ans.points;}
+        points += this.getValuesArr(k, ans);
      }
 
       return points;
@@ -187,7 +209,10 @@ getScoreByProposition (answerContainer){
     var bolOk = false;
     var nbRep = 0;
     var goodRepArr = ans.sanitysArr;
-    
+    var points = 0;
+           
+    // TYPE_LISTBOX,
+    // TYPE_TEXTBOX,
     if(ans.typeInput < 2){
         obs.forEach((obInput, index) => {
             if (values.indexOf(obInput.value) == -1){
@@ -198,6 +223,8 @@ getScoreByProposition (answerContainer){
             }
         });
         bolOk = (obs.length == nbRep);
+        
+    // TYPE_CHECKBOX,
     }else if(ans.typeInput == 2){
         obs.forEach((obInput, index) => {
             if (obInput.checked){
@@ -208,6 +235,8 @@ getScoreByProposition (answerContainer){
             }
         });
         bolOk = (ans.sanitysArr.length == nbRep);
+        
+    // TYPE_RADIO);
     }else{
         obs.forEach((obInput, index) => {
             if (obInput.checked){
@@ -219,49 +248,32 @@ getScoreByProposition (answerContainer){
         });
         bolOk = (nbRep > 0);
     }
-    
-    return bolOk;
+    if(currentQuestion.options.countMode == 1){
+        points = ans.points * nbRep;
+    }else if(bolOk){
+        points = ans.points;
+    }
+    return points;
  }
 
 /* *******************************************
-* getAllReponses : renvoie les réponse à la question
+* getAllPropositions : renvoie les réponse à la question
 * @ flag int: 0 = toutes les réponses / 1 = que les bonnes réponses
 * ********** */
-getAllReponses  (flag=0){
-
+getAllPropositions  (flag=0){
     var currentQuestion = this.question;
     var tReponses = [];
     var html = [];
     
     for (var k = 0; k < currentQuestion.answers.length; k++){
         var ans = currentQuestion.answers[k];
-        var html = `<b>Question ${k} : ${ans.caption}</b>` + qbr
-                 + 'Liste des réponses' + qbr
-                 + ans.proposition + qbr;
-        tReponses.push(html);
+        var arr = [];
+        arr['inputs']=`Question : ${ans.caption}<br>===>${ans.proposition}`;
+        arr['points']=ans.points;
+
+        tReponses.push(arr);
     }    
 
-/*
-
-
-    
-    var currentQuestion = this.question;
-    var tReponses = [];
-
-    
-    for (var k=0; k < currentQuestion.answers.length; k++){
-        var tGroup = [];
-
-        var tKeyPoints = sortArrayKey(this.data.subQuestions[k].keyPoints, 'a');
-        //var tKeyPoints = this.data.subQuestions[k].keyPoints;
-        for(var key in tKeyPoints)
-        {
-             tGroup.push ({'inputs':tKeyPoints[key].word,'points': tKeyPoints[key].points}) ;
-        }
-        tReponses.push(tGroup);
-    }    
-    return html.join("\n");
-*/    
     return formatArray2(tReponses, '=');
 }
 

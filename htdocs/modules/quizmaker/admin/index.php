@@ -84,6 +84,8 @@ if($nbTraitements == 0){
     $adminObject->addInfoBoxLine(_AM_QUIZMAKER_NO_TRAITEMENT_TODO);
 }
 
+$adminObject->addInfoBoxLine("<a href='traitements.php?op=active_desactive_debug_mode'>"._AM_QUIZMAKER_ACTIVE_DESACTIVE_DEBUG_MOD."</a>");
+
 //-------------------------------------------------------------
 // Upload Folders
 $configurator = new Common\Configurator();

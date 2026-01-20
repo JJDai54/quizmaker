@@ -45,7 +45,7 @@ function pb_init(maxValue, newValue = 0)
   var obBase = document.getElementById('pb_base');
   var obText = document.getElementById('pb_text');
   
-  pb.maxWidth = obContenair.offsetWidth - obText.offsetWidth - 12-120;
+  pb.maxWidth = obContenair.offsetWidth - obText.offsetWidth - 12-20;
   obBase.style.width = pb.maxWidth + 'px';
   pb.value = newValue;
   pb_showProgression();   

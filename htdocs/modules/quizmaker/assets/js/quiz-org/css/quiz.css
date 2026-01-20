@@ -342,6 +342,7 @@ label{
     /* width: 100%; */
     height: 350px;
     overflow-y: scroll;
+    padding: 50px;
 /*    overflow: hidden; *
     padding: 20px;
     margin: 0px;
@@ -355,6 +356,15 @@ label{
     color: red;
 }
 
+#btnPopContinue {
+  background-color: #99FF00;
+  color: #000099;
+}
+#quiz_div_popup_footer {
+  background-color: #CCFFCC;
+  color: #000099;
+
+}
 
 /* --- style des slides --- */
 .quiz_plugin_main{
@@ -894,33 +904,33 @@ padding:2px 0px 0px 2px;
     z-index:8888;
 }
 
-.quiz_div_zoom_plus_begin{
+.quiz_div_zoom_plus_event_begin{
 
-    animation: quiz_div_zoom_plus_anim 2s;
+    animation: quiz_div_zoom_plus_event_anim 2s;
 
 
-    -moz-animation: quiz_div_zoom_plus_anim 2s; /* Firefox */
-    -webkit-animation: quiz_div_zoom_plus_anim 2s; /* Safari et Chrome */
-    -o-animation: quiz_div_zoom_plus_anim 2s; /* Opera */
+    -moz-animation: quiz_div_zoom_plus_event_anim 2s; /* Firefox */
+    -webkit-animation: quiz_div_zoom_plus_event_anim 2s; /* Safari et Chrome */
+    -o-animation: quiz_div_zoom_plus_event_anim 2s; /* Opera */
     /* transform: scale(1.6); */ 
     animation-fill-mode: forwards; /* l'ordre des instruction est importante sinon ca ne fonctione pas */
     animation-delay: 100ms;      
     animation-iteration-count:1;
  }
 
-@keyframes quiz_div_zoom_plus_anim {
+@keyframes quiz_div_zoom_plus_event_anim {
        0% {transform: scale(1);}
        100% { transform:translate(-3%,-3%) scale(1.6); background:#EBEBEB;}
 }
-@-moz-keyframes quiz_div_zoom_plus_anim { /* sur Firefox */
+@-moz-keyframes quiz_div_zoom_plus_event_anim { /* sur Firefox */
        0% {transform: scale(1);}
        100% {transform:scale(1.6); transform:translate(20%,50%);}
 }
-@-webkit-keyframes quiz_div_zoom_plus_anim { /* sur Safari et Chrome */
+@-webkit-keyframes quiz_div_zoom_plus_event_anim { /* sur Safari et Chrome */
        0% {transform: scale(1);}
        100% {transform:scale(1.6); transform:translate(20%,50%);}
 }
-@-o-keyframes quiz_div_zoom_plus_anim { /* sur Opera */
+@-o-keyframes quiz_div_zoom_plus_event_anim { /* sur Opera */
        0% {transform: scale(1);}
        100% {transform:scale(1.6); transform:translate(20%,50%);}
 }

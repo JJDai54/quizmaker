@@ -118,7 +118,7 @@ $tblAns   =  $xoopsDB->prefix('quizmaker_answers');
     //dossier source et destination pour les images
     $quizFrom = $quizHandler->get($quizIdFrom);
     $pathFrom = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $quizFrom->getVar('quiz_folderJS');
-    echo "===>quizIdFrom : {$quizIdFrom}<br>===>{$pathFrom}<br>";
+    //echo "===>quizIdFrom : {$quizIdFrom}<br>===>{$pathFrom}<br>";
     self::quiz_copy_images($pathFrom, $quizIdTo);    
     
 }

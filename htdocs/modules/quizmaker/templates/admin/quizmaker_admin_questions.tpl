@@ -30,9 +30,10 @@ function addNewChild(parentId){
       <{* ======================================================== *}> 
       <table>
         <tr>
-          <td><{$selectors.select.cat}></td>
-          <td><{$selectors.select.subject}></td>
-          <td><{$selectors.select.quiz}></td>
+          <td><{$selectors.cat.select}></td>
+          <td><{$selectors.subject.select}></td>
+          <td><{$selectors.difficulty.select}></td>
+          <td><{$selectors.quiz.select}></td>
         </tr>
       </table>
       <table>
@@ -44,17 +45,16 @@ function addNewChild(parentId){
         </tr>
       </table>
     </div>
-</div><br><br>
-</form>
-<{* ======================================================== *}> 
 <{if $questions_list}>
-<br>
 <div class="floatright">
     <div class="xo-buttons">
+        <{$actions}>
+        <{* 
         <{$btnEditQuiz}>
         <{$btnCategory}>
         <{$btnInitWeight}>
         <{$btnPurgerImg}>
+        *}>
         <{$btnExportQuiz}>
         <{$btnBuildHtml}>
         <{$imgTestHtml1}>
@@ -62,12 +62,18 @@ function addNewChild(parentId){
         
     </div>
 </div>
+<{/if}>
+</div><br><br>
+</form>
+<{* ======================================================== *}> 
+<{if $questions_list}>
+<br>
  
   
 <form name='quizmaker_list' id='quizmaker_list' action='questions.php' method='post' enctype=''>
 <input type="hidden" name="op"       value="update_list" />
-<input type="hidden" name="cat_id"   value="<{$cat_id}>" />
-<input type="hidden" name="quiz_id"  value="<{$quiz_id}>" />
+<input type="hidden" name="cat_id"   value="<{$update_cat_id}>" />
+<input type="hidden" name="quiz_id"  value="<{$update_quiz_id}>" />
 <input type="hidden" name="quest_id" value="<{$quest_id}>" />
 
 	<table id='quiz_question_list' name='quiz_question_list' class='table table-bordered'>
@@ -115,6 +121,10 @@ function addNewChild(parentId){
                 <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_INFO}>
                   <{assign var="fldImg" value="red"}>
                   <{assign var="styleParent" value="style='background:#CCFF99;'"}>
+                 
+                <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_ANSWER}>
+                  <{assign var="fldImg" value="red"}>
+                  <{assign var="styleParent" value="style='background:#FFFFCC;'"}>
                   
                 <{elseif !$Questions.actif}>
                   <{assign var="fldImg" value="blue"}>
@@ -145,7 +155,7 @@ function addNewChild(parentId){
                 
                 <{* --------- groupes  ------------------*}>                
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}>
-                    <{if $Questions.parent_id > 0}>
+                    <{if $Questions.parent_id > 0 AND $Questions.plugin<>'pageAnswer'}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_OUT_OF_GROUP}>">
                             <img src="<{$modPathIcon16}>/out_group-red.png" alt="questions" />
                             </a>
@@ -163,7 +173,11 @@ function addNewChild(parentId){
 
                 </td>
 <{*				<td class='center' <{$styleParent}> ><{$Questions.quiz_id}></td> *}>
-				<td class='center' <{$styleParent}> ><{$Questions.reference_id}></td>
+				<td class='center' <{$styleParent}> >
+<{*                <{if $Questions.quest_identifiant2}> <{$Questions.quest_identifiant2}><{else}><{$Questions.quest_identifiant1}><{/if}> *}>
+               <{$Questions.quest_identifiant1}><br>
+               <{$Questions.quest_identifiant2}>
+                </td>
 				<td class='left' <{$styleParent}> ><{$Questions.plugin}></td>
 				<td class='left' <{$styleParent}> ><{$Questions.typeForm_lib}></td>
                 
@@ -241,7 +255,9 @@ function addNewChild(parentId){
                      </a>
                         
                     <{if $Questions.canDelete OR $isAdmin}>
-<{* action du clone a revoir : probleme : copie de la table enfant au détriment de la questionsource
+<{* action du clone a revoir : probleme : copie de la table enfant au détriment de la question source
+pour permettre l suppression des pages begin et end quand il y a doublon
+                    <{if $Questions.canDelete OR $isAdmin}>
 *}>                     
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
@@ -259,7 +275,7 @@ function addNewChild(parentId){
                           <img src="<{$modPathIcon16}>/add-green.png" alt="_ADD" />
                           </a>
                     <{elseif $Questions.isQuestion}>
-    					<a  href="questions.php?op=addinfo&quest_id=<{$Questions.id}>" title="<{$smarty.const._ADD}>" >
+    					<a  href="questions.php?op=addanswer&quest_id=<{$Questions.id}>" title="<{$smarty.const._AM_QUIZMAKER_ADD_ANSWER}>" >
                           <img src="<{$modPathIcon16}>/add-blue.png" alt="_ADD" />
                           </a>
                     <{else}>
@@ -305,7 +321,9 @@ tth_trierTableau('quiz_question_list', 9);   <{* tri sur le colonne weight *}>
 
 <{/if}>
 <{if $form}>
+<hr>
 	<{$form}>
+<hr>
 <{/if}>
 
 <{* <{if $error}> 

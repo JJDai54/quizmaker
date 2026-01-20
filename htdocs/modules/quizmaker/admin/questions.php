@@ -34,6 +34,8 @@ $catId  = Request::getInt('cat_id', 0);
 $quizId  = Request::getInt('quiz_id', 0);
 $questId  = Request::getInt('quest_id', 0);
 $quizSubject = Request::getString('quiz_subject', '');
+$quizDifficulty = Request::getInt('quiz_difficulty', 0);
+//        echo "===>1quizId = {$quizId} - catId  = {$catId}<br>";
 
 if($quizId > 0 && $catId == 0){
     $quiz = $quizHandler->get($quizId);
@@ -54,12 +56,14 @@ if ($quizId == 0  || !isset($quizArr[$quizId]))
 // echoArray('gp');
 // echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";
 
-
+        echo "2===>quizId = {$quizId} - catId  = {$catId}<br>";
 
 
 
 
 $op = Request::getCmd('op', 'list');
+$action = Request::getCmd('actions', ''); 
+if($action && $action !='no-action') $op = $action;
 
 //utiliser pour rediriger directement sur l'ajout d'une question du même type
 $addNew = (Request::getCmd('submit_and_addnew', 'no') == 'no') ? false : true;
@@ -78,7 +82,8 @@ $quest_plugin = Request::getString('quest_plugin', '');
 function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0, $questId = 0, $subject=""){
 global $quizHandler;
     $catId = $quizHandler->getParentId($quizId);
-    return $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}&quest_id={$questId}&subject={$subject}";
+    $params = "sender={$sender}&cat_id={$catId}&quiz_id={$quizId}&quest_plugin={$quest_plugin}&quest_parent_id={$quest_parent_id}&quest_id={$questId}&subject={$subject}";
+    return $params;
 }
 function getParams2list2($questObj, $quizSubject, $sender = ""){
 global $quizHandler, $quest_Handler;
@@ -106,7 +111,7 @@ switch($op) {
 	case 'clone':
 	case 'save':
 	case 'delete':
-	case 'addinfo':
+	case 'addanswer':
         include_once("questions-{$op}.php");
         break;
     
@@ -144,6 +149,21 @@ switch($op) {
         redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
 	    break;
     
+	case 'disable_pageanswer':
+    case 'enable_pageanswer':
+        $etat = ($op == 'enable_pageanswer') ? 1 : 0;
+        $field = 'quest_visible';
+        $criteria = 'quest_plugin = "pageAnswer"';
+        $questionsHandler->setValue2QuestOfQuiz($quizId, $field, $etat, $criteria);
+        
+        $buildArr = $quizUtility::buildQuiz($quizId);
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$buildArr['name'],$buildArr['id'],$buildArr['build']);
+        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, $msg);
+	    break;
+
+
+
+
 	case 'set_value':
         $field = Request::getString('field');
         $value = Request::getString('value', '0');
@@ -185,6 +205,7 @@ switch($op) {
 	    break;
     
 	case 'update_list':
+        //echo "===>quizId = {$quizId} - catId  = {$catId}<br>";
 
         $list = Request::getArray('quest_list');
         //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
@@ -199,16 +220,15 @@ switch($op) {
         
         $delArr = array_keys(Request::getArray('delete'));
         if(count($delArr) > 0){
-
-    $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE_LIST, $quizId, implode(' / ', $delArr));
-  	xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'deletelist'=>implode(',', $delArr), 'op' => 'delete_list'], $_SERVER['REQUEST_URI'], $msg);
-
+            $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE_LIST, $quizId, implode(' / ', $delArr));
+          	xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'deletelist'=>implode(',', $delArr), 'op' => 'delete_list'], $_SERVER['REQUEST_URI'], $msg);
 // echo "<hr>===>{$msg}<hr>";
 // echoArray('gp', "===>quizId = {$quizId}",true);
 // require __DIR__ . '/footer.php';
 
 //exit;
         }else{
+//        exit("quizId = {$quizId} - catId  = {$catId}");
             redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Mise à jour ok");
         }
         
