@@ -46,6 +46,7 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_quiz_id', XOBJ_DTYPE_INT);
 		$this->initVar('quest_plugin', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_question', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('quest_question_style', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_identifiant1', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_identifiant2', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_options', XOBJ_DTYPE_TXTBOX);
@@ -58,7 +59,6 @@ class Questions extends \XoopsObject
 		$this->initVar('quest_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_height', XOBJ_DTYPE_INT);
 		$this->initVar('quest_shadow', XOBJ_DTYPE_TXTBOX);
-		//$this->initVar('quest_image_style', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quest_image_style', XOBJ_DTYPE_OTHER);
 		$this->initVar('quest_zoom', XOBJ_DTYPE_INT);
 		$this->initVar('quest_background', XOBJ_DTYPE_TXTBOX);
@@ -115,6 +115,7 @@ class Questions extends \XoopsObject
         }
         $clone->setVar('quest_id', 0);
         $clone->setVar('quest_question', $clone->getVar('quest_question') . " - (clone [#{$this->getVar('quest_id')}])");
+        $clone->setVar('quest_identifiant1', FQUIZMAKER\getNewIdentifiant());
         $clone->setVar('quest_weight', $clone->getVar('quest_weight')+2);
         // need this to notify the handler class that this is a newly created object
         $clone->setNew();
@@ -322,6 +323,22 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $inpQuestion->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
         $form->addElement($inpQuestion, true);
         
+//////////////////////////////////////////
+
+                $name = 'quest_question_style';
+                $style = $this->getVar($name);
+                 $inpTitleStyle = new \XoopsFormJson(_AM_QUIZMAKER_QUESTIONS_STYLE, $name, $style, false);                  
+                  //$inpTitleStyle->setTextBoxVisible(true);        
+                  //$inpTitleStyle->setPreviewVisible(true);        
+                  $inpTitleStyle->addOption('size', 1, 'number', ['caption' => 'Taille', 'min'=>0.8,'max'=>2.2, 'size'=>5, 'unit'=>'em']);
+                  //$inpTitleStyle->addOption('line-height', 1, 'number', ['caption' => 'Interligne', 'min'=>0.8,'max'=>2.1, 'size'=>5, 'unit'=>'em']);
+                  $inpTitleStyle->addOption('color', '#000000', 'palette', ['caption' => 'Couleur', 'palette' => 'classic']);                  
+                  
+
+                  $form->addElement($inpTitleStyle);                  
+
+/////////////////////////////////////////
+
 		
 		// Form Editor DhtmlTextArea questComment1
         $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
@@ -340,10 +357,11 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$inpSeeAlso = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_SEE_ALSO, 'quest_see_also', 120, 255, $this->getVar('quest_see_also') );
         $inpSeeAlso->setDescription(_AM_QUIZMAKER_QUESTIONS_SEE_ALSO_DESC);
 		$form->addElement($inpSeeAlso);
-        
+
+
         /* ***** Options uniquement pour les questions ***** */
         // Form quest_posComment1
-/* a vooir dans une prochaine si cette options est déporté de quiz vers question pour affiner la présentation individuellement
+/* a voir dans une prochaine si cette options est déportée de quiz vers question pour affiner la présentation individuellement
 */		
         $inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quest_posComment1', $this->getVar('quest_posComment1'));
         $inpPosComment->addOptionArray(['0'=>_AM_QUIZMAKER_POS_COMMENT_0, '1'=>_AM_QUIZMAKER_POS_COMMENT_1 , '2'=>_AM_QUIZMAKER_POS_COMMENT_2, '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
@@ -475,30 +493,49 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                   $name = 'quest_image_style';  
                   $style = $this->getVar($name);  
                   //$style = '';  
-   
-                  $inpJson = new \XoopsFormJson('', $name, $style);                  
-                  //$inpJson->setTextBoxVisible(true);        
-                  //$inpJson->setPreviewVisible(true);        
-                  $inpJson->addNewOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>300, 'size'=>5, 'unit'=>'px']);
-                  $inpJson->addNewOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
-                  $inpJson->addNewOption('shadow_offset', 8, 'number', ['_caption_' => "Décalage de l'ombre", 'min'=>1,'max'=>16, 'size'=>5, 'unit'=>'px']);
-                  $inpJson->addNewOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+/*
+                  $inpJson = new \XoopsFormJson('', $name, $style);  
+                  $inpJson->setStyle('background', '#FFCCFF');                
+                  $inpJson->setTextBoxVisible(true);        
+                  $inpJson->setPreviewVisible(true);        
+                  if ($clPlugin->isQuestion){
+                    $inpJson->addOption('lettrine', 0, 'hidden');
+                  }else{
+                    $inpJson->addOption('lettrine', 0, 'radio', ['_caption_'=> 'Lettrine', 'options'=>'non=0,Oui=1']);
+                  }
+                  $inpJson->addOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>400, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
+                  $inpJson->addOption('shadow_offset', 8, 'number', ['_caption_' => "Décalage de l'ombre", 'min'=>0,'max'=>16, 'size'=>5, 'unit'=>'px']);
                   //si c'est une question on ne donne pas la possibilite de mettre l'image principale en lettrine
                   //cett option n'est dispponible que pour pageBegin, pageEnd, pageInfo, ...
-                  if ($clPlugin->isQuestion){
-                    $inpJson->addNewOption('lettrine', 0, 'hidden');
-                  }else{
-                    $inpJson->addNewOption('lettrine', 0, 'radio', ['_caption_'=> 'Lettrine', 'options'=>'non=0,Oui=1']);
-                  }
+                  $inpJson->updateOptions('height', ['max'=>400]);
                   $inpJson->setOrder("lettrine,height,borderRound,shadow,shadow_offset");
-                  if($inpJson->isNew){
-                        $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
-                        $inpJson->updateOptions('shadow', ['value'=>$this->getVar('quest_shadow')]);
-                  }       
+*/   
+                  $inpJson = new \XoopsFormJson('', $name, $style);  
+                  $inpJson->setStyle('background', '#FFCCFF');                
+//                   $inpJson->setTextBoxVisible(true);        
+//                   $inpJson->setPreviewVisible(true);        
+                  if ($clPlugin->isQuestion){
+                    $inpJson->addOption('lettrine', 0, 'hidden');
+                  }else{
+                    $inpJson->addOption('lettrine', 0, 'radio', ['caption'=> 'Lettrine', 'options'=>'non=0,Oui=1']);
+                  }
+                  $inpJson->addOption('height', 125, 'number', ['caption' => 'Hauteur', 'min'=>25,'max'=>400, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addOption('borderRound', 12, 'number', ['caption'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addOption('shadow', '#000000', 'palette', ['caption' => 'Ombre', 'palette' => 'classic']);
+                  $inpJson->addOption('shadow_offset', 8, 'number', ['caption' => "Décalage de l'ombre", 'min'=>0,'max'=>16, 'size'=>5, 'unit'=>'px']);
+                  //si c'est une question on ne donne pas la possibilite de mettre l'image principale en lettrine
+                  //cett option n'est dispponible que pour pageBegin, pageEnd, pageInfo, ...
+                  $inpJson->updateOptions('height', ['max'=>400]);
+                  //$inpJson->setOrder("lettrine,height,borderRound,shadow,shadow_offset");
+//                   if($inpJson->isNew){
+//                         $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
+//                         $inpJson->updateOptions('shadow', ['value'=>$this->getVar('quest_shadow')]);
+//                   }       
                     
                   $inpTrayImg = new \XoopsFormElementTray(_AM_QUIZMAKER_IMAGE_MAIN, "");
                   $inpTrayImg->addElement($inpImage);
-                  
                   
 
 /*
@@ -509,17 +546,17 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                   $inpJson->setCaptions('Editer le style', 'Soumettre le style', 'Annuler');        
                   $inpJson->setTextBoxVisible(true);        
                   $inpJson->setPreviewVisible(true);        
-                  $inpJson->addNewOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>300, 'size'=>5, 'unit'=>'px']);
-                  $inpJson->addNewOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
-                  $inpJson->addNewOption('shadow2', '#000000', 'palette', ['_caption_' => 'Ombre']);
-                  $inpJson->addNewOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
-                  $inpJson->addNewOption('borderColor', '#000000', 'color', ['_caption_' => 'Bordure']);
-                  $inpJson->addNewOption('alignement', 'left', 'list', ['_caption_'=> 'Alignement', 'options'=>'left,center,right']);                 
-                  $inpJson->addNewOption('aaaa', 'left', 'radio', ['_caption_'=> 'aaaaa', 'options'=>'left,center,right']);                 
-                  $inpJson->addNewOption('bbbb', 'right', 'radio', ['_caption_'=> 'bbbb', 'options'=>'left,center,right']);                 
-                  $inpJson->addNewOption('cccc', 'top,right,bottom', 'checkbox', ['_caption_'=> 'case a cocher', 'options'=>'top,right,bottom,left']);                 
-                  $inpJson->addNewOption('test_red', 'red', 'hidden');
-                  $inpJson->addNewOption('test_zzz', 'red', 'textbox');
+                  $inpJson->addOption('height', 125, 'number', ['_caption_' => 'Hauteur', 'min'=>25,'max'=>300, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addOption('shadow', '#000000', 'palette', ['_caption_' => 'Ombre', 'palette' => 'classic']);
+                  $inpJson->addOption('shadow2', '#000000', 'palette', ['_caption_' => 'Ombre']);
+                  $inpJson->addOption('borderRound', 12, 'number', ['_caption_'=> 'Arrondi', 'min'=>0,'max'=>150, 'size'=>5, 'unit'=>'px']);
+                  $inpJson->addOption('borderColor', '#000000', 'color', ['_caption_' => 'Bordure']);
+                  $inpJson->addOption('alignement', 'left', 'list', ['_caption_'=> 'Alignement', 'options'=>'left,center,right']);                 
+                  $inpJson->addOption('aaaa', 'left', 'radio', ['_caption_'=> 'aaaaa', 'options'=>'left,center,right']);                 
+                  $inpJson->addOption('bbbb', 'right', 'radio', ['_caption_'=> 'bbbb', 'options'=>'left,center,right']);                 
+                  $inpJson->addOption('cccc', 'top,right,bottom', 'checkbox', ['_caption_'=> 'case a cocher', 'options'=>'top,right,bottom,left']);                 
+                  $inpJson->addOption('test_red', 'red', 'hidden');
+                  $inpJson->addOption('test_zzz', 'red', 'textbox');
                   //$inpJson->removeOption('borderColor');         
                   if($inpJson->isNew){
                         $inpJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
@@ -670,6 +707,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 		$ret['quiz_id']        = $this->getVar('quest_quiz_id');
 		$ret['plugin']         = $pluginName; //$this->getVar('quest_plugin');
 		$ret['question']       = $this->getVar('quest_question');
+ 		$ret['question_style'] = $this->getVar('quest_question_style');
 		$ret['identifiant1']   = $this->getVar('quest_identifiant1');
 		$ret['identifiant2']   = $this->getVar('quest_identifiant2');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
@@ -679,6 +717,7 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
         //pour palier aux transfert des options spécifiques sur des quiz plus anciens,
         //on recupère les options par éfauts en attenaant de modifier et valider de nouveau la question
         if(!$ret['options']) $ret['options'] = json_encode($clPlugin->optionsDefaults);
+		$ret['optionsArr']     = json_decode(html_entity_decode($ret['options']),true);
       
 		$ret['comment1']       = $this->getVar('quest_comment1', 'e');
 		$ret['pos_comment1']   = $this->getVar('quest_posComment1');
@@ -806,12 +845,86 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
     $quizTo = $quizHandler->get($newQuizId);
     $fldTo = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' .  $quizTo->getVar('quiz_folderJS');
     
-    echo "<hr>newQuizId : {$newQuizId}<br>From : <br>{$fldFrom}<br>to : <br>{$fldTo}<hr>";
+    //echo "<hr>newQuizId : {$newQuizId}<br>From : <br>{$fldFrom}<br>to : <br>{$fldTo}<hr>";
 exit('move');
    }
+
+/**************************************************************
+ * get_quest_images : renvoie un tableau des images de la question pass en paramètre
+ * utilisé pour deplacer ou compié une question dans un autre quiz.
+ * @$questIdFrom : Id de la question
+ * ************************************************************/
+public function getImages(){
+global $questionsHandler, $answersHandler;
+    $allImg = array();
+    $questId = $this->getVar('quest_id');
+    
+    $question = $this->getValuesQuestions();    
+    if($question['image'])
+        $allImg[] = $question['image'];
+
+    if($question['background'])
+        $allImg[] = $question['background'];
+    
+    //recharche des images des proposition de la question : image1 et image2
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('answer_quest_id', $questId, '='));
+//     $criteria->add(new \Criteria('answer_image1', "%jpg%", 'LIKE'));
+//     $criteria->add(new \Criteria('answer_image2', "%jpg%", 'LIKE'), "OR");
+    $rst = $answersHandler->getAll($criteria);
+    if(count($rst) > 0){
+      foreach(array_keys($rst) as $i) {
+        $answer =  $rst[$i]->getValuesAnswers();
+        if( $answer['image1'])
+            $allImg[] = $answer['image1'];
+            
+        if( $answer['image2'])
+            $allImg[] = $answer['image2'];
+      }
+    }
+    
+    $tExtImg = array('jpg', 'jpeg','png','gif');
+    //echo("===>" . $this->getVar['quest_options']);
+    //echo("===>" . $question['options']);
+    //$tOptions = json_decode($this->getVar['quest_options'],true);    
+    if (is_array($question['options'])){
+        foreach($question['options'] as $key=>$v){
+            $i = strrpos($v, '.');
+            if($i !== false){
+              $ext = substr($v, $i+1);
+              //echo "ext = $ext";
+              if(in_array($ext, $tExtImg)) $allImg[] = $v;
+            }
+        } 
+       
+    }
+     //----------------------------------------------------------------
+    return $allImg;
+}
  
- 
-}//------------------- FIN DE LA VARIANT ---------------------------------
+/**************************************************************
+ * get_quest_images : renvoie un tableau des images de la question pass en paramètre
+ * utilisé pour deplacer ou compié une question dans un autre quiz.
+ * @$questIdFrom : Id de la question
+ * ************************************************************/
+public function getPageReponse(){
+global $questionsHandler;
+    $identifiant1 = $this->getVar('quest_identifiant1');
+    //recherche si il y a une page d'info page info liée à cette question
+    $criteria = new \CriteriaCompo(new \Criteria('quest_quiz_id', $this->getVar('quest_quiz_id'), '='));
+    $criteria->add(new \Criteria('quest_plugin', 'pageAnswer', '='));
+    $criteria->add(new \Criteria('quest_identifiant2', $identifiant1, '='));
+    
+    $rst = $questionsHandler->getAll($criteria);
+    //echoArray($rst, "identifiant = {$identifiant1}");exit;
+    if(count($rst) > 0) {
+        return array_shift($rst);
+    }else{
+        return null;
+    }
+
+} 
+}//------------------- FIN DE LA CLASSE ---------------------------------
 
 
 

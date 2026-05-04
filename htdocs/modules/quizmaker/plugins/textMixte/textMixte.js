@@ -28,7 +28,7 @@ var selection = obText.value.substr(selStart, selLen);
     if (selection.substr(selection.length - 1) == " ") { selLen--;selEnd--;}
     
     var newTxt = obText.value;
-console.log ("===>textMixte_addAccolades\nselection = " + selection + `/===>${selStart}-${selEnd}-${selLen}`);     
+//console.log ("===>textMixte_addAccolades\nselection = " + selection + `/===>${selStart}-${selEnd}-${selLen}`);     
     if (selEnd > selStart){
     
     newTxt = newTxt.substr(0,selStart) + '{' + newTxt.substr(selStart, selLen) + '}' + newTxt.substr(selEnd);
@@ -65,6 +65,12 @@ function getPreviousChar(exp, currentPos, nextCharsToFind = ' , ; .'){
     return j;
 }
 
+
+//-------------------------------------------------------
+function textMixte_clear(idTexteArea){
+    var obText = document.getElementById(idTexteArea);
+    obText.value = '';
+}
 
 //-------------------------------------------------------
 function textMixte_removeAccolades(idTexteArea){

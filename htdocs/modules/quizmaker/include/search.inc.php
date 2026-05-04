@@ -116,10 +116,10 @@ $isAdmin = $clPerms->isUserAdmin;
 	$crSearch->setLimit( $limit );
 	$crSearch->setSort( 'quiz_dateEnd' );
 	$crSearch->setOrder( 'DESC' );
-	$quizAll = $quizHandler->getAll($crSearch);
+	$allQuiz = $quizHandler->getAll($crSearch);
     //exit;
-	foreach(array_keys($quizAll) as $i) {
-        $quizObj = $quizAll[$i];
+	foreach(array_keys($allQuiz) as $i) {
+        $quizObj = $allQuiz[$i];
         $periodeOK = dateIsBetween($quizObj->getVar('quiz_dateBegin'), $quizObj->getVar('quiz_dateEnd'), $quizObj->getVar('quiz_dateBeginOk'), $quizObj->getVar('quiz_dateEndOk'));
         
         //$quizValues = $quizObj->getValuesQuiz();
@@ -144,7 +144,7 @@ $isAdmin = $clPerms->isUserAdmin;
          
 		$ret[] = [
 			'image'  => 'assets/icons/16/quiz-1.png',
-			'link'   => 'quiz_display.php?op=run&quiz_id=' . $quizObj->getVar('quiz_id'),
+			'link'   => QUIZMAKER_DISPLAY_QUIZ . '?op=run&quiz_id=' . $quizObj->getVar('quiz_id'),
 			'title'  => $title, 
             'time'   => $quizDate,
 			'uid'    => 0

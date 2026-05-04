@@ -22,6 +22,13 @@ img{
 }
 </style>				
 
+
+<{if $exportCount > 0}>
+    <hr><{$exportList}><hr>
+<{/if}>
+<{* ======================================================== *}> 
+
+
 <{assign var="showDetailBinOptions" value=false}>
 
 <{if $quiz_list}>
@@ -76,7 +83,7 @@ img{
                 </td>
                 <td class='left'>
                     <a href="quiz.php?op=change_etat&cat_id=<{$Quiz.cat_id}>&quiz_subject=<{$selectors.subject.value}>&quiz_difficulty=<{$selectors.difficulty.value}>&quiz_id=<{$Quiz.id}>&field=quiz_difficulty&modulo=<{$smarty.const.QUIZMAKER_DIFFICUTY_MODULO}>"   title='<{$smarty.const._AM_QUIZMAKER_DIFFICULTY}>' >
-                        <img src='<{$smarty.const.QUIZMAKER_URL_ICONS}>/16/difficulty/<{$Quiz.difficulty_icon}>' title='<{$Quiz.difficulty_lib}>', alt=''>
+                        <img src='<{$modUrlIcon16}>/difficulty/<{$Quiz.difficulty_icon}>' title='<{$Quiz.difficulty_lib}>', alt=''>
                     </a>
 					<b><a href="quiz.php?op=edit&amp;quiz_id=<{$Quiz.id}>" title="<{$smarty.const._EDIT}>">
                         <{$Quiz.subject}>
@@ -86,40 +93,40 @@ img{
                 <{* ---------------- Arrows Weight -------------------- *}>
                 <td class='center width15'>
                   <{if $smarty.foreach.quizItem.first}>
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>"><img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>"><img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                   <{else}>
                     <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=first&&quiz_weight=<{$Quiz.weight}>">
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
                     </a>
                   
                     <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=up&&quiz_weight=<{$Quiz.weight}>">
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                     </a>
                   <{/if}>
                
                   <{* ----------------------------------- *}>
-                  <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                  <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                   <{$Quiz.weight}>
-                  <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                  <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                   <{* ----------------------------------- *}>
                
                   <{if $smarty.foreach.quizItem.last}>
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                   <{else}>
                   
                   <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=down&&quiz_weight=<{$Quiz.weight}>">
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
                     </a>
                
                   <a href="quiz.php?op=weight&quiz_id=<{$Quiz.id}>&sens=last&&quiz_weight=<{$Quiz.weight}>">
-                    <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                    <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                     </a>
                   <{/if}>
                 </td>
                 <{* ---------------- /Arrows -------------------- *}>
                 
-				<td class='center'>
+				<td class='center width5'>
                     <{$Quiz.countQuestions}>
                 </td>
                
@@ -228,14 +235,14 @@ img{
                         
                 </td>
                 <td class='center' >
-                    <img src="<{$modPathIcon16}>binoptions/crochet_left.png" alt="" title='' style="margin-right:-4px;"/>
-                    <img src="<{$modPathIcon16}>binoptions/binoption-0<{$Quiz.currentBinOptions}>.png" alt="Default" title='Default' />
-                    <img src="<{$modPathIcon16}>binoptions/crochet_right.png" alt="" title='' style="margin-left:-4px;" />
+                    <img src="<{$modUrlIcon16}>/binoptions/crochet_left.png" alt="" title='' style="margin-right:-4px;"/>
+                    <img src="<{$modUrlIcon16}>/binoptions/binoption-0<{$Quiz.currentBinOptions}>.png" alt="Default" title='Default' />
+                    <img src="<{$modUrlIcon16}>/binoptions/crochet_right.png" alt="" title='' style="margin-left:-4px;" />
                     
                     <{assign var="urlSetConfig" value="quiz.php?op=set_binoptions&cat_id=`$Quiz.cat_id`&quiz_id=`$Quiz.id`"}>
                     <{foreach item=binOpt from=$binOptions name=binOptItem}>
                         <a href="<{$urlSetConfig}>&opt_id=<{$binOpt.id}>" >
-                            <img src="<{$modPathIcon16}>/binoptions/<{$binOpt.icone}>" alt="config" title='<{$binOpt.name}>' />
+                            <img src="<{$modUrlIcon16}>/binoptions/<{$binOpt.icone}>" alt="config" title='<{$binOpt.name}>' />
                         </a>
                     <{/foreach}>
 
@@ -261,18 +268,26 @@ img{
                         <img src="<{xoModuleIcons16}>/inserttable.png" alt="" />
                         </a>
                         
+<br>
                     <a href="quiz.php?op=build_quiz&quiz_id=<{$Quiz.id}>&cat_id=<{$Quiz.cat_id}>"  title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>">
                         <img src="<{xoModuleIcons16}>/spinner.gif" alt="" />
                         </a>
-
                     <{if $Quiz.quiz_html <> ''}>
-                      <a href="<{$Quiz.quiz_html}>" target="blank">
-                          <img src="<{$modPathIcon16}>/quiz-1.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
+                      <a href="<{$Quiz.testInBackOffice}>" target="blank">
+                          <img src="<{$modUrlIcon16}>/quiz-2.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
                       </a>
+                      <a href="<{$Quiz.testInFrontOffice}>" target="blank">
+                          <img src="<{$modUrlIcon16}>/quiz-1.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
+                      </a>
+<{*
+                      <a href="<{$Quiz.quiz_html}>" target="blank">
+                          <img src="<{$modUrlIcon16}>/quiz-1.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
+                      </a>
+*}>
                     <{else}>
-                          <img src="<{$modPathIcon16}>/quiz-0.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
+                          <img src="<{$modUrlIcon16}>/quiz-0.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
+                          <img src="<{$modUrlIcon16}>/quiz-0.png" alt="" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_BUILD}> : <{$Quiz.build}>"/>
                     <{/if}>
-
 
 				</td>
 				<td class='center'><{$Quiz.id}></td>

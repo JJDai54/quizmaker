@@ -50,23 +50,24 @@
 				<th class="center"><{$smarty.const._MA_QUIZMAKER_DATE}></th>
 			</tr>
 		</thead>
-		<{if $results_count}>
+
 		<tbody>
 			<{foreach item=Result from=$results name=res}>
                 
   			<tr class='<{cycle values='odd, even'}>'>
 				<td class='center'><{$Result.chrono}></td>
-				<td class='left'><{$Result.uname}> [ip : <{$Result.ip}>]</td>
+<{*                [ip : <{$Result.ip}>] *}>
+				<td class='left'><{$Result.uname}> </td>
 				<td class='right'><{$Result.score_achieved}> / <{$Result.score_max}></td>
 				<td class='right'><{$Result.answers_achieved}> / <{$Result.answers_total}></td>
 				<td class='center'><{$Result.duration}></td>
 				<td class='center'><{$Result.note}> / 100</td>
-				<td class='center'><img src="<{$modPathIcon16}>/notes/<{$Result.color}>"></td>
+				<td class='center'><img src="<{$modUrlIcon16}>/notes/<{$Result.color}>"></td>
 				<td class='center'><{$Result.creation}></td>
 			</tr>
 			<{/foreach}>
 		</tbody>
-		<{/if}>
+
 	</table>
     <br>
     </div>
@@ -106,24 +107,24 @@ tth_trierTableau('quiz_question_list', 7);
     <center>
 <table class='quizTbl'>
     <tr>
-        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/005.png"></td>
+        <td class='quiz_legend3'><img src="<{$modUrlIcon16}>/notes/005.png"></td>
         <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_5}></td>
         <td class='quiz_legend3'></td>
-        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/002.png"></td>
+        <td class='quiz_legend3'><img src="<{$modUrlIcon16}>/notes/002.png"></td>
         <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_2}></td>
     </tr>
     <tr>
-        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/004.png"></td>
+        <td class='quiz_legend3'><img src="<{$modUrlIcon16}>/notes/004.png"></td>
         <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_4}></td>
         <td class='quiz_legend3'></td>
-        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/001.png"></td>
+        <td class='quiz_legend3'><img src="<{$modUrlIcon16}>/notes/001.png"></td>
         <td class='quiz_legend left'><{$smarty.const._MA_QUIZMAKER_RESULT_1}></td>
     </tr>
     <tr>
-        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/003.png"></td>
+        <td class='quiz_legend3'><img src="<{$modUrlIcon16}>/notes/003.png"></td>
         <td class='quiz_legend'><{$smarty.const._MA_QUIZMAKER_RESULT_3}></td>
         <td class='quiz_legend3'></td>
-        <td class='quiz_legend3'><img src="<{$modPathIcon16}>/notes/000.png"></td>
+        <td class='quiz_legend3'><img src="<{$modUrlIcon16}>/notes/000.png"></td>
         <td class='quiz_legend left'><{$smarty.const._MA_QUIZMAKER_RESULT_0}></td>
     </tr>
     

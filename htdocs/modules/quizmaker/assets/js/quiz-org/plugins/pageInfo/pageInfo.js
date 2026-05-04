@@ -63,7 +63,7 @@ onEnter() {
     var id = this.getId(k);
     if(currentQuestion.answers[k].proposition == '') continue;
     console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-      var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
+      var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, this.slideNumber);
       document.getElementById(id).innerHTML = exp;
   }
 }

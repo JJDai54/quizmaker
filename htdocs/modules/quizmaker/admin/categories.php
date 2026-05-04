@@ -43,7 +43,7 @@ switch($op) {
        $adminObject->displayNavigation('categories.php');
 
 		$adminObject->addItemButton(_AM_QUIZMAKER_ADD_CATEGORIES, 'categories.php?op=new', 'add');
-		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'categories.php?op=init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png");
+		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'categories.php?op=init_weight', "{$modUrlIcon16}/generer-1.png");
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         
 		$GLOBALS['xoopsTpl']->assign('form', '');
@@ -112,6 +112,9 @@ switch($op) {
 		$categoriesObj->setVar('cat_name', Request::getString('cat_name', ''));
 		$categoriesObj->setVar('cat_actif', Request::getInt('cat_actif', 1));
 		$categoriesObj->setVar('cat_description', Request::getText('cat_description', ''));
+		$categoriesObj->setVar('cat_readme_text', Request::getText('cat_readme_text', ''));
+		$categoriesObj->setVar('cat_readme_status', Request::getText('cat_readme_status', 0));
+		$categoriesObj->setVar('cat_readme_label', Request::getString('cat_readme_label', ''));
 		$categoriesObj->setVar('cat_weight', Request::getString('cat_weight', 0));
 		$categoriesObj->setVar('cat_max_attempts', Request::getString('cat_max_attempts', 0));
 		$categoriesObj->setVar('cat_delai_cookie', Request::getString('cat_delai_cookie', 3600));

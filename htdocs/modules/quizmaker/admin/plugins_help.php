@@ -33,7 +33,7 @@ include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
 //\JANUS\include_highslide();
 
 $quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
-	//include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
+
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
 	include_once XOOPS_ROOT_PATH . '/class/template.php';
 	$xoopsTpl = new \XoopsTpl();

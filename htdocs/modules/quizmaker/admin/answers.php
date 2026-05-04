@@ -51,13 +51,14 @@ $quizArr = $quizHandler->getListKeyName($catId, $quizSubject);
 if ($quizId == 0  || !isset($quizArr[$quizId])) 
     $quizId = array_key_first($quizArr);
 
+$criteriaQuestion = new Criteria('quest_quiz_id', $quizId, '=');
+$questArr = $questionsHandler->getList($criteriaQuestion);
+//echoArray($questArr);
+if ($questId == 0  || !isset($questArr[$questId])) 
+    $questId = array_key_first($questArr);
 //$quiz = $quizHandler->get($quizId);
 // echoArray('gp');
 // echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";
-
-
-
-
 
 
 $op = Request::getCmd('op', 'list');
@@ -99,15 +100,17 @@ switch($op) {
         $criteria->add(new Criteria('answer_quest_id', $questId, "="));
 		$answersCount = $answersHandler->getCountAnswers($criteria);
 		$answersAll = $answersHandler->getAllAnswers($criteria, $start, $limit, 'answer_weight, answer_proposition');
+        
 		$GLOBALS['xoopsTpl']->assign('answers_count', $answersCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
 
         // ----- Listes de selection pour filtrage -----  
-        $selectors = FQUIZMAKER\getQuestionsSelector($catId, $quizSubject,$quizDifficulty,$quizId);
-        
+        $selectors = FQUIZMAKER\getQuestionsSelectorBO($catId, $quizSubject,$quizDifficulty,$quizId);
+//echo "<hr>questId = {$questId}<hr>";        
         $inpQuest = new \XoopsFormSelect(_AM_QUIZMAKER_QUESTION, 'quest_id', $questId);
-        $inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));
+        //$inpQuest->addOptionArray($questionsHandler->getListKeyName($quizId));
+        $inpQuest->addOptionArray($questArr);
         $inpQuest->setExtra(QUIZMAKER_SELECT_ONCHANGE . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
   	    //$GLOBALS['xoopsTpl']->assign('inpQuest', $inpQuest->render());
         $selectors['select']['questions'] = $inpQuest->render();
@@ -123,11 +126,11 @@ switch($op) {
   	    $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
        // ----- /Listes de selection pour filtrage -----
 /*
-        $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', QUIZMAKER_URL_ICONS."/16/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
+        $btnNewAnswer = $quizUtility->getNewBtn(_AM_QUIZMAKER_ADD_NEW_ANSWER, 'new_answer', "{$modUrlIcon16}/add.png",  _AM_QUIZMAKER_ADD_NEW_ANSWER);
 		$GLOBALS['xoopsTpl']->assign('btnNewAnswer', $btnNewAnswer);
         //---------------------------------------------        
         //update weight 
-        $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
+        $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', "{$modUrlIcon16}/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
 */               
 

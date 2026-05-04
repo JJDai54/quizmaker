@@ -31,11 +31,34 @@ use XoopsModules\Quizmaker\Constants;
   	if (!$GLOBALS['xoopsSecurity']->check()) {
   		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
   	}
+    $quizIdTo = $quizmakerHelper->getConfig('action_on_quest_deleted');
+    //recherche d'une page de réponse
+    $quiquestIds = array($questId);
+    $pageReponse = $questionsObj->getPageReponse();
+    if($pageReponse) $quiquestIds[] = $pageReponse->getVar('quest_id');
+//     echoArray($quiquestIds);
+//     exit('zzzzzzzzzzzzzzzzzz');
+    
+    //
+    if($quizIdTo > 0 && $quizIdTo != $questQuiz_id){
+    
+    
+    
+    
+        $quizIdTo = $quizmakerHelper->getConfig('action_on_quest_deleted');
+        $utility->quiz_import_sql($quiquestIds, $questQuiz_id, $quizIdTo, $toGroup = '');    
+        $msg = _AM_QUIZMAKER_FORM_MOVE_OK;
+    }else{
+        $msg = _AM_QUIZMAKER_FORM_DELETE_OK;
+    }
+ 
   	if ($questionsHandler->deleteCascade($questId)) {
-  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
+  		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, $msg);
   	} else {
   		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());
   	}
+
+    
   } else {
     $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_DELETE, $questionsObj->getVar('quest_id'), $questionsObj->getVar('quest_question'));
   	xoops_confirm(['ok' => 1, 'quest_id' => $questId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);

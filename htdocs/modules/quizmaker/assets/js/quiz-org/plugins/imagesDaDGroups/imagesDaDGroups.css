@@ -86,5 +86,11 @@
      /*cursor: grabbing;*/
 }
 
+.imagesDaDGroups_divimg{
+    object-fit: cover;
+    background-repeat:no-repeat;
+    display: table-cell;
+    padding:0px;
+}
 
 

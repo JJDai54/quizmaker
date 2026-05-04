@@ -1070,7 +1070,7 @@ function imgDaDSortItems_subs_leave(e){
 
 }
 function imgDaDSortItems_subs_drop(e, mode=0){
-//alert('dad_drop')
+
     imgDaDSortItems_set_ref(e.currentTarget,1);
     idFrom = e.dataTransfer.getData("text");
 
@@ -1187,7 +1187,7 @@ function imgDaDSortItems_ins_leave(e, isEncart){
 
 /* ************************************************ */
 function imgDaDSortItems_ins_drop(e, isEncart){
-//alert('dad_drop')
+
     idFrom = e.dataTransfer.getData("text");
 
     

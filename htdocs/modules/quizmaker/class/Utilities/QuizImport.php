@@ -90,7 +90,7 @@ $tblAns   =  $xoopsDB->prefix('quizmaker_answers');
          . " SELECT {$quizIdTo},tblFrom.quest_id,{$idGroup},{$columns} FROM {$tblQuest} tblFrom"
          . " WHERE quest_id IN ($ids)";
 
-    echo "<hr>quiz_import_sql - columns: {$columns}<br>{$sql}<hr>";
+    //echo "<hr>quiz_import_sql - columns: {$columns}<br>{$sql}<hr>";
     $xoopsDB->query($sql);
 
 
@@ -223,7 +223,8 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
            'quiz_showLog','quiz_shuffleQuestions','quiz_showGoodAnswers',
            'quiz_showBadAnswers','quiz_showReloadAnswers','quiz_minusOnShowGoodAnswers',
            'quiz_showResultPopup','quiz_showPlugin','quiz_showAllSolutions',
-           'quiz_showScoreMinMax','quiz_showGoToSlide');
+           'quiz_showScoreMinMax','quiz_showGoToSlide','quiz_timerStyle',
+           'quiz_set','quiz_max_flying');
 
     //affectation du nouvel ID
     // stockage de l'ancien ID dans le champs flag pour permettre la mise à jour des enfants   
@@ -247,6 +248,7 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
     //correction de la valeur des champs `quiz_optionsIhm` et `quiz_optionsDev`
     //xoops considere que ce sont des chaines alors que ce sont des valeurs binaires
     //du coup par exemple la valeur binaire 95 devient 14645, pas bon du tout
+    echo "<hr>newQuizId = {$newQuizId}<hr>";
     $quiz = $quizHandler->get($newQuizId);
     $quiz->setVar('quiz_optionsIhm', $row['quiz_optionsIhm']);
     $quiz->setVar('quiz_optionsDev', $row['quiz_optionsDev']);
@@ -303,6 +305,8 @@ public static function quiz_import_quest($pathSource, $newQuizId, $pluginNameYes
             }
             self::delFiledsObsolettes($row,'quest_minReponse');           
             self::delFiledsObsolettes($row,'quest_type_form');           
+            self::delFiledsObsolettes($row,'quest_identifiant');           
+            self::delFiledsObsolettes($row,'quest_variant');           
             
             //recupe de l'ancien ID dans la champ FLAG
             //il sera utile pour les enfants de la table answers
@@ -383,6 +387,7 @@ public static function quiz_import_answers($pathSource, $newQuizId)
     return $ret;
 }
 
+
 /**************************************************************
  * 
  * ************************************************************/
@@ -446,7 +451,8 @@ echo "<hr>===>pathSource = {$pathSource}<hr>";
     //--------------------------------------------------------
     self::quiz_copy_images($pathSource, $newQuizId);
 //echo "<hr>===>catId = {$catId}<br>newQuizId = {$newQuizId}<hr>";    
-    return 0; //return l'erreur si besoin
+//exit;
+    return 0; //todo : return l'erreur si besoin
    
 }
 /**************************************************************

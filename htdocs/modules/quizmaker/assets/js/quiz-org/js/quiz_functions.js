@@ -12,6 +12,7 @@ const statsTotal = {
       cumul_min:        0,
       cumul_score:      0,
       cumul_timer:      0,
+      begin_timer:      0,
       question_number:  0,
       question_max:     0,
       question_min:     0,
@@ -252,7 +253,7 @@ function getStyleFromArr(styleArr, extra = ''){
     for(var key in styleArr){
         retArr.push(`${key}:${styleArr[key]}`);
     }
-    var styleStr = retArr.join(';')
+    var styleStr = retArr.join(';');
     if(extra) styleStr += extra + ";";
     return `style='${styleStr};'`;
 }
@@ -286,7 +287,7 @@ function getMarginStyleArr2(nbItems, numStyle=0, min=3, max=8, unit='px'){
     return styleArr;
 }
 function getStyleFromArr2(styleArr, extra = ''){
-    var styleStr = styleArr.join(';')
+    var styleStr = styleArr.join(';');
     if(extra) styleStr += extra + ";";
     return `style='${styleStr};'`;
 }
@@ -459,14 +460,20 @@ function playSound(src){
 
 }
 /* *******************************************
-* affiche un message d'avertissement et passe au slide suivant
+* affiche un mask qui empeche toute interaction avec le slide courant
 * ********** */
-function quiz_subject_mask(visible){
+function quiz_show_mask(visible, opacity = null, setCursorWait=false, bgColor=null){
  
     divMask =  document.getElementById('quiz_mask');    
     if(visible){
+        //alert('opacity = ' + divMask.style.opacity);
+        //if(opacity){divMask.style.opacity = opacity;}
+        if(opacity){divMask.style.filter = `grayscale(${opacity}) opacity(${opacity})`;}
+        if(bgColor){divMask.style.backgroundColor = bgColor;}
         divMask.style.visibility = 'visible';
+        if(setCursorWait){document.body.style.cursor = 'wait';}
     }else{
+        document.body.style.cursor = 'default';
         divMask.style.visibility = 'hidden';
     }
     return true;
@@ -477,7 +484,7 @@ function quiz_subject_mask(visible){
 * ********** */
 function quiz_show_avertissement(message, nextSlideDelai, background='#FFCCFF'){
  
-    quiz_subject_mask(true);
+    quiz_show_mask(true);
     var avertissementID = 'quiz_avertissement';
     divAvertissement =  document.getElementById(avertissementID); 
 
@@ -504,16 +511,15 @@ console.log(`quiz_show_avertissement : nextSlideDelai = ${nextSlideDelai}`);
 
 function quiz_hidde_avertissement(avertissementId){
 //console.log(`quiz_hidde_avertissement : delai = ${nextSlideDelai}`);
-    var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
-        btnNextSlide.disabled = '';   
-        btnNextSlide.click(); 
-    
+//var btn = updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement');
+    updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement').click();
+//alert(`quiz_hidde_avertissement : btnId = ${btn.id}`);    
     divAvertissement =  document.getElementById(avertissementId);
     divAvertissement.style.opacity = '0';
     divAvertissement.classList.remove('avertissement_fondu');        
 
     divAvertissement.style.visibility = 'hidden';
-    quiz_subject_mask(false);
+    quiz_show_mask(false);
 //alert('ok'); 
 }
 
@@ -545,3 +551,12 @@ function moveWindowPosTo (objId) {
     console.log('===> moveWindowPosTo : ' + newPos);
     window.scroll(0, newPos);
   }
+  
+/* ******************************************
+
+********************************************* */   
+function isObject(value) {
+  return typeof value === 'object' &&
+         value !== null &&
+         !Array.isArray(value);
+}

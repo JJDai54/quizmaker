@@ -52,11 +52,13 @@ use XoopsModules\Quizmaker\Utility;
         
 		$adminObject->addItemButton(_AM_QUIZMAKER_COMPUTE_WEIGHT, "quiz.php?op=init_weight&cat_id={$catId}", 'update');
 		$adminObject->addItemButton(_AM_QUIZMAKER_BUILD_ALL_QUIZ, "quiz.php?op=build_all_quiz_cat&cat_id={$catId}&quiz_subject={$quizSubject}&in_use=0&nbdone=0", "synchronized");
-        
+		//$adminObject->addItemButton(_AM_QUIZMAKER_EXPORT_ALL_QUIZ, "quiz.php?op=export_all_quiz_cat&cat_id={$catId}&quiz_subject={$quizSubject}&in_use=0&nbdone=0", "export");
+		$adminObject->addItemButton(_AM_QUIZMAKER_EXPORT_ALL_QUIZ, "export.php?op=export_all&mode_name=0&suffix=1&cat_id={$catId}&quiz_subject={$quizSubject}&in_use=0&nbdone=0", "export");
+
 		$GLOBALS['xoopsTpl']->assign('isAdmin', $isAdmin);
         
         //update weight 
-//         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', QUIZMAKER_URL_ICONS."/16/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
+//         $initWeight = $quizUtility->getNewBtn(_AM_QUIZMAKER_COMPUTE_WEIGHT, 'init_weight', "{$modUrlIcon16}/generer-1.png",  _AM_QUIZMAKER_COMPUTE_WEIGHT);
 // 		$GLOBALS['xoopsTpl']->assign('initWeight', $initWeight);
     
 //     $criteriaSet = new CriteriaCompo(new Criteria('quiz_subject', $quizSubject));
@@ -80,7 +82,8 @@ use XoopsModules\Quizmaker\Utility;
             
 		//$criteria->setSort('quiz_weight');        
         //$criteria->setOrder('ASC');
-		$quizAll = $quizHandler->getAllQuiz($criteria, $start, $limit, 'quiz_weight ASC, quiz_cat_id ASC,quiz_id');
+        //echo"<hr>limit = {$limit}<hr>";
+		$allQuiz = $quizHandler->getAllQuiz($criteria, $start, $limit, 'quiz_weight ASC, quiz_cat_id ASC,quiz_id');
 		$GLOBALS['xoopsTpl']->assign('quiz_count', $quizCount);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$GLOBALS['xoopsTpl']->assign('quizmaker_upload_url', QUIZMAKER_URL_UPLOAD);
@@ -88,7 +91,7 @@ use XoopsModules\Quizmaker\Utility;
 // 		$GLOBALS['xoopsTpl']->assign('quiz_difficulty', $quizDifficulty);
 
       // ----- Listes de selection pour filtrage -----  
-      $selectors = FQUIZMAKER\getQuizSelector($catId, $quizSubject, $quizDifficulty);      
+      $selectors = FQUIZMAKER\getQuizSelectorBO($catId, $quizSubject, $quizDifficulty);      
       
       $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
      // ----- /Listes de selection pour filtrage -----        
@@ -102,22 +105,42 @@ use XoopsModules\Quizmaker\Utility;
        $binOptionsArr = $optionsHandler->getAllOptionsArr($binMerged);
 //echoArray($binOptionsArr);     exit;           
 	   $GLOBALS['xoopsTpl']->assign('binOptions', $binOptionsArr);
+
+        /* ===== ajout du fichier exporter le cas échéan =========== */
+        // ajout de la liste des quiz esporté si il en a eu
+        if ($clearExport) $quizUtility->quiz_export_clear_flags();
+
+        $tbl = $quizUtility->getQuizExportArr(3, false);
+        if($tbl){
+          $GLOBALS['xoopsTpl']->assign('exportCount', $tbl->countElements());
+          $GLOBALS['xoopsTpl']->assign('exportList', $tbl->render());
+        }
+        /* ********************************************************* */
        
         // Table view quiz
 		if ($quizCount > 0) {
-			foreach(array_keys($quizAll) as $i) {
-				$QuizValues = $quizAll[$i]->getValuesQuiz();
+			foreach(array_keys($allQuiz) as $i) {
+				$quizValues = $allQuiz[$i]->getValuesQuiz();
                 
                 //recherche du modele d'options
-                $bin = $QuizValues['optionsIhm'] | $QuizValues['optionsDev'];
+                $bin = $quizValues['optionsIhm'] | $quizValues['optionsDev'];
                 $id = array_search($bin, $binMerged);
                 if ($id === false) $id = 0;
-                $QuizValues['currentBinOptions'] = $id ;
+                $quizValues['currentBinOptions'] = $id ;
 
-//echoArray($QuizValues);
-				$GLOBALS['xoopsTpl']->append('quiz_list', $QuizValues);
+                //lancement dans le backOffice
+                $quizValues['testInBackOffice']  = $quizValues["quiz_html"].'?'.FQUIZMAKER\getParamsForQuiz(1)
+                                                 . "&op=run&quiz_id={$quizValues['id']}&cat_id={$quizValues['cat_id']}&player_id=";
                 
-				unset($QuizValues);
+                //lancement dans le frontOffice
+                $quizValues['testInFrontOffice'] = XOOPS_URL . "/modules/quizmaker/" . QUIZMAKER_DISPLAY_QUIZ 
+                                                 . '?' . FQUIZMAKER\getParamsForQuiz(1)
+                                                 . "&op=run&quiz_id={$quizValues['id']}&cat_id={$quizValues['cat_id']}&player_id={$playerId}";
+                
+   //echoArray($quizValues);
+				$GLOBALS['xoopsTpl']->append('quiz_list', $quizValues);
+                
+				unset($quizValues);
 			}
 			// Display Navigation
 			if ($quizCount > $limit) {

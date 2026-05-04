@@ -40,7 +40,7 @@ function zoom_getHtmlBtn(slideNumber, btnZoomStatus, btnNext=false){
     var clsStatus = (btnNext) ? 'quiz_btnZoomEnable' : 'quiz_btnZoomDisable';
     var btnNextSlide = `<img id='${clQuestion.getId('zoomNext')}' src='${quiz_config.urlCommonImg}/zoom_next_01.png' class='quiz_btnZoomAll ${clsStatus}' onclick='zoom_moins_event(event, ${slideNumber}, true);' title='${quiz_messages.btnNext}'>`;
     
-    return `<div class='quiz_divZoomBtn'>${btnZoom} ${btnNextSlide}</div>`;
+    return `<div id='${clQuestion.getId('quiz_divZoom')}' class='quiz_divZoomBtn'>${btnZoom} ${btnNextSlide}</div>`;
 
 }
 
@@ -117,8 +117,10 @@ console.log('===>zoom_plus_event');
     var obContenair1 = document.getElementById(idContenair1);
     var absolutePosition = getAbsolutePosition(obContenair1);
     
-    var obChronometre = document.getElementById('chronometre');
-    obContenair1.appendChild(obChronometre);
+    if(quiz.chronometreOnZoom){
+      var obChronometre = document.getElementById('chronometre');
+      obContenair1.appendChild(obChronometre);
+    }
     
     //alert( decalageH);
 
@@ -140,14 +142,23 @@ console.log('===>zoom_plus_event');
     if(!obContenair1.classList.contains('quiz_div_zoom_plus_event_begin')){
         obContenair1.classList.add('quiz_div_zoom_plus_event_begin');
     }
+
+    var obBtnZoom = document.getElementById(clQuestion.getId('quiz_divZoom'));
+    obBtnZoom.classList.add('quiz_divZoomBtnZoomed');
+
+     //alert("===>" + obBtnZoom.classList.join("\n"));
+//      obBtnZoom.setAttribute('top', '-50px');
+//      obBtnZoom.top = '-50px';
+   
     clQuestion.isZoomed = true;
 //alert('zoom_setBtnZoomStatus(slideNumber,  -1, 1)');
     zoom_setBtnZoomStatus(slideNumber,  -1, 1);    
     ev.stopPropagation();
-    quiz_subject_mask(true);   
+    quiz_show_mask(true);   
     //setTimeout(zoom_realignWindow,3000,idContenair1);
     return true;
 }
+
 /* ***************************************
 
 **************************************** */
@@ -155,7 +166,6 @@ function zoom_realignWindow(objId){
     if(quiz.realignWindowPos){moveWindowPosTo(objId);}
 
 }
-
 /* ***************************************
 
 **************************************** */
@@ -167,8 +177,10 @@ if(!slideNumber) return false;
 //    alert(clQuestion.question.question);
     if(!clQuestion.zzzzz()){return false;}
     if(clQuestion.isZoomed == false){
-        var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
-        btnNextSlide.disabled = '';
+        var btnNextSlide = updateButton('quiz_btn_nextSlide', 1, 'zoom_moins_event');
+
+//        var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
+//        btnNextSlide.disabled = '';
         if(gotoNextSlide){
             btnNextSlide.click();
         }
@@ -193,11 +205,14 @@ console.log('===>zoom_moins : ' + 3);
     clQuestion.isZoomed = false;
 console.log('===>zoom_moins : ' + 4);
 
+    if(quiz.chronometreOnZoom){
+        var obChronometre = document.getElementById('chronometre');
+        var obDivMain = document.getElementById('quiz_div_main');
+        obDivMain.appendChild(obChronometre);
+    }
 
-    var obChronometre = document.getElementById('chronometre');
-    var obDivMain = document.getElementById('quiz_div_main');
-    obDivMain.appendChild(obChronometre);
-
+    var obBtnZoom = document.getElementById(clQuestion.getId('quiz_divZoom'));
+    obBtnZoom.classList.remove('quiz_divZoomBtnZoomed');
 
     zoom_setBtnZoomStatus(slideNumber,  1, -1);    
 }
@@ -225,14 +240,16 @@ console.log(`===>zoom_end : gotoNextSlide = ${gotoNextSlide}`);
     obContenair1.style.position = '';
     obContenair1.style.left = '';
     obContenair1.style.top ='';
-    quiz_subject_mask(false);   
+    quiz_show_mask(false);   
     console.log('zoom_end' + '->' + obContenair1.classList);
     
     if(gotoNextSlide){
-        var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
-        btnNextSlide.disabled = '';
+//         var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
+//         btnNextSlide.disabled = '';
         //btnNextSlide.click();
+        updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement'); //.click();
+
     }
-    if(ev) {ev.stopPropagation();}
+    //if(ev) {ev.stopPropagation();}
 
 }

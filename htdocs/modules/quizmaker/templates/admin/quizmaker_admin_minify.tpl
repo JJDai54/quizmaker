@@ -28,11 +28,8 @@
 				<td class='left' <{$styleParent}> ><{$Action.desc}></td>
 				<td class='center' <{$styleParent}> >
                     <{* $Action.isMinified *}>
-                  <{if $Action.isMinified}>
-                      <img src="<{$modPathNotes}>/004.png" alt='' title=''>
-                  <{else}>
-                      <img src="<{$modPathNotes}>/000.png" alt='' title=''>
-                  <{/if}>
+                      <img src="<{$modPathNotes}>/00<{$Action.isMinified}>.png" alt='zzzzzz' title=''>
+                    
                 </td>
 				<td class='center' <{$styleParent}> >
 <input type="submit" class="formbutton" name="action[<{$code}>][restaure]" id="action[<{$code}>][restaure]" value="<{$smarty.const._AM_QUIZMAKER_TOOLS_RESTAURE}>" style='width:150px;'>                

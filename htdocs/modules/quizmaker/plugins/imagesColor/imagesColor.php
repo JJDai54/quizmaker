@@ -47,6 +47,8 @@ var $maxGroups = 4;
                                   'showCaptions'=>'B',
                                   'colorSelectMode'=>1,
                                   'nbImagesByRow' => 0,
+                                  'palette' => '',
+                                  'paletteNbColones' => '8',
                                   'colorDefault' => '#999999'];
     }
 
@@ -81,9 +83,9 @@ var $maxGroups = 4;
         
       $name = 'showCaptions';  
       $inputShowCaption = new \XoopsFormRadio(_AM_QUIZMAKER_SHOW_CAPTIONS, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inputShowCaption->addOption("N", _AM_QUIZMAKER_SHOW_CAPTIONS_NONE);            
-      $inputShowCaption->addOption("T", _AM_QUIZMAKER_SHOW_CAPTIONS_TOP);            
-      $inputShowCaption->addOption("B", _AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM);            
+      $inputShowCaption->addOption("no", _AM_QUIZMAKER_SHOW_CAPTIONS_NONE);            
+      $inputShowCaption->addOption("top", _AM_QUIZMAKER_SHOW_CAPTIONS_TOP);            
+      $inputShowCaption->addOption("bottom", _AM_QUIZMAKER_SHOW_CAPTIONS_BOTTOM);            
       $trayOptions->addElementOption($inputShowCaption);     
 
       $name = 'nbImagesByRow';
@@ -100,10 +102,40 @@ var $maxGroups = 4;
       $inputSelectMode->addOption(0, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST);
       $inputSelectMode->addOption(1, _LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID);
       $trayOptions->addElementOption($inputSelectMode);     
-      //--------------------------------------
 
+      //--------------------------------------
+      $paletteTray = new \XoopsFormElementTray  ('zzzzzzzzz', '<br>');
+       $paletteTray->setDescription(_LG_PLUGIN_IMAGESCOLOR_PALETTE_DESC . QBR);
+            
+        $name = 'palette';
+        $fullName = "{$optionName}[{$name}]";
+        $inpPalette = new XoopsFormTextArea('', "{$optionName}[{$name}]", $tValues[$name],8);
+        $inpPalette->setExtra("style='background:#FFF0F0;line-height:1em;width:400px;'");        
+        $inpPalette->setDescription(_LG_PLUGIN_IMAGESCOLOR_PALETTE_DESC . QBR);
+/*
+        //    public function __construct($caption, $fullName, $value = '', $rows = 5, $cols = 50)
+        //$inpPalette = $this->getformTextarea(_AM_QUIZMAKER_QUESTIONS_TEXT_TO_CORRECT, $fullName, $proposition);
+        $onFocus = "onfocus='textMixte_updateButtons(\"{$fullName}\")' ";
+        $onBlur = "onblur='textMixte_verif(\"{$fullName}\",\"" ._LG_PLUGIN_TEXTMIXTE_ACCOLADES_ERR. "\")'";
+        $onSelectionChange = "onfocus='textMixte_updateButtons(\"{$fullName}\")' ";
+        $inpPalette->setExtra("{$style} required onselectionchange='textMixte_updateButtons(\"{$fullName}\")' {$onFocus} {$onBlur} {$onSelectionChange}");
+*/
+        $paletteTray->addElement($inpPalette);   // todo  mettre ", true" des que possible quand les ancienne versions seront virées  
+
+        $inpBtn = new XoopsFormButton('', $fullName . '[clear]', 'Clear');
+        $inpBtn->setExtra("onclick='textMixte_clear(\"{$fullName}\")'");
+        $paletteTray->addElement($inpBtn);
+        
+
+        $trayOptions->addElementOption($paletteTray);
+        //--------------------------------------
       return $trayOptions;
     }
+
+
+
+
+
 
 /* *************************************************
 * le champ group sert à différencier la suite logique des mauvaises réponses
@@ -198,7 +230,29 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
             $inpPoints = new \XoopsFormNumber(_AM_QUIZMAKER_UNIT_POINTS,  $this->getName($i,'points'), $this->lgPoints, $this->lgPoints, $points);            
             $inpPoints->setMinMax(1, 30);
 
-            $inpColor= new XoopsFormColorPicker('', $this->getName($i,'color'), $color);
+            ///------------------------------------------------------------------------------   
+                        
+            $name = $this->getName($i,'color');  
+            if($options['palette']){
+                //calcul le nombre de colonne de la palette
+                //correspond au nombre de code couleur sur la première ligne
+                $h = strpos($options['palette'], "\n");
+                $nbColonnes =  substr_count($options['palette'],',',  0, $h) + 1;
+                
+//exit ("{$options['palette']}<br>nbCols = $nbColonnes - h = $h");
+//                 $tPalette0 = explode("\n",$options['palette'])
+//                 $tPalette1 = explode("\n",$tPalette0[0])
+                
+                //$color = ( $this->getVar($name)) ?  $this->getVar($name) : '#000000';
+                $inpColor = new \XoopsFormPalette(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $color);    
+                $inpColor->setUserPalette($options['palette'], $nbColonnes, 32);      
+                //$inpColor->setNbColonnes($nbColonnes);      
+                //$inpShadow = new \XoopsFormColorPicker(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $shadow);
+            }else{
+                $inpColor= new XoopsFormColorPicker('', $name, $color);
+            }
+            
+
             ///------------------------------------------------------------------------------   
             $tbl->addElement($inpImage1, ++$col, $k);
             $tbl->addElement($inpImageName1, $col, $k);

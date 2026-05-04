@@ -34,5 +34,8 @@ define('_LG_PLUGIN_IMAGESCOLOR_SHUFFLE_IMG', "Melanger les images");
 define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE', "Mode de sélection de la couleurs");
 define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_LIST', "Liste déroulante");
 define('_LG_PLUGIN_IMAGESCOLOR_SELECT_MODE_GRID', "Grille");
+define('_LG_PLUGIN_IMAGESCOLOR_PALETTE',"Palette  [optionel]");      
+define('_LG_PLUGIN_IMAGESCOLOR_PALETTE_DESC',"Entrez une liste de code couleur séparées par une virgule.<br>Les retours à la ligne définissent  taille de la grile de couleur.<br>ex une grille de 3 x 3 couleurs:<br>#00AA44,#FFC600,#D5D5FF<br>54B0F8,#00FFFF,#AA0000<br>#FF0000,#E3E2DB,#FF00FF");      
+
 
 ?>

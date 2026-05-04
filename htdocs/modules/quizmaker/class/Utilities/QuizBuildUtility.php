@@ -142,17 +142,28 @@ global $utility, $xoopsConfig, $messagesHandler;
     $allPlugins = array();
     $allFolders = \JANUS\FSO\getFolder2 ($rootApp.QUIZMAKER_FLD_PLUGINS_JS, true);
             
+    //parcours de tous les dossiers des plugins
     foreach  ($allFolders as $fld=>$pluginPath){
         $allPlugins[] = $fld;
         $files2include = \JANUS\FSO\getFilePrefixedBy($pluginPath, array('css','js'), '', false, false,false);
-    //echoArray($files2include,$pluginPath . '==>' . $fld);
+        //echoArray($files2include,$pluginPath . '==>' . $fld);
     
-    //ajout de la classedu plugin  et du CSS principale 
-    //pour permettre l'héritage dans certains plugins en les déclarant avant
-    $allPluginsJS[]  = $fld . '/' . $fld . '.js';
-    //pas besoin de le faire pour le CSS principal
-    //$allPluginsCSS[] = $fld . '/' . $fld . '.css';
+        //ajout des fichiers JS de functions event ... propre au plugin à placer en premier
+        $extArr = array('fnc','function','functions','event','events');
+        foreach($extArr as $ext){
+        $fncFile = "{$pluginPath}/{$fld}-{$ext}.js";
+            if(file_exists($fncFile)){
+                $allPluginsJS[]  = $fld . '/' . $fld . "-{$ext}.js";
+                //exit($fncFile);
+            }
+        }
     
+        //ajout de la classe maitre du plugin   
+        //pour permettre l'héritage dans certains plugins en les déclarant avant
+        $allPluginsJS[]  = $fld . '/' . $fld . '.js';
+        //pas besoin de le faire pour le CSS principal
+        //$allPluginsCSS[] = $fld . '/' . $fld . '.css';
+        
         foreach($files2include as $key=>$f){
             //if($key == "{$fld}.js") continue;
             $fullName = $fld . '/' . $f;
@@ -318,6 +329,7 @@ global $quizHandler, $questionsHandler, $answersHandler, $utility,$pluginsHandle
         $tQuest['pluginName']     = $values['plugin'];
         $tQuest['typeForm']       = $values['typeForm'];
         $tQuest['question']       = self::sanitise($values['quest_question']);
+        $tQuest['question_style'] = $values['quest_question_style'];
         $tQuest['explanation']    = self::sanitise($values['quest_explanation']);
         $tQuest['identifiant1']   = self::sanitise($values['identifiant1']);
  

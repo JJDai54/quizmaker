@@ -155,23 +155,50 @@ global $objError;
 }
 
 function folder_is_minified($folder = ''){
-$bolOk = true;
+$flag = 4;
     $min = getQuizFolder(QUIZMAKER_PATH_QUIZ_MIN, $folder);
+// echo "===>folder=> {$folder}<br>";
+// echo "===>min=> {$min}<br>";
+    
     //$filesList = getFilesList($min);
     $filesList = getFilesList($folder);
     //echo "<hr>folder_is_minified : {$folder} [" . count($filesList) . "] => {$min}<hr>";
     
     foreach($filesList AS $k=>$f){
-        $fullName = QUIZMAKER_PATH_QUIZ_MIN . '/' . $f;
-        //echo "{$folder} => {$fullName}<br>";
+        $fullName = QUIZMAKER_PATH_QUIZ_MIN . $f;
+        if(!file_exists($fullName)){
+            $flag = 1;
+            break;
+        }
+        //echo "===>{$folder} => {$fullName}<br>";
         $content = \file_get_contents($fullName);
         //echo"<br>{$content}<br>";
         $nbLines = count(explode("\n", $content));
-        if($nbLines > 1) $bolOk = false;
+        if($nbLines > 1) $flag = 0;
     }
-    return $bolOk;
+    return $flag;
 }
 
+// function folder_is_minified_old($folder = ''){
+// $bolOk = true;
+//     $min = getQuizFolder(QUIZMAKER_PATH_QUIZ_MIN, $folder);
+// echo "===>folder=> {$folder}<br>";
+// echo "===>min=> {$min}<br>";
+//     
+//     //$filesList = getFilesList($min);
+//     $filesList = getFilesList($folder);
+//     //echo "<hr>folder_is_minified : {$folder} [" . count($filesList) . "] => {$min}<hr>";
+//     
+//     foreach($filesList AS $k=>$f){
+//         $fullName = QUIZMAKER_PATH_QUIZ_MIN . $f;
+//         echo "===>{$folder} => {$fullName}<br>";
+//         $content = \file_get_contents($fullName);
+//         //echo"<br>{$content}<br>";
+//         $nbLines = count(explode("\n", $content));
+//         if($nbLines > 1) $bolOk = false;
+//     }
+//     return $bolOk;
+// }
 
 /////////////////////////////////////////////////////////////////////
 // echoArray($_GET);
@@ -245,7 +272,7 @@ $pathDest   = QUIZMAKER_PATH_QUIZ_MIN;
             $actions_list[$plugin['type']] = ['desc' => $plugin['name'], 'isMinified'=> folder_is_minified("plugins/" . $plugin['type'])];
         }                    
         $xoopsTpl->assign('actions_list', $actions_list);
-    	$xoopsTpl->assign('modPathNotes', $modPathIcon16 . "/notes");
+    	$xoopsTpl->assign('modPathNotes', $modUrlIcon16 . "/notes");
 
 
 

@@ -29,12 +29,15 @@ include_once dirname(__DIR__) . '/include/functions.php';
 
 xoops_load('XoopsFormLoader');
 
-$sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
-$pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
-$modPathIcon32   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
-// 
+$sysUrlIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysUrlIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
+//$modUrlIcon16   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
+
+$modUrlIcon16   = getQMFolder('u', 'm', 'assets/icons/16');
+$modUrlIcon32   = getQMFolder('u', 'm', 'assets/icons/32');
+$modUrlIcon256  = getQMFolder('u', 'm', 'assets/icons/256');
+$modUrlImages   = getQMFolder('u', 'm', 'assets/images');
+
 if (!isset($xoopsTpl) || !is_object($xoopsTpl)) {
 	include_once XOOPS_ROOT_PATH . '/class/template.php';
 	$xoopsTpl = new \XoopsTpl();
@@ -46,6 +49,7 @@ xoops_loadLanguage('admin');
 xoops_loadLanguage('modinfo');
 
 // Local admin menu class
+$pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
 if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))) {
 	include_once $GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php');
 } else {
@@ -55,15 +59,14 @@ if (file_exists($GLOBALS['xoops']->path($pathModuleAdmin.'/moduleadmin.php'))) {
 xoops_cp_header();
 
 // System icons path
-$GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
-$GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
-$GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
-$GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
+$GLOBALS['xoopsTpl']->assign('sysUtlIcon16',  $sysUrlIcon16);
+$GLOBALS['xoopsTpl']->assign('sysUrlIcon32',  $sysUrlIcon32);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon16',  $modUrlIcon16);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon32',  $modUrlIcon32);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon256', $modUrlIcon256);
+$GLOBALS['xoopsTpl']->assign('modUrlImages',  $modUrlImages);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-// $style = QUIZMAKER_URL_MODULE . '/assets/css/admin/style.css';
-// echo "<hr>" . QUIZMAKER_URL_ASSETS . '/css/style.css' . "<hr>";
-// global $xoTheme;
 $xoTheme->addStylesheet(QUIZMAKER_URL_ASSETS . '/css/admin/style.css');
 
 xoops_load('XoopsLists', 'core');
@@ -87,13 +90,15 @@ xoops_loadLanguage('common', $moduleDirName);
 // $mid = $GLOBALS['xoopsModule']->getVar('mid');
 // echo "<hr>===>mid = {$mid}<hr>";
 $categoriesHandler = $quizmakerHelper->getHandler('Categories');
-$quizHandler = $quizmakerHelper->getHandler('Quiz');
-$questionsHandler = $quizmakerHelper->getHandler('Questions');
-$answersHandler = $quizmakerHelper->getHandler('Answers');
-$resultsHandler = $quizmakerHelper->getHandler('Results');
-$pluginsHandler = $quizmakerHelper->getHandler('Plugins');
-$optionsHandler = $quizmakerHelper->getHandler('Options');
-$messagesHandler = $quizmakerHelper->getHandler('Messages');
+$quizHandler       = $quizmakerHelper->getHandler('Quiz');
+$questionsHandler  = $quizmakerHelper->getHandler('Questions');
+$answersHandler    = $quizmakerHelper->getHandler('Answers');
+$resultsHandler    = $quizmakerHelper->getHandler('Results');
+$pluginsHandler    = $quizmakerHelper->getHandler('Plugins');
+$optionsHandler    = $quizmakerHelper->getHandler('Options');
+$messagesHandler   = $quizmakerHelper->getHandler('Messages');
+$cookiesHandler    = $quizmakerHelper->getHandler('Cookies');
+$readmeHandler     = $quizmakerHelper->getHandler('Readme');
 
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 

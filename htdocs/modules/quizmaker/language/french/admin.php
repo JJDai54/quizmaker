@@ -115,6 +115,7 @@ define('_AM_QUIZMAKER_FILE_UPLOADSIZE', "Taile maximum des fichiers %s mo");
 define('_AM_QUIZMAKER_FIRST', "Enoyer au début");
 define('_AM_QUIZMAKER_FOLDER_JS', "Fichier");
 define('_AM_QUIZMAKER_FORM_DELETE_OK', "Supprimé avec succès");
+define('_AM_QUIZMAKER_FORM_MOVE_OK', "Déplacé avec succès");
 define('_AM_QUIZMAKER_FORM_OK', "Enregistré avec succès");
 define('_AM_QUIZMAKER_QUIZ_SAVED_OK', "Le quiz %s [#%s] a été enregistré avec succès.<br>Pensez à regénérer le quiz après vos modifications.");
 define('_AM_QUIZMAKER_FORM_SURE_DELETE', "Êtes-vous sûr de supprimer : <b><span style='color : Red;'>[#%s] %s</span></b>");
@@ -189,6 +190,7 @@ define('_AM_QUIZMAKER_HEADER', "Entête");
 define('_AM_QUIZMAKER_PARENT', "Parent");
 define('_AM_QUIZMAKER_PARENT_ID', "ID Parent");
 define('_AM_QUIZMAKER_PERIODE', "Période");
+
 define('_AM_QUIZMAKER_PERMISSIONS', "Gestion des permissions");
 define('_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ', "Autorisations de créer des quiz");
 define('_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ', "Autorisations de supprimer des quiz");
@@ -200,6 +202,9 @@ define('_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ', "Autorisations d'importer des qu
 define('_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ', "Autorisations d'importer des questions");
 define('_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS', "Autorisations de voir les catégories");
 define('_AM_QUIZMAKER_PERMISSIONS_VIEW_QUIZ', "Autorisations de voir les quiz");
+define('_AM_QUIZMAKER_PERMISSIONS_CLEARCOOKIES_QUIZ', "Autorisations de supprimer les cookies");
+define('_AM_QUIZMAKER_PERMISSIONS_CLEARRESULTS_QUIZ', "Autorisations de supprimer les résultats");
+
 define('_AM_QUIZMAKER_PERMIT_MANAGE_CATS', "Gérer les catégories");
 define('_AM_QUIZMAKER_PERMIT_CLONE', "Cloner le module");
 define('_AM_QUIZMAKER_PERMIT_EXPORT', "Exporter");
@@ -294,6 +299,7 @@ define('_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK', "Les options du quiz %s [#%s] ont ét
 define('_AM_QUIZMAKER_QUIZ_BUILD', "Génération");
 define('_AM_QUIZMAKER_QUIZ_BUILD_OK', "Le quiz %s [#%s] a été généré avec succès.<br>n° de genération : %s");
 define('_AM_QUIZMAKER_QUIZ_BUILD_OK2', "Quiz <b>%s [#%s]</b> - n° de genération : <b>%s</b>");
+define('_AM_QUIZMAKER_QUIZ_BUILD_OK3', "Quiz <b>%s [#%s]</b> - href : <b>%s</b>");
 define('_AM_QUIZMAKER_QUIZ_EDIT', "Édition du Quiz");
 define('_AM_QUIZMAKER_QUIZ_FROM', "Quiz d'origine");
 define('_AM_QUIZMAKER_QUIZ_FROM_DESC', "Selectionner le quiz d'ou il faut importer les questions");
@@ -437,6 +443,7 @@ define('_AM_QUIZMAKER_UNIT_SECONDS', "Secondes");
 define('_AM_QUIZMAKER_UNIT_MILLISECONDS', "Milli-Secondes");
 define('_AM_QUIZMAKER_UNIT_ATTEMPTS', "Essais");
 define('_AM_QUIZMAKER_UNIT_CARACTERES', "Caractères");
+define('_AM_QUIZMAKER_UNIT_ROWS', "Lignes");
 define('_AM_QUIZMAKER_UNIT_COLUMNS', "Colonnes");
 define('_AM_QUIZMAKER_UNIT_OPTIONS', "Options");
 define('_AM_QUIZMAKER_UP', "Remonter");
@@ -524,13 +531,18 @@ define('_AM_QUIZMAKER_ZOOM_DESC', "Affichage des boutons \"+\" et \"-\" respecti
 define('_AM_QUIZMAKER_ZOOM_NONE', "Aucun");
 define('_AM_QUIZMAKER_ZOOM_MANUEL', "Manuel");
 define('_AM_QUIZMAKER_ZOOM_AUTO', "Automatique");
-define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR1', "Le quiz ne peut pas être exporté.<br>Il est endommagé, les pages begin et end sont absentes !");
-define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR2', "Le quiz ne peut pas être exporté.<br>Probablement qu'il n'y a pas encore de questions dans ce quiz !");
+define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR1', "Le quiz ne peut pas être exporté.<br>Les pages begin et end sont absentes !");
+define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR2', "Le quiz ne peut pas être exporté.<br>Il aucune questions dans ce quiz !");
+define('_AM_QUIZMAKER_QUIZ_EXPORT_ERR3', "Le quiz ne peut pas être exporté.<br>Erreur inconnue !");
 define('_AM_QUIZMAKER_LOAD_JANUS', "<center><hr><div style='font-size:1.5em;'>Pour utiliser ce module le framework \"Janus\" doit être installé.<br>Lien de téléchargemnt du Frmework :<br><a href='https://github.com/JJDai54/janus'>Framework Janus</a></div><hr></center>");
 
+define('_AM_QUIZMAKER_EXPORT_ALL_QUIZ', "Exporter tous les quiz de la catégorie");
 define('_AM_QUIZMAKER_BUILD_ALL_QUIZ', "Générer tous les quiz de la catégorie");
 define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_OK',"Traitement terminé<br>%s quiz généré(s)");
 define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_QUIZ_ID',"Quiz %s fait");
+define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_REF1',"Quiz [#%s] %s : %s");
+define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_REF2',"Quiz [#%s] %s : Err n° %s<br>===>%s");
+define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_RET',"<div style='text-align:left;'>Quiz exporté avec succès dans :<br><b>%s</b><br>%s quiz exporté(s) correctement.<br>----------------------<br>%s<br>----------------------<br><span style='color:red;'>%s expor(s) en échec<br>%s</span></div>");
 
 define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
 define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
@@ -573,6 +585,58 @@ define('_AM_QUIZMAKER_TIMER_SIZE_DESC', "Taille du chronomètre en pixels");
 define('_AM_QUIZMAKER_DISABLE_PAGE_ANSWER', "Désactiver les slides réponses [\"pagesAnswer\"]");
 define('_AM_QUIZMAKER_ENABLE_PAGE_ANSWER', "Activer les slides réponses [\"pagesAnswer\"]");
 define('_AM_QUIZMAKER_ADD_ANSWER', "Ajouter une réponse");
+define('_AM_QUIZMAKER_EMAIL', "Courriel");
+define('_AM_QUIZMAKER_ATTEMPTS', "Tentatives");
+define('_AM_QUIZMAKER_QUIZ_ID', "quizId");
+define('_AM_QUIZMAKER_DEAD_LINE', "Dead line");
+define('_AM_QUIZMAKER_DATE_UPDATE', "Mise à jour");
+define('_AM_QUIZMAKER_RAZ_COOKIES', "Effacer les cookies");
+define('_AM_QUIZMAKER_THEREARENT_COOKIES', "Il n'y a pas de cookies");
+define('_AM_QUIZMAKER_CONFIRM_RAZ_README', "Effacer les entrées de la table \"readme\"");
+define('_AM_QUIZMAKER_THEREARENT_README', "Il n'y a pas d'entrée dans cette table");
+
+define('_AM_QUIZMAKER_README_TEXT', "Texte d'information");
+define('_AM_QUIZMAKER_README_TEXT_DESC', "Texte a afficher au lancement d'un quiz de la catégorie.");
+define('_AM_QUIZMAKER_README_STATUS', "Texte a lire");
+define('_AM_QUIZMAKER_README_STATUS0', "Le texte \"Texte d'information\" n'est pas requis.");
+define('_AM_QUIZMAKER_README_STATUS1', "Le texte \"Texte d'information\" doit être validé lors du lancement du premier quiz de la catégorie.");
+define('_AM_QUIZMAKER_README_STATUS2', "Le texte \"Texte d'information\" doit être validé à chaque lancement d'un quiz de la catégorie.");
+define('_AM_QUIZMAKER_USER', "Uilisateur");
+define('_AM_QUIZMAKER_COUNT', "nb");
+define('_AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS', "Repositionne la quiz");
+define('_AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS_DESC', "Repositionne systématiquement le quiz pour qu'il tienne dans l'écran.");
+define('_AM_QUIZMAKER_README_LABEL', "Libellé du texte d'information");
+define('_AM_QUIZMAKER_README_LABEL_DESC', "Libellé affiché pour mettre un lien sur la page d'accueuil des catégories.<br>Utile uniquement si un texte est défini et si le status le permet.");
+define('_AM_QUIZMAKER_UPLOAD_QUIZ', "Quiz à Télécharger");
+define('_AM_QUIZMAKER_UPLOAD', "Télécharger %s");
+define('_AM_QUIZMAKER_EXPORT_EMPTY_FLD', "Vider le dossier d'export avant");
+define('_AM_QUIZMAKER_CONFIRM_RAS_COOKIES', "Confirmez la suppression des cookies pour le quiz : [#%s] %s");
+        
+define('_AM_QUIZMAKER_DOMAINE',"Domaine");        
+define('_AM_QUIZMAKER_RESULTS',"Résultats");        
+define('_AM_QUIZMAKER_COOKIES',"Cookies");        
+define('_AM_QUIZMAKER_RST_IS_EMPTY', "Il n' a pas d'enregistrement à exporter");    
+define('_AM_QUIZMAKER_EXPORT_OK', "Export terminé");    
+define('_AM_QUIZMAKER_DIFFICULTY', "Difficulté");    
+define('_AM_QUIZMAKER_EXPORT_CSV',"Export CSV");
+define('_AM_QUIZMAKER_FOLDER',"Dossier");
+define('_AM_QUIZMAKER_SELECT_NEW_IMAGE',"Sélectionnez une nouvelle image");
+define('_AM_QUIZMAKER_ADD_NEW_IMAGE',"Ajoutez cette nouvelle image");
+define('_AM_QUIZMAKER_SELECT_FILE',"Sélectionnez un fichier image");
+define('_AM_QUIZMAKER_UPLOAD_FILE_OK',"Fichiers ajouté à la bibliothèque \"%s\"");
+define('_AM_QUIZMAKER_DEL_FILE_NOT_ALLOWED',"<span style='color:red;'><b>Important</b> : Il n'est pas possible de supprimer des fichiers.<br>Ils peuvent potentiellemnt être utilisés par un quiz</span>");
+define('_AM_QUIZMAKER_COOKIES_ADD',"Ajouter un cookie");
+define('_AM_QUIZMAKER_COOKIES_EDIT',"Editer un cookie");
+define('_AM_QUIZMAKER_PLUGIN_INTERLIGNE',"Interligne");
+define('_AM_QUIZMAKER_PLUGIN_INTERLIGNE_DESC',"Interval vertical entre chaque ligne d'items");
+define('_AM_QUIZMAKER_PARAMS_COCHES', "Paramètre des coches");               
+define('_AM_QUIZMAKER_PARAMS_OTHERS', "Autres paramètres");               
+define('_AM_QUIZMAKER_PLUGIN_INTRUS', 'Intrus');        
+define('_AM_QUIZMAKER_QUESTIONS_STYLE', 'Style de la question');        
+define('_AM_QUIZMAKER_COUNT_PARTICIPATIONS', 'Nombre de participations');        
+define('_AM_QUIZMAKER_COUNT_COOKIES', 'Nombre de tentatives de participation');        
+define('_AM_QUIZMAKER_FORM_SURE_DELETE_PARTICIPATION', "Confirmez la suppression de la participation :<br>quiz_id : %s<br>participationi_id : %s<br>Pseudo : %s<br>Courriel : %s");
+define('_AM_QUIZMAKER_FORM_SURE_DELETE_COOKIE', "Confirmez la suppression du cookie:<br>quiz_id : %s<br>cookie_id : %s<br>Pseudo : %s<br>Courriel : %s");
 
 
 ?>

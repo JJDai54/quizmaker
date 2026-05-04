@@ -76,8 +76,6 @@ define('_LG_PLUGIN_SELECTIMAGES_NEXT_SLIDE0', "Bravo !");
 
 define('_LG_PLUGIN_SELECTIMAGES_OPACITY', "Opacité des coches inactives");
 define('_LG_PLUGIN_SELECTIMAGES_OPACITY_DESC', "0% = invisible - 50% = transparente - 100% = visible");
-define('_AM_QUIZMAKER_PARAMS_COCHES', "Paramètre des coches");               
-define('_AM_QUIZMAKER_PARAMS_OTHERS', "Autres paramètres");               
 define('_LG_PLUGIN_SELECTIMAGES_INTERVAL_VERTICAL', "Interval vertical");               
 define('_LG_PLUGIN_SELECTIMAGES_INTERVAL_VERTICAL_DESC', "Permet d'ajuster les intervals entre les items pour éviter l'affichage d'un barre de défilement.<br>La valeur peut-être négative, mais attention aux chevauchements.<br>0 = Automatique");
 define('_LG_PLUGIN_SELECTIMAGES_TR_HEIGHT', "Hauteur des lignes");               

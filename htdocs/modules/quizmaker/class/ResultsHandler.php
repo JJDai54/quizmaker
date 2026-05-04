@@ -115,6 +115,22 @@ class ResultsHandler extends \XoopsPersistableObjectHandler
 		$crAllResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);
 		return parent::getAll($crAllResults);
 	}
+	public function getAllResultsArr($criteria=null, $start = 0, $limit = 0, $sort = 'result_id', $order = 'ASC')
+	{
+		$newCriteria = ($criteria) ? $criteria: new \CriteriaCompo();
+		$crAllResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);
+        
+        $allRst = $this->getAllResults($criteria, $start, $limit, $sort, $order);
+            
+        $ret = array();
+        if (count($allRst) > 0) {
+          foreach(array_keys($allRst) as $i) {
+          	$ret[] = $allRst[$i]->getValuesResults();
+          }
+        }
+        
+        return $ret;
+	}
 
 
 	/**
@@ -141,6 +157,7 @@ public function getStatistics($QuizId = 0){
   `result_quiz_id` int(8) NOT NULL DEFAULT '0',
   `result_uid` int(8) NOT NULL DEFAULT '0',
   `result_uname` varchar(50) NOT NULL,
+  `result_email` varchar(60) NOT NULL,
   `result_ip` varchar(50) NOT NULL,
   `result_score_achieved` int(8) NOT NULL DEFAULT '0',
   `result_score_max` int(8) NOT NULL DEFAULT '0',
@@ -184,5 +201,59 @@ public function getStatistics($QuizId = 0){
         return $arr['valueMax'];
     }
 
+//-----------------------------------------------
+public function exportResultsToCSV($quizId){
+// Sélectionner les données de la table
+global $resultsHandler;
+
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('result_quiz_id',$quizId, "="));
+    $result = $resultsHandler->getAllResultsArr($criteria);    
+    $resultsCount = count($result);
+    if ($quizId == 0){
+        $resultsCount = 0;
+        return '';
+    }
+
+    $delimiter = ";";
+    $filename = "results_quiz_{$quizId}-" . date('Y-m-d') . ".csv";
+    $fullName = QUIZMAKER_PATH_UPLOAD_EXPORT . "/" . $filename;
+    // Créer un fichier CSV
+    $f = fopen($fullName, 'w');
     
-}
+    // Définir les entêtes du fichier CSV
+    $fields = array('result_id','Quiz_id','uid','Nom','Courriel','IP','Score',
+                    'max','min','nbreponses','nbRepondu','Duree','Note',
+                    'date_creation','date_update');
+
+    //echoArray($result);
+    fputcsv($f, $fields, $delimiter);
+    
+    // Boucler à travers les enregistrements et les écrire dans le fichier CSV
+    foreach($result AS $key=>$arr){
+        $lineData = array();
+        $lineData[] = $arr['result_id'];
+        $lineData[] = $arr['result_quiz_id'];
+        $lineData[] = $arr['result_uid'];
+        $lineData[] = $arr['result_uname'];
+        $lineData[] = $arr['result_email'];
+        $lineData[] = $arr['result_ip'];
+        $lineData[] = $arr['result_score_achieved'];
+        $lineData[] = $arr['result_score_max'];
+        $lineData[] = $arr['result_score_min'];
+        $lineData[] = $arr['result_answers_total'];
+        $lineData[] = $arr['result_answers_achieved'];
+        $lineData[] = $arr['result_duration'];
+        $lineData[] = $arr['result_note'];
+        $lineData[] = $arr['creation'];
+        $lineData[] = $arr['update'];
+        //$lineData[] = $arr[''];
+        //$lineData[] = str_replace('.',',',$arr['result_note']);
+            
+        fputcsv($f, $lineData, $delimiter);
+    }
+    
+    fclose($f);
+    return $fullName;
+}    
+} // -------------------fin de la classe ---------------

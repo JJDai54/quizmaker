@@ -20,6 +20,7 @@ focusId = '';
 boolDog = false;
 isZoomed = false;
 isLettrine = false;
+allowNextSlide = true;
 
 stats = {
       scoreMin:  0,
@@ -479,12 +480,12 @@ setFocus(){
 * @ arr : tableau à mélanger
 * @ return: le tableau mélangé
 * ********** */
- shuffleAnswers(){
+ shuffleAnswers(force = false){
     //this.blob (this.name + ' ===> shuffleArrayKeys = ' + this.question.options.shuffleAnswers)
     var arr = null;    
 //var ok =false;
     try{
-        if(this.question.shuffleAnswers == 1){
+        if(this.question.shuffleAnswers == 1 || force){
             arr = shuffleArray(this.question.answers);
 //            ok = true;
         }else{
@@ -581,9 +582,11 @@ onFinalyse() {
     var currentQuestion = this.question;
     if (currentQuestion.options.nextSlideDelai*1 > 0){
         //document.getElementById('quiz_btn_nextSlide').setAttribute('disabled','disabled');
-        document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
+        //document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
+        updateButton('quiz_btn_nextSlide', 0, 'getScoreByProposition');
     }else{
-        document.getElementById('quiz_btn_nextSlide').disabled = '';
+        //document.getElementById('quiz_btn_nextSlide').disabled = '';
+        updateButton('quiz_btn_nextSlide', 1, 'getScoreByProposition');
     }
 
     if(currentQuestion.zoom == 2) {
@@ -608,7 +611,7 @@ sanityse_exp(exp, binValue = 127)
     
     //remplace le / par des retour à la ligne
     if(isBitOk(1, binValue)){
-        newExp = newExp.replaceAll('//', qbr);
+        newExp = newExp.replaceAll('/'+'/', qbr);
     }
     
     //supprime les acollades 

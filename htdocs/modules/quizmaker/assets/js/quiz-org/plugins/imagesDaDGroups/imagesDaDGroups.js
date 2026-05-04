@@ -37,15 +37,8 @@ var posCaption = currentQuestion.options.showCaptions;
 //var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 //var divStyle=`style="overflow-y: scroll;overflow: hidden;"`;
 
-var ImgStyle=`style="height:${divHeight}px;"`;
+var imgStyle=`style="height:${divHeight}px;opacity:0%;transform: rotate(0.5turn);pointer-events:none;`;//transform: scalex(150%) scaley(150%);"
 
-// var eventImgToEvent=`
-// onDragStart="dad_start(event,true);"
-// onDragOver="return dad_over(event);" 
-// onDrop="return dad_drop(event,${quiz_config.dad_flip_div});"
-// onDragLeave="dad_leave(event);"
-// `;
-    
 //------------------------------------------------------
     //definition du template selon le nombre de groupes 2 ou 3 en tenant compte du groupe 0
     var nbGroups = this.data.groupsLib.length;
@@ -82,17 +75,30 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'imagesDaDGro
         for(var j = 0; j < groups[k].length; j++){
             ans = groups[k][j];
             src = `${quiz_config.urlQuizImg}/${ans.image1}`;
+            var caption = "<b><span style='color:green;'>"+ ans.caption + "</span></b>"; 
 //            alert(src);
             switch (posCaption){
-                case 'T': captionTop    = ans.caption + qbr ; break;
-                case 'B': captionBottom = qbr + ans.caption ; break;
+                case 'T': captionTop    = caption; break;
+                case 'B': captionBottom = caption; break;
                 default: break;
             }
 
             tHtmlImgs.push(`
-            <div id="${ans.ansId}-div"  portrait draggable='true' >${captionTop}
-            <img id="${ans.ansId}-img" src="${src}"  draggable='true' title="${ans.caption}" ${ImgStyle} alt="" >
+            <div id="${ans.ansId}-div"  portrait>${captionTop}
+            <div id="${ans.ansId}-img" draggable='true' class='imagesDaDGroups_divimg' style="background-image:url('${src}');background-size:auto ${divHeight}px;">
+            <img src="${src}"  title="${ans.caption}" ${imgStyle} alt="" >
+            </div>
             ${captionBottom}</div>`
+/*
+var imgStyle2=`height:${divHeight}px;background-repeat: no-repeat;background-size:auto ${divHeight}px;object-fit: contain;`;
+            tHtmlImgs.push(`
+            <div id="${ans.ansId}-div"  portrait draggable='true' ${ImgStyle}>${captionTop}
+            <div id="${ans.ansId}-img" width='250px'  draggable='false' title="${ans.caption}" style="${imgStyle2}background-image:url('${src}');" alt="" >
+            <img id="${ans.ansId}-img" src="${src}"  draggable='false' title="${ans.caption}" ${ImgStyle} alt="" >
+            </div>
+            ${captionBottom}</div>`
+*/            
+            
             
             );
         }
@@ -543,152 +549,6 @@ for (var h = 0; h < 4; h++){
 
 }  // FIN DE LA VARIANT
 
-/* ******************************************************************** */
-/*       Fonction de Drag And drop sur des images                       */
-/* https://www.javascripttutorial.net/web-apis/javascript-drag-and-drop */
-/* ******************************************************************** */
-
-function imagesDaDGroups_start(e, isDiv=false){
-console.log("===> dad => " + "imagesDaDGroups_start" + " - " + e.target.getAttribute("id"));
-
-    e.dataTransfer.setData("idImg", e.target.parentNode.getAttribute("id"));
-    
-    //seul firefox peut acceder aux valeurx de dataTransfer dans le over
-    //mais il y en a besoin pour idenfier le group survolé
-    //alors stockage dans une balise "input type=hidden" globale
-    set_param(e.target.parentNode.getAttribute("id"));
-    
-    blob("dad_start : " + e.target.getAttribute("id") + " | " + e.target.getAttribute("src") );
-    imagesDaDGroups_set_style(e.target.parentNode, 1);    
-    e.dataTransfer.dropEffect = "move"; 
-    return true;
-   
-}
-
-
-/* *********************************** */
-function imagesDaDGroups_over(e){
-console.log("===> dad => " + "imagesDaDGroups_over");
-    
-    //seul firefox peut acceder aux valeurx de dataTransfer dans le over
-    //mais il y en a besoin pour idenfier le group survolé
-    //lors du start la valeur a ete stockée dans une balise "input type=hidden" globale
-    idDivImg = get_param(0);
-   // var idDivImg = e.dataTransfer.getData("idImg");
-    var obDivImg = document.getElementById(idDivImg);
-
-
-//alert("===> dad => " + "imagesDaDGroups_over");
-    var obOver = imagesDaDGroups_get_group(e.target);
-    //var isGroup = (obOver.getAttribute("attSelGroup")=="1") ? true : false;
-//     var zzz = (isGroup) ? "Oui" : "Non";
-// console.log("===> dad => " + "imagesDaDGroups_over" + " - " + zzz + "-" + obOver.getAttribute("attSelGroup"));
-//alert(idDivImg);   
- 
-if(obDivImg){
-    var idParent = obDivImg.parentNode.getAttribute("id");
-
-    
-    //var idOver = obOver.getAttribute("id"); 
-    
-    if(obOver.id != idParent && obOver.isGroup){
-      imagesDaDGroups_set_style(obOver.target, 1);      
-      //alert(obOver.parentNode.firstChild.tagName);      
-      //imagesDaDGroups_set_style(document.getElementById(idOver + "-span"), 1);      
-    }
-}else{
-    if(obOver.isGroup){
-      imagesDaDGroups_set_style(obOver.target, 1);      
-      //alert(obOver.parentNode.firstChild.tagName);      
-      //imagesDaDGroups_set_style(document.getElementById(idOver + "-span"), 1);      
-    }
-}
-/*
-*/
-    e.dataTransfer.dropEffect = "copyMove"; 
-e.preventDefault();    
-    return false;
-}
-
-/* *********************************** */
-function imagesDaDGroups_get_group(obOver, isGroup){
-    var id = obOver.getAttribute("id");
-    var obClone = document.getElementById(id);
-    
-    var isGroup = (obOver.getAttribute("attSelGroup")=="1") ? true : false;
-     while (!isGroup){
-         var obClone = obClone.parentNode;
-         var isGroup = (obClone.getAttribute("attSelGroup")=="1") ? true : false;
-         if (isGroup) {break;}
-     }
-    
-    //return obClone;        
-    return {'target':obClone, 'isGroup': isGroup, 'id':obClone.getAttribute("id")};
-}
-
-/* ************************************************************* */
-function imagesDaDGroups_drop(e){
-console.log("===> dad => " + "imagesDaDGroups_drop" + " | " + e.target.getAttribute("src"));
-//alert("===> dad => " + "imagesDaDGroups_drop" + " | " + e.target.getAttribute("src"));
-    obOver = imagesDaDGroups_get_group(e.target);
-    
-    idFrom = e.dataTransfer.getData("idImg");
-    var obDivImg = document.getElementById(idFrom);
-        
-    imagesDaDGroups_set_style(obDivImg , 0);
-    imagesDaDGroups_set_style(obOver.target, 0);
-
-    //deplace le div img dans le nouveau groupe    
-    obOver.target.appendChild( obDivImg);
-    //-----------------------------------------------
-    
-    computeAllScoreEvent();
-    e.stopPropagation();
-    return false;
-
-}
-/* *********************************** */
-function imagesDaDGroups_leave(e){
-console.log("===> dad => " + "imagesDaDGroups_leave");
-    var isGroup = (e.target.getAttribute("attSelGroup")=="1") ? true : false;
-    if(isGroup){
-      imagesDaDGroups_set_style(e.target, 0);
-    }
-
-    return true;
-
-}
-/* *********************************** */
-function imagesDaDGroups_end(e){
-console.log("===> dad => " + "imagesDaDGroups_end");
-    var idDivImg = e.dataTransfer.getData("idImg");
-    var obDivImg = document.getElementById(idDivImg);
-    imagesDaDGroups_set_style(obDivImg, 0);
-    
-    return true;
-    
-
-}
-
-/* *********************************** */
-function imagesDaDGroups_set_style(ob, numStyle, mod = 2){
-console.log("===> dad => " + "imagesDaDGroups_set_style");
-    var oldStyle = ((numStyle*1)+1) % mod;
-
-    ob.classList.remove('imagesDaDGroups_div' + oldStyle);
-    ob.classList.add('imagesDaDGroups_div' + numStyle);
-    //ob.classList.style.border="5px";
-    
-    var isGroup = (ob.getAttribute("attSelGroup")=="1") ? true : false;
-    if(isGroup){
-        var idGroup = ob.getAttribute("id");      
-console.log (idGroup + " ===> " + 'imagesDaDGroups_div' + numStyle);
-       imagesDaDGroups_set_style(document.getElementById(idGroup + "-span"), numStyle);      
-    }
-    
-    
-
-}
 
 
 

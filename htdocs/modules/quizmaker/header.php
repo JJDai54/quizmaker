@@ -33,24 +33,34 @@ $moduleDirName = basename(__DIR__);
 $xoBreadcrumbs = [];
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_TITLE, 'link' => QUIZMAKER_URL_MODULE . '/'];
 // Get instance of module
-$quizHandler = $quizmakerHelper->getHandler('Quiz');
-$questionsHandler = $quizmakerHelper->getHandler('Questions');
+$quizHandler       = $quizmakerHelper->getHandler('Quiz');
+$questionsHandler  = $quizmakerHelper->getHandler('Questions');
 $categoriesHandler = $quizmakerHelper->getHandler('Categories');
-$pluginsHandler = $quizmakerHelper->getHandler('Plugins');
-$answersHandler = $quizmakerHelper->getHandler('Answers');
-$resultsHandler = $quizmakerHelper->getHandler('Results');
-$messagesHandler = $quizmakerHelper->getHandler('Messages');
+$pluginsHandler    = $quizmakerHelper->getHandler('Plugins');
+$answersHandler    = $quizmakerHelper->getHandler('Answers');
+$resultsHandler    = $quizmakerHelper->getHandler('Results');
+$messagesHandler   = $quizmakerHelper->getHandler('Messages');
+$cookiesHandler    = $quizmakerHelper->getHandler('Cookies');
+$readmeHandler     = $quizmakerHelper->getHandler('Readme');
 
 // 
 $myts = MyTextSanitizer::getInstance();
 // Default Css Style
 $style = QUIZMAKER_URL_MODULE . '/assets/css/style.css';
 // Smarty Default
-$sysPathIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
-$pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16 = $GLOBALS['xoopsModule']->getInfo('modicons16');
-$modPathIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+// $sysUrlIcon16 = $GLOBALS['xoopsModule']->getInfo('sysicons16');
+// $sysUrlIcon32 = $GLOBALS['xoopsModule']->getInfo('sysicons32');
+// $modUrlIcon16 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+// $modUrlIcon32 = $GLOBALS['xoopsModule']->getInfo('modicons16');
+
+$modUrlIcon32   = QUIZMAKER_URL_MODULE . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
+$modUrlIcon16   = getQMFolder('u', 'm', 'assets/icons/16');
+$modUrlIcon32   = getQMFolder('u', 'm', 'assets/icons/32');
+$modUrlIcon256  = getQMFolder('u', 'm', 'assets/icons/256');
+$modUrlImages   = getQMFolder('u', 'm', 'assets/images');
+$sysUrlIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysUrlIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
+
 // Load Languages
 xoops_loadLanguage('main', $moduleDirName);
 xoops_loadLanguage('modinfo', $moduleDirName);
@@ -60,6 +70,5 @@ xoops_loadLanguage('plugins', $moduleDirName);
 include_once (XOOPS_ROOT_PATH . "/Frameworks/janus/load.php");
 //\JANUS\load_trierTableauHTML();
 $clPerms = new JanusPermissions();
-
 
 

@@ -43,7 +43,7 @@ class Plugin_selectImages extends XoopsModules\Quizmaker\Plugins
 
         
         $this->optionsDefaults = ['variant'           => $this::noClass, 
-                                  'inputType'         => 'checkbox',
+                                  'inputType'         => 'radio',
                                   'imgHeight1'        => 64,
                                   'cocheImgName'      => 'coche-01.png',
                                   'cocheImgHeight'    => 25,  
@@ -157,7 +157,8 @@ class Plugin_selectImages extends XoopsModules\Quizmaker\Plugins
          $trayOptions->insertBreak("<div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'><center><b>" . _AM_QUIZMAKER_PARAMS_COCHES . "</b></center></div>",-1,false);
 
           $name = 'cocheImgName'; 
-          $path = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/coches';
+          //$path = QUIZMAKER_PATH_QUIZ_ORG . '/plugins/' . $this->pluginName .  '/img/coches';
+          $path = QUIZMAKER_PATH_QUIZ_ORG . '/images/coches';
           $inpCocheImg = new \XoopsFormIconSelect("<br>" . _LG_PLUGIN_SELECTIMAGES_COCHE, "{$optionName}[{$name}]", $tValues[$name], $path);
           $inpCocheImg->setSelectedIconSize(64, 64);
           $inpCocheImg->setIconSize(64, 64);

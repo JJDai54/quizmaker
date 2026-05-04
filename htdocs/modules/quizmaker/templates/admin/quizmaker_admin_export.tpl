@@ -5,11 +5,15 @@
 <!-- Header -->
 <{include file='db:quizmaker_admin_header.tpl' }>
 
-<{include file='db:quizmaker_admin_download.tpl' }>
+<{*<{include file='db:quizmaker_admin_download.tpl' }> *}>
 
 <{if $form}>
 	<{$form}>
 <{/if}>
+<{if $exportCount > 0}>
+	<{$exportList}>
+<{/if}>
+
 
 <{if $error}>
 	<div class="errorMsg"><strong><{$error}></strong></div>

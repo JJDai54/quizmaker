@@ -67,9 +67,11 @@ use XoopsModules\Quizmaker\Constants;
     
     if(true){
         $answerObj->setVar('quest_question', _AM_QUIZMAKER_ANSWER_TO_PREVIEW_QUESTION);
+        $answerObj->setVar('quest_question_style', $questionsObj->getVar('quest_question_style'));
         $answerObj->setVar('quest_comment1', $questionsObj->getVar('quest_question'));
     }else{
         $answerObj->setVar('quest_question', $questionsObj->getVar('quest_question'));
+        $answerObj->setVar('quest_question_style', $questionsObj->getVar('quest_question_style'));
         $answerObj->setVar('quest_comment1', $questionsObj->getVar('quest_comment1'));
     }
     

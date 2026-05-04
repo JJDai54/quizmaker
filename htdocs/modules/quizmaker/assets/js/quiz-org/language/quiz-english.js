@@ -1,4 +1,5 @@
 const quiz_messages = {
+bravo : "Bravo !\nYou can go to next slide !",
 btnAntiseche : "?",
 btnContinue : "",
 btnGotoSlide : "#",
@@ -17,6 +18,7 @@ formatDureeS : "{secondes} secondes",
 forPoints0 : "For {pointsMax} points",
 forPoints1 : "For {pointsMin} to {pointsMax} points",
 inputYourPseudo : "Please enter a nickname to participate<br><br>Five characters minimum",
+inputYourEmail : "Please enter your email to participate",
 majCtrlF5 : "Following updates, you must refresh the page by pressing the keys Crtl+F5\nIf the problem persists, contact the site administrator.",
 message01 : "be careful to read the instructions carefully, and the sorting direction because only the exact order gives points.",
 message02 : "Click on the images below and move them to the missing images.",

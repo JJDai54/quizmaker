@@ -72,7 +72,7 @@ var tLetters = this.data.allExp;
         }else{
             //var onclick = `document.getElementById('${this.idDivReponse}').innerHTML='${tLetters[k]}';`;
             //var onclick = `eventOnClickAlpha('${this.idDivReponse}','${tLetters[k]}',${this.data.nbSoluces},'${this.sep}');`;
-            var onclick = `eventOnClickAlpha(${this.slideNumber}, '${tLetters[k]}');`;
+            var onclick = `eventOnClickAlpha(event, ${this.slideNumber}, '${tLetters[k]}');`;
             //alert('|' + onclick + '|');
             html += `<a onclick="${onclick}">${tLetters[k]}</a>`; 
         }
@@ -441,7 +441,7 @@ var divDirective = '<span class="alphaSimple_directive">{directive}</span>';
 //-------------------------------
 //----- Evenements du slide -----
 //-------------------------------
-function eventOnClickAlpha(slideNumber, newValue){
+function eventOnClickAlpha(ev, slideNumber, newValue){
     var clQuestion = quizard[slideNumber];
     var options = clQuestion.question.options;
     

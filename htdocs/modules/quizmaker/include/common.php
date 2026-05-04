@@ -71,14 +71,17 @@ define('QUIZMAKER_PATH_UPLOAD_QUIZ', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_UPLOA
 define('QUIZMAKER_PATH_PLUGINS_INCLUDE', QUIZMAKER_PATH_MODULE . "/plugins_include");
 //-------------- url ------------------------------
 define('QUIZMAKER_URL_MODULE', XOOPS_URL . QUIZMAKER_FLD_MODULE);
-define('QUIZMAKER_URL_ADMIN', QUIZMAKER_URL_MODULE . '/admin/index.php');
 define('QUIZMAKER_URL_ASSETS', QUIZMAKER_URL_MODULE.'/assets');
-define('QUIZMAKER_URL_ICONS', QUIZMAKER_URL_MODULE.'/assets/icons');
-define('QUIZMAKER_URL_IMAGE', QUIZMAKER_URL_MODULE.'/assets/images');
+
+// echo "<hr>" . QUIZMAKER_URL_ADMIN . "<br>" . getQMFolder('u', 'm', 'admin/index.php') . "<hr>";
+
 define('QUIZMAKER_URL_PLUGINS_PHP',  QUIZMAKER_URL_MODULE . QUIZMAKER_FLD_PLUGINS_PHP);
 define('QUIZMAKER_URL_UPLOAD', XOOPS_UPLOAD_URL.'/'.QUIZMAKER_DIRNAME);
-define('QUIZMAKER_URL_UPLOAD_EXPORT', QUIZMAKER_URL_UPLOAD.'/export');
 define('QUIZMAKER_URL_UPLOAD_QUIZ',  QUIZMAKER_URL_UPLOAD  . QUIZMAKER_FLD_UPLOAD_QUIZ_JS);
+
+//replacer les url precedente par les suivante, 
+//les constantes XOOPS_URL  XOOPS_UPLOAD_URL peuvent être ajouter au dernier moment
+//dns certain cas elles sont génaante notemment quand il faut les enregistrer en base
 
 //-------------- path et url poour quiz_org ou quiz_min ------------------------------
 /*
@@ -87,6 +90,9 @@ define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_JS . (($useJsMinified) ? Q
 */
 define('QUIZMAKER_PATH_QUIZ_ORG', QUIZMAKER_PATH_MODULE . QUIZMAKER_FLD_QUIZ_JS . QUIZMAKER_FLD_QUIZ_ORG);
 define('QUIZMAKER_PATH_QUIZ_MIN', QUIZMAKER_PATH_UPLOAD . QUIZMAKER_FLD_QUIZ_MIN );
+// define('QUIZMAKER_PATH_QUIZ_MIN2', getQMFolder('p','u', QUIZMAKER_FLD_QUIZ_MIN));
+// echo "<hr>" . QUIZMAKER_PATH_QUIZ_MIN . "<br>" . QUIZMAKER_PATH_QUIZ_MIN2 . "<hr>";
+define('QUIZMAKER_URL_QUIZ_ORG', QUIZMAKER_URL_MODULE . QUIZMAKER_FLD_QUIZ_JS . QUIZMAKER_FLD_QUIZ_ORG);
 
 if ($isHelper && $quizmakerHelper->getConfig('use_minified_files')){
     define('QUIZMAKER_QUIZ_JS_TO_RUN', QUIZMAKER_FLD_QUIZ_MIN);
@@ -100,27 +106,39 @@ if ($isHelper && $quizmakerHelper->getConfig('use_minified_files')){
     define('QUIZMAKER_URL_QUIZ_JS',  QUIZMAKER_URL_MODULE  .  QUIZMAKER_QUIZ_JS_TO_RUN);
 }
 
+//-------------- folders ------------------------------
+
+
 /***
  * $folder : sous dossier
- * $protocole : P pour path ou U pour url, F pou folder
- * $cible : M pour module, U pour upload
+ * $options : M:Module/void:Uploads, U:FullUrl/void:FullPath, 
  * ***/
-function getQMPath($fld, $protocole='P' , $cible = 'M'){
-    switch($fld){
-    case 'module'; $fld = '/module/' . QUIZMAKER_DIRNAME; break ;
-    case 'upload'; $fld = '/uploads/' . QUIZMAKER_DIRNAME; break ;
-    case 'plugins_js'; $fld = '/assets/quiz_org/plugins'; break ;
+function getQMFolder($domaine, $subfld){
+  
+    switch(strtoupper(substr($domaine."x",0,1))){
+        case 'U': $ret = XOOPS_URL ;  break;
+        case 'P': $ret = XOOPS_ROOT_PATH ; break;
+        default: $ret = ''; break;
     }
     
-    switch($protocole){
-    default:
-    case 'P'; $root =  XOOPS_ROOT_PATH . "/module/" . QUIZMAKER_DIRNAME; break ;
-    case 'U'; $root =  XOOPS_URL . "/module/" . QUIZMAKER_DIRNAME; break ;
-    case 'F'; $root =  "/module/" . QUIZMAKER_DIRNAME; break ;
+    $slash = ($ret) ? '/' : '';
+    switch(strtoupper(substr($subfld."x",0,1))){
+        case 'U': $ret .= $slash . 'uploads/' . QUIZMAKER_DIRNAME; break;
+        case 'M': $ret .= $slash . 'modules/' . QUIZMAKER_DIRNAME; break;
+        case 'T': $ret .= $slash . 'themes/'  . QUIZMAKER_DIRNAME; break;
     }
-    
-return $root . $fld;
+ 
+    $numArgs = func_num_args();    
+    for($h = 2 ; $h < $numArgs; $h++){
+        //echo "===>{$h}->{$ret}<br>";
+        $arg = func_get_arg($h);
+        $ret .= ((substr($arg,0,1) == '/') ? '' : '/') . $arg;
+        //echo "===>{$h}->{$ret}<br>";
+    }
+
+    return $ret;
 }
+
 ///--------------Obsolete----------------------
 
 //-------------- autres constantes ------------------------------
@@ -183,6 +201,7 @@ define('QUIZMAKER_BIT_SHUFFLEQUESTIONS', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTPOPUP', $h++);
 define('QUIZMAKER_BIT_SUBMIT_BUTTON', $h++);
 define('QUIZMAKER_BIT_SHOW_HORLOGE', $h++);
+define('QUIZMAKER_BIT_REPOSITION_WINDOW', $h++);
 
 $h = 0;
 define('QUIZMAKER_BIT_SHOW_PLUGIN', $h++);
@@ -194,28 +213,6 @@ define('QUIZMAKER_BIT_SHOW_LOG', $h++);
 define('QUIZMAKER_BIT_SHOW_RESULTALLWAYS', $h++);
 define('QUIZMAKER_BIT_SHOW_REPONSESBOTTOM', $h++);
 define('QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU', $h++);
-
-/* constantes obsolettes mises en table : quizmaker_options
-define('QUIZMAKER_CONFIG_IHM_PROD1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
-                                   | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX));
-define('QUIZMAKER_CONFIG_DEV_PROD1', 0);
-
-define('QUIZMAKER_CONFIG_IHM_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_ALLSOLUTIONS)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU)
-                                  | pow(2, QUIZMAKER_BIT_ALLOWEDPREVIOUS));
-
-define('QUIZMAKER_CONFIG_DEV_DEV1', pow(2, QUIZMAKER_BIT_ALLOWEDSUBMIT)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_SCOREMINMAX)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_PLUGIN)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_RELOADANSWERS)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_GOTOSLIDE)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_GOODANSWERS)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_BADANSWERS)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_RIGHT_CLICK_MENU)
-                                  | pow(2, QUIZMAKER_BIT_SHOW_RESULTALLWAYS));
-*/
 
 //-----------------------------------------------------
 
@@ -252,8 +249,11 @@ define('QUIZMAKER_SELECTOR_DIFFICUT_MODE', 1); //0= boutons radio - 1 = liste dé
 define('QUIZMAKER_DIFFICUTY_MODULO', 5); //4+1
 define('QUIZMAKER_MAX_ATTEMPTS', 12); //maximium de tentatives par défaut
 
+define('QUIZMAKER_DISPLAY_QUIZ', "quiz_display_db.php"); //fichier php de lancement des quiz
+$quizDisplay = QUIZMAKER_DISPLAY_QUIZ;
+
 // Module Information
-$localLogo = QUIZMAKER_URL_IMAGE . '/jean-jacques_delalandre_logo.png';
+$localLogo = getQMFolder('u', 'm', 'assets/images/jean-jacques_delalandre_logo.png');
 $copyright = "<a href='http://oritheque.fr' title='Origami' target='_blank'><img src='".$localLogo."' alt='Origami' /></a>";
 
 

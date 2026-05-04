@@ -46,20 +46,20 @@
 				<td class='center'>
                     <{if $Plugin.isArchive}> 
                       <a href='plugins.php?op=install&plugin=<{$Plugin.type}>&catPlugins=<{$catPlugins}>#signet-<{$Plugin.type}>'>
-            			<img src="<{$modPathIcon32}>/install-red.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE}>' />
+            			<img src="<{$modUrlIcon32}>/install-red.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE}>' />
                       </a>
                     <{else}>
-            			<img src="<{$modPathIcon32}>/install-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE}>' />
+            			<img src="<{$modUrlIcon32}>/install-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE}>' />
                     <{/if}>
                 </td>  
                 
 				<td class='center'>
                     <{if $Plugin.quiz_id <> 0}> 
                       <a href='questions.php?op=list&quiz_id=<{$Plugin.quiz_id}>'>
-            			<img src="<{$modPathIcon32}>/edit-ok.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_EDIT_QUIZ}>' />
+            			<img src="<{$modUrlIcon32}>/edit-ok.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_EDIT_QUIZ}>' />
                       </a>
                     <{else}>
-            			<img src="<{$modPathIcon32}>/edit-no.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_EDIT_QUIZ}>' />
+            			<img src="<{$modUrlIcon32}>/edit-no.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_EDIT_QUIZ}>' />
                     <{/if}>
                 </td>  
                 
@@ -67,10 +67,10 @@
 				<td class='center'>
                     <{if $Plugin.isBuild}> 
                       <a href='plugins.php?op=play&plugin=<{$Plugin.type}>&catPlugins=<{$catPlugins}>' target='blank'>
-            			<img src="<{$modPathIcon32}>/play-green.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
+            			<img src="<{$modUrlIcon32}>/play-green.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
                       </a>
                     <{else}>
-            			<img src="<{$modPathIcon32}>/play-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
+            			<img src="<{$modUrlIcon32}>/play-grey.png" alt="Play quiz" title='<{$smarty.const._AM_QUIZMAKER_PLAY_QUIZ}>' />
                     <{/if}>
                 </td>   
 				<td class='center'>

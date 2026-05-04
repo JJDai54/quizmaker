@@ -83,8 +83,10 @@ getInnerHTML(bShuffle = true){
         tHtml.push (`<div style='${intervalVertical}'>
         <img src='${src}' id='${ans.ansId}' name='${this.getName()}' style='${imgStyle}' ${imgOnClick}>
         <p style='${pStyle2}'  inert>${numbering}${ans.proposition}</p> 
-        <img id='${ans.cocheId}' name=${nameCoche} ${cocheOnClick} src='${currentQuestion.urlPlugin}/img/coches/${cocheImgFileName}' coche  value='0' style='${styleCoche}' alt='' title=''>
+        <img id='${ans.cocheId}' name=${nameCoche} ${cocheOnClick} src='${quiz_config.urlImgRoot}/coches/${cocheImgFileName}' coche  value='0' style='${styleCoche}' alt='' title=''>
         </div>`);
+        //alert(`fld img : ${quiz_config.urlImgRoot}/coches/${cocheImgFileName}`);
+        //<img id='${ans.cocheId}' name=${nameCoche} ${cocheOnClick} src='${currentQuestion.urlPlugin}/img/coches/${cocheImgFileName}' coche  value='0' style='${styleCoche}' alt='' title=''>
         h--;
         if (h == 0){
             tHtml.push (`<br>`);
@@ -102,9 +104,8 @@ getInnerHTML(bShuffle = true){
 }
 //---------------------------------------------------
 onEnter() {
-    //document.getElementById('quiz_btn_nextSlide').disabled = '';
-    //alert("onEnter");
 }       
+//---------------------------------------------------
 onFinalyse() {
     super.onFinalyse();
 }       

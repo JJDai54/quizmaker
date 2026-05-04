@@ -40,7 +40,7 @@ var $noClass = "00-none";
         parent::__construct("sortItems", 0, "ordre");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
-        $this->optionsDefaults = ['variant'      => $this::noClass, 
+        $this->optionsDefaults = ['variant'     => $this::noClass, 
                                   'orderStrict' => 'N', 
                                   'title'       => '', 
                                   'btnColor'    => 'blue', 

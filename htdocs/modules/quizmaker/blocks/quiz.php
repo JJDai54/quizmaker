@@ -98,25 +98,25 @@ include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/Quiz.php';
 
 
 	$crQuiz->setLimit( $limit );
-	$quizAll = $quizHandler->getAllowed('view', $crQuiz,'','');
+	$allQuiz = $quizHandler->getAllowed('view', $crQuiz,'','');
 	unset($crQuiz);
-//echoArray($quizAll);   
+//echoArray($allQuiz);   
             
              
 //echo "<hr>===>cat : <pre>". print_r($cat, true) ."</pre><hr>";
-	if (count($quizAll) > 0) {
-		foreach(array_keys($quizAll) as $i) {
-            $catId = $quizAll[$i]->getVar('quiz_cat_id');
+	if (count($allQuiz) > 0) {
+		foreach(array_keys($allQuiz) as $i) {
+            $catId = $allQuiz[$i]->getVar('quiz_cat_id');
 			$block['data'][$catId]['cat']['id'] = $catId;            
 			$block['data'][$catId]['cat']['name'] = $cat[$catId]['cat_name'];            
 			$block['data'][$catId]['cat']['theme'] = $cat[$catId]['cat_theme'];            
             
 			$block['data'][$catId]['quiz'][$i]['periodeOK'] = 1; //a revoir
-			$block['data'][$catId]['quiz'][$i]['id'] = $quizAll[$i]->getVar('quiz_id');
+			$block['data'][$catId]['quiz'][$i]['id'] = $allQuiz[$i]->getVar('quiz_id');
 			$block['data'][$catId]['quiz'][$i]['cat_id'] = $catId;
-			$block['data'][$catId]['quiz'][$i]['name'] = $myts->htmlSpecialChars($quizAll[$i]->getVar('quiz_name'));
-			$block['data'][$catId]['quiz'][$i]['publishQuiz'] = $quizAll[$i]->getVar('quiz_publishQuiz');
-			$block['data'][$catId]['quiz'][$i]['folderJS'] = $quizAll[$i]->getVar('quiz_folderJS');        
+			$block['data'][$catId]['quiz'][$i]['name'] = $myts->htmlSpecialChars($allQuiz[$i]->getVar('quiz_name'));
+			$block['data'][$catId]['quiz'][$i]['publishQuiz'] = $allQuiz[$i]->getVar('quiz_publishQuiz');
+			$block['data'][$catId]['quiz'][$i]['folderJS'] = $allQuiz[$i]->getVar('quiz_folderJS');        
 		}
 	}
     
@@ -141,8 +141,8 @@ function b_quizmaker_get_quiz()
 	$crQuiz->add( new \Criteria( 'quiz_id', 0, '!=' ) );
 	$crQuiz->setSort( 'quiz_id' );
 	$crQuiz->setOrder( 'ASC' );
-	$quizAll = $quizHandler->getAll($crQuiz);
-    return $quizAll;
+	$allQuiz = $quizHandler->getAll($crQuiz);
+    return $allQuiz;
 }
 
 function b_quizmaker_get_categories()

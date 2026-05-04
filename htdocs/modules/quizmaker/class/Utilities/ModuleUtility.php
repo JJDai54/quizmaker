@@ -126,15 +126,16 @@ public static function rmAllDir($strDirectory){
 /* ***********************
 
 ************************** */
-public static function getNewBtn($caption, $op, $img,  $title ){
+public static function getNewBtn($caption, $op, $img,  $title, $onClick='' ){
 /*
 <div class="xo-buttons">
 <a class="ui-corner-all tooltip" href="questions.php?op=new" title="Add New Questions"><img src="https://xoopsfr.kiolo.fr/Frameworks/moduleclasses/icons/32/add.png" title="" alt="">Add New Questions</a>
 &nbsp;</div>
 */
+if($onClick == '') $onClick = "document.quizmaker_select_filter.submit();";
 
 $html = <<<__HTML__
-<a class="ui-corner-all tooltip" title="{$title}" onclick="document.quizmaker_select_filter.op.value='{$op}';document.quizmaker_select_filter.submit();">
+<a class="ui-corner-all tooltip" title="{$title}" onclick="document.quizmaker_select_filter.op.value='{$op}';{$onClick};">
 <img src="{$img}" title="" alt="">{$caption}</a>
 &nbsp;
 __HTML__;
@@ -151,19 +152,19 @@ __HTML__;
 /**************************************************************
  * 
  * ************************************************************/
-public static function submitQuizVerif($quizId, $uid, $uname)
-{
-        $ip = \Xmf\IPAddress::fromRequest()->asReadable();
-        $criteria = new \CriteriaCompo(new \criteria('result_ip', $ip, "="));
-        $criteria->add(new \criteria('result_quiz_id', $quizId, "="));
-        $resultsCount = $resultsHandler->getCount($criteria);
-        $attempt_max = 3;
-        if ($resultsCount >= $attempt_max){
-			redirect_header("categories.php?op=list&quiz_id={$quizId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
-        }        
-		
-
-}
+// public static function submitQuizVerif($quizId, $uid, $uname)
+// {
+//         $ip = \Xmf\IPAddress::fromRequest()->asReadable();
+//         $criteria = new \CriteriaCompo(new \criteria('result_ip', $ip, "="));
+//         $criteria->add(new \criteria('result_quiz_id', $quizId, "="));
+//         $resultsCount = $resultsHandler->getCount($criteria);
+//         $attempt_max = 3;
+//         if ($resultsCount >= $attempt_max){
+// 			redirect_header("categories.php?op=list&quiz_id={$quizId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
+//         }        
+// 		
+// 
+// }
 
     /**
      * @param \Xmf\Module\Helper $quizmakerHelper

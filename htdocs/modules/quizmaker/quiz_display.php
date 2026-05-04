@@ -49,19 +49,18 @@ if (0 == $quizId) {
 	redirect_header('categories.php?op=list', 3, _MA_QUIZMAKER_INVALID_PARAM);
 }
 $quizObj = $quizHandler->get($quizId);
-        
 // geestion des cookies pour verifier si k'utilisateur a dé&hà tenter ce quiz sans le valider dans le temps imparti par le cookie
-$maxTentatives = $quizObj->getVar('quiz_max_attempts');
+$attempt_max = $quizObj->getVar('quiz_max_attempts');
 $delai = $quizObj->getVar('quiz_delai_cookie'); //delai du cookie en secondes
 $catId = $quizObj->getVar('quiz_cat_id');
 $catObj = $categoriesHandler->get($catId);
 /*
 */
 // 
-// if ($maxTentatives > 0){
+// if ($attempt_max > 0){
 //     $coookieName = "quizmaker" . "-" . $quizId;
 //     $tentativesArr =  Request::getInt($coookieName , 1,'COOKIE');
-//     if($tentatives > $maxTentatives) {
+//     if($tentatives > $attempt_max) {
 //         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
 //         //setcookie($coookieName, "", time() - 3600);
 //         redirect_header('categories.php?cat_id=' . $catId, 8, _MA_QUIZMAKER_MAX_ATTEMPTS_EXCEEDS);
@@ -73,11 +72,13 @@ $catObj = $categoriesHandler->get($catId);
 // }
 //********************************************************************/
 $coookieName = QUIZMAKER_DIRNAME . "-" . $quizId;
-if ($maxTentatives > 0){
+$attempt_max = 12;
+$delai = 3600;
+if ($attempt_max > 0){
     $cookieArr =  explode('|', Request::getString($coookieName , '','COOKIE'));
     $tentatives =  intVal($cookieArr[0]) ;
-//echoRequest('C',"max = {$maxTentatives} - tentatives = {$cookieArr[0]}");
-    if($cookieArr[0] > $maxTentatives) {
+//echoRequest('C',"max = {$attempt_max} - tentatives = {$cookieArr[0]}");
+    if($cookieArr[0] > $attempt_max) {
         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
         //setcookie($coookieName, "", time() - 3600);
         $strDelai = formatDelai($cookieArr[1]);
@@ -86,11 +87,17 @@ if ($maxTentatives > 0){
         exit;
     }
     $deadLine = time() + $delai;
-    setcookie($coookieName, ($tentatives+1) . '|' . $deadLine, $deadLine);   
+    $cookie = ($tentatives+1) . '|' . $deadLine;
+    //setcookie($coookieName,  $cookie, $deadLine);   
 }else{
-    setcookie($coookieName, 0, time() - 3600);  /* Suppression Du Cookie */
+    /* Suppression Du Cookie */
+    $deadLine = time() - 3600; 
+    $cookie = 0;
+    //setcookie($coookieName, 0, $deadLine) /* Suppression Du Cookie */
 }
-
+//echo "<hr>Cookies = {$cookie}<hr>";
+setcookie($coookieName, $cookie, $deadLine); 
+exit;
 
 
 /**********************************************************************
@@ -144,11 +151,12 @@ function formatDelai ($timestamp1, $timestamp2 = null){
 		$quizObj = $quizHandler->get($quizId);
         $catId = $quizObj->getVar('quiz_cat_id');
         //$attempt_max = $quizObj->getVar('quiz_attempts');
-        $attempt_max = 3; //provisoir
+//        $attempt_max = 3; //provisoir
+ //exit ("ici");       
         
         global $xoopsUser;
         $ip = \Xmf\IPAddress::fromRequest()->asReadable();
-        $uid = ($xoopsUser) ? $xoopsUser->uid() : 2;
+        $uid = ($xoopsUser) ? $xoopsUser->uid() : 0;
         //--------------------------------
         
         //recherche du nombre de uid
@@ -167,15 +175,16 @@ function formatDelai ($timestamp1, $timestamp2 = null){
             $ok = true;
             break;
         case 2:
-            $ok = ($ipCount < $attempt_max);
+            $ok = ($ipCount < $attempt_max || $attempt_max == 0);
             break;
         default:
-            $ok = ($uidCount < $attempt_max);
+            $ok = ($uidCount < $attempt_max || $attempt_max == 0);
             break;
         }
        
-        if (!$ok)
-			redirect_header("categories.php?op=list&cat_id={$catId}player_id={$playerId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
+        if (!$ok){
+			redirect_header("quiz.php?op=list&cat_id={$catId}player_id={$playerId}&sender=", 3, _MA_QUIZMAKER_STILL_ANSWER);
+        }
         
 
 

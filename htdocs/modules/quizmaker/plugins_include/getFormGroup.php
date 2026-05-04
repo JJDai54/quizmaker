@@ -65,7 +65,7 @@
       
       if($isNew){
         $style = "height:30px;margin:0px 0px -10px 0px;padding:3px;offset-position:0% -20px;"; // cursor:pointer
-        $delProposition = new \XoopsFormLabel('', "<img src='" . QUIZMAKER_URL_ICONS . "/256/coche-02.png' alt='' style='{$style}'>");  //_CO_QUIZMAKER_NEW                       
+        $delProposition = new \XoopsFormLabel('', "<img src='{$modUrlIcon256}/coche-02.png' alt='' style='{$style}'>");  //_CO_QUIZMAKER_NEW                       
       }else{
         $delProposition = new \XoopsFormCheckBoxImage('', $this->getName($i,'delete_Proposition'), [0]);    
         $delProposition->switchImage(true);                    

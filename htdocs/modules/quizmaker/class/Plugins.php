@@ -35,7 +35,7 @@ var $version = '1.0';
 var $release = '2025-05-12';
 var $author  = 'JJDai - (jjdelaalandre@orange.fr)';
 /*
-Mode d'intégration dans le gormulaire question
+Mode d'intégration dans le formulaire question
 0 : integration dans le gormulaire question avec $form->addElement($clPlugin->getForm(...));
 1 : $form->insertBreak($clPlugin->getForm(...)->render()); peermet de supprimer la colonne caption
 */
@@ -167,6 +167,17 @@ const noClass = "00-none";
 	 * @public function loadJS
 	 * @return boolean
 	 */
+     
+	/**
+	 * @public function getVariantLibArr
+	 * @return array : libelle des variant du plugin
+	 */
+     
+	public function getVariantLibArr()
+	{
+        return Array();
+    }
+
 	public function loadJS()
 	{
 
@@ -448,7 +459,27 @@ global $xoopDB;
 
    
 /* **********************************************************
-*
+*$jsonValues
+* *********************************************************** */
+ 	public function getOptionsByQuestId($questId, $optionsDefaults = null)
+    {
+    global $questionsHandler, $myts;    
+        $quest =  $questionsHandler->get($questId, 'quest_options');
+        $tValues = json_decode(html_entity_decode($quest->getVar('quest_options')),true);
+        
+       if(is_null($optionsDefaults)) $optionsDefaults = $this->optionsDefaults;
+        
+        foreach($optionsDefaults as $key=>$default){
+            if(isset($tValues[$key])) {
+                $optionsDefaults[$key] = $myts->htmlSpecialChars($tValues[$key]);
+            }else{
+                $optionsDefaults[$key] = $myts->htmlSpecialChars($default);
+            }
+        }
+        return $optionsDefaults;
+    }
+/* **********************************************************
+ * getOptions : obsolette. A remplacer par getOptionsByQuestId($questId, $optionsDefaults = null)
 * *********************************************************** */
  	public function getOptions($jsonValues, $optionsDefaults = null)
  	{
@@ -473,39 +504,6 @@ global $xoopDB;
        return $optionsDefaults;
     }
     
-/* **********************************************************
-*
-* *********************************************************** */
- 	public function getOptions_old($jsonValues, $optionsDefaults=null)
- 	{
-    global $myts;
-     //echo "<hr>{$jsonValues}<hr>";
-       if(is_null($optionsDefaults)) $optionsDefaults = $this->optionsDefaults;
-     
-       if($jsonValues){
-            $tValues = json_decode($jsonValues, true);
-            
-            //todo : bidouille pour assure le changement de 'classe' en 'variant' => a virer des que possible
-            if(isset($tValues['classe'])) {
-                $tValues['variant'] = $tValues['classe'];
-                unset($tValues['classe']);
-            }
-            
-            foreach($optionsDefaults as $key=>$default){
-                if(!isset($tValues[$key])) {
-                    $tValues[$key] = $myts->htmlSpecialChars($default);
-                }else{
-                    $tValues[$key] = $myts->htmlSpecialChars($tValues[$key]);
-                }
-            }
-       }else if($optionsDefaults){
-            $tValues = $optionsDefaults;
-//        }else{
-//             $tValues = $this->optionsDefaults;
-       }
-echoArray($tValues,"",true);
-       return $tValues;
-    }
 /* **********************************************************
 *
 * *********************************************************** */
@@ -963,6 +961,7 @@ public function copyArchiveInPluginFolder($archivesPath){
 
     }
     copy($archivesPath, $fullName);
+    chmod($fullName, 0775);
 
 }
   

@@ -166,4 +166,11 @@ define('_MI_QUIZMAKER_USE_TAG_DESC', "If you use the tag module, check this opti
 define('_MI_QUIZMAKER_USER_PAGER', "Number of items per page on user side");
 define('_MI_QUIZMAKER_USER_PAGER_DESC', "Paging lists in the user interface");
 
+
+define('_MI_QUIZMAKER_ACTION_ON_QUIZ_DELETED', "Action sur suppresion d'un quiz");
+define('_MI_QUIZMAKER_ACTION_ON_QUIZ_DELETED_DESC', "0 : Supprime définitivement le quiz.<br> > 0 : identifiant de la catégorie dans laquelle transférer le quiz en attendant une suppresion définitive.<br>Si le quiz est déjà dans cette catégorie il sera définitivement supprimé.");
+define('_MI_QUIZMAKER_COOKIES', "Cookies");
+define('_MI_QUIZMAKER_PARTICIPATION', "Participation");
+define('_MI_QUIZMAKER_README', "Lisez moi");
+
 ?>

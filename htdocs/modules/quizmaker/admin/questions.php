@@ -56,7 +56,7 @@ if ($quizId == 0  || !isset($quizArr[$quizId]))
 // echoArray('gp');
 // echo "<hr>catId : {$catId} - quizId : {$quizId}<hr>";
 
-        echo "2===>quizId = {$quizId} - catId  = {$catId}<br>";
+//echo "2===>quizId = {$quizId} - catId  = {$catId}<br>";
 
 
 
@@ -78,6 +78,7 @@ $sender  = Request::getString('sender', '');
 
 
 $quest_plugin = Request::getString('quest_plugin', '');
+//echo "<hr>request_uri = {$_SERVER['REQUEST_URI']}<hr>";
 
 function getParams2list($quizId, $quest_plugin, $sender = "", $quest_parent_id=0, $questId = 0, $subject=""){
 global $quizHandler;
@@ -124,7 +125,7 @@ switch($op) {
     case 'init_weight':
         $questionsHandler->incrementeWeight($quizId);
         $url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
-        \redirect_header($url, 0, "");
+        redirect_header($url, 0, "");
 	    break;
     
     case 'weight':
@@ -173,13 +174,17 @@ switch($op) {
 	    break;
     //------------------------------------------------------
 	case 'export_quiz':
-        $quizUtility::quiz_export($quizId);
-        $op = 'list';
-        $download = 1;
-        include_once("questions-{$op}.php");
-        //redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, "Export effectué");
-	    break;
-    
+        if (!$clPerms->getPermissions('edit_quiz', $catId)){  
+            redirect_header("question.php?op=list&cat_id={$catId}", 5, _CO_QUIZMAKER_NO_PERM);
+        }
+
+        $uploadArr = $quizUtility::quiz_export($quizId);
+        if($uploadArr['err'] > 0){
+            redirect_header("question.php?cat_id={$catId}&quiz_id={$quizId}", 5, $uploadArr['errlib']);
+        }
+        include_once("questions-list.php");
+        break;
+
 	case 'purger_images':
         $nbImg = $quizHandler->purgerImages($quizId);
         $op = 'list';
@@ -211,11 +216,18 @@ switch($op) {
         //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
         //  echo "<hr>quest_timer<pre>" . print_r($list, true) . "</pre><hr>";
         foreach($list AS $id => $arr){
-            $criteria = new Criteria('quest_id', $id, "=");
+            $criteria = new CriteriaCompo();
+            $criteria->add(new Criteria('quest_id', $id, "="));
             $questionsHandler->updateAll('quest_timer', $arr['timer'], $criteria, $force = false);
-            $questionsHandler->updateAll('quest_points', $arr['points'], $criteria, $force = false);
             $startTimer = (isset($arr['startTimer']) ? 1 : 0);
             $questionsHandler->updateAll('quest_start_timer', $startTimer, $criteria, $force = false);
+            
+            //exclure pageBegin et pageEnd
+            $criteria->add(new Criteria('quest_plugin', 'pageBegin', "<>"));
+            $criteria->add(new Criteria('quest_plugin', 'pageEnd', "<>"));
+            $questionsHandler->updateAll('quest_points', $arr['points'], $criteria, $force = false);
+            $questionsHandler->updateAll('quest_weight', $arr['weight'], $criteria, $force = false);
+
         }
         
         $delArr = array_keys(Request::getArray('delete'));

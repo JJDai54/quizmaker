@@ -32,8 +32,8 @@ var name = this.getName();
       for(var k in currentQuestion.answers){
         var id = this.getId(k);
         if(currentQuestion.answers[k].proposition == '') continue;
-        console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-        //Les div seront remplis dazns le update
+        //console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+        //Les div seront remplis dans le update ou le enter
         htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);
           
       }
@@ -58,8 +58,9 @@ onEnter() {
     for(var k in currentQuestion.answers){
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
-      console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, currentQuestion.questId);
+//         alert(`IDS ===>questId =  ${currentQuestion.questId} \n parentId = ${currentQuestion.parentId} \n slideNumber = ${this.slideNumber}`);
+//         alert(currentQuestion.answers[k].proposition);
+        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, this.slideNumber);
         document.getElementById(id).innerHTML = exp;
     }
   }

@@ -44,6 +44,7 @@ use XoopsModules\Quizmaker\Constants;
             $questionsObj->setVar('quest_start_timer', 0);
             $questionsObj->setVar('quest_visible', 1);
             $questionsObj->setVar('quest_actif', 1);
+            $questionsObj->setVar('quiz_max_attempts', 0);
             $questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 
         }else if($op == 'addingroup'){

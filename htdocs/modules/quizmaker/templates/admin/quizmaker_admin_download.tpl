@@ -1,5 +1,6 @@
 
 <{if $download == 1}>
+<hr>====================== ttttttttt ====================<hr>
 <style>
 #quiz_download {
     padding: 8px;
@@ -23,6 +24,7 @@
 <div id='quiz_download' name ='quiz_download' >
    <{$smarty.const._AM_QUIZMAKER_DOWNLOAD_OK}>
         <a data-auto-download href="<{$href}>"><{$name}></a>
+</div>
     
 
 <script>
@@ -45,7 +47,6 @@ $(document).ready(function(){
     });
 </script>
 
-</div>
 <{/if}>
 
 

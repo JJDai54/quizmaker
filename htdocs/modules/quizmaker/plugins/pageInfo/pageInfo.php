@@ -45,6 +45,7 @@ class Plugin_pageInfo extends XoopsModules\Quizmaker\Plugins
 
         $this->optionsDefaults = [];
         $this->hasImageMain = true;
+        $this->hasZoom = true;
 
     }
 

@@ -81,8 +81,6 @@ var $maxMots = 0;
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------  
-      define('_AM_QUIZMAKER_PLUGIN_INTERLIGNE',"Interligne");
-      define('_AM_QUIZMAKER_PLUGIN_INTERLIGNE_DESC',"Interval vertical entre chaque ligne d'items");
       
       $name = 'interligne';  
       $inpInterligne = new \XoopsFormNumber(_AM_QUIZMAKER_PLUGIN_INTERLIGNE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);

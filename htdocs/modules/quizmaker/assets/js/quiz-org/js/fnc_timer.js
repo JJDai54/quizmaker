@@ -40,12 +40,12 @@ let timerIsRunning = false;
 let remainingPathColor = COLOR_CODES.info.color;
 
 function build_timer(){
-console.log('build_timer');
+//console.log('build_timer');
     document.getElementById("app").innerHTML = build_timer_html();
 }
 
 function build_timer_html(){
-console.log('build_timer_html');
+//console.log('build_timer_html');
 var html = `<div id='chronometre' class="base-timer">
   <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g class="base-timer__circle">
@@ -75,7 +75,7 @@ return html;
 //startTimer();
 
 function onTimesUp() {
-console.log('onTimesUp');
+//console.log('onTimesUp');
 
   clearInterval(timerInterval);
   timerIsRunning = false;
@@ -92,7 +92,7 @@ console.log('onTimesUp');
  *  
  * ************************************************************************/
 function initTimer_for_quiz(position, divSize, fontSize=0){
-console.log('initTimer_for_quiz');
+//console.log('initTimer_for_quiz');
  // voir la classe quiz_infobulle
 //alert(`initTimer_for_quiz : position = ${position}`) ;   
     if (divSize == 0) {divSize = 48;} // pour compatibilité
@@ -104,17 +104,17 @@ timerIsRunning = true;
     
     //document.getElementById('app').setAttribute('display','block');
     var obTimer = document.getElementById('chronometre');
-    console.log(obTimer.id + "-" + obTimer.getAttribute('width'));
+    //console.log(obTimer.id + "-" + obTimer.getAttribute('width'));
     obTimer.style.width  = divSizePix;
     obTimer.style.height = divSizePix;
     //obTimer.style.display ='block';
     //obTimer.style.top='';
     switch(position){  
     case 0: return '';break;        
-    case 2:  obTimer.style.top    = "+200px"; obTimer.style.right  = "5px"; break;    // Top/Right
+    case 2:  obTimer.style.top    = "+5px"; obTimer.style.right  = "5px"; break;    // Top/Right
     case 3:  obTimer.style.bottom =   "+5px"; obTimer.style.right  = "5px"; break;    // Bottom/Right
     case 4:  obTimer.style.bottom =   "+5px"; obTimer.style.left   = "5px"; break;    // Bottom/Left
-    default: obTimer.style.top    = "+200px"; obTimer.style.left   = "5px"; break;    // Top/Left
+    default: obTimer.style.top    = "+5px"; obTimer.style.left   = "5px"; break;    // Top/Left
     }                                                                                                                //
     
     var obLabel = document.getElementById('base-timer-label');
@@ -130,7 +130,7 @@ timerIsRunning = true;
 }
 
 function razTimer(chrono) {
-console.log('razTimer');
+//console.log('razTimer');
     if(timerIsRunning) return false;
 TIME_LIMIT = chrono;
 timePassed = 0;
@@ -153,7 +153,7 @@ timerInterval = null;
 }
 
 function startChronometre(chrono) {
-console.log('startChronometre');
+//console.log('startChronometre');
     if(timerIsRunning) return false;
      razTimer(chrono);
     timerIsRunning = false;
@@ -176,7 +176,7 @@ console.log('startChronometre');
 }
 
 function formatTime(time) {
-console.log('formatTime');
+//console.log('formatTime');
   const minutes = Math.floor(time / 60);
   let seconds = time % 60;
 
@@ -188,7 +188,7 @@ console.log('formatTime');
 }
 
 function setRemainingPathColor(timeLeft) {
-console.log('setRemainingPathColor');
+//console.log('setRemainingPathColor');
   const { alert, warning, info } = COLOR_CODES;
   if (timeLeft <= alert.threshold) {
     document
@@ -208,13 +208,13 @@ console.log('setRemainingPathColor');
 }
 
 function calculateTimeFraction() {
-console.log('calculateTimeFraction');
+//console.log('calculateTimeFraction');
   const rawTimeFraction = timeLeft / TIME_LIMIT;
   return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
 }
 
 function setCircleDasharray() {
-console.log('setCircleDasharray');
+//console.log('setCircleDasharray');
   const circleDasharray = `${(
     calculateTimeFraction() * FULL_DASH_ARRAY
   ).toFixed(0)} 283`;

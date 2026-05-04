@@ -79,19 +79,29 @@ define('_MA_QUIZMAKER_SEE_ALSO', "Voir aussi");
 define('_MA_QUIZMAKER_SELECTION', "Sélection");
 define('_MA_QUIZMAKER_SOLUTIONS', "Solutions");
 define('_MA_QUIZMAKER_STILL_ANSWER', "Vous avez déjà participé à ce quiz.<br>Veuillez réessayer plus tard.");
+define('_MA_QUIZMAKER_STILL_ANSWER1', "Votre score a déjà été enregistré.");
+define('_MA_QUIZMAKER_STILL_ANSWER2', "Vos scores ont déjà été enregistrés.");
+
 define('_MA_QUIZMAKER_THANKS_FOR_PARTICIPATION', "Merci pour votre participation");
 define('_MA_QUIZMAKER_TITLE', "Quiz");
 define('_MA_QUIZMAKER_UNAME', "Pseudo");
-define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>Votre score est est de 0 points !<br>Vous n'avez pas encore le droit de voir les solutions pour ce quiz.<br>Vous devez y avoir participé en étant enregisté et être connecté sur le site.</span>");
+define('_MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED', "<span style='color:red;font-weight:bold'>Merci d'avoir participé.<br>Vous n'avez pas encore le droit de voir les solutions pour ce quiz.<br>Nous vous informerons quand ils seront publiés.</span>");
 
 
-define('_MA_QUIZMAKER_MAX_ATTEMPTS_EXCEEDS', "<span style='color:blue;font-weight:bold'>Vous avez déjà joué ou tenté de jouer ce quiz une ou plusieurs fois.<br>Vous avez atteint le maximum d'essais possibles pour ce quiz.<br>il vous faudra attendre <span style='color:red;font-weight:bold'>%1\$s</span> avant de réessayer.</span>");
+
+define('_MA_QUIZMAKER_MAX_ATTEMPTS_WAIT', "<span style='color:blue;font-weight:bold'>Vous avez déjà joué ou tenté de jouer ce quiz une ou plusieurs fois.<br>Vous avez atteint le maximum d'essais possibles pour ce quiz.<br>il vous faudra attendre <span style='color:red;font-weight:bold'>%1\$s</span> avant de réessayer.</span>");
+define('_MA_QUIZMAKER_MAX_ATTEMPTS_EXCEEDS', "<span style='color:blue;font-weight:bold'>Vous avez déjà tenté de jouer %s/%s fois ce quiz.<br>Vous avez atteint le maximum d'essais possibles pour ce quiz.<br>Vous ne pouvez plus le rejouer.<span style='color:red;font-weight:bold'></span></span>");
 
 define('_MA_QUIZMAKER_UNIT_DAYS', "jours");
 define('_MA_QUIZMAKER_UNIT_HOURS', "heures");
 define('_MA_QUIZMAKER_UNIT_MINUTES', "minutes");
 define('_MA_QUIZMAKER_UNIT_SECONDS', "secondes");
 define('_MA_QUIZMAKER_QUIZ_SUBJECT', "Sujet");
+define('_MA_QUIZMAKER_VALIDATE_TO_CONTINUE', "Vous devez valider le document ci-dessous pour continuer.");
+define('_MA_QUIZMAKER_VALIDATE', "Valider");
+define('_MA_QUIZMAKER_CANCEL', "Annuler");
+define('_MA_QUIZMAKER_READ_CAT_INFO', "Lisez le reglement");
+define('_MA_QUIZMAKER_CAT_READ_INFO_OK', "lecture ok vous pouvez continuer");
 
 
 ?>

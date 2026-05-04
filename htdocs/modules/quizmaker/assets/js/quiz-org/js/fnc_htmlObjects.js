@@ -294,3 +294,59 @@ function  clearfillCollection(name, fillWithExp="")
   
   } 
  
+//-------------------------------------------------
+/* ***********************************************
+*
+        case 0: // disable and visible
+        case 1: // visible et enabled
+        case 2: // Masquer et inline
+        case 3: // masquer et not inline
+**************************************************** */
+function updateButton (source, etat, tellFrom = null) {
+    if(isObject(source)){
+        var btn = source;
+    }else{
+        var btn =  document.getElementById(source);
+    }
+    if(!btn) {
+        console.log(`===>updateButton : tellFrom = ${tellFrom}`);
+        return false;
+    }
+  
+// if (btn.id == 'quiz_btn_nextSlide'){
+// //if (tellFrom == 'getScoreByProposition-memory'){
+// alert(`===>updateButton -> ${tellFrom} : etat = ${etat} \n btn = ${btn.id}`);
+// }
+    switch (etat) {
+        case 0: // disable and visible
+            btn.style.display = 'inline-block';
+            btn.style.visibility="visible";
+            btn.disabled = 'disabled';
+            break;
+            
+        case 2: // Masquer et inline
+            btn.style.visibility="hidden";
+            break;
+            
+        case 3: // masquer et not inline
+            btn.style.visibility="hidden";
+            btn.style.display = 'none';
+            break;
+            
+        case 1: // visible et enabled
+        default:
+            btn.style.visibility="visible";
+            btn.style.display = 'inline-block';
+            btn.disabled = '';
+// if (btn.id == 'quiz_btn_nextSlide'){
+// //if (tellFrom == 'getScoreByProposition-memory'){
+// alert(`===>updateButton -> ${tellFrom} : etat = ${etat} \n btn = ${btn.id}`);
+// }
+            break;
+    }
+    if (tellFrom){
+        //console.log(`===>updateBtnNext : id = ${btn.id} - etat = ${etat} - tellFrom = ${tellFrom}`);
+    }
+    return btn;
+ }
+

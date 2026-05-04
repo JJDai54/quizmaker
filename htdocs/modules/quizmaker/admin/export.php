@@ -32,14 +32,16 @@ $clPerms->addPermissions($criteriaCatAllowed, 'export_quiz', 'cat_id');
 $catArr = $categoriesHandler->getList($criteriaCatAllowed);
 if(!$catArr) redirect_header("index.php", 5, _CO_QUIZMAKER_NO_PERM);
 
-
+//echo __FILE__ . '<br>';
+//echoArray("GP");
 // It recovered the value of argument op in URL$
-$op = Request::getCmd('op', 'list');
+
 // Request quiz_id
 $catId  = Request::getInt('cat_id', 0);
 $quizId = Request::getInt('quiz_id', 0);
 $modeName = Request::getInt('mode_name', 0);
 $suffix = Request::getInt('suffix', 0);
+$emptyfld = Request::getInt('empty_fld', 0);
 $quizSubject = Request::getString('quiz_subject', '');
 $quizDifficulty = Request::getInt('quiz_difficulty', 0);
 
@@ -47,12 +49,33 @@ $objError = new \XoopsObject();
 $utility = new \XoopsModules\Quizmaker\Utility();  
 $templateMain = 'quizmaker_admin_export.tpl';
 
+$op = Request::getCmd('op', 'list');
+if(isset($_POST[_SUBMIT]) && $quizId > 0) 
+    $op ='export_all' ;
+else if(isset($_POST[_SUBMIT]) && $quizId == 0)
+    $op ='export_all' ;
+//echoArray($_POST);
+$paramsGet= "t&cat_id={$catId}&quiz_subject={$quizSubject}&&quiz_id={$quizId}mode_name={$modeName}&suffix={$suffix}&empty_fld={$emptyfld}";
+
 ////////////////////////////////////////////////////////////////////////
 list_on_errors:        
 switch($op) {
+	case 'export_all':
+        $msg = $quizUtility::quiz_export_all($catId, $quizSubject, $quizId, $modeName, $suffix, $emptyfld);
+        redirect_header("export.php?op=list&{$paramsGet}", 12, $msg);
+        break;
+        
 	case 'export_ok':
+exit ('export_ok');
+    
         //$clPerms->checkAndRedirect('export_quiz', $catId, "{$catId}", "index.php", QUIZMAKER_ADMIN_PERM);
-        if ($quizId > 0) $quizUtility::quiz_export($quizId, $modeName, $suffix);
+        if ($quizId > 0) {
+            $buildArr = $quizUtility::quiz_export($quizId, $modeName, $suffix, $emptyfld);
+           if($uploadArr['err'] > 0){
+               redirect_header("export.php?{$paramsGet}", 5, $uploadArr['errlib']);
+           }
+            $quizUtility::quiz_download_zip($buildArr['href'], $buildArr['name'], 2000);
+        }
         
     case 'export':
     case 'list':
@@ -77,15 +100,16 @@ switch($op) {
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
 		$form = new \XoopsThemeForm($title, 'quizmaker_select_filter', 'export.php', 'post', true);
-		return $form;
+//		return $form;
+//echo "<hr>-------------ICI-------------<hr>";
 		// To Save
-		$form->addElement(new \XoopsFormHidden('op', 'export_ok'));
+		//$form->addElement(new \XoopsFormHidden('op', 'export_ok2'));
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
   	    $form->addElement(new XoopsFormHidden('sender',''));
-        $selectors = FQUIZMAKER\getQuestionsSelector($catId, $quizSubject,$quizDifficulty,$quizId);
-           
+        $selectors = FQUIZMAKER\getQuestionsSelectorBO($catId, $quizSubject,$quizDifficulty,$quizId, false, '', true, true);
+
   	    $form->addElement($selectors['cat']['select']);
   	    $form->addElement($selectors['subject']['select']);
   	    //$form->addElement($selectors['difficulty']['select']);
@@ -102,12 +126,26 @@ switch($op) {
         $inpSuffix->addOption(1, _AM_QUIZMAKER_FILE_NAME_ADD_TIMESTAMP);        
         $inpSuffix->addOption(2, _AM_QUIZMAKER_FILE_NAME_ADD_RANDOM);     
   	    $form->addElement($inpSuffix);
-           
+        
+        $inpEmptyFld = new XoopsFormRadioYN(_AM_QUIZMAKER_EXPORT_EMPTY_FLD, 'empty_fld', $emptyfld);
+  	    $form->addElement($inpEmptyFld);
+   
         //-----------------------------------------------$caption, $name, $value = '', $type = 'button'
 		$form->addElement(new \XoopsFormButton('', _SUBMIT, _AM_QUIZMAKER_EXPORTER, 'submit'));
 //echo $form->render()  ;      
-		$GLOBALS['xoopsTpl']->assign('form', $form->render());        
-        
+        //-----------------------------------------------------  
+        // ajout de la liste des suiz esporté si il en a eu
+        $tbl = $quizUtility->getQuizExportArr(3);
+        if($tbl){
+          $GLOBALS['xoopsTpl']->assign('exportCount', $tbl->countElements());
+    	  $form->addElement($tbl);
+        }
+        //-----------------------------------------------------  
+         
+         //on fait le ménage pour la prochaine fois
+        $quizUtility->quiz_export_clear_flags(0);
+  		$GLOBALS['xoopsTpl']->assign('form', $form->render());   
+   
 /////////////////////////////////////////        
 
     break;

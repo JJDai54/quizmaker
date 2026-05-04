@@ -121,7 +121,7 @@ onEnter() {
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
       console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
-        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
+        var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, this.slideNumber);
         document.getElementById(id).innerHTML = exp;
     }
   }
@@ -148,5 +148,7 @@ console.log("submitAnswers begin");
     //---------------------------------
     document.form_submit_quizmaker.submit();
     //pas utile mais evite un bug inhérent au language
-    alert("submitAnswers end");
+    //alert("submitAnswers end");
+    console.log("submitAnswers end");
+
 }

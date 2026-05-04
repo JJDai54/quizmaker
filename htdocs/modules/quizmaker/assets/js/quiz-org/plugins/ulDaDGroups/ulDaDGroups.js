@@ -56,10 +56,11 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
     }
     
    //repartir les propositions par group
-    for(var k in currentQuestion.answers){
+   var shuffleArr = this.shuffleAnswers(true);
+    for(var k in shuffleArr){
         //index = getRandom(nbGroups-1);
         groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
-        groups[groupIndex].push(currentQuestion.answers[k]);
+        groups[groupIndex].push(shuffleArr[k]);
 
     }
    
@@ -71,16 +72,16 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
         for(var j = 0; j < groups[k].length; j++){
             ans = groups[k][j];
 
-            switch (posCaption){
-                case 'T': captionTop =    ans.caption + qbr ; break;
-                case 'B': captionBottom = qbr + ans.caption ; break;
-                default: break;
-            }
+//             switch (posCaption){
+//                 case 'T': captionTop =    ans.caption + qbr ; break;
+//                 case 'B': captionBottom = qbr + ans.caption ; break;
+//                 default: break;
+//             }
             var backGround = (ans.background) ? `background:${ans.background};` : '';
             //if (!ans.proposition.trim() == '$$$') ans.proposition = '&nbsp;';
+            var caption = replaceDoubleSlash(ans.proposition);
             tHtml.push(`
-            <li id='${ans.ansId}' class='quiz_slist' style='width:${currentQuestion.options.ulWidth}%;${backGround}'>${ans.proposition}</li>
-            ${captionBottom}`
+            <li id='${ans.ansId}' class='quiz_slist' style='width:${currentQuestion.options.ulWidth}%;${backGround}'>${caption}</li>`
             );
 
         }
@@ -350,11 +351,6 @@ var tHtml = [];
   ************************************************ */
 getDisposition(disposition, tableId){
     var currentQuestion = this.question;
-// var DadEvent =`
-// onDragStart="dad_start(event);"
-// onDragOver="return dad_over(event);" 
-// onDrop="return imagesDaDGroups_drop(event,${quiz_config.dad_move_img});"
-// onDragLeave="dad_leave(event);"`;
 
 var DadEvent=`
 onDragOver="return ulDaDGroups_dad_over(event);" 
@@ -579,7 +575,7 @@ function ul_start(e, isDiv=false){
 
 /* ------------------------ EVENTS ----------------------------- */
 function ulDaDGroups_dad_drop(e, mode=0){
-//alert('dad_drop')
+
     idFrom = e.dataTransfer.getData("text");
     //alert('ulDaDGroups_drop' + '===>' + idFrom);
 
@@ -603,8 +599,6 @@ function ulDaDGroups_dad_drop(e, mode=0){
     return false;
 }
 function ulDaDGroups_dad_over(e){
-//alert('dad_over')
-//blob(`dad_over : ${e.dataTransfer.getData("text")} / ${e.currentTarget.getAttribute("id")}`);
     if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
 
 /*

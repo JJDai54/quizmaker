@@ -84,33 +84,33 @@
                 <{* ---------------- Arrows -------------------- *}>
                 <td class='center width10' >
                     <{if $smarty.foreach.ans.first}>
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                     <{else}>
                       <a href="answers.php?op=weight&answer_id=<{$Answers.id}>&sens=first&quest_id=<{$Answers.quest_id}>&answer_weight=<{$Answers.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
                       </a>
                     
                       <a href="answers.php?op=weight&answer_id=<{$Answers.id}>&sens=up&quest_id=<{$Answers.quest_id}>&answer_weight=<{$Answers.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                       </a>
                     <{/if}>
                  
-                    <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                    <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                     <{$Answers.weight}>
-                    <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                    <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                  
                     <{if $smarty.foreach.ans.last}>
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                     <{else}>
                     
                     <a href="answers.php?op=weight&answer_id=<{$Answers.id}>&sens=down&quest_id=<{$Answers.quest_id}>&answer_weight=<{$Answers.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
                       </a>
                  
                     <a href="answers.php?op=weight&answer_id=<{$Answers.id}>&sens=last&quest_id=<{$Answers.quest_id}>&answer_weight=<{$Answers.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                       </a>
                     <{/if}>
                 <{* ---------------- /Arrows -------------------- *}>

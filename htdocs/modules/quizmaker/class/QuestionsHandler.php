@@ -153,7 +153,7 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
         if(!$nameField) $nameField = 'quest_question';
 //         if ($addNull) $inpList->addOption('_NULL_', _AM_CARTOUCHES_NULL);
         if(!$criteria && $quiz_id > 0) {
-            $criteria = new CriteriaCompo();
+            $criteria = new \CriteriaCompo();
         }
         if($quiz_id > 0) $criteria->add(new \Criteria('quest_quiz_id', $quiz_id, '='));
         
@@ -452,9 +452,12 @@ AND ta.quest_plugin='pageAnswer';
         global $answersHandler, $quizHandler;
         
         $questObj = $this->get($questId);        
-         
         $questId = $questObj->getVar("quest_id");
         $pluginName =  $questObj->getVar("quest_plugin");   
+        $pageReponse = $questObj->getPageReponse(); 
+        
+        
+        
         $criteria = new \CriteriaCompo(new \Criteria("quest_id", $questId, '='));
         //ajout des enfants si c'est une page de groupe
         if($pluginName == 'pageGroup'){
@@ -474,6 +477,11 @@ AND ta.quest_plugin='pageAnswer';
             $answersHandler->deleteAnswersByQuestId($questId);
             $this->delete($rstQuestions[$i]);
         }
+        
+        if($pageReponse){
+            $this->deleteCascade($pageReponse->getVar('quest_id'), $force);
+        }
+        
         $quizHandler->purgerImages($questObj->getVar("quest_quiz_id"));
         return true;
     }
@@ -615,4 +623,15 @@ public function getPluginOf($quizId){
     return $pluginName;
 }
 
+/* ********************************
+*
+* ******************************* */
+function countIdentifiants($quizId, $questId, $identifiant){
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('quest_quiz_id', $quizId, '='));
+    $criteria->add(new \Criteria('quest_identifiant1', "{$identifiant}", 'LIKE'));
+    $criteria->add(new \Criteria('quest_id', $questId, '<>'));
+    return $this->getCountQuestions($criteria);
+}
+ 
 } // Fin de la class

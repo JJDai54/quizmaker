@@ -152,7 +152,7 @@ _quiz-org
 			images\zoom_moins_01.png
 			images\zoom_next_01.png
 			images\zoom_plus_01.png
-		+js
+		-js
 			js\fnc_array.js
 			js\fnc_htmlObjects.js
 			js\fnc_progressBar.js
@@ -168,12 +168,12 @@ _quiz-org
 			language\index.html
 			language\quiz-english.js
 			language\quiz-french.js
-		+plugins
+		-plugins
 			-alphaSimple
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-			-findObjects
+			+findObjects
 				-images
 					plugins\findObjects\images\index.html
 					plugins\findObjects\images\Rhinoceros-Pierre_Yves_Gallard-[03772-021].jpg
@@ -186,13 +186,14 @@ _quiz-org
 				plugins\findObjects\index.html
 				plugins\findObjects\Touche.js
 				plugins\findObjects\Touches.js
-			-imagesColor
+			+imagesColor
 				plugins\imagesColor\imagesColor.css
 				plugins\imagesColor\imagesColor.js
 				plugins\imagesColor\index.html
 			-imagesDaDGroups
 				plugins\imagesDaDGroups\imagesDaDGroups.css
 				plugins\imagesDaDGroups\imagesDaDGroups.js
+				plugins\imagesDaDGroups\imagesDaDGroups-fnc.js
 				plugins\imagesDaDGroups\index.html
 			-imagesDaDMatchItems
 				plugins\imagesDaDMatchItems\imagesDaDMatchItems.css
@@ -223,15 +224,15 @@ _quiz-org
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
 				plugins\multiQuestions\multiQuestions.js
-			+pageAnswer
+			-pageAnswer
 				plugins\pageAnswer\index.html
 				plugins\pageAnswer\pageAnswer.css
 				plugins\pageAnswer\pageAnswer.js
-			+pageBegin
+			-pageBegin
 				plugins\pageBegin\index.html
 				plugins\pageBegin\pageBegin.css
 				plugins\pageBegin\pageBegin.js
-			+pageEnd
+			-pageEnd
 				plugins\pageEnd\index.html
 				plugins\pageEnd\pageEnd.css
 				plugins\pageEnd\pageEnd.js
@@ -239,15 +240,65 @@ _quiz-org
 				plugins\pageGroup\index.html
 				plugins\pageGroup\pageGroup.css
 				plugins\pageGroup\pageGroup.js
-			+pageInfo
+			-pageInfo
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
+			-puzzle
+				-img
+					-buttons
+						plugins\puzzle\img\buttons\Button_Icon_Black.png
+						plugins\puzzle\img\buttons\Button_Icon_Blue.png
+						plugins\puzzle\img\buttons\Button_Icon_BlueSky.png
+						plugins\puzzle\img\buttons\Button_Icon_Brown.png
+						plugins\puzzle\img\buttons\Button_Icon_Cyan.png
+						plugins\puzzle\img\buttons\Button_Icon_Fuchsia.png
+						plugins\puzzle\img\buttons\Button_Icon_Green.png
+						plugins\puzzle\img\buttons\Button_Icon_GreenBlue.png
+						plugins\puzzle\img\buttons\Button_Icon_GreenForest.png
+						plugins\puzzle\img\buttons\Button_Icon_Lime.png
+						plugins\puzzle\img\buttons\Button_Icon_Orange.png
+						plugins\puzzle\img\buttons\Button_Icon_Pink.png
+						plugins\puzzle\img\buttons\Button_Icon_Red.png
+						plugins\puzzle\img\buttons\Button_Icon_Turquoise.png
+						plugins\puzzle\img\buttons\Button_Icon_Violet.png
+						plugins\puzzle\img\buttons\Button_Icon_Yellow.png
+						plugins\puzzle\img\buttons\Button_to_push_green.png
+						plugins\puzzle\img\buttons\Button_to_push_red.png
+						plugins\puzzle\img\buttons\index.html
+						plugins\puzzle\img\buttons\-no_icon.png
+						plugins\puzzle\img\buttons\pingouin-bleu.png
+						plugins\puzzle\img\buttons\pingouin-gris.png
+						plugins\puzzle\img\buttons\pingouin-marron.png
+						plugins\puzzle\img\buttons\pingouin-or.png
+						plugins\puzzle\img\buttons\pingouin-orange.png
+						plugins\puzzle\img\buttons\pingouin-rose.png
+						plugins\puzzle\img\buttons\pingouin-rouge.png
+						plugins\puzzle\img\buttons\pingouin-vert.png
+						plugins\puzzle\img\buttons\pingouin-vertdegris.png
+						plugins\puzzle\img\buttons\pingouin-violet.png
+					plugins\puzzle\img\index.html
+				plugins\puzzle\_puzzle.ppr
+				plugins\puzzle\common-fnc.js
+				plugins\puzzle\index.html
+				plugins\puzzle\lucioles.js
+				plugins\puzzle\lucioles-events.js
+				plugins\puzzle\lucioles-fnc.js
+				plugins\puzzle\memory.js
+				plugins\puzzle\memory-events.js
+				plugins\puzzle\memory-fnc.js
+				plugins\puzzle\puzzle.css
+				plugins\puzzle\puzzle.js
+				plugins\puzzle\puzzle-events.js
+				plugins\puzzle\puzzle-fnc.js
+				plugins\puzzle\taquin.js
+				plugins\puzzle\taquin-events.js
+				plugins\puzzle\taquin-fnc.js
 			-radioMultiple
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\radioMultiple.css
 				plugins\radioMultiple\radioMultiple.js
-			-selectImages
+			+selectImages
 				-img
 					-buttons
 						plugins\selectImages\img\buttons\Button_Icon_Black.png
@@ -481,7 +532,7 @@ _quiz-org
 				plugins\sortItems\index.html
 				plugins\sortItems\sortItems.css
 				plugins\sortItems\sortItems.js
-			-textMixte
+			+textMixte
 				plugins\textMixte\index.html
 				plugins\textMixte\textListbox1.css
 				plugins\textMixte\textListbox1.js
@@ -501,30 +552,20 @@ _quiz-org
 				plugins\ulDaDGroups\ulDaDGroups.css
 				plugins\ulDaDGroups\ulDaDGroups.js
 			plugins\index.html
-		_quiz-org.ppr
 		index.html
-		Nouveau1.js
 [Open project files]
 0=js\plugin_prototype.js
-1=plugins\pageBegin\pageBegin.js
-2=plugins\pageEnd\pageEnd.js
-3=plugins\pageInfo\pageInfo.js
-4=plugins\pageAnswer\pageAnswer.js
+1=js\quiz_main.js
+2=css\quiz.css
 [Selected Project Files]
 Main=
-Selected=plugins\pageAnswer\pageAnswer.js
+Selected=js\quiz_main.js
 [js\plugin_prototype.js]
-TopLine=273
-Caret=24,292
-[plugins\pageBegin\pageBegin.js]
-TopLine=22
-Caret=1,33
-[plugins\pageEnd\pageEnd.js]
-TopLine=19
-Caret=1,41
-[plugins\pageInfo\pageInfo.js]
-TopLine=7
-Caret=1,40
-[plugins\pageAnswer\pageAnswer.js]
 TopLine=1
-Caret=28,21
+Caret=24,4
+[js\quiz_main.js]
+TopLine=456
+Caret=15,477
+[css\quiz.css]
+TopLine=592
+Caret=2,613

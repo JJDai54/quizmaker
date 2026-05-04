@@ -42,6 +42,7 @@ class Quiz extends \XoopsObject
 	{
 		$this->initVar('quiz_id', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_flag', XOBJ_DTYPE_INT);
+		$this->initVar('quiz_flag_text', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_cat_id', XOBJ_DTYPE_INT);
 		$this->initVar('quiz_name', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('quiz_subject', XOBJ_DTYPE_TXTBOX);
@@ -136,24 +137,7 @@ class Quiz extends \XoopsObject
         
         // Form Text quizName
 		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
-
-        /* test form style*/
-        /*
-        */
-// $styleCss = "height:120px;width:152px;color:#FF00FF";
-// 
-//  $inpJson = new \XoopsFormJson('test XoopsFormStyleCss', 'quiz_img_style', $styleCss, 'Editer le style', 'Soumettre le style');
-//  $inpJson->setMinMax('height', 25,300,8);
-//  $inpJson->setMinMax('width', 15,600);
-//  $inpJson->addAttribute('background', '#00FF00', 'color2');
-//   $inpJson->addAttribute('border-color', '#000F00', 'color2');
-// 
-//  $inpJson->addAttributeArr(['name'=>'font-size', 'value'=>'12', 'type'=>'number' , 'min'=>'8', 'max'=>'32', 'unit'=>'em']);        
-//  $inpJson->addAttributeArr(['name'=>'text-align', 'value'=>'right', 'type'=>'list' , 'options'=>'left,center,right']);        
-//  $inpJson->setTextBoxVisible(false);        
-// $form->addElement($inpJson);
-//         
-        
+       
         // Form Text quiz_subject
         $fldName = 'quiz_subject';
         $catId = $this->getVar('quiz_cat_id');
@@ -235,6 +219,7 @@ class Quiz extends \XoopsObject
         // quiz_max_attempts : Maximum de tentives pour une meme cession
         $name = 'quiz_max_attempts';
         $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
+            
         $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_MAX_ATTEMPTS_UNIT);
         $inpMaxAttempts->setDescription(_AM_QUIZMAKER_MAX_ATTEMPTS_DESC);
         $form->addElement($inpMaxAttempts);    
@@ -270,13 +255,15 @@ class Quiz extends \XoopsObject
 		$inpExecution->addOption(2, _CO_QUIZMAKER_PUBLISH_OUTLINE);
 		$form->addElement($inpExecution);
 
+        $name = 'quiz_publishResults';
         $publishArr = array(1=>_YES, 0=>_NO, 2=>_AM_QUIZMAKER_AUTO);
-        $inpPublishResults = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_RESULTS , 'quiz_publishResults', $this->getVar('quiz_publishResults'));
+        $inpPublishResults = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_RESULTS , $name, $this->getVar($name));
         $inpPublishResults->addOptionArray($publishArr);
         $inpPublishResults->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
 		$form->addElement($inpPublishResults);
         
-        $inpPublishAnswers = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_ANSWERS , 'quiz_publishAnswers', $this->getVar('quiz_publishAnswers'));
+        $name = 'quiz_publishAnswers';
+        $inpPublishAnswers = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_ANSWERS , $name, $this->getVar($name));
         $inpPublishAnswers->addOptionArray($publishArr);
         $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
 		$form->addElement($inpPublishAnswers);
@@ -354,16 +341,18 @@ class Quiz extends \XoopsObject
         
 		// Form Check Box quiz_timerSize
         $name = 'quiz_timerSize';
-        $inpTimerSize = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER_SIZE,  $name, 3, 1, $this->getVar($name));
-        $inpTimerSize->setMinMax(48, 200, _AM_QUIZMAKER_UNIT_PIXELS);
+        $minSize = 48;
+        $timerSieze = ($this->getVar($name) < $minSize) ? $minSize : $this->getVar($name);
+        $inpTimerSize = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER_SIZE,  $name, 3, 1, $timerSieze);
+        $inpTimerSize->setMinMax($minSize, 200, _AM_QUIZMAKER_UNIT_PIXELS);
         $inpTimerSize->setDescription(_AM_QUIZMAKER_TIMER_SIZE_DESC);
         $form->addElement($inpTimerSize);    
 
 //         $inpTimerJson = new \XoopsFormJson(_AM_QUIZMAKER_TIMER_SIZE, $name, $style);                  
 //         //$inpTimerJson->setTextBoxVisible(true);        
 //         //$inpTimerJson->setPreviewVisible(true);        
-//         $inpTimerJson->addNewOption('height', 48, 'number', ['_caption_' => 'Hauteur', 'min'=>48,'max'=>250, 'size'=>48, 'unit'=>'px']);
-//         $inpTimerJson->addNewOption('font_size', 14, 'number', ['_caption_' => 'Font_size', 'min'=>12,'max'=>250,'size' => 48, 'unit' => 'px']);
+//         $inpTimerJson->addOption('height', 48, 'number', ['caption' => 'Hauteur', 'min'=>48,'max'=>250, 'size'=>48, 'unit'=>'px']);
+//         $inpTimerJson->addOption('font_size', 14, 'number', ['caption' => 'Font_size', 'min'=>12,'max'=>250,'size' => 48, 'unit' => 'px']);
 // 
 // //         if($inpTimerJson->isNew){
 // //               $inpTimerJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
@@ -377,7 +366,9 @@ class Quiz extends \XoopsObject
 		$form->addElement($editLegend, false);
 */		
         
+        //========================================================
 		// Form CheckBoxBin quiz_optionsIhm
+        //========================================================
         $inpOptionsIhm = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM . "[{$this->getVar('quiz_optionsIhm')}]", 'quiz_optionsIhm', $this->getVar('quiz_optionsIhm'),1,true);
         $inpOptionsIhm->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM_DESC);
         $inpOptionsIhm->addOptionArray(getBinOptionsArr('ihm'));
@@ -420,6 +411,8 @@ class Quiz extends \XoopsObject
 		$ret['id']                = $this->getVar('quiz_id');
 		$ret['cat_id']            = $this->getVar('quiz_cat_id');
 		$ret['name']              = $this->getVar('quiz_name');
+		$ret['flagInt']           = $this->getVar('quiz_flag');
+		$ret['flagTxt']           = $this->getVar('quiz_flag_text');
 		$ret['subject']           = $this->getVar('quiz_subject');
 		$ret['author']            = $this->getVar('quiz_author');
 		$ret['difficulty']        = $this->getVar('quiz_difficulty');
@@ -482,6 +475,7 @@ class Quiz extends \XoopsObject
         $ret['quiz_tpl'] = (file_exists($quiz_tpl)) ?  QUIZMAKER_URL_UPLOAD_QUIZ . "/{$ret['folderJS']}/index.tpl" : '';
         $ret['quiz_tpl_path'] = (file_exists($quiz_tpl)) ?  $quiz_tpl : '';
         $ret['flags'] = $this->getFlags($ret);
+
 
 
 
@@ -603,113 +597,62 @@ class Quiz extends \XoopsObject
     $folder = $this->getVar('quiz_folderJS');
     $imgPath = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $folder . '/images';
     $imgList = \XoopsLists::getFileListByExtension($imgPath,  $tExtImg);    
+    $imgList = array_values($imgList);
     
-//echoArray($imgList,'');    
     //--------------------------------------------------
-    //Liste des images dans la table answers du quiz
-    $imgLike = array();
-    foreach($tExtImg AS $k=>$ext){
-        $imgLike[] = "ta.answer_proposition LIKE '%.{$ext}'";
-        $imgLike[] = "ta.answer_image1 LIKE '%.{$ext}'";
-        $imgLike[] = "ta.answer_image2 LIKE '%.{$ext}'";
-    }
-    
-    
-    $sql = "SELECT tq.quest_quiz_id, ta.answer_proposition, ta.answer_image1, ta.answer_image2"
-     . " FROM " . $xoopsDB->prefix('quizmaker_answers') . " ta"
-     . " LEFT JOIN " . $xoopsDB->prefix('quizmaker_questions') ." tq"
-     . " ON ta.answer_quest_id = tq.quest_id"
-     . " WHERE tq.quest_quiz_id = {$quiz_id}"
-     . " AND (" . implode(' OR ', $imgLike) . ")";
-     
-     $result = $xoopsDB->query($sql);
-    $quizTblImg = array();
-    
-     while ($row = $xoopsDB->fetchArray($result)){
-        if ($row['answer_proposition']) $quizTblImg[] = $row['answer_proposition'];
-        if ($row['answer_image1']) $quizTblImg[] = $row['answer_image1'];
-        if ($row['answer_image2']) $quizTblImg[] = $row['answer_image2'];
-     }
-//echoArray($quizTblImg,'');   
-//echo "<hr>{$sql}"; 
-//exit;    
-     
-    //--------------------------------------------------
-     //liste des images dant le champ "quiz_image" de la table quiz
-    $sql = "SELECT quiz_image FROM " . $xoopsDB->prefix('quizmaker_quiz')
-         . " WHERE quiz_id = {$quiz_id} AND quiz_image <> ''";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        if ($row['quiz_image']) $quizTblImg[] = $row['quiz_image'];
-     }
-    //--------------------------------------------------
-     //liste des images dant le champ "quiz_background" de la table quiz
-    $sql = "SELECT quiz_background FROM " . $xoopsDB->prefix('quizmaker_quiz')
-         . " WHERE quiz_id = {$quiz_id} AND quiz_background <> ''";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        if ($row['quiz_background']) $quizTblImg[] = $row['quiz_background'];
-     }
-    //--------------------------------------------------
-     //liste des images dans le champ "image" de la table questions
-    $sql = "SELECT quest_image,quest_background FROM " . $xoopsDB->prefix('quizmaker_questions')
-         . " WHERE quest_quiz_id = {$quiz_id} AND (quest_image <> '' || quest_background <> '')";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        if ($row['quest_image']) $quizTblImg[] = $row['quest_image'];
-        if ($row['quest_background']) $quizTblImg[] = $row['quest_background'];
-     }
-    //--------------------------------------------------
-     //liste des images dant le champ "options" de la table questions
-    $sql = "SELECT quest_options FROM " . $xoopsDB->prefix('quizmaker_questions')
-         . " WHERE quest_quiz_id = {$quiz_id}";
-     $result = $xoopsDB->query($sql);
-     while ($row = $xoopsDB->fetchArray($result)){
-        $tOptions = json_decode($row['quest_options'],true);
-        if (is_array($tOptions)){
-            foreach($tOptions as $key=>$v){
-                $i = strrpos($v, '.');
-                if($i !== false){
-                  $ext = substr($v, $i+1);
-                  //echo "ext = $ext";
-                  if(in_array($ext, $tExtImg)) $quizTblImg[] = $v;
-                }
-            } 
-           
-        }
-     }
-    
+    $quizTblImg = $this->getImages();
+
+    $imgToDelete = array_diff($imgList, $quizTblImg);
+// echoArray($imgList,'');    
+// echoArray($quizTblImg,'');    
+// echoArray($imgToDelete,'');    
      //----------------------------------------------------------------
     //echo "delete from {$imgPath}<br>";
     //suppression des fichiers physique si le nom n'est pas dans une des table
-    foreach($imgList as $key=>$file){
-        if(!in_array($key, $quizTblImg)) {
-       
-            //echo "delete {$key}<br>";
-            $fullName = $imgPath . '/' . $key;
+    foreach($imgToDelete as $key=>$file){
+            $fullName = $imgPath . '/' . $file;  
+            //echo "delete===>{$fullName}<br>";
             unlink($fullName);
             $nbImgDeleted++;
-        }
     }
+// exit;   
 // echoArray($imgList,'');    
 // echoArray($quizTblImg,'');    
 // exit;     
-    //effacement du champ image si le fihichier physique n'est pas dans une table
-    //finalement pas une bonne idée de faire comme ça
-//     foreach($quizTblImg as $key=>$file){
-//         if(!in_array($file, $imgList)) {
-//             $sql = "update " . $xoopsDB->prefix('quizmaker_answers') . "SET answer_proposition = '' WHERE answer_proposition LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('answer_image1') . "SET answer_proposition = '' WHERE answer_image1 LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('answer_image2') . "SET answer_proposition = '' WHERE answer_image2 LIKE {$file}";
-//             echo "{$sql}<br>";
-//             $sql = "update " . $xoopsDB->prefix('quizmaker_questions') . "SET answer_proposition = '' WHERE answer_image2 LIKE {$file}";
-//             echo "{$sql}<br>";
-//         }
-//     }
     
     return $nbImgDeleted;
  }
 
+/**************************************************************
+ * get_quest_images : renvoie un tableau des images de la question pass en paramètre
+ * utilisé pour deplacer ou compié une question dans un autre quiz.
+ * @$questIdFrom : Id de la question
+ * ************************************************************/
+public function getImages(){
+global $questionsHandler, $answersHandler;
+    $allImg = array();
+    $quizId = $this->getVar('quiz_id');
+    $quiz = $this->getValuesQuiz();
+//     //recherche des images du quiz
+    if( $quiz['image'])
+        $allImg[] = $quiz['image'];
+        
+    if( $quiz['background'])
+        $allImg[] = $quiz['background'];
+        
+        
+    $criteria = new \Criteria('quest_quiz_id', $quizId, '=');        
+    $questIds = $questionsHandler->getIds($criteria);
+    //echoArray ($questIds, "zzzzz");  
+    
+    $allImg = array();   
+    foreach($questIds as $key=>$questID){
+        $questObj = $questionsHandler->get($questID);
+        $imgArr = $questObj->getImages();
+        $allImg = array_merge($allImg, $imgArr);
+    }    
+
+    return $allImg;
 }
+
+} //================FIN DE LA CLASSE =======================

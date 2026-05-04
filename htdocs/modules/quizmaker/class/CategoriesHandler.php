@@ -375,6 +375,8 @@ public function getNewCat($name){
 		
 	$categoriesObj->setVar('cat_name', $name);
     $categoriesObj->setVar('cat_description', '');        
+    $categoriesObj->setVar('cat_readme_text', '');        
+    $categoriesObj->setVar('cat_readme_status', 0);        
     $categoriesObj->setVar('cat_weight', 0);
     $categoriesObj->setVar('cat_max_attempts', 1);
     $categoriesObj->setVar('cat_delai_cookie', 3600);
@@ -418,8 +420,11 @@ global $xoopsDB;
 	$categoriesObj->setVar('cat_name', $catName);
 	$categoriesObj->setVar('cat_actif', 1);
 	$categoriesObj->setVar('cat_description', '');
+	$categoriesObj->setVar('cat_readme_text', '');
+	$categoriesObj->setVar('cat_readme_status', 0);
+	$categoriesObj->setVar('cat_readme_label', '');
 	$categoriesObj->setVar('cat_weight',  0);
-	$categoriesObj->setVar('cat_max_attempts',  1);
+	$categoriesObj->setVar('cat_max_attempts',  0);
 	$categoriesObj->setVar('cat_delai_cookie',  3600);
 	$categoriesObj->setVar('cat_image', '');
 	$categoriesObj->setVar('cat_theme', 'default');

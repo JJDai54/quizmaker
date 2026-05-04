@@ -77,7 +77,6 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_admin_quiz.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_questions.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
-	['file' => 'quizmaker_admin_categories.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_plugins.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_answers.tpl', 'description' => '', 'type' => 'admin'],
 	['file' => 'quizmaker_admin_results.tpl', 'description' => '', 'type' => 'admin'],
@@ -93,6 +92,12 @@ $modversion['templates'] = [
     ['file' => 'quizmaker_admin_minify.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_plugins_help.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_options.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_cookies.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_readme.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_ressources.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_participation.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_participation_cookies.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_participation_results.tpl', 'description' => '', 'type' => 'admin'],
 
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
@@ -105,6 +110,7 @@ $modversion['templates'] = [
 	['file' => 'quizmaker_categories.tpl', 'description' => ''],
 	['file' => 'quizmaker_categories_list.tpl', 'description' => ''],
 	['file' => 'quizmaker_categories_item.tpl', 'description' => ''],
+	['file' => 'quizmaker_readme.tpl', 'description' => ''],
 
 	['file' => 'quizmaker_results.tpl', 'description' => ''],
 	['file' => 'quizmaker_results_list.tpl', 'description' => ''],
@@ -126,7 +132,10 @@ $modversion['tables'] = [
 	'quizmaker_results',
 	'quizmaker_messages',
     'quizmaker_options',
+    'quizmaker_cookies',
+    'quizmaker_readme',
 ];
+
 // ------------------- Search ------------------- //
 $modversion['hasSearch'] = 1;
 $modversion['search'] = [
@@ -453,11 +462,24 @@ $modversion['config'][] = [
 	'default'     => 0,
 ];
 
-// Javascript is minified
+
 $modversion['config'][] = [
-	'name'        => 'action_on_del_cat',
-	'title'       => '_MI_QUIZMAKER_ACTION_ON_DEL_QUIZ',
-	'description' => '_MI_QUIZMAKER_ACTION_ON_DEL_QUIZ_DESC',
+	'name'        => 'action_on_quiz_deleted',
+	'name'        => 'action_on_quiz_deleted',
+	'title'       => '_MI_QUIZMAKER_ACTION_ON_QUIZ_DELETED',
+	'description' => '_MI_QUIZMAKER_ACTION_ON_QUIZ_DELETED_DESC',
+	'formtype'    => 'textbox',
+	'valuetype'   => 'int',
+	'default'     => 0,
+];
+
+// a implementer si le besoin s'en fait sentir
+/*
+*/
+$modversion['config'][] = [
+	'name'        => 'action_on_quest_deleted',
+	'title'       => '_MI_QUIZMAKER_ACTION_ON_QUEST_DELETED',
+	'description' => '_MI_QUIZMAKER_ACTION_ON_QUEST_DELETED_DESC',
 	'formtype'    => 'textbox',
 	'valuetype'   => 'int',
 	'default'     => 0,
@@ -471,6 +493,16 @@ $modversion['config'][] = [
 	'formtype'    => 'yesno',
 	'valuetype'   => 'int',
 	'default'     => 1,
+];
+
+
+$modversion['config'][] = [
+	'name'        => 'clear_participations',
+	'title'       => '_MI_QUIZMAKER_CLEAR_PARTICIPATIONS',
+	'description' => '_MI_QUIZMAKER_CLEAR_PARTICIPATIONS_DESC',
+	'formtype'    => 'yesno',
+	'valuetype'   => 'int',
+	'default'     => 0,
 ];
 
 $modversion['config'][] = [

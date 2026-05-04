@@ -43,6 +43,7 @@ class Results extends \XoopsObject
 		$this->initVar('result_quiz_id', XOBJ_DTYPE_INT);
 		$this->initVar('result_uid', XOBJ_DTYPE_INT);
 		$this->initVar('result_uname', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('result_email', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('result_ip', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('result_score_achieved', XOBJ_DTYPE_INT);
 		$this->initVar('result_score_max', XOBJ_DTYPE_INT);
@@ -85,11 +86,13 @@ class Results extends \XoopsObject
 	 * @return \XoopsThemeForm
 	 */
 	public function getFormResults($action = false)
-	{
+	{global $redirectParams, $redirectURL;
 		$quizmakerHelper = \XoopsModules\Quizmaker\Helper::getInstance();
 		if (false === $action) {
-			$action = $_SERVER['REQUEST_URI'];
+			//$action = $_SERVER['REQUEST_URI'];
 		}
+			//$action = XOOPS_URL  . "/modules/quizmaker/admin/participation.php?{$redirectParams}&op=save";
+		$action = "{$redirectURL}&op=save";
 		$isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 		// Permissions for uploader
 		$grouppermHandler = xoops_getHandler('groupperm');
@@ -99,14 +102,17 @@ class Results extends \XoopsObject
 		$title = $this->isNew() ? sprintf(_AM_QUIZMAKER_RESULTS_ADD) : sprintf(_AM_QUIZMAKER_RESULTS_EDIT);
 
 		xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
+		$form = new \XoopsThemeForm($title, 'form', $action, 'get', true);
 		$form->setExtra('enctype="multipart/form-data"');
         //-----------------------------------------------------------------
-        $form->addElement(new \XoopsFormHidden('result_quiz_id', $this->getVar('result_quiz_id')));
-            
+        $form->addElement(new \XoopsFormHidden('result_id', $this->getVar('result_id')));
+        $form->addElement(new \XoopsFormHidden('result_quiz_id', $this->getVar('result_quiz_id')));            
                     
 		// Form Text result_uname
 		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_NAME, $this->getVar('result_uname') ));
+        
+		// Form Text result_email
+		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_EMAIL, $this->getVar('result_email') ));
         
         // Form Text  result_score_achieved
         $inpScoreAchived = new \XoopsFormNumber(_AM_QUIZMAKER_SCORE_ACHIEVED, 'result_score_achieved', 8, 8, $this->getVar('result_score_achieved'));
@@ -185,6 +191,7 @@ class Results extends \XoopsObject
 		$ret['id']               = $this->getVar('result_id');
 		$ret['quiz_id']          = $this->getVar('result_quiz_id');
 		$ret['uname']            = $this->getVar('result_uname');
+		$ret['email']            = $this->getVar('result_email');
 		$ret['uid']              = $this->getVar('result_uid');
 		$ret['ip']               = $this->getVar('result_ip');
 		$ret['score_achieved']   = $this->getVar('result_score_achieved');
@@ -210,11 +217,12 @@ class Results extends \XoopsObject
         //if ($colorNote > 4)  $colorNote = 4;
 		$ret['color']            = str_pad($colorNote, 3, '0', STR_PAD_LEFT) . '.png';
 		$ret['creation']         = \JANUS\getDateSql2Str($this->getVar('result_creation'));
-
-		$ret['update']           = $this->getVar('result_update');
+		$ret['update']           = \JANUS\getDateSql2Str($this->getVar('result_update'));
 		return $ret;
 	}
     
+	/**
+	 */
     function format_duration($time, $hourlib='h', $minuteLib="m", $secondLib="s", $sep=''){
         $secondes   = floor ( ( ( $time % 86400 ) % 3600 ) % 60 ) ;
         $minutes    = floor ( ( ( $time % 86400 ) % 3600 ) / 60 ) ;

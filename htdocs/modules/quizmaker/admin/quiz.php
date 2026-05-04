@@ -38,6 +38,7 @@ $quizId = Request::getInt('quiz_id');
 $quizSubject = Request::getString('quiz_subject', '');
 $quizDifficulty = Request::getInt('quiz_difficulty', 0);
 $sender = Request::getString('');
+$clearExport = true;
 //-----------------------------------------------------------
 //recherche des categories autorisées
 //$clPerms->addPermissions($criteriaCatAllowed, 'global_ac', QUIZMAKER_PERMIT_CATMAN);
@@ -112,17 +113,47 @@ switch($op) {
 	case 'build_all_quiz_cat_old':
         include_once("build_quiz_cat.php");
 	   break;  
+       
+	case 'export_all_quiz_cat':
+        $quizUtility::quiz_export_all($catId, $quizSubject, 0, 1, 1);
+        redirect_header("quiz.php?op=list&cat_id={$catId}&quiz_subject={$quizSubject}", 12, $msg);
+
+	   break;  
+       
          
 	case 'export_quiz':
         checkRightEditQuiz('export_quiz',$catId);
-        $quizUtility::quiz_export($quizId);
+        $uploadArr = $quizUtility::quiz_export($quizId);
+        if($uploadArr['err'] > 0){
+            redirect_header("question.php?cat_id={$catId}&quiz_id={$quizId}", 5, $uploadArr['errlib']);
+        }
+        $clearExport = false;
+        include_once("quiz-list.php");
+        break;
+/*
+	case 'export_quiz-old2':
+        $uploadArr = $quizUtility::quiz_export($quizId);
+        if($uploadArr['err'] > 0){
+            redirect_header("quiz.php?cat_id={$catId}&quiz_id={$quizId}", 5, $uploadArr['errlib']);
+        }
+        $quizUtility::quiz_download_zip($uploadArr['href'], $uploadArr['name'], 2000);
         $op = 'list';
         include_once("quiz-{$op}.php");
 
+	case 'export_quiz-old1':
+        checkRightEditQuiz('export_quiz',$catId);
+        $uploadArr = $quizUtility::quiz_export($quizId);
+        if($uploadArr['err'] > 0){
+            redirect_header("quiz.php?cat_id={$catId}&quiz_id={$quizId}", 5, $uploadArr['errlib']);
+        }
+        $quizUtility::quiz_download_zip($uploadArr['href'], $uploadArr['name'], 2000);
+        $op = 'list';
+        include_once("quiz-{$op}.php");
         
         //include_once("quiz-{$op}.php");
         //redirect_header("quiz.php?op=list&cat_id={$catId}", 5, "Export effectue");
 	break;
+*/        
         
 	case 'change_etat':
         checkRightEditQuiz('edit_quiz',$catId);
@@ -156,7 +187,7 @@ switch($op) {
         $quizHandler->setBinOptions($quizId, $optId);
         $build = $quizUtility::buildQuiz($quizId);
         $msg = sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK, $buildArr['name'],$buildArr['id'],$buildArr['build']);
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK,$msg));
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, $msg);
 
 	break;
     

@@ -23,6 +23,7 @@ const quiz_config = {
     date_release : "12-06-2025",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
+    urlImgRoot :   `${quiz.url}/images`,
     urlQuiz :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}` : ``,
     //urlQuizSound :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/sounds` : `sounds`,
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
@@ -72,8 +73,9 @@ quiz.shuffleQuestions  = isBitOk(h++, optionsIhm);
 quiz.showResultPopup   = isBitOk(h++, optionsIhm);  
 quiz.submitBtnPosition = isBitOk(h++, optionsIhm); 
 quiz.showHorloge       = isBitOk(h++, optionsIhm); 
-quiz.realignWindowPos  = 1;  
+quiz.realignWindowPos  = isBitOk(h++, optionsIhm);  
 quiz.timerInBtnNext    = 0;   
+quiz.chronometreOnZoom = 0;   // pas pratique de mettre le chronomettre dans les div zoomés, a revoir
 //quiz.minusOnShowGoodAnswers = isBitOk(h++, optionsIhm);  
 
 //alert("optionsDev = " + quiz.optionsDev);
@@ -259,7 +261,7 @@ function getHtmlLog(){
 function getHtmlButtons(){                       //   style='background:blue;'
     var horloge = '';
     if(quiz.showHorloge){
-        horloge = `<button id="quiz_div_horloge"           class="${quiz_css.horloge}">00:00</button>`;
+        horloge = `<button id="quiz_div_horloge" class="${quiz_css.horloge}">00:00</button>`;
     }
 
   return  `<div id="quiz_div_buttons" name="quiz_div_buttons">
@@ -272,8 +274,7 @@ function getHtmlButtons(){                       //   style='background:blue;'
             <button id="quiz_btn_goto_slide"        class="${quiz_css.buttons}">${quiz_messages.btnGotoSlide}</button>
             <button id="quiz_btn_goto_plugin_begin"  class="${quiz_css.buttons}">${quiz_messages.btnGotoSlideBegin}</button>
             <input  type="hidden" id="quiz_goto_slide" value="">
-            </div>${getHtmlConsignesButtons()}
-            `;
+            </div>${getHtmlConsignesButtons()}`;
 
 }
 //---------------------------------------------------
@@ -426,7 +427,9 @@ var questionNumber = 0;     //n° du de la question sans les pageBegin, pageEnd 
        var posComment1 = (clQuestion.question.posComment1 == 0 ) ? quiz.questPosComment1 : clQuestion.question.posComment1;
 
        if (clQuestion.question.comment1) {
-            var comment = clQuestion.sanityse_exp(getMessage(clQuestion.question.comment1));
+       //alert(clQuestion.question.comment1);
+            var comment = replaceBalisesByValues(clQuestion.question.comment1, slideNumber, false);
+            //comment = clQuestion.sanityse_exp(getMessage(comment));
             switch(posComment1){
             case 1:
                 comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment}</span>`;
@@ -440,7 +443,8 @@ var questionNumber = 0;     //n° du de la question sans les pageBegin, pageEnd 
        var divPoints = "";
        //est-ce qu'on affiche le score min et max ?
        if(clQuestion.question.isQuestion == 1 && quiz.showScoreMinMax == 1){
-        var forPoints = ((clQuestion.scoreMiniQQ == 0) ? quiz_messages.forPoints0 : quiz_messages.forPoints1 );
+        var libMaxPoint = (clQuestion.scoreMaxiQQ > 1) ? quiz_messages.forPoints0 : quiz_messages.forPoint0;
+        var forPoints = ((clQuestion.scoreMiniQQ == 0) ? libMaxPoint : quiz_messages.forPoints1 );
         var divPoints = forPoints.replace("{pointsMin}", clQuestion.scoreMiniQQ).replace("{pointsMax}", clQuestion.scoreMaxiQQ);
          //var divPoints = quiz_messages.forPoints.replace("{pointsMin}", clQuestion.scoreMiniQQ).replace("{pointsMax}", clQuestion.scoreMaxiQQ);
          //Ajout du timer si il est utilisé (quiz_timer)
@@ -466,7 +470,24 @@ var questionNumber = 0;     //n° du de la question sans les pageBegin, pageEnd 
        if(clQuestion.questionNumber > 0){
             var expQuestionNumber = `${clQuestion.questionNumber}/${statsTotal.quiz_questions}${quiz_messages.twoPoints}`;
         }
-        var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled>${expQuestionNumber}${question}${comment1}</div>`;
+        if(clQuestion.question.question_style){
+            //alert(clQuestion.question.question);
+            //alert(clQuestion.question.question_style);
+            var styleArr = JSON.parse(clQuestion.question.question_style);
+            //alert(clQuestion.question.question_style + "\n--------------\n" + styleArr.size.value);
+            /* a voir si ca vaut le coup de faire une boucle
+            var tStyle = new Array();
+            for(var key in tStyle){
+                tStyle.push(`${key}:${styleArr[]['value'].size.value}em;color:${styleArr.color.value};'`;)
+            }
+            var style = `style='font-size:${styleArr.size.value}em;color:${styleArr.color.value};line-height:${styleArr['line-height']['value']}'`;            */
+            var style = `style='font-size:${styleArr.size.value}em;color:${styleArr.color.value};}'`;
+            //alert('===>' + clQuestion.question.question + `\nstyle = ${style}`)
+        }else{
+            style = '';
+        }
+        
+        var title = `${divPoints}<div  class="quiz-shadowbox-question" disabled><span ${style}>${expQuestionNumber}${question}</span>${comment1}</div>`;
 
 
         // add this question and its answers to the output    
@@ -885,7 +906,7 @@ function reloadQuestion() {
     if(quiz.realignWindowPos){moveWindowPosTo('quiz_div_module_xoops');}
     console.log("===>showSlide_new - offset=" + offset);
     //affichage du popup des solutions si offset > 0 uniquement
-    if (oldSlide > 0 && quiz.showResultPopup && offset>0) event_show_popup_result(oldSlide);
+    if (oldSlide > 0 && quiz.showResultPopup && offset > 0) event_show_popup_result(oldSlide);
     //alert("showSlide_new : " + offset);
 
     var newSlide = oldSlide + offset;
@@ -896,6 +917,7 @@ function reloadQuestion() {
             submitAnswers();
         }else{alert('Erreur 1954')};
     }
+    //alert(`c'est une question :\n oldSlide =  ${oldSlide}\n newSlide = ${newSlide}\n offset = ${offset}\n quizard.length = ${quizard.length } \n objAllSlides.length = ${objAllSlides.length}`);
     if (newSlide < 0) newSlide = 0;
     var isNewSlide = (oldSlide != newSlide);
     //actualisation du slide courant
@@ -906,7 +928,7 @@ function reloadQuestion() {
     objAllSlides[oldSlide].classList.remove('quiz_div_plugin_question0');
     objAllSlides[oldSlide].classList.remove('quiz_div_plugin_question1');
     
-     if(oldQuestion.zoom > 0) {
+     if(oldQuestion.zoom > 0 && offset > 0) {
          zoom_moins_event(null, oldClQuestion.slideNumber);  
      }  
 
@@ -937,12 +959,13 @@ function reloadQuestion() {
     //var bStopTimer  = (newSlide === (objAllSlides.length-1) && !quizard[newSlide].isQuestion);  
     bStopTimer=false;
 
-var newQuestion = quizard[newSlide].question;
-var consigne = newQuestion['consigne'];
-if(!consigne) consigne = quiz_consignes[newQuestion['type']];
-enableButton(btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3));    
-var obHelp = document.getElementById("quiz_consignes");
-if(obHelp) {obHelp.innerHTML = consigne;}
+    var newQuestion = quizard[newSlide].question;
+    var consigne = newQuestion['consigne'];
+    if(!consigne) consigne = quiz_consignes[newQuestion['type']];
+    //enableButton(btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3));    
+    updateButton (btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3), 'showSlide_new');
+    var obHelp = document.getElementById("quiz_consignes");
+    if(obHelp) {obHelp.innerHTML = consigne;}
    
     //est-que le quizTimer est activé et y-a-il un timer sur le slide;
     if (newQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || newQuestion.startTimer) && !bStopTimer){
@@ -960,7 +983,8 @@ if(obHelp) {obHelp.innerHTML = consigne;}
     if (quiz.showReponsesBottom)
         QuizDivAnswersBottom.innerHTML = getAllPropositions(quizard[newSlide]);
       
-    var allowedGotoNextslide = isInputOk() || !quizard[newSlide].isQuestion;
+    var allowedGotoNextslide = (isInputOk() || !quizard[newSlide].isQuestion ||  quizard[newSlide].allowNextSlide)  ;
+    //var allowedGotoNextslide = (isInputOk() || !quizard[newSlide].isQuestion) && oldSlide.allowNextSlide;
     //var bolOk = isInputOk() || !quizard[newSlide].isQuestion;
     //var allowedGotoNextslide = (bolOk &&  quiz.showSlideBar) || !quiz.showSlideBar;
     //------------------------------------------
@@ -970,7 +994,9 @@ if(obHelp) {obHelp.innerHTML = consigne;}
     if(quizard[newSlide].name == 'pageBegin'){
         showSlide_pageBegin(newSlide);  
     }else if(quizard[newSlide].name == 'pageEnd'){
-        showSlide_pageEnd(newSlide, (newQuestion.timer == 0));   
+        //finalement affichage du bouton de soumlmission dans tous les cas
+        //showSlide_pageEnd(newSlide, (newQuestion.timer == 0));   
+        showSlide_pageEnd(newSlide, true);   
     }else if(!isQuestion){  //c'est donc une pageGroup ou pageInfo                  
         showSlide_group(newSlide,allowedGotoNextslide,bStopTimer);   
 
@@ -1012,11 +1038,14 @@ var container = document.getElementById(objId);
     objAllSlides[newSlide].classList.add('quiz_div_plugin_begin');
         
         // c'est le premier slide - présentation du quiz
-        enableButton(btnPreviousSlide, 0);
-        enableButton(btnNextSlide, 0);
+//         enableButton(btnPreviousSlide, 0);
+//         enableButton(btnNextSlide, 0);
+        updateButton (btnPreviousSlide, 0, 'showSlide_pageBegin');
+        updateButton (btnNextSlide, 0, 'showSlide_pageBegin');
         
        if ( quiz_rgp.isAnonymous){        
-            enableButton (btnStartQuiz, 0);
+            //enableButton (btnStartQuiz, 0);
+            updateButton (btnStartQuiz, 0, 'showSlide_pageBegin');
             document.getElementById("quiz_pseudo").focus();
        }
           
@@ -1041,14 +1070,16 @@ var container = document.getElementById(objId);
         //quizard[currentSlide].reloadQuestion();
         stopTimer();
         
-        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
-        enableButton(btnNextSlide, 0);
+//         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
+//         enableButton(btnNextSlide, 0);
+        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0), 'showSlide_pageEnd');
+        updateButton (btnNextSlide, 0, 'showSlide_pageEnd');
 
         showDivById('quiz_div_message', false);
         showDivById('quiz_div_start', (!quiz.submitBtnPosition));
         showDivById('quiz_btn_startQuiz', false);
         
-        //soulmmission manuelle si showBtnSubmit=true cad currentQuestion.timer == 0
+        //soummission manuelle si showBtnSubmit=true cad currentQuestion.timer == 0
         if (showBtnSubmit) {        
             //si true le bouton est dans le corps du slide, voir plugin page_end
             showDivById('quiz_btn_submitAnswers', (!quiz.submitBtnPosition)); 
@@ -1073,21 +1104,21 @@ var container = document.getElementById(objId);
 
         
 
-        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0));
-         //enableButton(btnPreviousSlide, ((quiz.allowedPrevious)?1:0));
-
-        enableButton(btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0));        
-        //enableButton(btnSubmit, 3);
+        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0), 'showSlide_group');
+        updateButton (btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0), 'showSlide_group');
         
-        enableButton(btnReloadAnswers, (quiz.showReloadAnswers ? 0 : 3));        
-        enableButton(btnShowGoodAnswers, (quiz.showGoodAnswers ? 0 : 3));        
-        enableButton(btnShowBadAnswers, (quiz.showBadAnswers  ? 0 : 3));        
-        enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
-        enableButton(btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3));        
-       
+        updateButton (btnReloadAnswers, (quiz.showReloadAnswers ? 0 : 3), 'showSlide_group');
+        updateButton (btnShowGoodAnswers, (quiz.showGoodAnswers ? 0 : 3), 'showSlide_group');
+        updateButton (btnShowBadAnswers, (quiz.showBadAnswers  ? 0 : 3), 'showSlide_group');
+        updateButton (btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_group');
+        updateButton (btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_group');
+
         if(bStopTimer){stopTimer();}
         
   }
+/* ******************************************
+
+********************************************* */   
   function showSlide_question(newSlide,allowedGotoNextslide,bStopTimer) {
         objAllSlides[newSlide].classList.add('quiz_div_plugin_question' + quiz.showResultAllways);
         //au cas ou l'appel aurait été fait pa l'appel de gotoSlide externe à l'objet
@@ -1096,20 +1127,18 @@ var container = document.getElementById(objId);
         //alert("premiser slide");
         //c'est le 1er slide de question - démarage du chrono - le premier slide est le 0
         //au cas ou le bouton précédent est activé evite de ralancer le chrono
-        if (idQuizTimer == 0 ) startTimer();
+        if (idQuizTimer == 0 ) {startTimer();}
 
-             
-        //enableButton(btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0));
-        enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer && currentSlide != 0) ? 1 : 0));
-        enableButton(btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0));
-        //enableButton(btnSubmit, 3);
+        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer && currentSlide != 0) ? 1 : 0), 'showSlide_question');
+        updateButton (btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0), 'showSlide_question2');
+        //updateButton (btnNextSlide, allowedGotoNextslide, 'showSlide_question-' + getRandom(100));
 
-        enableButton(btnReloadAnswers, (quiz.showReloadAnswers ? 1 : 3));        
-        enableButton(btnShowGoodAnswers, (quiz.showGoodAnswers ? 1 : 3));        
-        enableButton(btnShowBadAnswers, (quiz.showBadAnswers  ? 1 : 3));        
-        enableButton(btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3));        
-        enableButton(btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3));        
-        
+        updateButton (btnReloadAnswers, (quiz.showReloadAnswers ? 1 : 3), 'showSlide_question');
+        updateButton (btnShowGoodAnswers, (quiz.showGoodAnswers ? 1 : 3), 'showSlide_question');
+        updateButton (btnShowBadAnswers, (quiz.showBadAnswers  ? 1 : 3), 'showSlide_question');
+        updateButton (btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_question');
+        updateButton (btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_question');
+
         if(bStopTimer){stopTimer();}
 //alert("showSlide_question : " + newSlide);        
   }
@@ -1150,13 +1179,15 @@ var container = document.getElementById(objId);
 
   //----------------------------------------------------------------
   function updateQuizTimer (){
+    statsTotal.cumul_timer = Math.floor((Date.now() - statsTotal.begin_timer) / 1000);
     if(quizDivHorloge){
-        quizDivHorloge.innerHTML = formatChrono(statsTotal.cumul_timer ++);
+        quizDivHorloge.innerHTML = formatChrono(statsTotal.cumul_timer);
     }
   }
   
   function startTimer () {
     idQuizTimer = setInterval(updateQuizTimer, 1000);
+    statsTotal.begin_timer = Date.now();
   }
   function stopTimer () {
     clearInterval(idQuizTimer);
@@ -1405,47 +1436,6 @@ function shuffleMyquiz () {
     return true;
 }
 
-
-/* ***********************************************
-*
-        case 0: // disable and visible
-        case 2: // Masquer et inline
-        case 3: // masquer et not inline
-        case 1: // visible et enabled
-**************************************************** */
-  function enableButton (btn, etat, debug=false) {
-  if(debug){
-    alert ("enableButton : " + btn.id + "\netat = " + etat);
-  }
-  if(!btn) return false;
-  
-    switch (etat) {
-        case 0: // disable and visible
-            btn.style.display = 'inline-block';
-            btn.style.visibility="visible";
-            btn.disabled = 'disabled';
-            break;
-            
-        case 2: // Masquer et inline
-            btn.style.visibility="hidden";
-            break;
-            
-        case 3: // masquer et not inline
-            btn.style.visibility="hidden";
-            btn.style.display = 'none';
-            break;
-            
-        case 1: // visible et enabled
-        default:
-            btn.style.visibility="visible";
-            btn.style.display = 'inline-block';
-            btn.disabled = '';
-            break;
-            
-    }
- }
-
- 
 /* ***********************************************
 *
 * */

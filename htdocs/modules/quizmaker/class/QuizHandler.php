@@ -406,7 +406,7 @@ global $questionsHandler, $resultsHandler;
     public function setValue($quizId, $field, $value)
     {
         //$sql = "UPDATE " . $this->table . " SET {$field} = not {$field} WHERE quiz_id={$quizId};";
-        $sql = "UPDATE " . $this->table . " SET {$field} = {$value} WHERE quiz_id={$quizId};";
+        $sql = "UPDATE " . $this->table . " SET {$field} = '{$value}' WHERE quiz_id={$quizId};";
         $ret = $this->db->queryf($sql);
         return $ret;
     }

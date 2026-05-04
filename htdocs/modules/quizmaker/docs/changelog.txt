@@ -1,15 +1,42 @@
 ---------------------------------------------------
-2026-01-19a v 6.18 beta 1 - JJDai - jjdelalandre@orange.fr
+2026-04-10a v 6.18 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------       
+Ajout du champ quiz_flag_txt : uriliser pour la transmission notammnet lors de l'export de plusieurs quiz
+    afin de récupérer la list des exports qui viennent d'être effectuer et afficher la liste pour les télécharger.
+    
+Ajout de l'onglet "Ressources" pour permettre l'ajout d'images de coches de boutons, ....
+Déplacement du dossier des coches et des boutons du plugin "selectImages" vers asset/js/quiz-org/images
+
+onglet "Participation" et "Cookie"
+    - Fusion des onglets "Cookies" et "Resultats" dans l'onglet "Participations.
+    - Ajout de permissions de suppression dans cet onglet pour chaque enregistrement
+    - Ajout dans xoops_version de l'affichage du bouton "Vider les enregistrements" pour le quiz
+    - Amélioration du message de suppression
+    - Ajout de l'exportation au format "csv" pour un retraitement dans un tableur (cas de concours par exemple)
+
+"question"
+    Ajout du champ "quest_question_style"
+    Ajout de la saisie du champ avec xoopsFormJson
+    Permet de modifier la taille et la couleur du texte de la question dans le but nottament d'éviter les retours à la ligne intempestifs. 
+    Ajout du contrôle d'unicité de "quest_identifiant1" pour la quiz. Pour rappel ce chmpa permet l'ajout d'une réponsse liée.
+    
+Participation :
+    Contole lors de la validation que le nombre de tentives de l'utilisateur est inférieur ou égal au nombre de tentative maximum du quiz.   
+     
 ---------------------------------------------------
-onglet admin->quactioins
-    - remplacement des boutons d'actions par une liste déroulante pour allé l'interface
-table questions
-    - ajout du champ "quest_explanation_img"
-    - mise à jour des formulaires et classes
-    - ajout du transgert de quest_explanation et quest_explanation_img vers les javascript
- Slides : 
-       pour les slides qui ne sont pas des questions, ajout d'une option qui permet de mettre l'imgage principale en lettrine.
-       
+2026-01-19a v 6.18 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------       
+ajout de la table cookies pour remplacer la gestion des cookies au cas ou l'utilisateur les a désactivé
+ajout de la table readme pour afficher un texte (règlement du concours par exemple) lors du lancement du premier quiz de la catégporie.
+Gestion des tables "cookies" et "results" dans l'onglet "Participation"
+Ajout du plugin "puzzle" avec ses variantes "memory" et "taquin"
+Ajout des champs "cat_readme_status", "cat_readme_text" "cat_readme_label"
+    Ces champs permette d'aff
+    icher un texte d'avertisement, un règlement de concours, ... la prmère fois que l'utilisateur accède à une catégorie.
+    Côté utilisateur, un lien est ajouté en-dessous du titre de la catégorie
+Ajout dans "xoops_version.php" des parametres : 
+    - "action_on_quiz_deleted" : (indiquer l'id d'une categorie) lors de la suppression d'un quiz, permet de déplacer ce quie vers une autre autre ctégorie
+    - "allowed_errase_result" : dans l'onglet participation active ou désactive la suppression d'enregistrement. Cas d'un concours ou il faut preserver les données si besoin.
 ---------------------------------------------------
 2025-11-17a v 6.16 beta 5 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------

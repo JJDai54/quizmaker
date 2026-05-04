@@ -68,6 +68,8 @@ $utility = new \XoopsModules\Quizmaker\Utility();
 //$quizPerm = $utility::getPermissionQuiz();        
 //$catPerm = $utility::getPermissionCat();        
 
+/* test recupe uname) */
+
 //----------------------------------------------------
 //$permEdit = $clPerms->getPermissionsOld(16,'global_ac');
 //echoArray($permEdit);
@@ -75,10 +77,10 @@ $GLOBALS['xoopsTpl']->assign('showItem', $catId > 0);
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES, 'link' => "categories.php?cat_id={$catId}&player_id={$playerId}"];
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_RESULTS . ' : <b>' . $quiz['name'] . '</b>'];
 
-$GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
-$GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
-$GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
-$GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
+$GLOBALS['xoopsTpl']->assign('sysUtlIcon16', $sysUrlIcon16);
+$GLOBALS['xoopsTpl']->assign('sysUrlIcon32', $sysUrlIcon32);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon16', $modUrlIcon16);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon32', $modUrlIcon32);
 
         // ----- Listes de selection pour filtrage -----  
         $selectors = array();
@@ -101,7 +103,7 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
         $inpQuiz->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
   	    //$GLOBALS['xoopsTpl']->assign('inpQuiz', $inpQuiz->render());
         $selectors['inpQuiz'] = $inpQuiz->render();
-  	    $GLOBALS['xoopsTpl']->assign('selector', $selectors);
+  	    $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
         // ----- /Listes de selection pour filtrage -----   
 
         // recherche des résultats
@@ -128,6 +130,7 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
     		$GLOBALS['xoopsTpl']->assign('results_count', $resultsCount);        
     		$GLOBALS['xoopsTpl']->assign('results', $results);        
     		$GLOBALS['xoopsTpl']->assign('quiz', $quiz);        
+    		$GLOBALS['xoopsTpl']->assign('pagenav', null);        
       
       
            $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));

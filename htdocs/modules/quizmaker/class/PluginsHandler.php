@@ -145,7 +145,7 @@ public function getListByGroup($boolCode = false, $addPagesBeginEnd = false){
     $ret = array();
     
     foreach($list as $key => $v) {
-        if(substr($key,2,3) == $prefixCat){
+        if(substr($key, 2, 3) == $prefixCat){
             $ret['>' . $v] = constant(QUIZMAKER_PREFIX_CAT .  strToUpper($v));
         }else{
             $lib = $allPlugins[$v]['name'];

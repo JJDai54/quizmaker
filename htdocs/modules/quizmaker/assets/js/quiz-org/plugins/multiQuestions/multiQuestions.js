@@ -26,7 +26,7 @@ getInnerHTML(bShuffle = true){
     var id = this.getName;
     var currentQuestion = this.question;
     //var width = Math.floor(600 / this.data.nbInputsMax);        
-    var interligne = `<div style='width:100%;height:${currentQuestion.options.interligne}px'></div>`
+    var interligne = `<div style='width:100%;height:${currentQuestion.options.interligne}px'></div>`;
     var br = this.getBr(currentQuestion.options.disposition);
     var tpl = this.getDisposition(currentQuestion.options.disposition);
     //-----------------------------------------------------
@@ -139,7 +139,7 @@ getHtmlMultiCheckbox(k, itemsArr, strType, br){
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
         var idx = 0;
-            
+//alert(`${ans.caption} -> ${ans.proposition}`)            
         ans['proposArr']  = ans.proposition.split(",");      
         ans['sanitysArr'] =  sanityseTextForComparaison(setAllSepByNewSep(ans.proposition, newSep)).split(newSep);
         //ans['intrusArr']  =  sanityseTextForComparaison(setAllSepByNewSep(ans.buffer, newSep)).split(newSep);

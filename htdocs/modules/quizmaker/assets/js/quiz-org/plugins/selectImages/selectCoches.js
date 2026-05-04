@@ -61,7 +61,8 @@ getInnerHTML(bShuffle = true){
         
         var idCoche = ans.ansId + quiz_config.suffixCoche;
         var cocheImgName = (options.cocheImgName) ? options.cocheImgName : 'coche_01.png';
-        var imgCoche= `${currentQuestion.urlPlugin}/img/coches/${cocheImgName} `;   
+        //var imgCoche= `${currentQuestion.urlPlugin}/img/coches/${cocheImgName} `;   
+        var imgCoche= `${quiz_config.urlImgRoot}/coches/${cocheImgName} `;   
         var onClickLabel = `onclick="document.getElementById('${ans.cocheId}').click();"`;
 
         tHtml.push (`<tr style='height:${options.trHeight}px'>
@@ -118,7 +119,8 @@ getInnerHTML2(bShuffle = true){
         
         var idCoche = ans.ansId + quiz_config.suffixCoche;
         var cocheImgName = (options.cocheImgName) ? options.cocheImgName : 'coche_01.png';
-        var imgCoche= `${currentQuestion.urlPlugin}/img/coches/${cocheImgName} `;   
+        //var imgCoche= `${currentQuestion.urlPlugin}/img/coches/${cocheImgName} `;   
+        var imgCoche= `${quiz_config.urlImgRoot}/coches/${cocheImgName} `;   
         var onClickLabel = `onclick="document.getElementById('${ans.cocheId}').click();"`;
 
         tHtml.push (`<div style='width:95%;${divIntervalVertical}'>

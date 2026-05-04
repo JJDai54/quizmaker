@@ -17,6 +17,9 @@ CREATE TABLE `quizmaker_categories` (
   `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_actif`  tinyint(1) NOT NULL DEFAULT '1', 
   `cat_description` text NOT NULL,
+  `cat_readme_text` LONGTEXT NOT NULL,
+  `cat_readme_status` TINYINT NOT NULL DEFAULT '0',
+  `cat_readme_label` varchar(80) NOT NULL DEFAULT '',
   `cat_image` varchar(255) NOT NULL DEFAULT '0',
   `cat_theme` varchar(50) NOT NULL DEFAULT '0',
   `cat_max_attempts` INT NOT NULL DEFAULT '1',   
@@ -28,12 +31,29 @@ CREATE TABLE `quizmaker_categories` (
 ) ENGINE=InnoDB;
 
 #
+# Structure table for `quizmaker_readme` 6
+#
+
+CREATE TABLE `quizmaker_readme` (
+  `readme_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `readme_cat_id` int(8) NOT NULL DEFAULT '0',
+  `readme_uid` int(8) NOT NULL DEFAULT '0',
+  `readme_email` varchar(60) NOT NULL DEFAULT '',
+  `readme_count` int(8) NOT NULL DEFAULT '0',
+  `readme_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+  `readme_update` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+  PRIMARY KEY (`readme_id`),
+  KEY `quizmaker_readme_uid` (`readme_cat_id`, `readme_uid`)
+) ENGINE=InnoDB;
+
+#
 # Structure table for `quizmaker_quiz` 20
 #
 
 CREATE TABLE `quizmaker_quiz` (
   `quiz_id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `quiz_flag` int NOT NULL,
+  `quiz_flag_text`  varchar(255) NOT NULL DEFAULT '',
   `quiz_cat_id` int NOT NULL DEFAULT '0',
   `quiz_name` varchar(255) NOT NULL DEFAULT '',
   `quiz_difficulty` TINYINT NOT NULL DEFAULT '0', 
@@ -66,7 +86,7 @@ CREATE TABLE `quizmaker_quiz` (
   `quiz_optionsIhm` bit(16) NOT NULL DEFAULT b'0',
   `quiz_optionsDev` bit(16) NOT NULL DEFAULT b'0',
   `quiz_actif` tinyint(1) NOT NULL DEFAULT '1',
-  `quiz_max_attempts` INT NOT NULL DEFAULT '1',   
+  `quiz_max_attempts` INT NOT NULL DEFAULT '0',   
   `quiz_delai_cookie` INT NOT NULL DEFAULT '3600',   
   `quiz_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quiz_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
@@ -85,21 +105,23 @@ CREATE TABLE `quizmaker_questions` (
   `quest_flag` int(8) NOT NULL,
   `quest_quiz_id` int(10) NOT NULL DEFAULT '0',
   `quest_question` varchar(255) NOT NULL DEFAULT '',
+  `quest_question_style` text NOT NULL,
   `quest_identifiant1` varchar(50) NOT NULL DEFAULT '',
   `quest_identifiant2` varchar(50) NOT NULL DEFAULT '',
   `quest_comment1` text NOT NULL,
   `quest_posComment1` tinyint(1) NOT NULL DEFAULT '0',
   `quest_plugin` varchar(30) NOT NULL DEFAULT '',
+  `quest_variant` varchar(30) NOT NULL DEFAULT '',
   `quest_explanation` text NOT NULL,
   `quest_explanation_img` varchar(255) NOT NULL DEFAULT '', 
-  `quest_explanation_style  text NOT NULL,
+  `quest_explanation_style` text NOT NULL,
   `quest_consigne` text NOT NULL,
   `quest_learn_more` varchar(255) NOT NULL DEFAULT '',
   `quest_see_also` varchar(255) NOT NULL DEFAULT '',
   `quest_image` varchar(255) NOT NULL DEFAULT '',
   `quest_height` int(11) NOT NULL DEFAULT '80',
   `quest_shadow` varchar(10) NOT NULL DEFAULT '#00000',
-  `quest_image_style  text NOT NULL,
+  `quest_image_style` text NOT NULL,
   `quest_zoom` tinyint(1) NOT NULL DEFAULT '0',
   `quest_background` varchar(255) NOT NULL DEFAULT '',
   `quest_points`  tinyint(1) NOT NULL DEFAULT '0',
@@ -160,8 +182,10 @@ CREATE TABLE `quizmaker_results` (
   `result_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `result_quiz_id` int(8) NOT NULL DEFAULT '0',
   `result_uid` int(8) NOT NULL DEFAULT '0',
-  `result_uname` varchar(50) NOT NULL,
+  `result_uname` varchar(60) NOT NULL,
+  `result_email` varchar(60) NOT NULL,
   `result_ip` varchar(50) NOT NULL,
+  `result_attempts` int(8) NOT NULL DEFAULT '0',
   `result_score_achieved` int(8) NOT NULL DEFAULT '0',
   `result_score_max` int(8) NOT NULL DEFAULT '0',
   `result_score_min` int(8) NOT NULL DEFAULT '0',
@@ -171,8 +195,24 @@ CREATE TABLE `quizmaker_results` (
   `result_note` float NOT NULL DEFAULT '0',
   `result_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
   `result_update` datetime(6) NOT NULL,
-  `result_attempts` int(8) NOT NULL DEFAULT '0',
   PRIMARY KEY (`result_id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE `quizmaker_cookies` (
+  `cookie_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `cookie_cat_id` int(8) NOT NULL DEFAULT '0',
+  `cookie_quiz_id` int(8) NOT NULL DEFAULT '0',
+  `cookie_uid` int(8) NOT NULL DEFAULT '0',
+  `cookie_uname` varchar(25) NOT NULL,
+  `cookie_readme` int(8) NOT NULL DEFAULT '0',
+  `cookie_email` varchar(60) NOT NULL,
+  `cookie_ip` varchar(50) NOT NULL,
+  `cookie_attempts` int(8) NOT NULL DEFAULT '0',
+  `cookie_dead_line` int(11) NOT NULL DEFAULT '0',
+  `cookie_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
+  `cookie_update` datetime(6) NOT NULL,
+  PRIMARY KEY (`cookie_id`),
+  KEY `cookie_full` (`cookie_quiz_id`, `cookie_uid`, `cookie_email`)
 ) ENGINE=InnoDB;
 
 

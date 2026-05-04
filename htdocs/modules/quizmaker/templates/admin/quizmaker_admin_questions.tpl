@@ -14,6 +14,7 @@ function addNewChild(parentId){
 }
 </script>
 <{* <{assign var='download' value=0}> *}>
+
 <{include file='db:quizmaker_admin_download.tpl' }>
 
 
@@ -65,6 +66,10 @@ function addNewChild(parentId){
 <{/if}>
 </div><br><br>
 </form>
+
+<{if $exportCount > 0}>
+    <hr><{$exportList}><hr>
+<{/if}>
 <{* ======================================================== *}> 
 <{if $questions_list}>
 <br>
@@ -101,8 +106,12 @@ function addNewChild(parentId){
 		<tbody>
             <{assign var="indexJS" value = 0}>
             <{assign var="previousGroupId" value=0}>
+<{*
+<{foreach $questions_list as $Questions}>
+<{assign var="index" value=$Questions@iteration}>
+*}>
             
-			<{foreach item=Questions from=$questions_list name=quest key=index}>
+			<{foreach item="Questions" from=$questions_list name=quest key=index}>
                   <{assign var="deleteOk" value=false}>
                 <{if $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>
                   <{assign var="fldImg" value="red"}>
@@ -157,18 +166,18 @@ function addNewChild(parentId){
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}>
                     <{if $Questions.parent_id > 0 AND $Questions.plugin<>'pageAnswer'}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_OUT_OF_GROUP}>">
-                            <img src="<{$modPathIcon16}>/out_group-red.png" alt="questions" />
+                            <img src="<{$modUrlIcon16}>/out_group-red.png" alt="questions" />
                             </a>
                     <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=1" title="<{$smarty.const._AM_QUIZMAKER_CHILDREN_OUT_OF_GROUP}>">
-                            <img src="<{$modPathIcon16}>/out_of_group-red.png" alt="questions" />
+                            <img src="<{$modUrlIcon16}>/out_of_group-red.png" alt="questions" />
                             </a>
                     <{elseif $previousGroupId <> 0 and $Questions.typeForm <> $smarty.const.QUIZMAKER_TYPE_FORM_END}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=<{$previousGroupId}>&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_CHILD_IN_PREVIOUS_GROUP}>">
-                            <img src="<{$modPathIcon16}>/in_group-green.png" alt="questions" />
+                            <img src="<{$modUrlIcon16}>/in_group-green.png" alt="questions" />
                             </a>
                     <{else}>
-                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                          <img src="<{$modUrlIcon16}>/blank.png" alt="" />
                     <{/if}>              
 
                 </td>
@@ -179,7 +188,8 @@ function addNewChild(parentId){
                <{$Questions.quest_identifiant2}>
                 </td>
 				<td class='left' <{$styleParent}> ><{$Questions.plugin}></td>
-				<td class='left' <{$styleParent}> ><{$Questions.typeForm_lib}></td>
+<{*				<td class='left' <{$styleParent}> ><{$Questions.typeForm_lib}></td> *}>
+				<td class='left' <{$styleParent}> ><{$Questions.variant}></td>
                 
                 
                 <td class='left' <{$styleParent}> >
@@ -188,28 +198,31 @@ function addNewChild(parentId){
                 
                 <{* ---------------- Arrows Weight -------------------- *}>
                 <td class='center width15' <{$styleParent}> >
-
                 <{if  $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP OR $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_INFO OR $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_QUESTION}>
                       <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=first&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
                       </a>
                     
                       <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=up&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                       </a>
                     
-                    <img src="<{$modPathIcon16}>/blank-08.png" title="">
-                    <{$Questions.weight}>
-                    <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                    <img src="<{$modUrlIcon16}>/blank-08.png" title="">
+                     <{$Questions.inpWeight}>
+                    <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                  
                       <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=down&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
-                        <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                        <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
                         </a>
                    
                       <a href="questions.php?op=weight&quest_id=<{$Questions.id}>&sens=last&quiz_id=<{$Questions.quest_quiz_id}>&quest_weight=<{$Questions.weight}>">
-                        <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                        <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                         </a>
-                <{else}>                     
+
+
+                <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_ANSWER}>                     
+                     <{$Questions.inpWeight}>
+                <{else $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_ANSWER}>                     
                     <{$Questions.weight}>
                 <{/if}>
                 <{* ---------------- /Arrows -------------------- *}>
@@ -239,19 +252,19 @@ function addNewChild(parentId){
                     <{if $Questions.plugin <> 'pageBegin'}>
 
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
-        				 <img src="<{$modPathIcon16}>actif-<{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+        				 <img src="<{$modUrlIcon16}>/actif-<{$Questions.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
                         </a>
                     <{/if}>              
                         
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' >
-        				 <img src="<{$modPathIcon16}>visible-<{$Questions.visible}>.png" alt="visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' />
+        				 <img src="<{$modUrlIcon16}>/visible-<{$Questions.visible}>.png" alt="visible" title='<{$smarty.const._AM_QUIZMAKER_VISIBLE}>' />
                         </a>
                                                      
 					<a href="questions.php?op=edit&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._EDIT}>">
                         <img src="<{xoModuleIcons16}>edit.png" alt="questions" />
                         </a>
   					<a href="answers.php?cat_id=<{$cat_id}>&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._AM_QUIZMAKER_PROPOSITION}>" target="_blank">
-                          <img src="<{$modPathIcon16}>proposition.png" alt="" />
+                          <img src="<{$modUrlIcon16}>proposition.png" alt="" />
                      </a>
                         
                     <{if $Questions.canDelete OR $isAdmin}>
@@ -266,20 +279,20 @@ pour permettre l suppression des pages begin et end quand il y a doublon
                             <img src="<{xoModuleIcons16}>/delete.png" alt="" />
                         </a>
                     <{else}>
-                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
-                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                          <img src="<{$modUrlIcon16}>/blank.png" alt="" />
+                          <img src="<{$modUrlIcon16}>/blank.png" alt="" />
                     <{/if}>              
 
                     <{if $Questions.plugin == 'pageGroup' || $Questions.plugin == 'pageBegin'}>
     					<a  title="<{$smarty.const._ADD}>" onclick="addNewChild(<{$Questions.id}>);" >
-                          <img src="<{$modPathIcon16}>/add-green.png" alt="_ADD" />
+                          <img src="<{$modUrlIcon16}>/add-green.png" alt="_ADD" />
                           </a>
                     <{elseif $Questions.isQuestion}>
     					<a  href="questions.php?op=addanswer&quest_id=<{$Questions.id}>" title="<{$smarty.const._AM_QUIZMAKER_ADD_ANSWER}>" >
-                          <img src="<{$modPathIcon16}>/add-blue.png" alt="_ADD" />
+                          <img src="<{$modUrlIcon16}>/add-blue.png" alt="_ADD" />
                           </a>
                     <{else}>
-                          <img src="<{$modPathIcon16}>/blank.png" alt="" />
+                          <img src="<{$modUrlIcon16}>/blank.png" alt="" />
                     <{/if}>    
 				</td>
 			</tr>

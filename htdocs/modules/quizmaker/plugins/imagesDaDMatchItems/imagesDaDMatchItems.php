@@ -250,7 +250,7 @@ public function getFormGroup(&$trayAllAns, $inputs, $answers,$titleGroup, $first
         
             if( isset($ans['delete_image_Substitution'])) {
                 //todo : supprimer le fichier
-                $ans['image'] = '';  
+                $ans['image2'] = '';  
             }
 
             //enregistrement de l'image

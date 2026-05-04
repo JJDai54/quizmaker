@@ -26,9 +26,18 @@ use XoopsModules\Quizmaker\Constants;
 
     $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_CLONE,'QUIZMAKER_PERMIT_CLONE', 'index.php', QUIZMAKER_ADMIN_PERM);
 
-
-
     $questionsObj = $questionsHandler->get($questId);
+
+//--------------------------------------------
+// test a virer
+/*
+$quiz = $quizHandler->get($quizId);
+    $imgArr = $quiz->getImages();
+    //$imgArr = $questionsObj->getImages();
+    echoArray($imgArr);
+    exit();
+*/
+//--------------------------------------------
     $quizObj = $quizHandler->get($questionsObj->getVar('quest_quiz_id'));
     $fldJS = $quizObj->getVar('quiz_folderJS');
     $pathImg = $quizObj->getFolderJS(1, 'images');
@@ -69,6 +78,7 @@ use XoopsModules\Quizmaker\Constants;
         
         $answersHandler->insert($newAns);
      }
+     
      $msg = sprintf(_AM_QUIZMAKER_FORM_SURE_CLONE_OK, $newQuestId);
    	redirect_header('questions.php?op=list&' . getParams2list($quizId, $quest_plugin, "", $quest_parent_id), 2, $msg);
 

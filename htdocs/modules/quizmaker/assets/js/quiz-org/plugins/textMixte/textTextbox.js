@@ -44,7 +44,7 @@ var currentQuestion = this.question;
 var obList = null;
 var points = 0;
 
-    obList = this.getQuerySelector('input', this.getName('inp'))
+    obList = this.getQuerySelector('input', this.getName('inp'));
     for(var i=0; i < obList.length; i++) {
         var ob = document.getElementById(this.getId(i));
         console.log(`textarea->getScoreByProposition : ${obList[i].id} - ${obList[i].value} - ${this.data.words[i]}`);

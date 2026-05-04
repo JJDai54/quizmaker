@@ -32,42 +32,42 @@
 
 				<td class='center'>
                   <a href="categories.php?op=change_etat&cat_id=<{$cat.id}>&field=cat_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
-                      <img src="<{$modPathIcon16}>actif-<{$cat.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                      <img src="<{$modUrlIcon16}>actif-<{$cat.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
                   </a>
                 </td>
 
                 <{* ---------------- Arrows Weight -------------------- *}>
                 <td class='center' <{$styleParent}> >
                     <{if $smarty.foreach.catItem.first}>
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-0.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-0.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                     <{else}>
                       <a href="categories.php?op=weight&cat_id=<{$cat.id}>&sens=first&cat_weight=<{$cat.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/first-1.png" title="<{$smarty.const._AM_QUIZMAKER_FIRST}>">
                       </a>
                     
                       <a href="categories.php?op=weight&cat_id=<{$cat.id}>&sens=up&cat_weight=<{$cat.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/up-1.png" title="<{$smarty.const._AM_QUIZMAKER_UP}>">
                       </a>
                     <{/if}>
                  
                     <{* ----------------------------------- *}>
-                    <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                    <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                     <{$cat.weight}>
-                    <img src="<{$modPathIcon16}>/blank-08.png" title="">
+                    <img src="<{$modUrlIcon16}>/blank-08.png" title="">
                     <{* ----------------------------------- *}>
                  
                     <{if $smarty.foreach.catItem.last}>
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-0.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-0.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                     <{else}>
                     
                     <a href="categories.php?op=weight&cat_id=<{$cat.id}>&sens=down&cat_weight=<{$cat.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/down-1.png" title="<{$smarty.const._AM_QUIZMAKER_DOWN}>">
                       </a>
                  
                     <a href="categories.php?op=weight&cat_id=<{$cat.id}>&sens=last&cat_weight=<{$cat.weight}>">
-                      <img src="<{$modPathIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
+                      <img src="<{$modUrlIcon16}>/arrows/<{$fldImg}>/last-1.png" title="<{$smarty.const._AM_QUIZMAKER_LAST}>">
                       </a>
                     <{/if}>
                 </td>
@@ -90,7 +90,7 @@
                     <{else}>
                         <img src="<{xoModuleIcons16}>/warning.png" alt="categories" title="<{$smarty.const._AM_QUIZMAKER_CAT_NOT_EMPTY}>"/>
                     <{/if}>
-					<img src="<{$modPathIcon16}>/blank-16.png" alt="" />
+					<img src="<{$modUrlIcon16}>/blank-16.png" alt="" />
 					<a href="quiz.php?op=list&cat_id=<{$cat.id}>&sender='cat_id'" title="<{$smarty.const._AM_QUIZMAKER_QUIZ_NAME}>">
                         <img src="<{xoModuleIcons16}>/inserttable.png" alt="Quiz" />
                         </a>

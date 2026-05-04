@@ -1,391 +1,56 @@
-UPDATE `x251_quizmaker_questions` 
-SET quest_identifiant1= concat('slide_', FLOOR(RAND()*(19999-10000+1)+10000))
-WHERE quest_quiz_id = 182
-
-UPDATE x251_quizmaker_questions ta,  x251_quizmaker_questions tb 
-SET ta.quest_plugin = 'pageAnswer', 
-    ta.quest_identifiant2 = tb.quest_identifiant1 
-WHERE tb.quest_id = ta.quest_id-1
-AND ta.quest_plugin='pageInfo' 
-AND ta.quest_quiz_id=184 
-AND tb.quest_quiz_id=184
-AND ta.quest_question LIKE "Réponse%";
+2026-04-26a
+ALTER TABLE `x251_quizmaker_questions` ADD `quest_question_style` TEXT NOT NULL AFTER `quest_question`;
 
 
 
 
+SELECT tu.email   FROM x251_users  tu,  `x251_groups_users_link`  tg 
+WHERE tu.uid = tg.uid
+and tg.groupid=11
 
-UPDATE `x251_quizmaker_questions` SET `quest_plugin`='pageAnswer', quest_identifiant1='' WHERE `quest_plugin`='pageInfo' AND quest_quiz_id=000;
+SELECT tu.*, tg.* FROM x251_users  tu,  `x251_groups_users_link`  tg 
+WHERE tu.uid = tg.uid
+and tg.groupid=11
 
-UPDATE `x2511_quizmaker_questions` 
-SET quest_identifiant1= concat('slide_', FLOOR(RAND()*(19999-10000+1)+10000))
-WHERE quest_quiz_id = 183 AND `quest_plugin` = 'pageAnswer';
-
-
-
-
-
-ALTER TABLE `x2511_quizmaker_questions` CHANGE `quest_identifiant` `quest_identifiant1` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL; 
-ALTER TABLE `x2511_quizmaker_questions` ADD `quest_identifiant2` VARCHAR(50) NOT NULL AFTER `quest_identifiant1`; 
-
-UPDATE `x2511_quizmaker_questions` 
-SET quest_isQuestion = 0
-WHERE quest_plugin LIKE "%page%";
+jjdelalandre@orange.fr,d.vigier@free.fr,sophie.arlot@hotmail.fr,estellou9@gmail.com,sgdb115@free.fr,arlotjc@hotmail.com,maclapeau@gmail.com,Ragoupas77@gmail.fr,khub91@orange.fr,lamotte.jean-pierre@bbox.fr,mamie.garcia@gmail.com,miret.annie@gmx.fr,benjamin.berton.iii@gmail.com,laillai@hotmail.com,hel_est@hotmail.fr,monique.lehoux91@gmail.com,laillai@yahoo.fr,cyrile.brault@orange.fr,achard.mahe@gmail.com,ragoupas77@gmail.com,pliart.origami@gmail.com,laclaudinerie91@hotmail.fr,nopies3@gmail.com,hadjira.shh@gmail.com,raymonde.martin9@orange.f,mbough91@gmail.com,mlclala91@gmail.com,f.gibier@orange.fr,kottavei@yahoo.fr,laetitiaharand@hotmail.fr,libsyl9121@bbox.fr,nouiouaamjad2016@hotmail.com,feruzape@gmail.com,francinerenaud91@gmail.com,leraysandrine@free.fr,fbonal@hotmail.fr,ta-meri@orange.fr,cassandremiale@ymail.com,luna.yoda@laposte.net,otylia.jouie@gmail.com,delacourt.cl@gmail.com,katy0722@gmail.com,jennifer.primeon@yahoo.fr,lnstrzouk@gmail.com
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-select ta.quest_quiz_id, ta.quest_id, ta.quest_identifiant1, ta.quest_identifiant2,
-       tq.quest_quiz_id, tq.quest_id, tq.quest_identifiant1, tq.quest_identifiant2
-from x2511_quizmaker_questions ta,  x2511_quizmaker_questions tq 
-WHERE ta.quest_plugin='pageAnswer' AND ta.quest_quiz_id=69 AND  tq.quest_quiz_id=69 ;
+2025-03-15a
+ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_flag_text` CHAR(128) NOT NULL AFTER `quiz_flag`;
 
-SELECT FLOOR(RAND()*(19999-10000+1)+10000);
+2026-03-08a : 
+ALTER TABLE `x2511_quizmaker_categories` ADD `cat_readme_label` VARCHAR(80) NOT NULL AFTER `cat_readme_status`;
+---------------------------------------------------------------
+// Sélectionner les données de la table
+$sql = "SELECT * FROM utilisateurs";
+$result = $conn->query($sql);
 
-SELECT `quest_id`, `quest_question`, quest_plugin, `quest_isQuestion` 
-FROM `x2511_quizmaker_questions` 
-WHERE quest_plugin LIKE "%page%"
-ORDER BY `x2511_quizmaker_questions`.`quest_plugin` ASC;
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_timerStyle` VARCHAR(250) NOT NULL AFTER `quiz_showTimer`; 
-
-ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_timerSize` TINYINT NOT NULL DEFAULT '48' AFTER `quiz_showTimer`; 
-
-
-ALTER TABLE `x251_quizmaker_categories` ADD `cat_max_attempts` INT NOT NULL DEFAULT '1' AFTER `cat_weight`; 
-ALTER TABLE `x251_quizmaker_categories` ADD `cat_delai_cookie` INT NOT NULL DEFAULT '3600' AFTER `cat_max_attempts`; 
-ALTER TABLE `x251_quizmaker_quiz` CHANGE `quiz_max_flying` `quiz_max_attempts` INT NOT NULL DEFAULT '1'; 
-
-
-
-SELECT * FROM `x2511_quizmaker_questions` WHERE `quest_options` LIKE "%listbox1%";
-
-ALTER TABLE `x2511_quizmaker_questions` ADD `quest_reference_id` INT NOT NULL DEFAULT '0' AFTER `quest_parent_id`, ADD INDEX `question_reference_id` (`quest_reference_id`); 
-ALTER TABLE `x2511_quizmaker_quiz` CHANGE `quiz_set` `quiz_subject` VARCHAR(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL; 
-
-//--------------------------------------------------------------------
-//-mise à jour du champ quest_flag avec le nouveau tableau json qui cumul taille, ompbre et arrondi
-//a faire uin fine :
-// - supprimer les champ "quest_height" et "quest_ombre";
-// - regénérer tous les quiz par lot
-
-update `x251_quizmaker_questions` SET `quest_flag`= 0 WHERE 1;
-update `x251_quizmaker_questions` SET `quest_flag`= 1  WHERE `quest_image_style`='';
-
-
-
-UPDATE `x251_quizmaker_questions` 
-SET `quest_image_style`='{"height":{"name":"height","value":"_height_","type":"number","_caption_":"Hauteur","min":25,"max":300,"size":5,"unit":"px"},"shadow":{"name":"shadow","value":"#000000","type":"palette","_caption_":"Ombre","palette":"classic"},"borderRound":{"name":"borderRound","value":"12","type":"number","_caption_":"Arrondi","min":0,"max":150,"size":5,"unit":"px"}}'
-WHERE `quest_flag`= 1; 
-
-UPDATE `x251_quizmaker_questions` 
-SET `quest_image_style`=  REPLACE(`quest_image_style`, '_height_', `quest_height`)        
-WHERE `quest_flag`= 1; 
-//-----------------------------------------------------------------------
-
-
-ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_difficulty` INT NOT NULL DEFAULT '0' AFTER `quiz_description`; 
-
-ajouter title dans formJson
-ALTER TABLE `x2511_quizmaker_questions` ADD `quest_image_style` VARCHAR(500) NOT NULL DEFAULT '' AFTER `quest_image`; 
-
-ALTER TABLE `x2511_quizmaker_questions` ADD `quest_shadow` VARCHAR(10) NOT NULL DEFAULT '#000000' AFTER `quest_image`; 
-
-UPDATE x2511_quizmaker_questions
-SET quest_options = REPLACE(quest_options, 'classe', 'variant')
-WHERE quest_options LIKE "%classe%"
-
-SELECT * FROM `x2511_quizmaker_questions` WHERE `quest_options` LIKE "%classe%"
-
-
- 
-ALTER TABLE `x251_quizmaker_categories` ADD INDEX  `quizmaker_categories_01` (`cat_actif`,`cat_parent_id`,`cat_weight`); 
-
-ALTER TABLE `x251_quizmaker_quiz` ADD UNIQUE `quizmaker_quiz_folderJS` (`quiz_folderJS`); 
-ALTER TABLE `x251_quizmaker_quiz` ADD INDEX `quizmaker_quiz_01` (`quiz_actif`, `quiz_weight`, `quiz_name`, `quiz_cat_id`); 
-ALTER TABLE `x251_quizmaker_quiz` ADD INDEX `quizmaker_quiz_02` (`quiz_actif`, `quiz_cat_id`, `quiz_subject`); 
-ALTER TABLE `x251_quizmaker_quiz` ADD INDEX  `quizmaker_quiz_flag` (`quiz_flag`); 
-ALTER TABLE `x251_quizmaker_quiz` ADD INDEX `quizmaker_quiz_periode` (`quiz_dateEnd`,`quiz_dateBegin`);
-
-ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_flag` (`quest_flag`); 
-ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_01` (`quest_actif`,`quest_quiz_id`,`quest_weight`); 
-ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_weight` (`quest_weight`,`quest_actif`); 
-ALTER TABLE `x251_quizmaker_questions` ADD INDEX  `quizmaker_quest_quiz_id` (`quest_quiz_id`); 
-
-ALTER TABLE `x251_quizmaker_answers` ADD INDEX  `quizmaker_answer_flag` (`answer_flag`); 
-ALTER TABLE `x251_quizmaker_answers` ADD INDEX  `quizmaker_answer_01` (`answer_quest_id`,`answer_weight`,`answer_id`); 
-
-ALTER TABLE `x251_quizmaker_results` ADD INDEX  `quizmaker_results_result_quiz_id` (`result_quiz_id`); 
-
-CREATE TABLE `quizmaker_categories` (
-  `cat_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `` int(8) NOT NULL DEFAULT '0',
-  `cat_name` varchar(255) NOT NULL DEFAULT '',
-  ``  tinyint(1) NOT NULL DEFAULT '1', 
-  `cat_description` text NOT NULL,
-  `cat_image` varchar(255) NOT NULL DEFAULT '0',
-  `cat_theme` varchar(50) NOT NULL DEFAULT '0',
-  `` int(11) NOT NULL DEFAULT '0',
-  `cat_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
-  `cat_update` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
-  PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB;
-
-
-CREATE TABLE `quizmaker_results` (
-  `result_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `result_quiz_id` int(8) NOT NULL DEFAULT '0',
-  `result_uid` int(8) NOT NULL DEFAULT '0',
-  `result_uname` varchar(50) NOT NULL,
-  `result_ip` varchar(50) NOT NULL,
-  `result_score_achieved` int(8) NOT NULL DEFAULT '0',
-  `result_score_max` int(8) NOT NULL DEFAULT '0',
-  `result_score_min` int(8) NOT NULL DEFAULT '0',
-  `result_answers_achieved` int(8) NOT NULL DEFAULT '0',
-  `result_answers_total` int(8) NOT NULL DEFAULT '0',
-  `result_duration` int(8) NOT NULL DEFAULT '0',
-  `result_note` float NOT NULL DEFAULT '0',
-  `result_creation` datetime(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000',
-  `result_update` datetime(6) NOT NULL,
-  `result_attempts` int(8) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`result_id`)
-) ENGINE=InnoDB;
-
-
-
-
-
-/* ***********************************************
-
-************************************************** */
-function getImportTypeSelect(){
-global $typeImport, $clPerms;
-      $inpTypeImport = new \XoopsFormSelect(_AM_QUIZMAKER_TYPE_IMPORT, 'type_import', $typeImport);
-      $inpTypeImport->addOption('quiz',  _AM_QUIZMAKER_TYPE_IMPORT_QUIZ);
-      $inpTypeImport->addOption('batch', _AM_QUIZMAKER_TYPE_IMPORT_BATCH);
-      $inpTypeImport->addOption('clone', _AM_QUIZMAKER_TYPE_IMPORT_CLONE_QUIZ);
-
-      if($clPerms->getPermissions('global_ac', QUIZMAKER_PERMIT_IMPORTG, true)){
-        $inpTypeImport->addOption('quest', _AM_QUIZMAKER_TYPE_IMPORT_QUEST);
-        $inpTypeImport->addOption('quest_sql', _AM_QUIZMAKER_TYPE_IMPORT_LOCAL);
-        $inpTypeImport->addOption('plugin', _AM_QUIZMAKER_TYPE_IMPORT_PLUGIN);
-      }
-      $inpTypeImport->setExtra('onchange="document.quizmaker_select_import.submit()"' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEIMPORT));
-      return $inpTypeImport;
-
+if ($result->num_rows > 0) {
+    $delimiter = ",";
+    $filename = "utilisateurs_" . date('Y-m-d') . ".csv";
+    
+    // Créer un fichier CSV
+    $f = fopen('php://memory', 'w');
+    
+    // Définir les entêtes du fichier CSV
+    $fields = array('ID', 'Nom', 'Email', 'Date_inscription');
+    fputcsv($f, $fields, $delimiter);
+    
+    // Boucler à travers les enregistrements et les écrire dans le fichier CSV
+    while($row = $result->fetch_assoc()) {
+        $lineData = array($row['id'], $row['nom'], $row['email'], $row['date_inscription']);
+        fputcsv($f, $lineData, $delimiter);
+    }
+    
+    // Déplacer le curseur au début du fichier
+    fseek($f, 0);
+    
+    // Définir les entêtes pour le téléchargement du fichier CSV
+    header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="' . $filename . '";');
+    
+    // Sortir le contenu du fichier
+    fpassthru($f);
+} else {
+    echo "Aucun enregistrement trouvé.";
 }
-
-
-//////////////////////////////////////////////////
-        $setArr =  $quizHandler->getFieldList('quiz_subject', $catId);
-        if(count($setArr) > 1){
-            $inpSet = new \XoopsFormSelect('', 'quiz_subject', $quizSubject);
-            $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
-            $inpSet->addOptionArray($setArr);
-            $inpSet->setExtra($event);
-            $selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $inpSet->render();
-        }else{
-            //$selectors['subject'] = '';
-            //$selectors['select']['subject'] = (($addCaption) ? _CO_QUIZMAKER_QUIZ_SUBJECT . $sep : '') . $quizSubject;
-            $selectors['select']['subject'] = '';
-       }
-  	    $form->addElement($inpSet);
-
-
-
-
-ALTER TABLE `x251_quizmaker_quiz` ADD `quiz_subject` VARCHAR(80) NOT NULL AFTER `quiz_name`; 
-
-
-                   uploads/quizmaker/quiz-js/Neurons_Club_Juin_2024/images/quiz-68da8e7173912.png
-https://sages91.fr/uploads/quizmaker/quiz-js/Neurons_Club_Septembre_2025_(JJD)/images/quiz-68da8e7173912.png
-
-
-Sacré Inès elle avait toujours eu {une araignée dans le plafond}, mais là elle {voyait  les rats}.
-La {cloporte} bavait et criait à qui voulait l'entendre qu'elle {avait la guêpe} à cause de {la fourmi} qui venait de tomber au coin de la rue.
-C'est vrai que {les serpents}, ils nous en faisait avaler des couleuvres.
-Ils étaient partout ces temps-ci. même {le requin} il ne circulait plus {qu'en rampant} !
-
-Sacré Inès elle avait toujours eu {un grain de folie}, mais là elle {est paranoïaque}.
-La {concierge} bavait et criait à qui voulait l'entendre qu'elle {est en manque} à cause {le petit dileur} qui venait de tomber au coin de la rue.
-C'est vrai que {les policiers en civile}, ils nous en faisait avaler des couleuvres.
-Ils étaient partout ces temps-ci. même {le commissaire de police} il ne circulait plus {qu'en taxi} !
--------------------------------------------------------------------
-
-Le Belmond Hiram Bingham|Le Tren a las Nubes|Le Ghan|Le Royal Scotsman|Le Gotthard Panorama Express
--------------------------------------------------------------------
-
-<a class="ui-corner-all tooltip" title="Initialisation du poids" onclick="document.quizmaker_select_filter.op.value='init_weight';document.quizmaker_select_filter.submit();">
-<img src="http://127.0.0.16/modules/quizmaker/assets/icons/16/generer-1.png" title="" alt="">Initialisation du poids</a>
-
-
-
-
-2025-09-19a
-ALTER TABLE `x2511_quizmaker_categories` ADD `cat_image` VARCHAR(255) NOT NULL AFTER `cat_description`; 
-ALTER TABLE `x2511_quizmaker_quiz` ADD `quiz_image` VARCHAR(255) NOT NULL AFTER `quiz_description`; 
-
-------------------------------------------------------------------------------------
-
-      $h = strrpos($k, ".");
-      $indexKey = substr($k,0 , $h);
------------------------------------------------
-SELECT tq.*, ta.answer_image1, ta.answer_image2 FROM `x251_quizmaker_answers` ta
-LEFT JOIN  `x251_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
-WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
-
-
-UPDATE `x251_quizmaker_answers` 
-SET answer_image2 = answer_image1,
-answer_image1 = answer_proposition,
-answer_proposition = null
-WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
-
-
------------------------------------------------------------------
-SELECT tq.*, ta.answer_image1, ta.answer_image2 FROM `x2511_quizmaker_answers` ta
-LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
-WHERE `quest_quiz_id` = 15;
-
-UPDATE `x2511_quizmaker_answers` ta
-LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
-SET answer_image2 = concat(answer_image2,'.png')
-WHERE `quest_quiz_id` = 15;
------------------------------------------------
-
-SELECT tq.*, ta.answer_image1, ta.answer_image2 FROM `x2511_quizmaker_answers` ta
-LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
-WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
-
-UPDATE `x2511_quizmaker_answers` 
-SET answer_image1 = answer_proposition
-WHERE `answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png" ;
-
-UPDATE `x2511_quizmaker_answers` 
-SET answer_proposition = ''
-WHERE (`answer_proposition` LIKE "%jpg" OR  `answer_proposition` LIKE "%png") 
-
-
-ALTER TABLE `x251_quizmaker_options` ADD `opt_actif` INT NOT NULL DEFAULT '1' AFTER `opt_name`; 
-ALTER TABLE `x251_quizmaker_categories` ADD `cat_actif` TINYINT NOT NULL DEFAULT '1' AFTER `cat_name`; 
-
-
-ALTER TABLE `x251_quizmaker_questions` ADD `quest_zoom` TINYINT NOT NULL DEFAULT '0' AFTER `quest_see_also`; 
-
-//---------------------------------------
-faire le ménage dans les enregistremant orphelins
-
-update  x2511_quizmaker_questions tq set tq.quest_flag = 0;
-
-update  x2511_quizmaker_questions tq
-LEFT JOIN  x2511_quizmaker_quiz tz  on tq.quest_quiz_id=tz.quiz_id
-set tq.quest_flag = 2501
-WHERE tz.quiz_id is null;
-
-delete FROM `x2511_quizmaker_questions` WHERE `quest_flag`=2501;
----------------------------------
-update  x2511_quizmaker_answers ta set ta.answer_flag = 0;
-
-update  x2511_quizmaker_answers ta
-LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
-set ta.answer_flag = 2501
-WHERE tq.quest_id is null;
-
-delete FROM `x2511_quizmaker_answers` WHERE `answer_flag`=2501;
-
----------------------------------
-ALTER TABLE `x2511_quizmaker_answers` CHANGE `answer_points` `answer_points` INT NOT NULL DEFAULT '0'; 
-
-
-
-SELECT tq.quest_id,tq.quest_quiz_id,ta.* FROM  x2511_quizmaker_answers ta
-LEFT JOIN  `x2511_quizmaker_questions` tq  on ta.answer_quest_id=tq.quest_id
-WHERE tq.quest_id is null;
-
-
-
-
-DELETE FROM `x2511_quizmaker_questions` tq
-WHERE tq.quest_plugin='multiQuestions';
-
-SELECT tz.* FROM `x2511_quizmaker_questions` tq, x2511_quizmaker_quiz as tz
-WHERE tq.quest_quiz_id=tz.quiz_id
-AND tq.quest_plugin='multiQuestions';
-
-
-
-
-
-SELECT tq.quest_plugin, ta.* FROM `x2511_quizmaker_answers` as ta, x2511_quizmaker_questions as tq, x2511_quizmaker_quiz as tz
-WHERE ta.answer_quest_id = tq.quest_id
-AND tq.quest_quiz_id = tz.quiz_id
-AND tz.quiz_id=146
-AND tq.quest_plugin='multiQuestions';
-
-
-SELECT tq.quest_plugin, ta.* FROM `x2511_quizmaker_answers` as ta
-inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
-inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
-WHERE tz.quiz_id=146
-AND tq.quest_plugin='multiQuestions';
- 
-
-
-update `x2511_quizmaker_answers` as ta
-inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
-inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
-SET ta.answer_buffer = ta.answer_caption
-WHERE tz.quiz_id=146
-AND tq.quest_plugin='multiQuestions';
- 
-
-update `x2511_quizmaker_answers` as ta
-inner join x2511_quizmaker_questions as tq on  ta.answer_quest_id = tq.quest_id
-inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
-SET ta.answer_buffer = 'aaa,bbb,ccc', ta.answer_points=1, ta.answer_inputs=5, ta.answer_group=1
-WHERE tz.quiz_id=146
-AND tq.quest_plugin='multiQuestions';
-
-update x2511_quizmaker_questions as tq 
-inner join x2511_quizmaker_quiz as tz on  tq.quest_quiz_id = tz.quiz_id
-SET tq.quest_plugin='multiQuestions'
-WHERE tz.quiz_id=146
-AND tq.quest_plugin='multiQuestions';
-
-
-
-
-//-----------------------------------------------------------------
-SELECT * FROM `x2511_quizmaker_answers` as ta, x2511_quizmaker_questions as tq
-WHERE tq.quest_id = ta.answer_quest_id
-AND tq.quest_plugin = 'imagesDaDSortItems'
- 
-UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
-SET ta.answer_image1 =  ta.answer_proposition
-WHERE tq.quest_id = ta.answer_quest_id
-AND tq.quest_plugin = 'imagesDaDSortItems'
-
-UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
-SET ta.answer_proposition = ta.answer_caption
-WHERE tq.quest_id = ta.answer_quest_id
-AND tq.quest_plugin = 'imagesDaDSortItems'
-
-UPDATE x2511_quizmaker_answers as ta, x2511_quizmaker_questions as tq
-SET ta.answer_caption = ""
-WHERE tq.quest_id = ta.answer_quest_id
-AND tq.quest_plugin = 'imagesDaDSortItems'
------------------------------------------
-
-time()+60*60*24*30
-
-
-
-DELETE FROM `x2511_quizmaker_answers` ;
-DELETE FROM `x2511_quizmaker_questions` ;
-DELETE FROM `x2511_quizmaker_quiz` ;
-DELETE FROM `x2511_quizmaker_categories` ;
-
-
-
-
-

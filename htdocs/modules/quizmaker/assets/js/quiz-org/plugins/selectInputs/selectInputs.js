@@ -139,51 +139,14 @@ ${getNumAlpha(j,numerotation,offset)}${item.word}
     }
     
     tHtml.push('<label>');
-    tHtml.push(`<img  src='${currentQuestion.urlPlugin}/img/coches/${cocheImgName0}' title='' alt='' ${onClick}>`);
-    tHtml.push(`<img  src='${currentQuestion.urlPlugin}/img/coches/${cocheImgName0}' title='' alt='' ${onClick}>`);
+    tHtml.push(`<img  src='${quiz_config.urlImgRoot}/coches/${cocheImgName0}' title='' alt='' ${onClick}>`);
+    //tHtml.push(`<img  src='${currentQuestion.urlPlugin}/img/coches/${cocheImgName0}' title='' alt='' ${onClick}>`);
     tHtml.push(`${proposition}`);
     tHtml.push(`<input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}"caption="${item.key}" ${eventOnClick}>`);
 
     
     tHtml.push('</label>');
  }
-/* ******************************************
-*
-* ******************************************** */
- getHtmlInputKeys_old(name, typeInp2, tItems, numerotation, offset=0, extra="", sep="<br>"){
-var item;
-    var currentQuestion = this.question;
-    var keys = Object.keys(tItems);
-    var typeInp = '';
-    var eventOnClick = '';
-   
-    switch(currentQuestion.options.inputType*1){
-        case 0 :
-            typeInp = 'checkbox';
-            break;
-        case 2:
-            typeInp = 'radio';
-            eventOnClick = `onclick="selectInputs_event_gotoNextSlide(event, ${currentQuestion.options.msgNextSlideDelai});"`;
-            // pas de break
-        case 1:
-            typeInp = 'radio';
-        break;
-    }
-
-    var tHtml = [];
-    tHtml.push('<table>');
-    for(var j=0; j < keys.length; j++){
-        item = tItems[keys[j]];
-        tHtml.push(`<tr><td>
-                 <input type="${typeInp}" id="${name}-${j}" name="${name}" value="${j}" ${extra} caption="${item.key}" ${eventOnClick}>
-                 </td><td style='text-indent:0;'><label style='text-indent:0;'>${getNumAlpha(j,numerotation,offset)}${item.word}
-                 </label><td></tr>`);
-    
-    }
-    tHtml.push('</table>');
-    return tHtml.join("\n");
-
-}
 
 /* ***************************************
 *
@@ -202,8 +165,6 @@ get_listFamilywords(){
 //---------------------------------------------------
 onEnter() {
     
-    //document.getElementById('quiz_btn_nextSlide').disabled = '';
-    //alert("onEnter");
 }       
 onFinalyse() {
     super.onFinalyse();

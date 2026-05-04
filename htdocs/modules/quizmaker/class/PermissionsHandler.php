@@ -55,7 +55,7 @@ class PermissionsHandler extends \XoopsPersistableObjectHandler
 			if ($xoopsUser->isAdmin($xoopsModule->mid())) {
 				return true;
 			}
-            $currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;
+            $uid = ($xoopsUser) ? $xoopsUser->uid() : 0;
 		}
 		$grouppermHandler = xoops_getHandler('groupperm');
 		$mid = $xoopsModule->mid();

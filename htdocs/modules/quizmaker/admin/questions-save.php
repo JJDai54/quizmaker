@@ -55,7 +55,13 @@ use XoopsModules\Quizmaker\Constants;
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 		$questionsObj->setVar('quest_reference_id', Request::getInt('quest_reference_id', 0));
 		$questionsObj->setVar('quest_question', FQUIZMAKER\sanityse_inpValue(Request::getString('quest_question', '')));
-		$questionsObj->setVar('quest_identifiant1', Request::getString('quest_identifiant1', FQUIZMAKER\getNewIdentifiant()));
+		$questionsObj->setVar('quest_question_style', Request::getString('quest_question_style', ''));
+        $identifiant1 = Request::getString('quest_identifiant1');
+        while($questionsHandler->countIdentifiants($quizId, $questId, $identifiant1) > 0 || $identifiant1 == ''){
+            $identifiant1 = FQUIZMAKER\getNewIdentifiant();
+        }
+//exit;        
+		$questionsObj->setVar('quest_identifiant1', $identifiant1);
 		$questionsObj->setVar('quest_identifiant2', Request::getString('quest_identifiant2', ''));
         
         $options = Request::getArray(QUIZMAKER_PREFIX_OPTIONS_NAME, null);
@@ -168,7 +174,6 @@ echoArray($_POST,'_POST',true);
         
 		// Insert Data
 		if ($questionsHandler->insert($questionsObj)) {
-
             $questId = $questionsObj->getVar('quest_id');
 
 		    // *************** Insert propositions / answers ********************* 
@@ -189,6 +194,7 @@ echoArray($_POST,'_POST',true);
 
             
 		}
+        
         //exit('error');
 		// Get Form
 		$GLOBALS['xoopsTpl']->assign('error', $questionsObj->getHtmlErrors());

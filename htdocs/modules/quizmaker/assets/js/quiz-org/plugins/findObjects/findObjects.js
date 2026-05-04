@@ -263,7 +263,7 @@ getDisposition(disposition, contenairId){
         break;
         
     case 'disposition-02v-img':
-        var tpl =  `<table><tr><td>{imageMain}</td>{image1}{image2}<td></td></tr></table`;
+        var tpl =  `<table><tr><td  style="padding-right:8px;">{imageMain}</td>{image1}{image2}<td></td></tr></table`;
         this.data.isDivImg2 = true;
         break;
         
@@ -283,7 +283,7 @@ getDisposition(disposition, contenairId){
         break;
         
     case 'disposition-01h-img':
-        var tpl = `<table><tr><td>{imageMain}</td><td>{image1}</td></tr></table>`;
+        var tpl = `<table><tr><td style="padding-right:8px;">{imageMain}</td><td>{image1}</td></tr></table>`;
         this.data.isDivImg2 = false;
         break;
         
@@ -341,10 +341,14 @@ console.log("=====>isToucheOk");
     
     //le nombre d'essai a été atteind, l'utilisateur doit passer au slide suivant
     if(attempts.winning == clQuestion.colTouches.attempts.totalWinning){
-      alert(quiz_messages.goToNextSlideRequired2);
+      //pas utile il vaut mieux activer l'option  "Delai d'affichage du slide suivant" de la question
+      //alert(quiz_messages.goToNextSlideRequired2);
+      zoom_moins_event(e, slideNumber);
       return true;
     }else if( attempts.total >= attempts.max || attempts.winning == clQuestion.colTouches.attempts.totalWinning){
-      alert(quiz_messages.goToNextSlideRequired1);
+      //pas utile il vaut mieux activer l'option  "Delai d'affichage du slide suivant" de la question
+      //alert(quiz_messages.goToNextSlideRequired1);
+      zoom_moins_event(e, slideNumber);
       return true;
     }
 //     if( attempts.total > attempts.max){

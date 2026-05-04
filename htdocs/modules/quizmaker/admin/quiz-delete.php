@@ -27,7 +27,7 @@ use XoopsModules\Quizmaker\Utility;
 //use JANUS;
 
         $clPerms->checkAndRedirect('delete_quiz', $quizCat_id,'$quizCat_id', "quiz.php?op=list&cat_id={$quizCat_id}", QUIZMAKER_ADMIN_PERM);
-        $delCatId = $quizmakerHelper->getConfig('action_on_del_cat');
+        $delCatId = $quizmakerHelper->getConfig('action_on_quiz_deleted');
         //verifie si la catégorie de suppression defini dans les options du module existe
         //si elle n'existe pas retour à la liste
         if ($delCatId > 0 && !$categoriesHandler->exists($delCatId)) {

@@ -208,7 +208,7 @@ const maxIntrus = 6;
 
 /* *********************************** */     
          $btnLib = array('{+}','{-}','X');
-         // ajout des boutons des gestion des accolages pour les mot à selectionner, ou pas
+         // ajout des boutons de gestion des accolades pour les mots à selectionner, ou pas
          $trayBtnAccollades = new XoopsFormElementTray  ('Action', ' ');
         
         $inpBtn = new XoopsFormButton('', $fullName . '[addAccollades]', $btnLib[0]);
@@ -239,7 +239,6 @@ const maxIntrus = 6;
         
         $trayOptions->addElementOption($proseTray);     
         //-----------------------------------------------
-define('_AM_QUIZMAKER_PLUGIN_INTRUS', 'Intrus');        
         if($tValues['variant'] == 'listbox1') {
         //if($tValues['variant'] == 'listbox1' || $tValues['variant'] == 'listbox2' ) {
             $name = "intrus"; 

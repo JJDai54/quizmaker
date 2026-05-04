@@ -59,17 +59,31 @@ function quizmaker_utf8_encode($exp)
  * @param  $cats 
  * @return string
  */
-function getStyle($background='', $foreColor='', $addStyleVarName = true)
+function getStyle($background='', $foreColor='', $addStyleAtt= true)
 {
     $style = '';
     if ($background) $style .= "background:{$background};";
     if ($foreColor) $style .= "color:{$foreColor};";
     
-    if($addStyleVarName){
+    if($addStyleAtt){
         return " style='" . $style . "'";
     }else{
         return $style;  
     }
+}
+function getMsgStyle($msg, $style)
+{
+    switch(strtolower($style)){
+        case 'red'   : $ret = "<span style='color : Red;'>{$msg}</span>"; break;
+        case 'bred'  : $ret = "<b><span style='color : Red;'>{$msg}</span></b>"; break;
+        case 'blue'  : $ret = "<span style='color : blue;'>{$msg}</span>"; break;
+        case 'bblue' : $ret = "<b><span style='color : blue;'>{$msg}</span></b>"; break;
+        case 'green' : $ret = "<span style='color : green;'>{$msg}</span>"; break;
+        case 'bgreen': $ret = "<b><span style='color : green;'>{$msg}</span></b>"; break;
+        case 'b'     : $ret = "<b>{$msg}"; break;
+        default      : $ret = "<b><span style='color : green;'>{$msg}</span></b>"; break;
+    }
+    return $ret;
 }
 
 /**
@@ -303,7 +317,7 @@ function format_caractere($car, $color, $size="11px"){
  **********************************************************************/
 function canYouPlayQuiz ($quizId, $MaxAttempt){
 global $xoopsUser, $quizHandler, $resultsµHandler;  
-    $uid = $xoopsUser->uid();
+$uid = ($xoopsUser) ? $xoopsUser->uid() : 0;
     $ip = \Xmf\IPAddress::fromRequest()->asReadable();
             
     $criteria = new \CriteriaCompo(new \Citeria('result_quiz_id', $quizId, "="));
@@ -316,25 +330,28 @@ global $xoopsUser, $quizHandler, $resultsµHandler;
  * getParamsForQuiz : renvoi une chaine de parametre pour personaliser le quiz
  * Tout n'est pas utile uname et name sont probablement suffisant, a voir
  **********************************************************************/
-function getParamsForQuiz ($asString = false, $resultId=0){
+function getParamsForQuiz ($asString = false, $resultId=0, $playerId = 0)
+{
 global $xoopsUser;
         xoops_load('XoopsUserUtility');
+        $uid = ($xoopsUser) ? $xoopsUser->uid() : 0;  
     if(is_object($xoopsUser)){
-        //$currentuid = ($xoopsUser) ? $xoopsUser->uid() : 2;        
-        $allParams = array('uid'  => $xoopsUser->uid(),
+        
+        $allParams = array('uid'  => $uid,
         'uname' => $xoopsUser->getVar('uname', 'e'),
         'name' => $xoopsUser->getVar('name', 'e'),
         'email' => $xoopsUser->getVar('email', 'e'),
         'ip'   => \XoopsUserUtility::getIP(true));
     }else{
-        $currentuid = 2;        
-        $allParams = array('uid'  => 2,
+        //$currentuid = 2;      
+        $allParams = array('uid' => $uid,
         'uname' => 'Anonymous',
         'name' => 'Anonymous',
         'email' => 'anonymous@orange.fr',
         'ip'   => \XoopsUserUtility::getIP(true));
     }     
     $allParams['resultId'] = $resultId;   
+    $allParams['player_id'] = $playerId;   
     //-------------------------------------------
     if($asString){
         $t = [];
@@ -362,7 +379,8 @@ QUIZMAKER_BIT_SHOW_SLIDEBAR     => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_SL
 QUIZMAKER_BIT_ALLOWEDPREVIOUS   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ALLOWED_PREVIOUS, _AM_QUIZMAKER_QUIZ_ALLOWEDPREVIOUS_DESC),
 QUIZMAKER_BIT_USETIMER          => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_USE_TIMER, _AM_QUIZMAKER_QUIZ_USE_TIMER_DESC),
 QUIZMAKER_BIT_SHUFFLEQUESTIONS  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC),
-QUIZMAKER_BIT_SHOW_RESULTPOPUP  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC));
+QUIZMAKER_BIT_SHOW_RESULTPOPUP  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC),
+QUIZMAKER_BIT_REPOSITION_WINDOW => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS, _AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS_DESC));
         break;
 
     case 'dev':
@@ -561,14 +579,64 @@ function addXoopsFormTray(&$xtray, $caption, $formsArr, $sep = '&nbsp;-&nbsp;'){
  * $quizId int : id du quiz
  * retour arr renvoie un tableau des liste de sélection pour l'interface:
  ****************************************************************************/
-function getQuizSelector($catId, $quizSubject, $quizDifficulty, $asObject=false, $prefixName = '', $addCaption = true){
-    return getSelector('quiz', $catId, $quizSubject, $quizDifficulty, 0, $asObject, $prefixName, $addCaption);
-}
-function getQuestionsSelector($catId, $quizSubject, $quizDifficulty, $quizId, $asObject=false, $prefixName = '', $addCaption = true){
-    return getSelector('question', $catId, $quizSubject, $quizDifficulty, $quizId, $asObject, $prefixName, $addCaption);
+// function getQuizSelector($catId, $quizSubject, $quizDifficulty, 
+//                          $asObject=false, $prefixName = '', $addCaption = true, 
+//                          $inBackOffice = false){
+//                          
+//     return getSelector('quiz', $catId, $quizSubject, $quizDifficulty, 0, 
+//                        $asObject, $prefixName, $addCaption, $inBackOffice);
+// }
+// 
+// function getQuestionsSelector($catId, $quizSubject, $quizDifficulty, $quizId, 
+//                        $asObject=false, $prefixName = '', $addCaption = true, $allQuiz=false, 
+//                        $inBackOffice = false)){
+//                        
+//     return getSelector('question', $catId, $quizSubject, $quizDifficulty, $quizId, 
+//                        $asObject, $prefixName, $addCaption, $allQuiz, $inBackOffice);
+// } 
+/////////////////////////////////
+function getQuizSelectorBO($catId, $quizSubject, $quizDifficulty, 
+                         $asObject=false, $prefixName = '', $addCaption = true){
+                         
+    $inBackOffice = true;
+    return getSelector('quiz', $catId, $quizSubject, $quizDifficulty, 0, 
+                       $asObject, $prefixName, $addCaption, $inBackOffice);
 }
 
-function getSelector($domaine, $catId, $quizSubject, $quizDifficulty, $quizId=0, $asObject=false, $prefixName = '', $addCaption = true){
+function getQuestionsSelectorBO($catId, $quizSubject, $quizDifficulty, $quizId, 
+                       $asObject=false, $prefixName = '', $addCaption = true, $allQuiz=false){
+                       
+    $inBackOffice = true;
+    return getSelector('question', $catId, $quizSubject, $quizDifficulty, $quizId, 
+                       $asObject, $prefixName, $addCaption, $allQuiz, $inBackOffice);
+} 
+
+function getQuizSelectorFO($catId, $quizSubject, $quizDifficulty, 
+                         $asObject=false, $prefixName = '', $addCaption = true){
+
+    $inBackOffice = false;
+    return getSelector('quiz', $catId, $quizSubject, $quizDifficulty, 0, 
+                       $asObject, $prefixName, $addCaption, $inBackOffice);
+}
+
+function getQuestionsSelectorFO($catId, $quizSubject, $quizDifficulty, $quizId, 
+                       $asObject=false, $prefixName = '', $addCaption = true, $allQuiz=false){
+
+    $inBackOffice = false;
+    return getSelector('question', $catId, $quizSubject, $quizDifficulty, $quizId, 
+                       $asObject, $prefixName, $addCaption, $allQuiz, $inBackOffice);
+} 
+/****************************************************************************
+ * getSelector ===> Listes de selection pour filtrage des questions
+ * $quizId int : id de la categorie
+ * $quizSubject string : subject de quiz
+ * $quizId int : id du quiz
+ * retour arr renvoie un tableau des liste de sélection pour l'interface:
+ ****************************************************************************/
+
+function getSelector($domaine, $catId, $quizSubject, $quizDifficulty, $quizId=0, 
+                     $asObject=false, $prefixName = '', $addCaption = true, $allQuiz=false,
+                     $inBackOffice = false){
 global $categoriesHandler, $quizHandler, $clPerms;
 //     if(!isset(formOptions['formName']) formOptions['formName'] = 'quizmaker_select_filter';
 //     if(!isset(formOptions['formName']) formOptions['formName'] = 'quizmaker_select_filter';
@@ -578,7 +646,7 @@ global $categoriesHandler, $quizHandler, $clPerms;
     $event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="display:inline;width:auto;"';
     
 
-    //------ selection du sujet de quiz -----
+    //------ selection du sujet de la categorie -----
     $name = 'cat';
     $field = 'cat_id';
     $clPerms->addPermissions($criteriaCatAllowed, 'view_cats', 'cat_id');
@@ -589,6 +657,9 @@ global $categoriesHandler, $quizHandler, $clPerms;
     
 //echoArray($selectors[$name]['arr']);
     $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, $prefixName . $field, $catId);
+    $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+    if($inBackOffice) $inpCategory->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));        
+    
     $inpCategory->addOptionArray($selectors[$name]['arr']);
     $inpCategory->setExtra($event);
 
@@ -601,13 +672,16 @@ global $categoriesHandler, $quizHandler, $clPerms;
 
 
 
-    //------ selection du sujet de quiz -----
+    //------ selection du sujet de sujet -----
     $name = 'subject';
     $field = 'quiz_subject';
     $selectors[$name]['value'] = $quizSubject;
     $selectors[$name]['arr'] =  $quizHandler->getFieldList($field, $catId);
     if(count($selectors[$name]['arr']) > 1){
         $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT,  $prefixName . $field, $quizSubject);
+        $inpSet->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+        if($inBackOffice) $inpSet->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));        
+        
         $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
         $inpSet->addOptionArray($selectors[$name]['arr']);
         $inpSet->setExtra($event);
@@ -631,6 +705,9 @@ global $categoriesHandler, $quizHandler, $clPerms;
     if(count($selectors[$name]['arr']) > 1){
         if(QUIZMAKER_SELECTOR_DIFFICUT_MODE == 1){
           $inpDifficulty = new \XoopsFormSelect(_CO_QUIZMAKER_DIFFICULT,  $prefixName . $field, $quizDifficulty);
+          $inpDifficulty->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+          if($inBackOffice) $inpDifficulty->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));        
+
         }else{
           $inpDifficulty = new \XoopsFormRadio(_CO_QUIZMAKER_DIFFICULT,  $prefixName . $field, $quizDifficulty);
         }
@@ -651,15 +728,20 @@ global $categoriesHandler, $quizHandler, $clPerms;
    }
    if($bolUnset) unset($selectors[$name]['arr']);  
 
-    //------ selection de la difficulté -----
+    //------ selection du quiz -----
     if($domaine == 'question'){
         $name = 'quiz';
         $field = 'quiz_id';
         $selectors[$name]['value'] = $quizId;
         
-       
         $selectors[$name]['arr'] = $quizHandler->getListKeyName($catId, $quizSubject, $quizDifficulty); 
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, $prefixName . $field, $quizId);
+        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+        if($inBackOffice) $inpQuiz->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));        
+        
+        if($allQuiz){
+            $inpQuiz->addOption(0, QUIZMAKER_ALL_ITEMS_LIB); //QUIZMAKER_ALL
+        }
         $inpQuiz->addOptionArray($selectors[$name]['arr']);
         $inpQuiz->setExtra($event);
         if($asObject) 
@@ -679,3 +761,33 @@ global $categoriesHandler, $quizHandler, $clPerms;
 function getNewIdentifiant($prefixe='slide', $min=10000, $max=100000){
     return $prefixe . '_' . rand($min,$max);
 }
+
+/* *******************************
+* @catObj objet - categorie dans laquel on verifie le champ "cat_readme_status"
+* @readmeOk : valeur renvoyée par le GET ou le POST qui permet de savoir si "cat_readme_status" a etét lu ou non
+* "cat_readme_status" peut avoir 3 valeur :
+* 0 : pas de lecture de "cat_readme_text et on passe directement aui quiz ou à la catégorie
+* 1 : l'utilisateur doit lire au moins une fois "cat_readme_text" avant de valider et passer au quiz
+* 2 : "cat_readme_text" doit ête lu vant chaque lancement d'un quiz de la catégorie
+* cette fonctionalité permet par exemple de valider un règlement de concours
+******************************** */
+function isReadme($catObj, $readmeOk){
+    global $xoopsUser, $readmeHandler;
+    $uid = ($xoopsUser) ? $xoopsUser->uid() : 0;    
+    $readme = false;    
+    $catId = $catObj->getVar('cat_id');
+    $readmeStatus = $catObj->getVar('cat_readme_status');
+    
+    if($readmeStatus > 0){
+        $readmeCount =  $readmeHandler->getReadmeCount($catId, $uid);
+        if($readmeStatus == 1 && $readmeCount == 0) {
+            $readme = true;
+        }else if($readmeStatus == 2){
+            $readme = true;
+            }
+    }
+    //echo "1-readmeStatus = {$readmeStatus}<br>readmeOk = {$readmeOk}<br>readmeCount = {$readmeCount}<br>readme = " . (($readme) ? 'true': 'false'). "<br>";
+
+    return $readme && $readmeOk == 0;
+}
+

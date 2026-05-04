@@ -43,6 +43,9 @@ class Categories extends \XoopsObject
 		$this->initVar('cat_name', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_actif', XOBJ_DTYPE_INT);
 		$this->initVar('cat_description', XOBJ_DTYPE_OTHER);
+		$this->initVar('cat_readme_status', XOBJ_DTYPE_INT);
+		$this->initVar('cat_readme_label', XOBJ_DTYPE_TXTBOX);
+		$this->initVar('cat_readme_text', XOBJ_DTYPE_OTHER);
 		$this->initVar('cat_image', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_theme', XOBJ_DTYPE_TXTBOX);
 		$this->initVar('cat_weight', XOBJ_DTYPE_INT);
@@ -111,19 +114,49 @@ class Categories extends \XoopsObject
 		$form->addElement(new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'cat_actif', $this->getVar('cat_actif')));
         
 		// Form Editor DhtmlTextArea catDescription
+        $name = 'cat_description';
 		$editorConfigs = [];
 		$editor = $quizmakerHelper->getConfig('quizmaker_editor');
-		$editorConfigs['name'] = 'cat_description';
-		$editorConfigs['value'] = $this->getVar('cat_description', 'e');
+		$editorConfigs['name'] = $name;
+		$editorConfigs['value'] = $this->getVar($name, 'e');
 		$editorConfigs['rows'] = 5;
 		$editorConfigs['cols'] = 40;
 		$editorConfigs['width'] = '100%';
 		$editorConfigs['height'] = '400px';
 		$editorConfigs['editor'] = $editor;
-		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_DESCRIPTION, 'cat_description', $editorConfigs) );
-		
+		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_DESCRIPTION, $name, $editorConfigs) );
+
+        
+
+        $name = 'cat_readme_status';
+	    $inpReadmeStatus = new \XoopsFormSelect(_AM_QUIZMAKER_README_STATUS, $name, $this->getVar($name));	
+        $inpReadmeStatus->addOption(0, _AM_QUIZMAKER_README_STATUS0);
+        $inpReadmeStatus->addOption(1, _AM_QUIZMAKER_README_STATUS1);
+        $inpReadmeStatus->addOption(2, _AM_QUIZMAKER_README_STATUS2);
+		$form->addElement($inpReadmeStatus);
+
+		// Form Text cat_readme_label
+        $name = 'cat_readme_label';
+        $inpReadmeLabel= new \XoopsFormText(_AM_QUIZMAKER_README_LABEL , $name, 80, 80, $this->getVar($name));
+        $inpReadmeLabel->setDescription(_AM_QUIZMAKER_README_LABEL_DESC);
+   	    $form->addElement($inpReadmeLabel, false);
+        
+		// Form Editor DhtmlTextArea cat_readme_text
+        $name = 'cat_readme_text';
+		$editorConfigs = [];
+		$editor = $quizmakerHelper->getConfig('quizmaker_editor');
+		$editorConfigs['name'] = $name;
+		$editorConfigs['value'] = $this->getVar($name, 'e');
+		$editorConfigs['rows'] = 5;
+		$editorConfigs['cols'] = 40;
+		$editorConfigs['width'] = '100%';
+		$editorConfigs['height'] = '400px';
+		$editorConfigs['editor'] = $editor;
+		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_README_TEXT, $name, $editorConfigs) );
+        
+        
         // Categories Handler
-		$categoriesHandler = $quizmakerHelper->getHandler('Categories');
+		//$categoriesHandler = $quizmakerHelper->getHandler('Categories');
 		
         /* todo - champ à virer, pas utile de le garder
         */
@@ -247,6 +280,9 @@ class Categories extends \XoopsObject
 		$ret['description']       = $this->getVar('cat_description', 'e');
 		$editorMaxchar = $quizmakerHelper->getConfig('editor_maxchar');
 		$ret['description_short'] = $utility::truncateHtml($ret['description'], $editorMaxchar);
+		$ret['readme_text']       = $this->getVar('cat_readme_text', 'e');
+		$ret['readme_status']     = $this->getVar('cat_readme_status');
+		$ret['readme_label']      = $this->getVar('cat_readme_label');
 		$ret['theme']             = $this->getVar('cat_theme');
 		$ret['image']             = $this->getVar('cat_image');
 		$ret['weight']            = $this->getVar('cat_weight');

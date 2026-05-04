@@ -19,12 +19,6 @@
     padding: 8px 0px 8px 0px;
 }
 </style>
-
-<{*
-<{if $categoriesCount > 1}>
-    <{include file='db:quizmaker_categories_theme.tpl' }>
-<{/if}>
-*}>
 <{* ************************************************ *}>
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='quiz.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
@@ -40,39 +34,30 @@
         <{$selectors.cat.select}>&nbsp;<{$selectors.subject.select}>         
         <br><{$selectors.inpPlayer.select}>    
         <br><{$selectors.difficulty.select}>    
-<{/if}>    
+<{/if}> 
+ 
+<{if $readMeLink}>
+  <br><{$readMeLink}>  
+<{/if}>  
+
     </center></div>
 
-    <div class="item-round-bottom <{$catTheme}>-item-legend" style='margin-top:0px;'><center>...</center></div><br>
 </form>
-
-<{* ************************************************ *}>
-  <{foreach item=cat from=$categories }>
-    <{if $cat.quiz}>
-      <div class="item-round-top <{$cat.theme}>-item-head"><center><{$cat.name}></center></div>
       
-      <div class="item-round-top <{$cat.theme}>-item-info" style="padding:10px 10px 10px 32px;">
-        <img src='<{$smarty.const.QUIZMAKER_URL_UPLOAD}>/categories/<{$cat.image}>' class='left' style='height:120px;' title='' alt=''>
-        <{$cat.description}>
+      <div class="item-round-none <{$catTheme}>-item-info" style="padding:10px 10px 10px 32px;">
+        <img src='<{$smarty.const.QUIZMAKER_URL_UPLOAD}>/categories/<{$categorie.image}>' class='left' style='height:120px;' title='' alt=''>
+        <{$categorie.description}>
       </div>
-<{* plus utile avec les boutons plus explicites
-      <div class="item-round-none <{$cat.theme}>-item-legend" style="padding:10px 10px 10px 32px;">
-        <{$smarty.const._MA_QUIZMAKER_HOW_TO_RUN_QUIZ}><br>
-        <{$smarty.const._MA_QUIZMAKER_HOW_TO_SHOW_RESULTS}><br>
-        <{$smarty.const._MA_QUIZMAKER_HOW_TO_SHOW_SOLUTIONS}>
-       </div>
-*}>      
-
+      <div class="item-round-none <{$catTheme}>-item-body">
       
-
-      <div class="item-round-none <{$cat.theme}>-item-body">
+        <{* **************** affichages des quiz ********************** *}>
       <table class='quizTbl'>
       
-      <{foreach item=Quiz from=$cat.quiz name=quizItem}>
+      <{foreach item=Quiz from=$quizArr name=quizItem}>
           <{if $Quiz.quiz_html <> '' }>
           
           <{if !$smarty.foreach.quizItem.first}>
-              <td class='center' width="100%" style='height:10px' colspan='4'><hr class='<{$cat.theme}>-hr-style-one' style='margin-top:0px;margin-bottom:0px;'></td>
+              <td class='center' width="100%" style='height:10px' colspan='4'><hr class='<{$catTheme}>-hr-style-one' style='margin-top:0px;margin-bottom:0px;'></td>
           <{/if}>
           <{include file='db:quizmaker_quiz_item.tpl'}>
           <{/if}>
@@ -80,9 +65,7 @@
       <{/foreach}>
       </table>
       </div>
-      <div class="item-round-bottom <{$cat.theme}>-item-legend"><center>...</center></div><br>
-    <{/if}>
-  <{/foreach}>
+      <div class="item-round-bottom <{$catTheme}>-item-legend"><center>...</center></div><br>
   
 <hr>
 <{include file='db:quizmaker_footer.tpl' }>

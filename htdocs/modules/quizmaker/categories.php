@@ -37,16 +37,17 @@ include_once XOOPS_ROOT_PATH . '/header.php';
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 
-$GLOBALS['xoopsTpl']->assign('sysPathIcon16', $sysPathIcon16);
-$GLOBALS['xoopsTpl']->assign('sysPathIcon32', $sysPathIcon32);
-$GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
-$GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
+$GLOBALS['xoopsTpl']->assign('sysUtlIcon16', $sysUrlIcon16);
+$GLOBALS['xoopsTpl']->assign('sysUrlIcon32', $sysUrlIcon32);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon16', $modUrlIcon16);
+$GLOBALS['xoopsTpl']->assign('modUrlIcon32', $modUrlIcon32);
 
 $keywords = [];
 //----------------------------------------------------
 //$utility = new \XoopsModules\Quizmaker\Utility();
 //echoArray("gp");
 $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES];
+\JANUS\load_css('', false);    
 
 //echoArray($catArr);
 //----------------------------------------------------
@@ -63,7 +64,6 @@ $xoBreadcrumbs[] = ['title' => _MA_QUIZMAKER_CATEGORIES];
         
     	$GLOBALS['xoopsTpl']->assign('categories', $categories);
         $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));        
-    
 		unset($allCats);
         
 require __DIR__ . '/footer.php';

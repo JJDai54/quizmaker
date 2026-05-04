@@ -40,7 +40,7 @@ $GLOBALS['xoTheme']->addStylesheet( $style, null );
 
 $GLOBALS['xoopsTpl']->assign('xoops_icons32_url', XOOPS_ICONS32_URL);
 $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
-$GLOBALS['xoopsTpl']->assign('modUrlImg', QUIZMAKER_URL_IMAGE);
+
 
 $keywords = [];
 

@@ -45,9 +45,11 @@ $permArr = ['global_ac'         => _AM_QUIZMAKER_PERMISSIONS_GLOBAL_AC,
             'delete_quiz'       => _AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,
             'import_quiz'       => _AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,
             'importquest_quiz'  => _AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ,
-            'export_quiz'       => _AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ];
+            'export_quiz'       => _AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ,
+            'clearcookies_quiz' => _AM_QUIZMAKER_PERMISSIONS_CLEARCOOKIES_QUIZ,
+            'clearresults_quiz' => _AM_QUIZMAKER_PERMISSIONS_CLEARRESULTS_QUIZ];
 //            'manage_cats'       => _AM_QUIZMAKER_PERMIT_MANAGE_CATS,
-            
+         
 $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect = new \XoopsFormSelect('', 'op', $op);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
@@ -83,9 +85,11 @@ switch($domaines[1]) {
 	case 'cats':
 	case 'quiz':
         $permArr = $categoriesHandler->getList();
+        //echoArray($categoriesHandler->getList());
         break;
+        
 	default:
-	$permFound = false;
+	   $permFound = false;
 }
 
 //echoArray($permArr, "op= {$op} - domaine={$domaine}");

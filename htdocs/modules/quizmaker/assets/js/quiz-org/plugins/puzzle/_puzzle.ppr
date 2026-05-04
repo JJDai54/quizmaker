@@ -1,0 +1,104 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org\plugins\puzzle
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+Extensions=*.*
+[Project tree]
+_puzzle
+	+puzzle
+		-img
+			-buttons
+				img\buttons\Button_Icon_Black.png
+				img\buttons\Button_Icon_Blue.png
+				img\buttons\Button_Icon_BlueSky.png
+				img\buttons\Button_Icon_Brown.png
+				img\buttons\Button_Icon_Cyan.png
+				img\buttons\Button_Icon_Fuchsia.png
+				img\buttons\Button_Icon_Green.png
+				img\buttons\Button_Icon_GreenBlue.png
+				img\buttons\Button_Icon_GreenForest.png
+				img\buttons\Button_Icon_Lime.png
+				img\buttons\Button_Icon_Orange.png
+				img\buttons\Button_Icon_Pink.png
+				img\buttons\Button_Icon_Red.png
+				img\buttons\Button_Icon_Turquoise.png
+				img\buttons\Button_Icon_Violet.png
+				img\buttons\Button_Icon_Yellow.png
+				img\buttons\Button_to_push_green.png
+				img\buttons\Button_to_push_red.png
+				img\buttons\index.html
+				img\buttons\-no_icon.png
+				img\buttons\pingouin-bleu.png
+				img\buttons\pingouin-gris.png
+				img\buttons\pingouin-marron.png
+				img\buttons\pingouin-or.png
+				img\buttons\pingouin-orange.png
+				img\buttons\pingouin-rose.png
+				img\buttons\pingouin-rouge.png
+				img\buttons\pingouin-vert.png
+				img\buttons\pingouin-vertdegris.png
+				img\buttons\pingouin-violet.png
+			img\index.html
+		algo.js
+		index.html
+		lucioles.js
+		lucioles-events.js
+		lucioles-fnc.js
+		memory.js
+		memory-events.js
+		memory-fnc.js
+		puzzle.css
+		puzzle.js
+		puzzle-events.js
+		puzzle-fnc.js
+		taquin.js
+		taquin-events.js
+		taquin-fnc.js
+[Open project files]
+0=puzzle.js
+1=puzzle-fnc.js
+2=taquin.js
+3=taquin-fnc.js
+4=lucioles.js
+5=lucioles-fnc.js
+6=memory.js
+7=memory-fnc.js
+[Selected Project Files]
+Main=
+Selected=lucioles.js
+[puzzle.js]
+TopLine=83
+Caret=1,104
+[puzzle-fnc.js]
+TopLine=350
+Caret=1,405
+[taquin.js]
+TopLine=57
+Caret=1,84
+[taquin-fnc.js]
+TopLine=377
+Caret=24,423
+[lucioles.js]
+TopLine=79
+Caret=36,100
+[lucioles-fnc.js]
+TopLine=333
+Caret=26,379
+[memory.js]
+TopLine=75
+Caret=110,98
+[memory-fnc.js]
+TopLine=326
+Caret=1,373

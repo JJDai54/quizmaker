@@ -50,7 +50,7 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
               $bolOk = false;
         }else if ($GLOBALS['xoopsUser']){
           /*
-            //verifie que l'utilisateur à bien fait le quiz sionon pas de solutions, non mais !!!
+            //verifie que l'utilisateur à bien fait le quiz sinon pas de solutions, non mais !!!
             $criteria = new \CriteriaCompo(new \Criteria('result_quiz_id', $quizId));
             //echo "eee : " . $criteria->renderWhere() . '<br>';
             $criteria->add(new \Criteria('result_uid', $GLOBALS['xoopsUser']->getVar('uid')));
@@ -61,17 +61,22 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
             $bolOk = ($scoreMax > 0);
 //$bolOk = true;
         }else{
-              // l'utilisateur n'est pas connecté, pas droit de voir les solutions
+              // l'utilisateur n'est pas connecté, pas et n'a pas le droit de voir les solutions
               $bolOk = false;
         }
-
+        
+        
         if (!$bolOk){
-              redirect_header("categories.php?op=list&cat_id={$catId}&player_id={$playerId}", 5, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
+              redirect_header("categories.php?op=list&cat_id={$catId}&player_id={$playerId}", 8, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
         }
         //----------------------------------------------------------------------
 		$quizObj = $quizHandler->get($quizId);
         $quiz = $quizObj->getValuesQuiz();
         $catId = $quizObj->getVar('quiz_cat_id');
+        if($quizObj->getVar('publishAnswers') == 0){
+                      redirect_header("quiz.php?op=list&cat_id={$catId}&player_id={$playerId}", 8, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
+           
+        }
         
         //Recupe des questions du quiz
         $criteria = new \CriteriaCompo();
@@ -107,8 +112,8 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$xoopsTpl->assign('quiz', $quiz);        
 		$xoopsTpl->assign('questions', $questions);        
 		$xoopsTpl->assign('admin', true);        
-		$xoopsTpl->assign('modPathIcon16', $modPathIcon16);        
-		$xoopsTpl->assign('modPathArrows', $modPathIcon16 . "/arrows/blue");        
+		$xoopsTpl->assign('modUrlIcon16', $modUrlIcon16);        
+		$xoopsTpl->assign('modPathArrows', $modUrlIcon16 . "/arrows/blue");        
 
 $GLOBALS['xoTheme']->addStylesheet($GLOBALS['xoops']->url("modules/quizmaker/assets/css/style.css"));
 // Breadcrumbs

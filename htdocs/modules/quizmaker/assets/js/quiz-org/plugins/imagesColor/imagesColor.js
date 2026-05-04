@@ -76,13 +76,23 @@ getInnerHTML_color_picker(){
     var mouseover = `onclick="imagesColor_showPicker(event,'${this.getId('picker')}',1);"`;    //mouseover/mouseout
    // var mouseout  = '';//`onmouseout="imagesColor_showPicker(event,'${this.getId('picker')}',0);"`;    //mouseover/mouseout
     
-    
-    
-var tplDiv = `<div id={idDivImg}><img src='{src}' name='{name}' id='{id}' colorCode='{colorCode}' alt='' title='' style='height:${currentQuestion.options.imgHeight1}px;background:${currentQuestion.options.colorDefault};' ${mouseover}></div>`;
 var tHtmlImgs = [];
 var src ='';
 var img = '';
-            tHtmlImgs.push(this.getHtmlPicker());
+var tplDiv = ``;    
+    
+var tplImg = `<img src='{src}' name='{name}' id='{id}' colorCode='{colorCode}' alt='' title='' style='height:${currentQuestion.options.imgHeight1}px;background:${currentQuestion.options.colorDefault};' ${mouseover}>`;
+
+    
+    if (currentQuestion.options.showCaptions = 'top'){
+        tplDiv = `<div id={idDivImg}>{caption}<br>${tplImg}</div>`;
+    }else if (showCaptions = 'bottom'){
+        tplDiv = `<div id={idDivImg}>${tplImg}<br>{caption}</div>`;
+    }else{
+        tplDiv = `<div id={idDivImg}>${tplImg}</div>`;
+    }
+
+    tHtmlImgs.push(this.getHtmlPicker());
 
     var allAns = this.shuffleAnswers();
 
@@ -93,7 +103,8 @@ var img = '';
         img = tplDiv.replace('{src}',src)
                     .replace('{name}',ans.name)
                     .replace('{id}',ans.ansId)
-                    .replace('{idDivImg}', this.getId('divImg',k));
+                    .replace('{idDivImg}', this.getId('divImg',k))
+                    .replace('{caption}', ans.caption);
         tHtmlImgs.push(img);
         if(currentQuestion.options.nbImagesByRow != 0 && ((k+1) % currentQuestion.options.nbImagesByRow) == 0 ){
             tHtmlImgs.push(qbr);
@@ -150,7 +161,8 @@ getHtmlPicker(){
      for(var k in currentQuestion.answers){
          var ans = currentQuestion.answers[k];
          ans.idColor = this.getId('color', k);
-         ans.caption = ans.caption.replace(' ',qbr).replace('/',qbr);
+         //ans.caption = ans.caption.replace('_',qbr).replace('/',qbr);
+         ans.caption = ans.caption.replace('_',qbr);
          
          if(ans.points <= 0) {ans.points = 1;}
          colors.push(tplColors.replaceAll('{color}', ans.color));

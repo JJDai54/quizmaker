@@ -160,7 +160,7 @@ var points = 0;
 //---------------------------------------------------
 computeScoresMinMaxByProposition(){
     var currentQuestion = this.question;
-    var score = {min:0, max:0};
+    //var score = {min:0, max:0};
 
 
      var nbItemTofind = 0;

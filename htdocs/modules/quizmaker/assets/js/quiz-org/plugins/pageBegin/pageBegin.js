@@ -37,7 +37,7 @@ var name = this.getName();
         htmlArr.push(
           `<div class="quiz-shadowbox "  style='width:90%;' disabled>
           <center>${quiz_messages.notConnected}</center><br> 
-          ${quiz_messages.inputYourPseudo} : <input type="text" id="quiz_pseudo" name="quiz_pseudo" oninput="quiz_input_pseudo_event(event, '${id}');">
+          ${quiz_messages.inputYourEmail}&nbsp;:<br><input type="text" id="quiz_pseudo" name="quiz_pseudo" oninput="quiz_input_pseudo_event(event, '${id}');" autocomplete="email">
           </div>`);
     }
     
@@ -99,7 +99,7 @@ onEnter() {
   
 
 
-} // ----- fin de la class ------
+} // ----- fin de la classe ------
 
 
 function quiz_input_pseudo_event(ev, id) {
@@ -107,12 +107,14 @@ function quiz_input_pseudo_event(ev, id) {
     ///var pseudo = ev.currentTarget.value;
 //     pseudo = pseudo.replace('-','');
 //     pseudo = pseudo.replace('_','z');
-    var pseudo = ev.currentTarget.value.replace(/#|_/g, '').replace(/[^\w\s]/gi, '');
-    ev.currentTarget.value = pseudo;
+    var pseudo = ev.currentTarget.value;
+    //var pseudo = ev.currentTarget.value.replace(/#|_/g, '').replace(/[^\w\s]/gi, '');
+    //ev.currentTarget.value = pseudo;
     
     var btn = document.getElementById('quiz_btn_startQuiz');
     
-    if (pseudo == 'Anonymous' || pseudo.length < 5){    
+    //if (pseudo == 'Anonymous' || pseudo.length < 5){    
+    if (!isEmail(pseudo)){    
         //alert('pas ok - pseudo = ' + pseudo);    
         //theQuiz.enableButton (btnStartQuiz, 0, true);
         quiz_rgp.uname = pseudo;        
@@ -132,7 +134,7 @@ function quiz_input_pseudo_event(ev, id) {
         btn.disabled = '';
     }
 
-} // ---------- fin de la class ----------------------
+} 
 
 function startQuiz(){
     var btnStartQuiz = document.getElementById("quiz_btn_startQuiz");

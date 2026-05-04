@@ -161,9 +161,10 @@ function PluginName_event_gotoNextSlide(ev, inputType, msgNextSlideDelai){
 * * Affecte la réponse et passe au slide suivant
 * ********** */
 function PluginName_next_slide(idDivNextQuestion){
-    var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
-        btnNextSlide.disabled = '';   
-        btnNextSlide.click(); 
+//    var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
+//         btnNextSlide.disabled = '';   
+//         btnNextSlide.click(); 
+        updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement').click();
     
    if(obNextSlide){
      obNextSlide.style.visibility = 'hidden';

@@ -39,6 +39,7 @@ class Utility
     use Common\FilesManagement; // Files Management Trait
 
     use Utilities\ModuleUtility;  
+    use Utilities\QuizUtility; 
     use Utilities\QuizBuildUtility; 
     use Utilities\QuizExport; 
     use Utilities\QuizImport; 
