@@ -1,0 +1,54 @@
+:root { --plateau-w: 600px; --plateau-h: 300px; --grid-size: 30px; --match-h: 90px; --match-w: 12px; --background-color: #EFEFEF}
+
+.allumettes_main_container { display: flex; gap: 20px; align-items: flex-start; padding: 20px; }
+.allumettes_plateau { 
+    width: var(--plateau-w); 
+    height: var(--plateau-h); 
+    border: 2px solid #333; 
+    position: relative; 
+    background-image: 
+    linear-gradient(#ddd 1px, transparent 1px), linear-gradient(90deg, #ddd 1px, transparent 1px); 
+    background-size: var(--grid-size) var(--grid-size); 
+    overflow: hidden; 
+    background-color: var(--background-color); 
+    flex-shrink: 0; }
+
+
+/*
+al_table { width: 100%; border-collapse: collapse; }
+al_th, td { border: 1px solid #ccc; padding: 2px; text-align: center; }
+*/
+.allumettes_diff { color: red; font-weight: bold; }
+
+.allumette { position: absolute; 
+             cursor: grab; 
+             display: flex; 
+             flex-direction: column; 
+             align-items: center; 
+             touch-action: none; 
+             user-select: none; 
+             transform-origin: center center; 
+             transition: none;
+             z-index: 2; 
+             }
+             
+.allumette_mobile {  
+    cursor: grab; 
+}
+.allumette_fixe {  
+    cursor: not-allowed; 
+}
+
+.allumettes_tete { width: var(--match-w); height: var(--match-w); border-radius: 50%; }
+.allumettes_corps { width: var(--match-w); height: var(--match-h); background: #e3c4a8; }
+.allumettes_controls { padding: 10px; background: #f0f0f0; border: 1px solid #ccc; font-size: 0.85em; margin-bottom: 10px; }
+
+/* *******normalement pas utile ************** */
+
+.allumettes_del_btn { display: none; position: absolute; top: -12px; right: -12px; background: #28a745; color: white; border-radius: 50%; width:  var(--match-w); height:  var(--match-w); text-align: center; cursor: pointer; border: 2px solid white; z-index: 10; }
+.allumettes_mode_delete .allumette .allumettes_del_btn { display: block; }
+#allumettes_statusMessage { font-size: 1.2em; color: green; font-weight: bold; height: 20px; text-align: center; }
+
+#allumettes_side_panel { display: flex; flex-direction: column; gap: 10px; width: 280px; }
+.allumettes_button_group { display: flex; gap: 5px; }
+.allumettes_button_group button { flex: 1; }

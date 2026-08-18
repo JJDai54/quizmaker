@@ -47,6 +47,10 @@ stats = {
 //    this.computeScoresMinMax();
 //alert(this.typeName)    
     }
+    
+/* **********************************************************
+*
+************************************************************* */
 zzzzz(){
     return this.isZoomed;
 }
@@ -331,57 +335,10 @@ getImage(){
 /* ***************************************
 *
 * *** */
-getImage_old(){
-    var name = this.getName();
-    var currentQuestion = this.question;
-    
-    if (currentQuestion.image_style) {
-    alert(currentQuestion.image_style);
-    //var obStyle = Object.create(currentQuestion.image_style);
-    //var obStyle = JSON.parse(JSON.stringify(currentQuestion.image_style));
-    var obStyle = JSON.parse(currentQuestion.image_style);
-    //alert(obStyle.join("\n"));
-    alert(obStyle.height.value);
-    }
-        
-    if (currentQuestion.image) {
-        var $style = `height:${currentQuestion.height}px;max-width:800px;`;   
-        if(currentQuestion.shadow){
-            if(currentQuestion.shadow.toUpperCase() != '#FFFFFF'){
-                $style += `box-shadow: 8px 8px 5px ${currentQuestion.shadow};`;
-            }
-        }else{
-                $style += `box-shadow: 8px 8px 5px #000000`;
-        }
-        
-        //return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" alt="" title="" height="${currentQuestion.height}px"></center>`;
-        return `<center><img src="${quiz_config.urlQuizImg}/${currentQuestion.image}" class='quiz_image_main' alt="" title="" style="${$style}"></center>`;
-    }else{
-        return "";
-    }
+isImage(){
+    return this.question.image;
 }
 
-getBackground2(){
-//alert(quiz.background);
-    var currentQuestion = this.question;
-
-    if(currentQuestion.background){
-        var background = currentQuestion.background;
-    }else if(quiz.background){
-        var background = quiz.background;
-    }else{
-        return false;
-    }
-    
-    var url = `url(${quiz_config.urlQuizImg}/${background})`;
-    //alert(`slide[${this.slideNumber}]`);
-    var obDiv = document.getElementById(`slide[${this.slideNumber}]`);
-    if(obDiv){
-      alert('getBackground : slide n° = ' + obDiv.id);
-      obDiv.style.background = 'green';
-    }
-    
-}
 getBackground(){
 //alert(quiz.background);
     var currentQuestion = this.question;
@@ -406,10 +363,42 @@ getBackground(){
 }
 
 /* ***************************************
-*
+*show_avertissement_WL : affiche le messaage winer ou looser selon
+*                       permmet juste de faciliter la lecture dans les plugin aux vues de lalongueur des parametres
 * *** */
-isImage(){
-    return this.question.image;
+show_avertissement_WL(isWiner = true){
+    computeAllScoreEvent();    
+    var options = this.question.options;
+    var message = (isWiner) ? options.msg_nextslide_winner : options.msg_nextslide_looser;
+    if(isWiner){
+        var message    = options.msg_nextslide_winner;
+        var background = options.msg_nextslide_bgWinner;
+    }else{
+        var message    = options.msg_nextslide_looser;
+        var background = options.msg_nextslide_bgLooser;
+    }
+ //alert(`show_avertissement_WL : msg : ${message}\n bg = ${background}`)  
+    if(!background) background = '#FFCCFF';
+    var btnNextSlideId = (options.msg_nextslide_gotonext*1) ? 'quiz_btn_nextSlide' : '';
+    //alert(`${options.msg_nextslide_gotonext} ===> ${btnNextSlideId}`)
+    QuizMaker.MessageManager.show(replaceBalisesByValues(message), options.msg_nextslide_duree, btnNextSlideId, {'background': background, 'fontSize':'1.5em','textColor':'blue'});    
+}
+
+
+/* ***************************************
+* && !bStopTimer
+* 
+* *** */
+reStartChronos(){
+    let currentQuestion = this.question;
+//alert(`currentQuestion.timer  = ${currentQuestion.timer}\n this.slideNumber = ${this.slideNumber} \n quiz.useTimer = ${quiz.useTimer}\n $currentQuestion.startTimer = ${currentQuestion.startTimer}`)    
+    if (currentQuestion.timer > 0 && this.slideNumber > 0 && (quiz.useTimer || currentQuestion.startTimer) && currentQuestion.startTimer == 2){
+        statsTotal.slideTimer = currentQuestion.timer;
+        quizDivChronos.restart(currentQuestion.timer);
+    }
+
+
+
 }
 /* ***************************************
 *
@@ -433,7 +422,7 @@ setFocus(){
     if(this.focusId != ''){
         try{
         document.getElementById(this.focusId).focus({focusVisible:true});
-        console.log('===>setFocus : ' + this.focusId + " = " + document.getElementById(this.focusId).value);
+        //console.log('===>setFocus : ' + this.focusId + " = " + document.getElementById(this.focusId).value);
         }catch{}
     }
 }
@@ -509,18 +498,27 @@ var points = 0;
 
     var currentQuestion = this.question;
     var score = this.getScoreByProposition(answerContainer);
-   //alert('currentQuestion.question : ' + score + `===> this.scoreMaxiBP = ${this.scoreMaxiBP}`);
+
+   //alert(`===>getScore : ${this.slideNumber} - currentQuestion.question : score = ${score} ===> this.scoreMaxiBP = ${this.scoreMaxiBP}`);
     this.blob(`===> getScore : ${this.getName()} : score=${score} - scoreMaxiBP=${this.scoreMaxiBP} - scoreMaxiQQ=${this.scoreMaxiQQ}`);
-    
     if(currentQuestion.points > 0 && score == this.scoreMaxiBP){
+    //alert(`getScore => cas 1 : getScore : ${currentQuestion.points}`);
         return currentQuestion.points
     }else if(currentQuestion.points > 0 && score != 0){ 
+    //alert(`getScore => cas 2 : getScore : ${currentQuestion.points}`);
         return 0;
     }else{return score;}
 }
 
 //---------------------------------------------------
 getScoreByProposition (answerContainer){return 0;}
+
+/* *******************************************
+*
+* * ********** */
+isScoreOk (){
+    return (this.getScoreByProposition(null) == this.scoreMaxiQQ);
+ }
 
 /* *******************************************
 * isInputOk : renvoie vrai si reponsemin = 0 ou si le nombre minimum de réponse requise est atteint
@@ -530,7 +528,6 @@ getScoreByProposition (answerContainer){return 0;}
 isInputOk (answerContainer){
     return true;
  }
-
 /* *******************************************
 * getAllReponses : renvoie les réponse à la question
 * @ flag int: 0 = aucune réponse  1 = toutes les réponses / 2 = que les bonnes réponses
@@ -580,13 +577,13 @@ Appelé à la fin de l'affichage d'un nouveau slide
 *************************************************** */
 onFinalyse() {
     var currentQuestion = this.question;
-    if (currentQuestion.options.nextSlideDelai*1 > 0){
+    if (currentQuestion.options.msg_nextslide_duree*1 > 0){
         //document.getElementById('quiz_btn_nextSlide').setAttribute('disabled','disabled');
         //document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
-        updateButton('quiz_btn_nextSlide', 0, 'getScoreByProposition');
+        updateButton('quiz_btn_nextSlide', 0, null, 'getScoreByProposition');
     }else{
         //document.getElementById('quiz_btn_nextSlide').disabled = '';
-        updateButton('quiz_btn_nextSlide', 1, 'getScoreByProposition');
+        updateButton('quiz_btn_nextSlide', 1, null, 'getScoreByProposition');
     }
 
     if(currentQuestion.zoom == 2) {
@@ -596,7 +593,14 @@ onFinalyse() {
 }
 
 //---------------------------------------------------
-getDisposition(disposition, tableId=null){}  
+/* ************************************
+* renvoi un template de la dispodition
+* le template renvoyé contient des expression entoutée d'accolades sui seront remplacées par les objets du slide
+* @disposition string : chaine de caracter correspondant à l'icone (sans lextension) selectionné dans la question.
+*                       exemple : disposition_00, disposition_01, ...
+* @objectId string : id falcutatif de l'objet principal
+* **** */
+getDisposition(disposition, objectId=null){}  
 
 /* ************************************
 *
@@ -637,35 +641,38 @@ sanityse_question(bReplaceSlash = false)
   } 
   
 /* ************************************
-*
+*function reloadQuestion : recharge le slide selon le mode passé en parametre
+* const reloadOrg = -1;
+* const reloadClassified = 0;
+* const reloadShuffle = 1;
+bShuffle
 * **** */
-reloadQuestion(bShuffle = true)
-  {
-    //alert('reloadQuestion : ' + ((bShuffle) ? 'true': 'false'));
+reloadQuestion(reloadMode = reloadShuffle){
+    //alert('reloadQuestion : ' + ((reloadMode) ? 'true': 'false'));
 //return false;
     var currentQuestion = this.question;
     if (currentQuestion.hasZoom && currentQuestion.zoom > 0){
-        var htmlSlide = zoom_getCapsule(this.buildSlide(bShuffle), this.slideNumber, 1, false);
+        var htmlSlide = zoom_getCapsule(this.buildSlide(reloadMode), this.slideNumber, 1, false);
     }else{
-        var htmlSlide = this.buildSlide(bShuffle);
+        var htmlSlide = this.buildSlide(reloadMode);
     } 
     
-//         if (clQuestion.question.hasZoom){
-//             if(clQuestion.question.zoom > 0){
-//                 var htmlSlide = zoom_getCapsule(clQuestion.buildSlide(), clQuestion.slideNumber, 1, false);
-//             }else{
-//                 var htmlSlide = clQuestion.buildSlide();
-//             }
-//         }else{
-//             var htmlSlide = clQuestion.buildSlide();
-//         } 
     document.getElementById(this.divMainId).innerHTML = htmlSlide;
 
   //alert('===>reloadQuestion');
-    //document.getElementById(this.divMainId).innerHTML = this.getInnerHTML(bShuffle);
+    //document.getElementById(this.divMainId).innerHTML = this.getInnerHTML(reloadMode);
     this.initSlide();
     this.setFocus();
   } 
+  
+/* ************************************
+*evalSlideForNext : function d'évaluation du slide.
+*                   permet de défini le comportement a adopter en cas d'échec ou de victiore selon le slide
+* nouvelle fonction destinée à harmoniser tous les plugins, a mettre à jour donc
+* pour faciliter la tâche ce sont les fonction qui contiennent en général "quiz_show_avertissement" ou "show_avertissement_WL"
+* **** */
+evalSlideForNext(){
+}
   
 /* ************************************
 *
@@ -674,7 +681,6 @@ showGoodAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
   {
     this.reloadQuestion(false);
   } 
-  
 /* ************************************
 *
 * **** */

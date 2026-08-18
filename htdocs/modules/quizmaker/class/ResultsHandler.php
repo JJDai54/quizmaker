@@ -115,6 +115,7 @@ class ResultsHandler extends \XoopsPersistableObjectHandler
 		$crAllResults = $this->getResultsCriteria($newCriteria, $start, $limit, $sort, $order);
 		return parent::getAll($crAllResults);
 	}
+    
 	public function getAllResultsArr($criteria=null, $start = 0, $limit = 0, $sort = 'result_id', $order = 'ASC')
 	{
 		$newCriteria = ($criteria) ? $criteria: new \CriteriaCompo();
@@ -245,8 +246,8 @@ global $resultsHandler;
         $lineData[] = $arr['result_answers_achieved'];
         $lineData[] = $arr['result_duration'];
         $lineData[] = $arr['result_note'];
-        $lineData[] = $arr['creation'];
-        $lineData[] = $arr['update'];
+        $lineData[] = $arr['result_creation'];
+        $lineData[] = $arr['result_update'];
         //$lineData[] = $arr[''];
         //$lineData[] = str_replace('.',',',$arr['result_note']);
             
@@ -256,4 +257,82 @@ global $resultsHandler;
     fclose($f);
     return $fullName;
 }    
+
+/* ***
+*/
+public function updateEmptyFields($quizId){
+    $usershandler = xoops_getHandler('user');
+        
+    $criteria = new \CriteriaCompo();            
+    $criteria->add(new \Criteria('result_quiz_id',$quizId, "="));
+    $criteria->add(new \Criteria('result_uid', 0, ">"));
+    //$criteria->add(new \Criteria('result_uid', 3, "<>"));
+    //$criteria->add(new \Criteria('length(result_uname)',0,'='));
+    
+    $criteria2 = new \CriteriaCompo();
+    $criteria2->add(new \Criteria('', 0, '=',null,'length(result_uname)'));
+    $criteria2->add(new \Criteria('', 0, '=',null,'length(result_email)'),"OR");
+    $criteria->add($criteria2);
+        
+    $result = $this->getAllResultsArr($criteria); 
+//echoArray($result);exit;
+    if(count($result) ==  0) return 0;
+    foreach($result AS $key=>$arr){
+    //echoArray($arr);
+        $uid = $arr['uid'];
+        $user = $usershandler->get($uid);
+        $resultObj = $this->get($arr['id']);
+        if($user){
+          $resultObj->setVar('result_uname', $user->getVar('uname'));
+          $resultObj->setVar('result_email', $user->getVar('email'));
+          $this->insert($resultObj);
+        }else{
+          //le user n'existe plus
+          $this->delete($resultObj);
+        }        
+
+    }
+ 
+    return count($result);
+}
+
+/* ***
+*/
+public function deleteEmptyFields($quizId){
+
+    //on ne supprime pas les anonymes dont l'email est renseigné
+    $criteria = new \CriteriaCompo();            
+    $criteria->add(new \Criteria('result_quiz_id',$quizId, "="));
+    $criteria->add(new \Criteria('', 0, '=',null,'length(result_uname)'));
+    $criteria->add(new \Criteria('', 0, '=',null,'length(result_email)'),"AND");
+    $this->deleteAll($criteria);
+
+    return true;
+}
+
+/* ******************************
+ * renvoie une liste "id=>name" pour les formSelect 
+ * *********************** */
+    public function getListKeyName($criteria = null, $keyField=null, $nameField = null, $addAll=false, $addNull=false)
+    {
+        if(!$keyField) $nameField = 'result_id';
+        if(!$nameField) $nameField = 'result_email';
+        
+        $obs = $this->getObjects($criteria, true);
+        $ret = array();
+        if ($addAll) $ret[0] = "(*)";
+        
+        foreach (array_keys($obs) as $i) {
+            $key = $obs[$i]->getVar($keyField);
+            //echo "i = {$i} - key = {$key}<br>";
+            if (($key) == $obs[$i]->getVar($nameField)){
+                $ret[$key] = $obs[$i]->getVar($nameField) ;
+            }else{
+                $ret[$key] = ((QUIZMAKER_ADD_ID) ? " (#{$key}) - " : "") . $obs[$i]->getVar($nameField) ;
+            }
+        }
+        //echoArray($ret);exit;
+        return $ret;
+    }
+
 } // -------------------fin de la classe ---------------

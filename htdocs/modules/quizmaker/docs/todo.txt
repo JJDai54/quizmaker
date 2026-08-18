@@ -1,3 +1,113 @@
+5?8
+
+
+Regex simple (/<sup>(.*?)<\/sup>/g) pour remplacer par
+
+/<sup>\s*(.*?)\s*<\/sup>/g (le \s* gère les éventuels espaces).
+let expJS = expression.replace(/<sup>(.*?)<\/sup>/g, "**($1)");
+                      
+
+////////////////////////////
+const exposantsMap = {
+    '0': '°', '1': '¹', '2': '²', '3': '³', '4': '4', 
+    '5': '5', '6': '6', '7': '7', '8': '8', '9': '?'
+};
+
+const texteOriginal = "x<sup>2</sup> + y<sup>3</sup> = 5";
+
+// 1. POUR L'AFFICHAGE (Interface utilisateur)
+// On transforme <sup>n</sup> en son équivalent Unicode
+const affichage = texteOriginal.replace(/<sup>(\d)<\/sup>/g, (match, n) => {
+    return exposantsMap[n] || match;
+});
+console.log(affichage); 
+// Résultat : "x² + y³ = 5"
+
+// 2. POUR LA RÉSOLUTION (Calcul mathématique)
+// On transforme <sup>n</sup> en **n
+const pourCalcul = texteOriginal.replace(/<sup>(\d)<\/sup>/g, "**$1");
+console.log(pourCalcul); 
+// Résultat : "x**2 + y**3 = 5"
+////////////////////////////
+const exposantsMap = {
+    '0': '°', '1': '¹', '2': '²', '3': '³', '4': '4', 
+    '5': '5', '6': '6', '7': '7', '8': '8', '9': '?'
+};
+
+const texteOriginal = "x^2 + y^3 = 5";
+
+// La regex /\^(\d)/g cherche le symbole ^ suivi d'un chiffre
+const affichage = texteOriginal.replace(/\^(\d)/g, (match, n) => {
+    return exposantsMap[n];
+});
+
+console.log(affichage); 
+// Résultat : "x² + y³ = 5"
+=========================================
+const pourCalcul = texteOriginal.replace(/\^(\d)/g, "**$1");
+console.log(pourCalcul);
+// Résultat : "x**2 + y**3 = 5"
+////////////////////////////
+const exposantsMap = {
+    '0': '°', '1': '¹', '2': '²', '3': '³', '4': '4', 
+    '5': '5', '6': '6', '7': '7', '8': '8', '9': '?'
+};
+
+const saisieAdmin = "x^2 + y^3";
+
+// 1. Pour l'AFFICHAGE visuel (remplace ^n par l'exposant Unicode)
+const affichage = saisieAdmin.replace(/\^(\d)/g, (match, n) => exposantsMap[n]);
+
+// 2. Pour le CALCUL (remplace ^n par **n pour le moteur JS)
+const pourCalcul = saisieAdmin.replace(/\^(\d)/g, "**$1");
+
+console.log("Affichage :", affichage);   // "x² + y³"
+console.log("Calcul :", pourCalcul);     // "x**2 + y**3"
+/////////////////////////////////
+C'est une excellente intuition. La saisie avec le caret (`^`) est beaucoup plus intuitive et rapide que la saisie de balises HTML. C'est le standard utilisé par la plupart des logiciels mathématiques (comme Excel, les calculatrices graphiques, etc.).
+
+Puisque vous avez déjà validé cette approche, voici comment vous pouvez gérer les deux besoins (affichage et calcul) en utilisant la notation `^n` comme source unique :
+
+### La solution : "Single Source of Truth"
+
+Vous stockez en base de données ou dans votre code la chaîne simple : `"x^2 + y^3"`.
+
+Ensuite, vous appliquez le traitement selon le contexte :
+
+```javascript
+const exposantsMap = {
+    '0': '°', '1': '¹', '2': '²', '3': '³', '4': '4', 
+    '5': '5', '6': '6', '7': '7', '8': '8', '9': '?'
+};
+
+const saisieAdmin = "x^2 + y^3";
+
+// 1. Pour l'AFFICHAGE visuel (remplace ^n par l'exposant Unicode)
+const affichage = saisieAdmin.replace(/\^(\d)/g, (match, n) => exposantsMap[n]);
+
+// 2. Pour le CALCUL (remplace ^n par **n pour le moteur JS)
+const pourCalcul = saisieAdmin.replace(/\^(\d)/g, "**$1");
+
+console.log("Affichage :", affichage);   // "x² + y³"
+console.log("Calcul :", pourCalcul);     // "x**2 + y**3"
+
+```
+
+### Pourquoi c'est la meilleure option :
+
+1. **Confort administrateur :** Il n'a plus à se soucier des balises HTML. Il tape `^` comme sur une calculatrice.
+2. **Code plus propre :** Vous supprimez toute dépendance au HTML dans votre logique métier.
+3. **Moins d'erreurs :** Comme il n'y a pas de balise ouvrante et fermante (`<sup>` et `</sup>`), il ne peut pas y avoir d'oubli de balise de fermeture qui casserait votre mise en page.
+4. **Évolutivité :** Si un jour vous voulez gérer `x^10`, il vous suffira de modifier légèrement la regex pour capturer `\d+` (plusieurs chiffres) et de boucler sur le tableau, sans changer le format de saisie.
+
+C'est vraiment l'approche la plus "professionnelle" et la plus ergonomique pour votre projet. Bonne chance pour le reste du développement !
+//////////////////////////////////////////////////////////
+
+SELECT `quest_quiz_id`,`quest_id`,`quest_question`,quest_plugin,`quest_options` 
+FROM `x251_quizmaker_questions` 
+WHERE `quest_plugin`='puzzle'
+AND (quest_options LIKE "%taquin%" OR quest_options LIKE "%memory%" OR quest_options LIKE "%luciole%")
+
 2026-04-26a
 ALTER TABLE `x251_quizmaker_questions` ADD `quest_question_style` TEXT NOT NULL AFTER `quest_question`;
 

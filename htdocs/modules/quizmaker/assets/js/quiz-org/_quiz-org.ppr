@@ -18,6 +18,313 @@ Extensions=*.*
 [Project tree]
 _quiz-org
 	+quiz-org
+		-__images__
+			-alphabets
+				-gif-Squelette
+					__images__\alphabets\gif-Squelette\chr_032.gif
+					__images__\alphabets\gif-Squelette\chr_045.gif
+					__images__\alphabets\gif-Squelette\chr_046.gif
+					__images__\alphabets\gif-Squelette\chr_048.gif
+					__images__\alphabets\gif-Squelette\chr_049.gif
+					__images__\alphabets\gif-Squelette\chr_050.gif
+					__images__\alphabets\gif-Squelette\chr_051.gif
+					__images__\alphabets\gif-Squelette\chr_052.gif
+					__images__\alphabets\gif-Squelette\chr_053.gif
+					__images__\alphabets\gif-Squelette\chr_054.gif
+					__images__\alphabets\gif-Squelette\chr_055.gif
+					__images__\alphabets\gif-Squelette\chr_056.gif
+					__images__\alphabets\gif-Squelette\chr_057.gif
+					__images__\alphabets\gif-Squelette\chr_063.gif
+					__images__\alphabets\gif-Squelette\chr_064.gif
+					__images__\alphabets\gif-Squelette\chr_065.gif
+					__images__\alphabets\gif-Squelette\chr_066.gif
+					__images__\alphabets\gif-Squelette\chr_067.gif
+					__images__\alphabets\gif-Squelette\chr_068.gif
+					__images__\alphabets\gif-Squelette\chr_069.gif
+					__images__\alphabets\gif-Squelette\chr_070.gif
+					__images__\alphabets\gif-Squelette\chr_071.gif
+					__images__\alphabets\gif-Squelette\chr_072.gif
+					__images__\alphabets\gif-Squelette\chr_073.gif
+					__images__\alphabets\gif-Squelette\chr_074.gif
+					__images__\alphabets\gif-Squelette\chr_075.gif
+					__images__\alphabets\gif-Squelette\chr_076.gif
+					__images__\alphabets\gif-Squelette\chr_077.gif
+					__images__\alphabets\gif-Squelette\chr_078.gif
+					__images__\alphabets\gif-Squelette\chr_079.gif
+					__images__\alphabets\gif-Squelette\chr_080.gif
+					__images__\alphabets\gif-Squelette\chr_081.gif
+					__images__\alphabets\gif-Squelette\chr_082.gif
+					__images__\alphabets\gif-Squelette\chr_083.gif
+					__images__\alphabets\gif-Squelette\chr_084.gif
+					__images__\alphabets\gif-Squelette\chr_085.gif
+					__images__\alphabets\gif-Squelette\chr_086.gif
+					__images__\alphabets\gif-Squelette\chr_087.gif
+					__images__\alphabets\gif-Squelette\chr_088.gif
+					__images__\alphabets\gif-Squelette\chr_089.gif
+					__images__\alphabets\gif-Squelette\chr_090.gif
+					__images__\alphabets\gif-Squelette\chr_095.gif
+				-png-Beton
+					__images__\alphabets\png-Beton\chr_032.png
+					__images__\alphabets\png-Beton\chr_045.png
+					__images__\alphabets\png-Beton\chr_046.png
+					__images__\alphabets\png-Beton\chr_048.png
+					__images__\alphabets\png-Beton\chr_049.png
+					__images__\alphabets\png-Beton\chr_050.png
+					__images__\alphabets\png-Beton\chr_051.png
+					__images__\alphabets\png-Beton\chr_052.png
+					__images__\alphabets\png-Beton\chr_053.png
+					__images__\alphabets\png-Beton\chr_054.png
+					__images__\alphabets\png-Beton\chr_055.png
+					__images__\alphabets\png-Beton\chr_056.png
+					__images__\alphabets\png-Beton\chr_057.png
+					__images__\alphabets\png-Beton\chr_064.png
+					__images__\alphabets\png-Beton\chr_065.png
+					__images__\alphabets\png-Beton\chr_066.png
+					__images__\alphabets\png-Beton\chr_067.png
+					__images__\alphabets\png-Beton\chr_068.png
+					__images__\alphabets\png-Beton\chr_069.png
+					__images__\alphabets\png-Beton\chr_070.png
+					__images__\alphabets\png-Beton\chr_071.png
+					__images__\alphabets\png-Beton\chr_072.png
+					__images__\alphabets\png-Beton\chr_073.png
+					__images__\alphabets\png-Beton\chr_074.png
+					__images__\alphabets\png-Beton\chr_075.png
+					__images__\alphabets\png-Beton\chr_076.png
+					__images__\alphabets\png-Beton\chr_077.png
+					__images__\alphabets\png-Beton\chr_078.png
+					__images__\alphabets\png-Beton\chr_079.png
+					__images__\alphabets\png-Beton\chr_080.png
+					__images__\alphabets\png-Beton\chr_081.png
+					__images__\alphabets\png-Beton\chr_082.png
+					__images__\alphabets\png-Beton\chr_083.png
+					__images__\alphabets\png-Beton\chr_084.png
+					__images__\alphabets\png-Beton\chr_085.png
+					__images__\alphabets\png-Beton\chr_086.png
+					__images__\alphabets\png-Beton\chr_087.png
+					__images__\alphabets\png-Beton\chr_088.png
+					__images__\alphabets\png-Beton\chr_089.png
+					__images__\alphabets\png-Beton\chr_090.png
+					__images__\alphabets\png-Beton\chr_095.png
+				-png-cordes
+					__images__\alphabets\png-cordes\chr_032.png
+					__images__\alphabets\png-cordes\chr_045.png
+					__images__\alphabets\png-cordes\chr_046.png
+					__images__\alphabets\png-cordes\chr_048.png
+					__images__\alphabets\png-cordes\chr_049.png
+					__images__\alphabets\png-cordes\chr_050.png
+					__images__\alphabets\png-cordes\chr_051.png
+					__images__\alphabets\png-cordes\chr_052.png
+					__images__\alphabets\png-cordes\chr_053.png
+					__images__\alphabets\png-cordes\chr_054.png
+					__images__\alphabets\png-cordes\chr_055.png
+					__images__\alphabets\png-cordes\chr_056.png
+					__images__\alphabets\png-cordes\chr_057.png
+					__images__\alphabets\png-cordes\chr_064.png
+					__images__\alphabets\png-cordes\chr_065.png
+					__images__\alphabets\png-cordes\chr_066.png
+					__images__\alphabets\png-cordes\chr_067.png
+					__images__\alphabets\png-cordes\chr_068.png
+					__images__\alphabets\png-cordes\chr_069.png
+					__images__\alphabets\png-cordes\chr_070.png
+					__images__\alphabets\png-cordes\chr_071.png
+					__images__\alphabets\png-cordes\chr_072.png
+					__images__\alphabets\png-cordes\chr_073.png
+					__images__\alphabets\png-cordes\chr_074.png
+					__images__\alphabets\png-cordes\chr_075.png
+					__images__\alphabets\png-cordes\chr_076.png
+					__images__\alphabets\png-cordes\chr_077.png
+					__images__\alphabets\png-cordes\chr_078.png
+					__images__\alphabets\png-cordes\chr_079.png
+					__images__\alphabets\png-cordes\chr_080.png
+					__images__\alphabets\png-cordes\chr_081.png
+					__images__\alphabets\png-cordes\chr_082.png
+					__images__\alphabets\png-cordes\chr_083.png
+					__images__\alphabets\png-cordes\chr_084.png
+					__images__\alphabets\png-cordes\chr_085.png
+					__images__\alphabets\png-cordes\chr_086.png
+					__images__\alphabets\png-cordes\chr_087.png
+					__images__\alphabets\png-cordes\chr_088.png
+					__images__\alphabets\png-cordes\chr_089.png
+					__images__\alphabets\png-cordes\chr_090.png
+					__images__\alphabets\png-cordes\chr_095.png
+				-png-keyboard_01
+					__images__\alphabets\png-keyboard_01\chr_032.png
+					__images__\alphabets\png-keyboard_01\chr_045.png
+					__images__\alphabets\png-keyboard_01\chr_046.png
+					__images__\alphabets\png-keyboard_01\chr_048.png
+					__images__\alphabets\png-keyboard_01\chr_049.png
+					__images__\alphabets\png-keyboard_01\chr_050.png
+					__images__\alphabets\png-keyboard_01\chr_051.png
+					__images__\alphabets\png-keyboard_01\chr_052.png
+					__images__\alphabets\png-keyboard_01\chr_053.png
+					__images__\alphabets\png-keyboard_01\chr_054.png
+					__images__\alphabets\png-keyboard_01\chr_055.png
+					__images__\alphabets\png-keyboard_01\chr_056.png
+					__images__\alphabets\png-keyboard_01\chr_057.png
+					__images__\alphabets\png-keyboard_01\chr_064.png
+					__images__\alphabets\png-keyboard_01\chr_065.png
+					__images__\alphabets\png-keyboard_01\chr_066.png
+					__images__\alphabets\png-keyboard_01\chr_067.png
+					__images__\alphabets\png-keyboard_01\chr_068.png
+					__images__\alphabets\png-keyboard_01\chr_069.png
+					__images__\alphabets\png-keyboard_01\chr_070.png
+					__images__\alphabets\png-keyboard_01\chr_071.png
+					__images__\alphabets\png-keyboard_01\chr_072.png
+					__images__\alphabets\png-keyboard_01\chr_073.png
+					__images__\alphabets\png-keyboard_01\chr_074.png
+					__images__\alphabets\png-keyboard_01\chr_075.png
+					__images__\alphabets\png-keyboard_01\chr_076.png
+					__images__\alphabets\png-keyboard_01\chr_077.png
+					__images__\alphabets\png-keyboard_01\chr_078.png
+					__images__\alphabets\png-keyboard_01\chr_079.png
+					__images__\alphabets\png-keyboard_01\chr_080.png
+					__images__\alphabets\png-keyboard_01\chr_081.png
+					__images__\alphabets\png-keyboard_01\chr_082.png
+					__images__\alphabets\png-keyboard_01\chr_083.png
+					__images__\alphabets\png-keyboard_01\chr_084.png
+					__images__\alphabets\png-keyboard_01\chr_085.png
+					__images__\alphabets\png-keyboard_01\chr_086.png
+					__images__\alphabets\png-keyboard_01\chr_087.png
+					__images__\alphabets\png-keyboard_01\chr_088.png
+					__images__\alphabets\png-keyboard_01\chr_089.png
+					__images__\alphabets\png-keyboard_01\chr_090.png
+					__images__\alphabets\png-keyboard_01\chr_095.png
+				__images__\alphabets\Alphabets.lnk
+				__images__\alphabets\gif-Squelette.gif
+				__images__\alphabets\index.html
+				__images__\alphabets\png-Beton.png
+				__images__\alphabets\png-cordes.png
+				__images__\alphabets\png-keyboard_01.png
+				__images__\alphabets\png-keyboard_01chr_056.png
+			-buttons
+				__images__\buttons\Button_Icon_Black.png
+				__images__\buttons\Button_Icon_Blue.png
+				__images__\buttons\Button_Icon_BlueSky.png
+				__images__\buttons\Button_Icon_Brown.png
+				__images__\buttons\Button_Icon_Cyan.png
+				__images__\buttons\Button_Icon_Fuchsia.png
+				__images__\buttons\Button_Icon_Green.png
+				__images__\buttons\Button_Icon_GreenBlue.png
+				__images__\buttons\Button_Icon_GreenForest.png
+				__images__\buttons\Button_Icon_Lime.png
+				__images__\buttons\Button_Icon_Orange.png
+				__images__\buttons\Button_Icon_Pink.png
+				__images__\buttons\Button_Icon_Red.png
+				__images__\buttons\Button_Icon_Turquoise.png
+				__images__\buttons\Button_Icon_Violet.png
+				__images__\buttons\Button_Icon_Yellow.png
+				__images__\buttons\Button_to_push_green.png
+				__images__\buttons\Button_to_push_red.png
+				__images__\buttons\Champignon-01.png
+				__images__\buttons\Champignon-02.png
+				__images__\buttons\Champignon-03.png
+				__images__\buttons\Champignon-04.png
+				__images__\buttons\index.html
+				__images__\buttons\-no_icon.png
+				__images__\buttons\pingouin-bleu.png
+				__images__\buttons\pingouin-gris.png
+				__images__\buttons\pingouin-marron.png
+				__images__\buttons\pingouin-or.png
+				__images__\buttons\pingouin-orange.png
+				__images__\buttons\pingouin-rose.png
+				__images__\buttons\pingouin-rouge.png
+				__images__\buttons\pingouin-vert.png
+				__images__\buttons\pingouin-vertdegris.png
+				__images__\buttons\pingouin-violet.png
+			-coches
+				__images__\coches\69d827c68a39b.png
+				__images__\coches\69d827ce9878a.png
+				__images__\coches\Champignon-01.png
+				__images__\coches\Champignon-02.png
+				__images__\coches\Champignon-03.png
+				__images__\coches\Champignon-04.png
+				__images__\coches\coche-01.png
+				__images__\coches\coche-02.png
+				__images__\coches\coche-03.png
+				__images__\coches\coche-04.png
+				__images__\coches\coche-05.png
+				__images__\coches\coche-05-blue.png
+				__images__\coches\coche-06.png
+				__images__\coches\coche-07.png
+				__images__\coches\coche-08.png
+				__images__\coches\coche-09.jpg
+				__images__\coches\coche-10.png
+				__images__\coches\coche-10b.png
+				__images__\coches\coche-11.png
+				__images__\coches\coche-12.png
+				__images__\coches\coche-13.png
+				__images__\coches\coche-14.png
+				__images__\coches\coche-15.png
+				__images__\coches\coche-16.png
+				__images__\coches\index.html
+				__images__\coches\-no_icon.png
+				__images__\coches\radio-01.png
+				__images__\coches\radio-02.png
+				__images__\coches\radio-03.png
+				__images__\coches\radio-04.png
+				__images__\coches\radio-05.png
+				__images__\coches\radio-06.png
+				__images__\coches\radio-07.png
+				__images__\coches\radio-08.png
+				__images__\coches\radio-09.png
+				__images__\coches\radio-10.png
+				__images__\coches\radio-11.png
+			-emoji
+				__images__\emoji\emoji_icon_00.png
+				__images__\emoji\emoji_icon_01.png
+				__images__\emoji\emoji_icon_02.png
+				__images__\emoji\index.html
+			-icones
+				__images__\icones\Help.png
+				__images__\icones\Hint.png
+				__images__\icones\index.html
+				__images__\icones\moins.png
+				__images__\icones\next.png
+				__images__\icones\plus.png
+				__images__\icones\zoom_moins_01.png
+				__images__\icones\zoom_next_01.png
+				__images__\icones\zoom_plus_01.png
+			-substitut
+				__images__\substitut\blank-jaune.jpg
+				__images__\substitut\blank-org.jpg
+				__images__\substitut\blank-rouge.jpg
+				__images__\substitut\blank-vert.jpg
+				__images__\substitut\blank-violet.jpg
+				__images__\substitut\index.html
+				__images__\substitut\interrogation-01.jpg
+				__images__\substitut\interrogation-02-gris.png
+				__images__\substitut\interrogation-02-jaune.png
+				__images__\substitut\interrogation-02-rouge.jpg
+				__images__\substitut\interrogation-02-vert.png
+				__images__\substitut\interrogation-02-violet.png
+				__images__\substitut\interrogation-03-jaune.png
+				__images__\substitut\interrogation-03-noir.png
+				__images__\substitut\interrogation-03-rouge.png
+				__images__\substitut\interrogation-03-vert.png
+				__images__\substitut\interrogation-03-violet.png
+				__images__\substitut\interrogation-04-jaune.png
+				__images__\substitut\interrogation-04-org.png
+				__images__\substitut\interrogation-04-rouge.png
+				__images__\substitut\interrogation-04-vert.png
+				__images__\substitut\interrogation-04-violet.png
+				__images__\substitut\interrogation-05-bleu.png
+				__images__\substitut\interrogation-05-gris.png
+				__images__\substitut\interrogation-05-jaune.png
+				__images__\substitut\interrogation-05-rouge.png
+				__images__\substitut\interrogation-05-vert.png
+				__images__\substitut\interrogation-05-violet.png
+			__images__\__uploads-images.lnk
+			__images__\Alphabets.lnk
+			__images__\graduation-pour-scrollbarre.svg
+			__images__\Help.png
+			__images__\Hint.png
+			__images__\index.html
+			__images__\moins.png
+			__images__\next.png
+			__images__\plus.png
+			__images__\zoom_moins_01.png
+			__images__\zoom_next_01.png
+			__images__\zoom_plus_01.png
 		-_plugin-JS-Modele
 			-img
 				-buttons
@@ -109,10 +416,272 @@ _quiz-org
 			css\style-item-design.css
 			css\timer.css
 		-images
+			-alphabets
+				-gif-Squelette
+					images\alphabets\gif-Squelette\chr_032.gif
+					images\alphabets\gif-Squelette\chr_045.gif
+					images\alphabets\gif-Squelette\chr_046.gif
+					images\alphabets\gif-Squelette\chr_048.gif
+					images\alphabets\gif-Squelette\chr_049.gif
+					images\alphabets\gif-Squelette\chr_050.gif
+					images\alphabets\gif-Squelette\chr_051.gif
+					images\alphabets\gif-Squelette\chr_052.gif
+					images\alphabets\gif-Squelette\chr_053.gif
+					images\alphabets\gif-Squelette\chr_054.gif
+					images\alphabets\gif-Squelette\chr_055.gif
+					images\alphabets\gif-Squelette\chr_056.gif
+					images\alphabets\gif-Squelette\chr_057.gif
+					images\alphabets\gif-Squelette\chr_063.gif
+					images\alphabets\gif-Squelette\chr_064.gif
+					images\alphabets\gif-Squelette\chr_065.gif
+					images\alphabets\gif-Squelette\chr_066.gif
+					images\alphabets\gif-Squelette\chr_067.gif
+					images\alphabets\gif-Squelette\chr_068.gif
+					images\alphabets\gif-Squelette\chr_069.gif
+					images\alphabets\gif-Squelette\chr_070.gif
+					images\alphabets\gif-Squelette\chr_071.gif
+					images\alphabets\gif-Squelette\chr_072.gif
+					images\alphabets\gif-Squelette\chr_073.gif
+					images\alphabets\gif-Squelette\chr_074.gif
+					images\alphabets\gif-Squelette\chr_075.gif
+					images\alphabets\gif-Squelette\chr_076.gif
+					images\alphabets\gif-Squelette\chr_077.gif
+					images\alphabets\gif-Squelette\chr_078.gif
+					images\alphabets\gif-Squelette\chr_079.gif
+					images\alphabets\gif-Squelette\chr_080.gif
+					images\alphabets\gif-Squelette\chr_081.gif
+					images\alphabets\gif-Squelette\chr_082.gif
+					images\alphabets\gif-Squelette\chr_083.gif
+					images\alphabets\gif-Squelette\chr_084.gif
+					images\alphabets\gif-Squelette\chr_085.gif
+					images\alphabets\gif-Squelette\chr_086.gif
+					images\alphabets\gif-Squelette\chr_087.gif
+					images\alphabets\gif-Squelette\chr_088.gif
+					images\alphabets\gif-Squelette\chr_089.gif
+					images\alphabets\gif-Squelette\chr_090.gif
+					images\alphabets\gif-Squelette\chr_095.gif
+				-png-Beton
+					images\alphabets\png-Beton\chr_032.png
+					images\alphabets\png-Beton\chr_045.png
+					images\alphabets\png-Beton\chr_046.png
+					images\alphabets\png-Beton\chr_048.png
+					images\alphabets\png-Beton\chr_049.png
+					images\alphabets\png-Beton\chr_050.png
+					images\alphabets\png-Beton\chr_051.png
+					images\alphabets\png-Beton\chr_052.png
+					images\alphabets\png-Beton\chr_053.png
+					images\alphabets\png-Beton\chr_054.png
+					images\alphabets\png-Beton\chr_055.png
+					images\alphabets\png-Beton\chr_056.png
+					images\alphabets\png-Beton\chr_057.png
+					images\alphabets\png-Beton\chr_064.png
+					images\alphabets\png-Beton\chr_065.png
+					images\alphabets\png-Beton\chr_066.png
+					images\alphabets\png-Beton\chr_067.png
+					images\alphabets\png-Beton\chr_068.png
+					images\alphabets\png-Beton\chr_069.png
+					images\alphabets\png-Beton\chr_070.png
+					images\alphabets\png-Beton\chr_071.png
+					images\alphabets\png-Beton\chr_072.png
+					images\alphabets\png-Beton\chr_073.png
+					images\alphabets\png-Beton\chr_074.png
+					images\alphabets\png-Beton\chr_075.png
+					images\alphabets\png-Beton\chr_076.png
+					images\alphabets\png-Beton\chr_077.png
+					images\alphabets\png-Beton\chr_078.png
+					images\alphabets\png-Beton\chr_079.png
+					images\alphabets\png-Beton\chr_080.png
+					images\alphabets\png-Beton\chr_081.png
+					images\alphabets\png-Beton\chr_082.png
+					images\alphabets\png-Beton\chr_083.png
+					images\alphabets\png-Beton\chr_084.png
+					images\alphabets\png-Beton\chr_085.png
+					images\alphabets\png-Beton\chr_086.png
+					images\alphabets\png-Beton\chr_087.png
+					images\alphabets\png-Beton\chr_088.png
+					images\alphabets\png-Beton\chr_089.png
+					images\alphabets\png-Beton\chr_090.png
+					images\alphabets\png-Beton\chr_095.png
+				-png-cordes
+					images\alphabets\png-cordes\chr_032.png
+					images\alphabets\png-cordes\chr_045.png
+					images\alphabets\png-cordes\chr_046.png
+					images\alphabets\png-cordes\chr_048.png
+					images\alphabets\png-cordes\chr_049.png
+					images\alphabets\png-cordes\chr_050.png
+					images\alphabets\png-cordes\chr_051.png
+					images\alphabets\png-cordes\chr_052.png
+					images\alphabets\png-cordes\chr_053.png
+					images\alphabets\png-cordes\chr_054.png
+					images\alphabets\png-cordes\chr_055.png
+					images\alphabets\png-cordes\chr_056.png
+					images\alphabets\png-cordes\chr_057.png
+					images\alphabets\png-cordes\chr_064.png
+					images\alphabets\png-cordes\chr_065.png
+					images\alphabets\png-cordes\chr_066.png
+					images\alphabets\png-cordes\chr_067.png
+					images\alphabets\png-cordes\chr_068.png
+					images\alphabets\png-cordes\chr_069.png
+					images\alphabets\png-cordes\chr_070.png
+					images\alphabets\png-cordes\chr_071.png
+					images\alphabets\png-cordes\chr_072.png
+					images\alphabets\png-cordes\chr_073.png
+					images\alphabets\png-cordes\chr_074.png
+					images\alphabets\png-cordes\chr_075.png
+					images\alphabets\png-cordes\chr_076.png
+					images\alphabets\png-cordes\chr_077.png
+					images\alphabets\png-cordes\chr_078.png
+					images\alphabets\png-cordes\chr_079.png
+					images\alphabets\png-cordes\chr_080.png
+					images\alphabets\png-cordes\chr_081.png
+					images\alphabets\png-cordes\chr_082.png
+					images\alphabets\png-cordes\chr_083.png
+					images\alphabets\png-cordes\chr_084.png
+					images\alphabets\png-cordes\chr_085.png
+					images\alphabets\png-cordes\chr_086.png
+					images\alphabets\png-cordes\chr_087.png
+					images\alphabets\png-cordes\chr_088.png
+					images\alphabets\png-cordes\chr_089.png
+					images\alphabets\png-cordes\chr_090.png
+					images\alphabets\png-cordes\chr_095.png
+				-png-keyboard_01
+					images\alphabets\png-keyboard_01\chr_032.png
+					images\alphabets\png-keyboard_01\chr_045.png
+					images\alphabets\png-keyboard_01\chr_046.png
+					images\alphabets\png-keyboard_01\chr_048.png
+					images\alphabets\png-keyboard_01\chr_049.png
+					images\alphabets\png-keyboard_01\chr_050.png
+					images\alphabets\png-keyboard_01\chr_051.png
+					images\alphabets\png-keyboard_01\chr_052.png
+					images\alphabets\png-keyboard_01\chr_053.png
+					images\alphabets\png-keyboard_01\chr_054.png
+					images\alphabets\png-keyboard_01\chr_055.png
+					images\alphabets\png-keyboard_01\chr_056.png
+					images\alphabets\png-keyboard_01\chr_057.png
+					images\alphabets\png-keyboard_01\chr_064.png
+					images\alphabets\png-keyboard_01\chr_065.png
+					images\alphabets\png-keyboard_01\chr_066.png
+					images\alphabets\png-keyboard_01\chr_067.png
+					images\alphabets\png-keyboard_01\chr_068.png
+					images\alphabets\png-keyboard_01\chr_069.png
+					images\alphabets\png-keyboard_01\chr_070.png
+					images\alphabets\png-keyboard_01\chr_071.png
+					images\alphabets\png-keyboard_01\chr_072.png
+					images\alphabets\png-keyboard_01\chr_073.png
+					images\alphabets\png-keyboard_01\chr_074.png
+					images\alphabets\png-keyboard_01\chr_075.png
+					images\alphabets\png-keyboard_01\chr_076.png
+					images\alphabets\png-keyboard_01\chr_077.png
+					images\alphabets\png-keyboard_01\chr_078.png
+					images\alphabets\png-keyboard_01\chr_079.png
+					images\alphabets\png-keyboard_01\chr_080.png
+					images\alphabets\png-keyboard_01\chr_081.png
+					images\alphabets\png-keyboard_01\chr_082.png
+					images\alphabets\png-keyboard_01\chr_083.png
+					images\alphabets\png-keyboard_01\chr_084.png
+					images\alphabets\png-keyboard_01\chr_085.png
+					images\alphabets\png-keyboard_01\chr_086.png
+					images\alphabets\png-keyboard_01\chr_087.png
+					images\alphabets\png-keyboard_01\chr_088.png
+					images\alphabets\png-keyboard_01\chr_089.png
+					images\alphabets\png-keyboard_01\chr_090.png
+					images\alphabets\png-keyboard_01\chr_095.png
+				images\alphabets\Alphabets.lnk
+				images\alphabets\gif-Squelette.gif
+				images\alphabets\index.html
+				images\alphabets\png-Beton.png
+				images\alphabets\png-cordes.png
+				images\alphabets\png-keyboard_01.png
+				images\alphabets\png-keyboard_01chr_056.png
+			-buttons
+				images\buttons\Button_Icon_Black.png
+				images\buttons\Button_Icon_Blue.png
+				images\buttons\Button_Icon_BlueSky.png
+				images\buttons\Button_Icon_Brown.png
+				images\buttons\Button_Icon_Cyan.png
+				images\buttons\Button_Icon_Fuchsia.png
+				images\buttons\Button_Icon_Green.png
+				images\buttons\Button_Icon_GreenBlue.png
+				images\buttons\Button_Icon_GreenForest.png
+				images\buttons\Button_Icon_Lime.png
+				images\buttons\Button_Icon_Orange.png
+				images\buttons\Button_Icon_Pink.png
+				images\buttons\Button_Icon_Red.png
+				images\buttons\Button_Icon_Turquoise.png
+				images\buttons\Button_Icon_Violet.png
+				images\buttons\Button_Icon_Yellow.png
+				images\buttons\Button_to_push_green.png
+				images\buttons\Button_to_push_red.png
+				images\buttons\Champignon-01.png
+				images\buttons\Champignon-02.png
+				images\buttons\Champignon-03.png
+				images\buttons\Champignon-04.png
+				images\buttons\index.html
+				images\buttons\-no_icon.png
+				images\buttons\pingouin-bleu.png
+				images\buttons\pingouin-gris.png
+				images\buttons\pingouin-marron.png
+				images\buttons\pingouin-or.png
+				images\buttons\pingouin-orange.png
+				images\buttons\pingouin-rose.png
+				images\buttons\pingouin-rouge.png
+				images\buttons\pingouin-vert.png
+				images\buttons\pingouin-vertdegris.png
+				images\buttons\pingouin-violet.png
+			-coches
+				images\coches\69d827c68a39b.png
+				images\coches\69d827ce9878a.png
+				images\coches\6a5d305dc428e.png
+				images\coches\Champignon-01.png
+				images\coches\Champignon-02.png
+				images\coches\Champignon-03.png
+				images\coches\Champignon-04.png
+				images\coches\coche-01.png
+				images\coches\coche-02.png
+				images\coches\coche-03.png
+				images\coches\coche-04.png
+				images\coches\coche-05.png
+				images\coches\coche-05-blue.png
+				images\coches\coche-06.png
+				images\coches\coche-07.png
+				images\coches\coche-08.png
+				images\coches\coche-09.jpg
+				images\coches\coche-10.png
+				images\coches\coche-10b.png
+				images\coches\coche-11.png
+				images\coches\coche-12.png
+				images\coches\coche-13.png
+				images\coches\coche-14.png
+				images\coches\coche-15.png
+				images\coches\coche-16.png
+				images\coches\index.html
+				images\coches\-no_icon.png
+				images\coches\radio-01.png
+				images\coches\radio-02.png
+				images\coches\radio-03.png
+				images\coches\radio-04.png
+				images\coches\radio-05.png
+				images\coches\radio-06.png
+				images\coches\radio-07.png
+				images\coches\radio-08.png
+				images\coches\radio-09.png
+				images\coches\radio-10.png
+				images\coches\radio-11.png
 			-emoji
 				images\emoji\emoji_icon_00.png
 				images\emoji\emoji_icon_01.png
 				images\emoji\emoji_icon_02.png
+				images\emoji\index.html
+			-icones
+				images\icones\Help.png
+				images\icones\Hint.png
+				images\icones\index.html
+				images\icones\moins.png
+				images\icones\next.png
+				images\icones\plus.png
+				images\icones\zoom_moins_01.png
+				images\icones\zoom_next_01.png
+				images\icones\zoom_plus_01.png
 			-substitut
 				images\substitut\blank-jaune.jpg
 				images\substitut\blank-org.jpg
@@ -142,6 +711,8 @@ _quiz-org
 				images\substitut\interrogation-05-rouge.png
 				images\substitut\interrogation-05-vert.png
 				images\substitut\interrogation-05-violet.png
+			images\__uploads-images.lnk
+			images\Alphabets.lnk
 			images\graduation-pour-scrollbarre.svg
 			images\Help.png
 			images\Hint.png
@@ -152,9 +723,28 @@ _quiz-org
 			images\zoom_moins_01.png
 			images\zoom_next_01.png
 			images\zoom_plus_01.png
-		-js
+		+js
+			+composantsJS
+				js\composantsJS\BaseGameGrid.js
+				js\composantsJS\Chronos.js
+				js\composantsJS\Disc.js
+				js\composantsJS\FocusManager.js
+				js\composantsJS\Gauge.js
+				js\composantsJS\ImageList - Copie (2).js
+				js\composantsJS\ImageList - Copie.js
+				js\composantsJS\ImageList.js
+				js\composantsJS\index.js
+				js\composantsJS\main.js
+				js\composantsJS\MessageManager.js
+				js\composantsJS\SplitImage.js
+				js\composantsJS\SplitImage-old.js
+			js\clsGame.js
+			js\clsGridImg.js
+			js\clsGroup.js
+			js\clsListImg.js
 			js\fnc_array.js
 			js\fnc_htmlObjects.js
+			js\fnc_interface.js
 			js\fnc_progressBar.js
 			js\fnc_string.js
 			js\fnc_timer.js
@@ -164,16 +754,125 @@ _quiz-org
 			js\quiz_events.js
 			js\quiz_functions.js
 			js\quiz_main.js
-		-language
+		+language
 			language\index.html
 			language\quiz-english.js
 			language\quiz-french.js
-		-plugins
+		+plugins
+			-allumettes
+				-img
+					plugins\allumettes\img\index.html
+				-index-05
+					plugins\allumettes\index-05\chargement d'un image.txt
+					plugins\allumettes\index-05\gemini-code-1783589843104.js
+					plugins\allumettes\index-05\gemini-code-1783589851269.css
+					plugins\allumettes\index-05\index.html
+					plugins\allumettes\index-05\info.txt
+					plugins\allumettes\index-05\script.js
+					plugins\allumettes\index-05\style.css
+				plugins\allumettes\_allumettes.ppr
+				plugins\allumettes\allumettes.css
+				plugins\allumettes\allumettes.js
+				plugins\allumettes\allumettes-events.js
+				plugins\allumettes\allumettes-fnc.js
+				plugins\allumettes\index.html
 			-alphaSimple
 				plugins\alphaSimple\alphaSimple.css
 				plugins\alphaSimple\alphaSimple.js
 				plugins\alphaSimple\index.html
-			+findObjects
+			-equation
+				-img
+					-skins
+						-bois-01
+							plugins\equation\img\skins\bois-01\constante.png
+							plugins\equation\img\skins\bois-01\equation.png
+							plugins\equation\img\skins\bois-01\inconnue.png
+							plugins\equation\img\skins\bois-01\operateur.png
+							plugins\equation\img\skins\bois-01\parenthese.png
+							plugins\equation\img\skins\bois-01\stock.png
+							plugins\equation\img\skins\bois-01\token.png
+						-bois-02
+							plugins\equation\img\skins\bois-02\constante.png
+							plugins\equation\img\skins\bois-02\equation.png
+							plugins\equation\img\skins\bois-02\inconnue.png
+							plugins\equation\img\skins\bois-02\operateur.png
+							plugins\equation\img\skins\bois-02\parenthese.png
+							plugins\equation\img\skins\bois-02\stock.png
+							plugins\equation\img\skins\bois-02\token.png
+						-bois-03
+							plugins\equation\img\skins\bois-03\constante.png
+							plugins\equation\img\skins\bois-03\equation.png
+							plugins\equation\img\skins\bois-03\inconnue.png
+							plugins\equation\img\skins\bois-03\operateur.png
+							plugins\equation\img\skins\bois-03\parenthese.png
+							plugins\equation\img\skins\bois-03\stock.png
+							plugins\equation\img\skins\bois-03\token.png
+						-classic-01
+							plugins\equation\img\skins\classic-01\constante.png
+							plugins\equation\img\skins\classic-01\equation.png
+							plugins\equation\img\skins\classic-01\inconnue.png
+							plugins\equation\img\skins\classic-01\operateur.png
+							plugins\equation\img\skins\classic-01\parenthese.png
+							plugins\equation\img\skins\classic-01\stock.png
+							plugins\equation\img\skins\classic-01\token.png
+						-classic-02
+							plugins\equation\img\skins\classic-02\constante.png
+							plugins\equation\img\skins\classic-02\equation.png
+							plugins\equation\img\skins\classic-02\inconnue.png
+							plugins\equation\img\skins\classic-02\operateur.png
+							plugins\equation\img\skins\classic-02\parenthese.png
+							plugins\equation\img\skins\classic-02\stock.png
+							plugins\equation\img\skins\classic-02\token.png
+						-marbre-01
+							plugins\equation\img\skins\marbre-01\constante.png
+							plugins\equation\img\skins\marbre-01\equation.png
+							plugins\equation\img\skins\marbre-01\inconnue.png
+							plugins\equation\img\skins\marbre-01\operateur.png
+							plugins\equation\img\skins\marbre-01\parenthese.png
+							plugins\equation\img\skins\marbre-01\stock.png
+							plugins\equation\img\skins\marbre-01\stock-02.png
+							plugins\equation\img\skins\marbre-01\token.png
+						-marbre-02
+							plugins\equation\img\skins\marbre-02\constante.png
+							plugins\equation\img\skins\marbre-02\equation.png
+							plugins\equation\img\skins\marbre-02\inconnue.png
+							plugins\equation\img\skins\marbre-02\operateur.png
+							plugins\equation\img\skins\marbre-02\parenthese.png
+							plugins\equation\img\skins\marbre-02\stock.png
+							plugins\equation\img\skins\marbre-02\token.png
+						-marbre-03
+							plugins\equation\img\skins\marbre-03\constante.png
+							plugins\equation\img\skins\marbre-03\equation.png
+							plugins\equation\img\skins\marbre-03\inconnue.png
+							plugins\equation\img\skins\marbre-03\operateur.png
+							plugins\equation\img\skins\marbre-03\parenthese.png
+							plugins\equation\img\skins\marbre-03\stock.png
+							plugins\equation\img\skins\marbre-03\token.png
+						-marbre-04
+							plugins\equation\img\skins\marbre-04\constante.png
+							plugins\equation\img\skins\marbre-04\equation.png
+							plugins\equation\img\skins\marbre-04\inconnue.png
+							plugins\equation\img\skins\marbre-04\operateur.png
+							plugins\equation\img\skins\marbre-04\parenthese.png
+							plugins\equation\img\skins\marbre-04\stock.png
+							plugins\equation\img\skins\marbre-04\token.png
+						plugins\equation\img\skins\bois-01.png
+						plugins\equation\img\skins\bois-02.png
+						plugins\equation\img\skins\bois-03.png
+						plugins\equation\img\skins\classic-01.png
+						plugins\equation\img\skins\classic-02.png
+						plugins\equation\img\skins\marbre-01.png
+						plugins\equation\img\skins\marbre-02.png
+						plugins\equation\img\skins\marbre-03.png
+						plugins\equation\img\skins\marbre-04.png
+					plugins\equation\img\index.html
+				plugins\equation\equation.css
+				plugins\equation\equation.js
+				plugins\equation\equation-04.png
+				plugins\equation\equation-events.js
+				plugins\equation\equation-fnc.js
+				plugins\equation\index.html
+			-findObjects
 				-images
 					plugins\findObjects\images\index.html
 					plugins\findObjects\images\Rhinoceros-Pierre_Yves_Gallard-[03772-021].jpg
@@ -186,7 +885,7 @@ _quiz-org
 				plugins\findObjects\index.html
 				plugins\findObjects\Touche.js
 				plugins\findObjects\Touches.js
-			+imagesColor
+			-imagesColor
 				plugins\imagesColor\imagesColor.css
 				plugins\imagesColor\imagesColor.js
 				plugins\imagesColor\index.html
@@ -220,6 +919,109 @@ _quiz-org
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.css
 				plugins\matchItems\matchItems.js
+			+memory
+				-img
+					-buttons
+						plugins\memory\img\buttons\Button_Icon_Black.png
+						plugins\memory\img\buttons\Button_Icon_Blue.png
+						plugins\memory\img\buttons\Button_Icon_BlueSky.png
+						plugins\memory\img\buttons\Button_Icon_Brown.png
+						plugins\memory\img\buttons\Button_Icon_Cyan.png
+						plugins\memory\img\buttons\Button_Icon_Fuchsia.png
+						plugins\memory\img\buttons\Button_Icon_Green.png
+						plugins\memory\img\buttons\Button_Icon_GreenBlue.png
+						plugins\memory\img\buttons\Button_Icon_GreenForest.png
+						plugins\memory\img\buttons\Button_Icon_Lime.png
+						plugins\memory\img\buttons\Button_Icon_Orange.png
+						plugins\memory\img\buttons\Button_Icon_Pink.png
+						plugins\memory\img\buttons\Button_Icon_Red.png
+						plugins\memory\img\buttons\Button_Icon_Turquoise.png
+						plugins\memory\img\buttons\Button_Icon_Violet.png
+						plugins\memory\img\buttons\Button_Icon_Yellow.png
+						plugins\memory\img\buttons\Button_to_push_green.png
+						plugins\memory\img\buttons\Button_to_push_red.png
+						plugins\memory\img\buttons\index.html
+						plugins\memory\img\buttons\-no_icon.png
+						plugins\memory\img\buttons\pingouin-bleu.png
+						plugins\memory\img\buttons\pingouin-gris.png
+						plugins\memory\img\buttons\pingouin-marron.png
+						plugins\memory\img\buttons\pingouin-or.png
+						plugins\memory\img\buttons\pingouin-orange.png
+						plugins\memory\img\buttons\pingouin-rose.png
+						plugins\memory\img\buttons\pingouin-rouge.png
+						plugins\memory\img\buttons\pingouin-vert.png
+						plugins\memory\img\buttons\pingouin-vertdegris.png
+						plugins\memory\img\buttons\pingouin-violet.png
+					plugins\memory\img\index.html
+				plugins\memory\_memory.ppr
+				plugins\memory\index.html
+				plugins\memory\memory.js
+				plugins\memory\memory_grille.js
+				plugins\memory\memory_liste.js
+				plugins\memory\MemoryComponent.js
+			+memosuite
+				-img
+					-buttons
+						plugins\memosuite\img\buttons\Button_Icon_Black.png
+						plugins\memosuite\img\buttons\Button_Icon_Blue.png
+						plugins\memosuite\img\buttons\Button_Icon_BlueSky.png
+						plugins\memosuite\img\buttons\Button_Icon_Brown.png
+						plugins\memosuite\img\buttons\Button_Icon_Cyan.png
+						plugins\memosuite\img\buttons\Button_Icon_Fuchsia.png
+						plugins\memosuite\img\buttons\Button_Icon_Green.png
+						plugins\memosuite\img\buttons\Button_Icon_GreenBlue.png
+						plugins\memosuite\img\buttons\Button_Icon_GreenForest.png
+						plugins\memosuite\img\buttons\Button_Icon_Lime.png
+						plugins\memosuite\img\buttons\Button_Icon_Orange.png
+						plugins\memosuite\img\buttons\Button_Icon_Pink.png
+						plugins\memosuite\img\buttons\Button_Icon_Red.png
+						plugins\memosuite\img\buttons\Button_Icon_Turquoise.png
+						plugins\memosuite\img\buttons\Button_Icon_Violet.png
+						plugins\memosuite\img\buttons\Button_Icon_Yellow.png
+						plugins\memosuite\img\buttons\Button_to_push_green.png
+						plugins\memosuite\img\buttons\Button_to_push_red.png
+						plugins\memosuite\img\buttons\index.html
+						plugins\memosuite\img\buttons\-no_icon.png
+						plugins\memosuite\img\buttons\pingouin-bleu.png
+						plugins\memosuite\img\buttons\pingouin-gris.png
+						plugins\memosuite\img\buttons\pingouin-marron.png
+						plugins\memosuite\img\buttons\pingouin-or.png
+						plugins\memosuite\img\buttons\pingouin-orange.png
+						plugins\memosuite\img\buttons\pingouin-rose.png
+						plugins\memosuite\img\buttons\pingouin-rouge.png
+						plugins\memosuite\img\buttons\pingouin-vert.png
+						plugins\memosuite\img\buttons\pingouin-vertdegris.png
+						plugins\memosuite\img\buttons\pingouin-violet.png
+					plugins\memosuite\img\index.html
+				plugins\memosuite\_memosuite.ppr
+				plugins\memosuite\2026-07-25 20 10 22.jpg
+				plugins\memosuite\index.html
+				plugins\memosuite\info.txt
+				plugins\memosuite\memosuite.css
+				plugins\memosuite\memosuite.js
+				plugins\memosuite\memosuite_grille.js
+				plugins\memosuite\memosuite_liste.js
+				plugins\memosuite\MemosuiteComponent.js
+				plugins\memosuite\memosuite-events.js
+				plugins\memosuite\memosuite-fnc.js
+			-monkey
+				-img
+					plugins\monkey\img\index.html
+				-index-05
+					plugins\monkey\index-05\chargement d'un image.txt
+					plugins\monkey\index-05\gemini-code-1783589843104.js
+					plugins\monkey\index-05\gemini-code-1783589851269.css
+					plugins\monkey\index-05\index.html
+					plugins\monkey\index-05\info.txt
+					plugins\monkey\index-05\script.js
+					plugins\monkey\index-05\style.css
+				plugins\monkey\_monkey.ppr
+				plugins\monkey\index.html
+				plugins\monkey\index-05.lnk
+				plugins\monkey\monkey.css
+				plugins\monkey\monkey.js
+				plugins\monkey\monkey-events.js
+				plugins\monkey\monkey-fnc.js
 			-multiQuestions
 				plugins\multiQuestions\index.html
 				plugins\multiQuestions\multiQuestions.css
@@ -244,7 +1046,92 @@ _quiz-org
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.css
 				plugins\pageInfo\pageInfo.js
-			-puzzle
+			-pendu
+				-img
+					-cartoon
+						plugins\pendu\img\cartoon\pendu_0.png
+						plugins\pendu\img\cartoon\pendu_1.png
+						plugins\pendu\img\cartoon\pendu_2.png
+						plugins\pendu\img\cartoon\pendu_3.png
+						plugins\pendu\img\cartoon\pendu_4.png
+						plugins\pendu\img\cartoon\pendu_5.png
+						plugins\pendu\img\cartoon\pendu_6.png
+						plugins\pendu\img\cartoon\pendu_7.png
+						plugins\pendu\img\cartoon\pendu_8.png
+						plugins\pendu\img\cartoon\pendu_9.png
+					-cartoon_02
+						plugins\pendu\img\cartoon_02\pendu_0.png
+						plugins\pendu\img\cartoon_02\pendu_1.png
+						plugins\pendu\img\cartoon_02\pendu_2.png
+						plugins\pendu\img\cartoon_02\pendu_3.png
+						plugins\pendu\img\cartoon_02\pendu_4.png
+						plugins\pendu\img\cartoon_02\pendu_5.png
+						plugins\pendu\img\cartoon_02\pendu_6.png
+						plugins\pendu\img\cartoon_02\pendu_7.png
+						plugins\pendu\img\cartoon_02\pendu_8.png
+						plugins\pendu\img\cartoon_02\pendu_9.png
+					-cartoon_vert
+						-zzzz
+							plugins\pendu\img\cartoon_vert\zzzz\pendu_0 - Copie.png
+							plugins\pendu\img\cartoon_vert\zzzz\pendu_7 - Copie.png
+							plugins\pendu\img\cartoon_vert\zzzz\pendu_8 - Copie - Copie.png
+							plugins\pendu\img\cartoon_vert\zzzz\pendu_8 - Copie (2).png
+							plugins\pendu\img\cartoon_vert\zzzz\pendu_8 - Copie.png
+						plugins\pendu\img\cartoon_vert\pendu_0.png
+						plugins\pendu\img\cartoon_vert\pendu_1.png
+						plugins\pendu\img\cartoon_vert\pendu_2.png
+						plugins\pendu\img\cartoon_vert\pendu_3.png
+						plugins\pendu\img\cartoon_vert\pendu_4.png
+						plugins\pendu\img\cartoon_vert\pendu_5.png
+						plugins\pendu\img\cartoon_vert\pendu_6.png
+						plugins\pendu\img\cartoon_vert\pendu_7.png
+						plugins\pendu\img\cartoon_vert\pendu_8.png
+						plugins\pendu\img\cartoon_vert\pendu_9.png
+					-classic_noir
+						plugins\pendu\img\classic_noir\pendu_0.png
+						plugins\pendu\img\classic_noir\pendu_1.png
+						plugins\pendu\img\classic_noir\pendu_2.png
+						plugins\pendu\img\classic_noir\pendu_3.png
+						plugins\pendu\img\classic_noir\pendu_4.png
+						plugins\pendu\img\classic_noir\pendu_5.png
+						plugins\pendu\img\classic_noir\pendu_6.png
+						plugins\pendu\img\classic_noir\pendu_7.png
+						plugins\pendu\img\classic_noir\pendu_8.png
+						plugins\pendu\img\classic_noir\pendu_9.png
+					-classic_transparent
+						plugins\pendu\img\classic_transparent\pendu_0.png
+						plugins\pendu\img\classic_transparent\pendu_1.png
+						plugins\pendu\img\classic_transparent\pendu_2.png
+						plugins\pendu\img\classic_transparent\pendu_3.png
+						plugins\pendu\img\classic_transparent\pendu_4.png
+						plugins\pendu\img\classic_transparent\pendu_5.png
+						plugins\pendu\img\classic_transparent\pendu_6.png
+						plugins\pendu\img\classic_transparent\pendu_7.png
+						plugins\pendu\img\classic_transparent\pendu_8.png
+						plugins\pendu\img\classic_transparent\pendu_9.png
+					-pinochio
+						plugins\pendu\img\pinochio\pendu_0.png
+						plugins\pendu\img\pinochio\pendu_1.png
+						plugins\pendu\img\pinochio\pendu_2.png
+						plugins\pendu\img\pinochio\pendu_3.png
+						plugins\pendu\img\pinochio\pendu_4.png
+						plugins\pendu\img\pinochio\pendu_5.png
+						plugins\pendu\img\pinochio\pendu_6.png
+						plugins\pendu\img\pinochio\pendu_7.png
+						plugins\pendu\img\pinochio\pendu_8.png
+						plugins\pendu\img\pinochio\pendu_9.png
+					plugins\pendu\img\cartoon.png
+					plugins\pendu\img\cartoon_02.png
+					plugins\pendu\img\cartoon_vert.png
+					plugins\pendu\img\classic_noir.png
+					plugins\pendu\img\classic_transparent.png
+					plugins\pendu\img\index.html
+					plugins\pendu\img\pinochio.png
+				plugins\pendu\index.html
+				plugins\pendu\pendu.css
+				plugins\pendu\pendu.js
+				plugins\pendu\pendu-events.js
+			+puzzle
 				-img
 					-buttons
 						plugins\puzzle\img\buttons\Button_Icon_Black.png
@@ -279,26 +1166,14 @@ _quiz-org
 						plugins\puzzle\img\buttons\pingouin-violet.png
 					plugins\puzzle\img\index.html
 				plugins\puzzle\_puzzle.ppr
-				plugins\puzzle\common-fnc.js
 				plugins\puzzle\index.html
-				plugins\puzzle\lucioles.js
-				plugins\puzzle\lucioles-events.js
-				plugins\puzzle\lucioles-fnc.js
-				plugins\puzzle\memory.js
-				plugins\puzzle\memory-events.js
-				plugins\puzzle\memory-fnc.js
-				plugins\puzzle\puzzle.css
 				plugins\puzzle\puzzle.js
-				plugins\puzzle\puzzle-events.js
-				plugins\puzzle\puzzle-fnc.js
-				plugins\puzzle\taquin.js
-				plugins\puzzle\taquin-events.js
-				plugins\puzzle\taquin-fnc.js
+				plugins\puzzle\PuzzleComponent.js
 			-radioMultiple
 				plugins\radioMultiple\index.html
 				plugins\radioMultiple\radioMultiple.css
 				plugins\radioMultiple\radioMultiple.js
-			+selectImages
+			-selectImages
 				-img
 					-buttons
 						plugins\selectImages\img\buttons\Button_Icon_Black.png
@@ -331,33 +1206,6 @@ _quiz-org
 						plugins\selectImages\img\buttons\pingouin-vert.png
 						plugins\selectImages\img\buttons\pingouin-vertdegris.png
 						plugins\selectImages\img\buttons\pingouin-violet.png
-					-coches
-						plugins\selectImages\img\coches\coche-01.png
-						plugins\selectImages\img\coches\coche-02.png
-						plugins\selectImages\img\coches\coche-03.png
-						plugins\selectImages\img\coches\coche-04.png
-						plugins\selectImages\img\coches\coche-05.png
-						plugins\selectImages\img\coches\coche-06.png
-						plugins\selectImages\img\coches\coche-07.png
-						plugins\selectImages\img\coches\coche-08.png
-						plugins\selectImages\img\coches\coche-10.png
-						plugins\selectImages\img\coches\coche-11.png
-						plugins\selectImages\img\coches\coche-12.png
-						plugins\selectImages\img\coches\coche-13.png
-						plugins\selectImages\img\coches\coche-14.png
-						plugins\selectImages\img\coches\coche-15.png
-						plugins\selectImages\img\coches\coche-16.png
-						plugins\selectImages\img\coches\radio-01.png
-						plugins\selectImages\img\coches\radio-02.png
-						plugins\selectImages\img\coches\radio-03.png
-						plugins\selectImages\img\coches\radio-04.png
-						plugins\selectImages\img\coches\radio-05.png
-						plugins\selectImages\img\coches\radio-06.png
-						plugins\selectImages\img\coches\radio-07.png
-						plugins\selectImages\img\coches\radio-08.png
-						plugins\selectImages\img\coches\radio-09.png
-						plugins\selectImages\img\coches\radio-10.png
-						plugins\selectImages\img\coches\radio-11.png
 					plugins\selectImages\img\index.html
 				plugins\selectImages\index.html
 				plugins\selectImages\selectCoches.css
@@ -366,64 +1214,6 @@ _quiz-org
 				plugins\selectImages\selectImages.js
 			-selectInputs
 				-img
-					-buttons
-						plugins\selectInputs\img\buttons\Button_Icon_Black.png
-						plugins\selectInputs\img\buttons\Button_Icon_Blue.png
-						plugins\selectInputs\img\buttons\Button_Icon_BlueSky.png
-						plugins\selectInputs\img\buttons\Button_Icon_Brown.png
-						plugins\selectInputs\img\buttons\Button_Icon_Cyan.png
-						plugins\selectInputs\img\buttons\Button_Icon_Fuchsia.png
-						plugins\selectInputs\img\buttons\Button_Icon_Lime.png
-						plugins\selectInputs\img\buttons\Button_Icon_Orange.png
-						plugins\selectInputs\img\buttons\Button_Icon_Pink.png
-						plugins\selectInputs\img\buttons\Button_Icon_Red.png
-						plugins\selectInputs\img\buttons\Button_Icon_Turquoise.png
-						plugins\selectInputs\img\buttons\Button_Icon_Violet.png
-						plugins\selectInputs\img\buttons\Button_Icon_Yellow.png
-						plugins\selectInputs\img\buttons\Button_to_push_green.png
-						plugins\selectInputs\img\buttons\Button_to_push_red.png
-						plugins\selectInputs\img\buttons\index.html
-						plugins\selectInputs\img\buttons\-no_icon.png
-						plugins\selectInputs\img\buttons\pingouin-bleu.png
-						plugins\selectInputs\img\buttons\pingouin-gris.png
-						plugins\selectInputs\img\buttons\pingouin-marron.png
-						plugins\selectInputs\img\buttons\pingouin-or.png
-						plugins\selectInputs\img\buttons\pingouin-orange.png
-						plugins\selectInputs\img\buttons\pingouin-rose.png
-						plugins\selectInputs\img\buttons\pingouin-rouge.png
-						plugins\selectInputs\img\buttons\pingouin-vert.png
-						plugins\selectInputs\img\buttons\pingouin-vertdegris.png
-						plugins\selectInputs\img\buttons\pingouin-violet.png
-					-coches0
-						plugins\selectInputs\img\coches0\coche-02.png
-						plugins\selectInputs\img\coches0\coche-04.png
-						plugins\selectInputs\img\coches0\coche-08.png
-						plugins\selectInputs\img\coches0\coche-10.png
-						plugins\selectInputs\img\coches0\coche-11.png
-						plugins\selectInputs\img\coches0\coche-12.png
-						plugins\selectInputs\img\coches0\coche-13.png
-						plugins\selectInputs\img\coches0\coche-15.png
-						plugins\selectInputs\img\coches0\coche-16.png
-						plugins\selectInputs\img\coches0\-no_icon.png
-						plugins\selectInputs\img\coches0\smiley-054.png
-						plugins\selectInputs\img\coches0\smiley-064.png
-					-coches1
-						plugins\selectInputs\img\coches1\Button_Icon_Green.png
-						plugins\selectInputs\img\coches1\Button_Icon_GreenBlue.png
-						plugins\selectInputs\img\coches1\Button_Icon_GreenForest.png
-						plugins\selectInputs\img\coches1\coche-01.png
-						plugins\selectInputs\img\coches1\coche-03.png
-						plugins\selectInputs\img\coches1\coche-05.png
-						plugins\selectInputs\img\coches1\coche-06.png
-						plugins\selectInputs\img\coches1\coche-07.png
-						plugins\selectInputs\img\coches1\coche-09.jpg
-						plugins\selectInputs\img\coches1\coche-10.png
-						plugins\selectInputs\img\coches1\coche-11.png
-						plugins\selectInputs\img\coches1\coche-13.png
-						plugins\selectInputs\img\coches1\coche-14.png
-						plugins\selectInputs\img\coches1\coche-15.png
-						plugins\selectInputs\img\coches1\coche-16.png
-						plugins\selectInputs\img\coches1\-no_icon.png
 					plugins\selectInputs\img\index.html
 				plugins\selectInputs\index.html
 				plugins\selectInputs\selectInputs.css
@@ -529,10 +1319,20 @@ _quiz-org
 							plugins\sortItems\img\buttons\yellow\index.html
 						plugins\sortItems\img\buttons\index.html
 					plugins\sortItems\img\index.html
+				plugins\sortItems\imgDaDSortItems.js
 				plugins\sortItems\index.html
 				plugins\sortItems\sortItems.css
 				plugins\sortItems\sortItems.js
-			+textMixte
+				plugins\sortItems\sortItems_combobox.js
+				plugins\sortItems\sortItems_listbox.js
+				plugins\sortItems\sortItems_ulDaDList.js
+			-taquin
+				-img
+					plugins\taquin\img\index.html
+				plugins\taquin\index.html
+				plugins\taquin\taquin.js
+				plugins\taquin\TaquinComponent.js
+			-textMixte
 				plugins\textMixte\index.html
 				plugins\textMixte\textListbox1.css
 				plugins\textMixte\textListbox1.js
@@ -552,20 +1352,63 @@ _quiz-org
 				plugins\ulDaDGroups\ulDaDGroups.css
 				plugins\ulDaDGroups\ulDaDGroups.js
 			plugins\index.html
+			plugins\triplette.rar
+		_quiz-org.ppr
 		index.html
+		Nouveau1.js
 [Open project files]
-0=js\plugin_prototype.js
-1=js\quiz_main.js
-2=css\quiz.css
+0=plugins\memory\MemoryComponent.js
+1=plugins\memory\memory.js
+2=plugins\memosuite\memosuite.js
+3=plugins\memory\memory_liste.js
+4=plugins\memory\memory_grille.js
+5=plugins\memosuite\memosuite_grille.js
+6=plugins\memosuite\memosuite_liste.js
+7=plugins\memosuite\MemosuiteComponent.js
+8=Nouveau1.js
+9=js\quiz_main.js
+10=js\composantsJS\Chronos.js
+11=js\fnc_interface.js
+12=js\fnc_timer.js
 [Selected Project Files]
 Main=
-Selected=js\quiz_main.js
-[js\plugin_prototype.js]
+Selected=plugins\memosuite\MemosuiteComponent.js
+[plugins\memory\MemoryComponent.js]
+TopLine=55
+Caret=1,143
+[plugins\memory\memory.js]
 TopLine=1
-Caret=24,4
+Caret=1,1
+[plugins\memosuite\memosuite.js]
+TopLine=13
+Caret=1,1
+[plugins\memory\memory_liste.js]
+TopLine=43
+Caret=1,78
+[plugins\memory\memory_grille.js]
+TopLine=81
+Caret=5,102
+[plugins\memosuite\memosuite_grille.js]
+TopLine=131
+Caret=1,159
+[plugins\memosuite\memosuite_liste.js]
+TopLine=156
+Caret=1,164
+[plugins\memosuite\MemosuiteComponent.js]
+TopLine=104
+Caret=13,126
+[Nouveau1.js]
+TopLine=305
+Caret=1,347
 [js\quiz_main.js]
-TopLine=456
-Caret=15,477
-[css\quiz.css]
-TopLine=592
-Caret=2,613
+TopLine=155
+Caret=1,165
+[js\composantsJS\Chronos.js]
+TopLine=30
+Caret=62,260
+[js\fnc_interface.js]
+TopLine=113
+Caret=1,139
+[js\fnc_timer.js]
+TopLine=25
+Caret=5,12

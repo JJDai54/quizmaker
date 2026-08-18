@@ -239,7 +239,7 @@ img{
                     <img src="<{$modUrlIcon16}>/binoptions/binoption-0<{$Quiz.currentBinOptions}>.png" alt="Default" title='Default' />
                     <img src="<{$modUrlIcon16}>/binoptions/crochet_right.png" alt="" title='' style="margin-left:-4px;" />
                     
-                    <{assign var="urlSetConfig" value="quiz.php?op=set_binoptions&cat_id=`$Quiz.cat_id`&quiz_id=`$Quiz.id`"}>
+                    <{assign var="urlSetConfig" value="quiz.php?op=set_binoptions&cat_id=`$Quiz.cat_id`&quiz_id=`$Quiz.id`&quiz_subject=`$Quiz.subject`"}>
                     <{foreach item=binOpt from=$binOptions name=binOptItem}>
                         <a href="<{$urlSetConfig}>&opt_id=<{$binOpt.id}>" >
                             <img src="<{$modUrlIcon16}>/binoptions/<{$binOpt.icone}>" alt="config" title='<{$binOpt.name}>' />

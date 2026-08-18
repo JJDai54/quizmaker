@@ -113,7 +113,7 @@ getRelativeSize(obSource = null){
     var coX = x + xyAbsolute.x - rw;
     var coY = y + xyAbsolute.y - rh;
     
-    console.log(`getRelativeSize : x = ${x} - y = ${y}`);
+    //console.log(`getRelativeSize : x = ${x} - y = ${y}`);
     return {'x': coX, 'y': coY, 'w' : w, 'h' : h, 'rw' : rw, 'rh' : rh};
 }
 
@@ -131,7 +131,7 @@ getAbsolutePosition(element) {
     y += currentElement.offsetTop;
     currentElement = currentElement.offsetParent;
   }
-    console.log(`getAbsolutePosition :  obSource : ${element.id} - x = ${x} - y = ${y}`);
+    //console.log(`getAbsolutePosition :  obSource : ${element.id} - x = ${x} - y = ${y}`);
 
   return { 'x': x, 'y': y };
 }
@@ -148,7 +148,7 @@ if(!divTouche){
     var divTouche = this.getNewDivTouche(obSource, numImage);
 }  
 //alert('moveDiv : ' + divTouche.id);
-  console.log(`moveDiv :  obSource : ${obSource.id} - x = ${rps.x} - y = ${rps.y}`);
+  //console.log(`moveDiv :  obSource : ${obSource.id} - x = ${rps.x} - y = ${rps.y}`);
 
   //    alert(divTouche.id + `xr = ${xr} - rps = {yr}`);
    divTouche.style.left = rps.x + unitPx;
@@ -190,7 +190,7 @@ getNewDivTouche(obSource, numImage){
     newDiv.style.left = rps.x + unitPx;
     newDiv.style.top  = rps.y + unitPx;
 
-console.log(`getNewDivTouche : ${rps.x}px / ${rps.y}px`);
+//console.log(`getNewDivTouche : ${rps.x}px / ${rps.y}px`);
     newDiv.style.width  = Math.round(rps.w) + unitPx;
     newDiv.style.height = Math.round(rps.h) + unitPx;
     
@@ -201,7 +201,6 @@ console.log(`getNewDivTouche : ${rps.x}px / ${rps.y}px`);
     //newDiv.style.background = 'red'; 
     
     //pas utile utilisé utilisé pendant le div
-//     newDiv.setAttribute('title','zzzzzzzzzzz');
 //     newDiv.style.background = 'red'; 
     
     return newDiv;
@@ -234,7 +233,7 @@ X = |xB - xA|/2
 Y = |yB - yA|/2 
 **************************************** */
 isClickInEllipse(x,y,coef=0){
-console.log(`===> isClickInEllipse : x = ${x} - y = ${y} - borderRadius = ${this.borderRadius}`);
+//console.log(`===> isClickInEllipse : x = ${x} - y = ${y} - borderRadius = ${this.borderRadius}`);
 /* test de verification de la formue
 x=50;
 y=60;
@@ -265,7 +264,7 @@ var exp = `isClickInEllipse=> : \ncoef : ${coef} -  x = ${x} - y = ${y} - a = ${
 
 **************************************** */
 isClickInRectangle(x,y,coef=0){
-console.log(`===> isClickInRectangle : x = ${x} - y = ${y} - borderRadius = ${this.borderRadius}`);
+//console.log(`===> isClickInRectangle : x = ${x} - y = ${y} - borderRadius = ${this.borderRadius}`);
     //touche cliqué avec la souris
     x = x * 1;
     y = y * 1;
@@ -286,8 +285,8 @@ console.log(`===> isClickInRectangle : x = ${x} - y = ${y} - borderRadius = ${th
     var ret = ((x >= rx1 && x <= rx2) && (y >= ry1 && y <= ry2));
     
 var exp = `===> isClickInRectangle=> : \ncoef : ${coef} -  rx1 = ${rx1} - ry1 = ${ry1} - rx2 = ${rx2} - ry2 = ${ry2} - rw = ${rw} - rh = ${rh}`;    
-console.log (exp);
-    console.log((ret) ? 'Bingo' : 'Pas Glop');
+//console.log (exp);
+    //console.log((ret) ? 'Bingo' : 'Pas Glop');
 
     return ret;
 }

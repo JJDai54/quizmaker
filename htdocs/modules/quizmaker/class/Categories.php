@@ -96,7 +96,7 @@ class Categories extends \XoopsObject
 		$title = $this->isNew() ? sprintf(_AM_QUIZMAKER_CATEGORIES_ADD) : sprintf(_AM_QUIZMAKER_CATEGORIES_EDIT);
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
+		$form = new \XoopsFormJanus($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
         //------------------------------------------------------------------------
 		// Form Text catName
@@ -104,14 +104,14 @@ class Categories extends \XoopsObject
         $inpName = new \XoopsFormText( _AM_QUIZMAKER_NAME, 'cat_name', 50, 255, $name);
         if($name == QUIZMAKER_CAT_NAME_FOR_EXEMPLE){
           $inpName->setExtra("disabled");
-		  $form->addElement($inpName, false);
-          $form->addElement(new \XoopsFormHidden('cat_name', $name));
+		  $form->addXtrayElement($inpName, false);
+          $form->addXtrayElement(new \XoopsFormHidden('cat_name', $name));
         }else{
-		  $form->addElement($inpName, true);
+		  $form->addXtrayElement($inpName, true);
         }
         
         //cat_actif
-		$form->addElement(new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'cat_actif', $this->getVar('cat_actif')));
+		$form->addXtrayElement(new \XoopsFormRadioYN(_AM_QUIZMAKER_ACTIF, 'cat_actif', $this->getVar('cat_actif')));
         
 		// Form Editor DhtmlTextArea catDescription
         $name = 'cat_description';
@@ -124,7 +124,7 @@ class Categories extends \XoopsObject
 		$editorConfigs['width'] = '100%';
 		$editorConfigs['height'] = '400px';
 		$editorConfigs['editor'] = $editor;
-		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_DESCRIPTION, $name, $editorConfigs) );
+		$form->addXtrayElement(new \XoopsFormEditor( _AM_QUIZMAKER_DESCRIPTION, $name, $editorConfigs) );
 
         
 
@@ -133,13 +133,13 @@ class Categories extends \XoopsObject
         $inpReadmeStatus->addOption(0, _AM_QUIZMAKER_README_STATUS0);
         $inpReadmeStatus->addOption(1, _AM_QUIZMAKER_README_STATUS1);
         $inpReadmeStatus->addOption(2, _AM_QUIZMAKER_README_STATUS2);
-		$form->addElement($inpReadmeStatus);
+		$form->addXtrayElement($inpReadmeStatus);
 
 		// Form Text cat_readme_label
         $name = 'cat_readme_label';
         $inpReadmeLabel= new \XoopsFormText(_AM_QUIZMAKER_README_LABEL , $name, 80, 80, $this->getVar($name));
         $inpReadmeLabel->setDescription(_AM_QUIZMAKER_README_LABEL_DESC);
-   	    $form->addElement($inpReadmeLabel, false);
+   	    $form->addXtrayElement($inpReadmeLabel, false);
         
 		// Form Editor DhtmlTextArea cat_readme_text
         $name = 'cat_readme_text';
@@ -152,7 +152,7 @@ class Categories extends \XoopsObject
 		$editorConfigs['width'] = '100%';
 		$editorConfigs['height'] = '400px';
 		$editorConfigs['editor'] = $editor;
-		$form->addElement(new \XoopsFormEditor( _AM_QUIZMAKER_README_TEXT, $name, $editorConfigs) );
+		$form->addXtrayElement(new \XoopsFormEditor( _AM_QUIZMAKER_README_TEXT, $name, $editorConfigs) );
         
         
         // Categories Handler
@@ -165,31 +165,31 @@ class Categories extends \XoopsObject
         $inpTheme->setdescription(_AM_QUIZMAKER_THEME_DEFAULT_CAT);
         //$inpTheme->addOptionArray($quizUtility::get_css_color());
         $inpTheme->addOptionArray( \JANUS\get_css_color());
-		$form->addElement($inpTheme );
+		$form->addXtrayElement($inpTheme );
 
 
         //$imgCat = QUIZMAKER_URL_UPLOAD . '/categories/' . $this->getVar('cat_image');
         $inpImgCat2 = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'cat_image', $quizmakerHelper->getConfig('maxsize_image'), $this->getVar('cat_image'),  QUIZMAKER_URL_UPLOAD . '/categories');
-		$form->addElement($inpImgCat2);
+		$form->addXtrayElement($inpImgCat2);
 
 		// Form Text cat_weight
         //$cat_weight = $this->isNew() ? '0' : $this->getVar('cat_weight');
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'cat_weight', 20, 50,  $this->getVar('cat_weight')) );
+		$form->addXtrayElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'cat_weight', 20, 50,  $this->getVar('cat_weight')) );
 		
 		// Form Text cat_max_attempts
         $name = 'cat_max_attempts';
-        $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
-        $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_MAX_ATTEMPTS_UNIT);
-        $inpMaxAttempts->setDescription(_AM_QUIZMAKER_MAX_ATTEMPTS_DESC);
-        $form->addElement($inpMaxAttempts);     
-        
-        
+        $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_QUIZ_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
+        $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_UNIT_ATTEMPTS);
+        $inpMaxAttempts->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
+        $inpMaxAttempts->setDescription(_AM_QUIZMAKER_QUIZ_MAX_ATTEMPTS_DESC);
+        $form->addXtrayElement($inpMaxAttempts);     
+
         // quiz_delai_cookie
         $name = 'cat_delai_cookie';
 		$inpDuration = new \XoopsFormDuration( _AM_QUIZMAKER_COOKIE_DURATION, $name, $this->getVar($name));
         $inpDuration->setDescription(_AM_QUIZMAKER_COOKIE_DURATION_DESC);
         $inpDuration->setCompteurs("dhms");
-		$form->addElement($inpDuration);
+		$form->addXtrayElement($inpDuration);
         
         
 /*
@@ -220,15 +220,16 @@ class Categories extends \XoopsObject
         $catId = $this->getVar('cat_id');
         $clPerms = new \JanusPermissions();
 
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS,        'view_cats',        $catId, $this->isNew()));
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,        'edit_quiz',        $catId, $this->isNew()));
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,      'create_quiz',      $catId, $this->isNew()));
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,      'delete_quiz',      $catId, $this->isNew()));
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,      'import_quiz',      $catId, $this->isNew()));
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ, 'importquest_quiz', $catId, $this->isNew()));
-        $form->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ,      'export_quiz',      $catId, $this->isNew()));
-
-
+        $tblPerm = new \XoopsFormCheckBoxArr('Permission');
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_VIEW_CATS,        'view_cats',        $catId, $this->isNew()));
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EDIT_QUIZ,        'edit_quiz',        $catId, $this->isNew()));
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_CREATE_QUIZ,      'create_quiz',      $catId, $this->isNew()));
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_DELETE_QUIZ,      'delete_quiz',      $catId, $this->isNew()));
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_IMPORT_QUIZ,      'import_quiz',      $catId, $this->isNew()));
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_IMPORTQUEST_QUIZ, 'importquest_quiz', $catId, $this->isNew()));
+        $tblPerm->addElement($clPerms->getCheckboxByGroup2(_AM_QUIZMAKER_PERMISSIONS_EXPORT_QUIZ,      'export_quiz',      $catId, $this->isNew()));
+        $form->addXtrayElement($tblPerm);
+        
 /*
 		// To Approve
 		$groupsCanApproveCheckbox->addOptionArray($groupList);
@@ -241,8 +242,8 @@ class Categories extends \XoopsObject
 		$form->addElement($groupsCanViewCheckbox);
 */        
 		// To Save
-		$form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+		$form->addHidden('op', 'save');
+		$form->addXtrayElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 		return $form;
 	}
 

@@ -1,0 +1,5 @@
+il me reste un jeu basé sur splitImage
+il s'agit d'une grille d'image, qui sont pas masquée mais floutée
+pendant un certain temps paramétré et un nombre d’image définie s'affiche en clair les unes après les autres, par exemple 3 images
+a la fin le joueur doit clique sur la grille en clair sur les images et dans l'ordre.
+les images cliquée s'affiche dans un div au-dessus de la grille

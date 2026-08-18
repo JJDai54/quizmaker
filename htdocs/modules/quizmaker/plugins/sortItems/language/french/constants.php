@@ -42,7 +42,6 @@ define('_LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD', "Images");
 define('_LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_FH', "Images hauteur fixe");
 define('_LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_WH', "Images largeur fixe");
 
-define('_LG_PLUGIN_SORTITEMS_VARIANT_SELECT', "Sélectionnez une variante,  validez et rechargez le formulaire");
 define('_LG_PLUGIN_SORTITEMS_VARIANT_DESC', "Le principe est le même quelque soit la structure, il s'agit de trier une liste qui se présente sous différentes formes:"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_VARIANT_LISTBOX . "</b> : Liste d'expressions avec des boutons de déplacement"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_VARIANT_COMBOBOX . "</b> : Autant de listes déroulantes que d'expresions à trier remplies avec toutes les expressions"

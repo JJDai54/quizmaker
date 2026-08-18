@@ -1,12 +1,16 @@
+// quiz_messages.btnReloadInitial
 const quiz_messages = {
 bravo : "SlideNumber {slideNumber} : Bravo vous avez gagné {scoreQuestion} points!\nVous pouvez passer à l'étape suivante !",
 btnAntiseche : "?",
+btnTricheur : "$",
 btnContinue : "Continuez",
 btnGotoSlide : "#",
 btnGotoSlideBegin : "0",
+btnShowModeNormal : "§",
 btnNext : "Suivant",
 btnPrevious : "Précédent",
 btnReload : "Recharger",
+btnReloadInitial : "Recharger la position initiale",
 btnStartQuiz : "Lancez le quiz",
 btnSubmit : "Validez votre score pour voir les réponses",
 emoji_text_00 : "Hélas vous n'avez pas fait les bons choix",
@@ -31,19 +35,33 @@ numSlideToGo : "Numéro du slide à atteindre :",
 numSlideToGo : "Numéro du slide à atteindre :",
 points : "point(s)",
 popupScore : "Votre score pour cette question est de {points} / {max} points",
-popupScoreCumule : "Vous avez répondu à {nbReponses} / {nbQuestions} questions<br>Votre score total est de {score} / {total} points",
+popupScoreCumule : "Vous avez répondu à {nbReponses} / {nbQuestions} questions<br>Votre score total est de {score} / {total} points.",
 readerTimer : "Temps de lecture : {timer} secondes",
 resultBravo0 : "Votre résultat pour cette question :",
 resultBravo1 : "Vous avez obtenu le score maximumn",
 resultBravo2 : "Vous n'avez pas obtenu le score maximum",
 resultBravo3 : "Vous avez obtenu le score minimum",
-resultOnSlide : "résultat : pour {reponses} réponse(s) sur {questions} questions<br>Votre score est de {points} points sur {totalPoints} points",
+resultOnSlide : "résultat : pour {reponses} réponse(s) sur {questions} questions<br>Votre score est de {points} points sur {totalPoints} points.",
 results : "Résultats",
 resultThisSlide : "Votre score pour ce slide est de {score} / {scoreMaxi} points",
 libScore : "Score",
 showReponses : "Affichage pour le dev des réponses possibles (réponse ===> points)",
 twoPoints : "&nbsp;:&nbsp;",
-goToNextSlideRequired1 : "Vous avez atteint le nombre d'essais autorisés.\nVous devez passer au slide suivant pour continuer",
-goToNextSlideRequired2 : "Vous avez trouvé tous les objets\nVous pouvez passer passer au slide suivant pour continuer",
-version : "{name} Version {version} du {date_release} - contact : <a href='mailto:{email}?subject={name}'>{author}</a>"
+goToNextSlideRequired1 : "Vous avez atteint le nombre d'essais autorisés.\nVous devez passer au slide suivant pour continuer.",
+goToNextSlideRequired2 : "Vous avez trouvé tous les objets\nVous pouvez passer passer au slide suivant pour continuer.",
+goToNextSlide1 : "Le délai de réflexion est dépassé !//Vous allez passez automtiquement au slide suivant.",
+goToNextSlide2 : "Il est temps de passer aux questions !//Vous allez passez automtiquement au slide suivant.",
+submitResults : "Le quiz est terminé, vous aller être redirigé sur le site !//Votre score va être automatiquement enregistré.//Vous y trouverez d'autre quiz pour vous amuser !",
+version : "{name} Version {version} du {date_release} - contact : <a href='mailto:{email}?subject={name}'>{author}</a>",
+carre:'²'
+
+};
+
+const exposantsMap = {
+    '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', 
+    '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹'
+};
+const inverseCorrespondances = {
+    '⁰': '0', '¹': '1', '²': '2', '³': '3', '⁴': '4',
+    '⁵': '5', '⁶': '6', '⁷': '7', '⁸': '8', '⁹': '9'
 };

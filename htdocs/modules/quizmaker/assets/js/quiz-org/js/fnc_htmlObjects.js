@@ -302,14 +302,14 @@ function  clearfillCollection(name, fillWithExp="")
         case 2: // Masquer et inline
         case 3: // masquer et not inline
 **************************************************** */
-function updateButton (source, etat, tellFrom = null) {
+function updateButton (source, etat, background = null, tellFrom = null) {
     if(isObject(source)){
         var btn = source;
     }else{
         var btn =  document.getElementById(source);
     }
     if(!btn) {
-        console.log(`===>updateButton : tellFrom = ${tellFrom}`);
+        //console.log(`===>updateButton : tellFrom = ${tellFrom}`);
         return false;
     }
   
@@ -321,6 +321,7 @@ function updateButton (source, etat, tellFrom = null) {
         case 0: // disable and visible
             btn.style.display = 'inline-block';
             btn.style.visibility="visible";
+            btn.style.opacity = "30%";
             btn.disabled = 'disabled';
             break;
             
@@ -337,12 +338,16 @@ function updateButton (source, etat, tellFrom = null) {
         default:
             btn.style.visibility="visible";
             btn.style.display = 'inline-block';
+            btn.style.opacity = "100%";
             btn.disabled = '';
 // if (btn.id == 'quiz_btn_nextSlide'){
 // //if (tellFrom == 'getScoreByProposition-memory'){
 // alert(`===>updateButton -> ${tellFrom} : etat = ${etat} \n btn = ${btn.id}`);
 // }
             break;
+    }
+    if(background){
+        btn.style.background = background;
     }
     if (tellFrom){
         //console.log(`===>updateBtnNext : id = ${btn.id} - etat = ${etat} - tellFrom = ${tellFrom}`);

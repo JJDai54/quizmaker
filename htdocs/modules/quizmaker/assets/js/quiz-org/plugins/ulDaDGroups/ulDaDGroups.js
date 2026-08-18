@@ -24,6 +24,8 @@ buildSlide (bShuffle = true){
 * **** */
 getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
+    var options = this.question.options;
+    
     var tWords = [];
     var tPoints = [];
     var tItems = new Object;
@@ -33,8 +35,8 @@ getInnerHTML(bShuffle = true){
     var captionBottom = '';    
 
     //var tpl = "<table style='border: none;text-align:left;'><tr><td>{sequence}</td></tr><tr><td>{suggestion}</td></tr></table>";
-var divHeight = currentQuestion.options.imgHeight1*1+12;  
-var posCaption = currentQuestion.options.showCaptions;    
+var divHeight = options.imgHeight1*1+12;  
+var posCaption = options.showCaptions;    
 //var divStyle=`style="float:left;margin:5px;font-size:0.8em;text-align:center;"`;
 //var divStyle=`style="overflow-y: scroll;overflow: hidden;"`;
 
@@ -43,29 +45,28 @@ var ImgStyle=`style="height:${divHeight}px;"`;
     
 //------------------------------------------------------
     //definition du template selon le nombre de groupes 2 ou 3 en tenant compte du groupe 0
-    var nbGroups = this.data.groupsLib.length;
 
-var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups');
+var tpl = this.getDisposition(options.disposition, 'ulDaDGroups');
     //----------------------------------------------------------------------------------------
 
     var groups = [];
     var ans;
     var groupIndex;
-    for(var k = 0; k < nbGroups; k++){
+    for(var k = 0; k < options.nbGroups; k++){
         groups[k] = [];
     }
     
    //repartir les propositions par group
    var shuffleArr = this.shuffleAnswers(true);
     for(var k in shuffleArr){
-        //index = getRandom(nbGroups-1);
-        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
+        //index = getRandom(options.nbGroups-1);
+        groupIndex = (options.groupDefault*1 < 0)  ? getRandom(options.nbGroups-1) : options.groupDefault;
         groups[groupIndex].push(shuffleArr[k]);
 
     }
    
 
-    for(var k = 0; k < nbGroups; k++){
+    for(var k = 0; k < options.nbGroups; k++){
         var tHtml = [];
         var groupName = this.getId('group', k);
         
@@ -81,32 +82,30 @@ var tpl = this.getDisposition(currentQuestion.options.disposition, 'ulDaDGroups'
             //if (!ans.proposition.trim() == '$$$') ans.proposition = '&nbsp;';
             var caption = replaceDoubleSlash(ans.proposition);
             tHtml.push(`
-            <li id='${ans.ansId}' class='quiz_slist' style='width:${currentQuestion.options.ulWidth}%;${backGround}'>${caption}</li>`
+            <li id='${ans.ansId}' class='quiz_slist' style='width:${options.ulWidth}%;${backGround}'>${caption}</li>`
             );
 
         }
-        tpl=tpl.replace(`{contentGroup${k}}`, tHtml.join("\n"));        
+        tpl=tpl.replace(`{contentGroup${k}}`, tHtml.join("\n")).
+        replace(`{libGroup${k}}`, this.data.groups[k].caption);        
     }
 
     //---------------------------------------------------------------------
-    for(var k = 0; k < this.data.groupsLib.length; k++){
-        //tpl=tpl.replace(`{group-${k}}`, this.data.groupsLib[k]);
-        tpl=tpl.replace(`{libGroup${k}}`, this.data.groupsLib[k]);        
-    }
+
     return '<center>' + tpl + '</center>';
 }
 //---------------------------------------------------
 initSlide (){
     //alert ("===> initSlide : " + this.question.pluginName  + " - " + this.question.question + " \n->" + this.getName());
-    var nbGroups = 4;
-    for(var k = 0; k < nbGroups; k++){ 
+
+    for(var k = 0; k < this.question.options.nbGroups; k++){ 
         var groupName = this.getId('group', k);
         var obGroup = document.getElementById(groupName);
         if(obGroup){
             this.init_slist(obGroup);
         }
     }
-    //this.reloadQuestion();    
+    
     return true;
  }
  
@@ -128,7 +127,7 @@ init_slist (target) {
     i.ondragstart = e => {
         e.dataTransfer.effectAllowed = "move";
         e.dataTransfer.setData("text", e.target.getAttribute("id"));
-        console.log('init_slist.start ===>' + e.target.getAttribute("id"));
+        //console.log('init_slist.start ===>' + e.target.getAttribute("id"));
       }
     };
    
@@ -141,15 +140,26 @@ init_slist (target) {
  prepareData(){
     
     var currentQuestion = this.question;
+    var options = currentQuestion.options;
+    
+    options.groupDefault = options.groupDefault*1;
+        
+    this.data.groups = clsGroup.repartir(this, true);
+return;
+    var currentQuestion = this.question;
+    var options = currentQuestion.options;
+    options.groupDefault = options.groupDefault*1;
+    
     var groups = [];
     groups[0] = [];
-   
+
+
    //repartir les proposition par group
     for(var k in currentQuestion.answers){
         var ans = currentQuestion.answers[k];
+        ans.group = ans.group*1;
         ans.ansId = this.getId('item', k);
         ans.caption.replace(' ', qbr);
-                        
                         
         if(ans.points == 0) {ans.points = 1;}
         if(!groups[ans.group*1]) groups[ans.group*1] = [];
@@ -163,32 +173,82 @@ init_slist (target) {
         var key = 'group' + k;
         if(currentQuestion.options[key]) {this.data.groupsLib.push(currentQuestion.options[key]);}
     }
+    this.initMinMaxQQ(2);
     
+}
+
+/* *************************************
+*
+    this.scoreMaxiBP = options.nbImages * currentQuestion.answers[0].points;
+    this.scoreMiniBP = 0;
     
+    return true;
+* ******** */
+computeScoresMinMaxByProposition(){
+    var currentQuestion = this.question;
+    var options = currentQuestion.options;
+        
+    this.scoreMaxiBP = 0;
+    this.scoreMiniBP = 0;
+    var ans;
+
+    this.blob('computeScoresMinMaxByProposition -----------------------------------------');
+    for(var k = 0; k < currentQuestion.answers.length; k++){
+        ans =  currentQuestion.answers[k];
+        //alert(`options.groupDefault = ${options.groupDefault} - ans.group = ${ans.group}`)
+        if(options.groupDefault*1 >= 0){
+            if(ans.group*1 != options.groupDefault*1){
+                this.scoreMaxiBP += ans.points*1;
+            }
+        }else{
+            this.scoreMaxiBP += ans.points*1;
+        }            
+                        
+    }
+    
+     return true;
+
 }
 
 /* **************************************************
 calcul le nombre de points obtenus d'une question/slide
 **************************************************** */ 
 getScoreByProposition (answerContainer){
-var points = 0;
-var ans;
-var obAns;
-var idDivGood;
+    var currentQuestion = this.question;
+    var options = currentQuestion.options;
+    var points = 0;
+    var ans;
+    var obAns;
+    var idDivGood;
+    var groupOk = 0 //=00 annule ne nombre de points sinon le compte;
 /*
 */
-    var currentQuestion = this.question;
-this.blob('showGoodAnswers -----------------------------------------');
+    
+//this.blob('showGoodAnswers -----------------------------------------');
       for(var k = 0; k < currentQuestion.answers.length; k++){
         ans =  currentQuestion.answers[k];
         obAns = document.getElementById(ans.ansId);
         idDivGood =  this.getId('group', ans.group);
         //this.blob(`divGood = ${idDivGood} - divFound = ${obAns.parentNode.id}`);
-        if (idDivGood == obAns.parentNode.id){
-            points += ans.points*1;
+        var groupNum = obAns.parentNode.getAttribute('groupNum');
+        groupNum != options.groupDefault
+        
+        if (options.groupDefault*1 >= 0 && groupNum != options.groupDefault){
+            if (idDivGood == obAns.parentNode.id && groupNum != options.groupDefault){
+                points += ans.points*1;
+            }else{
+                points -= ans.points*1;
+            }            
+        
+        
         }else{
-            //points -= ans.points*1;
-        }            
+            if (idDivGood == obAns.parentNode.id && groupNum != options.groupDefault){
+                points += ans.points*1;
+            }else{
+                //points -= ans.points*1;
+            }            
+        }
+        
                     
     }
     return points;
@@ -254,40 +314,36 @@ var tHtml = [];
 /* ************************************
 *
 * **** */
- reloadQuestion() {
+ reloadQuestion(reloadMode = reloadShuffle) {
     var currentQuestion = this.question;
-
-/*    
-    var name = this.getName();
-    var obContenair = document.getElementById(`${name}`);
-
-    obContenair.innerHTML = this.getInnerHTML();
-    return true;
- */
-
+    var options = this.question.options;
+    
     var obGroups= [];
     var obGroup;
-    var nbGroups = this.data.groupsLib.length;
-    var groupIndex = -1; //groupe de destination aleatoire
+    var index = 0;
     
-    for(k = 0; k < this.data.groupsLib.length; k++){
-        obGroups[k] = document.getElementById(this.getId('group',k));
-        //alert(k + " : " + obGroups[k].id);
+    for(k = 0; k < this.data.groups.length; k++){
+        //var groupId = this.getId('group', k);
+        //obGroups.push(document.getElementById(groupName));
+        obGroups.push(document.getElementById(this.data.groups[k].id));
     }
-    
+
     for(var k in currentQuestion.answers){
         var ans =  currentQuestion.answers[k];
-        groupIndex = (currentQuestion.options.groupDefault*1 < 0)  ? getRandom(nbGroups-1) : currentQuestion.options.groupDefault;
-//alert(currentQuestion.options.groupDefault + "-" + groupIndex);
-        //alert ('groupIndex : ' + groupIndex);
-        obGroup = obGroups[groupIndex];
-        //alert(ans.ansId);
-        obGroup.appendChild(document.getElementById(ans.ansId )); //+ "-div"
+        if(reloadMode){
+            index = getRandom(options.nbGroups-1);
+        }else{
+            index = ans.group;
+        }
+        var obGroup = obGroups[index];
+        obGroup.appendChild(document.getElementById(ans.ansId)); 
+
 
     }
 
      return true;
-}
+  }
+  
   
 /* ***************************************
 *
@@ -295,55 +351,14 @@ var tHtml = [];
 
  showGoodAnswers()
   {
-    var currentQuestion = this.question;
-    var obGroups= [];
-    var obGroup;
-    
-    for(k = 0; k < this.data.groupsLib.length; k++){
-        var groupName = this.getId('group', k);
-        obGroups.push(document.getElementById(groupName));
-    }
-
-    for(var k in currentQuestion.answers){
-        var ans =  currentQuestion.answers[k];
-        var obGroup = obGroups[ans.group];
-        obGroup.appendChild(document.getElementById(ans.ansId)); 
-
-
-    }
-
-     return true;
+     this.reloadQuestion(false);
   } 
 /* ***************************************
 *
 * *** */
  showBadAnswers()
   {
-    var currentQuestion = this.question;
-    var obGroups= [];
-    var obGroup;
-    var nbGroups = this.data.groupsLib.length;
-    var index; //groupe de destination aleatoire
-    
-    for(k = 0; k < this.data.groupsLib.length; k++){
-        obGroups[k] = document.getElementById(this.getId('group',k));
-        //alert(k + " : " + obGroups[k].id);
-    }
-    
-    for(var k in currentQuestion.answers){
-        var ans =  currentQuestion.answers[k];
-        index = getRandom(nbGroups-1);
-        //alert ('index : ' + index);
-        obGroup = obGroups[index];
-        //alert(ans.ansId);
-        //obGroup.appendChild(document.getElementById(ans.ansId + "-div")); 
-        if(obGroup) {
-            obGroup.appendChild(document.getElementById(ans.ansId)); 
-        }
-
-    }
-
-     return true;
+     this.reloadQuestion(true);
   } 
 
   /* *********************************************
@@ -363,11 +378,11 @@ onDragLeave="ulDaDGroups_dad_leave(event);"`;
 
 for (var h = 0; h < 4; h++){
    var bg = currentQuestion.options[`bgGroup${h}`];
-   var id = this.getId('group', h); 
+   var groupId = this.getId('group', h); 
 
-groupes.push(`
-<span style="background:${bg};">{libGroup${h}}</span><br>   
-<div id='${id}' class='myimg0' attSelGroup style="background:${bg}" ${DadEvent}>{contentGroup${h}}</div>`);
+    groupes.push(`<span style="background:${bg};">{libGroup${h}}</span><br>`
+    + `<div id='${groupId}' class='myimg0' attSelGroup style="background:${bg}"`
+    + ` ${DadEvent} groupNum="${h}">{contentGroup${h}}</div>`);
 }
 
 

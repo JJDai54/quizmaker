@@ -1,8 +1,11 @@
-﻿function getPlugin_puzzle(question, slideNumber){
+﻿//import { PuzzleComponent } from "PuzzleComponent.js";
+
+function getPlugin_puzzle(question, slideNumber){
 //alert(question.options.disposition);
 //question.options.variant = 'puzzle';
 //question.options.variant = 'memory';
 //alert(question.options.variant);
+/*
     switch(question.options.variant){
     case 'taquin'   : return new taquin(question, slideNumber, 'taquin'); break;
     case 'memory'   : return new memory(question, slideNumber, 'memory'); break;
@@ -11,6 +14,7 @@
     default         : return new puzzle(question, slideNumber, 'puzzle');
     }
     //return new sortItems_combobox(question, slideNumber);
+*/
 
     return new puzzle(question, slideNumber, 'puzzle')
     //return new puzzle(question, slideNumber);
@@ -37,17 +41,39 @@ buildSlide (bShuffle = true){
 *
 * ******** */
 getInnerHTML(bShuffle = true){
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     var options = currentQuestion.options;
-    //alert(`urlQuiz=${quiz_config.urlQuiz}\nquiz.url=${quiz.url}`);
-    var puzzleId = this.getId('puzzle');
+    this.gameId = this.getId('puzzle');
     
-    var imgUrl = `${quiz.url}/${quiz.folderJS}/images/${currentQuestion.answers[0].image1}`;
-    var img = `<img id="${this.getId(0)}" src="${imgUrl}" width="1px" height="1px" style="position:absolute 0 0;visibility:hidden" title="pour test">`;   
+    let imgUrl = `${quiz.url}/${quiz.folderJS}/images/${currentQuestion.answers[0].image1}`;
+    let imgInfo = currentQuestion.answers[0].buffer.split('_');
+    //var img = `<img id="${this.getId(0)}" src="${imgUrl}" width="1px" height="1px" style="position:absolute 0 0;visibility:hidden" title="pour test">`;   
     this.puzzleIsLoad = false;
-    
-    var html = `${img}<center>${this.getImage()}${currentQuestion.answers[0].proposition}<div id='${puzzleId}' slideNumber="${this.slideNumber}" ><hr><b>Puzzle</b><hr></div></center>`;
+ 
+    //var html = `${img}<center>${this.getImage()}${currentQuestion.answers[0].proposition}<div id='${this.gameId}' data-slideNumber="${this.slideNumber}" ><hr><b>Puzzle</b><hr></div></center>`;
+//alert('rotation : ' + options.rotation)
+let rotatable = (options.rotation*1 === 1) ? 'rotatable' : '';
+if(options.background=='black' || options.background=='#000000') {options.background = 'transparent';}
+let html = `<puzzle-component 
+    id="${this.gameId}"
+    image="${imgUrl}" 
+    cols="${options.imgCols}" 
+    rows="${options.imgRows}" 
+    imgWidth="${imgInfo[0]}"
+    imgHeight="${imgInfo[1]}"
+    game-width="${options.gameWidth}px" 
+    max-attempts="${options.maxAttempts}" 
+    insertMode="${options.insertMode}" 
+    background-color="${options.background}"
+    radius="${options.radius}"
+    gap="${options.gap}"
+    ${rotatable}>zzz
+</puzzle-component>`;
 
+   html += `<br><center><div id=${this.getId('jauge')} style='background:transparent'>gauge</div></center>`;
+   //alert(html)
+//alert (`===> ${quiz.urlMain}/plugins/puzzle/PuzzleComponent.js`);    
+//alert (`===> ${quiz.urlMain}`);    
     return html;
 }
 
@@ -55,16 +81,16 @@ getInnerHTML(bShuffle = true){
 *
 * ******** */
 prepareData(){
-var tItems = [];
+
     var currentQuestion = this.question;
     var options = currentQuestion.options;
 
-    if(!options.maxAttemps){options.maxAttemps = 99999;}
-    if(options.maxAttemps == 0){options.maxAttemps = 99999;}
+    options.nbAttempts = 0;
+    
 //alert(`preview = ${options.preview}`);
     this.initMinMaxQQ (0);
     if(!options.preview) {options.preview  = 0;}
-    if(!options.rotation) {options.rotation  = 1;}
+    if(!options.rotation) {options.rotation  = 0;}
 } 
 
 //---------------------------------------------------
@@ -75,95 +101,104 @@ onEnter() {
 onFinalyse (){
     super.onFinalyse ();
     this.computeScore=true;
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     var options = currentQuestion.options;
-    var puzzleId = this.getId('puzzle');
     
-    if(this.puzzleIsLoad == false){
-        
-        var obImg = document.getElementById(this.getId(0));
-        var imgUrl = obImg.getAttribute('src');
-//alert(options.)        
-        options.urlPlugin = currentQuestion.urlPlugin;
-        build_puzzle(puzzleId, imgUrl, options, true);
-        
-        var obPuzzle = document.getElementById(puzzleId);
-        this.puzzleIsLoad = true;
-        
-        //this.computeScore=false;
-        //this.allowNextSlide = false;
-        
-    }
+    var tellFrom = `puzzle.onFinalyse[${this.gameId}]`; // pour tracer et debuger
+//         updateButton('quiz_btn_nextSlide', 0, null, tellFrom);
+    quiz_show_mask(true, 0.10, true);
 
-    var tellFrom = `puzzle.onFinalyse[${puzzleId}]`; // pour tracer et debuger
-
-    if(options.preview > 0){
-        puzzle_reset(puzzleId, false, tellFrom);
-        updateButton('quiz_btn_nextSlide', 0, tellFrom);
-        quiz_show_mask(true, 0.10, true);
-        setTimeout(puzzle_preview, options.preview*1000, puzzleId, options.nextSlideDelai, tellFrom);
-    }else{
-        updateButton('quiz_btn_nextSlide', 1, tellFrom);        
-    }
-
-
-    
         //document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
         //updateButton('quiz_btn_nextSlide', 0);
-}
-/* *************************************
-*
-* ******** */
-isInputOk(answerContainer,currentSlide){
-    var  currentQuestion = this.question;
-    //return    ( this.getScoreByProposition() == this.scoreMaxiQQ);
-    return true;
-}
 
-//---------------------------------------------------
-// computeScoresMinMaxByProposition(){
-// }
+// On s'assure que le DOM est bien chargé
+    this.puzzleIsLoad = false;
+
+    const jeuElement = document.getElementById(this.gameId );
+    if(options.preview > 0){
+       //jeuElement.resetToOriginalOrder();
+       jeuElement.preview(options.preview*1000);
+    }else{
+        updateButton('quiz_btn_nextSlide', 1, null, tellFrom);        
+    }
+
+    if(!this.obGauje){
+        var divJauge = document.getElementById(this.getId('jauge'));
+        //divJauge.innerHTML = "<span>xxxxxxxxxxxxx</span>";
+        this.obGauje = new QuizMaker.Gauge(divJauge, 'horizontal', 1, 400);
+        this.obGauje.setColor('green','silver');
+    }
+    this.obGauje.start(options.preview,{'opacity':0});
+
+   //let obSlide = document.getElementById(this.getId()).parentNode;
+   let obSlide = document.getElementById(this.getId('main'));
+   obSlide.style.overflow = "hidden";   
+ 
+    //this.puzzleIsLoad = true;
+/* ******************************************************* */
+const handleGameSuccess = (e) => {
+    if (e.detail.isSolved && this.puzzleIsLoad == true) {
+        console.log(" Gagné !!!!!!!!!!!!!!!!!");
+        //alert(" Gagné !!!!!!!!!!!!!!!!!!");
+        this.show_avertissement_WL(true);
+        
+        // Suppression de l'écouteur si on ne veut qu'une seule victoire par exemple
+        jeuElement.removeEventListener('game-success', handleGameSuccess);
+    }
+};
+// Définition de la fonction de callback pour les tentatives max
+const handleMaxAttempts = (e) => {
+    console.log(" Trop de mouvements ! Tentatives max atteintes :", e.detail.attempts);
+    //alert("Nombre maximum de déplacements atteint ! Perdu..............");
+    this.show_avertissement_WL(false);
+    
+    // Suppression de l'écouteur en cas de défaite
+    jeuElement.removeEventListener('game-maxattempts', handleMaxAttempts);
+};
+/* ******************************************************* */
+jeuElement.addEventListener('game-success', handleGameSuccess);
+jeuElement.addEventListener('game-maxattempts', handleMaxAttempts);
+
+document.addEventListener('game-init', (e) => {
+    if (e.target.id === this.gameId ) {
+        //console.log(" Trop de mouvements ! Tentatives max atteintes :", e.detail.attempts);
+        //alert("Nombre maximum de déplacements atteint ! Perdu..............");
+        this.puzzleIsLoad = true;
+        quiz_show_mask(false);
+    }
+});
+        
+}
 
 /* *************************************
 *
 * ******** */
 
 getAllPropositions (flag = 0){
-    return "puzzle"
- }
+    let  currentQuestion = this.question;
+    var options = currentQuestion.options;
+    this.gameId = this.getId('puzzle');
+    
+    let imgUrl = `${quiz.url}/${quiz.folderJS}/images/${currentQuestion.answers[0].image1}`;
+    var img = `<div><center><img id="${this.getId(0)}" src="${imgUrl}" width="300px" ></center></div>`;   
+    return img
 
+ }
 
 /* *************************************
 *
 * ******** */
 getScoreByProposition ( answerContainer = ''){
 var score = 0;
-    var  currentQuestion = this.question;
-    if (puzzle_is_ok(this.getId('puzzle')) && this.puzzleIsLoad){
-
-    //alert(`points = ${this.question.points}`);
-        //return this.question.points;
-        //score = currentQuestion.answers[0].points;
+    let  currentQuestion = this.question;
+    const jeuElement = document.getElementById(this.gameId );
+    if(jeuElement.checkIfSolved() && this.puzzleIsLoad){
         score = this.scoreMaxiQQ;
-        //document.getElementById('quiz_btn_nextSlide').disabled = '';
-        //this.allowNextSlide = true;
-        //setTimeout(show_message, 200, quiz_messages.bravo, this.slideNumber, false);
-        updateButton('quiz_btn_nextSlide', 1, 'getScoreByProposition');
     }else{
-        //this.allowNextSlide = false;
-        //document.getElementById('quiz_btn_nextSlide').disabled = 'disabled';
-        if(currentQuestion.options.delaiNexSlide*1 > 0){
-            updateButton('quiz_btn_nextSlide', 0, 'getScoreByProposition');
-        }
-        
     }
-   if (score == this.scoreMaxiQQ){zoom_moins_event(null, this.slideNumber);}   
+
    return score;
-if (!this.computeScore) return 0;
-  }
-
- 
-
+}
 
 /* ************************************
 *
@@ -171,7 +206,6 @@ if (!this.computeScore) return 0;
 reloadQuestion(bShuffle = true){
     super.reloadQuestion(bShuffle);
     this.onFinalyse();
-//    memory_reset(this.getId('memory'), true);
 }
 
 /* *************************************
@@ -179,9 +213,9 @@ reloadQuestion(bShuffle = true){
 * ******** */
 showGoodAnswers ()
   {
-    puzzle_reset(this.getId('puzzle'), false, 'showGoodAnswers');
+    const jeuElement = document.getElementById(this.gameId );
+    jeuElement.resetToOriginalOrder();
     return true;
-  
   } 
 
 /* ************************************
@@ -189,16 +223,10 @@ showGoodAnswers ()
 * **** */
 showBadAnswers()
 {
-  puzzle_reset(this.getId('puzzle'), true, 'showBadAnswers');
-  var currentQuestion = this.question;   
-
-  
+  const jeuElement = document.getElementById(this.gameId );
+  jeuElement.initGame();
 }
   
-
- 
-  
- 
 } // ----- fin de la class ------
 
 //////////////////////////////////////////////////

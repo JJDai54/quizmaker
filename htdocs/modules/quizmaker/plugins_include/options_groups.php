@@ -2,7 +2,7 @@
 
       // groupes
       for($h = 0; $h < $this->maxGroups; $h++){
-          $requis = ($h < 2);
+          $requis = ($h < $this->obligatorys);
           $lib = _AM_QUIZMAKER_GROUP_LIB . ' ' .  $h . (($requis)?QUIZMAKER_REQUIS:'');
           $trayGroup = new XoopsFormElementTray($lib, $delimeter = ' ');  
           $name = 'group' . $h;
@@ -26,7 +26,8 @@
       //--------------------------------------
       $name = 'groupDefault';  
       $inputGroupDefault = new \XoopsFormRadio(_AM_QUIZMAKER_GROUP_DEFAULT, "{$optionName}[{$name}]", $tValues[$name], ' ');
-      $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_GROUP_ALL);            
+      $inputGroupDefault->addOption(-1, _AM_QUIZMAKER_GROUP_ALL);           
+      $inputGroupDefault->setDescription(_AM_QUIZMAKER_GROUP_DEFAULT_DESC); 
       for($h = 0; $h < $this->maxGroups; $h++){ 
         $groupeName = ($tValues['group' . $h]) ? $tValues['group' . $h] : 'group' . $h;
         $inputGroupDefault->addOption($h, $groupeName);            

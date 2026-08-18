@@ -32,7 +32,7 @@
 
 				<td class='center'>
                   <a href="categories.php?op=change_etat&cat_id=<{$cat.id}>&field=cat_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
-                      <img src="<{$modUrlIcon16}>actif-<{$cat.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                      <img src="<{$modUrlIcon16}>/actif-<{$cat.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
                   </a>
                 </td>
 

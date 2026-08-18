@@ -47,7 +47,7 @@ define('_LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_FH', "Images fixed height");
 define('_LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_WH', "Images fixed width");
 
 
-define('_LG_PLUGIN_SORTITEMS_VARIANT_SELECT', "Select a class, validate and reload the form");
+define('_AP_QUIZMAKER_VARIANT_SELECT', "Select a class, validate and reload the form");
 define('_LG_PLUGIN_SORTITEMS_VARIANT_DESC', "The principle is the same regardless of the structure; it involves sorting a list that comes in different forms:"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_VARIANT_LISTBOX . "</b> : List of expressions with movement buttons"
 . "<br><b>" . _LG_PLUGIN_SORTITEMS_VARIANT_COMBOBOX . "</b> : As many drop-down lists as expressions to sort, filled with all the expressions"

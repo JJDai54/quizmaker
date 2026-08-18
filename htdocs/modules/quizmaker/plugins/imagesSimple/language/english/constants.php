@@ -28,7 +28,7 @@ define('_LG_PLUGIN_IMAGESSIMPLE', "Find images from the same family");
 define('_LG_PLUGIN_IMAGESSIMPLE_DESC', "This slide is composed of images, one or more of which are hidden.<br>You need to find the images from the same family.");
 define('_LG_PLUGIN_IMAGESSIMPLE_CONSIGNE', "Click on the images to select them.<br><br>Click again on the selected images to deselect them.");
 
-define('_LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE', "Click on the images below to select them!");
+define('_AP_QUIZMAKER_DIRECTIVE', "Click on the images below to select them!");
 define('_LG_PLUGIN_IMAGESSIMPLE_IMG_FAMILY_HEIGHT', "Height of the template images");
 
 define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED', "Selected images");

@@ -25,7 +25,8 @@ buildSlide (bShuffle = true){
 * **** */
 getInnerHTML(bShuffle = true){
     var currentQuestion = this.question;
-    var click = (currentQuestion.options.mouseClick == 1) ? "onclick" : "ondblclick";
+    var options = currentQuestion.options;
+    var click = (options.mouseClick == 1) ? "onclick" : "ondblclick";
     var img = '';
     var src = '';
     var captionTop='';
@@ -39,24 +40,18 @@ getInnerHTML(bShuffle = true){
    
     for(var i=0; i < this.data.groups.length; i++) {
         var idFrom = this.data.groups[i].id;
-//         if(this.data.groups.length > 1){
-//             var indexTo = (i+1) % this.data.groups.length;
-//             var onClick = `${click}="quiz_basculeValue('${idFrom}','${this.data.groups[indexTo].id}');"`;
-//         }else{
-//             var onClick = `${click}="quiz_deleteValue('${idFrom}');"`;
-//         }
         var indexTo = (i+1) % this.data.groups.length;
         var onClick = `${click}="quiz_basculeValue('${idFrom}','${this.data.groups[indexTo].id}');"`;
 
         var attId  = (this._id) ? `id="${this._id}" name="${this._id}"` : ''; 
       
-        if(currentQuestion.options.groupDefault == -2){
+        if(options.oneListOnly){
           styleDiv = (i > 0) ? "display:none;": `width:90%;margin:auto;` ;
         }else{
           styleDiv = `width:${lWidth}%;margin:auto;`;
         }
         tHtml.push(`<div style='text-align:center;${styleDiv}' >` ); 
-        tHtml.push(`<span>${this.data.groups[i].libelle}</span><br>`); 
+        tHtml.push(`<span>${this.data.groups[i].caption}</span><br>`); 
         tHtml.push(`<select id='${idFrom}' name='${idFrom}' size='${nbRows}' ${onClick} style='background:${this.data.groups[i].background};'>`);
         tHtml.push('</select>'); 
         tHtml.push('</div>'); 
@@ -70,63 +65,28 @@ getInnerHTML(bShuffle = true){
 *
 * ********************************************************** */
  prepareData(){
-    
     var currentQuestion = this.question;
+    var options = currentQuestion.options;
+    
+    options.groupDefault = options.groupDefault*1;
 
-    var groupsArr = [];
-    for(var k = 0; k <= 3; k++){
-        var key = 'group' + k;
-        if(currentQuestion.options[key]) {
-            var t = [];
-            t.libelle = currentQuestion.options[key];
-            t.id =  this.getId('group', k);
-            t.propositions = []; //tableau des propositions du groupe
-            t.background = currentQuestion.options[`bgGroup${k}`]; //couleur de fond des groupes
-            groupsArr.push(t);
-            //alert(this.data.groups[0].libelle);
-        }
+    if (options.groupDefault == -2) {
+        options.groupDefault = 0;
+        options.oneListOnly = true;
+    }else{
+        options.oneListOnly = false;
     }
-    
-    this.data.nbGroups = groupsArr.length;    
-    
-    
-
-   
-   //repartir les propositions par groupe
-    for(var k in currentQuestion.answers){
-        currentQuestion.answers[k].id = this.getId('item', k);
         
-        var ans = currentQuestion.answers[k];
-        ans.index = k;
-        
-        //au cas ou cela n'aurait été oublié lors de la création
-        if(ans.points <= 0) {ans.points = 1;}
-        //if(!groupsArr[ans.group*1]) groupsArr[ans.group*1] = [];
-        groupsArr[ans.group*1].propositions.push(ans);
-    }   
-    
-    //identification des groupes
-    this.data.groups = groupsArr;
-    
-     if(currentQuestion.options.oneListOnly*1 == 1 && this.data.groups.length == 2){
-        currentQuestion.options.groupDefault = -2;
-        //alert(currentQuestion.options.groupDefault + ' / ' + this.data.groups.length);
-    }    
+    this.data.groups = clsGroup.repartir(this, true);
+      
+return;
 }
 /* *********************************************************
 *
 * ********************************************************** */
 initSlide(){
-    this.loadAlllistBox(false);
+    this.reloadQuestion(true);
 }
-/* ************************************
-*
-* **** */
-reloadQuestion()
-  { 
-    
-    this.loadAlllistBox(false);
-  } 
 
 /* *********************************************************
 * mode : mode de remplissage des listes selon le cas :
@@ -134,7 +94,7 @@ reloadQuestion()
 *        2 : groupe par defaut
 *        1 : bonnes réponses
 * ********************************************************** */
-loadAlllistBox(goodAnswers = false){ 
+reloadQuestion(reloadMode = reloadShuffle){
     var currentQuestion = this.question;
     var randGrp = 0;
     var mode = 0; //random sur tous les groupes
@@ -146,25 +106,23 @@ loadAlllistBox(goodAnswers = false){
 //         var groupDefault = currentQuestion.options.groupDefault;
 //     }
 
-   if(goodAnswers) {
+   if(reloadMode == reloadClassified) {
         mode = 1;  //bonnes réponses
-   }
-    else if(currentQuestion.options.groupDefault >= 0)  {
+   }else if(currentQuestion.options.groupDefault >= 0)  {
         mode = 2; //tous les items dans le groupe par defaut
         var groupDefault = (this.data.groups.length == 1) ? 0 : currentQuestion.options.groupDefault;
-    }else if(currentQuestion.options.groupDefault == -2){
-        mode = 2; //tous les items dans le groupe par defaut
-        var groupDefault = 0;
     }
  
-//alert(`${mode} | ${groupDefault} | ${currentQuestion.options.groupDefault} | ${currentQuestion.question}`);    
-//alert('loadAlllistBox : random = ' + isRandom);    
+    //recupe des listBox
     var obLists = [];
     for(var i=0; i < this.data.groups.length; i++) {
         var ob = document.getElementById(this.data.groups[i].id);
         if(ob) ob.innerHTML = '';
         obLists.push(ob);
     }
+
+
+
 
     var shuffleIndex = shuffleIndexArr(currentQuestion.answers.length, currentQuestion.shuffleAnswers);
     //--------------------------------------------------------------------
@@ -181,7 +139,7 @@ loadAlllistBox(goodAnswers = false){
         
 //        alert(randGrp + "-" + ans.proposition);
 
-        var bolOk = (!goodAnswers || ans.points >  0);
+        var bolOk = (!reloadMode == reloadShuffle || ans.points >  0);
         if( obLists[randGrp] && bolOk){
             var option = document.createElement("option");
             option.value = ans.proposition;
@@ -207,7 +165,15 @@ var isScoreOk = 1; //si une reponse a un nombre de points egal à zéro le score
     //alert("getScoreByProposition");
 
     var currentQuestion = this.question;
-    console.log (`===> ${currentQuestion.question}`);
+    var options = this.question.options;
+    
+    var groupDefault = options.groupDefault;    
+    if(groupDefault == -2){groupDefault = 0;}
+    
+    
+    
+    
+    //console.log (`===> ${currentQuestion.question}`);
 //alert('nbgroupe = ' + this.data.groups.length);
     for(var i=0; i < this.data.groups.length; i++) {
         var GroupId = this.data.groups[i].id;
@@ -218,8 +184,20 @@ var isScoreOk = 1; //si une reponse a un nombre de points egal à zéro le score
         for(var h = 0; h < items.length; h++){
             var ansKey = items[h].getAttribute('ansKey')*1;
             var points = currentQuestion.answers[ansKey].points*1;
+            
+            if(currentQuestion.answers[ansKey].group == i){
+                if(options.groupDefaut == -1){
+                    score += points;
+                }else if (options.groupDefaut != i){
+                    score += points;
+                }
+            }else{
+                if (options.groupDefaut >= 0){
+                    score -= points;
+                }
+            }            
+            
             if(currentQuestion.answers[ansKey].group == i) {
-                 score += points; 
 //                 if (points == 0) {isScoreOk = 0;}
 //                  score += points; 
 //             }else{
@@ -245,7 +223,7 @@ var isScoreOk = 1; //si une reponse a un nombre de points egal à zéro le score
 
 getAllPropositions (flag = 0){
     var currentQuestion = this.question;
-    console.log (`===> ${currentQuestion.question}`);
+    //console.log (`===> ${currentQuestion.question}`);
 
     var tGroups = [];
     var htmlArr = [];
@@ -272,104 +250,6 @@ getAllPropositions (flag = 0){
 
  }
 
-/* ************************************
-*
-* **** */
-showGoodAnswers(currentQuestion, quizDivAllSlides)//, answerContainer
-  {
-    this.loadAlllistBox(true);
-  } 
-
-/* ************************************
-*
-* **** */
-showBadAnswers()
-{
-    this.loadAlllistBox(false);
-}
  
-} // ----- fin de la class ------
-
-/************************************************************************
- *                       quiz_listBox
- * **********************************************************************/
-
-class quiz_listBoxOb{
-select = null;
-/* *************************************
-*
-* ******** */
-constructor (idSelect, value=null, caption=''){     
-    this.select = document.createElement("select");
-    select.name = idSelect;
-    select.id = idSelect;
-    
-}
-
-addOption(vValue, sText, id=null){
-    var option = document.createElement("option");
-    option.value = vValue;
-    option.text = sText;
-    if(id) option.id = id;
-    select.appendChild(this.select);
-
-}
-
-getSelect(){
-    return this.select;
-}
-setToParent(idParent){
-    document.getElementById().appendChild(this.select);
-}
-} // ----- fin de la class ------
-/************************************************************************
- *                       quiz_listBox
- * **********************************************************************/
-
-class quiz_listBox{
-_options = [];
-_id = null;
-/* *************************************
-*
-* ******** */
-constructor (idSelect = null){   
-//alert('quiz_listBox : ' + idSelect);  
-    this._id = idSelect;
-}
-
-addOption(vValue, sText, id=null){
-    this._options.push([vValue,sText,id]);
-    //alert(vValue);
-}
-
-render(value=null, caption='', className=null, nbRows=5, onEvent=null, lWidth='90'){
-      var tHtml = [];
-      //className='question-combobox';
-      var attId  = (this._id) ? `id="${this._id}" name="${this._id}"` : ''; 
-      var attClass  = (className) ? ` class='${className}'` : ''; 
-      var attSize  = (nbRows) ? ` size="${nbRows}"` : '';
-      var attEvent = (onEvent) ? onEvent : '';
-      var attStyle = ` style="height:300px;width:${lWidth}%;"`;
-
-      tHtml.push(`<SELECT ${attId}${attClass}${attSize}${attEvent}${attStyle}>`);
-      
-      for (var h = 0; h < this._options.length; h++){
-        tHtml.push(`<OPTION id='${this._options[h][3]}' VALUE="${this._options[h][0]}">${this._options[h][0]}</OPTION>`);
-      }
-      tHtml.push(this.renderOptions(value));
-      tHtml.push(`</SELECT>`);
-      return tHtml.join("\n");
-
-}
-
-renderOptions(value=null){
-      var tHtml = [];
-      for (var h = 0; h < this._options.length; h++){
-        var selected = (value == h) ? ' selected' : ''; 
-        tHtml.push(`<OPTION id='${this._options[h][3]}' VALUE="${this._options[h][0]}"${selected}>${this._options[h][0]}</OPTION>`);
-      }
-      return tHtml.join("\n");
-}
-
 } // ----- fin de la class ------
 

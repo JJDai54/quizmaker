@@ -6,7 +6,7 @@
 
 **************************************** */
 function zoom_getCapsule(htmlSlide, slideNumber,  btnZoomStatus=1, btnNext=false){
-console.log('===>zoom_capsule');
+//console.log('===>zoom_capsule');
     var clQuestion = quizard[slideNumber];
 
     var idContenair1 = clQuestion.getId('contenair1');
@@ -53,7 +53,7 @@ btnZoomStatus : -2 : zoom - gris
 btnNext : -1 = false, 0 = pas de changement , 1 = true
 **************************************** */
 function zoom_setBtnZoomStatus(slideNumber,  btnZoomStatus, btnNext){
-console.log(`===>zoom_setBtnZoomStatus : slideNumber = ${slideNumber} - btnZoomStatus = ${btnZoomStatus}`);
+//console.log(`===>zoom_setBtnZoomStatus : slideNumber = ${slideNumber} - btnZoomStatus = ${btnZoomStatus}`);
     var clQuestion = quizard[slideNumber];
     
     var btn = document.getElementById(clQuestion.getId('zoom'));
@@ -107,7 +107,7 @@ function zoom_action(ev, slideNumber, action){
 
 **************************************** */
 function zoom_plus_event(ev, slideNumber){
-console.log('===>zoom_plus_event');
+//console.log('===>zoom_plus_event');
     var clQuestion = quizard[slideNumber];
     if(clQuestion.isZoomed == true) {return true;}
 //return false;
@@ -153,7 +153,7 @@ console.log('===>zoom_plus_event');
     clQuestion.isZoomed = true;
 //alert('zoom_setBtnZoomStatus(slideNumber,  -1, 1)');
     zoom_setBtnZoomStatus(slideNumber,  -1, 1);    
-    ev.stopPropagation();
+    //ev.stopPropagation();
     quiz_show_mask(true);   
     //setTimeout(zoom_realignWindow,3000,idContenair1);
     return true;
@@ -170,14 +170,14 @@ function zoom_realignWindow(objId){
 
 **************************************** */
 function zoom_moins_event(ev, slideNumber, gotoNextSlide = false){
-console.log(`===>zoom_moins : gotoNextSlide = ${gotoNextSlide}`);
+//console.log(`===>zoom_moins : gotoNextSlide = ${gotoNextSlide}`);
 if(!slideNumber) return false;
 //    alert(`zoom_moins : slideNumber = ${slideNumber}`);
     var clQuestion = quizard[slideNumber];
 //    alert(clQuestion.question.question);
     if(!clQuestion.zzzzz()){return false;}
     if(clQuestion.isZoomed == false){
-        var btnNextSlide = updateButton('quiz_btn_nextSlide', 1, 'zoom_moins_event');
+        var btnNextSlide = updateButton('quiz_btn_nextSlide', 1, null, 'zoom_moins_event');
 
 //        var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
 //        btnNextSlide.disabled = '';
@@ -188,13 +188,13 @@ if(!slideNumber) return false;
         return false;
     }
     
-console.log('===>zoom_moins : ' + 2);
+//console.log('===>zoom_moins : ' + 2);
     var idContenair1 = clQuestion.getId('contenair1');
     var idContenair2 = clQuestion.getId('main');
 
     var obContenair1 = document.getElementById(idContenair1);
     var obContenair2 = document.getElementById(idContenair2);
-console.log('===>zoom_moins : ' + 3);
+//console.log('===>zoom_moins : ' + 3);
     /*
     */
      obContenair1.classList.remove('quiz_div_zoom_plus_event_begin');
@@ -203,7 +203,7 @@ console.log('===>zoom_moins : ' + 3);
 
     setTimeout(zoom_end,1000, idContenair1, idContenair2, gotoNextSlide);
     clQuestion.isZoomed = false;
-console.log('===>zoom_moins : ' + 4);
+//console.log('===>zoom_moins : ' + 4);
 
     if(quiz.chronometreOnZoom){
         var obChronometre = document.getElementById('chronometre');
@@ -218,7 +218,7 @@ console.log('===>zoom_moins : ' + 4);
 }
 
 function zoom_end(idContenair1, idContenair2, gotoNextSlide){
-console.log(`===>zoom_end : gotoNextSlide = ${gotoNextSlide}`);
+//console.log(`===>zoom_end : gotoNextSlide = ${gotoNextSlide}`);
 
      var obContenair1 = document.getElementById(idContenair1);
      var obContenair2 = document.getElementById(idContenair2);
@@ -241,13 +241,13 @@ console.log(`===>zoom_end : gotoNextSlide = ${gotoNextSlide}`);
     obContenair1.style.left = '';
     obContenair1.style.top ='';
     quiz_show_mask(false);   
-    console.log('zoom_end' + '->' + obContenair1.classList);
+    //console.log('zoom_end' + '->' + obContenair1.classList);
     
     if(gotoNextSlide){
 //         var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
 //         btnNextSlide.disabled = '';
         //btnNextSlide.click();
-        updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement'); //.click();
+        updateButton('quiz_btn_nextSlide', 1, null, 'quiz_hidde_avertissement'); //.click();
 
     }
     //if(ev) {ev.stopPropagation();}

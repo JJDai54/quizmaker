@@ -27,9 +27,9 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $modversion = [
 	'name'                => _MI_QUIZMAKER_NAME,
-	'version'             => 6.018,
-	'module_status'       => 'Beta 1',
-	'release_date'        => '2026/01/19',
+	'version'             => 8.0,
+	'module_status'       => 'Beta 2',
+	'release_date'        => '2026/08/17',
 	'description'         => _MI_QUIZMAKER_DESC,
 	'author'              => 'Jean-Jacques Delalandre',
 	'author_mail'         => 'jjdelalandre@orange.fr',
@@ -98,7 +98,10 @@ $modversion['templates'] = [
     ['file' => 'quizmaker_admin_participation.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_participation_cookies.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => 'quizmaker_admin_participation_results.tpl', 'description' => '', 'type' => 'admin'],
-
+    ['file' => 'quizmaker_admin_players.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_players_cookies.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => 'quizmaker_admin_players_results.tpl', 'description' => '', 'type' => 'admin'],
+    
 	// User templates
 	['file' => 'quizmaker_header.tpl', 'description' => ''],
 	['file' => 'quizmaker_index.tpl', 'description' => ''],
@@ -377,6 +380,16 @@ $modversion['config'][] = [
     'default'     => 15728640,
     'options'     => $optionMaxsize,
 ];
+
+// Uploads : maxsize of image
+$modversion['config'][] = [
+    'name'        => 'resize_img_width',
+    'title'       => '_MI_QUIZMAKER_RESIZE_IMG_MAX',
+    'description' => '_MI_QUIZMAKER_RESIZE_IMG_MAX_DESC',
+	'formtype'    => 'textbox',
+	'valuetype'   => 'text',
+	'default'     => 800,
+];
 //////////////////////////////////////////////////////
 
 /*
@@ -412,7 +425,6 @@ $modversion['config'][] = [
 	'default'     => 'default',
 	'options'     => ['default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger'],
 ];
-*/
 $modversion['config'][] = [
 	'name'        => 'table_type',
 	'title'       => '_MI_QUIZMAKER_TABLE_TYPE',
@@ -432,6 +444,8 @@ $modversion['config'][] = [
 	'default'     => 'default',
 
 ];
+*/
+/*
 // Advertise
 $modversion['config'][] = [
 	'name'        => 'advertise',
@@ -441,6 +455,7 @@ $modversion['config'][] = [
 	'valuetype'   => 'text',
 	'default'     => '',
 ];
+*/
 
 // Maintained by
 $modversion['config'][] = [

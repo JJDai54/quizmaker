@@ -371,13 +371,21 @@ public function getNewPluginName(&$pluginName){
             break;
         case 'classicSelect' :
         case 'choiceSimple' :
-            $pluginName = 'selectInputs'; 
+        case 'selectInputs' :
+            $pluginName = 'selectImages'; 
             break;
         case 'choiceImages' :
             $pluginName = 'selectImages'; 
             break;
         case 'textareaMixte' :
             $pluginName = 'textMixte'; 
+            break;
+        case 'triplette' :
+        case 'triplettes' :
+            $pluginName = 'memory'; 
+            break;
+        case 'formule' :
+            $pluginName = 'equation'; 
             break;
   }
   
@@ -545,6 +553,17 @@ global $quizmakerHelper, $quizUtility;
             $nameOrg = str_replace('_', ' ', substr($nameOrg, $i, $h));
 
         }
+        $source = $path.'/'. $savedFilename;
+        $destination=$path.'/zzz-'. $savedFilename;
+        /*
+        $clImageBuilder = new \ImageBuilder();
+        $clImageBuilder->redimensionnerEtRemplacer($source, $quizmakerHelper->getConfig('resize_img_width'));
+        */
+        
+        //redimentionnement de l'image
+        \ImageBuilder::redimensionnerEtRemplacer($source, $quizmakerHelper->getConfig('resize_img_width'));
+        
+            //echo $fullName; exit;
 
 
     } else {

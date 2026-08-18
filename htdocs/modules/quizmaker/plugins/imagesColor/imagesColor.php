@@ -104,7 +104,7 @@ var $maxGroups = 4;
       $trayOptions->addElementOption($inputSelectMode);     
 
       //--------------------------------------
-      $paletteTray = new \XoopsFormElementTray  ('zzzzzzzzz', '<br>');
+      $paletteTray = new \XoopsFormElementTray  ('XoopsFormElementTray', '<br>');
        $paletteTray->setDescription(_LG_PLUGIN_IMAGESCOLOR_PALETTE_DESC . QBR);
             
         $name = 'palette';
@@ -244,10 +244,10 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 //                 $tPalette1 = explode("\n",$tPalette0[0])
                 
                 //$color = ( $this->getVar($name)) ?  $this->getVar($name) : '#000000';
-                $inpColor = new \XoopsFormPalette(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $color);    
+                $inpColor = new \XoopsFormPalette(_AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR . " : ", $name, $color);    
                 $inpColor->setUserPalette($options['palette'], $nbColonnes, 32);      
                 //$inpColor->setNbColonnes($nbColonnes);      
-                //$inpShadow = new \XoopsFormColorPicker(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $shadow);
+                //$inpShadow = new \XoopsFormColorPicker(_AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR . " : ", $name, $shadow);
             }else{
                 $inpColor= new XoopsFormColorPicker('', $name, $color);
             }

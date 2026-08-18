@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>imagesColor : Retrouiver la bonne couleur.</title>
+
+
+  
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>
+    <h1>alumettes : Déplacer des allumettes et reconstituer la figure demandée.</h1>
+    <h3>Description :</h3>
+    <span style="color: rgb(204, 0, 0); font-weight: bold;"></span><span style="font-size: 12pt; line-height: 115%; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">C</span>e défi affiche une figure constituée de plusieurs allumettes que l'on peut déplacer ou faire tourner.<br>
+<br>
+<h3>Objectif : <br>
+    </h3>Déplacer ou faire tourner le nombre d'allumettes indiqué pour constituer une nouvelle figure.<br>
+Les allumettes se déplaces le long d'une grille qui permet un positioinnement précis et facilite e test de réussite.<br>
+    <h3>Options :</h3><br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <th style="vertical-align: top; background-color: rgb(204, 255, 255);">Option<br>
+      </th>
+      <th style="vertical-align: top; background-color: rgb(204, 255, 255);">Code<br>
+      </th>
+      <th style="vertical-align: top; text-align: center; background-color: rgb(204, 255, 255);">defaut<br>
+      </th>
+      <th style="vertical-align: top; background-color: rgb(204, 255, 255);">description<br>
+      </th>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Maximum d'allumette a déplacer</td>
+      <td style="vertical-align: top;">maxMouvements</td>
+      <td style="vertical-align: top; text-align: center;">0<br>
+      </td>
+      <td style="vertical-align: top;">0 - le nombre d'allumettes à déplacer ou àtourner est illimité. Utilisez cette valeur pour la prépéaration, <br>
+1 ou plus : nombre d'allumettes à déplacer. Si le joueur déplace une
+allumette de plus, la figure de départ est de nouveau affiché et un
+message indique au joueur qu'il doit recommencer.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Autoriser la rotation </td>
+      <td style="vertical-align: top;">allowRotation</td>
+      <td style="vertical-align: top; text-align: center;">oui<br>
+      </td>
+      <td style="vertical-align: top;">oui : un clic sur le bouton
+gauche tourne l'allumette dans le sens horraire. Un clic droit tourne
+l'allumette dans le sens anti horraire. Important : L'orientation d'un
+allumette n'a aucune importance, qu'elle soit diriger pour un même
+angle, dans un sens ou un autre, c'est équivalent.<br>
+non : interdit tout rotation. Utilisee cette option quand il s'agit uniquement de déplacer des allumettes.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Maximum d'essais</td>
+      <td style="vertical-align: top;">maxAttempts</td>
+      <td style="vertical-align: top; text-align: center;">0<br>
+      </td>
+      <td style="vertical-align: top;">0 : Le joueur pourra retenter autant de fois qu'il veut de relever le défi<br>
+1 ou plus : une fois le nombre d'essai attenind le joueur sera inviter
+à passer au slide suivant, et son score sera null. Si&nbsp; il parvient
+à reconstituer la figue demandée, il sera invité également à passer au
+slide suivant, et son score sera crédité dunombre de points affects au
+slide.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Allumettes à ajouter</td>
+      <td style="vertical-align: top;">addAllumettes</td>
+      <td style="vertical-align: top; text-align: center;">0<br>
+      </td>
+      <td style="vertical-align: top;">Il est possible de donner la
+possibilité au joueur d'ajouter une certain nombre d'allumettes pour
+constituer la figure demandée. Dans ce cas des boutons apparaitrons
+sous le jeu, pour ajouter, ou sretirer des allumettes.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Couleur du fond</td>
+      <td style="vertical-align: top;">backgroundColor</td>
+      <td style="vertical-align: top;">#F0F0F0</td>
+      <td style="vertical-align: top;">Couleur de fond de la grille<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+* "Code" est le parametre qui sera envoyé au javascript<br>
+<br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Durée d'affichage des messages
+      </td>
+      <td style="vertical-align: top;">messagesDelai<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">3<br>
+      </td>
+      <td style="vertical-align: top;">Durée d'affichage des messages adressé au joueur,<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Couleur de fond des messages </td>
+      <td style="vertical-align: top;">messagesBG<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">#FFCCFF<br>
+      </td>
+      <td style="vertical-align: top;">Couleur de fond des messages adresser au pendant le jeu.<br>
+ </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">msgReplay</td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;">msgremaining</td>
+      <td style="vertical-align: top;"><br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<h3>Propositions :</h3><span style="font-weight: bold;">Etape n° 1 : </span>Définissez en premier lieu les paramètres du plateau de jeu :<br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Option<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Code<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Défaut<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Description<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">taille des cellules de la grille<br>
+      </td>
+      <td style="vertical-align: top;">gridSize<br>
+      </td>
+      <td style="vertical-align: top; text-align: center;">10<br>
+      </td>
+      <td style="vertical-align: top;">Taille en pixels de la grille
+sur laquelle seront déplacer les allumettes. Il est conseillé de
+définir cette valeur en premier et d'éviter de la modifier ensuite,
+bien que cela soit possible au risque d'avoir à tout reprendre.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Largeur du plateau de jeu<br>
+      </td>
+      <td style="vertical-align: top;">gameWidth</td>
+      <td style="vertical-align: top; text-align: center;">400<br>
+      </td>
+      <td style="vertical-align: top;">La taille du plateau est un
+multiple de la taille des cellules de la grille. Attention de ne pas
+definir un plateau de jeu trop grand, ce qui aurait pour effet
+d'augmenter dans certains cas les possibilités de solution. Limitez
+cette taille au minimum nécéssaire.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Hauteur du plateau de jeu<br>
+      </td>
+      <td style="vertical-align: top;">gameHeight</td>
+      <td style="vertical-align: top; text-align: center;">200<br>
+      </td>
+      <td style="vertical-align: top;">La taille du plateau est un multiple de la taille de la grille.
+Attention de ne pas definir un plateau de jeu trop grand, ce qui aurait
+pour effet d'augmenter dans certains cas les possibilités de solution.
+Limitez cette taille au minimum nécéssaire.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Largeur des allumettes<br>
+      </td>
+      <td style="vertical-align: top;">allumetteWidth</td>
+      <td style="vertical-align: top; text-align: center;">10<br>
+      </td>
+      <td style="vertical-align: top;">Prenez soin d'ajuster la largeur des allumettes en foctioni de la taille de la grille.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Longueur des allumettes<br>
+      </td>
+      <td style="vertical-align: top;">allumetteHeight</td>
+      <td style="vertical-align: top; text-align: center;"><br>
+      </td>
+      <td style="vertical-align: top;">Prenez soin d'ajuster la longueur des allumettes en fonction de la taille de la grille.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Angle de rotation<br>
+      </td>
+      <td style="vertical-align: top;">rotation</td>
+      <td style="vertical-align: top; text-align: center;">22.5<br>
+      </td>
+      <td style="vertical-align: top;">Indiquez ici l'angle de rotation qui sera appliquer sur un clic gauche ou droit de la souris.<br>
+Si le parmètre "<span style="font-weight: bold;">Autoriser la rotation</span>" défini pus haut est "<span style="font-weight: bold;">oui</span>", le joueur pourra effectuer des rotations selon cet angle avec un clic gauche ou droit de la souris.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<span style="font-weight: bold;">Etape n° 2 : </span>Définissez la position de départ proposée au joeur.<br>
+Pour cela ajouter autant d'allumettes que nécéssaire et positionner les sur la grille. <br>
+<br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Ajouter une allumette mobile<br>
+      </td>
+      <td style="vertical-align: top;">Ajoute une allumette rouge.<br>
+Ces allumettes pourront être déplacées ou tournées par le joueur<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Ajouter une allumette fixe</td>
+      <td style="vertical-align: top;">Ajoute une allumette noire.<br>
+Ces allumettes resteront fixes et ne pourront pas être déplacée par le joueur.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Mode suppression<br>
+      </td>
+      <td style="vertical-align: top;">C'est un bouton à bascule qui permet de supprimer des allumettes qui auraient été ajoutée en trop.<br>
+Un petit bouton vert s'affiche pour chaque allumette, il suffit de cliquer dessus pour supprimer l'allumette.<br>
+Cliquez une deuxième fois sur ce bouton pour repasser en mode normal.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Redresser les allumettes</td>
+      <td style="vertical-align: top;">Ce bouton aura pour effet de repositionner toutes les allumettes verticalement.</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Gauche, Droite Haut Bas<br>
+      </td>
+      <td style="vertical-align: top;">Ces boutons auront pour effet de déplacer l'ensemble des allumettes sur la grille du plateau de jeu.<br>
+Cele déplacera aussi les conbinaisons définies pour les solutions.<br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<span style="font-weight: bold;">Etape n° 3 : Mémoriser la position de départ qui sera présentée au joueur</span> , <span style="font-weight: bold;">ligne "défi" :</span><br>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top;">Mémoriser<br>
+      </td>
+      <td style="vertical-align: top;">Mémorise la position actuelle des allumettes<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Restaurer<br>
+      </td>
+      <td style="vertical-align: top;">Restaure la dernière position
+mémorisée. A utiliser notamment pour définir les solution possibles
+pour ne pas avoir à repositionner touets les allumetes, mais uniquement
+celles du défi.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Supprimer<br>
+      </td>
+      <td style="vertical-align: top;">Supprime toutes les allumettes et mémorise le plateau vide. <br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<span style="font-weight: bold;"><br>
+Etape n° 4 : définissez les solutions possibles ligne 1 à 5 : </span><br>
+Il faut définir au moins une solution possible. Attention seule les
+solutions définies rapporteront des point au joueur en cas de succès.
+Il est donc important de bien vérifier que toutes les solutions
+possibles que le joueur pourraient constituée soit définies.<br>
+Pour féini une solution, commencer par restaurer la position de départ et mémorisez la dans une des solutions. <br>
+Déplacer ou ajouter les allumettes nécéssaires qui constitue une solution, puis mémorisez la solution.<br>
+Pour chaque solution les boutons "Mémoriser", "Restaurer", "Supprimer" permettent de gérer chacune d'elle.<br>
+"<span style="font-weight: bold;">Cacher les allumettes fixes</span>".
+Dans les solutions il n'est pas possible d'ajouter des allumettes
+fixes. Par contre il es possible de les masquer pour faciliter le
+positionnement. Dans tous les cas les allumetes fixes seront visibles
+par le joueur et ne pourront pas être déplacées.<br>
+N'oubliez pas de mémoriser chaque solution possible.<br>
+<br>
+<span style="font-weight: bold;">Etape n° 5 : Tester les solutions :<br>
+</span>Restaurez la positioni de départ, le défi.<br>
+Déplacez les allumettes selon une des slotions possibles.<br>
+Cliquez sur le bouton ""<span style="font-weight: bold;">Tester les solution</span>s"<br>
+Si les allumettes sont correctement placée,s un message indiquant la solution correspondante sera affché, sinon le message<span style="font-weight: bold;"> "Aucune solution ne correspond" </span>sera affiché.<span style="font-weight: bold;"><br>
+</span><br>
+<span style="font-weight: bold;">Optionel</span> :<br>
+Recaler les allumettes sur la grille : Cett option n'est à utilisée
+avec parcimonie, notamment dans le cas ou la taille des cellules de la
+grille aurait été modifiée.<br>
+Dans tous les cas si vous utilisez cette option, révéifiez la position
+de départ et toutes les solutions en cliqnant sur les bouton "<span style="font-weight: bold;">Restaurer</span>" correspondants, et rectifier la position des allumettes si besoin.<br>
+<br>
+<br>
+  </body></html>

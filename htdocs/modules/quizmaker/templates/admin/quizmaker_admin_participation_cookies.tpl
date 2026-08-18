@@ -29,16 +29,13 @@
 				<td class='center'><{$Cookie.id}></td>
 				<td class='center'><{$Cookie.quiz_id}></td>
 				<td class='left'>
-                     <{*<a href="cookies.php?op=edit&amp;cookie_id=<{$Cookie.id}>" title="<{$smarty.const._EDIT}>"  > *}>
+					<a href="<{$redirectURL}>&op=edit&cookie_id=<{$Cookie.id}>" title="<{$smarty.const._EDIT}>">
                         <{$Cookie.cookie_uname}> (#<{$Cookie.uid}>)
-                     <{*</a> *}>
-
                 </td>
 				<td class='left'>
-                     <{*<a href="cookies.php?op=edit&amp;cookie_id=<{$Cookie.id}>" title="<{$smarty.const._EDIT}>"  > *}>
-                        <{$Cookie.cookie_email}>
-                     <{*</a> *}>
+					<a href="<{$redirectURL}>&op=edit&cookie_id=<{$Cookie.id}>" title="<{$smarty.const._EDIT}>">
 
+                        <{$Cookie.cookie_email}>
                 </td>
 				<td class='left'>
                       <{$Cookie.ip}>

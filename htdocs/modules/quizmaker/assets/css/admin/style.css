@@ -63,3 +63,14 @@ img {
     color:blue;
     text-align:center;
 }
+
+.quiz_linebreak_options {
+    background:#99CCFF;
+    width:100%;
+    padding:0px;
+    margin:0px;
+    text-align:center;
+    font-weight: bold;
+}
+
+

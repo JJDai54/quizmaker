@@ -1,4 +1,6 @@
-﻿// alert ("ok : " + myQuestions.length);
+﻿//import "./composantsJS/Chronos.js"; // Doit être présent tout en haut !
+//import { ChronosComponent } from "../../js/composantsJS/Chronos.js";
+// alert ("ok : " + myQuestions.length);
 // alert ("ok : " + myQuestions[0].question);
 
 
@@ -15,6 +17,11 @@ var quiz_rgp = requestGetPost();
 //alert ("quiz_rgp : " + quiz_rgp.uname + "\nquiz_id : " + quiz_rgp.quiz_id);
 var qbr =  '<br>' ;
 var qhr =  '<hr>' ;
+var quizDivChronos = null
+
+const reloadOrg = -1;
+const reloadClassified = 0;
+const reloadShuffle = 1;
 
 const quiz_config = {
     name : 'Quizmaker',
@@ -23,11 +30,14 @@ const quiz_config = {
     date_release : "12-06-2025",
     author : "J°J°D",
     email : "jjdelalandre@orange.fr",
-    urlImgRoot :   `${quiz.url}/images`,
-    urlQuiz :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}` : ``,
+    //urlImgRoot :   `${quiz.urlMain}/images`,
+    //urlImgRoot :   `${quiz.urlMain}/__images__`,
+    urlImgRoot :   `${quiz.url}/__images__`,
+        
+    //urlQuiz :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}` : ``,
     //urlQuizSound :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/sounds` : `sounds`,
     urlQuizImg :   (quiz_execution == 1) ? `${quiz.url}/${quiz.folderJS}/images` : `images`,
-    urlCommonImg : (quiz_execution == 1) ? `${quiz.url}/images` : `../images`,
+    urlCommonImg : (quiz_execution == 1) ? `${quiz.url}/images` : `../__images__`,
     regexAllLetters : /\{[\w+\0123456789 àéèêëîïôöûüù]*\}/gi,
     //regexAllLettersPP : /\{[\w+\0123456789 àéèêëîïôöûüùç,\;\-\?\!\.\_\=\/]*\}/gi, //PP pour plus ponctuation
     regexAllLettersPP : /{[^{}]+}/gi,           //PP pour plus ponctuation
@@ -37,10 +47,12 @@ const quiz_config = {
     dad_move_img  :  2, // deplace l'image et changement de div contenair
     dad_flip_div  :  3, //echange des deux div
     suffixCoche : '-coche',
+    screenMode : 0
 };
 
-//alert (`quiz_execution = ${quiz_execution} - urlQuizImg = ${quiz_config.urlQuizImg} - folderJS = ${quiz.folderJS}`);
+//alert (`quiz_execution = ${quiz_execution} \n urlImgRoot=${quiz_config.urlImgRoot} \n urlQuizImg = ${quiz_config.urlQuizImg} \n folderJS = ${quiz.folderJS}`);
 var aze = 'quizmaker';
+
 
 const quiz_css = {
     header      : `item-round-top ${quiz.theme}-item-head`,
@@ -74,6 +86,8 @@ quiz.showResultPopup   = isBitOk(h++, optionsIhm);
 quiz.submitBtnPosition = isBitOk(h++, optionsIhm); 
 quiz.showHorloge       = isBitOk(h++, optionsIhm); 
 quiz.realignWindowPos  = isBitOk(h++, optionsIhm);  
+quiz.hide_interface    = isBitOk(h++, optionsIhm);  
+quiz.full_screen       = isBitOk(h++, optionsIhm);  
 quiz.timerInBtnNext    = 0;   
 quiz.chronometreOnZoom = 0;   // pas pratique de mettre le chronomettre dans les div zoomés, a revoir
 //quiz.minusOnShowGoodAnswers = isBitOk(h++, optionsIhm);  
@@ -90,6 +104,8 @@ quiz.showLog            = isBitOk(h++, optionsDev);
 quiz.showResultAllways  = isBitOk(h++, optionsDev);
 quiz.showReponsesBottom = isBitOk(h++, optionsDev); 
 quiz.showRightClickMenu = isBitOk(h++, optionsDev); 
+quiz.showTricheur       = isBitOk(h++, optionsDev);   
+quiz.showModeNormal     = isBitOk(h++, optionsDev);   
 
 // **************************************
 // blocage du click droit de la souris
@@ -123,8 +139,19 @@ function quizmaker() {
 //une première passe pour calculer les stat qui seront utilisé dans les slides
 getStatAllSlides();
 
+//getStatAllSlides();
+
 var content = `  
     <div id='quiz_div_main'>
+      <chronos-component id="quiz_chronos" 
+      size="50" 
+      thickness="12" 
+      position="top-left" 
+      offset-x="+1" 
+      offset-y="+1" 
+      background="#FFCC99" 
+      color="blue">          
+      </chronos-component>
       ${getHtmlHeader()}${getHtmlAvertissement()}
       <div id='quiz_div_body'>
         ${getHtmlPopup()}
@@ -161,7 +188,9 @@ var content = `
      //lors de la construction des slide les scores mini et maxi ne sont pas encore completement connus
      //il faut réactualiser le slide pageBegin pour pour pouvoir afficcher ces valeurs apres parcours de tous les slides 
     quizard[0].onUpdate();
-    
+    initGame('quiz_div_main', quiz.hide_interface);
+
+
 }
 
 /**************************************************************************
@@ -266,13 +295,15 @@ function getHtmlButtons(){                       //   style='background:blue;'
 
   return  `<div id="quiz_div_buttons" name="quiz_div_buttons">
             ${horloge}
-            <button id="quiz_btn_previousSlide"     class="${quiz_css.buttons}">${quiz_messages.btnPrevious}</button>
-            <button id="quiz_btn_nextSlide"         class="${quiz_css.buttons}">${quiz_messages.btnNext}</button>
-            <button id="quiz_btn_reload_answers"    class="${quiz_css.buttons}">${quiz_messages.btnReload}</button>
-            <button id="quiz_btn_show_good_answers" class="${quiz_css.buttons}">${quiz_messages.btnAntiseche}</button>
-            <button id="quiz_btn_show_bad_answers"  class="${quiz_css.buttons}" style="transform: rotate(0.5turn);">${quiz_messages.btnAntiseche}</button>
-            <button id="quiz_btn_goto_slide"        class="${quiz_css.buttons}">${quiz_messages.btnGotoSlide}</button>
+            <button id="quiz_btn_previousSlide"      class="${quiz_css.buttons}">${quiz_messages.btnPrevious}</button>
+            <button id="quiz_btn_nextSlide"          class="${quiz_css.buttons}">${quiz_messages.btnNext}</button>
+            <button id="quiz_btn_reload_answers"     class="${quiz_css.buttons}">${quiz_messages.btnReload}</button>
+            <button id="quiz_btn_show_good_answers"  class="${quiz_css.buttons}">${quiz_messages.btnAntiseche}</button>
+            <button id="quiz_btn_show_bad_answers"   class="${quiz_css.buttons}" style="transform: rotate(0.5turn);">${quiz_messages.btnAntiseche}</button>
+            <button id="quiz_btn_show_tricheur"      class="${quiz_css.buttons}">${quiz_messages.btnTricheur}</button>
+            <button id="quiz_btn_goto_slide"         class="${quiz_css.buttons}">${quiz_messages.btnGotoSlide}</button>
             <button id="quiz_btn_goto_plugin_begin"  class="${quiz_css.buttons}">${quiz_messages.btnGotoSlideBegin}</button>
+            <button id="quiz_btn_mode_normal"   class="${quiz_css.buttons}">${quiz_messages.btnShowModeNormal}</button>
             <input  type="hidden" id="quiz_goto_slide" value="">
             </div>${getHtmlConsignesButtons()}`;
 
@@ -307,10 +338,10 @@ var consigneTop = imgHeight-offset1;
     case 4:  var btnPosition = "bottom:+5px;left:5px;";   var ConsignePosition = `top:-${consigneHeight}px;left:${offset2}px;`;  break;    // Bottom/Left
     default: var btnPosition = "top:+5px;left:5px;";      var ConsignePosition = `top:+${consigneTop}px;left:${offset2}px;`;  break;    // Top/Left
     }                                                                                                                //
-    
-  return  `<div id='quiz_btn_showConsigne' name='quiz_btn_showConsigne' class='quiz_infobulle' style='position:absolute;${btnPosition};' >
-          <img src="${quiz_config.urlCommonImg}/Help.png" alt="" title="" style="max-height:48px;"/>    
-          <div id="quiz_div_consigne" class="custom" width350="" style="${ConsignePosition}">
+    ConsignePosition+=`opacity:100%;`;
+  return  `<div id='quiz_btn_consigne' name='quiz_btn_showConsigne' class='quiz_infobulle' style='position:absolute;${btnPosition};opacity:100%;z-index:9000;' >
+          <img src="${quiz_config.urlCommonImg}/Help.png" alt="" title="" style="max-height:48px;opacity:100%;"/>    
+          <div id="quiz_div_consigne" class="custom" width350="" style="${ConsignePosition};opacity:100%;">
             <span id='quiz_consignes' name='quiz_consignes' >
               Texte des consignes<br>
               Texte des consignes
@@ -375,15 +406,16 @@ var questionNumber = 0;     //n° du de la question sans les pageBegin, pageEnd 
     statsTotal.quiz_score_maxi = 0;
     statsTotal.quiz_score_mini = 0;
 
+    
     myQuestions.forEach((currentQuestion, index) => {
 //          alert (`getHtmlAllSlides : index = ${index}`);
 
       if(currentQuestion){
 
-      console.log ("getHtmlAllSlides : nb myQuestions = " +  myQuestions.length 
-                 + "\n type : " + currentQuestion.type 
-                 + "\n question : " + currentQuestion.question
-                 + "\n quesId : " + currentQuestion.questId);
+//       console.log ("getHtmlAllSlides : nb myQuestions = " +  myQuestions.length 
+//                  + "\n type : " + currentQuestion.type 
+//                  + "\n question : " + currentQuestion.question
+//                  + "\n quesId : " + currentQuestion.questId);
       
             // debut du type de slide a traiter
             var clQuestion = getTplNewClass2 (currentQuestion, slideNumber);
@@ -432,7 +464,8 @@ var questionNumber = 0;     //n° du de la question sans les pageBegin, pageEnd 
             //comment = clQuestion.sanityse_exp(getMessage(comment));
             switch(posComment1){
             case 1:
-                comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment}</span>`;
+                //comment1 = `<hr class="quiz-style-two"><span style="color:blue;font-style:oblique;font-size:0.8em;">${comment}</span>`;
+                comment1 = `<hr class="quiz-style-two">${comment}`;
                 break;
             case 2:
                 comment2 = `<div class="quiz-shadowbox"  style='width:90%;' disabled>${comment}</div><br>`;
@@ -788,6 +821,21 @@ var answerContainer;
   }
   
 /* *********************************
+*
+* */
+  function showTricheur  (evt) {
+    currentQuestion = quizard[currentSlide];
+//alert ("showAntiSeche => lMinMax = " + evt.target.id);
+    currentQuestion.showGoodAnswers(currentQuestion, quizDivAllSlides);
+    
+    if (!quizard[currentSlide].isAntiseche) {
+        quizard[currentSlide].isAntiseche = true;
+    }
+    updateButton('quiz_btn_nextSlide', 1, null, 'showTricheur').click();
+    //// this.blob(myQuestions[currentSlide].question);
+    return true;
+  }
+/* *********************************
 * evenment onClick du bouton btnGotoSlide
 * */
   function gotoSlide (evt) {
@@ -834,14 +882,14 @@ var answerContainer;
 *
 * */
 function reloadQuestion() {
-    currentQuestion = quizard[currentSlide];
+    var clPlugin = quizard[currentSlide];
 
-    currentQuestion.reloadQuestion(quizDivAllSlides);
+    clPlugin.reloadQuestion(reloadOrg);
     showSlide(currentSlide);
     //// this.blob(myQuestions[currentSlide].question);
 //setTimeout(sleep, 3000);   
     
-    currentQuestion.setFocus();
+    clPlugin.setFocus();
     return true;
 }
 
@@ -850,9 +898,7 @@ function reloadQuestion() {
 *
 * */
   function showCurrentSlide  () {
-        //alert("showCurrentSlide");
-//     getStatistiques(currentQuestion);
-        //getAllScores(true);
+
         showFinalResults();
         showSlide_new();
         return true;
@@ -861,6 +907,7 @@ function reloadQuestion() {
 
   function showSlide (n) {
     //alert("showSlide : " + n);
+    onTimesUp()  ;  
     showSlide_new (n - currentSlide);
     quizard[currentSlide].setFocus();
     return true;
@@ -868,9 +915,13 @@ function reloadQuestion() {
    }
 
   function showNextSlide () {
-  console.log("===>showNextSlide");
+    quizDivChronos.stop();
+    quizDivChronos.hide();
+
+  //console.log("===>showNextSlide");
     //alert("showNextSlide");
     //if (currentSlide > 0 && quiz.showResultPopup) event_show_popup_result(currentSlide);
+    onTimesUp()  ;  
     showSlide_new(+1);
     quizard[currentSlide].setFocus();
 
@@ -904,7 +955,7 @@ function reloadQuestion() {
     var oldQuestion = quizard[oldSlide].question;        
     
     if(quiz.realignWindowPos){moveWindowPosTo('quiz_div_module_xoops');}
-    console.log("===>showSlide_new - offset=" + offset);
+    //console.log("===>showSlide_new - offset=" + offset);
     //affichage du popup des solutions si offset > 0 uniquement
     if (oldSlide > 0 && quiz.showResultPopup && offset > 0) event_show_popup_result(oldSlide);
     //alert("showSlide_new : " + offset);
@@ -963,25 +1014,32 @@ function reloadQuestion() {
     var consigne = newQuestion['consigne'];
     if(!consigne) consigne = quiz_consignes[newQuestion['type']];
     //enableButton(btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3));    
-    updateButton (btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3), 'showSlide_new');
+    updateButton (btnShowConsigne, ((quiz.showConsigne && consigne) ? 0 : 3), null, 'showSlide_new');
     var obHelp = document.getElementById("quiz_consignes");
     if(obHelp) {obHelp.innerHTML = consigne;}
    
     //est-que le quizTimer est activé et y-a-il un timer sur le slide;
-    if (newQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || newQuestion.startTimer) && !bStopTimer){
+
+    if (newQuestion.timer > 0 && idSlideTimer == 0 && (quiz.useTimer || newQuestion.startTimer) && newQuestion.startTimer!= 2 && !bStopTimer){
     //alert("start slide timer : |" + newQuestion.timer + "|");
         statsTotal.slideTimer = newQuestion.timer;
         
         //retiré du bouton pour être remplacer par chrono
+/*
         if(quiz.timerInBtnNext == 1){
             btnNextSlide.innerHTML = `${quiz_messages.btnNext} (${statsTotal.slideTimer})`;
         }
         idSlideTimer = setInterval(updateSlideTimer, 1000);
         startChronometre(newQuestion.timer);
+*/        
+        
+        
+        quizDivChronos.restart(newQuestion.timer);
     }
     //----------------------------------------------
+    //alert(`newSlide = ${newSlide}`)
     if (quiz.showReponsesBottom)
-        QuizDivAnswersBottom.innerHTML = getAllPropositions(quizard[newSlide]);
+        QuizDivAnswersBottom.innerHTML = quizard[newSlide].getAllPropositions();
       
     var allowedGotoNextslide = (isInputOk() || !quizard[newSlide].isQuestion ||  quizard[newSlide].allowNextSlide)  ;
     //var allowedGotoNextslide = (isInputOk() || !quizard[newSlide].isQuestion) && oldSlide.allowNextSlide;
@@ -1024,7 +1082,7 @@ function reloadQuestion() {
   
 var container = document.getElementById(objId);
         var newPos = container.offsetTop;
-        console.log('===> moveWindowPosTo : ' + newPos);
+        //console.log('===> moveWindowPosTo : ' + newPos);
         window.scroll(0, newPos);
   }
   
@@ -1040,12 +1098,12 @@ var container = document.getElementById(objId);
         // c'est le premier slide - présentation du quiz
 //         enableButton(btnPreviousSlide, 0);
 //         enableButton(btnNextSlide, 0);
-        updateButton (btnPreviousSlide, 0, 'showSlide_pageBegin');
-        updateButton (btnNextSlide, 0, 'showSlide_pageBegin');
+        updateButton (btnPreviousSlide, 0, null, 'showSlide_pageBegin');
+        updateButton (btnNextSlide, 0, null, 'showSlide_pageBegin');
         
        if ( quiz_rgp.isAnonymous){        
             //enableButton (btnStartQuiz, 0);
-            updateButton (btnStartQuiz, 0, 'showSlide_pageBegin');
+            updateButton (btnStartQuiz, 0, null, 'showSlide_pageBegin');
             document.getElementById("quiz_pseudo").focus();
        }
           
@@ -1072,8 +1130,8 @@ var container = document.getElementById(objId);
         
 //         enableButton(btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0));
 //         enableButton(btnNextSlide, 0);
-        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0), 'showSlide_pageEnd');
-        updateButton (btnNextSlide, 0, 'showSlide_pageEnd');
+        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer) ? 1 : 0), null, 'showSlide_pageEnd');
+        updateButton (btnNextSlide, 0, null, 'showSlide_pageEnd');
 
         showDivById('quiz_div_message', false);
         showDivById('quiz_div_start', (!quiz.submitBtnPosition));
@@ -1104,15 +1162,17 @@ var container = document.getElementById(objId);
 
         
 
-        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0), 'showSlide_group');
-        updateButton (btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0), 'showSlide_group');
+        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && quizard[currentSlide].question.timer == 0 && !quiz.useTimer) ? 1 : 0), null, 'showSlide_group');
+        updateButton (btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0), null, 'showSlide_group');
         
-        updateButton (btnReloadAnswers, (quiz.showReloadAnswers ? 0 : 3), 'showSlide_group');
-        updateButton (btnShowGoodAnswers, (quiz.showGoodAnswers ? 0 : 3), 'showSlide_group');
-        updateButton (btnShowBadAnswers, (quiz.showBadAnswers  ? 0 : 3), 'showSlide_group');
-        updateButton (btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_group');
-        updateButton (btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_group');
-
+        updateButton (btnReloadAnswers, (quiz.showReloadAnswers ? 0 : 3), null, 'showSlide_group');
+        updateButton (btnShowGoodAnswers, (quiz.showGoodAnswers ? 0 : 3), null, 'showSlide_group');
+        updateButton (btnShowBadAnswers, (quiz.showBadAnswers  ? 0 : 3), null, 'showSlide_group');
+        updateButton (btnTricheur, (quiz.showTricheur ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3), null, 'showSlide_group');
+        updateButton (btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3), null, 'showSlide_group');
+        updateButton (btnShowModeNormal, (quiz.btnShowModeNormal  ? 1 : 3), null, 'showSlide_question');
+        
         if(bStopTimer){stopTimer();}
         
   }
@@ -1129,16 +1189,22 @@ var container = document.getElementById(objId);
         //au cas ou le bouton précédent est activé evite de ralancer le chrono
         if (idQuizTimer == 0 ) {startTimer();}
 
-        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer && currentSlide != 0) ? 1 : 0), 'showSlide_question');
-        updateButton (btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0), 'showSlide_question2');
-        //updateButton (btnNextSlide, allowedGotoNextslide, 'showSlide_question-' + getRandom(100));
+        updateButton (btnPreviousSlide, ((quiz.allowedPrevious && !quiz.useTimer && currentSlide != 0) ? 1 : 0), null, 'showSlide_question');
+        updateButton (btnNextSlide, ((allowedGotoNextslide && currentSlide != objAllSlides.length-1) ? 1 : 0), null, 'showSlide_question2');
+        //updateButton (btnNextSlide, allowedGotoNextslide, null, 'showSlide_question-' + getRandom(100));
 
-        updateButton (btnReloadAnswers, (quiz.showReloadAnswers ? 1 : 3), 'showSlide_question');
-        updateButton (btnShowGoodAnswers, (quiz.showGoodAnswers ? 1 : 3), 'showSlide_question');
-        updateButton (btnShowBadAnswers, (quiz.showBadAnswers  ? 1 : 3), 'showSlide_question');
-        updateButton (btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_question');
-        updateButton (btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3), 'showSlide_question');
-
+        updateButton (btnReloadAnswers, (quiz.showReloadAnswers ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnShowGoodAnswers, (quiz.showGoodAnswers ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnShowBadAnswers, (quiz.showBadAnswers  ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnTricheur, (quiz.showTricheur ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnShowModeNormal, (quiz.showModeNormal ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnGotoSlide, (quiz.showGoToSlide  ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnGotoSlideBegin, (quiz.showGoToSlide  ? 1 : 3), null, 'showSlide_question');
+        updateButton (btnShowModeNormal, (quiz.btnShowModeNormal  ? 1 : 3), null, 'showSlide_question');
+        
+        
+        
+full_screen
         if(bStopTimer){stopTimer();}
 //alert("showSlide_question : " + newSlide);        
   }
@@ -1381,7 +1447,7 @@ function shuffleMyquiz () {
     
     //recherchez les groupes si il existent
     for(var h = 0; h < myQuestions.length; h++){
-        console.log ("pluginName = " + myQuestions[h].pluginName);
+        //console.log ("pluginName = " + myQuestions[h].pluginName);
         if (myQuestions[h].pluginName == "pageGroup" | myQuestions[h].pluginName == "pageEnd"){
             if ( i > 0){
                 var newGroups = myQuestions.slice(i,j+1);
@@ -1414,7 +1480,7 @@ function shuffleMyquiz () {
         newQuestions.push(myQuestions[0]);    
         
         for(var h = 0; h < allGroups.length; h++){
-            console.log(`groupe ${h} - nb questions = ${allGroups[h].length} - ${allGroups[h][0].pluginName} - ${allGroups[h][0].question}`);
+            //console.log(`groupe ${h} - nb questions = ${allGroups[h].length} - ${allGroups[h][0].pluginName} - ${allGroups[h][0].question}`);
             nbq += allGroups[h].length;
             
             var newgroup = allGroups[h].slice(1,allGroups.length);
@@ -1425,8 +1491,8 @@ function shuffleMyquiz () {
         }
           newQuestions.push(myQuestions[myQuestions.length-1]);    
         
-        console.log(`shuffleMyquiz - nb groups = ${allGroups.length} - nbq = ${nbq} <=> ${myQuestions.length}`);
-        console.log("===========================================")
+        //console.log(`shuffleMyquiz - nb groups = ${allGroups.length} - nbq = ${nbq} <=> ${myQuestions.length}`);
+        //console.log("===========================================")
     }
     
     
@@ -1438,7 +1504,6 @@ function shuffleMyquiz () {
 
 /* ***********************************************
 *
-* */
   function getMessage (message, message2="", sep=" - "){
 
        if(message in quiz_messages){
@@ -1455,8 +1520,16 @@ function shuffleMyquiz () {
        
        return newMessage;
   }
+* */
 
- 
+ //------------------------------------------------------------------------
+function startQuiz(){
+    if(quiz.full_screen){
+        activerPleinEcran();
+    }
+    showNextSlide();
+}
+
 
 /*****************************************************************
  *    INITIALISATION DES VARIABLES
@@ -1488,10 +1561,47 @@ const tEvents = [];
   //const btnEndQuiz = document.getElementById('quiz_btn_endQuiz');
   const btnReloadAnswers = document.getElementById('quiz_btn_reload_answers');
   const btnShowGoodAnswers = document.getElementById('quiz_btn_show_good_answers');
+  const btnTricheur = document.getElementById('quiz_btn_show_tricheur');
   const btnShowBadAnswers = document.getElementById('quiz_btn_show_bad_answers');
   const btnGotoSlide = document.getElementById('quiz_btn_goto_slide');
   const btnGotoSlideBegin = document.getElementById('quiz_btn_goto_plugin_begin');
+  const btnShowModeNormal = document.getElementById('quiz_btn_mode_normal');  
   const quizDivHorloge = document.getElementById('quiz_div_horloge');
+  
+    //---------------------------------------------------
+    // creation du component chronos et ajout de l'evenement de fin
+    quizDivChronos = document.getElementById('quiz_chronos');
+    // On attend que le composant "chronos-component" soit totalement enregistré par le navigateur
+    customElements.whenDefined('chronos-component').then(() => {
+      // Maintenant on est sûr à 100% que la classe et ses méthodes existent !
+      //quizDivChronos.start(10);
+      quizDivChronos.hide();
+    });
+
+/* ****************************************************
+* 
+* ***************************************************** */
+quizDivChronos.addEventListener('times-up', (e) => {
+  console.log("Le temps est écoulé ! Temps restant :", e.detail.timeLeft);
+  if(currentSlide >= (quizard.length-1)){
+        //const btnSubmit = document.getElementById('quiz_btn_submitAnswers');  
+        //cas particulier du dernier slide    
+        quiz_show_avertissement (quiz_messages.submitResults, 5, null, -1);
+ }else{
+    let clCurrentSlide = quizard[currentSlide];
+    let options = clCurrentSlide.question.options;
+    if (options.msg_nextslide_duree > 0 && options.msg_nextslide_gotonext){
+        quiz_show_avertissement (options.msg_nextslide_looser, options.msg_nextslide_duree, options.msg_nextslide_bgLooser, true);
+    }else if(!clCurrentSlide.question.isQuestion){
+        quiz_show_avertissement (quiz_messages.goToNextSlide2, 5, null, true);
+    }else if (options.msg_nextslide_duree > 0){
+        quiz_show_avertissement (quiz_messages.goToNextSlide1, options.msg_nextslide_duree , options.msg_nextslide_bgLooser, true);
+    }else{ 
+        quiz_show_avertissement (quiz_messages.goToNextSlide1, 5, null, true);
+    }
+  }
+});
+//---------------------------------------------------
   
   //const resultsContainer = document.getElementById('results');
   const QuizDivAnswersBottom = document.getElementById('quiz_div_answers_bottom');
@@ -1502,12 +1612,14 @@ const tEvents = [];
   btnSubmit.addEventListener('click', submitAnswers);
   btnPreviousSlide.addEventListener("click", showPreviousSlide);
   btnNextSlide.addEventListener("click", showNextSlide);
-  btnStartQuiz.addEventListener("click", showNextSlide);
+  btnStartQuiz.addEventListener("click", startQuiz);
   //btnEndQuiz.addEventListener("click", submitAnswers);
   btnReloadAnswers.addEventListener('click', reloadQuestion);
   btnShowGoodAnswers.addEventListener('click', showGoodAnswers);
   btnShowBadAnswers.addEventListener('click', showBadAnswers);
+  btnTricheur.addEventListener('click', showTricheur);
   btnGotoSlide.addEventListener('click', gotoSlide);
+  btnShowModeNormal.addEventListener('click', basculerPleinEcran);
   btnGotoSlideBegin.addEventListener('click', gotoSlideBegin);
   
   quizDivAllSlides.addEventListener("click", showCurrentSlide);
@@ -1552,5 +1664,7 @@ const tEvents = [];
   initTimer_for_quiz(quiz.showTimer, quiz.timerSize, 0);
   //initTimer_for_quiz(4,48,14);
   //startChronometre(25);
+    
+
 })();
 //const zzz = new theQuiz();

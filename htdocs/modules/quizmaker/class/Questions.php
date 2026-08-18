@@ -123,50 +123,6 @@ class Questions extends \XoopsObject
         return $clone;
     }
 
-
-
-
-/* *************************************
-insert un lineBreak avec des liens sur les différenes partie du formulaire
-**************************************** */
-function insertShorcuts(&$form, $caption, $color, $backcolor){
-$shortcut = [_AM_QUIZMAKER_HEADER,
-             _AM_QUIZMAKER_PARAMETRES,
-             _AM_QUIZMAKER_PLUGIN_CONSIGNE,
-             _AM_QUIZMAKER_PLUGIN_OPTIONS,
-             _AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN,
-             _AM_QUIZMAKER_PROPOSITIONS_ANSWERS,
-             _AM_QUIZMAKER_SUBMIT];
-  
-    $tpl = "<a href='#%s' onclick='quizmaker_scrollWin(-80);'  style='color:{$color};'>[%s]</a>";
-    $html[] = "<div >";
-  
-   
-    $htmlShortcut = [];
-    for($h = 0; $h < count($shortcut); $h++){
-        //ça marche aussiavec les espace, mais c'est plus propre de le enever
-        $name = str_replace(" ", "-", $shortcut[$h]);
-        //$name =  $shortcut[$h];
-        
-        
-        if($caption == $shortcut[$h]){
-            $html[] = "<b>{$caption}</b> ===> ";
-            $html[] = "<a href='' name='{$name}'></a>";
-        }else{
-            $htmlShortcut[] = sprintf($tpl, $name, $shortcut[$h]);
-        }
-    }
- 
-    
-    $html[] = implode(' - ', $htmlShortcut);
-
-    $html[] = "</div>";
-    $innerHtml =  implode("", $html);  
-
-   $form->insertBreak($innerHtml, 'quizmaker_linebreak_' . $backcolor);
-      
-}
-
 	/**
 	 * @public function getForm
 	 * @param bool $action
@@ -202,15 +158,23 @@ $shortcut = [_AM_QUIZMAKER_HEADER,
 		// Title
 		$title = $this->isNew() ? sprintf(_AM_QUIZMAKER_QUESTIONS_ADD) : sprintf(_AM_QUIZMAKER_QUESTIONS_EDIT);
 		// Get Theme Form
-		$form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
+		$form = new \XoopsFormJanus($title, 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
         
-        $form->addElement(new \XoopsFormHidden('sender', $sender));
+        $form->addHidden('sender', $sender);
 \JANUS\include_highslide(null,"quizmaker");     
 $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 
        //----------------------------------------------------------
-        $this->insertShorcuts($form, _AM_QUIZMAKER_HEADER, 'blue', 'yellow');        
+        $shortcut = [_AM_QUIZMAKER_HEADER,
+                     _AM_QUIZMAKER_PARAMETRES,
+                     _AM_QUIZMAKER_PLUGIN_CONSIGNE,
+                     _AM_QUIZMAKER_PLUGIN_OPTIONS,
+                     _AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN,
+                     _AM_QUIZMAKER_PROPOSITIONS_ANSWERS,
+                     _AM_QUIZMAKER_SUBMIT];
+       
+        $form->insertShorcuts(_AM_QUIZMAKER_HEADER, $shortcut, 'yellow');        
 		// Form Select questQuiz_id
 		$inpQuizId = new \XoopsFormSelect( _AM_QUIZMAKER_QUESTIONS_QUIZ_ID, 'quest_quiz_id', $this->getVar('quest_quiz_id'));
 		$inpQuizId->addOption('Empty');
@@ -223,7 +187,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$form->addElement($inpQuizId);
 
        //----------------------------------------------------------
-        $trayPlugin = new \XoopsFormElementTray  ("", $delimeter = '<br>');  //_AM_QUIZMAKER_QUESTIONS_PLUGIN
+        $trayPlugin = new \XoopsFormElementTray  (_AM_QUIZMAKER_PLUGIN, $delimeter = '<br>');  //_AM_QUIZMAKER_QUESTIONS_PLUGIN
 
         
         if ($clPlugin->isQuestion || $clPlugin->typeForm == QUIZMAKER_TYPE_FORM_INFO){
@@ -251,7 +215,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		$form->addElement($trayPlugin);
         //----------------------------------------------------------
 		// Form Select quest_parent_id         
-        if($clPlugin->isQuestion() || $clPlugin->pluginName == 'pageInfo'){         
+        if($clPlugin->isQuestion || $clPlugin->pluginName == 'pageInfo'){         
             $tParent = $questionsHandler->getParents($this->getVar('quest_quiz_id'), 'pageGroup', true);         
             $parentId = ($this->getVar('quest_parent_id') == 0) ? array_keys($tParent)[0] : $this->getVar('quest_parent_id');
             $inpParent = new \XoopsFormSelect( _AM_QUIZMAKER_GROUP, 'quest_parent_id', $parentId);
@@ -297,78 +261,75 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
 		// Form Text quest_identifiant1
         if (!$this->getVar('quest_identifiant1')) $this->setVar('quest_identifiant1', 'slide_' . rand(10000,99999));
         $inpIdentifiant = new \XoopsEditList(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT, 'quest_identifiant1', $this->getVar('quest_identifiant1'), 20) ; 
-        $inpIdentifiant->setHelp(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);      
-		$form->addElement($inpIdentifiant, false);
-    
+        $inpIdentifiant->setDescription(_AM_QUIZMAKER_QUESTIONS_IDENTIFIANT_DESC);      
+		$form->addXtrayElement($inpIdentifiant, false);
         //----------------------------------------------------------
-        $this->insertShorcuts($form, _AM_QUIZMAKER_PARAMETRES, 'yellow', 'black');        
+        $form->insertShorcuts(_AM_QUIZMAKER_PARAMETRES, null, 'black');        
         //-------------------------------------------
-        //--- ajout de racourcis pour acceder directement aux element importants
-        /*
-        $tpl = "<a href='#%s' onclick='quizmaker_scrollWin(-80);'><input type='button' value='%s'></a>";
-        $raccourcis = new \XoopsFormElementTray('Acces rapide', "&nbsp; ");
-        
-        $raccourcis->addElement(new \XoopsFormLabel('', sprintf($tpl, 'options-specifique', 'Option spécéfique')));        
-        $raccourcis->addElement(new \XoopsFormLabel('', sprintf($tpl, 'options-slide', 'Options de présentation')));        
-        $raccourcis->addElement(new \XoopsFormLabel('', sprintf($tpl, 'propositions', 'Proposirions')));        
-        $raccourcis->addElement(new \XoopsFormLabel('', sprintf($tpl, 'submit-form', 'Boutons de validation')));        
-        $form->addElement($raccourcis);        
-        */
-        
-        
 
 		// Form Text questQuestion
         $inpQuestion = new \XoopsFormText(_AM_QUIZMAKER_QUESTIONS_QUESTION . " [#{$questId}]", 'quest_question', 120, 255, $this->getVar('quest_question') );
 		$inpQuestion->setDescription(_AM_QUIZMAKER_QUESTIONS_QUESTION_DESC);
         $inpQuestion->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST));
-        $form->addElement($inpQuestion, true);
+        $form->addXtrayElement($inpQuestion, true);
         
 //////////////////////////////////////////
 
-                $name = 'quest_question_style';
-                $style = $this->getVar($name);
-                 $inpTitleStyle = new \XoopsFormJson(_AM_QUIZMAKER_QUESTIONS_STYLE, $name, $style, false);                  
-                  //$inpTitleStyle->setTextBoxVisible(true);        
-                  //$inpTitleStyle->setPreviewVisible(true);        
-                  $inpTitleStyle->addOption('size', 1, 'number', ['caption' => 'Taille', 'min'=>0.8,'max'=>2.2, 'size'=>5, 'unit'=>'em']);
-                  //$inpTitleStyle->addOption('line-height', 1, 'number', ['caption' => 'Interligne', 'min'=>0.8,'max'=>2.1, 'size'=>5, 'unit'=>'em']);
-                  $inpTitleStyle->addOption('color', '#000000', 'palette', ['caption' => 'Couleur', 'palette' => 'classic']);                  
-                  
+        $name = 'quest_question_style';
+        $style = $this->getVar($name);
+         $inpTitleStyle = new \XoopsFormJson(_AM_QUIZMAKER_QUESTIONS_STYLE, $name, $style, false);                  
+          //$inpTitleStyle->setTextBoxVisible(true);        
+          //$inpTitleStyle->setPreviewVisible(true);        
+          $inpTitleStyle->addOption('size', 1, 'number', ['caption' => 'Taille', 'min'=>0.8,'max'=>2.2, 'size'=>5, 'unit'=>'em']);
+          //$inpTitleStyle->addOption('line-height', 1, 'number', ['caption' => 'Interligne', 'min'=>0.8,'max'=>2.1, 'size'=>5, 'unit'=>'em']);
+          $inpTitleStyle->addOption('color', '#000000', 'palette', ['caption' => 'Couleur', 'palette' => 'classic']);                  
+          
 
-                  $form->addElement($inpTitleStyle);                  
+          $form->addElement($inpTitleStyle);                  
 
 /////////////////////////////////////////
 
 		
 		// Form Editor DhtmlTextArea questComment1
-        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 'quest_comment1', $this->getVar('quest_comment1', 'e'), _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC  , null, $quizmakerHelper);        
-		$form->addElement($inpComment1);
+        $newOptions = array('height'=>'50px', 'width' => '600px');
+        $inpComment1  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_COMMENT1, 
+                                                 'quest_comment1', 
+                                                 $this->getVar('quest_comment1', 'e'), 
+                                                 _AM_QUIZMAKER_QUESTIONS_COMMENT1_DESC, 
+                                                 $newOptions, 
+                                                 $quizmakerHelper);        
+		$form->addXtrayElement($inpComment1);
   
-     
+        $inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quest_posComment1', $this->getVar('quest_posComment1'));
+        $inpPosComment->addOptionArray(['0'=>_AM_QUIZMAKER_POS_COMMENT_0, '1'=>_AM_QUIZMAKER_POS_COMMENT_1 , '2'=>_AM_QUIZMAKER_POS_COMMENT_2, '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
+        $inpPosComment->setDescription(_AM_QUIZMAKER_POS_COMMENT_DESC);
+        $form->addElement($inpPosComment);
+        
 		// Form Editor DhtmlTextArea quest_explanation
-        $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 'quest_explanation', $this->getVar('quest_explanation', 'e'), _AM_QUIZMAKER_EXPLANATION_DESC, null, $quizmakerHelper);        
-		$form->addElement($inpExplanation);
+        $newOptions = array('height'=>'250px', 'width' => '600px');
+        $inpExplanation  = $quizUtility->getEditor2(_AM_QUIZMAKER_EXPLANATION, 
+                                                    'quest_explanation', 
+                                                    $this->getVar('quest_explanation', 'e'), 
+                                                    _AM_QUIZMAKER_EXPLANATION_DESC, 
+                                                    $newOptions, 
+                                                    $quizmakerHelper);        
+		$form->addXtrayElement($inpExplanation);
         
 		// Form Text learn_more
 		$inpLearnMore = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_LEARN_MORE, 'quest_learn_more', 120, 255, $this->getVar('quest_learn_more') );
         $inpLearnMore->setDescription(_AM_QUIZMAKER_QUESTIONS_LEARN_MORE_DESC);
-		$form->addElement($inpLearnMore);
+		$form->addXtrayElement($inpLearnMore);
 		// Form Text see_also
 		$inpSeeAlso = new \XoopsFormText( _AM_QUIZMAKER_QUESTIONS_SEE_ALSO, 'quest_see_also', 120, 255, $this->getVar('quest_see_also') );
         $inpSeeAlso->setDescription(_AM_QUIZMAKER_QUESTIONS_SEE_ALSO_DESC);
-		$form->addElement($inpSeeAlso);
+		$form->addXtrayElement($inpSeeAlso);
 
 
         /* ***** Options uniquement pour les questions ***** */
         // Form quest_posComment1
 /* a voir dans une prochaine si cette options est déportée de quiz vers question pour affiner la présentation individuellement
 */		
-        $inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quest_posComment1', $this->getVar('quest_posComment1'));
-        $inpPosComment->addOptionArray(['0'=>_AM_QUIZMAKER_POS_COMMENT_0, '1'=>_AM_QUIZMAKER_POS_COMMENT_1 , '2'=>_AM_QUIZMAKER_POS_COMMENT_2, '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
-        $inpPosComment->setDescription(_AM_QUIZMAKER_POS_COMMENT_DESC);
-        $form->addElement($inpPosComment);
-        
-        if($clPlugin->isQuestion() && $clPlugin->numbering == -1){
+        if($clPlugin->isQuestion && $clPlugin->numbering == -1){
             // Form Text questNumbering
             $tOptNumbering = array(_CO_QUIZMAKER_NUM_NONE, _AM_QUIZMAKER_NUM_NUMERIQUE, _AM_QUIZMAKER_NUM_UPPERCASE, _AM_QUIZMAKER_NUM_LOWERCASE, _AM_QUIZMAKER_NUM_NUM_ACCOLADES);
             $inpNumbering = new \XoopsFormSelect(_AM_QUIZMAKER_NUMBERING , 'quest_numbering', $this->getVar('quest_numbering'));
@@ -380,33 +341,43 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         
         //-------------------------------------------------------
         $trayTimer = new \XoopsFormElementTray(_AM_QUIZMAKER_TIMER, '<br>');
-        
         // Form Text Select questTimer
         $inpTimer = new \XoopsFormNumber('', 'quest_timer', 8, 8, $this->getVar('quest_timer'));
         $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX, _AM_QUIZMAKER_UNIT_SECONDS);
         $inpTimer->setExtra(getStyle(QUIZMAKER_BG_LIST_TIMER));
-		$trayTimer->addElement($inpTimer);
-
-        $trayTimer->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_TIMER_DESC));
+        $inpTimer->setDescription(_AM_QUIZMAKER_TIMER_DESC);
+        $form->addXTrayElement($inpTimer);
         
         // Form quest_start_timer
+        /*
 		$inpStartTimer = new \XoopsFormRadioYN(QBR . _AM_QUIZMAKER_START_TIMER, 'quest_start_timer', $this->getVar('quest_start_timer'));
         $inpStartTimer->setDescription(_AM_QUIZMAKER_START_TIMER_DESC);
-        $trayTimer->addElement($inpStartTimer);
+        $form->addXTrayElement($inpStartTimer);
+        */
         
-        $trayTimer->addElement(new \XoopsFormLabel('',_AM_QUIZMAKER_START_TIMER_DESC));
         
-		$form->addElement($trayTimer);
+        $inpTimer = new \XoopsFormSelect(_AM_QUIZMAKER_START_TIMER , 'quest_start_timer', $this->getVar('quest_start_timer'));
+		$inpTimer->addOption(0, _AM_QUIZMAKER_START_TIMER_0);
+		$inpTimer->addOption(1, _AM_QUIZMAKER_START_TIMER_1);
+		$inpTimer->addOption(2, _AM_QUIZMAKER_START_TIMER_2);
+        $form->addXTrayElement($inpTimer);
+
+
+        
         //-------------------------------------------------------
         
 
 		// Form Editor DhtmlTextArea quest_consigne
-        $inpConsigne  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_CONSIGNE, 'quest_consigne', $this->getVar('quest_consigne', 'e'), _AM_QUIZMAKER_QUESTIONS_CONSIGNE_DESC, null, $quizmakerHelper);        
+        $inpConsigne  = $quizUtility->getEditor2(_AM_QUIZMAKER_QUESTIONS_CONSIGNE, 
+                                                 'quest_consigne', 
+                                                 $this->getVar('quest_consigne', 'e'), 
+                                                 _AM_QUIZMAKER_QUESTIONS_CONSIGNE_DESC, 
+                                                 $newOptions, 
+                                                 $quizmakerHelper);        
 		$form->addElement($inpConsigne);
 		//$form->addElement($fileNameTray);
         
         // Form quest_visible
-
 		$inpVisible = new \XoopsFormRadioYN(_AM_QUIZMAKER_VISIBLE, 'quest_visible', $this->getVar('quest_visible'));
         $inpVisible->setDescription(_AM_QUIZMAKER_VISIBLE_DESC);
         $form->addElement($inpVisible);
@@ -422,7 +393,7 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         if ($quizmakerHelper->getConfig('display_plugin_help')){
         }
           //ajout de l'aide pour ce slide
-        $this->insertShorcuts($form, _AM_QUIZMAKER_PLUGIN_CONSIGNE, 'white', 'magenta');        
+        $form->insertShorcuts(_AM_QUIZMAKER_PLUGIN_CONSIGNE, null, 'magenta');        
           
           $form->addElement($clPlugin->getSlideHelper($quizmakerHelper->getConfig('display_plugin_help')));
 
@@ -435,11 +406,11 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         //$idQuiz = $this->getVar('quest_quiz_id');
         //echo "<hr>dossier du quiz : {$idQuiz}-{$folderJS}<hr>";        
         //--------------------------------------------------------------  
-        $this->insertShorcuts($form, _AM_QUIZMAKER_PLUGIN_OPTIONS, 'white', 'blue');        
+        $form->insertShorcuts(_AM_QUIZMAKER_PLUGIN_OPTIONS, null, 'blue');        
         
         //--------------------------------------------------------------  
         $form->addElement(new \XoopsformLabel("<a href='' name='options-slide'><a>"));
-        if($clPlugin->isQuestion()){
+        if($clPlugin->isQuestion && $clPlugin->hasGlobalPoints){
             // Form Text quest_points
             // ce champ fait partie de la table question mais il est plus ergonomique de le metre ici
             $inpPoints =   new \XoopsFormNumber('', 'quest_points', 8, 8, $this->getVar('quest_points'));
@@ -586,15 +557,15 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
  
                   $name = 'quest_shadow';  
                   $shadow = ( $this->getVar($name)) ?  $this->getVar($name) : '#000000';
-                  $inpShadow = new \XoopsFormPalette(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $shadow);                 
-                  //$inpShadow = new \XoopsFormColorPicker(_AM_QUIZMAKER_SHADOW_COLOR . " : ", $name, $shadow);
+                  $inpShadow = new \XoopsFormPalette(_AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR . " : ", $name, $shadow);                 
+                  //$inpShadow = new \XoopsFormColorPicker(_AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR . " : ", $name, $shadow);
                   
                   $inpTrayImg->addElement($inpHeight1);
                   $inpTrayImg->addElement($inpShadow);
 */
 
 
-                  $inpShadowDesc = new \XoopsFormLabel('', _AM_QUIZMAKER_SHADOW_COLOR_DESC);
+                  $inpShadowDesc = new \XoopsFormLabel('', _AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR_DESC);
                   
                   //$inpTrayImg->addElement($inpShadowDesc);
 
@@ -605,38 +576,37 @@ $inpTrayImg->addElement($inpJson);
            
             //--------------------------------------------
             $background = $this->getVar('quest_background');
-            $inpBakground = $clPlugin->getFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN, 'quest_background', $background, $folderJS);
-            $inpBakground->setCaption(_AM_QUIZMAKER_BACKGROUND_MAIN);
+            $inpBakground = $clPlugin->getFormImage(_AP_QUIZMAKER_BACKGROUND_MAIN, 'quest_background', $background, $folderJS);
+            $inpBakground->setCaption(_AP_QUIZMAKER_BACKGROUND_MAIN);
             $form->addElement($inpBakground);     
 
             // --------- ajout des options propres au plugin -------------------
-            $form->addElement(new \XoopsformLabel("<a href='' name='options-specifique'><a>"));
-            $this->insertShorcuts($form, _AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN, 'white', 'red');        
+            $form->insertShorcuts(_AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN, $shortcut, 'red');        
             
             $inpOptions = $clPlugin->getFormOptions(_AM_QUIZMAKER_SPECIFIC_OPTIONS, QUIZMAKER_PREFIX_OPTIONS_NAME,  $options, $folderJS);
             if($inpOptions){
-                $form->addElement($inpOptions, false);
+                //$form->addElement($inpOptions, false);
+                $form->integrate($inpOptions, $clPlugin->integration);        
             }
             
         } 
        
         //================================================
-        //ajout des propositions de réponses
-        //$titleOptions = new \XoopsFormLabel(null,'Liste des options');
-        $form->addElement(new \XoopsformLabel("<a href='' name='propositions'><a>"));
-        $this->insertShorcuts($form, _AM_QUIZMAKER_PROPOSITIONS_ANSWERS, 'yellow', 'green');        
+        //ajout des propositions de réponses<br />
+        $form->insertShorcuts(_AM_QUIZMAKER_PROPOSITIONS_ANSWERS, null, 'yellow');        
        
-        if ($clPlugin->integration == 1){
-            $inpProposition = $clPlugin->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id'));
-            $form->insertBreak($inpProposition->render());
-
-        }else{
-            $form->addElement($clPlugin->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id')));
-        }
-        
+        //insertion de optionsForm propre à chaque plugin
+//         if ($clPlugin->integration == 1){
+//             $inpProposition = $clPlugin->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id'));
+//             $form->insertBreak($inpProposition->render());
+// 
+//         }else{
+//             $form->addElement($clPlugin->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id')));
+//         }
+        $form->integrate($clPlugin->getForm($this->getVar('quest_id'), $this->getVar('quest_quiz_id')), $clPlugin->integration);        
         //================================================
 		// To Save
-        $this->insertShorcuts($form, _AM_QUIZMAKER_SUBMIT, 'black', 'cyan');        
+        $form->insertShorcuts(_AM_QUIZMAKER_SUBMIT, $shortcut, 'cyan');        
         
 		$form->addElement(new \XoopsFormHidden('op', 'save'));
 		$form->addElement(new \XoopsFormHidden('quest_id', $questId));
@@ -647,6 +617,9 @@ $inpTrayImg->addElement($inpJson);
         //$btnTray->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         
         
+        //================================================
+		// vouttons d'    action
+        //================================================
         $btnSubmit = new \XoopsFormButton('', 'submit', _SUBMIT, 'submit');
         $btnSubmit->setClass('btn btn-success');
         $btnTray->addElement($btnSubmit);
@@ -668,8 +641,8 @@ $inpTrayImg->addElement($inpJson);
         //$btnSubmit->setClass('btn btn-cancel');
         $btnTray->addElement($btnSubmit);
         
-        $form->insertBreak("<center>" . $btnTray->render() . "</center>",'blue');        
-		//$form->addElement($btnTray);
+        $form->insertBreakJanus($btnTray->render(), '#CCFFFF');
+
 		return $form;
 	}
 
@@ -837,8 +810,17 @@ function TrayMergeFormWithDesc($caption, $form, $desc='', $sep="<br>"){
 /* ********************************************
 * todo
 *********************************************** */
-  public function moveTo($newQuizId){
+  public function sendo($newQuizId, $action){
   global $quizHandler;
+  
+    
+    //remplacer quiz_id courant par quiz_id de destination dans question
+    
+    //deplacer image et background dans le dossier du quiz de desstination
+    
+    //déplacer image1 et image 2 de answers dans le dossier du quiz de desstination
+        
+
     $quizFrom = $quizHandler->get($this->getVar('quest_quiz_id'));
     $fldFrom = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $quizFrom->getVar('quiz_folderJS');
     

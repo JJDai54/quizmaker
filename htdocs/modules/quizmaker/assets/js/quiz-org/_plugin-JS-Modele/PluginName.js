@@ -87,7 +87,7 @@ computeScoresMinMaxByProposition(){
 
 ***************************************************** */
 getAllPropositions (flag = 0){
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     var tReponses = [];
     
     for(var i in currentQuestion.answers){
@@ -109,7 +109,7 @@ getAllPropositions (flag = 0){
 
  showGoodAnswers()
   {
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     
      return true;
   } 
@@ -119,7 +119,7 @@ getAllPropositions (flag = 0){
 
  showBadAnswers()
   {
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     
 
      return true;
@@ -164,7 +164,7 @@ function PluginName_next_slide(idDivNextQuestion){
 //    var btnNextSlide = document.getElementById('quiz_btn_nextSlide');
 //         btnNextSlide.disabled = '';   
 //         btnNextSlide.click(); 
-        updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement').click();
+        updateButton('quiz_btn_nextSlide', 1, null, 'quiz_hidde_avertissement').click();
     
    if(obNextSlide){
      obNextSlide.style.visibility = 'hidden';
@@ -213,12 +213,12 @@ function PluginName_change_etat(obSelected, inputType){
         
     //si c'est un choix unique (bouton radio) mettre toutes les options à '0'
     if(inputType > 0){
-        console.log('===>PluginName_change_etat : inputType = ' + inputType);
+        //console.log('===>PluginName_change_etat : inputType = ' + inputType);
         var name = obSelected.name;
         var allOptions = document.getElementsByName(name);
-        console.log('===>PluginName_change_etat : name = ' + name + '- nb = ' + allOptions.length);
+        //console.log('===>PluginName_change_etat : name = ' + name + '- nb = ' + allOptions.length);
         for(var i = 0; i < allOptions.length; i++){
-            console.log('id = ' + allOptions[i].id);
+            //console.log('id = ' + allOptions[i].id);
             allOptions[i].setAttribute('value', 0);
             document.getElementById(allOptions[i].id + quiz_config.suffixCoche).style.visibility = 'hidden';    
         }

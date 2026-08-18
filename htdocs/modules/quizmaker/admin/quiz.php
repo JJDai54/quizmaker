@@ -53,6 +53,11 @@ $catId  = Request::getInt('cat_id', array_key_first($catArr));
 //recheche du quiz pour les opération individuelle : edit, save, delete, ...
 if($quizId > 0 && $sender != 'cat_id'){
   $quizObj = $quizHandler->get($quizId);
+  if(!$quizObj){
+        //redirect_header("quiz.php?op=list&cat_id={$catId}", 5, FQUIZMAKER\getMsgStyle(sprintf(_AM_QUIZMAKER_QUIZ_UNKNOW, $quizId), 'bred',$quizId));
+        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, FQUIZMAKER\getMsgStyle(_AM_QUIZMAKER_QUIZ_UNKNOW, 'bred',$quizId));
+  }
+  
   $quizCat_id = $quizObj->getVar('quiz_cat_id');
   $catId  = $quizCat_id;
   if (!isset($catArr[$catId])) $catId = array_key_first($catArr);    
@@ -187,7 +192,7 @@ switch($op) {
         $quizHandler->setBinOptions($quizId, $optId);
         $build = $quizUtility::buildQuiz($quizId);
         $msg = sprintf(_AM_QUIZMAKER_QUIZ_BINOPTIONS_OK, $buildArr['name'],$buildArr['id'],$buildArr['build']);
-        redirect_header("quiz.php?op=list&cat_id={$catId}", 5, $msg);
+        redirect_header("quiz.php?op=list&cat_id={$catId}&quiz_subject={$quizSubject}", 5, $msg);
 
 	break;
     

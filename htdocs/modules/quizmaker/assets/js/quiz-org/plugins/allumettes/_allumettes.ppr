@@ -1,0 +1,83 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org\plugins\allumettes
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+Extensions=*.*
+[Project tree]
+_allumettes
+	+allumettes
+		-img
+			-buttons
+				img\buttons\Button_Icon_Black.png
+				img\buttons\Button_Icon_Blue.png
+				img\buttons\Button_Icon_BlueSky.png
+				img\buttons\Button_Icon_Brown.png
+				img\buttons\Button_Icon_Cyan.png
+				img\buttons\Button_Icon_Fuchsia.png
+				img\buttons\Button_Icon_Green.png
+				img\buttons\Button_Icon_GreenBlue.png
+				img\buttons\Button_Icon_GreenForest.png
+				img\buttons\Button_Icon_Lime.png
+				img\buttons\Button_Icon_Orange.png
+				img\buttons\Button_Icon_Pink.png
+				img\buttons\Button_Icon_Red.png
+				img\buttons\Button_Icon_Turquoise.png
+				img\buttons\Button_Icon_Violet.png
+				img\buttons\Button_Icon_Yellow.png
+				img\buttons\Button_to_push_green.png
+				img\buttons\Button_to_push_red.png
+				img\buttons\index.html
+				img\buttons\-no_icon.png
+				img\buttons\pingouin-bleu.png
+				img\buttons\pingouin-gris.png
+				img\buttons\pingouin-marron.png
+				img\buttons\pingouin-or.png
+				img\buttons\pingouin-orange.png
+				img\buttons\pingouin-rose.png
+				img\buttons\pingouin-rouge.png
+				img\buttons\pingouin-vert.png
+				img\buttons\pingouin-vertdegris.png
+				img\buttons\pingouin-violet.png
+			img\index.html
+		allumettes.css
+		allumettes.js
+		allumettes-events.js
+		allumettes-fnc.js
+		index.html
+[Open project files]
+0=allumettes.css
+1=allumettes-events.js
+2=allumettes-fnc.js
+3=allumettes.js
+4=Nouveau1.txt
+[Selected Project Files]
+Main=
+Selected=allumettes.js
+[allumettes.css]
+TopLine=1
+Caret=147,48
+[allumettes-events.js]
+TopLine=1
+Caret=30,49
+[allumettes-fnc.js]
+TopLine=4
+Caret=27,27
+[allumettes.js]
+TopLine=206
+Caret=51,234
+Mark1=1,139
+[Nouveau1.txt]
+TopLine=1
+Caret=1,12

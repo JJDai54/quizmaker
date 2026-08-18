@@ -386,26 +386,28 @@ class OptionsHandler extends \XoopsPersistableObjectHandler
     }
 
 
-/* ******************************
- *  
- * *********************** */
+/* *********************** */
 public function setBitOn($optId, $field, $bitIndex, $newValue = -1)
 {
-        $binValue = pow(2, $bitIndex);
-        if ($newValue == 1){
-            $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue}";
-        }elseif ($newValue == 0){
-            $sql = "UPDATE {$this->table} SET {$field} = {$field} & ~{$binValue}";
-        }else{
-            $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ {$binValue}";
-        }
-    
-    
-    $sql .= " WHERE opt_id={$optId};";
-    $ret = $this->db->queryf($sql);
-    return $ret;
-}
+    // On utilise le décalage de bits au lieu de pow()
+    // Le décalage est natif et évite les conversions en float
+    $binValue = (1 << $bitIndex);
 
+    // On utilise une requête préparée ou on s'assure de la sécurité des variables
+    // (Ici, le principe reste le même que le vôtre)
+    if ($newValue == 1) {
+        $sql = "UPDATE {$this->table} SET {$field} = {$field} | $binValue";
+    } elseif ($newValue == 0) {
+        $sql = "UPDATE {$this->table} SET {$field} = {$field} & ~$binValue";
+    } else {
+        // Le XOR pour basculer (Toggle)
+        $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ $binValue";
+    }
+    
+    $sql .= " WHERE opt_id = " . (int)$optId . ";";
+    
+    return $this->db->queryf($sql);
+}
 /* ******************************
  * incremente la valeur d'un champ selon le modulo passé en parametre 
  * *********************** */

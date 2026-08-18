@@ -48,7 +48,7 @@
     default: alert("getTplNewClass - Plugin absent : " + currentQuestion.pluginName); break;
     }
 
-    blob("getTplNewClass - Plugin : " + currentQuestion.pluginName);
+    //blob("getTplNewClass - Plugin : " + currentQuestion.pluginName);
     return obj;
 }
 </script>

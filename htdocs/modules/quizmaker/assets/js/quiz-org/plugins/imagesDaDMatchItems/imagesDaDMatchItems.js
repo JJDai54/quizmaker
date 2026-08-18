@@ -321,7 +321,7 @@ function imagesDaDMatchItems_start(e, isDiv=false, moveAllow=1){
 if(moveAllow == 0 && e.currentTarget.getAttribute("etat") == 2) return false;
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("text", e.currentTarget.id);
-    console.log("imagesDaDMatchItems_start : " + e.currentTarget.id);
+    //console.log("imagesDaDMatchItems_start : " + e.currentTarget.id);
 }
 /* *************************************************** */
 function imagesDaDMatchItems_over(e, moveAllow=1){
@@ -330,7 +330,7 @@ if(moveAllow == 0 && e.currentTarget.getAttribute("etat") == 2) return false;
    // if(e.currentTarget.getAttribute("id") ==  e.dataTransfer.getData("text")) return false;
     e.currentTarget.classList.remove('imagesDaDMatchItems_myimg1');
     e.currentTarget.classList.add('imagesDaDMatchItems_myimg2');
-console.log("===>imagesDaDMatchItems_over : " + e.currentTarget.id);
+//console.log("===>imagesDaDMatchItems_over : " + e.currentTarget.id);
     return false;
 }
 /* *************************************************** */

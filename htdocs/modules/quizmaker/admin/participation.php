@@ -32,6 +32,8 @@ $clPerms->checkAndRedirect('global_ac', QUIZMAKER_PERMIT_RESULT,'QUIZMAKER_PERMI
 
 // It recovered the value of argument op in URL$
 $op = Request::getCmd('op', 'list');
+$action = Request::getCmd('actions', ''); 
+if($action && $action !='no-action') $op = $action;
 $domaine = Request::getCmd('domaine', 'results');
 // Request quest_id
 
@@ -96,9 +98,15 @@ $redirectURL = "participation.php?{$redirectParams}"; //il faut ajout op=??? dan
         $GLOBALS['xoopsTpl']->assign('domaine', $domaine);
        // ----- /Listes de selection pour filtrage -----    
         
-        
-        $btn['razResults'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_RAZ_RESULTS, 'delete_all', "{$modUrlIcon16}/delete.png", '', "exportToCsv();");
-        
+        $inpActions = new XoopsFormSelect('Actions', 'actions');
+        $inpActions->addOption('no-action', _AM_QUIZMAKER_ACTIONS);
+        $inpActions->addOption('delete_all', _AM_QUIZMAKER_RAZ_ENR);
+        $inpActions->addOption('update_all', _AM_QUIZMAKER_UPDATE_ENR);
+        $inpActions->addOption('clean_all', _AM_QUIZMAKER_CLEAN_ENR);
+        $inpActions->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
+        $inpActions->setExtra('style="display:inline;width:auto;' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST,'',false) . '"');
+        //exit('style="display:inline;width:auto;' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST,'',false) . '"');
+ 		$GLOBALS['xoopsTpl']->assign('actions', $inpActions->render());
         
 
         $btn['exporCSV'] = $quizUtility->getNewBtn(_AM_QUIZMAKER_EXPORT_CSV, 'export_csv', "{$modUrlIcon32}/export.png", '', "exportToCsv();");

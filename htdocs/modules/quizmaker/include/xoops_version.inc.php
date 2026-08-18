@@ -19,6 +19,7 @@
  */
 
 /**
+ * fonction de conversion en octet
  * @param $val
  * @return float|int
  */

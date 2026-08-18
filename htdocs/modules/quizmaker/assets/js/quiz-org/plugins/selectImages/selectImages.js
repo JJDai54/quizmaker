@@ -5,9 +5,10 @@ function getPlugin_selectImages(question, slideNumber){
     //return new selectImages(question, slideNumber);
 
     switch(question.options.variant){
-    case '02-texte'  : return new selectCoches(question, slideNumber, 'selectCoches'); break;
-    case '01-image'  : 
-    default          : return new selectImages(question, slideNumber, 'selectImages')
+    case '00-classic' : return new selectClassic(question, slideNumber, 'selectClassic'); break;
+    case '02-texte'   : return new selectCoches(question, slideNumber, 'selectCoches'); break;
+    case '01-image'   : 
+    default           : return new selectImages(question, slideNumber, 'selectImages')
     }
 
 }
@@ -66,9 +67,11 @@ getInnerHTML(bShuffle = true){
     for(var k in ansArr){
         var ans = ansArr[k];
         if(ans.image1 == ''){
-            var src = currentQuestion.urlPlugin + '/img/buttons/' + ans.image2;
+            var src = quiz_config.urlImgRoot + '/buttons/' + ans.image2;
+        // alert(`a : ${src} ===> ${ans.image2}`);
         }else{
             var src = quiz_config.urlQuizImg + '/' + ans.image1;
+            //alert(`b : ${src}`);
         }
         //alert(ans.cocheId);
         //if (ans.proposition == '' && ans.image1 == '' && ans.image2 == '') continue;
@@ -91,6 +94,10 @@ getInnerHTML(bShuffle = true){
         if (h == 0){
             tHtml.push (`<br>`);
             h = repartition[++i];
+            while(repartition[i] == 0){
+                tHtml.push (`<br>`);
+                h = repartition[++i];
+            }
          //divIntervalVertical =  intervalVertical;   
         }
     }
@@ -113,15 +120,23 @@ onFinalyse() {
 //---------------------------------------------------
  prepareData(){
     var currentQuestion = this.question;
+    var options = this.question.options;
+    
     this.countAnsNotNull = 0; 
+    let nbGoodAns = 0;
     
     for(var k in currentQuestion.answers){
        var ans = currentQuestion.answers[k];
         ans.proposition = this.sanityse_exp(ans.proposition, 127);
         ans.cocheId = ans.ansId + quiz_config.suffixCoche;
         if((ans.points*1) !=0 ) this.countAnsNotNull++;
+        if((ans.points*1) > 0 ) nbGoodAns++;
     }
-
+    
+    if(options.inputType == 'auto'){
+        options.inputType = (nbGoodAns == 1) ? 'radio' : 'checkbox';
+    } 
+    
     this.initMinMaxQQ(2);
     
 }
@@ -315,7 +330,7 @@ var tpl="";
   //alert(disposition);  
     switch(disposition){
     case 'disposition-02':
-        tpl = `<center><table><tr><td style='padding-left:20px;padding-right:20px;'>{image}</td><td><div class='${this.name}_divMaitre'>{options}</div></td></tr></table></center>`;
+        tpl = `<center><table><tr><td style='padding-left:20px;padding-right:20px;vertical-align: top;'>{image}</td><td><div class='${this.name}_divMaitre'>{options}</div></td></tr></table></center>`;
         break;
         
     case 'disposition-03':
@@ -336,19 +351,20 @@ var tpl="";
 
 } // *************** fin de la class ********************
 
+
 /* *******************************************
 * * Affecte la réponse et passe au slide suivant
 * ********** */
 function selectImages_event_gotoNextSlide(ev, slideNumber){
-    console.log(`selectImages_event_gotoNextSlide : slideNumber = ${slideNumber}`);
+    //console.log(`selectImages_event_gotoNextSlide : slideNumber = ${slideNumber}`);
 //alert('selectImages_event_gotoNextSlide');
     var clQuestion = quizard[slideNumber];
     var options = clQuestion.question.options;
     selectImages_change_etat(ev.currentTarget, clQuestion);   
     
     
-    if(options.nextSlideDelai * 1 > 0){
-        var gotoNexSlide = false;
+    var gotoNexSlide = false;
+    if((options.msg_nextslide_duree * 1) > 0 && options.msg_nextslide_gotonext > 0){
         if(options.inputType == 'radio'){
             gotoNexSlide = true;
         }else if(options.inputType == 'checkbox'){
@@ -360,14 +376,11 @@ function selectImages_event_gotoNextSlide(ev, slideNumber){
 
     //alert (clQuestion.getScoreByProposition() + " / " + clQuestion.scoreMaxiBP);
     if(gotoNexSlide){
-        var msg = (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP) ? options.nextSlideMessageWinner : options.nextSlideMessageLooser;
-        msg = fo_sprint(msg);
-        
-        quiz_show_avertissement (msg, options.nextSlideDelai, options.nextSlideBG);
+        var winner =  (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP);
+        clQuestion.show_avertissement_WL (winner)
     }  
-    ev.stopPropagation();
+    //ev.stopPropagation();
 }
-
 
 /* *******************************************
 * * Affecte les nouvelles valeurs
@@ -386,7 +399,7 @@ function selectImages_change_etat(obSelected, clQuestion){
         var allOptions = document.getElementsByName(nameCoche);
         console.log('===>selectImages_change_etat : name = ' + nameCoche + '- nb = ' + allOptions.length);
         for(var i = 0; i < allOptions.length; i++){
-            console.log('===> cocheId = ' + allOptions[i].id);
+            //console.log('===> cocheId = ' + allOptions[i].id);
             clQuestion.setValue(allOptions[i], 0);
         }
         

@@ -37,7 +37,7 @@ var name = this.getName();
         if(k==0 && this.isLettrine) {
           currentQuestion.answers[k].proposition = img + currentQuestion.answers[k].proposition;
         }
-        console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+        //console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
         //Les div seront remplis dazns le update
         htmlArr.push(`<div id="${id}" name="${name}" class="quiz-shadowbox "  style='width:90%;' disabled></div>`);
           
@@ -62,7 +62,7 @@ onEnter() {
   for(var k in currentQuestion.answers){
     var id = this.getId(k);
     if(currentQuestion.answers[k].proposition == '') continue;
-    console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+    //console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
       var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, 0);
       document.getElementById(id).innerHTML = exp;
   }

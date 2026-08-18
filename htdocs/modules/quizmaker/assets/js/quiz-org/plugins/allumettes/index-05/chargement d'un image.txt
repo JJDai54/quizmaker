@@ -1,0 +1,87 @@
+En JavaScript, il n'existe pas de méthode `.load()` native directement sur l'élément `<img>` (comme celle que vous utilisez probablement avec une bibliothèque comme Howler.js pour le son).
+
+Cependant, le navigateur gère très bien le chargement des images via l'événement **`load`**. Voici les meilleures approches pour résoudre votre problème.
+
+---
+
+### 1. La solution standard : l'événement `load`
+
+Vous pouvez écouter l'événement sur l'objet image avant ou après avoir défini sa source (`src`).
+
+```javascript
+const monImage = new Image(); // Ou document.getElementById('monImage')
+
+monImage.addEventListener('load', () => {
+    console.log('Image chargée avec succès !');
+    // Vous pouvez maintenant l'afficher ou faire vos manipulations
+    monImage.style.display = 'block'; 
+});
+
+monImage.addEventListener('error', () => {
+    console.error('Erreur lors du chargement de l\'image');
+});
+
+monImage.src = 'chemin/vers/votre/image.jpg';
+
+```
+
+---
+
+### 2. Vérifier si elle est déjà chargée (`complete`)
+
+Si vous arrivez sur une page où l'image est peut-être déjà chargée, il faut vérifier la propriété `.complete`.
+
+```javascript
+const img = document.querySelector('#monImage');
+
+if (img.complete) {
+    // L'image est déjà en cache, on agit immédiatement
+    console.log('Image déjà chargée');
+} else {
+    // Sinon, on attend l'événement
+    img.addEventListener('load', () => {
+        console.log('Image chargée !');
+    });
+}
+
+```
+
+---
+
+### 3. Utiliser les Promises (plus moderne)
+
+Si vous voulez gérer cela de manière élégante, notamment pour charger plusieurs images avant de lancer une animation, utilisez une `Promise` :
+
+```javascript
+function chargerImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Impossible de charger ${url}`));
+        img.src = url;
+    });
+}
+
+// Utilisation avec async/await
+async function init() {
+    try {
+        const img = await chargerImage('image.jpg');
+        document.body.appendChild(img);
+        console.log('Image ajoutée au DOM');
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+```
+
+---
+
+### Conseil pratique pour l'affichage
+
+Si votre problème est un "saut" visuel ou un espace vide pendant le chargement :
+
+1. **CSS de secours** : Définissez une largeur et une hauteur minimales (ou un `min-height`) sur votre balise `<img>` en CSS pour réserver l'espace avant que l'image ne soit chargée.
+2. **État de chargement** : Masquez l'image par défaut (`opacity: 0`) et ajoutez une classe `visible` (avec une transition CSS `opacity 0.5s`) dans votre callback `.addEventListener('load', ...)` pour un affichage en douceur.
+
+Avez-vous besoin d'une solution spécifique pour charger une série d'images (une "preload list") avant de lancer votre jeu ou votre interface ?

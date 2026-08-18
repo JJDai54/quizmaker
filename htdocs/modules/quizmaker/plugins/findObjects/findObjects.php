@@ -41,7 +41,7 @@ var $maxGroups = 4;
 	{
         parent::__construct("findObjects", 0, "images");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
-        $this->integration=1;
+        
         $this->hasZoom = true;
         $this->hasImageMain = true;
         $this->multiPoints = true;                
@@ -52,22 +52,15 @@ var $maxGroups = 4;
                                   'showCaption'   => 'N',
                                   'message_info'  => _LG_PLUGIN_FINDOBJECTS_INFO,
                                   'maxTouches'    => 8,
-                                  'maxAttemps'    => 0,
+                                  'maxAttempts'    => 0,
                                   'defaultWidth'  => 36,
                                   'defaultHeight' => 36,
                                   'defaultBorderWidth'  =>  3,
-                                  'defaultBorderRadius' => 25,
-                                  'nextSlideMessageWinner'      => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN_0,
-                                  'nextSlideMessageLooser'      => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX_1,
-                                  'nextSlideDelai'              => 0,
-                                  'nextSlideBG'                 =>'#FFCC00'];
+                                  'defaultBorderRadius' => 25];
+        
+        $this->addMessages();
     }
-/*
-                                  'nextSlideDelai'      => 0,
-                                  'nextSlideBG'         =>'#FFCC00',
-                                  'nextSlideMessageWin' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN0,
-                                  'nextSlideMessageMax' => _LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX0];
-*/
+
 	/**
 	 * @static function &getInstance
 	 *
@@ -120,8 +113,8 @@ var $maxGroups = 4;
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
 
-      $name = 'maxAttemps';
-      $inpMaxAttemps = new \XoopsFormNumber(_LG_PLUGIN_FINDOBJECTS_MAXTRY,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
+      $name = 'maxAttempts';
+      $inpMaxAttemps = new \XoopsFormNumber(_AP_QUIZMAKER__MAXTRY,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name], 'style="background:#FFCC66;"');
       $inpMaxAttemps->setMinMax(-1, 54, _AM_QUIZMAKER_UNIT_ATTEMPTS);
       $inpMaxAttemps->setDescription(_LG_FINDOBJECTS_IMAGES_ATTEMPTS_MAX_DESC);
       $trayOptions ->addElementOption($inpMaxAttemps);  
@@ -130,25 +123,18 @@ var $maxGroups = 4;
       include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_disposition.php");
 
       $name = 'imgWidth1';
-      $inpWidth1 = new \XoopsFormNumber(sprintf(_LG_PLUGIN_FINDOBJECTS_WIDTH,1),  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpWidth1 = new \XoopsFormNumber(sprintf(_LG_PLUGIN_FINDOBJECTS_WIDTH, 1),  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpWidth1->setMinMax(32, 600, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElementOption($inpWidth1);     
 
       $name = 'imgWidth2';
-      $inpWidth2 = new \XoopsFormNumber(sprintf(_LG_PLUGIN_FINDOBJECTS_WIDTH,2),  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpWidth2 = new \XoopsFormNumber(sprintf(_LG_PLUGIN_FINDOBJECTS_WIDTH, 2),  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpWidth2->setMinMax(32, 600, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions->addElementOption($inpWidth2);     
 
       //---------------------------------------------------------
-      //ajout des message d'avertissement au passge du slide suivant  
-      // un message en cas de victoire et un si le nombre d'essais est dépassé  
-      $msgArr = [true, false, true];
-      $prefixPluginWinner  = '_LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_WIN_';
-      $prefixPluginLlooser = '_LG_PLUGIN_FINDOBJECTS_NEXT_QUESTION_MAX_';
-      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
-      //---------------------------------------------------------
       
-      $trayOptions->insertBreak("<div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'><center><b>" . _LG_FINDOBJECTS_TOUCHES_PARAMS . "</b></center></div>",-1,false);
+      $trayOptions->insertBreak(sprintf(QUIZMAKER_OPTIONS_BREAK_STYLE, _LG_FINDOBJECTS_TOUCHES_PARAMS));  
 
       //remplacé par une valeur masquée égale à "0" avant suppression déinitive si il s'avère que c'est vraiment inutile            
       $name = 'maxTouches';
@@ -160,22 +146,22 @@ var $maxGroups = 4;
       //-----------------------------------------------
 
       $name = 'defaultWidth';
-      $inpWidth = new \XoopsFormNumber(_LG_FINDOBJECTS_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpWidth = new \XoopsFormNumber(_AP_QUIZMAKER_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpWidth->setMinMax(5, 250);
       $trayOptions ->addElementOption($inpWidth);  
 
       $name = 'defaultHeight';
-      $inpHeight = new \XoopsFormNumber(_LG_FINDOBJECTS_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpHeight = new \XoopsFormNumber(_AP_QUIZMAKER_HEIGHT,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpHeight->setMinMax(5, 250);
       $trayOptions ->addElementOption($inpHeight);  
 
       $name = 'defaultBorderWidth';
-      $inpBorderWidth = new \XoopsFormNumber(_LG_FINDOBJECTS_BORDER_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpBorderWidth = new \XoopsFormNumber(_AP_QUIZMAKER_BORDER_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpBorderWidth->setMinMax(1, 8, _AM_QUIZMAKER_UNIT_PIXELS);
       $trayOptions ->addElementOption($inpBorderWidth);  
 
       $name = 'defaultBorderRadius';
-      $inpBorderRadius = new \XoopsFormNumber(_LG_FINDOBJECTS_BORDER_RADIUS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpBorderRadius = new \XoopsFormNumber(_AP_QUIZMAKER_BORDER_RADIUS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpBorderRadius->setMinMax(0, 50, _AM_QUIZMAKER_UNIT_PERCENT);
       $trayOptions ->addElementOption($inpBorderRadius);  
       //--------------------------------------
@@ -183,8 +169,10 @@ var $maxGroups = 4;
       $msg = new \XoopsFormHidden("{$optionName}[message_info]", _LG_PLUGIN_FINDOBJECTS_INFO);
       $trayOptions ->addElementOption($msg);  
       
-      //--------------------------------------
-
+      //---------------------------------------------------------
+      //ajout des message d'avertissement au passge du slide suivant  
+      // un message en cas de victoire et un si le nombre d'essais est dépassé  
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_messages.php");
       return $trayOptions;
     }
 
@@ -216,7 +204,6 @@ var $maxGroups = 4;
         $this->initFormForQuestion();
            
         $this->trayGlobal->addElement($trayAllAns);
-        //$this->trayGlobal->insertBreak( 'zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz');
 		return $this->trayGlobal;
 	}
     
@@ -302,17 +289,17 @@ foreach($answers as $key=>$ans){
 $tplTouches = "var bufferArr = [" . implode(",\n", $touchesArr) . "];";
 $defaultValues = "var defaultValues = {'maxTouches' : {$options['maxTouches']}, 'defaultWidth' : {$options['defaultWidth']}, 'defaultHeight' : {$options['defaultHeight']}, 'defaultBorderWidth' : {$options['defaultBorderWidth']}, 'defaultBorderRadius' : {$options['defaultBorderRadius']}};\n";
 
-$delete = _LG_FINDOBJECTS_DELETE;
-$title = _LG_FINDOBJECTS_TITLE;
-$color = _LG_FINDOBJECTS_COLOR;
-$top = _LG_FINDOBJECTS_LEFT;
-$left = _LG_FINDOBJECTS_TOP;
-$width = _LG_FINDOBJECTS_WIDTH;
-$height = _LG_FINDOBJECTS_HEIGHT;
-$borderRadius = _LG_FINDOBJECTS_BORDER_RADIUS;
+$delete = _AP_QUIZMAKER_BTN_DELETE;
+$title = _AP_QUIZMAKER_TITLE;
+$color = _AP_QUIZMAKER_COLOR;
+$top = _AP_QUIZMAKER_LEFT;
+$left = _AP_QUIZMAKER_TOP;
+$width = _AP_QUIZMAKER_WIDTH;
+$height = _AP_QUIZMAKER_HEIGHT;
+$borderRadius = _AP_QUIZMAKER_BORDER_RADIUS;
 $points = _LG_FINDOBJECTS_POINTS;
 $idDivImg1 = $this->getName()."_image1";
-$borderWidth = _LG_FINDOBJECTS_BORDER_WIDTH;
+$borderWidth = _AP_QUIZMAKER_BORDER_WIDTH;
 $refreshImgSize = _LG_FINDOBJECTS_REFRESH_IMG_SIZES;
 
 $tplCoordonnees = <<<__tplCoordonnees__

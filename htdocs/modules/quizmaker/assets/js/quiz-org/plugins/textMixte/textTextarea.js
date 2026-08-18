@@ -53,10 +53,10 @@ var points = 0;
     var obText = document.getElementById(this.data.textId);
     var reponse = sanityseTextForComparaison(obText.innerHTML);   
 
-    console.log("===>textTextarea->getScoreByProposition\n" 
-              + reponse + "\n------------------\n" 
-              + this.data.textSanized 
-              + "\n------------------\n");
+// console.log("===>textTextarea->getScoreByProposition\n" 
+// + reponse + "\n------------------\n" 
+// + this.data.textSanized 
+// + "\n------------------\n");
     return ( this.data.textSanized == reponse) ? this.scoreMaxiBP : 0;
     
     return points;
@@ -115,7 +115,7 @@ function textTextarea_update_event(e, idText, idParentList, slideNumber, tag) {
     //change la couleur des mots choisis
     obLists.forEach( (obInput, index) => {
         if(obInput.value != ""){
-            var  tokenName = clQuestion.getName('token',index);
+            let  tokenName = clQuestion.getName('token',index);
             tokens = document.getElementsByName(tokenName);
             //alert(tokens.length);
             //alert(tokenName + ' - ' + tokens[0].innerHTML + '===>' + tokens[0].style.color);

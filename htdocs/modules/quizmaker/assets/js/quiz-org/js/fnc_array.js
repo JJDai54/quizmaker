@@ -200,7 +200,7 @@ const sep = "_$_";
 /* *****************************************
 
 * ****************************************** */
-function getRandomArray(arr) {
+function getRandomIndexFromArray(arr) {
     var mini = 0;
     var maxi = arr.length; 
     
@@ -238,4 +238,16 @@ function arrayToArrayNum(strArr){
 * */
 function splitArrayAllSep(exp, newSep = "|") {
   return setAllSepByNewSep(exp, newSep).split(newSep);
+}
+
+/* *********************************
+*
+* */
+function getRandomArray(arrLength, maxi, mini = 0){
+    var arr = [];
+    for(var h = 0; h < arrLength; h++){
+       arr.push(getRandom(maxi, mini)); 
+    }
+    //alert(`===>getRandomArray : ` + arr.join('-'));
+    return arr;
 }

@@ -117,7 +117,7 @@ global $quizHandler, $categoriesHandler, $quizUtility;
 
 		foreach(array_keys($allQuiz) as $j) {
             $quizId = $allQuiz[$j]->getVar('quiz_id');
-            echo "===> quizId = {$quizId} => " . $allQuiz[$j]->getVar('quiz_name') . "<br>";
+            //echo "===> quizId = {$quizId} => " . $allQuiz[$j]->getVar('quiz_name') . "<br>";
 
             //$uploadArr = $quizUtility::buildQuiz($quizId);
             //---------------------------------------'

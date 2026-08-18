@@ -17,6 +17,39 @@ function getShortName(fullName) {
   return (pos >= 0) ? fullName.substring(pos+1) :  fullName;
 }
 
+/***********************************
+ * 
+ * ********************************/
+function getNumAlpha(index, mode=0, offset=0, separateur = quiz_messages.twoPoints, extra=''){
+//alert ("mode = " + mode + " - offset = " + offset);
+    switch (mode){
+    case 1:         // renvoi l'index tel que
+        var numbering =  (index*1)+1+offset + separateur;
+    case 2:         //renvoi la numerotation en lettre majuscule "A B C ..."
+        var numbering =  String.fromCharCode((index*1)+65+offset) + separateur; 
+        break;
+    case 3:         //renvoi la numerotation en lettre minuscule "a b c ..."
+        var numbering =  String.fromCharCode((index*1)+65+offset).toLowerCase() + separateur; 
+        break;
+    case 4:         // renvoi l'index tel que
+        var numbering =  '{' + ((index*1)+1+offset) + '}' + separateur;
+        break;
+    case 0:         //pas de numérotation, a utiliser de préférence avec ldes images par exemple
+    default:         
+        return "";
+        break;
+ 
+    }
+    
+    if(extra){
+        return `<span style=${extra}>${numbering}</span>`;
+    }else{
+        return numbering;
+    }
+
+ }
+
+
 /* *******************************
 *
 * *** */
@@ -72,7 +105,8 @@ function strip_tag(string) {
 function sanityseTextForComparaison(exp, bolToLower = true){
 var regAccent;
 var car2rep;
-
+    
+    if(!exp){ return exp;}
     if (bolToLower){exp = exp.toLowerCase();}
     exp = strip_tag(exp);
     var reponse = exp.replaceAll("<br>","").replaceAll("\n","").replaceAll("\r","").trim(); //.replaceAll(" ","")
@@ -94,8 +128,8 @@ var car2rep;
 function sanityseAccents(exp, setCasse=0){
 var regAccent;
 var car2rep;
-var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùüü', 'cç', 'nñ',
-                         'AÀÂÄ', 'EÉÈÊË', 'IÎÏ', 'OÔÖ', 'UÙÜÜ', 'CÇ', 'NÑ');
+var arrExp1 = new Array ('aàâä', 'eéèêë', 'iîï', 'oôö', 'uùûü', 'cç', 'nñ',
+                         'AÀÂÄ', 'EÉÈÊË', 'IÎÏ', 'OÔÖ', 'UÙÛÜ', 'CÇ', 'NÑ');
 
 var reponse = '';
     
@@ -386,8 +420,70 @@ utilisé après un setTimeout pour permettre le rafraichissement du slide suite 
 @questId int : numero de la question qui a généré le message
 @replaceDblSlash bool : remplace '//' par des retours à la ligne
 **************************************** */
+/* *************************************
+
+**************************************** */
 function show_message(exp, slideNumber = 0, replaceDblSlash = true){
 //alert(`show_message : slideNumber = ${slideNumber}`)
     exp =  replaceBalisesByValues(exp, slideNumber, 0, replaceDblSlash);
     alert(exp);    
+}
+
+/* *************************************
+function getKeybordImg : affiche un clavier
+alphabetName string : nom de la police image (gif, jpg, png, ...)
+height integer : Hauteur en pixel d'une ligne de clavier
+replaceAllBy string : c aractere de remplacement, si nll pas de remplacement
+onclick string = evenement onclick 
+replaceSpc
+**************************************** */
+function getKeybordImg(alphabetName, exp, height, replaceAllBy = null, carToExclude = '' ,onclick = null){
+    
+    var alphabet = parseFileName(alphabetName);
+    var url = quiz_config.urlImgRoot +  `/alphabets/${alphabet.shortName}`;
+    var status = 0;
+    
+    
+    if(replaceAllBy){
+        var replaceAllByName = 'chr_' + replaceAllBy[0].charCodeAt().toString().padStart(3, '0'); 
+    }
+
+   var evOnClick = (onclick) ? ` onclick="${onclick}"` : ''; 
+   //alert(`${h} - ${alphabetName} : ${ext} ===> ${exp}`)  
+    tHtml = [];
+    tHtml.push(`<div class='quiz_keyboard'>`);
+    
+    for (var h=0; h< exp.length ; h++){
+        if(exp[h] == '|'){
+          tHtml.push(`<br>`);
+        }else{
+            fileName = 'chr_' + exp[h].charCodeAt().toString().padStart(3, '0');
+            if(replaceAllBy && (carToExclude.indexOf(exp[h]) < 0)){
+                //on remplace par le caractere de remplacement saud popur ceux exclus comme "- ."
+                var lettre = replaceAllByName;
+                status = 0;
+             }else if(replaceAllBy && (carToExclude.indexOf(exp[h]) >= 0)){
+                // les caractere ne sont pas remplacés et le status est mis 2 pour compter dans le score
+                 var lettre = fileName;
+                status = 2;
+            }else{
+                // on laise la lettre d'origin estatus est mis 1 pour zgir comme un clavier
+                var lettre = fileName; 
+                status = 1;
+            }
+
+          var fullName = `${url}/${lettre}${alphabet.ext}`;
+          tHtml.push(`<img src="${fullName}" style='height:${height}px;' lettre="${exp[h]}" file="${fileName}${alphabet.ext}";" ${evOnClick} status="${status}">`);
+        }
+    }
+    tHtml.push(`</div>`);
+    return tHtml.join('');
+}
+
+/* *************************************
+
+**************************************** */
+function parseFileName(name){
+    var h = name.indexOf('.');
+    return {name:name, shortName: name.substring(0, h), ext: ext =name.substring(h)}
 }

@@ -133,21 +133,6 @@ function formatDelai ($timestamp1, $timestamp2 = null){
 
 //echoArray($_COOKIE, "===> _COOKIE : {$coookie}");exit;
 
-///////////////////////////////////////////////////
-//     $rootApp = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js";
-//     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";
-// 
-//     //insertion des CSS
-//     $tCss = \JANUS\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
-//     $urlCss = QUIZMAKER_URL_QUIZ_JS. "/quiz-js/css";
-//     foreach($tCss as $css){
-// 		$GLOBALS['xoTheme']->addStylesheet($urlCss .'/'. $css , null );    
-//     }
-//     //----------------------------------------------
-//     //insertion du prototype des tpl
-  
-
-
 		$quizObj = $quizHandler->get($quizId);
         $catId = $quizObj->getVar('quiz_cat_id');
         //$attempt_max = $quizObj->getVar('quiz_attempts');

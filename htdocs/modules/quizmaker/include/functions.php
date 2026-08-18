@@ -22,6 +22,42 @@ namespace XoopsModules\Quizmaker;
  */
  use XoopsModules\Quizmaker AS FQUIZMAKER;
 
+/**
+* Returns folder with prefix de categorie si il est defini
+* @$root   string : u = url sinon "p" ou defaut path physique
+* @$folder string : u = upload  =sinon "m" ou defautl = module
+* @return string folder
+* 
+* FQUIZMAKER\getFolderJS($ret = 'p', $folder = "m" , $subfolder='', $addEndSlash = false)
+*/
+
+function getFolder($root = 'p', $folder = "m" , $subfolder='', $addEndSlash = false)
+{
+
+    
+    if (strtolower($folder) == "u"){
+        $ret = "/uploads/" . QUIZMAKER_DIRNAME;
+    }else{
+        $ret = "/modules/" . QUIZMAKER_DIRNAME;
+    }
+    
+    if($subfolder){
+        $ret .= "/" . $subfolder; 
+    }
+    
+    if($addEndSlash){
+        $ret .= "/"; 
+    }
+    
+    if (strtolower($root) == "u"){
+        $ret = XOOPS_URL .  str_replace('//', '/' , $ret);
+    }else{
+        $ret = XOOPS_ROOT_PATH .  str_replace('//', '/' , $ret);
+    }
+    
+    return $ret;
+
+}
  
 /**
  * function add selected cats to block
@@ -71,20 +107,66 @@ function getStyle($background='', $foreColor='', $addStyleAtt= true)
         return $style;  
     }
 }
-function getMsgStyle($msg, $style)
+function getMsgStyle($msg, $style, ...$arg)
 {
+//echoArray($arg);exit;
+    $newMsg = sprintf($msg, $arg[0], $arg[1], $arg[2], $arg[3], $arg[4]);
+    
     switch(strtolower($style)){
-        case 'red'   : $ret = "<span style='color : Red;'>{$msg}</span>"; break;
-        case 'bred'  : $ret = "<b><span style='color : Red;'>{$msg}</span></b>"; break;
-        case 'blue'  : $ret = "<span style='color : blue;'>{$msg}</span>"; break;
-        case 'bblue' : $ret = "<b><span style='color : blue;'>{$msg}</span></b>"; break;
-        case 'green' : $ret = "<span style='color : green;'>{$msg}</span>"; break;
-        case 'bgreen': $ret = "<b><span style='color : green;'>{$msg}</span></b>"; break;
-        case 'b'     : $ret = "<b>{$msg}"; break;
-        default      : $ret = "<b><span style='color : green;'>{$msg}</span></b>"; break;
+        case 'red'   : $ret = "<span style='color : Red;'>{$newMsg}</span>"; break;
+        case 'bred'  : $ret = "<b><span style='color : Red;'>{$newMsg}</span></b>"; break;
+        case 'blue'  : $ret = "<span style='color : blue;'>{$newMsg}</span>"; break;
+        case 'bblue' : $ret = "<b><span style='color : blue;'>{$newMsg}</span></b>"; break;
+        case 'green' : $ret = "<span style='color : green;'>{$newMsg}</span>"; break;
+        case 'bgreen': $ret = "<b><span style='color : green;'>{$newMsg}</span></b>"; break;
+        case 'b'     : $ret = "<b>{$newMsg}"; break;
+        default      : $ret = "<b><span style='color : green;'>{$newMsg}</span></b>"; break;
     }
     return $ret;
 }
+
+/* ***********
+
+************** */
+function getNextMessagesgArr($prefix){
+     $lib = array();
+      //ajout des libellés prédéfinis pour tous plugins
+      $prefix = strtoupper($prefix) . '_';
+      $h = 0;
+      while (defined($prefix . $h)){
+        $lib[] = htmlentities(constant($prefix . $h), ENT_QUOTES);
+        $h++;
+      }
+//echoArray($lib, "getNextMessagesgArr");
+    return $lib;
+}      
+/* ***********
+
+function getNextMessagesgArr_old($prefixPredefinis, $prefixPlugin = ''){
+     $lib = array();
+      //ajout des libellés prédéfinis pour tous plugins
+      if($prefixPredefinis){
+          $h = 0;
+          while (defined($prefixPredefinis . $h)){
+            $lib[] = htmlentities(constant($prefixPredefinis . $h), ENT_QUOTES);
+            echo "===>Const prefixPlugin = " . ($prefixPredefinis . $h) . "<br>";
+            $h++;
+          }
+      }
+      
+      //ajout des libellés prédéfinis spécifiques au plugin
+      if($prefixPlugin){
+          $h = 0;
+          while (defined($prefixPlugin . $h)){
+            $lib[] = htmlentities(constant($prefixPlugin . $h), ENT_QUOTES);
+            echo "===>Const prefixPlugin = " . ($prefixPlugin . $h) . "<br>";
+            $h++;
+          }
+      }
+
+    return $lib;
+}      
+************** */
 
 /**
  * function add selected cats to block
@@ -380,7 +462,9 @@ QUIZMAKER_BIT_ALLOWEDPREVIOUS   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_ALLOWED
 QUIZMAKER_BIT_USETIMER          => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_USE_TIMER, _AM_QUIZMAKER_QUIZ_USE_TIMER_DESC),
 QUIZMAKER_BIT_SHUFFLEQUESTIONS  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION, _AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC),
 QUIZMAKER_BIT_SHOW_RESULTPOPUP  => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_RESULT_POPUP, _AM_QUIZMAKER_QUIZ_RESULT_POPUP_DESC),
-QUIZMAKER_BIT_REPOSITION_WINDOW => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS, _AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS_DESC));
+QUIZMAKER_BIT_REPOSITION_WINDOW => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS, _AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS_DESC),
+QUIZMAKER_BIT_HIDE_INTERFACE    => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_HIDE_INTERFACE, _AM_QUIZMAKER_QUIZ_HIDE_INTERFACE_DESC),
+QUIZMAKER_BIT_FULL_SCREEN       => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_FULL_SCREEN, _AM_QUIZMAKER_QUIZ_FULL_SCREEN_DESC));
         break;
 
     case 'dev':
@@ -390,6 +474,8 @@ QUIZMAKER_BIT_SHOW_RELOADANSWERS    => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHO
 QUIZMAKER_BIT_SHOW_GOTOSLIDE        => sprintf("%s (%s)", _AM_QUIZMAKER_SHOW_BTN_GOTO_SLIDE, _AM_QUIZMAKER_SHOW_BTN_GOTO_PLUGIN_DESC),
 QUIZMAKER_BIT_SHOW_GOODANSWERS      => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS_DESC),
 QUIZMAKER_BIT_SHOW_BADANSWERS       => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS, _AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC),
+QUIZMAKER_BIT_SHOW_CHEATER          => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_CHEATER, _AM_QUIZMAKER_QUIZ_SHOW_CHEATER_DESC),
+QUIZMAKER_BIT_SHOW_MODE_NORMAL      => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_MODE_NORMAL, _AM_QUIZMAKER_QUIZ_SHOW_MODE_NORMAL_DESC),
 QUIZMAKER_BIT_SHOW_LOG              => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_LOG, _AM_QUIZMAKER_QUIZ_SHOW_LOG_DESC),
 QUIZMAKER_BIT_SHOW_RESULTALLWAYS    => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_RESULT_ALLWAYS, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES),
 QUIZMAKER_BIT_SHOW_REPONSESBOTTOM   => sprintf("%s (%s)", _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM, _AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM_DESC),
@@ -416,6 +502,9 @@ function getBinOptionsFlagsArr ($binName, $binOptions){
         $flags['useTimer']          = quizFlagAscii(isBitOk(QUIZMAKER_BIT_USETIMER, $binOptions), "T");        
         $flags['shuffleQuestions']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHUFFLEQUESTIONS, $binOptions), "M"); 
         $flags['showResultPopup']   = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTPOPUP, $binOptions), "PU");
+        $flags['repositionWindow']  = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTPOPUP, $binOptions), "wt");
+        $flags['hideInterface']     = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTPOPUP, $binOptions), "hi");
+        $flags['fullScreen']        = quizFlagAscii(isBitOk(QUIZMAKER_BIT_SHOW_RESULTPOPUP, $binOptions), "fs");
         break;
         
     case 'dev':
@@ -594,15 +683,17 @@ function addXoopsFormTray(&$xtray, $caption, $formsArr, $sep = '&nbsp;-&nbsp;'){
 //     return getSelector('question', $catId, $quizSubject, $quizDifficulty, $quizId, 
 //                        $asObject, $prefixName, $addCaption, $allQuiz, $inBackOffice);
 // } 
-/////////////////////////////////
+///////////////////////////////// 
 function getQuizSelectorBO($catId, $quizSubject, $quizDifficulty, 
                          $asObject=false, $prefixName = '', $addCaption = true){
                          
     $inBackOffice = true;
     return getSelector('quiz', $catId, $quizSubject, $quizDifficulty, 0, 
-                       $asObject, $prefixName, $addCaption, $inBackOffice);
+                       $asObject, $prefixName, $addCaption, null,  $inBackOffice);
 }
-
+/* ******************************************
+*
+* ******************************************* */
 function getQuestionsSelectorBO($catId, $quizSubject, $quizDifficulty, $quizId, 
                        $asObject=false, $prefixName = '', $addCaption = true, $allQuiz=false){
                        
@@ -611,6 +702,9 @@ function getQuestionsSelectorBO($catId, $quizSubject, $quizDifficulty, $quizId,
                        $asObject, $prefixName, $addCaption, $allQuiz, $inBackOffice);
 } 
 
+/* ******************************************
+*
+* ******************************************* */
 function getQuizSelectorFO($catId, $quizSubject, $quizDifficulty, 
                          $asObject=false, $prefixName = '', $addCaption = true){
 
@@ -619,6 +713,9 @@ function getQuizSelectorFO($catId, $quizSubject, $quizDifficulty,
                        $asObject, $prefixName, $addCaption, $inBackOffice);
 }
 
+/* ******************************************
+*
+* ******************************************* */
 function getQuestionsSelectorFO($catId, $quizSubject, $quizDifficulty, $quizId, 
                        $asObject=false, $prefixName = '', $addCaption = true, $allQuiz=false){
 
@@ -643,8 +740,13 @@ global $categoriesHandler, $quizHandler, $clPerms;
   $bolUnset = false;
     $selectors = array();
     $sep = ' : ';
-    $event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="display:inline;width:auto;"';
-    
+    //$event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"  style="display:inline;width:auto;"';
+    //$event = QUIZMAKER_SELECT_ONCHANGE 
+    //$event = 'onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"';
+    $event = "onchange='document.quizmaker_select_filter.submit();'";
+    //   document.getElementById('quizmaker_select_filter')
+    //$event = 'onchange="alert(`zzzzzzzzzzz`);"';
+    $style = 'style="display:inline;width:auto;"';    
 
     //------ selection du sujet de la categorie -----
     $name = 'cat';
@@ -657,11 +759,12 @@ global $categoriesHandler, $quizHandler, $clPerms;
     
 //echoArray($selectors[$name]['arr']);
     $inpCategory = new \XoopsFormSelect(_CO_QUIZMAKER_CATEGORIES, $prefixName . $field, $catId);
-    $inpCategory->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+    $inpCategory->setExtra($event);   
     if($inBackOffice) $inpCategory->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));        
     
     $inpCategory->addOptionArray($selectors[$name]['arr']);
     $inpCategory->setExtra($event);
+    $inpCategory->setExtra($style);
 
     if($asObject) 
         $selectors[$name]['select'] =  $inpCategory;
@@ -679,12 +782,13 @@ global $categoriesHandler, $quizHandler, $clPerms;
     $selectors[$name]['arr'] =  $quizHandler->getFieldList($field, $catId);
     if(count($selectors[$name]['arr']) > 1){
         $inpSet = new \XoopsFormSelect(_CO_QUIZMAKER_QUIZ_SUBJECT,  $prefixName . $field, $quizSubject);
-        $inpSet->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+        $inpSet->setExtra($event);   
         if($inBackOffice) $inpSet->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));        
         
         $inpSet->addOption(QUIZMAKER_ALL_ITEMS_KEY, QUIZMAKER_ALL_ITEMS_LIB);
         $inpSet->addOptionArray($selectors[$name]['arr']);
         $inpSet->setExtra($event);
+        $inpSet->setExtra($style);
         
         if($asObject) 
             $selectors[$name]['select'] = $inpSet;
@@ -705,7 +809,7 @@ global $categoriesHandler, $quizHandler, $clPerms;
     if(count($selectors[$name]['arr']) > 1){
         if(QUIZMAKER_SELECTOR_DIFFICUT_MODE == 1){
           $inpDifficulty = new \XoopsFormSelect(_CO_QUIZMAKER_DIFFICULT,  $prefixName . $field, $quizDifficulty);
-          $inpDifficulty->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+          $inpDifficulty->setExtra($event);   
           if($inBackOffice) $inpDifficulty->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));        
 
         }else{
@@ -717,6 +821,7 @@ global $categoriesHandler, $quizHandler, $clPerms;
 		$inpDifficulty->addOption(3, _CO_QUIZMAKER_DIFFICULT_3);
 		$inpDifficulty->addOption(4, _CO_QUIZMAKER_DIFFICULT_4);
         $inpDifficulty->setExtra($event);
+        $inpDifficulty->setExtra($style);
         
         if($asObject) 
             $selectors[$name]['select'] = $inpDifficulty;
@@ -736,7 +841,7 @@ global $categoriesHandler, $quizHandler, $clPerms;
         
         $selectors[$name]['arr'] = $quizHandler->getListKeyName($catId, $quizSubject, $quizDifficulty); 
         $inpQuiz = new \XoopsFormSelect(_AM_QUIZMAKER_QUIZ_NAME, $prefixName . $field, $quizId);
-        $inpQuiz->setExtra(QUIZMAKER_SELECT_ONCHANGE);   
+        $inpQuiz->setExtra($event);   
         if($inBackOffice) $inpQuiz->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUIZ));        
         
         if($allQuiz){
@@ -744,6 +849,7 @@ global $categoriesHandler, $quizHandler, $clPerms;
         }
         $inpQuiz->addOptionArray($selectors[$name]['arr']);
         $inpQuiz->setExtra($event);
+        $inpQuiz->setExtra($style);
         if($asObject) 
             $selectors[$name] ['select']= $inpQuiz;
         else
@@ -758,6 +864,10 @@ global $categoriesHandler, $quizHandler, $clPerms;
 // echo "difficulté = {$quizDifficulty}<hr>";
     return $selectors;
 }
+
+/* *************************************************
+*
+* ************************************************** */
 function getNewIdentifiant($prefixe='slide', $min=10000, $max=100000){
     return $prefixe . '_' . rand($min,$max);
 }
@@ -791,3 +901,47 @@ function isReadme($catObj, $readmeOk){
     return $readme && $readmeOk == 0;
 }
 
+//-----------------------------------------------
+/*
+function exportUsersCSV($quizId){
+SELECT`uid`, `name`, `uname`, `email`, `url`, 
+DATE_FORMAT(FROM_UNIXTIME(user_regdate), '%d/%m/%Y') as creation
+DATE_FORMAT(FROM_UNIXTIME(last_login), '%d/%m/%Y') as lastUpdate
+FROM `x251_users` WHERE 1
+
+unix_timestamp()
+
+// Sélectionner les données de la table
+global $resultsHandler;
+
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('result_quiz_id',$quizId, "="));
+    $userHandler = new XoopsUserHandler($db);
+    
+    $users = $userHandler->getObjects($criteria, true);
+    $ret   = array();
+    
+    
+    $delimiter = ";";   
+    $filename = "xoops_users-" . date('Y-m-d') . ".csv";    
+    $fullName = QUIZMAKER_PATH_UPLOAD_EXPORT . "/" . $filename;    
+    $f = fopen($fullName, 'w');
+    // Définir les entêtes du fichier CSV
+    $fields = array('uid','uname','name','email','last_login',);
+
+    foreach (array_keys($users) as $i) {
+        $lineData = array();
+        $lineData[] = $users[$i]->getVar('uid');
+        $lineData[] = $users[$i]->getVar('uname');
+        $lineData[] = $users[$i]->getVar('name');
+        $lineData[] = $users[$i]->getVar('email');
+        $lineData[] = $users[$i]->getVar('last_login');
+        
+        fputcsv($f, $lineData, $delimiter);
+    }
+    
+    fclose($f);
+    return $fullName;
+}  
+*/
+  

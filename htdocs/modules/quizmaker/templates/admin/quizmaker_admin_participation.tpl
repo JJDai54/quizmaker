@@ -16,7 +16,7 @@
 
       <{if $countEnr > 0}>  
           <{if $allowed_clear and $clear_participations}>  
-            <{$btn.razResults}>
+            <{$actions}>
           <{/if}>        
           <{$btn.exporCSV}>
       <{/if}>        

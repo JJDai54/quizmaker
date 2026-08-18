@@ -40,6 +40,6 @@ define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_RADIO', "Radio button");
 
 define('_LG_PLUGIN_MULTIQUESTIONS_CONSIGNE', "To be defined");
 define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH', "Size of input boxes in number of characters");
-define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH_DESC', "Maximum number of characters to enter");
+define('_LG_PLUGIN_MULTIQUESTIONS_INP__AP_QUIZMAKER_WIDTH_DESC', "Maximum number of characters to enter");
 
 ?>

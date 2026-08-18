@@ -28,7 +28,6 @@ define('_LG_PLUGIN_IMAGESSIMPLE', "Trouver les images de la même famille");
 define('_LG_PLUGIN_IMAGESSIMPLE_DESC', "Ce slide est composé d'images dont une ou plusieurs sont masquées.<br>Il faut retrouver les images de la même famille.");
 define('_LG_PLUGIN_IMAGESSIMPLE_CONSIGNE', "Cliquez sur les images pour les sélectionner.<br><br>Cliquez de nouveau sur les images sélectionnées pour les déselectionner.");
 
-define('_LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE', "Cliquez sur les images ci-dessous pour les sélectionner !");
 define('_LG_PLUGIN_IMAGESSIMPLE_IMG_FAMILY_HEIGHT', "Hauteur des images modèles");
 
 define('_LG_PLUGIN_IMAGESSIMPLE_IMG_SELECTED', "Images sélectionnée");

@@ -39,12 +39,13 @@ class Plugin_puzzle extends XoopsModules\Quizmaker\Plugins
 	 */
 	public function __construct()
 	{
-        parent::__construct("puzzle", 0, "images");
+        parent::__construct("puzzle", 0, "games");
         $this->setVersion('1.0', '2026-02-14', 'JJDai (jjd@orange.fr)');
         $this->hasZoom = true;
-        $this->hasImageMain = true;
+        $this->hasImageMain = false;
         //$this->$maxPropositions = 12;
-        
+        $this->hasGlobalPoints = false;        
+
         $this->optionsDefaults = ['variant'     => $this::noClass, 
                                   'allowNext'   => 0,
                                   'gameWidth'   => 300,
@@ -52,23 +53,15 @@ class Plugin_puzzle extends XoopsModules\Quizmaker\Plugins
                                   'imgCols'     => 5,
                                   'doublons'    => 2,
                                   'preview'     => 5,
-                                  'tempo'       => 2,
-                                  'gameCols'    => 5,
-                                  'mode'        => 0,
+                                  'insertMode'  => 0, //0=swap - 1 = insert
                                   'background'  => '#15ff15',
-                                  'marge'       => 1,
+                                  'gap'         => 3,
                                   'radius'      => 0,
                                   'rotation'    => 0,
                                   'level'       => 2,
-                                  'nextSlideMessageWinner' => (defined('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_WINNER_0 : ''),
-                                  'nextSlideMessageLooser' => (defined('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0 : ''),
-                                  'nextSlideDelai'         => 0,
-                                  'nextSlideBG'            =>'#FFCC00',
-                                  'maxAttemps'  => 0];
+                                  'maxAttempts'  => 0];
 
-
-        $this->hasImageMain = true;
-
+        $this->addMessages();
     }
 
 	/**
@@ -92,160 +85,94 @@ class Plugin_puzzle extends XoopsModules\Quizmaker\Plugins
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
-      $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
-      $trayOptions = $this->getNewXFTableOptions($caption);  
-      //--------------------------------------------------------------------           
-     
-      $name = 'variant';
-      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_PUZZLE_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
-      if (!$tValues[$name] || $tValues[$name] == $this::noClass) $inpClasse->addOption($this::noClass, _LG_PLUGIN_SORTITEMS_VARIANT_SELECT);
-      $inpClasse->addOption('puzzle', _LG_PLUGIN_PUZZLE_PUZZLE);
-      $inpClasse->addOption('taquin', _LG_PLUGIN_PUZZLE_TAQUIN);
-      $inpClasse->addOption('memory', _LG_PLUGIN_PUZZLE_MEMORY);
-      $inpClasse->addOption('lucioles', _LG_PLUGIN_PUZZLE_LUCIOLES);
+    
 
-      //$inpClasse->setDescription(_LG_PLUGIN_SORTITEMS_VARIANT_DESC);
-      // change la couleur de fond selon que la variante a été selectionnée ou pas
-      if($tValues['variant'] == $this::noClass){ 
-            $inpClasse->setExtra('style="background:#FFCCCC;color:red"');
-      }else{
-            $inpClasse->setExtra('style="background:lime;"');
-      }
-      $trayOptions->addElementOption($inpClasse, true);     
-
- /*
-      $name = 'variant';
-      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_PUZZLE_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
-      if (!$tValues[$name] || $tValues[$name] == $this::noClass) $inpClasse->addOption($this::noClass, _LG_PLUGIN_SORTITEMS_VARIANT_SELECT);
-      $inpClasse->addOption('puzzle', _LG_PLUGIN_PUZZLE_PUZZLE);
-      $inpClasse->addOption('taquin', _LG_PLUGIN_PUZZLE_TAQUIN);
-      $trayOptions->addElementOption($inpClasse, true);
- */    
       
       $name = 'gameWidth';  
-      $inpInpWidth = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_IMG_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpInpWidth = new \XoopsFormNumber(_AP_QUIZMAKER_GAME_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpInpWidth->setMinMax(200, 600, _AM_QUIZMAKER_UNIT_PIXELS, "1");
-      //$inpInpWidth->setDescription(_LG_PLUGIN_PUZZLE_IMG_WIDTH_DESC);
+      //$inpInpWidth->setDescription(_AP_QUIZMAKER_IMG__AP_QUIZMAKER_WIDTH_DESC);
       $trayOptions->addElementOption($inpInpWidth);     
       
       $name = 'preview';  
-      $inpPreview = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_PREVIEW,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpPreview = new \XoopsFormNumber(_AP_QUIZMAKER_IMG_PREVIEW,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpPreview->setMinMax(0, 60, _AM_QUIZMAKER_UNIT_SECONDS, "0.5");
-      $inpPreview->setDescription(_LG_PLUGIN_PUZZLE_PREVIEW_DESC);
+      $inpPreview->setDescription(_AP_QUIZMAKER_IMG_PREVIEW_DESC);
       $trayOptions->addElementOption($inpPreview);     
       
       //-----------------------------------------
-      if ($tValues['variant'] != 'lucioles'){
-          $trayImgGrid = new \XoopsFormElementTray(_LG_PLUGIN_PUZZLE_IMG_GRID, '&nbsp;');
-          
-            $name = 'imgCols';  
-            $inpCols = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpCols->setMinMax(1, 16, _AM_QUIZMAKER_UNIT_COLUMNS, "1");
-            $trayImgGrid->addElement($inpCols);    
-          
-            $name = 'imgRows';  
-            $inpRows = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpRows->setMinMax(1, 16, _AM_QUIZMAKER_UNIT_ROWS, "1");
-            //$inpRows->setDescription(_LG_PLUGIN_PUZZLE_ROWS_DESC);
-            $trayImgGrid->addElement($inpRows);     
-           
-          $trayOptions->addElementOption($trayImgGrid);     
-      }
+
+      $trayImgGrid = new \XoopsFormElementTray(_AP_QUIZMAKER_IMG_GRID, '&nbsp;');
+
+      $name = 'imgCols';  
+      $inpCols = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpCols->setMinMax(1, 16, _AM_QUIZMAKER_UNIT_COLUMNS, "1");
+      $trayImgGrid->addElement($inpCols);    
+
+      $name = 'imgRows';  
+      $inpRows = new \XoopsFormNumber('',  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpRows->setMinMax(1, 16, _AM_QUIZMAKER_UNIT_ROWS, "1");
+      //$inpRows->setDescription(_AP_QUIZMAKER_ROWS_DESC);
+      $trayImgGrid->addElement($inpRows);     
+
+      $trayOptions->addElementOption($trayImgGrid);     
+
       //-----------------------------------------
 
       $name = 'background';  
-      $inpBackground = new XoopsFormColorPicker(_LG_PLUGIN_PUZZLE_BACKGROUND, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpBackground = new XoopsFormColorPicker(_AP_QUIZMAKER_BACKGROUND, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElementOption($inpBackground);   
       
-      $name = 'marge';  
-      $inpMarge = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_MARGE,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-      $inpMarge->setMinMax(0, 4, _AM_QUIZMAKER_UNIT_PIXELS, "1");
-      $inpMarge->setDescription(_LG_PLUGIN_PUZZLE_MARGE_DESC);
+      $name = 'gap';  
+      $inpMarge = new \XoopsFormNumber(_AP_QUIZMAKER_MARGEIN,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpMarge->setMinMax(0, 8, _AM_QUIZMAKER_UNIT_PIXELS, "1");
+      $inpMarge->setDescription(_AP_QUIZMAKER_MARGEIN_DESC);
       $trayOptions->addElementOption($inpMarge);     
       
       $name = 'radius';  
-      $inpRadius = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_BORDER_RADIUS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpRadius = new \XoopsFormNumber(_AP_QUIZMAKER_BORDER_RADIUS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpRadius->setMinMax(0, 12, _AM_QUIZMAKER_UNIT_PIXELS, "1");
-      //$inpRadius->setDescription(_LG_PLUGIN_PUZZLE_BORDER_RADIUS_DESC);
+      //$inpRadius->setDescription(_AP_QUIZMAKER_BORDER_RADIUS_DESC);
       $trayOptions->addElementOption($inpRadius);     
       
-      $name = 'maxAttemps';  
-      $inpMaxAttemps = new \XoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]);
-      $trayOptions->addElementOption($inpMaxAttemps);     
+      $name = 'maxAttempts';  
+      $inpMaxAttempts = new \XoopsFormNumber(_AP_QUIZMAKER_MAX_ATTEMPTS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpMaxAttempts->setMinMax(0, 100, _AM_QUIZMAKER_UNIT_ATTEMPTS, "1");
+      $inpMaxAttempts->setDescription(_AP_QUIZMAKER_MAX_ATTEMPTS_DESC);
+      $trayOptions->addElementOption($inpMaxAttempts);     
       
        $name = 'allowNext';  
-//       $inpAllowNext = new \XoopsFormRadioYN(_LG_PLUGIN_PUZZLE_ALLOW_NEXT, "{$optionName}[{$name}]", $tValues[$name]);
+//       $inpAllowNext = new \XoopsFormRadioYN(_AP_QUIZMAKER_ALLOW_NEXT, "{$optionName}[{$name}]", $tValues[$name]);
        $inpAllowNext = new \XoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]);
        $trayOptions->addElementOption($inpAllowNext);   
       
-      //--------------------------------   
-      //insertion des messages de transition
-      $prefixPluginWinner  = '_LG_PLUGIN_SELECTINPUTS_NEXT_SLIDE';
-      $prefixPluginLlooser = '_LG_PLUGIN_SELECTINPUTS_NEXT_SLIDE';
-      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
 
-if ($tValues['variant'] == 'puzzle' || $tValues['variant'] == 'memory'){
-$trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_PUZZLE_OPTIONS . "</div>");  
-}
-      switch($tValues['variant']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
-        case 'puzzle' : 
-            $name = 'mode';  
-            $inpMode = new \XoopsFormRadio(_LG_PLUGIN_PUZZLE_MODE, "{$optionName}[{$name}]", $tValues[$name]);
-            $inpMode->addOptionArray([0 => _LG_PLUGIN_PUZZLE_MODE0,
-                                      1 => _LG_PLUGIN_PUZZLE_MODE1]);
-            $trayOptions->addElementOption($inpMode);     
-    
-            $name = 'rotation';
-            if($tValues[$name] > 1) $tValues[$name] = 1; //pour compatibilité
-            $inpRotation = new \XoopsFormRadioYN(_LG_PLUGIN_ROTATION, "{$optionName}[{$name}]", $tValues[$name]);
-            $inpRotation->setDescription(_LG_PLUGIN_ROTATION_DESC);
-            $trayOptions->addElementOption($inpRotation);     
+      $trayOptions->insertBreak(sprintf(QUIZMAKER_OPTIONS_BREAK_STYLE, _AP_QUIZMAKER_OPTIONS));  
 
-//             $name = 'rotation';
-//             $inpRotation = new \XoopsFormSelect(_LG_PLUGIN_ROTATION, "{$optionName}[{$name}]", $tValues[$name]);
-//             $inpRotation->addOption(0, _LG_PLUGIN_ROTATION_NONE);
-//             $inpRotation->addOption(1, _LG_PLUGIN_ROTATION_090);
-//             $inpRotation->addOption(2, _LG_PLUGIN_ROTATION_180);
-//             $inpRotation->setDescription(_LG_PLUGIN_ROTATION_DESC);
-//             $trayOptions->addElementOption($inpRotation);     
-            
-            break;
-            
-        case 'lucioles' : 
-        case 'memory' : 
-            $name = 'doublons';  
-            $inpDoublons = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_DOUBLONS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpDoublons->setMinMax(2, 5, '', "1");
-            $inpDoublons->setDescription(_LG_PLUGIN_PUZZLE_GRID_COLS_DESC);
-            $trayOptions->addElementOption($inpDoublons);     
+      $name = 'insertMode';  
+      $inpMode = new \XoopsFormRadio(_AP_QUIZMAKER_MODE, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpMode->addOptionArray([0 => _LG_PLUGIN_PUZZLE_MODE0,
+                                1 => _LG_PLUGIN_PUZZLE_MODE1]);
+      $trayOptions->addElementOption($inpMode);     
 
-            $name = 'gameCols';  
-            $inpCols = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_COLS,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpCols->setMinMax(1, 16, _AM_QUIZMAKER_UNIT_COLUMNS, "1");
-            $inpCols->setDescription(_LG_PLUGIN_PUZZLE_GRID_COLS_DESC);
-            $trayOptions->addElementOption($inpCols);     
+      $name = 'rotation';
+      if($tValues[$name] > 1) $tValues[$name] = 1; //pour compatibilité
+      $inpRotation = new \XoopsFormRadioYN(_AP_QUIZMAKER_ROTATION, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpRotation->setDescription(_AP_QUIZMAKER_ROTATION_DESC);
+      $trayOptions->addElementOption($inpRotation);     
 
-            $name = 'tempo';  
-            $inpDoublons = new \XoopsFormNumber(_LG_PLUGIN_PUZZLE_TEMPO,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
-            $inpDoublons->setMinMax(0, 5, _AM_QUIZMAKER_UNIT_SECONDS, "0.5");
-            $inpDoublons->setDescription(_LG_PLUGIN_PUZZLE_TEMPO_DESC);
-            $trayOptions->addElementOption($inpDoublons);     
-            break;
             /* *********************************************************** */  
-     }   
      
      
-        
-//       if($tValues['variant'] == "puzzle"){
-//       }else{
-//           $name = 'mode';  
-//           $inpMode = new \XoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]);
-//       } 
       
           $name = 'level';  
           $inpLevel = new \XoopsFormHidden("{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElementOption($inpLevel);
            
+      //--------------------------------   
+      //insertion des messages de transition
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_messages.php");
+
       return $trayOptions;
     }
     
@@ -274,40 +201,9 @@ $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding
 //echoArray($answers);
         $quiz = $quizHandler->get($quizId,"quiz_folderJS");
         $path =  "/quiz-js/" . $quiz->getVar('quiz_folderJS') . "/images";
-/*
-        $weight = 0;
-        $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
-        $tbl->addTdStyle(2, 'text-align:left;width:50px;');
-       
-        $k = 0; //il ny a qu'une seule image a charger
-        $ans = (isset($answers[$k])) ? $answers[$k] : null;
-        include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
 
-        $name = $this->getName($k, 'proposition');
-        $inpProposition = new \XoopsFormText("", $name, $this->lgMot2, $this->lgMot3, $proposition);
-        
-        $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$i}", $path);
-        
-        if($points < 1) $points = 1;
-        $inpPoints = new \XoopsFormNumber('',  $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
-        $inpPoints->setMinMax(1, 30);
-        
-        //----------------------------------------------------------
-        //$cols=0;
-        $tbl->addElement($inpImage1,  ++$col, $k);
-        $tbl->addElement($inpProposition, ++$col, $k); 
-        if($options['variant'] == 'memory'){
-            $inpInfo = new \XoopsFormLabel('', _LG_PLUGIN_PUZZLE_POINTS_BY_IMG);
-            $tbl->addElement($inpInfo, $col, $k); 
-        }
-        $tbl->addElement($inpPoints, ++$col, $k); 
-        $this->trayGlobal->addElement($tbl);
-*/
-        if($options['variant'] == 'lucioles'){
-            $this->getFormLucioles($answers, $path, $options);
-        }else{
-            $this->getFormPuzzles($answers, $path, $options);
-        }
+
+        $this->getFormPuzzles($answers, $path, $options);
 //===============================================
 
                     
@@ -316,42 +212,7 @@ $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding
 		return $this->trayGlobal;
 	}
 
-/* *************************************************
-*
-* ************************************************** */
- public function getFormLucioles($answers, $path, $options){
-        $weight = 0;
-        $tbl = $this->getNewXoopsTableXtray('', 'padding:5px 0px 0px 5px;', "style='width:60%;'");
-        $tbl->addTdStyle(2, 'text-align:left;width:50px;');
-        
-        for ($k = 0; $k < $this->maxPropositions; $k++){
-            $ans = (isset($answers[$k])) ? $answers[$k] : null;
-            include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/getFormGroup.php");
 
-            $name = $this->getName($k, 'proposition');
-            $inpProposition = new \XoopsFormText("", $name, $this->lgMot2, $this->lgMot3, $proposition);
-            
-            $inpImage1 = $this->getXoopsFormImage($image1, $this->getName()."_image1_{$i}", $path);
-            
-            if($points < 1) $points = 1;
-            $inpPoints = new \XoopsFormNumber('',  $this->getName($k,'points'), $this->lgPoints, $this->lgPoints, $points);
-            $inpPoints->setMinMax(1, 30);
-            
-            //----------------------------------------------------------
-            //$cols=0;
-            $tbl->addElement($inpImage1,  ++$col, $k);
-            $tbl->addElement($inpProposition, ++$col, $k); 
-            if($options['variant'] == 'memory'){
-                $inpInfo = new \XoopsFormLabel('', _LG_PLUGIN_PUZZLE_POINTS_BY_IMG);
-                $tbl->addElement($inpInfo, $col, $k); 
-            }
-            $tbl->addElement($inpPoints, ++$col, $k); 
-        }
- 
-        $this->trayGlobal->addElement($tbl);
- }
- 
- 
 /* *************************************************
 *
 * ************************************************** */
@@ -378,7 +239,7 @@ $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding
         $tbl->addElement($inpImage1,  ++$col, $k);
         $tbl->addElement($inpProposition, ++$col, $k); 
         if($options['variant'] == 'memory'){
-            $inpInfo = new \XoopsFormLabel('', _LG_PLUGIN_PUZZLE_POINTS_BY_IMG);
+            $inpInfo = new \XoopsFormLabel('', _AP_QUIZMAKER_POINTS_BY_IMG);
             $tbl->addElement($inpInfo, $col, $k); 
         }
         $tbl->addElement($inpPoints, ++$col, $k); 
@@ -428,7 +289,12 @@ $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding
                 $ansObj->setVar('answer_image1', $newImg);        
                 //if(!$ans['proposition']) $ans['proposition'] = $nameOrg;
             }
-
+            
+            //enregistrement de la taille de l'image dans le buffer
+            $imgFile = $pathImg . '/' . $ansObj->getVar('answer_image1');
+            $imgInfo = getimagesize($imgFile);
+            //echoArray($imgInfo);exit;
+      		$ansObj->setVar('answer_buffer', "{$imgInfo[0]}_{$imgInfo[1]}");             
 
              
       		$ansObj->setVar('answer_proposition', $ans['proposition']);
@@ -449,56 +315,30 @@ $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding
 *
 *********************************************** */
   public function getSolutions($questId, $boolAllSolutions = true){
-  global $answersHandler;
-  /*
-		$ret = $this->getValues($keys, $format, $maxDepth);
-		$ret['id']          = $this->getVar('answer_id');
-		$ret['quest_id']    = $this->getVar('answer_quest_id');
-		$ret['caption']      = $this->getVar('answer_caption');
-		$ret['proposition'] = $this->getVar('answer_proposition');
-		$ret['points']      = $this->getVar('answer_points');
-		$ret['weight']      = $this->getVar('answer_weight');
-		$ret['inputs']      = $this->getVar('answer_inputs');
-  
-  */
-    // = "<tr style='color:%5\$s;'><td>%1\$s</td><td>%2\$s</td><td>%3\$s</td><td>%4\$s</td></tr>";
-    $tpl = "<tr><td><span style='color:%5\$s;'>%1\$s</span></td>" 
-             . "<td><span style='color:%5\$s;'>%2\$s</span></td>" 
-             . "<td style='text-align:right;padding-right:5px;'><span style='color:%5\$s;'>%3\$s</span></td>"
-             . "<td><span style='color:%5\$s;'>%4\$s</span></td></tr>";
+  global $answersHandler,$quizHandler,$questionsHandler;
+        
+    $questObj = $questionsHandler->get($questId);
+    $criteria = new \CriteriaCompo(new \Criteria('answer_quest_id', $questId, '='));
+    $criteria->setsort("answer_weight");
+    $criteria->setOrder("ASC");
+    $answers = $answersHandler->getObjects($criteria);
+        
+    $ansObj  = $answers[0];   
+    $pathImg = $quizHandler->getFolderJS($questObj->getVar('quest_quiz_id'), 2, 'images');
+    $imgFile = $pathImg . '/' . $ansObj->getVar('answer_image1');
 
-    $answersAll = $answersHandler->getListByParent($questId, 'answer_points DESC,answer_weight,answer_id');
-//    echoArray($answersAll);
-    $ret = array();
-    $scoreMax = 0;
-    $scoreMin = 0;
-    $html = array();
-
-    $html[] = "<table class='quizTbl'>";
-    
-	foreach(array_keys($answersAll) as $i) {
-		$ans = $answersAll[$i]->getValuesAnswers();
-        $points = intval($ans['points']);
-        if ($points > 0) {
-            $scoreMax += $points;
-            $color = QUIZMAKER_POINTS_POSITIF;
-            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
-        }elseif ($points < 0) {
-            $scoreMin += $points;
-            $color = QUIZMAKER_POINTS_NEGATIF;
-            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
-        }elseif($boolAllSolutions){
-            $color = QUIZMAKER_POINTS_NULL;
-            $html[] = sprintf($tpl, $ans['proposition'], '&nbsp;===>&nbsp;', $points, _CO_QUIZMAKER_POINTS, $color);
-        }
-	}
-    $html[] = "</table>";
- 
-    $ret['answers'] = implode("\n", $html);
-    $ret['scoreMin'] = $scoreMin;
-    $ret['scoreMax'] = $scoreMax;
+    $html = "<div><center><img src='{$imgFile}' ></center></div>";        
+    $points = ($questObj->getVar('quest_points') > 0) ? $questObj->getVar('quest_points') : $ansObj->getVar('answer_points');   
+       
+    $ret['answers'] = $html;
+    $ret['scoreMin'] = 0;
+    $ret['scoreMax'] = $points;
     //echoArray($ret);
     return $ret;
      }
 
 } // fin de la class
+
+/*
+file:///D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/htdocs/uploads/quizmaker/quiz-js/images/quiz-1068-16990f8e4c0c64.jpg
+*/

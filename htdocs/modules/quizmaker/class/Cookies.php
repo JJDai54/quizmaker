@@ -112,12 +112,36 @@ class Cookies extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('cookie_cat_id', $this->getVar('cookie_cat_id')));
         $form->addElement(new \XoopsFormHidden('cookie_quiz_id', $this->getVar('cookie_quiz_id')));
 
-		// Form Text cookie_uname
-		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_NAME, $this->getVar('cookie_uname') ));
-		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_EMAIL, $this->getVar('cookie_email') ));
+         if($isAdmin){
+    		// Form Text cookie_uid
+            $name = 'cookie_uid';
+    		$form->addElement(new \XoopsFormText(_AM_QUIZMAKER_UID,$name,12,12, $this->getVar($name)));
+
+    		// Form Text cookie_uname
+            $name = 'cookie_uname';
+    		$form->addElement(new \XoopsFormText(_AM_QUIZMAKER_NAME,$name,50,50, $this->getVar($name)));
+
+    		// Form Text cookie_email
+            $name = 'cookie_email';
+    		$form->addElement(new \XoopsFormText(_AM_QUIZMAKER_EMAIL,$name,80,80, $this->getVar($name)));
+         }else{
+    		// Form Text cookie_uid
+            $name = 'cookie_uid';
+    		$form->addElement(new \XoopsFormLabel(_AM_QUIZMAKER_UID , $this->getVar($name) ));
+    		$form->addElement(new \XoopsFormHidden($name, $this->getVar($name)));       
+            
+    		// Form Text cookie_uname
+            $name = 'cookie_uname';
+    		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_NAME, $this->getVar($name) ));
+    		$form->addElement(new \XoopsFormHidden($name, $this->getVar($name)));    
+                    
+    		// Form Text cookie_email
+            $name = 'cookie_email';
+    		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_EMAIL, $this->getVar($name) ));
+    		$form->addElement(new \XoopsFormHidden($name, $this->getVar($name)));            
+         }           
+        
 		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_IP, $this->getVar('cookie_ip') ));
-        
-        
         
 		// Form cookie_readme
         //$inpReadme= new \XoopsFormText(_AM_QUIZMAKER_README_TEXT, 'cookie_readme', 50, 50, $this->getVar('cookie_readme'));

@@ -64,14 +64,14 @@
                             <{if $Quiz.periodeOK}>
                               <{if $Quiz.publishQuiz == 1}>
                                   <a class='run_quiz' href="<{$smarty.const.XOOPS_URL}>/modules/quizmaker/<{$smarty.const.QUIZMAKER_DISPLAY_QUIZ}>?op=run&quiz_id=<{$Quiz.id}>" title='<{$smarty.const._MB_QUIZMAKER_RUN_QUIZ}>'>
-                                      <img src="<{$modUrlImages}>/run_quiz_01.png" alt="quiz" title='' height='16px'/>
-                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="quiz" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_01.png" alt="" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="" title='' height='16px'/>
                                       <{$Quiz.name}>
                                   </a>
                               <{elseif $Quiz.publishQuiz == 2}>
                                   <a class='run_quiz' href='<{$smarty.const.QUIZMAKER_URL_UPLOAD_QUIZ}>/<{$Quiz.folderJS}>/index.html' title='<{$smarty.const._MB_QUIZMAKER_RUN_QUIZ}>' target='blank'>
-                                      <img src="<{$modUrlImages}>/run_quiz_02.png" alt="quiz" title='' height='16px'/>
-                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="quiz" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_02.png" alt="" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="" title='' height='16px'/>
                                       <{$Quiz.name}>
                                   </a>
                               <{else}>
@@ -103,14 +103,14 @@
                             <{if $Quiz.periodeOK}>
                               <{if $Quiz.publishQuiz == 1}>
                                   <a class='run_quiz' href="<{$smarty.const.XOOPS_URL}>/modules/quizmaker/<{$smarty.const.QUIZMAKER_DISPLAY_QUIZ}>?op=run&quiz_id=<{$Quiz.id}>" title='<{$smarty.const._MB_QUIZMAKER_RUN_QUIZ}>'>
-                                      <img src="<{$modUrlImages}>/run_quiz_01.png" alt="quiz" title='' height='16px'/>
-                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="quiz" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_01.png" alt="" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="" title='' height='16px'/>
                                       <{$Quiz.name}>
                                   </a>
                               <{elseif $Quiz.publishQuiz == 2}>
                                   <a class='run_quiz' href='<{$smarty.const.QUIZMAKER_URL_UPLOAD_QUIZ}>/<{$Quiz.folderJS}>/index.html' title='<{$smarty.const._MB_QUIZMAKER_RUN_QUIZ}>' target='blank'>
-                                      <img src="<{$modUrlImages}>/run_quiz_02.png" alt="quiz" title='' height='16px'/>
-                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="quiz" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_02.png" alt="" title='' height='16px'/>
+                                      <img src="<{$modUrlImages}>/run_quiz_00.png" alt="" title='' height='16px'/>
                                       <{$Quiz.name}>
                                   </a>
                               <{/if}>

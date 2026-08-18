@@ -51,11 +51,14 @@ use XoopsModules\Quizmaker\Constants;
         
         // Set Vars
         $pluginName = Request::getString('quest_plugin', '');
+        $clsPlugin = $pluginsHandler->getClassPlugin($pluginName);
+        
 		$questionsObj->setVar('quest_plugin', $pluginName);
 		$questionsObj->setVar('quest_parent_id', Request::getInt('quest_parent_id', 0));
 		$questionsObj->setVar('quest_reference_id', Request::getInt('quest_reference_id', 0));
 		$questionsObj->setVar('quest_question', FQUIZMAKER\sanityse_inpValue(Request::getString('quest_question', '')));
 		$questionsObj->setVar('quest_question_style', Request::getString('quest_question_style', ''));
+		$questionsObj->setVar('quest_isQuestion', $clsPlugin->isQuestion);
         $identifiant1 = Request::getString('quest_identifiant1');
         while($questionsHandler->countIdentifiants($quizId, $questId, $identifiant1) > 0 || $identifiant1 == ''){
             $identifiant1 = FQUIZMAKER\getNewIdentifiant();
@@ -68,7 +71,6 @@ use XoopsModules\Quizmaker\Constants;
 		//$questionsObj->setVar('quest_options', implode('|', $options));
         //--------------------------------------------------------
         $pathImg = $quizHandler->getFolderJS($quizId, 1, 'images');  
-        $clsPlugin = $pluginsHandler->getClassPlugin($pluginName);
         //********************************************************
         //suppression des images si il y en  de définies dans les options du plugins
         if(isset($options['delete'])){
@@ -150,6 +152,7 @@ echoArray($_POST,'_POST',true);
         
         //recupe de la nouvelle image si elle a ete selectionnée
         $questImage = $clsPlugin->save_img($ans, 'quest_image', $pathImg, 'question', $nameOrg);
+        
         
         //enregistrement de l'image
         if ($questImage) $questionsObj->setVar('quest_image', $questImage);

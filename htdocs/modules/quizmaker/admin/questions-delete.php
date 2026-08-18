@@ -8,7 +8,6 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
-
 /**
  * Quizmaker module for xoops
  *
@@ -31,21 +30,18 @@ use XoopsModules\Quizmaker\Constants;
   	if (!$GLOBALS['xoopsSecurity']->check()) {
   		redirect_header('questions.php?' . getParams2list($questQuiz_id, $quest_plugin), 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
   	}
+
     $quizIdTo = $quizmakerHelper->getConfig('action_on_quest_deleted');
     //recherche d'une page de réponse
     $quiquestIds = array($questId);
     $pageReponse = $questionsObj->getPageReponse();
     if($pageReponse) $quiquestIds[] = $pageReponse->getVar('quest_id');
 //     echoArray($quiquestIds);
-//     exit('zzzzzzzzzzzzzzzzzz');
     
     //
     if($quizIdTo > 0 && $quizIdTo != $questQuiz_id){
-    
-    
-    
-    
         $quizIdTo = $quizmakerHelper->getConfig('action_on_quest_deleted');
+    //exit ("quiquestIds = {$quiquestIds} - questQuiz_id = {$questQuiz_id} - quizIdTo = {$quizIdTo}");
         $utility->quiz_import_sql($quiquestIds, $questQuiz_id, $quizIdTo, $toGroup = '');    
         $msg = _AM_QUIZMAKER_FORM_MOVE_OK;
     }else{

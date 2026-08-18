@@ -24,7 +24,7 @@ use Xmf\Request;
 use XoopsModules\Quizmaker AS FQUIZMAKER;
 use XoopsModules\Quizmaker\Constants;
 //echoArray('gp',$quizId);
-
+        $isAdmin = $quizmakerHelper->isUserAdmin();
 		$templateMain = 'quizmaker_admin_questions.tpl';
   	    $GLOBALS['xoopsTpl']->assign('buttons', '');
   	    $GLOBALS['xoopsTpl']->assign('form', '');
@@ -34,7 +34,8 @@ use XoopsModules\Quizmaker\Constants;
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
         
         $download = Request::getInt('download', 0);
-        if(!isset($download))  $GLOBALS['xoopsTpl']->assign('download', 0);
+        //if(!isset($download))  $GLOBALS['xoopsTpl']->assign('download', 0);
+        $GLOBALS['xoopsTpl']->assign('download', $download);
         //----------------------------------------------
         //recupe du quiz a afficher
         $quiz = $quizHandler->get($quizId);
@@ -44,16 +45,16 @@ use XoopsModules\Quizmaker\Constants;
   	    $GLOBALS['xoopsTpl']->assign('selectors', $selectors);
        // ----- /Listes de selection pour filtrage -----     
           
-//   	    $GLOBALS['xoopsTpl']->assign('cat_id', $catId);
+   	    $GLOBALS['xoopsTpl']->assign('cat_id', $catId);
 //   	    $GLOBALS['xoopsTpl']->assign('quiz_id', $quizId);
-//   	    $GLOBALS['xoopsTpl']->assign('quest_id', $questId);
+   	    $GLOBALS['xoopsTpl']->assign('quest_id', $questId);
 
         //---------------------------------------------        
         //Liste des types de question
         $imgModelesHeight = 80;
         if (!$quest_plugin) $quest_plugin = 'checkboxSimple';
         $inpTypeQuest = new \XoopsFormSelect(_CO_QUIZMAKER_PLUGIN, 'quest_plugin', $quest_plugin);
-        $inpTypeQuest->addOptionArray($pluginsHandler->getListByGroup(true));
+        $inpTypeQuest->addOptionArray($pluginsHandler->getListByGroup(true, $isAdmin));
         $inpTypeQuest->setExtra("onchange='reloadPluginSnapshoots(\"modelesPluginId\",{$imgModelesHeight});'".FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TYPEQUEST));
         $GLOBALS['xoopsTpl']->assign('inpTypeQuest', $inpTypeQuest->render());
 \JANUS\include_highslide(null,"quizmaker");     
@@ -68,7 +69,6 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         }else{
           $GLOBALS['xoopsTpl']->assign('imgModelesHtml', "");
         }
-
         //---------------------------------------------        
         //Ajout d'une question selon le type de selectPlugin
         $btnNewQuestion = $quizUtility->getNewBtn('<=== ' . _ADD . '===>', 'new', "{$modUrlIcon16}/add.png",  _AM_QUIZMAKER_SELECT_TYPE_BEFORE_ADD);
@@ -80,8 +80,11 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         $inpActions->addOption('goto_category', _AM_QUIZMAKER_CATEGORY);
         $inpActions->addOption('init_weight', _AM_QUIZMAKER_COMPUTE_WEIGHT);
         $inpActions->addOption('purger_images', _AM_QUIZMAKER_PURGER_IMAGES);
+        $inpActions->addOption('resize_images', _AM_QUIZMAKER_RESIZE_IMAGES);
         $inpActions->addOption('disable_pageanswer', _AM_QUIZMAKER_DISABLE_PAGE_ANSWER);
         $inpActions->addOption('enable_pageanswer', _AM_QUIZMAKER_ENABLE_PAGE_ANSWER);
+        $inpActions->addOption('set_chrono_on', _AM_QUIZMAKER_ENABLE_USE_TIMER_ON);
+        $inpActions->addOption('set_chrono_of', _AM_QUIZMAKER_ENABLE_USE_TIMER_OF);
         $inpActions->setExtra('onchange="document.quizmaker_select_filter.sender.value=this.name;document.quizmaker_select_filter.submit();"');
         $inpActions->setExtra('style="display:inline;width:auto;' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST,'',false) . '"');
         //exit('style="display:inline;width:auto;' . FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_QUEST,'',false) . '"');
@@ -152,6 +155,8 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
         if($tbl){
           $GLOBALS['xoopsTpl']->assign('exportCount', $tbl->countElements());
           $GLOBALS['xoopsTpl']->assign('exportList', $tbl->render());
+        }else{
+          $GLOBALS['xoopsTpl']->assign('exportCount', 0);
         }
         /* ********************************************************* */
         
@@ -190,7 +195,13 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                 $Questions['variant'] = (isset($Questions['optionsArr']['variant']) && $Questions['optionsArr']['variant'])  ? $Questions['optionsArr']['variant'] : $Questions['typeForm_lib']; //_AM_QUIZMAKER_QUESTION
         
         //echo "<hr>nb question = {$Questions[]}<hr>";
-                
+/* info pour le dev
+//$clPlugin = $pluginsHandler->getPlugin($Questions['plugin']);
+$clPlugin = $questionsAll[$i]->getPlugin($Questions['plugin']);
+echo $clPlugin->pluginName . '<br>';
+if($clPlugin->pluginName == 'pageAnswer') echoArray($clPlugin->toString());
+
+*/                
                 if($Questions['isQuestion']){
                   $inpPoints = new \XoopsFormNumber('', "quest_list[{$Questions['quest_id']}][points]", 4, 4, $Questions['quest_points']);
                   $inpPoints->setMinMax(0, 20);
@@ -214,14 +225,22 @@ $xoTheme->addScript(QUIZMAKER_URL_MODULE . '/assets/js/admin.js');
                 $inpTimer = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER, "quest_list[{$Questions['quest_id']}][timer]", 6, 6, $Questions['quest_timer']);
                 $inpTimer->setMinMax(0, QUIZMAKER_TIMER_MAX);
                 $Questions['inpTimer'] = $inpTimer->render();
-                
+/* remplacement de la case a cocher par un number
                 $inpStartTimer = new \XoopsFormCheckbox('', "quest_list[{$Questions['quest_id']}][startTimer]",1);
                 $inpStartTimer->addOption($Questions['quest_start_timer'],  ' ');
+*/                
+ 
+                $inpStartTimer = new \XoopsFormNumber('', "quest_list[{$Questions['quest_id']}][startTimer]", 1, 1, $Questions['quest_start_timer']);
+                $inpStartTimer->setMinMax(0, 2);
+                $bg = ['#CCFF00','#CCFFFF','#FFCCFF'][$Questions['quest_start_timer']];
+
+
+                $inpStartTimer->setExtra(FQUIZMAKER\getStyle($bg));
                 $Questions['inpStartTimer'] = $inpStartTimer->render();
-                
 				$GLOBALS['xoopsTpl']->append('questions_list', $Questions);
 				unset($Questions);
 			}
+
 			// Display Navigation
 			if ($questionsCount > $limit) {
 				include_once XOOPS_ROOT_PATH . '/class/pagenav.php';

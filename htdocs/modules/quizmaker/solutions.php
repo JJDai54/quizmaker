@@ -65,7 +65,6 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
               $bolOk = false;
         }
         
-        
         if (!$bolOk){
               redirect_header("categories.php?op=list&cat_id={$catId}&player_id={$playerId}", 8, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
         }
@@ -73,10 +72,11 @@ $GLOBALS['xoopsTpl']->assign('quizmaker_url', QUIZMAKER_URL_MODULE);
 		$quizObj = $quizHandler->get($quizId);
         $quiz = $quizObj->getValuesQuiz();
         $catId = $quizObj->getVar('quiz_cat_id');
-        if($quizObj->getVar('publishAnswers') == 0){
+        if($quizObj->getVar('quiz_publishAnswers') == 0){
                       redirect_header("quiz.php?op=list&cat_id={$catId}&player_id={$playerId}", 8, _MA_QUIZMAKER_WIEW_SOLUTIONS_NOT_ALLOWED);
            
         }
+        
         
         //Recupe des questions du quiz
         $criteria = new \CriteriaCompo();

@@ -135,7 +135,6 @@ $pathImport = QUIZMAKER_PATH_UPLOAD_IMPORT . '/' . $fldImportDest;
                   if ($deleteArchivesImported) unlink($fullName);
               }
             }else{
- //exit ("zzzzzzzzzz : " . $_POST['xoops_upload_file'][0]);
                   $bolOk = false;
             } 
  
@@ -303,7 +302,6 @@ list_on_errors:
                 break;
             case 'quiz':
             default:
-//echoArray('gp',"ici->$typeImport");exit("zzzzzzzz");
                 include_once "import-quiz.php";
                 break;
         }

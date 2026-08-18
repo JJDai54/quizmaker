@@ -22,7 +22,7 @@
 if (count($xoBreadcrumbs) > 1) {
 	$GLOBALS['xoopsTpl']->assign('xoBreadcrumbs', $xoBreadcrumbs);
 }
-$GLOBALS['xoopsTpl']->assign('adv', $quizmakerHelper->getConfig('advertise'));
+//$GLOBALS['xoopsTpl']->assign('adv', $quizmakerHelper->getConfig('advertise'));
 // 
 $GLOBALS['xoopsTpl']->assign('bookmarks', $quizmakerHelper->getConfig('bookmarks'));
 $GLOBALS['xoopsTpl']->assign('fbcomments', $quizmakerHelper->getConfig('fbcomments'));

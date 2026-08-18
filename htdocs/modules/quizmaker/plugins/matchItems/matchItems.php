@@ -140,8 +140,8 @@ var $nbMaxColumns = 5;
       for ($h = 0; $h < $nbColumns; $h++){
           $j = $h+1;
       //$trayOptions->insertBreak("<div style='background:green;'><hr></div>");
-      $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j) . "</div>");
-      //  $trayOptions->addElementOption(sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j));      
+          $trayOptions->insertBreak(sprintf(QUIZMAKER_OPTIONS_BREAK_STYLE, sprintf(_LG_PLUGIN_MATCHITEMS_COLUMNS_NUM, $j)));  
+     
       
           $name = "list{$h}_type";  
           //$inpTypeList = new \XoopsFormRadio(_LG_PLUGIN_MATCHITEMS_TYPE_COLLUMN, "{$optionName}[{$name}]", $tValues[$name], ' ');   
@@ -158,7 +158,7 @@ var $nbMaxColumns = 5;
           $trayOptions->addElementOption($inpTextalign);  
           
           $name = "list{$h}_width";  
-          $inpWidth = new \XoopsFormNumber(_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+          $inpWidth = new \XoopsFormNumber(_AP_QUIZMAKER_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
           $inpWidth->setExtra("style='background:#FFCC99;'");
           $inpWidth->setMinMax(5, 80, _AM_QUIZMAKER_UNIT_PERCENT);
           $trayOptions->addElementOption($inpWidth);  
@@ -171,12 +171,12 @@ var $nbMaxColumns = 5;
 
           
           $name = "list{$h}_title"; 
-          $inpTitle = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpTitle = new \XoopsFormText(_AP_QUIZMAKER_TITLE_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
           $inpTitle->setExtra("style='background:" . self::bgColor1 . ";'");
           $trayOptions->addElementOption($inpTitle);
           
           $name = "list{$h}_intrus"; 
-          $inpIntrus = new \XoopsFormText(_LG_PLUGIN_MATCHITEMS_INTRUS, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+          $inpIntrus = new \XoopsFormText(_AP_QUIZMAKER_INTRUS_LIST, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
           $inpIntrus->setExtra("style='background:" . self::bgColor2 . ";'");
           $trayOptions->addElementOption($inpIntrus);
            
@@ -223,7 +223,7 @@ var $nbMaxColumns = 5;
           //for($h = 0; $h < $this->nbMaxColumns; $h++){
           for($h = 0; $h < $nbColumns; $h++){
               $j = $h+1;
-              $title = (isset($options["list{$h}_title"])) ? $options["list{$h}_title"] : sprintf(_LG_PLUGIN_MATCHITEMS_TITLE_DEFAULT,$j);
+              $title = (isset($options["list{$h}_title"])) ? $options["list{$h}_title"] : sprintf(_AP_QUIZMAKER_TITLE_DEFAULT,$j);
               $tbl->addTitle("[#{$j}] {$title}" );        
               
               $width = $options["list{$h}_width"];
@@ -333,10 +333,11 @@ var $nbMaxColumns = 5;
                 $answers[$key]['exp'][$h] = trim($answers[$key]['exp'][$h]);
             }
             
-            //verifie qu'aucune espression n'a été saisie dans aucune colonne
+            //verifie qu'aucune espression n'a été saisie dans aucune colonne 
+            //mais il peut y avoir une image alors on continue on verra à la fin
             $exp = implode('', $answers[$key]['exp']);
             $exp = str_replace(',','',$exp);
-            if ($exp === '') continue;    
+            //if ($exp === '') continue;    
             //solution insifisant si il y a une image        
             // si la première expression est vide la proposition n'est pas enregistrée
             //if ($answers[$key]['exp'][0] === '') continue;
@@ -369,7 +370,7 @@ var $nbMaxColumns = 5;
                 //if(!$ans['caption']) $ans['caption'] = $nameOrg;
             }
             //----------------------------------------------------
-      
+            
           	$ansObj->setVar('answer_proposition', implode(QUIZMAKER_SEP_EXP, $answers[$key]['exp']));
           	$ansObj->setVar('answer_points', $ans['points']);
           	$ansObj->setVar('answer_weight', $ans['weight']);
@@ -377,8 +378,13 @@ var $nbMaxColumns = 5;
               
           	$ansObj->setVar('answer_caption', '');
           	$ansObj->setVar('answer_inputs', 0);
-      
-      	    $ret = $answersHandler->insert($ansObj);
+            
+            if ($exp != '' || $ansObj->getVar('answer_image1') != '')  {
+      	         $ret = $answersHandler->insert($ansObj);
+            }else{
+                $answersHandler->delete($ansObj);
+            }    
+
         }
 //         echoGPF();
 //         exit;

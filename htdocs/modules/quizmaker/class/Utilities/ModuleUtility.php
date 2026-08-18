@@ -63,7 +63,7 @@ public static function create_quiz_arborescense($path){
 public static function copyFolder($source, $dest) { 
 //echo "<hr>source = {$source}<br>dest = {$dest}<hr>";
 
-  if (!is_dir($dest)) mkdir($dest, 0755);
+  if (!is_dir($dest)) mkdir($dest, 0777);
   foreach (
     $iterator = new \RecursiveIteratorIterator(
     new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS),
@@ -72,7 +72,7 @@ public static function copyFolder($source, $dest) {
     
     $dir = $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathname();
     if ($item->isDir()) {
-        if(!is_dir($dir)) mkdir($dir);
+        if(!is_dir($dir)) mkdir($dir, 0777);
     } else if(!is_dir($dir)){
         copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathname());
     }
@@ -186,15 +186,19 @@ __HTML__;
         $options['width']  = '100%';
         $options['height'] = '300px';
         $options['editor'] = $quizmakerHelper->getConfig('quizmaker_editor');
+//echoArray($options);
         
         if($newOptions !== null){
-          $keys = array('rows','cols','width','height');
-          for ($h=0; $h < count($keys); $h++){
+            
+          $keys = array_keys($newOptions);
+          for ($h = 0; $h < count($keys); $h++){
                 $key = $keys[$h];
-                if (isset($newOptions[$key]) )  $options[$key] = $newOptions[$key];
+                $options[$key] = $newOptions[$key];
           }
+//echoArray($newOptions);
+//echoArray($options);
         }
-
+        //$options['height'] = '50px';
         $isAdmin = $quizmakerHelper->isUserAdmin();
 
         if (class_exists('XoopsFormEditor')) {

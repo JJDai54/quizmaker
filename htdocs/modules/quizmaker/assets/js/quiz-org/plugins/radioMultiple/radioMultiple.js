@@ -225,7 +225,7 @@ var nbExp2Found = 0 ;
     //il faut trier les reponses et les propositions pour pouvoir les comparer
     var rep = tRep.sort().join(",");
     
-    console.log(rep);
+    //console.log(rep);
     for  (var k in currentQuestion.answers){
         if (rep == currentQuestion.answers[k].proposition.split(",").sort().join(",")){
             points = currentQuestion.answers[k].points;

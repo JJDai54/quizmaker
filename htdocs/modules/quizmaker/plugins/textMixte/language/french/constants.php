@@ -47,10 +47,8 @@ define('_LG_PLUGIN_TEXTMIXTE_CLEAR_ALL_ACCOLADES', "Supprimer toutes les accolad
 
 define('_LG_PLUGIN_TEXTMIXTE_ADD_BAD_EXP', "Ajouter des mots ou expressions parasites.<br>Ces expressions ont pour but de pertuber l'utilisateur.<br><b>Important</b> : cette liste n'est utilisée qu'avec les listes déroulantes (voir plus haut l'option \"Présentation\").");
 
-define('_LG_PLUGIN_TEXTMIXTE_TOKEN_COLOR',"Couleur des balises");
-define('_LG_PLUGIN_TEXTMIXTE_WORD_COLOR',"Couleur des mots choisis");
-define('_LG_PLUGIN_TEXTMIXTE_LINE_HEIGHT',"Hauteur des interlignes (em)");
-define('_LG_PLUGIN_TEXTMIXTE_TEXT_WIDTH',"Largeur de la zone de texte");
+define('_LG_PLUGIN_TEXTMIXTE_TOKEN__AP_QUIZMAKER_COLOR',"Couleur des balises");
+define('_LG_PLUGIN_TEXTMIXTE_WORD__AP_QUIZMAKER_COLOR',"Couleur des mots choisis");
 define('_LG_PLUGIN_TEXTMIXTE_INTRUS', "Liste de mots ou d'expressions qui seront ajoutées dans les listes déroulantes (voir \"Présentation\" voir plus haut)");         
 
 define('_LG_PLUGIN_TEXTMIXTE_VARIANT', "Style");

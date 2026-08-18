@@ -43,8 +43,8 @@
 				<th class="center"><{$smarty.const._CO_QUIZMAKER_POINTS}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_CAPTION}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_IMAGE}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_COLOR}></th>
-				<th class="center"><{$smarty.const._AM_QUIZMAKER_BACKGROUND}></th>
+				<th class="center"><{$smarty.const._AM_QUIZMAKER__AP_QUIZMAKER_COLOR}></th>
+				<th class="center"><{$smarty.const._AP_QUIZMAKER_BACKGROUND}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_WEIGHT}></th>
 				<th class="center width5"><{$smarty.const._AM_QUIZMAKER_ACTION}></th>
 			</tr>

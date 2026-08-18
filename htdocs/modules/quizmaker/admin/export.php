@@ -107,7 +107,6 @@ exit ('export_ok');
 		$form->addElement(new \XoopsFormHidden('sender', ''));
 
         // ----- Listes de selection pour filtrage -----  
-  	    $form->addElement(new XoopsFormHidden('sender',''));
         $selectors = FQUIZMAKER\getQuestionsSelectorBO($catId, $quizSubject,$quizDifficulty,$quizId, false, '', true, true);
 
   	    $form->addElement($selectors['cat']['select']);

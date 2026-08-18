@@ -82,28 +82,37 @@ $tblAns   =  $xoopsDB->prefix('quizmaker_answers');
     $xoopsDB->query($sqlQuest);
     
     */
-    //==============================================    
+    //==============================================   
+    //liste des colonnes à modifier  
+    $columnsToChange = 'quest_id,quest_quiz_id,quest_flag,quest_parent_id,quest_weight';
+    
+    /* **************** table quizmaker_questions **************** */
+    //liste des colonnes à copier telquel  
+    $columnsFixes = getColoumnsFromTable('quizmaker_questions', $columnsToChange, false);
+    
     //critere de selection des questions a dupliquer
-    $columns = getColoumnsFromTable('quizmaker_questions', 'quest_id,quest_quiz_id,quest_flag,quest_parent_id', false);
     //dupliquer les quesion dans le quiz de destination
-    $sql = "INSERT INTO {$tblQuest} (quest_quiz_id,quest_flag,quest_parent_id,{$columns})" 
-         . " SELECT {$quizIdTo},tblFrom.quest_id,{$idGroup},{$columns} FROM {$tblQuest} tblFrom"
+    $sql = "INSERT INTO {$tblQuest} (quest_quiz_id,quest_flag,quest_parent_id, quest_weight,{$columnsFixes})" 
+         . " SELECT {$quizIdTo},tblFrom.quest_id,{$idGroup}, tblFrom.quest_weight+5000,{$columnsFixes} FROM {$tblQuest} tblFrom"
          . " WHERE quest_id IN ($ids)";
 
-    //echo "<hr>quiz_import_sql - columns: {$columns}<br>{$sql}<hr>";
+    //echo "<hr>quiz_import_sql - columns: {$columnsFixes}<br>{$sql}<hr>";
     $xoopsDB->query($sql);
 
 
+    /* **************** table quizmaker_answers **************** */
     //remise a 0 du champ flag utilise pour stocker les ancien id
     $sqlAns = "update {$tblAns} SET answer_flag=0;";
     $xoopsDB->query($sqlAns);        
     
     //dupplication des enr de la table answer avec copie dans flag de l'ancien quest_id
-    $columns = getColoumnsFromTable('quizmaker_answers', 'answer_id,answer_quest_id,answer_flag', false);    
-    $sql = "INSERT INTO {$tblAns} (answer_quest_id,answer_flag,{$columns})" 
-         . " SELECT 999999,answer_quest_id,{$columns} FROM {$tblAns} tblFrom"
+    $columnsToChange =  'answer_id,answer_quest_id,answer_flag';   
+    $columnsFixes = getColoumnsFromTable('quizmaker_answers', $columnsToChange, false);    
+    
+    $sql = "INSERT INTO {$tblAns} (answer_quest_id,answer_flag,{$columnsFixes})" 
+         . " SELECT 999999,answer_quest_id,{$columnsFixes} FROM {$tblAns} tblFrom"
          . " WHERE answer_quest_id IN ($ids)";
-    echo "<hr>quiz_import_sql - columns: {$columns}<br>{$sql}<hr>";
+    echo "<hr>quiz_import_sql - columns: {$columnsFixes}<br>{$sql}<hr>";
     $xoopsDB->query($sql);
     //mise a jour du champ ans_ques_id avec le nouvel id de questions   
     $sql = "UPDATE " . $tblAns  . " ta"
@@ -211,12 +220,15 @@ echo "<hr>newQuizId : {$newQuizId}<hr>";
 
     //Mise à jour des champs avant importation
     //il ny a normalement qu'un seul quiz, inutile de boucler sur tableData
+
     $row = $tabledata[0];
     $oldQuizId = $row['quiz_id'];
     $row['quiz_id'] = $newQuizId;
     $row['quiz_cat_id'] = $catId;    
     
     //champs obsolettes , pour import d'ancienne version
+    /* normalement il n'y en a plus besoin, mais a garder encore un peu
+    */
     self::delFiledsObsolettes($row,'quiz_binOptions','quiz_onClickSimple',
            'quiz_submitBtnPosition','quiz_showSlideBar','quiz_allowedPrevious',
            'quiz_useTimer','quiz_showResultAllways','quiz_showReponsesBottom',
@@ -399,6 +411,8 @@ public static function quiz_copy_images($pathSource, $newQuizId)
     // Creation de l'arborescence du quiz et copie du dossier images
     //--------------------------------------------------------
     $quiz = $quizHandler->get($newQuizId);
+    if(!$quiz) return false;
+    
     $pathDest = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $quiz->getVar('quiz_folderJS');    
 //echo "<hr>pathSource : {$pathSource}<br>";
 //echo "<hr>pathDest   : {$pathDest}<hr>";
@@ -422,7 +436,7 @@ public static function quiz_importFromYml($pathSource, &$catId = null, &$newQuiz
 {
     global $xoopsConfig, $quizHandler, $questionsHandler, $answersHandler, $categoriesHandler, $xoopsDB;
 
-echo "<hr>===>pathSource = {$pathSource}<hr>";    
+//echo "<hr>===>pathSource = {$pathSource}<hr>";    
     
     if(!$quizHandler->isValid($pathSource)) return 2;
 

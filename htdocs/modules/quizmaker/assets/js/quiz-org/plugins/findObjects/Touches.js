@@ -98,10 +98,10 @@ maxTouches : nombre de touches maximum a créer - si =0 illimité
 divImg1 : div qui contient l'image principale obligatoire
 divImg2 : di qui contient l'image secondaire optionnelle
 **************************************** */
-constructor(maxTouches, maxAttemps, divImg1, divImg2=null){
+constructor(maxTouches, maxAttempts, divImg1, divImg2=null){
     
     this.maxTouches = maxTouches;
-    this.attempts.max = maxAttemps;
+    this.attempts.max = maxAttempts;
     
     this.divImg1 = divImg1;
     this.imgSize1 = {'w':divImg1.offsetWidth, 'h':divImg1.offsetHeight}; 
@@ -201,7 +201,7 @@ addNewFromBuffer(dataArr){
 //var dataArr = JSON.parse(buffer);
 //alert(dataArr.caption);
 //var dataArr = JSON.parse(buffer);
-    console.log(`addNewFromBuffer : ${dataArr['caption']} - ${dataArr['borderColor']} - ${dataArr['x']} ` );
+    //console.log(`addNewFromBuffer : ${dataArr['caption']} - ${dataArr['borderColor']} - ${dataArr['x']} ` );
 
      var clTouche = new Touche(this.chrono++,  dataArr['x']*1, dataArr['y']*1,  
                                dataArr['w']*1, dataArr['h']*1, 
@@ -241,14 +241,14 @@ refresh(obSource){
 
 **************************************** */
 isFull(){
-console.log(`isFull : ${this.collection.length} - ${this.maxTouches}`);
+//console.log(`isFull : ${this.collection.length} - ${this.maxTouches}`);
     return (this.collection.length >= this.maxTouches);
 }
 /* ***************************************
 
 **************************************** */
-setMaxAttempts(maxAttemps){
-    this.attempts.max = maxAttemps;
+setMaxAttempts(maxAttempts){
+    this.attempts.max = maxAttempts;
 }
 getMaxAttempts(){
     return this.attempts.max;
@@ -287,13 +287,13 @@ getToucheByChrono(chrono){
         this.lastErreur = 1;
         return null;
     }
-    console.log(`getToucheByChrono : chrono = ${chrono}`);
+    //console.log(`getToucheByChrono : chrono = ${chrono}`);
     chrono = chrono * 1;
     for(var k = 0; k < this.collection.length; k++){
         var clTouche =  this.collection[k];
 //console.log(`=====${k}\nx = ${x}\ny = ${y}\ndif-x = ${options.differences[k].x}\ndif-y = ${options.differences[k].y}\nrayon = ${options.rayon}`);             
         if(clTouche.chrono == chrono){
-            console.log(clTouche.borderColor);
+            //console.log(clTouche.borderColor);
             this.lastErreur = 0;
             return clTouche;
             break;
@@ -316,13 +316,13 @@ getToucheByChrono(chrono, asObject = true){
         this.lastErreur = 2;
         return null;
     }
-    console.log(`getToucheByChrono : chrono = ${chrono}`);
+    //console.log(`getToucheByChrono : chrono = ${chrono}`);
     chrono = chrono * 1;
     for(var k = 0; k < this.collection.length; k++){
         var clTouche =  this.collection[k];
 //console.log(`=====${k}\nx = ${x}\ny = ${y}\ndif-x = ${options.differences[k].x}\ndif-y = ${options.differences[k].y}\nrayon = ${options.rayon}`);             
         if(clTouche.chrono == chrono){
-            console.log(clTouche.borderColor);
+            //console.log(clTouche.borderColor);
             clTouche.index = k; 
             this.lastErreur = 0;
             return (asObject) ? clTouche : k;
@@ -352,8 +352,8 @@ findToucheInXY(obSource, x, y, stillClicked = false){
     }
     //----------------------------------------------------------
 
-    console.log(`findToucheInXY =================`);
-    console.log(`findToucheInXY : this.w = ${this.imgSize1.w*1} - obSource.offsetWidth =  ${obSource.offsetWidth*1}`);
+    //console.log(`findToucheInXY =================`);
+    //console.log(`findToucheInXY : this.w = ${this.imgSize1.w*1} - obSource.offsetWidth =  ${obSource.offsetWidth*1}`);
     //console.log(`findToucheInXY : x = ${x} - y =  ${y} - xRelative = ${xRelative} - yRelative = ${yRelative} - coef = ${coef}`);
     
     for(var k = 0; k < this.collection.length; k++){
@@ -362,7 +362,7 @@ findToucheInXY(obSource, x, y, stillClicked = false){
     
         //if(clTouche) console.log('touche ok : ' + clTouche.caption);
 //console.log(`=====${k}x = ${x} - y = ${y} - coef = ${coef}`);    
-console.log(clTouche.toString());         
+//console.log(clTouche.toString());         
         if((clTouche.tics==0 || stillClicked) && clTouche.isClickInTouche(x, y, coef)){
             //si la tuche a déjà été& trouvée on compte 1 dans losing
             if(clTouche.tics == 0 && clTouche.points > 0 ){

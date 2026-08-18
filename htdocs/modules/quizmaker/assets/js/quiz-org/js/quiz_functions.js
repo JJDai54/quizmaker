@@ -1,4 +1,4 @@
-
+//import "./composantsJS/Chronos.js"; // Doit être présent tout en haut !
 
 var boolDog = true; 
 var quizIsStarted = false;
@@ -55,38 +55,6 @@ function getRandomBool() {
   var r = Math.floor(Math.random() * (maxi - mini)) + mini;
   return ((r%2)==1) ? true : false;
 }
-
-/***********************************
- * 
- * ********************************/
-function getNumAlpha(index, mode=0, offset=0, separateur = quiz_messages.twoPoints, extra=''){
-//alert ("mode = " + mode + " - offset = " + offset);
-    switch (mode){
-    case 1:         // renvoi l'index tel que
-        var numbering =  (index*1)+1+offset + separateur;
-    case 2:         //renvoi la numerotation en lettre majuscule "A B C ..."
-        var numbering =  String.fromCharCode((index*1)+65+offset) + separateur; 
-        break;
-    case 3:         //renvoi la numerotation en lettre minuscule "a b c ..."
-        var numbering =  String.fromCharCode((index*1)+65+offset).toLowerCase() + separateur; 
-        break;
-    case 4:         // renvoi l'index tel que
-        var numbering =  '{' + ((index*1)+1+offset) + '}' + separateur;
-        break;
-    case 0:         //pas de numérotation, a utiliser de préférence avec ldes images par exemple
-    default:         
-        return "";
-        break;
- 
-    }
-    
-    if(extra){
-        return `<span style=${extra}>${numbering}</span>`;
-    }else{
-        return numbering;
-    }
-
- }
 
 
 /*********************************************
@@ -299,12 +267,12 @@ function blob(message)
   { //return true;
     if(!boolDog) return;
     if(Array.isArray(message)){
-        console.log(`......................`);
+        //console.log(`......................`);
         for(var i = 0; i < t.length; i++){
             blob(`>array : ${i} : ${t[i]}`);
         }
     }else{
-        console.log(">>> functions : " + message);
+        //console.log(">>> functions : " + message);
     }
   } 
   
@@ -336,18 +304,6 @@ function get_highslide_a(imgUrl, width = '', height = '', path = '', lettrine = 
         
 
 
-/* *********************************
-*
-* */
-  function gotoSlideNum (exp) {
-    console.log("gotoSlideNum => " + exp);
-
-    document.getElementById("quiz_goto_slide").value = exp;
-    document.getElementById('quiz_btn_goto_slide').click();
-    //alert("gotoSlideNum => " + exp);
-    //evt.stopPropagation();
-    return true;
-  }
 
 /* *********************************
 *
@@ -375,7 +331,8 @@ function getBoolBin(value, binOctet){
 *
 * */
 function isBitOk(numBit, value){
-    return  ((value & Math.pow(2, numBit)) > 0) ? 1 : 0 ;
+    //return  ((value & Math.pow(2, numBit)) > 0) ? 1 : 0 ;
+    return  ((value & (1 << numBit)) > 0) ? 1 : 0 ;
 
 }
 
@@ -459,98 +416,33 @@ function playSound(src){
     audio.play();
 
 }
-/* *******************************************
-* affiche un mask qui empeche toute interaction avec le slide courant
-* ********** */
-function quiz_show_mask(visible, opacity = null, setCursorWait=false, bgColor=null){
- 
-    divMask =  document.getElementById('quiz_mask');    
-    if(visible){
-        //alert('opacity = ' + divMask.style.opacity);
-        //if(opacity){divMask.style.opacity = opacity;}
-        if(opacity){divMask.style.filter = `grayscale(${opacity}) opacity(${opacity})`;}
-        if(bgColor){divMask.style.backgroundColor = bgColor;}
-        divMask.style.visibility = 'visible';
-        if(setCursorWait){document.body.style.cursor = 'wait';}
-    }else{
-        document.body.style.cursor = 'default';
-        divMask.style.visibility = 'hidden';
-    }
-    return true;
-}
 
 /* *******************************************
-* affiche me message d'avertissement et passe au slide suivant
+* affiche un message d'avertissement et passe au slide suivant
+* @message string : message a afficher
+* @duree integer : duree en seconde d'affichage et passage au slide suivant
+* @background strinf : couleur de fon du message
+* @bolGoToNextSlide bollean : true passage au slide suivant, false no action, <-1 : soummission des résultat
 * ********** */
-function quiz_show_avertissement(message, nextSlideDelai, background='#FFCCFF'){
- 
-    quiz_show_mask(true);
-    var avertissementID = 'quiz_avertissement';
-    divAvertissement =  document.getElementById(avertissementID); 
+function quiz_show_avertissement(message, duree, background='#FFCCFF', bolGoToNextSlide = true){
+    //une petite rustine au cas ou des seconde serait passée au lieu de miliseconde
 
-    //actualisation des scores et avancement dans le quiz
     computeAllScoreEvent();    
-
-    //remplacement des tokens par les scores
-    divAvertissement.innerHTML = replaceBalisesByValues(message);
-    divAvertissement.style.background = background;
-
-
-    divAvertissement.style.visibility = 'visible';
-    divAvertissement.classList.add('avertissement_fondu');  
-console.log(`quiz_show_avertissement : nextSlideDelai = ${nextSlideDelai}`);      
-
-      var ida = setTimeout(quiz_hidde_avertissement, nextSlideDelai*1000, avertissementID);
-      //clearTimeout(ida);
-      return true;      
+    QuizMaker.MessageManager.show(replaceBalisesByValues(message), duree,'',{'background=': background, 'fontSize':'1.5em','textColor':'blue'});
+    quizDivChronos.stop();
+    quizDivChronos.hide();
+    
+    if(bolGoToNextSlide < 0){
+        //cas particulier du dernier slide avec soumission automatique des résultats
+        setTimeout(submitAnswers, duree * 1000);
+    }else if(bolGoToNextSlide){
+        setTimeout(gotoNextSlide, duree * 1000);
+    }
+    return true;      
 }
 
-/* *******************************************
-* 
-* ********** */
 
-function quiz_hidde_avertissement(avertissementId){
-//console.log(`quiz_hidde_avertissement : delai = ${nextSlideDelai}`);
-//var btn = updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement');
-    updateButton('quiz_btn_nextSlide', 1, 'quiz_hidde_avertissement').click();
-//alert(`quiz_hidde_avertissement : btnId = ${btn.id}`);    
-    divAvertissement =  document.getElementById(avertissementId);
-    divAvertissement.style.opacity = '0';
-    divAvertissement.classList.remove('avertissement_fondu');        
 
-    divAvertissement.style.visibility = 'hidden';
-    quiz_show_mask(false);
-//alert('ok'); 
-}
-
-/* ***************************************
-algorithme qui calcul la position absolue d'un div sur une page html 
-**************************************** */
-function getAbsolutePosition(element) {
-  //return { 'x': 0, 'y': 0 };
-  let x = 0;
-  let y = 0;
-  let currentElement = element;
-
-  while (currentElement && currentElement !== document.body) {
-    x += currentElement.offsetLeft;
-    y += currentElement.offsetTop;
-    currentElement = currentElement.offsetParent;
-  }
-    console.log(`getAbsolutePosition :  obSource : ${element.id} - x = ${x} - y = ${y}`);
-
-  return { 'x': x, 'y': y };
-}
-
-/* ******************************************
-
-********************************************* */   
-function moveWindowPosTo (objId) {
-    var container = document.getElementById(objId);
-    var newPos = container.offsetTop;
-    console.log('===> moveWindowPosTo : ' + newPos);
-    window.scroll(0, newPos);
-  }
   
 /* ******************************************
 
@@ -560,3 +452,107 @@ function isObject(value) {
          value !== null &&
          !Array.isArray(value);
 }
+
+
+/* *********************************************************************** */
+/* ************ Parcourir une structure dez connée object ou tableau ===== */
+/* *********************************************************************** */
+
+/**
+ * 2. LE JEU DE DONNÉES
+ */
+const developpeurs = [
+    {
+        id: 101,
+        nom: "Alice",
+        competences: ["JavaScript", "React"],
+        estDisponible: true
+    },
+    {
+        id: 102,
+        nom: "Bob",
+        competences: ["Node.js"],
+        estDisponible: false
+    }
+];
+
+
+
+var resultatTableau = [];
+var levelStructure = 0;
+var levelMax = 0;
+var separateLineLength = 30
+/**
+ * 1. LA FONCTION PRINCIPALE
+ * Elle parcourt la structure et pousse les données dans le tableau accumulateur via le callback.
+ */
+function parcourirStructure(data, callback, cleOuIndex = "racine") {
+//alert(levelStructure);
+levelStructure++;
+if(levelMax > 0 && levelStructure > levelMax){levelStructure--; return;}
+//if (levelStructure <3 ){callback('???', '----------------------')};
+//if (levelStructure == 2){callback('niveau', '----------------------')};
+
+    if (Array.isArray(data)) {
+        if(data.length == 0){
+            callback('array', '===>Tableau vide');
+        }else{
+          data.forEach((element, index) => {
+            callback('array', `===>Index [${cleOuIndex}]`);
+            parcourirStructure(element, callback, `Index [${index}]`);
+          });
+        }
+    } 
+    else if (typeof data === 'object') {
+        if (data == null){
+            callback('object', '===>Objet est nulle');
+        }else{
+          callback('object', `===>Index [${cleOuIndex}]`);
+          Object.keys(data).forEach(key => {
+              parcourirStructure(data[key], callback, key);
+          });
+        }
+    } 
+    else {
+        // On transmet la clé et la valeur au callback
+        callback(cleOuIndex, data);
+    }
+levelStructure--;
+}
+// Le callback remplit le tableau au fur et à mesure du parcours
+//a utilisr pour mettre dans une table par exemple
+function ajouterAuTableau2(propriete, valeur) {
+    resultatTableau.push({
+        Propriete: propriete,
+        Valeur: valeur,
+        Type: typeof valeur
+    });
+}
+function ajouterAuTableau(propriete, valeur) {
+    //resultatTableau.push(`Propriete = ${propriete} | Valeur = ${valeur} | Type = ${typeof valeur}`);
+    if (levelStructure == 1){resultatTableau.push('='.repeat(separateLineLength))};
+
+    var tabulationStr = "-".repeat(levelStructure);
+    resultatTableau.push(`${levelStructure}${tabulationStr}${propriete} = ${valeur}`);
+    //resultatTableau.push(`${levelStructure}${tabulationStr}${valeur}===>${propriete}`);
+}
+
+function objToString(obj, cleOuIndex = '', level = 0, showAlert = false){
+
+    levelMax = level;
+    resultatTableau = [];
+
+    levelStructure = 0;    
+    parcourirStructure(obj, ajouterAuTableau, cleOuIndex = 'racine');
+    resultatTableau.push('='.repeat(separateLineLength));
+    
+    //parcourirStructure(developpeurs, ajouterAuTableau);
+
+    // Affichage du tableau final sous forme de table textuelle
+    console.table(resultatTableau);    
+
+
+    //alert(resultatTableau.join("\n"));
+    if(showAlert){alert(resultatTableau.join("\n"));}
+}
+

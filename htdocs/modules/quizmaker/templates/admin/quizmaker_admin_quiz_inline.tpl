@@ -11,12 +11,11 @@
     <title><{$quiz.name}></title>
 <{/if}>
 
+<script type="module" src="<{$urlApp}>/js/composantsJS/index.js"></script>
 
-
-<{* ===============================================*}>
-
+    
 <script>const quiz_execution=<{$quiz_execution}> </script>
-    <script src="<{$quizUrl}>/js/quiz-consignes.js"></script>
+<script src="<{$quizUrl}>/js/quiz-consignes.js"></script>
 <script src="<{$quizUrl}>/js/<{$options}>.js"></script>
 <script  src="<{$quizUrl}>/js/<{$questions}>.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="<{$urlApp}>/css/infobulle/infobulle.css"/>
@@ -39,6 +38,7 @@
     <{* ========================================== *}> 
 
 <script>
+
 
 /**************************************************************************
  *   get instance de plugin

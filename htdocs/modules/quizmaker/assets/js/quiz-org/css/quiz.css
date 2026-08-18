@@ -20,6 +20,7 @@
     padding: 0px 0px 0px 0px;
      overflow-block: visible;
     overflow: visible;
+    z-index: calc(var(--base-z-index) + 99);
 }
 
 #quiz_div_header {
@@ -110,7 +111,7 @@ position:relative;
     background:#FF9900;
     font-size:1.5em;
     font-weight:bold;
-    z-index:9999;
+    z-index:99999;
     box-shadow: 8px 8px 5px #444;
     visibility : hidden;
     opacity:1;
@@ -954,7 +955,19 @@ padding:2px 0px 0px 2px;
     animation-iteration-count:1;
  }
 /* ********************************************** */
+.quiz_keyboard{
+    margin: 0px;
+    padding: 0px;
+}
+.quiz_keyboard img{
+    margin: 0px 2px 0px 2px;
+    padding: 0px;
+}
+.quiz_keyboard img:hover{
+    cursor:pointer; 
+    transform:translate(2px, 2px);
 
+}
 
 
 

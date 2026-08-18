@@ -13,7 +13,6 @@ DontOpen=0
 AbsolutePath=0
 FileFormat=0
 ProjectFilesOnly=0
-HTServer=localhost
 Extensions=*.*
 [Project tree]
 _quizmaker
@@ -51,6 +50,9 @@ _quizmaker
 			admin\participation-cookies.php
 			admin\participation-results.php
 			admin\permissions.php
+			admin\players.php
+			admin\players-cookies.php
+			admin\players-results.php
 			admin\plugins.php
 			admin\plugins_help.php
 			admin\questions.php
@@ -61,6 +63,7 @@ _quizmaker
 			admin\questions-list.php
 			admin\questions-new.php
 			admin\questions-save.php
+			admin\questions-sendto.php
 			admin\quiz.php
 			admin\quiz-delete.php
 			admin\quiz-edit.php
@@ -150,6 +153,7 @@ _quizmaker
 					assets\icons\16\blue.gif
 					assets\icons\16\build.png
 					assets\icons\16\children.png
+					assets\icons\16\clean.png
 					assets\icons\16\configuration_small.png
 					assets\icons\16\delete.png
 					assets\icons\16\download.png
@@ -162,6 +166,7 @@ _quizmaker
 					assets\icons\16\grey.gif
 					assets\icons\16\in_group-green.png
 					assets\icons\16\index.html
+					assets\icons\16\inserttable.png
 					assets\icons\16\out_group-red.png
 					assets\icons\16\out_of_group-green.png
 					assets\icons\16\out_of_group-red.png
@@ -178,6 +183,7 @@ _quizmaker
 					assets\icons\16\retour-1.png
 					assets\icons\16\retour-2.png
 					assets\icons\16\selectImages.png
+					assets\icons\16\sendto.png
 					assets\icons\16\sigma-01.png
 					assets\icons\16\sigma-02.png
 					assets\icons\16\sigma-03.png
@@ -217,6 +223,7 @@ _quizmaker
 					assets\icons\32\install-green.png
 					assets\icons\32\install-grey.png
 					assets\icons\32\install-red.png
+					assets\icons\32\player.png
 					assets\icons\32\play-green.png
 					assets\icons\32\play-grey.png
 					assets\icons\32\play-red.png
@@ -255,6 +262,313 @@ _quizmaker
 				assets\images\solution-03.png
 			-js
 				-quiz-org
+					-__images__
+						-alphabets
+							-gif-Squelette
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_032.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_045.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_046.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_048.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_049.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_050.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_051.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_052.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_053.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_054.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_055.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_056.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_057.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_063.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_064.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_065.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_066.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_067.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_068.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_069.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_070.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_071.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_072.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_073.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_074.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_075.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_076.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_077.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_078.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_079.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_080.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_081.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_082.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_083.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_084.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_085.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_086.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_087.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_088.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_089.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_090.gif
+								assets\js\quiz-org\__images__\alphabets\gif-Squelette\chr_095.gif
+							-png-Beton
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_032.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_045.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_046.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_048.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_049.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_050.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_051.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_052.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_053.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_054.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_055.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_056.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_057.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_064.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_065.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_066.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_067.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_068.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_069.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_070.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_071.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_072.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_073.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_074.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_075.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_076.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_077.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_078.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_079.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_080.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_081.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_082.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_083.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_084.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_085.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_086.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_087.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_088.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_089.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_090.png
+								assets\js\quiz-org\__images__\alphabets\png-Beton\chr_095.png
+							-png-cordes
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_032.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_045.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_046.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_048.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_049.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_050.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_051.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_052.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_053.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_054.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_055.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_056.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_057.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_064.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_065.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_066.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_067.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_068.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_069.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_070.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_071.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_072.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_073.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_074.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_075.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_076.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_077.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_078.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_079.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_080.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_081.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_082.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_083.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_084.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_085.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_086.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_087.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_088.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_089.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_090.png
+								assets\js\quiz-org\__images__\alphabets\png-cordes\chr_095.png
+							-png-keyboard_01
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_032.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_045.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_046.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_048.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_049.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_050.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_051.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_052.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_053.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_054.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_055.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_056.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_057.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_064.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_065.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_066.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_067.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_068.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_069.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_070.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_071.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_072.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_073.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_074.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_075.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_076.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_077.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_078.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_079.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_080.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_081.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_082.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_083.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_084.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_085.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_086.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_087.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_088.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_089.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_090.png
+								assets\js\quiz-org\__images__\alphabets\png-keyboard_01\chr_095.png
+							assets\js\quiz-org\__images__\alphabets\Alphabets.lnk
+							assets\js\quiz-org\__images__\alphabets\gif-Squelette.gif
+							assets\js\quiz-org\__images__\alphabets\index.html
+							assets\js\quiz-org\__images__\alphabets\png-Beton.png
+							assets\js\quiz-org\__images__\alphabets\png-cordes.png
+							assets\js\quiz-org\__images__\alphabets\png-keyboard_01.png
+							assets\js\quiz-org\__images__\alphabets\png-keyboard_01chr_056.png
+						-buttons
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Black.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Blue.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_BlueSky.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Brown.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Cyan.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Fuchsia.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Green.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_GreenBlue.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_GreenForest.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Lime.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Orange.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Pink.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Red.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Turquoise.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Violet.png
+							assets\js\quiz-org\__images__\buttons\Button_Icon_Yellow.png
+							assets\js\quiz-org\__images__\buttons\Button_to_push_green.png
+							assets\js\quiz-org\__images__\buttons\Button_to_push_red.png
+							assets\js\quiz-org\__images__\buttons\Champignon-01.png
+							assets\js\quiz-org\__images__\buttons\Champignon-02.png
+							assets\js\quiz-org\__images__\buttons\Champignon-03.png
+							assets\js\quiz-org\__images__\buttons\Champignon-04.png
+							assets\js\quiz-org\__images__\buttons\index.html
+							assets\js\quiz-org\__images__\buttons\-no_icon.png
+							assets\js\quiz-org\__images__\buttons\pingouin-bleu.png
+							assets\js\quiz-org\__images__\buttons\pingouin-gris.png
+							assets\js\quiz-org\__images__\buttons\pingouin-marron.png
+							assets\js\quiz-org\__images__\buttons\pingouin-or.png
+							assets\js\quiz-org\__images__\buttons\pingouin-orange.png
+							assets\js\quiz-org\__images__\buttons\pingouin-rose.png
+							assets\js\quiz-org\__images__\buttons\pingouin-rouge.png
+							assets\js\quiz-org\__images__\buttons\pingouin-vert.png
+							assets\js\quiz-org\__images__\buttons\pingouin-vertdegris.png
+							assets\js\quiz-org\__images__\buttons\pingouin-violet.png
+						-coches
+							assets\js\quiz-org\__images__\coches\69d827c68a39b.png
+							assets\js\quiz-org\__images__\coches\69d827ce9878a.png
+							assets\js\quiz-org\__images__\coches\Champignon-01.png
+							assets\js\quiz-org\__images__\coches\Champignon-02.png
+							assets\js\quiz-org\__images__\coches\Champignon-03.png
+							assets\js\quiz-org\__images__\coches\Champignon-04.png
+							assets\js\quiz-org\__images__\coches\coche-01.png
+							assets\js\quiz-org\__images__\coches\coche-02.png
+							assets\js\quiz-org\__images__\coches\coche-03.png
+							assets\js\quiz-org\__images__\coches\coche-04.png
+							assets\js\quiz-org\__images__\coches\coche-05.png
+							assets\js\quiz-org\__images__\coches\coche-05-blue.png
+							assets\js\quiz-org\__images__\coches\coche-06.png
+							assets\js\quiz-org\__images__\coches\coche-07.png
+							assets\js\quiz-org\__images__\coches\coche-08.png
+							assets\js\quiz-org\__images__\coches\coche-09.jpg
+							assets\js\quiz-org\__images__\coches\coche-10.png
+							assets\js\quiz-org\__images__\coches\coche-10b.png
+							assets\js\quiz-org\__images__\coches\coche-11.png
+							assets\js\quiz-org\__images__\coches\coche-12.png
+							assets\js\quiz-org\__images__\coches\coche-13.png
+							assets\js\quiz-org\__images__\coches\coche-14.png
+							assets\js\quiz-org\__images__\coches\coche-15.png
+							assets\js\quiz-org\__images__\coches\coche-16.png
+							assets\js\quiz-org\__images__\coches\index.html
+							assets\js\quiz-org\__images__\coches\-no_icon.png
+							assets\js\quiz-org\__images__\coches\radio-01.png
+							assets\js\quiz-org\__images__\coches\radio-02.png
+							assets\js\quiz-org\__images__\coches\radio-03.png
+							assets\js\quiz-org\__images__\coches\radio-04.png
+							assets\js\quiz-org\__images__\coches\radio-05.png
+							assets\js\quiz-org\__images__\coches\radio-06.png
+							assets\js\quiz-org\__images__\coches\radio-07.png
+							assets\js\quiz-org\__images__\coches\radio-08.png
+							assets\js\quiz-org\__images__\coches\radio-09.png
+							assets\js\quiz-org\__images__\coches\radio-10.png
+							assets\js\quiz-org\__images__\coches\radio-11.png
+						-emoji
+							assets\js\quiz-org\__images__\emoji\emoji_icon_00.png
+							assets\js\quiz-org\__images__\emoji\emoji_icon_01.png
+							assets\js\quiz-org\__images__\emoji\emoji_icon_02.png
+							assets\js\quiz-org\__images__\emoji\index.html
+						-icones
+							assets\js\quiz-org\__images__\icones\Help.png
+							assets\js\quiz-org\__images__\icones\Hint.png
+							assets\js\quiz-org\__images__\icones\index.html
+							assets\js\quiz-org\__images__\icones\moins.png
+							assets\js\quiz-org\__images__\icones\next.png
+							assets\js\quiz-org\__images__\icones\plus.png
+							assets\js\quiz-org\__images__\icones\zoom_moins_01.png
+							assets\js\quiz-org\__images__\icones\zoom_next_01.png
+							assets\js\quiz-org\__images__\icones\zoom_plus_01.png
+						-substitut
+							assets\js\quiz-org\__images__\substitut\blank-jaune.jpg
+							assets\js\quiz-org\__images__\substitut\blank-org.jpg
+							assets\js\quiz-org\__images__\substitut\blank-rouge.jpg
+							assets\js\quiz-org\__images__\substitut\blank-vert.jpg
+							assets\js\quiz-org\__images__\substitut\blank-violet.jpg
+							assets\js\quiz-org\__images__\substitut\index.html
+							assets\js\quiz-org\__images__\substitut\interrogation-01.jpg
+							assets\js\quiz-org\__images__\substitut\interrogation-02-gris.png
+							assets\js\quiz-org\__images__\substitut\interrogation-02-jaune.png
+							assets\js\quiz-org\__images__\substitut\interrogation-02-rouge.jpg
+							assets\js\quiz-org\__images__\substitut\interrogation-02-vert.png
+							assets\js\quiz-org\__images__\substitut\interrogation-02-violet.png
+							assets\js\quiz-org\__images__\substitut\interrogation-03-jaune.png
+							assets\js\quiz-org\__images__\substitut\interrogation-03-noir.png
+							assets\js\quiz-org\__images__\substitut\interrogation-03-rouge.png
+							assets\js\quiz-org\__images__\substitut\interrogation-03-vert.png
+							assets\js\quiz-org\__images__\substitut\interrogation-03-violet.png
+							assets\js\quiz-org\__images__\substitut\interrogation-04-jaune.png
+							assets\js\quiz-org\__images__\substitut\interrogation-04-org.png
+							assets\js\quiz-org\__images__\substitut\interrogation-04-rouge.png
+							assets\js\quiz-org\__images__\substitut\interrogation-04-vert.png
+							assets\js\quiz-org\__images__\substitut\interrogation-04-violet.png
+							assets\js\quiz-org\__images__\substitut\interrogation-05-bleu.png
+							assets\js\quiz-org\__images__\substitut\interrogation-05-gris.png
+							assets\js\quiz-org\__images__\substitut\interrogation-05-jaune.png
+							assets\js\quiz-org\__images__\substitut\interrogation-05-rouge.png
+							assets\js\quiz-org\__images__\substitut\interrogation-05-vert.png
+							assets\js\quiz-org\__images__\substitut\interrogation-05-violet.png
+						assets\js\quiz-org\__images__\__uploads-images.lnk
+						assets\js\quiz-org\__images__\Alphabets.lnk
+						assets\js\quiz-org\__images__\graduation-pour-scrollbarre.svg
+						assets\js\quiz-org\__images__\Help.png
+						assets\js\quiz-org\__images__\Hint.png
+						assets\js\quiz-org\__images__\index.html
+						assets\js\quiz-org\__images__\moins.png
+						assets\js\quiz-org\__images__\next.png
+						assets\js\quiz-org\__images__\plus.png
+						assets\js\quiz-org\__images__\zoom_moins_01.png
+						assets\js\quiz-org\__images__\zoom_next_01.png
+						assets\js\quiz-org\__images__\zoom_plus_01.png
 					-_plugin-JS-Modele
 						-img
 							-buttons
@@ -346,6 +660,183 @@ _quizmaker
 						assets\js\quiz-org\css\style-item-design.css
 						assets\js\quiz-org\css\timer.css
 					-images
+						-alphabets
+							-gif-Squelette
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_032.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_045.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_046.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_048.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_049.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_050.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_051.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_052.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_053.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_054.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_055.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_056.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_057.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_063.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_064.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_065.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_066.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_067.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_068.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_069.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_070.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_071.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_072.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_073.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_074.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_075.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_076.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_077.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_078.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_079.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_080.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_081.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_082.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_083.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_084.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_085.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_086.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_087.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_088.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_089.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_090.gif
+								assets\js\quiz-org\images\alphabets\gif-Squelette\chr_095.gif
+							-png-Beton
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_032.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_045.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_046.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_048.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_049.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_050.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_051.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_052.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_053.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_054.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_055.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_056.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_057.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_064.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_065.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_066.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_067.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_068.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_069.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_070.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_071.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_072.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_073.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_074.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_075.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_076.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_077.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_078.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_079.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_080.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_081.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_082.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_083.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_084.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_085.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_086.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_087.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_088.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_089.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_090.png
+								assets\js\quiz-org\images\alphabets\png-Beton\chr_095.png
+							-png-cordes
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_032.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_045.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_046.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_048.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_049.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_050.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_051.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_052.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_053.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_054.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_055.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_056.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_057.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_064.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_065.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_066.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_067.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_068.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_069.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_070.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_071.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_072.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_073.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_074.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_075.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_076.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_077.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_078.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_079.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_080.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_081.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_082.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_083.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_084.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_085.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_086.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_087.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_088.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_089.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_090.png
+								assets\js\quiz-org\images\alphabets\png-cordes\chr_095.png
+							-png-keyboard_01
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_032.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_045.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_046.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_048.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_049.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_050.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_051.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_052.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_053.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_054.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_055.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_056.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_057.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_064.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_065.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_066.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_067.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_068.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_069.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_070.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_071.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_072.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_073.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_074.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_075.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_076.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_077.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_078.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_079.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_080.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_081.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_082.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_083.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_084.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_085.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_086.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_087.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_088.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_089.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_090.png
+								assets\js\quiz-org\images\alphabets\png-keyboard_01\chr_095.png
+							assets\js\quiz-org\images\alphabets\Alphabets.lnk
+							assets\js\quiz-org\images\alphabets\gif-Squelette.gif
+							assets\js\quiz-org\images\alphabets\index.html
+							assets\js\quiz-org\images\alphabets\png-Beton.png
+							assets\js\quiz-org\images\alphabets\png-cordes.png
+							assets\js\quiz-org\images\alphabets\png-keyboard_01.png
+							assets\js\quiz-org\images\alphabets\png-keyboard_01chr_056.png
 						-buttons
 							assets\js\quiz-org\images\buttons\Button_Icon_Black.png
 							assets\js\quiz-org\images\buttons\Button_Icon_Blue.png
@@ -365,6 +856,10 @@ _quizmaker
 							assets\js\quiz-org\images\buttons\Button_Icon_Yellow.png
 							assets\js\quiz-org\images\buttons\Button_to_push_green.png
 							assets\js\quiz-org\images\buttons\Button_to_push_red.png
+							assets\js\quiz-org\images\buttons\Champignon-01.png
+							assets\js\quiz-org\images\buttons\Champignon-02.png
+							assets\js\quiz-org\images\buttons\Champignon-03.png
+							assets\js\quiz-org\images\buttons\Champignon-04.png
 							assets\js\quiz-org\images\buttons\index.html
 							assets\js\quiz-org\images\buttons\-no_icon.png
 							assets\js\quiz-org\images\buttons\pingouin-bleu.png
@@ -380,14 +875,21 @@ _quizmaker
 						-coches
 							assets\js\quiz-org\images\coches\69d827c68a39b.png
 							assets\js\quiz-org\images\coches\69d827ce9878a.png
+							assets\js\quiz-org\images\coches\6a5d305dc428e.png
+							assets\js\quiz-org\images\coches\Champignon-01.png
+							assets\js\quiz-org\images\coches\Champignon-02.png
+							assets\js\quiz-org\images\coches\Champignon-03.png
+							assets\js\quiz-org\images\coches\Champignon-04.png
 							assets\js\quiz-org\images\coches\coche-01.png
 							assets\js\quiz-org\images\coches\coche-02.png
 							assets\js\quiz-org\images\coches\coche-03.png
 							assets\js\quiz-org\images\coches\coche-04.png
 							assets\js\quiz-org\images\coches\coche-05.png
+							assets\js\quiz-org\images\coches\coche-05-blue.png
 							assets\js\quiz-org\images\coches\coche-06.png
 							assets\js\quiz-org\images\coches\coche-07.png
 							assets\js\quiz-org\images\coches\coche-08.png
+							assets\js\quiz-org\images\coches\coche-09.jpg
 							assets\js\quiz-org\images\coches\coche-10.png
 							assets\js\quiz-org\images\coches\coche-10b.png
 							assets\js\quiz-org\images\coches\coche-11.png
@@ -397,6 +899,7 @@ _quizmaker
 							assets\js\quiz-org\images\coches\coche-15.png
 							assets\js\quiz-org\images\coches\coche-16.png
 							assets\js\quiz-org\images\coches\index.html
+							assets\js\quiz-org\images\coches\-no_icon.png
 							assets\js\quiz-org\images\coches\radio-01.png
 							assets\js\quiz-org\images\coches\radio-02.png
 							assets\js\quiz-org\images\coches\radio-03.png
@@ -413,6 +916,16 @@ _quizmaker
 							assets\js\quiz-org\images\emoji\emoji_icon_01.png
 							assets\js\quiz-org\images\emoji\emoji_icon_02.png
 							assets\js\quiz-org\images\emoji\index.html
+						-icones
+							assets\js\quiz-org\images\icones\Help.png
+							assets\js\quiz-org\images\icones\Hint.png
+							assets\js\quiz-org\images\icones\index.html
+							assets\js\quiz-org\images\icones\moins.png
+							assets\js\quiz-org\images\icones\next.png
+							assets\js\quiz-org\images\icones\plus.png
+							assets\js\quiz-org\images\icones\zoom_moins_01.png
+							assets\js\quiz-org\images\icones\zoom_next_01.png
+							assets\js\quiz-org\images\icones\zoom_plus_01.png
 						-substitut
 							assets\js\quiz-org\images\substitut\blank-jaune.jpg
 							assets\js\quiz-org\images\substitut\blank-org.jpg
@@ -443,6 +956,7 @@ _quizmaker
 							assets\js\quiz-org\images\substitut\interrogation-05-vert.png
 							assets\js\quiz-org\images\substitut\interrogation-05-violet.png
 						assets\js\quiz-org\images\__uploads-images.lnk
+						assets\js\quiz-org\images\Alphabets.lnk
 						assets\js\quiz-org\images\graduation-pour-scrollbarre.svg
 						assets\js\quiz-org\images\Help.png
 						assets\js\quiz-org\images\Hint.png
@@ -454,8 +968,27 @@ _quizmaker
 						assets\js\quiz-org\images\zoom_next_01.png
 						assets\js\quiz-org\images\zoom_plus_01.png
 					-js
+						-composantsJS
+							assets\js\quiz-org\js\composantsJS\BaseGameGrid.js
+							assets\js\quiz-org\js\composantsJS\Chronos.js
+							assets\js\quiz-org\js\composantsJS\Disc.js
+							assets\js\quiz-org\js\composantsJS\FocusManager.js
+							assets\js\quiz-org\js\composantsJS\Gauge.js
+							assets\js\quiz-org\js\composantsJS\ImageList - Copie (2).js
+							assets\js\quiz-org\js\composantsJS\ImageList - Copie.js
+							assets\js\quiz-org\js\composantsJS\ImageList.js
+							assets\js\quiz-org\js\composantsJS\index.js
+							assets\js\quiz-org\js\composantsJS\main.js
+							assets\js\quiz-org\js\composantsJS\MessageManager.js
+							assets\js\quiz-org\js\composantsJS\SplitImage.js
+							assets\js\quiz-org\js\composantsJS\SplitImage-old.js
+						assets\js\quiz-org\js\clsGame.js
+						assets\js\quiz-org\js\clsGridImg.js
+						assets\js\quiz-org\js\clsGroup.js
+						assets\js\quiz-org\js\clsListImg.js
 						assets\js\quiz-org\js\fnc_array.js
 						assets\js\quiz-org\js\fnc_htmlObjects.js
+						assets\js\quiz-org\js\fnc_interface.js
 						assets\js\quiz-org\js\fnc_progressBar.js
 						assets\js\quiz-org\js\fnc_string.js
 						assets\js\quiz-org\js\fnc_timer.js
@@ -470,10 +1003,119 @@ _quizmaker
 						assets\js\quiz-org\language\quiz-english.js
 						assets\js\quiz-org\language\quiz-french.js
 					-plugins
+						-allumettes
+							-img
+								assets\js\quiz-org\plugins\allumettes\img\index.html
+							-index-05
+								assets\js\quiz-org\plugins\allumettes\index-05\chargement d'un image.txt
+								assets\js\quiz-org\plugins\allumettes\index-05\gemini-code-1783589843104.js
+								assets\js\quiz-org\plugins\allumettes\index-05\gemini-code-1783589851269.css
+								assets\js\quiz-org\plugins\allumettes\index-05\index.html
+								assets\js\quiz-org\plugins\allumettes\index-05\info.txt
+								assets\js\quiz-org\plugins\allumettes\index-05\script.js
+								assets\js\quiz-org\plugins\allumettes\index-05\style.css
+							assets\js\quiz-org\plugins\allumettes\_allumettes.ppr
+							assets\js\quiz-org\plugins\allumettes\allumettes.css
+							assets\js\quiz-org\plugins\allumettes\allumettes.js
+							assets\js\quiz-org\plugins\allumettes\allumettes-events.js
+							assets\js\quiz-org\plugins\allumettes\allumettes-fnc.js
+							assets\js\quiz-org\plugins\allumettes\index.html
 						-alphaSimple
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.css
 							assets\js\quiz-org\plugins\alphaSimple\alphaSimple.js
 							assets\js\quiz-org\plugins\alphaSimple\index.html
+						-equation
+							-img
+								-skins
+									-bois-01
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-01\token.png
+									-bois-02
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-02\token.png
+									-bois-03
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\bois-03\token.png
+									-classic-01
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-01\token.png
+									-classic-02
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\classic-02\token.png
+									-marbre-01
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\stock-02.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-01\token.png
+									-marbre-02
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-02\token.png
+									-marbre-03
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-03\token.png
+									-marbre-04
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\constante.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\equation.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\inconnue.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\operateur.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\parenthese.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\stock.png
+										assets\js\quiz-org\plugins\equation\img\skins\marbre-04\token.png
+									assets\js\quiz-org\plugins\equation\img\skins\bois-01.png
+									assets\js\quiz-org\plugins\equation\img\skins\bois-02.png
+									assets\js\quiz-org\plugins\equation\img\skins\bois-03.png
+									assets\js\quiz-org\plugins\equation\img\skins\classic-01.png
+									assets\js\quiz-org\plugins\equation\img\skins\classic-02.png
+									assets\js\quiz-org\plugins\equation\img\skins\marbre-01.png
+									assets\js\quiz-org\plugins\equation\img\skins\marbre-02.png
+									assets\js\quiz-org\plugins\equation\img\skins\marbre-03.png
+									assets\js\quiz-org\plugins\equation\img\skins\marbre-04.png
+								assets\js\quiz-org\plugins\equation\img\index.html
+							assets\js\quiz-org\plugins\equation\equation.css
+							assets\js\quiz-org\plugins\equation\equation.js
+							assets\js\quiz-org\plugins\equation\equation-04.png
+							assets\js\quiz-org\plugins\equation\equation-events.js
+							assets\js\quiz-org\plugins\equation\equation-fnc.js
+							assets\js\quiz-org\plugins\equation\index.html
 						-findObjects
 							-images
 								assets\js\quiz-org\plugins\findObjects\images\index.html
@@ -521,6 +1163,109 @@ _quizmaker
 							assets\js\quiz-org\plugins\matchItems\index.html
 							assets\js\quiz-org\plugins\matchItems\matchItems.css
 							assets\js\quiz-org\plugins\matchItems\matchItems.js
+						-memory
+							-img
+								-buttons
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Black.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Blue.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_BlueSky.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Brown.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Cyan.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Fuchsia.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Green.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_GreenBlue.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_GreenForest.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Lime.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Orange.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Pink.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Red.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Turquoise.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Violet.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_Icon_Yellow.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_to_push_green.png
+									assets\js\quiz-org\plugins\memory\img\buttons\Button_to_push_red.png
+									assets\js\quiz-org\plugins\memory\img\buttons\index.html
+									assets\js\quiz-org\plugins\memory\img\buttons\-no_icon.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-bleu.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-gris.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-marron.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-or.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-orange.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-rose.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-rouge.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-vert.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-vertdegris.png
+									assets\js\quiz-org\plugins\memory\img\buttons\pingouin-violet.png
+								assets\js\quiz-org\plugins\memory\img\index.html
+							assets\js\quiz-org\plugins\memory\_memory.ppr
+							assets\js\quiz-org\plugins\memory\index.html
+							assets\js\quiz-org\plugins\memory\memory.js
+							assets\js\quiz-org\plugins\memory\memory_grille.js
+							assets\js\quiz-org\plugins\memory\memory_liste.js
+							assets\js\quiz-org\plugins\memory\MemoryComponent.js
+						-memosuite
+							-img
+								-buttons
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Black.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Blue.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_BlueSky.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Brown.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Cyan.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Fuchsia.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Green.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_GreenBlue.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_GreenForest.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Lime.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Orange.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Pink.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Red.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Turquoise.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Violet.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_Icon_Yellow.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_to_push_green.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\Button_to_push_red.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\index.html
+									assets\js\quiz-org\plugins\memosuite\img\buttons\-no_icon.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-bleu.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-gris.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-marron.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-or.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-orange.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-rose.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-rouge.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-vert.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-vertdegris.png
+									assets\js\quiz-org\plugins\memosuite\img\buttons\pingouin-violet.png
+								assets\js\quiz-org\plugins\memosuite\img\index.html
+							assets\js\quiz-org\plugins\memosuite\_memosuite.ppr
+							assets\js\quiz-org\plugins\memosuite\2026-07-25 20 10 22.jpg
+							assets\js\quiz-org\plugins\memosuite\index.html
+							assets\js\quiz-org\plugins\memosuite\info.txt
+							assets\js\quiz-org\plugins\memosuite\memosuite.css
+							assets\js\quiz-org\plugins\memosuite\memosuite.js
+							assets\js\quiz-org\plugins\memosuite\memosuite_grille.js
+							assets\js\quiz-org\plugins\memosuite\memosuite_liste.js
+							assets\js\quiz-org\plugins\memosuite\MemosuiteComponent.js
+							assets\js\quiz-org\plugins\memosuite\memosuite-events.js
+							assets\js\quiz-org\plugins\memosuite\memosuite-fnc.js
+						-monkey
+							-img
+								assets\js\quiz-org\plugins\monkey\img\index.html
+							-index-05
+								assets\js\quiz-org\plugins\monkey\index-05\chargement d'un image.txt
+								assets\js\quiz-org\plugins\monkey\index-05\gemini-code-1783589843104.js
+								assets\js\quiz-org\plugins\monkey\index-05\gemini-code-1783589851269.css
+								assets\js\quiz-org\plugins\monkey\index-05\index.html
+								assets\js\quiz-org\plugins\monkey\index-05\info.txt
+								assets\js\quiz-org\plugins\monkey\index-05\script.js
+								assets\js\quiz-org\plugins\monkey\index-05\style.css
+							assets\js\quiz-org\plugins\monkey\_monkey.ppr
+							assets\js\quiz-org\plugins\monkey\index.html
+							assets\js\quiz-org\plugins\monkey\index-05.lnk
+							assets\js\quiz-org\plugins\monkey\monkey.css
+							assets\js\quiz-org\plugins\monkey\monkey.js
+							assets\js\quiz-org\plugins\monkey\monkey-events.js
+							assets\js\quiz-org\plugins\monkey\monkey-fnc.js
 						-multiQuestions
 							assets\js\quiz-org\plugins\multiQuestions\index.html
 							assets\js\quiz-org\plugins\multiQuestions\multiQuestions.css
@@ -545,6 +1290,91 @@ _quizmaker
 							assets\js\quiz-org\plugins\pageInfo\index.html
 							assets\js\quiz-org\plugins\pageInfo\pageInfo.css
 							assets\js\quiz-org\plugins\pageInfo\pageInfo.js
+						-pendu
+							-img
+								-cartoon
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_0.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_1.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_2.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_3.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_4.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_5.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_6.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_7.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_8.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon\pendu_9.png
+								-cartoon_02
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_0.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_1.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_2.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_3.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_4.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_5.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_6.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_7.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_8.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_02\pendu_9.png
+								-cartoon_vert
+									-zzzz
+										assets\js\quiz-org\plugins\pendu\img\cartoon_vert\zzzz\pendu_0 - Copie.png
+										assets\js\quiz-org\plugins\pendu\img\cartoon_vert\zzzz\pendu_7 - Copie.png
+										assets\js\quiz-org\plugins\pendu\img\cartoon_vert\zzzz\pendu_8 - Copie - Copie.png
+										assets\js\quiz-org\plugins\pendu\img\cartoon_vert\zzzz\pendu_8 - Copie (2).png
+										assets\js\quiz-org\plugins\pendu\img\cartoon_vert\zzzz\pendu_8 - Copie.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_0.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_1.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_2.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_3.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_4.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_5.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_6.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_7.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_8.png
+									assets\js\quiz-org\plugins\pendu\img\cartoon_vert\pendu_9.png
+								-classic_noir
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_0.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_1.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_2.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_3.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_4.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_5.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_6.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_7.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_8.png
+									assets\js\quiz-org\plugins\pendu\img\classic_noir\pendu_9.png
+								-classic_transparent
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_0.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_1.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_2.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_3.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_4.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_5.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_6.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_7.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_8.png
+									assets\js\quiz-org\plugins\pendu\img\classic_transparent\pendu_9.png
+								-pinochio
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_0.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_1.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_2.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_3.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_4.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_5.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_6.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_7.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_8.png
+									assets\js\quiz-org\plugins\pendu\img\pinochio\pendu_9.png
+								assets\js\quiz-org\plugins\pendu\img\cartoon.png
+								assets\js\quiz-org\plugins\pendu\img\cartoon_02.png
+								assets\js\quiz-org\plugins\pendu\img\cartoon_vert.png
+								assets\js\quiz-org\plugins\pendu\img\classic_noir.png
+								assets\js\quiz-org\plugins\pendu\img\classic_transparent.png
+								assets\js\quiz-org\plugins\pendu\img\index.html
+								assets\js\quiz-org\plugins\pendu\img\pinochio.png
+							assets\js\quiz-org\plugins\pendu\index.html
+							assets\js\quiz-org\plugins\pendu\pendu.css
+							assets\js\quiz-org\plugins\pendu\pendu.js
+							assets\js\quiz-org\plugins\pendu\pendu-events.js
 						-puzzle
 							-img
 								-buttons
@@ -580,21 +1410,9 @@ _quizmaker
 									assets\js\quiz-org\plugins\puzzle\img\buttons\pingouin-violet.png
 								assets\js\quiz-org\plugins\puzzle\img\index.html
 							assets\js\quiz-org\plugins\puzzle\_puzzle.ppr
-							assets\js\quiz-org\plugins\puzzle\common-fnc.js
 							assets\js\quiz-org\plugins\puzzle\index.html
-							assets\js\quiz-org\plugins\puzzle\lucioles.js
-							assets\js\quiz-org\plugins\puzzle\lucioles-events.js
-							assets\js\quiz-org\plugins\puzzle\lucioles-fnc.js
-							assets\js\quiz-org\plugins\puzzle\memory.js
-							assets\js\quiz-org\plugins\puzzle\memory-events.js
-							assets\js\quiz-org\plugins\puzzle\memory-fnc.js
-							assets\js\quiz-org\plugins\puzzle\puzzle.css
 							assets\js\quiz-org\plugins\puzzle\puzzle.js
-							assets\js\quiz-org\plugins\puzzle\puzzle-events.js
-							assets\js\quiz-org\plugins\puzzle\puzzle-fnc.js
-							assets\js\quiz-org\plugins\puzzle\taquin.js
-							assets\js\quiz-org\plugins\puzzle\taquin-events.js
-							assets\js\quiz-org\plugins\puzzle\taquin-fnc.js
+							assets\js\quiz-org\plugins\puzzle\PuzzleComponent.js
 						-radioMultiple
 							assets\js\quiz-org\plugins\radioMultiple\index.html
 							assets\js\quiz-org\plugins\radioMultiple\radioMultiple.css
@@ -634,16 +1452,12 @@ _quizmaker
 									assets\js\quiz-org\plugins\selectImages\img\buttons\pingouin-violet.png
 								assets\js\quiz-org\plugins\selectImages\img\index.html
 							assets\js\quiz-org\plugins\selectImages\index.html
+							assets\js\quiz-org\plugins\selectImages\selectClassic.js
 							assets\js\quiz-org\plugins\selectImages\selectCoches.css
 							assets\js\quiz-org\plugins\selectImages\selectCoches.js
 							assets\js\quiz-org\plugins\selectImages\selectImages.css
 							assets\js\quiz-org\plugins\selectImages\selectImages.js
-						-selectInputs
-							-img
-								assets\js\quiz-org\plugins\selectInputs\img\index.html
-							assets\js\quiz-org\plugins\selectInputs\index.html
-							assets\js\quiz-org\plugins\selectInputs\selectInputs.css
-							assets\js\quiz-org\plugins\selectInputs\selectInputs.js
+							assets\js\quiz-org\plugins\selectImages\selectInputs.css
 						-sortItems
 							-img
 								-buttons
@@ -745,9 +1559,19 @@ _quizmaker
 										assets\js\quiz-org\plugins\sortItems\img\buttons\yellow\index.html
 									assets\js\quiz-org\plugins\sortItems\img\buttons\index.html
 								assets\js\quiz-org\plugins\sortItems\img\index.html
+							assets\js\quiz-org\plugins\sortItems\imgDaDSortItems.js
 							assets\js\quiz-org\plugins\sortItems\index.html
 							assets\js\quiz-org\plugins\sortItems\sortItems.css
 							assets\js\quiz-org\plugins\sortItems\sortItems.js
+							assets\js\quiz-org\plugins\sortItems\sortItems_combobox.js
+							assets\js\quiz-org\plugins\sortItems\sortItems_listbox.js
+							assets\js\quiz-org\plugins\sortItems\sortItems_ulDaDList.js
+						-taquin
+							-img
+								assets\js\quiz-org\plugins\taquin\img\index.html
+							assets\js\quiz-org\plugins\taquin\index.html
+							assets\js\quiz-org\plugins\taquin\taquin.js
+							assets\js\quiz-org\plugins\taquin\TaquinComponent.js
 						-textMixte
 							assets\js\quiz-org\plugins\textMixte\index.html
 							assets\js\quiz-org\plugins\textMixte\textListbox1.css
@@ -768,8 +1592,10 @@ _quizmaker
 							assets\js\quiz-org\plugins\ulDaDGroups\ulDaDGroups.css
 							assets\js\quiz-org\plugins\ulDaDGroups\ulDaDGroups.js
 						assets\js\quiz-org\plugins\index.html
+						assets\js\quiz-org\plugins\triplette.rar
 					assets\js\quiz-org\_quiz-org.ppr
 					assets\js\quiz-org\index.html
+					assets\js\quiz-org\Nouveau1.js
 				assets\js\admin.js
 				assets\js\functions.js
 				assets\js\highslide.js
@@ -793,7 +1619,7 @@ _quizmaker
 				class\Common\Resizer.php
 				class\Common\ServerStats.php
 				class\Common\VersionChecks.php
-			+Utilities
+			-Utilities
 				class\Utilities\index.html
 				class\Utilities\ModuleUtility.php
 				class\Utilities\QuizBuildUtility.php
@@ -833,7 +1659,7 @@ _quizmaker
 			config\icons.php
 			config\index.html
 			config\paths.php
-		-docs
+		+docs
 			docs\changelog.txt
 			docs\credits.txt
 			docs\guide-quizmaker.docx
@@ -918,7 +1744,7 @@ _quizmaker
 				language\english\feedback.php
 				language\english\main.php
 				language\english\modinfo.php
-			+french
+			-french
 				-help
 					-img
 						language\french\help\img\_barre_de_dev.jpg
@@ -977,7 +1803,45 @@ _quizmaker
 				language\french\feedback.php
 				language\french\main.php
 				language\french\modinfo.php
+				language\french\plugins.php
 		-plugins
+			-allumettes
+				-img
+					-dispositions
+						-old
+							plugins\allumettes\img\dispositions\old\disposition-01.png
+							plugins\allumettes\img\dispositions\old\disposition-02h.png
+							plugins\allumettes\img\dispositions\old\disposition-02v.png
+						plugins\allumettes\img\dispositions\disposition-01h.png
+						plugins\allumettes\img\dispositions\disposition-01v.png
+						plugins\allumettes\img\dispositions\disposition-02h.png
+						plugins\allumettes\img\dispositions\disposition-02v.png
+						plugins\allumettes\img\dispositions\dispositions.svg
+						plugins\allumettes\img\dispositions\index.html
+				-language
+					-english
+						plugins\allumettes\language\english\constants.php
+						plugins\allumettes\language\english\help.html
+						plugins\allumettes\language\english\index.html
+					-french
+						plugins\allumettes\language\french\constants.php
+						plugins\allumettes\language\french\help.html
+						plugins\allumettes\language\french\index.html
+					plugins\allumettes\language\index.html
+				-snapshoot
+					plugins\allumettes\snapshoot\index.html
+					plugins\allumettes\snapshoot\snapshoot-000.jpg
+					plugins\allumettes\snapshoot\snapshoot-001.jpg
+					plugins\allumettes\snapshoot\snapshoot-002.jpg
+					plugins\allumettes\snapshoot\snapshoot-003.jpg
+					plugins\allumettes\snapshoot\snapshoot-004.jpg
+					plugins\allumettes\snapshoot\snapshoot-005.jpg
+					plugins\allumettes\snapshoot\snapshoot-006.jpg
+				plugins\allumettes\allumettes.css
+				plugins\allumettes\allumettes.js
+				plugins\allumettes\allumettes.php
+				plugins\allumettes\index.html
+				plugins\allumettes\plugin_allumettes.zip
 			-alphaSimple
 				-img
 					-dispositions
@@ -1007,6 +1871,43 @@ _quizmaker
 				plugins\alphaSimple\alphaSimple.php
 				plugins\alphaSimple\index.html
 				plugins\alphaSimple\plugin_alphaSimple.zip
+			-equation
+				-img
+					-dispositions
+						-old
+							plugins\equation\img\dispositions\old\disposition-01.png
+							plugins\equation\img\dispositions\old\disposition-02h.png
+							plugins\equation\img\dispositions\old\disposition-02v.png
+						plugins\equation\img\dispositions\disposition-01h.png
+						plugins\equation\img\dispositions\disposition-01v.png
+						plugins\equation\img\dispositions\disposition-02h.png
+						plugins\equation\img\dispositions\disposition-02v.png
+						plugins\equation\img\dispositions\dispositions.svg
+						plugins\equation\img\dispositions\index.html
+				-language
+					-english
+						plugins\equation\language\english\constants.php
+						plugins\equation\language\english\help.html
+						plugins\equation\language\english\index.html
+					-french
+						plugins\equation\language\french\constants.php
+						plugins\equation\language\french\help.html
+						plugins\equation\language\french\index.html
+					plugins\equation\language\index.html
+				-snapshoot
+					plugins\equation\snapshoot\index.html
+					plugins\equation\snapshoot\snapshoot-000.jpg
+					plugins\equation\snapshoot\snapshoot-001.jpg
+					plugins\equation\snapshoot\snapshoot-002.jpg
+					plugins\equation\snapshoot\snapshoot-003.jpg
+					plugins\equation\snapshoot\snapshoot-004.jpg
+					plugins\equation\snapshoot\snapshoot-005.jpg
+					plugins\equation\snapshoot\snapshoot-006.jpg
+					plugins\equation\snapshoot\snapshoot-007.jpg
+					plugins\equation\snapshoot\snapshoot-008.jpg
+				plugins\equation\equation.php
+				plugins\equation\index.html
+				plugins\equation\plugin_equation.zip
 			-findObjects
 				-img
 					-dispositions
@@ -1225,6 +2126,82 @@ _quizmaker
 				plugins\matchItems\index.html
 				plugins\matchItems\matchItems.php
 				plugins\matchItems\plugin_matchItems.zip
+			-memory
+				-img
+				-language
+					-english
+						plugins\memory\language\english\constants.php
+						plugins\memory\language\english\help.html
+						plugins\memory\language\english\index.html
+					-french
+						plugins\memory\language\french\constants.php
+						plugins\memory\language\french\help.html
+						plugins\memory\language\french\index.html
+					plugins\memory\language\index.html
+				-snapshoot
+					plugins\memory\snapshoot\index.html
+					plugins\memory\snapshoot\snapshoot-006.jpg
+					plugins\memory\snapshoot\snapshoot-007.jpg
+					plugins\memory\snapshoot\snapshoot-008.jpg
+					plugins\memory\snapshoot\snapshoot-009.jpg
+					plugins\memory\snapshoot\snapshoot-010.jpg
+					plugins\memory\snapshoot\snapshoot-011.jpg
+					plugins\memory\snapshoot\snapshoot-012.jpg
+				plugins\memory\index.html
+				plugins\memory\memory.php
+				plugins\memory\plugin_memory.zip
+			-memosuite
+				-img
+				-language
+					-english
+						plugins\memosuite\language\english\constants.php
+						plugins\memosuite\language\english\help.html
+						plugins\memosuite\language\english\index.html
+					-french
+						plugins\memosuite\language\french\constants.php
+						plugins\memosuite\language\french\help.html
+						plugins\memosuite\language\french\index.html
+					plugins\memosuite\language\index.html
+				-snapshoot
+					plugins\memosuite\snapshoot\index.html
+					plugins\memosuite\snapshoot\snapshoot-000.jpg
+					plugins\memosuite\snapshoot\snapshoot-001.jpg
+					plugins\memosuite\snapshoot\snapshoot-002.jpg
+					plugins\memosuite\snapshoot\snapshoot-003.jpg
+					plugins\memosuite\snapshoot\snapshoot-004.jpg
+					plugins\memosuite\snapshoot\snapshoot-005.jpg
+				plugins\memosuite\index.html
+				plugins\memosuite\memosuite.php
+				plugins\memosuite\plugin_memosuite.zip
+			-monkey
+				-img
+					-dispositions
+						plugins\monkey\img\dispositions\disposition-00.png
+						plugins\monkey\img\dispositions\disposition-01.png
+						plugins\monkey\img\dispositions\disposition-02.png
+						plugins\monkey\img\dispositions\dispositions-01.svg
+						plugins\monkey\img\dispositions\index.html
+				-language
+					-english
+						plugins\monkey\language\english\constants.php
+						plugins\monkey\language\english\help.html
+						plugins\monkey\language\english\index.html
+					-french
+						plugins\monkey\language\french\constants.php
+						plugins\monkey\language\french\help.html
+						plugins\monkey\language\french\index.html
+					plugins\monkey\language\index.html
+				-snapshoot
+					plugins\monkey\snapshoot\index.html
+					plugins\monkey\snapshoot\snapshoot-001.jpg
+					plugins\monkey\snapshoot\snapshoot-002.jpg
+					plugins\monkey\snapshoot\snapshoot-003.jpg
+					plugins\monkey\snapshoot\snapshoot-004.jpg
+					plugins\monkey\snapshoot\snapshoot-005.jpg
+					plugins\monkey\snapshoot\snapshoot-006.jpg
+				plugins\monkey\index.html
+				plugins\monkey\monkey.php
+				plugins\monkey\plugin_monkey.zip
 			-multiQuestions
 				-img
 					-dispositions
@@ -1339,6 +2316,35 @@ _quizmaker
 					plugins\pageInfo\snapshoot\snapshoot-001.jpg
 				plugins\pageInfo\index.html
 				plugins\pageInfo\pageInfo.php
+			-pendu
+				-img
+					-dispositions
+						plugins\pendu\img\dispositions\disposition-00.png
+						plugins\pendu\img\dispositions\disposition-01.png
+						plugins\pendu\img\dispositions\dispositions-01.svg
+						plugins\pendu\img\dispositions\index.html
+					plugins\pendu\img\index.html
+				-language
+					-english
+						plugins\pendu\language\english\constants.php
+						plugins\pendu\language\english\help.html
+						plugins\pendu\language\english\index.html
+					-french
+						plugins\pendu\language\french\constants.php
+						plugins\pendu\language\french\help.html
+						plugins\pendu\language\french\index.html
+					plugins\pendu\language\index.html
+				-snapshoot
+					plugins\pendu\snapshoot\index.html
+					plugins\pendu\snapshoot\snapshoot-000.jpg
+					plugins\pendu\snapshoot\snapshoot-001.jpg
+					plugins\pendu\snapshoot\snapshoot-002.jpg
+					plugins\pendu\snapshoot\snapshoot-003.jpg
+					plugins\pendu\snapshoot\snapshoot-004.jpg
+				plugins\pendu\index.html
+				plugins\pendu\Pendu.lnk
+				plugins\pendu\pendu.php
+				plugins\pendu\plugin_pendu.zip
 			-puzzle
 				-img
 				-language
@@ -1399,12 +2405,29 @@ _quizmaker
 			-selectImages
 				-img
 					-dispositions
-						plugins\selectImages\img\dispositions\disposition-01.png
-						plugins\selectImages\img\dispositions\disposition-02.png
-						plugins\selectImages\img\dispositions\disposition-03.png
-						plugins\selectImages\img\dispositions\dispositions-01.svg
-						plugins\selectImages\img\dispositions\dispositions-02.svg
-						plugins\selectImages\img\dispositions\index.html
+						-classic
+							plugins\selectImages\img\dispositions\classic\disposition-0.png
+							plugins\selectImages\img\dispositions\classic\disposition-1.png
+							plugins\selectImages\img\dispositions\classic\disposition-2.png
+							plugins\selectImages\img\dispositions\classic\disposition-3.png
+							plugins\selectImages\img\dispositions\classic\disposition-4.png
+							plugins\selectImages\img\dispositions\classic\disposition-5.png
+							plugins\selectImages\img\dispositions\classic\dispositions.svg
+							plugins\selectImages\img\dispositions\classic\index.html
+						-coches
+							plugins\selectImages\img\dispositions\coches\disposition-01.png
+							plugins\selectImages\img\dispositions\coches\disposition-02.png
+							plugins\selectImages\img\dispositions\coches\disposition-03.png
+							plugins\selectImages\img\dispositions\coches\dispositions-01.svg
+							plugins\selectImages\img\dispositions\coches\dispositions-02.svg
+							plugins\selectImages\img\dispositions\coches\index.html
+						-images
+							plugins\selectImages\img\dispositions\images\disposition-01.png
+							plugins\selectImages\img\dispositions\images\disposition-02.png
+							plugins\selectImages\img\dispositions\images\disposition-03.png
+							plugins\selectImages\img\dispositions\images\dispositions-01.svg
+							plugins\selectImages\img\dispositions\images\dispositions-02.svg
+							plugins\selectImages\img\dispositions\images\index.html
 					plugins\selectImages\img\index.html
 				-language
 					-english
@@ -1421,38 +2444,11 @@ _quizmaker
 					plugins\selectImages\snapshoot\snapshoot-000.jpg
 					plugins\selectImages\snapshoot\snapshoot-001.jpg
 					plugins\selectImages\snapshoot\snapshoot-002.jpg
+					plugins\selectImages\snapshoot\snapshoot-003.jpg
+					plugins\selectImages\snapshoot\snapshoot-004.jpg
+					plugins\selectImages\snapshoot\snapshoot-005.jpg
 				plugins\selectImages\index.html
-				plugins\selectImages\plugin_selectImages.zip
 				plugins\selectImages\selectImages.php
-			-selectInputs
-				-img
-					-dispositions
-						plugins\selectInputs\img\dispositions\disposition-0.png
-						plugins\selectInputs\img\dispositions\disposition-1.png
-						plugins\selectInputs\img\dispositions\disposition-2.png
-						plugins\selectInputs\img\dispositions\disposition-3.png
-						plugins\selectInputs\img\dispositions\disposition-4.png
-						plugins\selectInputs\img\dispositions\disposition-5.png
-						plugins\selectInputs\img\dispositions\dispositions.svg
-						plugins\selectInputs\img\dispositions\index.html
-				-language
-					-english
-						plugins\selectInputs\language\english\constants.php
-						plugins\selectInputs\language\english\help.html
-						plugins\selectInputs\language\english\index.html
-					-french
-						plugins\selectInputs\language\french\constants.php
-						plugins\selectInputs\language\french\help.html
-						plugins\selectInputs\language\french\index.html
-					plugins\selectInputs\language\index.html
-				-snapshoot
-					plugins\selectInputs\snapshoot\index.html
-					plugins\selectInputs\snapshoot\snapshoot-000.jpg
-					plugins\selectInputs\snapshoot\snapshoot-001.jpg
-					plugins\selectInputs\snapshoot\snapshoot-002.jpg
-				plugins\selectInputs\index.html
-				plugins\selectInputs\plugin_selectInputs.zip
-				plugins\selectInputs\selectInputs.php
 			-sortItems
 				-img
 					-buttons
@@ -1489,6 +2485,27 @@ _quizmaker
 				plugins\sortItems\index.html
 				plugins\sortItems\plugin_sortItems.zip
 				plugins\sortItems\sortItems.php
+			-taquin
+				-img
+				-language
+					-english
+						plugins\taquin\language\english\constants.php
+						plugins\taquin\language\english\help.html
+						plugins\taquin\language\english\index.html
+					-french
+						plugins\taquin\language\french\constants.php
+						plugins\taquin\language\french\help.html
+						plugins\taquin\language\french\index.html
+					plugins\taquin\language\index.html
+				-snapshoot
+					plugins\taquin\snapshoot\index.html
+					plugins\taquin\snapshoot\snapshoot-000.jpg
+					plugins\taquin\snapshoot\snapshoot-001.jpg
+					plugins\taquin\snapshoot\snapshoot-002.jpg
+					plugins\taquin\snapshoot\snapshoot-003.jpg
+				plugins\taquin\index.html
+				plugins\taquin\plugin_taquin.zip
+				plugins\taquin\taquin.php
 			-textMixte
 				-img
 					-dispositions
@@ -1554,9 +2571,35 @@ _quizmaker
 			plugins_include\index.html
 			plugins_include\options_disposition.php
 			plugins_include\options_groups.php
-			plugins_include\options_transition.php
+			plugins_include\options_messages.php
+			plugins_include\options_variant.php
 			plugins_include\options_zoom.php
 			plugins_include\saveAnswers.php
+		-plugins_old
+			-memory
+				-img
+				-language
+					-english
+						plugins_old\memory\language\english\constants.php
+						plugins_old\memory\language\english\help.html
+						plugins_old\memory\language\english\index.html
+					-french
+						plugins_old\memory\language\french\constants.php
+						plugins_old\memory\language\french\help.html
+						plugins_old\memory\language\french\index.html
+					plugins_old\memory\language\index.html
+				-snapshoot
+					plugins_old\memory\snapshoot\index.html
+					plugins_old\memory\snapshoot\snapshoot-006.jpg
+					plugins_old\memory\snapshoot\snapshoot-007.jpg
+					plugins_old\memory\snapshoot\snapshoot-008.jpg
+					plugins_old\memory\snapshoot\snapshoot-009.jpg
+					plugins_old\memory\snapshoot\snapshoot-010.jpg
+					plugins_old\memory\snapshoot\snapshoot-011.jpg
+					plugins_old\memory\snapshoot\snapshoot-012.jpg
+				plugins_old\memory\index.html
+				plugins_old\memory\memory.php
+				plugins_old\memory\plugin_memory.zip
 		-preloads
 			preloads\autoloader.php
 			preloads\core.php
@@ -1565,8 +2608,8 @@ _quizmaker
 			sql\datasql.sql
 			sql\index.html
 			sql\mysql.sql
-		+templates
-			+admin
+		-templates
+			-admin
 				templates\admin\index.html
 				templates\admin\quizmaker_admin_answers.tpl
 				templates\admin\quizmaker_admin_categories.tpl
@@ -1583,6 +2626,9 @@ _quizmaker
 				templates\admin\quizmaker_admin_participation_cookies.tpl
 				templates\admin\quizmaker_admin_participation_results.tpl
 				templates\admin\quizmaker_admin_play_quiz.tpl
+				templates\admin\quizmaker_admin_players.tpl
+				templates\admin\quizmaker_admin_players_cookies.tpl
+				templates\admin\quizmaker_admin_players_results.tpl
 				templates\admin\quizmaker_admin_plugins.tpl
 				templates\admin\quizmaker_admin_plugins_help.tpl
 				templates\admin\quizmaker_admin_questions.tpl
@@ -1631,7 +2677,6 @@ _quizmaker
 		-versions
 			versions\index.html
 		_quizmaker.ppr
-		_quiz-org.lnk
 		_quiz-org.ppr.lnk
 		_upload-quiz-js.lnk
 		categories.php
@@ -1645,9 +2690,11 @@ _quizmaker
 		index.php
 		list.tag.php
 		notification_update.php
+		Nouveau1.php
 		quiz.php
 		quiz_display.php
 		quiz_display_db.php
+		quiz-org.lnk
 		readme.php
 		results.php
 		results_submit.php
@@ -1655,42 +2702,14 @@ _quizmaker
 		view.tag.php
 		xoops_version.php
 [Open project files]
-0=xoops_version.php
-1=docs\changelog.txt
-2=templates\quizmaker_categories_theme.tpl
-3=templates\quizmaker_categories_item.tpl
-4=templates\quizmaker_categories.tpl
-5=templates\quizmaker_quiz.tpl
-6=templates\quizmaker_quiz_item.tpl
-7=quiz.php
-8=categories.php
+0=docs\changelog.txt
+1=xoops_version.php
 [Selected Project Files]
 Main=
-Selected=templates\quizmaker_categories_item.tpl
-[xoops_version.php]
-TopLine=445
-Caret=1,483
+Selected=xoops_version.php
 [docs\changelog.txt]
 TopLine=1
-Caret=41,19
-[templates\quizmaker_categories_theme.tpl]
-TopLine=1
-Caret=11,18
-[templates\quizmaker_categories_item.tpl]
-TopLine=1
-Caret=26,24
-[templates\quizmaker_categories.tpl]
-TopLine=1
-Caret=1,18
-[templates\quizmaker_quiz.tpl]
-TopLine=17
-Caret=1,69
-[templates\quizmaker_quiz_item.tpl]
-TopLine=1
+Caret=25,2
+[xoops_version.php]
+TopLine=13
 Caret=1,1
-[quiz.php]
-TopLine=164
-Caret=39,199
-[categories.php]
-TopLine=27
-Caret=1,51

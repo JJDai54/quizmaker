@@ -38,9 +38,9 @@ List of characters or expressions that supplement the suggestions to facilitate 
 <br>When this list is used, it is not necessary to enter them in the list of suggestions.
 __exp__);
 
-define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE', "Directive");
-define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC', "Action to be performed displayed above the letters.");
-define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB', "Click on one or more letters or numbers.");
+define('_AP_QUIZMAKER_DIRECTIVE', "Directive");
+define('_AP_QUIZMAKER_DIRECTIVE_DESC', "Action to be performed displayed above the letters.");
+define('_LG_PLUGIN_DIRECTIVE_LIB', "Click on one or more letters or numbers.");
 define('_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS', "Ignore accents.");
 
 define('_LG_PLUGIN_ALPHASIMPLE_NEXT_SLIDE', "Message");

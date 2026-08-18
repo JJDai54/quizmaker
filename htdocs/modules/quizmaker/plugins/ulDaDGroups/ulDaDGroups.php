@@ -33,6 +33,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 class Plugin_ulDaDGroups extends XoopsModules\Quizmaker\Plugins
 {
 var $maxGroups = 4;     
+var $obligatorys = 2;
 
 	/**
 	 * Constructor 
@@ -75,7 +76,7 @@ var $maxGroups = 4;
       //--------------------------------------------------------------------           
     
       $name = 'ulWidth';  
-      $inpUlWidth = new \XoopsFormNumber(_LG_PLUGIN_ULDADGROUPS_UL_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpUlWidth = new \XoopsFormNumber(_AP_QUIZMAKER_UL_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpUlWidth->setMinMax(20, 100, _AM_QUIZMAKER_UNIT_PERCENT);
       $trayOptions ->addElementOption($inpUlWidth);     
       
@@ -134,13 +135,7 @@ public function getFormGroup(&$trayAllAns, $group, $answers,$titleGroup, $firstI
 { 
         //suppression des enregistrement en trop
         if(count($answers) > $maxItems) $this->deleteToMuchItems($answers, $maxItems);
-//        $lib = "<div style='background:black;color:white;'><center>" . $titleGroup . "</center></div>";        
-//        $trayAllAns->addElement(new \XoopsFormLabel('',$lib));
         $weight = 0;
-//        $imgPath = QUIZMAKER_PATH_QUIZ_JS . '/images/substitut';
-//        $imgUrl = QUIZMAKER_URL_QUIZ_JS . '/images/substitut';
-        //$imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
-//$this->echoAns ($imgList,'{$imgPath}', false);   
       
         $tbl = $this->getNewXoopsTableXtray();
         $tbl->addTitleArray(['',_AM_QUIZMAKER_PLUGIN_LABEL,_AM_QUIZMAKER_PLUGIN_BACKGROUND,_AM_QUIZMAKER_PLUGIN_GROUP,_AM_QUIZMAKER_PLUGIN_POINTS,_AM_QUIZMAKER_PLUGIN_WEIGHT]);

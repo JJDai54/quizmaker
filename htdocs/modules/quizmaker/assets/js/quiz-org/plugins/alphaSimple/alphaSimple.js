@@ -150,7 +150,7 @@ var points = 0;
 var bolOk = 1;
 var idx = 0;
 
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     
     var tReponses = document.getElementById(this.idDivReponse).innerHTML.toLowerCase().split(this.sep);
 
@@ -174,7 +174,7 @@ var idx = 0;
   
 //---------------------------------------------------
 getAllPropositions (flag = 0){
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     var tReponses = [];
     
     for(var i in currentQuestion.answers){
@@ -195,7 +195,7 @@ getAllPropositions (flag = 0){
 * **** */
   showGoodAnswers()
   {
-    var  currentQuestion = this.question;
+    let  currentQuestion = this.question;
     var tReponses = [];
     
     for(var i in currentQuestion.answers){
@@ -460,7 +460,7 @@ var sep = clQuestion.sep;
       clQuestion.data.nbClicks++;
     }else{
         var tRep = obRep.innerHTML.split(sep);
-console.log (nbSoluces + "-" + tRep.length);
+//console.log (nbSoluces + "-" + tRep.length);
         tRep.push(newValue);
         while (tRep.length > nbSoluces){
             tRep.shift();
@@ -470,12 +470,12 @@ console.log (nbSoluces + "-" + tRep.length);
 
     }
     
-    var gotoNexSlide = (clQuestion.question.options.nextSlideDelai * 1 > 0 && clQuestion.data.nbClicks == nbSoluces);
+    var gotoNexSlide = (clQuestion.question.options.msg_nextslide_duree * 1 > 0 && clQuestion.data.nbClicks == nbSoluces);
     //alert (clQuestion.getScoreByProposition() + " / " + clQuestion.scoreMaxiBP);
     if(gotoNexSlide){
-        var msg = (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP) ? options.nextSlideMessageWinner : options.nextSlideMessageLooser;
+        var msg = (clQuestion.getScoreByProposition() == clQuestion.scoreMaxiBP) ? options.msg_nextslide_winner : options.msg_nextslide_looser;
         msg = fo_sprint(msg);
-        quiz_show_avertissement (msg, options.nextSlideDelai, options.nextSlideBG);
+        quiz_show_avertissement (msg, options.msg_nextslide_duree, options.msg_nextslide_background);
     }  
     ev.stopPropagation();
 

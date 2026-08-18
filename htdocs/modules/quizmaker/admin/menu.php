@@ -68,6 +68,19 @@ $adminmenu[] = [
 	'link' => 'admin/answers.php',
 	'icon' => 'assets/icons/32/index.png',
 ];
+
+$adminmenu[] = [
+	'title' => _MI_QUIZMAKER_PARTICIPATION,
+	'link' => 'admin/participation.php',
+	'icon' => 'assets/icons/32/calculator.png',
+];
+
+$adminmenu[] = [
+	'title' => _MI_QUIZMAKER_PLAYERS,
+	'link' => 'admin/players.php',
+	'icon' => 'assets/icons/32/player.png',
+];
+
 $adminmenu[] = [
 	'title' => _MI_QUIZMAKER_RESSOURCES,
 	'link' => 'admin/ressources.php',
@@ -109,11 +122,6 @@ $adminmenu[] = [
 // 	'link' => 'admin/results.php',
 // 	'icon' => 'assets/icons/32/calculator.png',
 // ];
-$adminmenu[] = [
-	'title' => _MI_QUIZMAKER_PARTICIPATION,
-	'link' => 'admin/participation.php',
-	'icon' => 'assets/icons/32/calculator.png',
-];
 
 /* provisoirement mis dans un champ de categorie
 $adminmenu[] = [

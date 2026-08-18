@@ -46,8 +46,8 @@ define('_LG_PLUGIN_TEXTMIXTE_CLEAR_ALL_ACCOLADES', "Remove all braces.");
 
 define('_LG_PLUGIN_TEXTMIXTE_ADD_BAD_EXP', "Add unwanted words or phrases.<br>These phrases are intended to confuse the user.<br><b>Important</b>: This list is only used with drop-down lists (see the \"Presentation\" option above).");
       
-define('_LG_PLUGIN_TEXTMIXTE_TOKEN_COLOR',"Token color");
-define('_LG_PLUGIN_TEXTMIXTE_WORD_COLOR',"Token color");
-define('_LG_PLUGIN_TEXTMIXTE_LINE_HEIGHT',"Line spacing height (em)");
+define('_LG_PLUGIN_TEXTMIXTE_TOKEN__AP_QUIZMAKER_COLOR',"Token color");
+define('_LG_PLUGIN_TEXTMIXTE_WORD__AP_QUIZMAKER_COLOR',"Token color");
+define('_AP_QUIZMAKER_TEXT_LINE_HEIGHT',"Line spacing height (em)");
 
 ?>

@@ -19,16 +19,14 @@ function addNewChild(parentId){
 
 
 
-
-
+      <{* ======================================================== *}> 
+<{if $questions_list}>
 <form name='quizmaker_select_filter' id='quizmaker_select_filter' action='questions.php' method='post' onsubmit='return xoopsFormValidate_form();' enctype=''>
 <input type="hidden" name="op" value="list" />
 <input type="hidden" name="sender" value="0" />
 <input type="hidden" name="quest_parent_id" value="0" />
 <div>
 <div class="floatleft">
-
-      <{* ======================================================== *}> 
       <table>
         <tr>
           <td><{$selectors.cat.select}></td>
@@ -46,7 +44,7 @@ function addNewChild(parentId){
         </tr>
       </table>
     </div>
-<{if $questions_list}>
+
 <div class="floatright">
     <div class="xo-buttons">
         <{$actions}>
@@ -70,11 +68,10 @@ function addNewChild(parentId){
 <{if $exportCount > 0}>
     <hr><{$exportList}><hr>
 <{/if}>
+
 <{* ======================================================== *}> 
 <{if $questions_list}>
-<br>
- 
-  
+
 <form name='quizmaker_list' id='quizmaker_list' action='questions.php' method='post' enctype=''>
 <input type="hidden" name="op"       value="update_list" />
 <input type="hidden" name="cat_id"   value="<{$update_cat_id}>" />
@@ -86,7 +83,8 @@ function addNewChild(parentId){
 			<tr class='head'>
 <{*				<th class="center">*</th> *}>
 				<th class="center"><{$smarty.const.QUIZMAKER_TPL_DELETE}></th>
- 				<th class="center"></th> 
+ 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ROW}></th> 
+ 				<th class="center"><{$smarty.const._AM_QUIZMAKER_QUESTION}></th> 
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_PARENT_ID}></th>
 				<th class="center"><{$smarty.const._AM_QUIZMAKER_REFERENCE_ID}></th>
@@ -112,7 +110,7 @@ function addNewChild(parentId){
 *}>
             
 			<{foreach item="Questions" from=$questions_list name=quest key=index}>
-                  <{assign var="deleteOk" value=false}>
+                <{assign var="deleteOk" value=false}>
                 <{if $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_BEGIN}>
                   <{assign var="fldImg" value="red"}>
                   <{assign var="styleParent" value="style='background:navajowhite;'"}>
@@ -153,21 +151,24 @@ function addNewChild(parentId){
 				<td class='center' <{$styleParent}> ></td>      
                 <{/if}>
                          
-                <{if $Questions.actif AND $Questions.isQuestion}>
+				<td class='center width5' <{$styleParent}> ><{$index}></td>
+                <{if $Questions.actif AND $Questions.visible AND $Questions.isQuestion}>
                     <{assign var="indexJS" value=$indexJS+1}>
-				    <td class='center width5' <{$styleParent}> ><{$index}>/q-<{$indexJS}></td>
+				    <td class='center width5' <{$styleParent}> ><b><{$indexJS}></b></td>
                 <{else}>
-				    <td class='center width5' <{$styleParent}> ><{$index}>/##<{$Question.isQuestion}></td>
+				    <td class='center width5' <{$styleParent}> >##</td>
                 <{/if}>
                 
 				<td class='center' <{$styleParent}> ><a name='question-<{$Questions.id}>' /><{$Questions.id}></td>
                 
                 <{* --------- groupes  ------------------*}>                
 				<td class='center' <{$styleParent}> ><{$Questions.parent_id}>
-                    <{if $Questions.parent_id > 0 AND $Questions.plugin<>'pageAnswer'}>
+                    <{if $Questions.parent_id > 0 AND $Questions.plugin <> 'pageAnswer'}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=0" title="<{$smarty.const._AM_QUIZMAKER_OUT_OF_GROUP}>">
                             <img src="<{$modUrlIcon16}>/out_group-red.png" alt="questions" />
                             </a>
+                    <{elseif $Questions.parent_id > 0 AND $Questions.plugin == 'pageAnswer'}>
+                          <img src="<{$modUrlIcon16}>/blank.png" alt="" />
                     <{elseif $Questions.typeForm == $smarty.const.QUIZMAKER_TYPE_FORM_GROUP}>
     					<a href="questions.php?op=set_value&quest_id=<{$Questions.id}>&quiz_id=<{$Questions.quiz_id}>&field=quest_parent_id&value=0&doItForGroup=1" title="<{$smarty.const._AM_QUIZMAKER_CHILDREN_OUT_OF_GROUP}>">
                             <img src="<{$modUrlIcon16}>/out_of_group-red.png" alt="questions" />
@@ -232,6 +233,12 @@ function addNewChild(parentId){
 				
                 <td class='center width10' <{$styleParent}> >
                       <{$Questions.inpTimer}><{$Questions.inpStartTimer}>
+<{*
+                      <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_start_timer&modulo=3"  title='' >
+        				 <img src="<{$modUrlIcon16}>/timer-<{$Questions.start_timer}>.png" alt="'" title='<{$smarty.const._AM_QUIZMAKER_TIMER}>' />
+                      </a>                      
+*}>
+
                 </td>
     
 				<{* <td class='center' <{$styleParent}> ><{$Questions.creation}></td> *}>
@@ -248,7 +255,7 @@ function addNewChild(parentId){
                     <{/if}>
 				</td>
                 
-				<td class="center width10" <{$styleParent}> >
+				<td class="center width15" <{$styleParent}> >
                     <{if $Questions.plugin <> 'pageBegin'}>
 
                     <a href="questions.php?op=change_etat&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>&field=quest_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
@@ -266,11 +273,13 @@ function addNewChild(parentId){
   					<a href="answers.php?cat_id=<{$cat_id}>&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._AM_QUIZMAKER_PROPOSITION}>" target="_blank">
                           <img src="<{$modUrlIcon16}>proposition.png" alt="" />
                      </a>
+    					<a href="questions.php?op=sendto&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._AM_QUIZMAKER_QUESTION_SENDTO}>">
+                            <img src="<{$modUrlIcon16}>/sendto.png" alt="Clone" />
+                        </a>
                         
                     <{if $Questions.canDelete OR $isAdmin}>
 <{* action du clone a revoir : probleme : copie de la table enfant au détriment de la question source
 pour permettre l suppression des pages begin et end quand il y a doublon
-                    <{if $Questions.canDelete OR $isAdmin}>
 *}>                     
     					<a href="questions.php?op=clone&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" title="<{$smarty.const._CLONE}>">
                             <img src="<{xoModuleIcons16}>/editcopy.png" alt="Clone" />
@@ -293,7 +302,12 @@ pour permettre l suppression des pages begin et end quand il y a doublon
                           </a>
                     <{else}>
                           <img src="<{$modUrlIcon16}>/blank.png" alt="" />
-                    <{/if}>    
+                    <{/if}>   
+				   <a href="answers.php?op=list&quiz_id=<{$Questions.quiz_id}>&quest_id=<{$Questions.id}>" target="blank" title="<{$smarty.const._AM_QUIZMAKER_DETAIL}>">
+                        <img src="<{xoModuleIcons16}>/inserttable.png" alt="" />
+                    </a>
+
+
 				</td>
 			</tr>
 			<{/foreach}>
@@ -328,15 +342,14 @@ quizmaker_scrollWin();
 //reloadPluginSnapshoots("modelesPluginId");
 
 tth_set_value('last_asc', true);
-tth_trierTableau('quiz_question_list', 9);   <{* tri sur le colonne weight *}>
+tth_trierTableau('quiz_question_list', 10);   <{* tri sur le colonne weight *}>
 
 </script>
 
 <{/if}>
+
 <{if $form}>
-<hr>
 	<{$form}>
-<hr>
 <{/if}>
 
 <{* <{if $error}> 

@@ -19,8 +19,8 @@
  * @author Jean-Jacques DELALANDRE (jjdelalandre@orange.fr)
  * @version {version}
  * Traduction:  
- */
- 
+ */   
+  
 defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 define('_AM_QUIZMAKER_ACTIF', "Actif");
@@ -41,13 +41,12 @@ define('_AM_QUIZMAKER_PROPOSITIONS_PROPOSITION', "Proposition");
 define('_AM_QUIZMAKER_PROPOSITIONS_QUESTION_ID', "Question id");
 define('_AM_QUIZMAKER_PROPOSITIONS_TOTAL', "Nombre total de questions");
 define('_AM_QUIZMAKER_AUTO', "Automatique");
-define('_AM_QUIZMAKER_BACKGROUND', "Couleur du fond");
 define('_AM_QUIZMAKER_BAD_PROPOSITIONS', "Mauvaises réponses");
 define('_AM_QUIZMAKER_BATCH_IMPORT', "Importation par lot de quiz");
 define('_AM_QUIZMAKER_BATCH_IMPORT_DESC', "<span style='color:red;'>Pour l'importation par lot des archives \"zip\" doivent être placées dans le dossier uploads/quizmaker/import_batch via FTP.</span>");
 define('_AM_QUIZMAKER_BUFFER', "Buffer");
 define('_AM_QUIZMAKER_BUILD_QUIZ', "Générer le quiz");
-define('_AM_QUIZMAKER_BUTTONS_COLOR', "Couleur des boutons");
+define('_AM_QUIZMAKER_BUTTONS__AP_QUIZMAKER_COLOR', "Couleur des boutons");
 define('_AM_QUIZMAKER_CAPTION', "Titre");
 define('_AM_QUIZMAKER_CARS_TO_REPLACE', "Caractères de remplacement");
 define('_AM_QUIZMAKER_CAT_NOT_EMPTY', "La catégorie n'est pas vide");
@@ -73,7 +72,7 @@ define('_AM_QUIZMAKER_CLONE_NAME', "Choisissez un nom pour le nouveau module");
 define('_AM_QUIZMAKER_CLONE_NAME_DSC', "N'utilisez pas de caractères spéciaux ! <br>Ne choisissez pas un nom de répertoire de module ou un nom de table de base de données existant !");
 define('_AM_QUIZMAKER_CLONE_TITLE', "Clone %s");
 define('_AM_QUIZMAKER_CODE', "Code");
-define('_AM_QUIZMAKER_COLOR', "Couleur du texte");
+define('_AM_QUIZMAKER__AP_QUIZMAKER_COLOR', "Couleur du texte");
 define('_AM_QUIZMAKER_COMPUTE_WEIGHT', "Initialisation du poids");
 define('_AM_QUIZMAKER_CONFIGS_OPTIONS', "Configurations");
 define('_AM_QUIZMAKER_CONFIRM_RAS_RESULTS', "Confirmer la suppression des résultats du quiz <b>%s (#%s) ?</b>");
@@ -87,8 +86,6 @@ define('_AM_QUIZMAKER_DESCRIPTION', "Description");
 define('_AM_QUIZMAKER_DESCRIPTION_DESC', "Texte affiché sur la page d'introduction du quiz");
 define('_AM_QUIZMAKER_DIRECTIVE', "Directive");
 define('_AM_QUIZMAKER_DIRECTIVE_DESC', "Indiquer ici une action à faire, une aide ou toute indication utile.");
-define('_AM_QUIZMAKER_DISPOSITION', "Disposition");
-define('_AM_QUIZMAKER_DISPOSITION_DESC', "<b>Important</b> : <br>-Si l'image principale n'est pas définie, ce sont les dispositions principales sans les images qui seront utilisées.<br>-dans le cas de plugins avec des groupes, sélectionnez une disposition qui corresponde au nombre de groupes qui on été définis.");
 define('_AM_QUIZMAKER_DOWN', "Redescendre");
 define('_AM_QUIZMAKER_DOWNLOAD_OK', "Le téléchargement va démarrer. Si il ne démarre pas cliquer sur le lien direct ici ===>");
 define('_AM_QUIZMAKER_EDIT_QUIZ', "Editer le quiz");
@@ -125,14 +122,22 @@ define('_AM_QUIZMAKER_FORM_SURE_CLONE_OK', "La question a été cloner avec succ
 define('_AM_QUIZMAKER_FORM_TYPE_SHORT', "Formulaire");
 define('_AM_QUIZMAKER_GROUP', "Groupe");
 define('_AM_QUIZMAKER_GROUP_ALL', "Tous les groupes");
+define('_AM_QUIZMAKER_GROUP_ONE_ONLY', "Un seul groupe visible");
 define('_AM_QUIZMAKER_GROUP_DEFAULT', "Groupe par défaut");
+define('_AM_QUIZMAKER_GROUP_DEFAULT_DESC', "<b>Tous les groupes :</b> Les items sont placés de manière alétoires dans les listes. le score sera la somme des points de tous les items s'il sont dans le bon groupe.<br>Dans ce cas il est possible qu'à l'initialisation du slide le score soit déjà positif.
+<br>- <b>groupe 0 :</b> tous les items seront placés dans ce groupe à l'initialisation du slide. De plus tous les items se trouvant dans ce groupe compte pour 0 points.
+<br>- <b>groupe 1 :</b> idem groupe 0
+<br>- <b>groupe 2 :</b> idem groupe 0
+<br>- <b>Un seul groupe visible :</b>Il ne faut définir que deux groupes dans ce cas. le groupe par défaut est le premier et le deuxième est masqué. Comme la deuxième liste est masquée, il n'y a pas de droit à l'erreur, aucune correction n'est possible.");
+
+
 define('_AM_QUIZMAKER_GROUP_LIB', "Libellé du groupe");
 define('_AM_QUIZMAKER_GROUP_TO', "Groupe");
 define('_AM_QUIZMAKER_GROUP_TO_DESC', "Optionel, permet d'ajouter les questions dans un nouveau groupe.");
 define('_AM_QUIZMAKER_HELP', "Aide");
 define('_AM_QUIZMAKER_ICONE', "Icone");
 define('_AM_QUIZMAKER_IMAGE', "Image");
-define('_AM_QUIZMAKER_BACKGROUND_MAIN', "Image de fond (texture)");
+define('_AP_QUIZMAKER_BACKGROUND_MAIN', "Image de fond (texture)");
 define('_AM_QUIZMAKER_IMAGE_MAIN', "Image principale");
 define('_AM_QUIZMAKER_IMG_HEIGHT1', "Hauteur de l'image");
 define('_AM_QUIZMAKER_IMG_SUBSTITUT', "Image de Substitution");
@@ -179,7 +184,7 @@ define('_AM_QUIZMAKER_OPTIONAL', "Optionnel");
 define('_AM_QUIZMAKER_OPTIONS', "Options");
 define('_AM_QUIZMAKER_OPTIONS_ADD', "Ajouter une option de configuration");
 define('_AM_QUIZMAKER_OPTIONS_EDIT', "Editer une option de configuration");
-define('_AM_QUIZMAKER_OPTIONS_FOR_DEV', "Options pour le développement - Laiser  \"Non\" ces options en production");
+define('_AM_QUIZMAKER_OPTIONS_FOR_DEV', "Options pour le développement - Laisser  \"Non\" ces options en production");
 define('_AM_QUIZMAKER_OPTIONS_FOR_QUIZ', "Options du quiz");
 define('_AM_QUIZMAKER_ORDER_ALLOWED', "Ordre autorisé");
 define('_AM_QUIZMAKER_ORIENTATION', "Orientation");
@@ -328,10 +333,14 @@ define('_AM_QUIZMAKER_QUIZ_SHOW_ALLOWEDSUBMIT', "Bouton de soumission");
 define('_AM_QUIZMAKER_QUIZ_SHOW_ALLOWEDSUBMIT_DESC', "Permet d'nregistrer les scores");
 define('_AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS', "Bouton \"Mauvaises réponses\"");
 define('_AM_QUIZMAKER_QUIZ_SHOW_BAD_ANSWERS_DESC', "Utiliser pour le développement.");
+define('_AM_QUIZMAKER_QUIZ_SHOW_CHEATER', "Bouton \"Tricheur\"");
+define('_AM_QUIZMAKER_QUIZ_SHOW_CHEATER_DESC', "Affiche la bonne réponse et passe au slide suivant. Utiliser pour le développement.");
+define('_AM_QUIZMAKER_QUIZ_SHOW_MODE_NORMAL', "Bouton \"Mode normal\"");
+define('_AM_QUIZMAKER_QUIZ_SHOW_MODE_NORMAL_DESC', "Bouton à bascule qui active ou désactive le mode plein ecran et masque.");
 define('_AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS', "Bouton \"Réinitialiser\"");
 define('_AM_QUIZMAKER_QUIZ_SHOW_BTN_RELOAD_ANSWERS_DESC', "Permet de réinitialiser la question courante.");
 define('_AM_QUIZMAKER_QUIZ_SHOW_CONSIGNE', "Bouton d'aide");
-define('_AM_QUIZMAKER_QUIZ_SHOW_CONSIGNE_DESC', "Affiche le bouton d'aide des types de question ssous la forme d'un point d'interrotgation");
+define('_AM_QUIZMAKER_QUIZ_SHOW_CONSIGNE_DESC', "Affiche le bouton d'aide sous la forme d'un point d'interrotgation.<br>Reprend la consigne définie dans dans chaque plugin.");
 define('_AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS', "Bouton \"Bonnes réponses\"");
 define('_AM_QUIZMAKER_QUIZ_SHOW_GOOD_ANSWERS_DESC', "Utiliser pour le développement.");
 define('_AM_QUIZMAKER_QUIZ_SHOW_GOTO_SLIDE', "Aller au slide");
@@ -350,14 +359,15 @@ define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM', "Afficher les réponses");
 define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES_BOTTOM_DESC', "Permet d'afficher les réponses en bas de page.");
 define('_AM_QUIZMAKER_QUIZ_SHOW_SHOW_RIGHT_CLICK_MENU', "Menu Click droit");
 define('_AM_QUIZMAKER_QUIZ_SHOW_SHOW_RIGHT_CLICK_MENU_DESC', "Active ou désactive le menu sur le click droit de la souris.");
-//define('_AM_QUIZMAKER_QUIZ_SHOW_REPONSES', "Affiche le résultat global dans le bandeau du bas");
 define('_AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION', "Mélanger les questions");
 define('_AM_QUIZMAKER_QUIZ_SHUFFLE_QUESTION_DESC', "Ne pas utiliser si l'ordre des questions est important ou si des \"Encarts\" ont été utilisés");
 define('_AM_QUIZMAKER_QUIZ_TO', "Quiz de destination");
 define('_AM_QUIZMAKER_QUIZ_TO_DESC', "Les questions seront importées dans le quiz sélectionné sans les pages begin et end");
 define('_AM_QUIZMAKER_QUIZ_USE_TIMER', "Utiliser un chronomètre");
 define('_AM_QUIZMAKER_QUIZ_USE_TIMER_DESC', "<b>Oui</b> utilise le délai paramètré dans les questions pour les enchainer, réponse faite ou  non");
-define('_AM_QUIZMAKER_RAZ_RESULTS', "Effacer les résultats de ce quiz");
+define('_AM_QUIZMAKER_RAZ_ENR', "Effacer tous les enregistrements");
+define('_AM_QUIZMAKER_UPDATE_ENR', "Mettre à jour les enregistrements");
+define('_AM_QUIZMAKER_CLEAN_ENR', "Nettoyer les enregistrements");
 define('_AM_QUIZMAKER_REPARTITION', "Répartition");
 define('_AM_QUIZMAKER_REPARTITION_ALL_GROUPS', "Tous les groupes");
 define('_AM_QUIZMAKER_REPARTITION_DESC', "Les propositions seront réparties selon le choix fait.<br>Pour l'option <b>\"Affiche que le groupe 0\"</b> une seule liste sera affichée avec tous les items, mais il faut quand même créer deux groupes un pour les bonnes raponses et un pour les mauvaises réponses.");
@@ -393,8 +403,11 @@ define('_AM_QUIZMAKER_SHOW_CAPTIONS_TOP', "Au-dessus");
 define('_AM_QUIZMAKER_SIZE0', "Hauteur des images à regrouper");
 define('_AM_QUIZMAKER_SIZE1', "Hauteur des images dans les groupes");
 define('_AM_QUIZMAKER_SPECIFIC_OPTIONS', "Options spécifiques");
-define('_AM_QUIZMAKER_START_TIMER', "Forcer le chronomètre");
+define('_AM_QUIZMAKER_START_TIMER', "Chronomètre");
 define('_AM_QUIZMAKER_START_TIMER_DESC', "<b>Oui</b> : Force le lancement du chronomètre pour ce slide.<br><b>Non</b> : Utilise le paramètre défini au niveau du quiz.");
+define('_AM_QUIZMAKER_START_TIMER_0', "Laisse le quiz gérer le chronomètre selon le paramèter défini dans le quiz");
+define('_AM_QUIZMAKER_START_TIMER_1', "Force le démérage du chronomètre si l'option du quiz est inactive");
+define('_AM_QUIZMAKER_START_TIMER_2', "Empêche le démarage du chronomètre si l'option du quiz est active");
 define('_AM_QUIZMAKER_STATISTICS', "Statistiques");
 define('_AM_QUIZMAKER_SUBMIT_AND_ADDNEW', "Soumettre et ajouter une nouvelle question");
 define('_AM_QUIZMAKER_SUBMIT_AND_RELOAD', "Soumettre et recharger la question");
@@ -416,7 +429,7 @@ define('_AM_QUIZMAKER_THEREARENT_QUESTIONS', "Il n'y a pas de questions");
 define('_AM_QUIZMAKER_THEREARENT_QUIZ', "Il n'y a pas de quiz");
 define('_AM_QUIZMAKER_THEREARENT_RESULTS', "Il n'y a pas de résultats");
 define('_AM_QUIZMAKER_TIMER', "Chronomètre");
-define('_AM_QUIZMAKER_TIMER_DESC', "Indiquer le temps d'affichage en secondes de la question avant de passer à la suivante.<br>Cette options n'est active que si le paramètre \"Utiliser un chronomètre\" du quiz est activé");
+define('_AM_QUIZMAKER_TIMER_DESC', "Indiquer le temps d'affichage en secondes de la question avant de passer à la suivante.<br>Cette options n'est active que si le paramètre \"Utiliser un chronomètre\" du quiz est activé ou si l'option \"Forcer le chronomètre\" de la question est active");
 define('_AM_QUIZMAKER_TOOLS_FOLDER_ALL_DESC', "Tous les fichiers js, css, language et plugins");
 define('_AM_QUIZMAKER_TOOLS_FOLDER_APP_DESC', "Dossier js");
 define('_AM_QUIZMAKER_TOOLS_FOLDER_CSS_DESC', "Dossier css");
@@ -437,15 +450,19 @@ define('_AM_QUIZMAKER_TYPE_IMPORT_PLUGIN', "Importation d'un plugin");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUEST', "Importation des questions uniquement");
 define('_AM_QUIZMAKER_TYPE_IMPORT_QUIZ', "Importation d'un quiz unique");
 define('_AM_QUIZMAKER_UNIT_PIXELS', "pixels");
+define('_AM_QUIZMAKER_UNIT_IMG', "Images");
 define('_AM_QUIZMAKER_UNIT_EM', "em");
 define('_AM_QUIZMAKER_UNIT_POINTS', "Points");
 define('_AM_QUIZMAKER_UNIT_SECONDS', "Secondes");
 define('_AM_QUIZMAKER_UNIT_MILLISECONDS', "Milli-Secondes");
-define('_AM_QUIZMAKER_UNIT_ATTEMPTS', "Essais");
 define('_AM_QUIZMAKER_UNIT_CARACTERES', "Caractères");
 define('_AM_QUIZMAKER_UNIT_ROWS', "Lignes");
 define('_AM_QUIZMAKER_UNIT_COLUMNS', "Colonnes");
 define('_AM_QUIZMAKER_UNIT_OPTIONS', "Options");
+define('_AM_QUIZMAKER_UNIT_PERCENT', "<b>%</b>");
+define('_AM_QUIZMAKER_UNIT_DEGRES', "°");
+define('_AM_QUIZMAKER_UNIT_ITEMS', "Elements°");
+define('_AM_QUIZMAKER_UNIT_ATTEMPTS', "Tentative(s)");
 define('_AM_QUIZMAKER_UP', "Remonter");
 define('_AM_QUIZMAKER_UPDATE', "Mise à jour");
 define('_AM_QUIZMAKER_VIEW_ALL_SOLUTIONS', "Afficher toutes les solutions");
@@ -457,7 +474,6 @@ define('_AM_QUIZMAKER_INSTALL_QUIZ_EXEMPLE', "Installer l&apos;exemple");
 
 define('_AM_QUIZMAKER_PROPOSITION', "Proposition");
 define('_AM_QUIZMAKER_PROPOSITIONS', "Propositions");
-define('_AM_QUIZMAKER_UNIT_PERCENT', "<b>%</b>");
 define('_AM_QUIZMAKER_DELAI_COOKIE', "Délai du cookie en secondes");
 define('_AM_QUIZMAKER_DELAI_COOKIE_DESC', "L'utiisateur ne pourra pas retenter ce quiz avant la fin du délai du cookie.");
 define('_AM_QUIZMAKER_PLUGIN_OPTIONS_PLUGIN', "Options spécifiques au plugin");
@@ -480,42 +496,7 @@ define('_AM_QUIZMAKER_PROPOSITIONS_GROUP', "Groupe");
 define('_AM_QUIZMAKER_PROPOSITIONS_POINTS', "Points");
 define('_AM_QUIZMAKER_INPUTS', "Inputs");
 
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG', "Message");
-
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG0', "Score cumulé : {score} / {scoreMaxi}");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG1', "Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG2', "Question suivante");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG3', "On passe à la suite");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG4', "Persévérez");
-
-
 //--------------------------------------------------------------
-define('_AM_QUIZMAKER_NEXT_SLIDE_PARAMS', "Parametres des messages de passage au slide suivant");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MSG_TRANSITION', "Transition");
-
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINER', "Message si la réponse est correcte");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINER_DESC', "Message affiché si l'utilisateur a atteint le nombre d'essais maximums.");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINER_0', "Vous avez atteint le nombre d'essais maximum {max}//Question suivante !");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINER_1', "Vous avez atteint le nombre d'essais maximum {max} dont {winning} / {length} de bons//Question suivante !");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MAX_2', "Vous avez fait {total}/{max} essais dont {winning} objets trouvés sur {length}//Question suivante !");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MAX_3', "Score cumulé : {score} / {scoreMaxi}");
-define('_AM_QUIZMAKER_NEXT_SLIDE_MAX_4', "Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
-
-
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINNER', "Message en cas bonne réponse");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_DESC', "Message si la réponse est correcte");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_0', "Bravo !//Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_1', "Score cumulé : {score} / {scoreMaxi}");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_2', "Bravo !");
-define('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_3', "On passe à la suite");
-
-define('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER', "Message en cas de mauvaise réponse");
-define('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_DESC', "Message si la réponse est incorrecte");
-define('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0', "Dommage !//Votre score cumulé est de {score}/{scoreMaxi}//Question suivante");
-define('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_1', "Score cumulé : {score} / {scoreMaxi}");
-define('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_2', "Pas de chance !");
-define('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_3', "Persévérez");
-
 // define('_AM_QUIZMAKER_NEXT_SLIDE_MAX_ESSAIS', "Message si le nombre d'essais est atteind");
 // define('_AM_QUIZMAKER_NEXT_SLIDE_MAX_ESSAIS_DESC', "Message affiché si l'utilisateur a atteint le nombre d'essais maximums.");
 // define('_AM_QUIZMAKER_NEXT_SLIDE_MAX_ESSAIS_0', "Vous avez atteint le nombre d'essais maximum {max}//Question suivante !");
@@ -546,10 +527,9 @@ define('_AM_QUIZMAKER_QUIZ_BUILD_ALL_RET',"<div style='text-align:left;'>Quiz ex
 
 define('_AM_QUIZMAKER_COOKIE_DURATION', "Durée du cookie");
 define('_AM_QUIZMAKER_COOKIE_DURATION_DESC', "Permet de féfinir la duréee pendant laquelle un uitilisateur ne peut pas retenter le quiz");
-define('_AM_QUIZMAKER_MAX_ATTEMPTS', "Maximum de tentatives");
-define('_AM_QUIZMAKER_MAX_ATTEMPTS_DESC', "0 : pas de limite de tentatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
-define('_AM_QUIZMAKER_MAX_ATTEMPTS_UNIT', "Tentative(s)");
-define('_AM_QUIZMAKER_PLUGIN_FORECOLOR', 'Textes');
+define('_AM_QUIZMAKER_QUIZ_MAX_ATTEMPTS', "Maximum de tentatives");
+define('_AM_QUIZMAKER_QUIZ_MAX_ATTEMPTS_DESC', "0 : pas de limite de tentatives de jouer le quiz.<br> 1 et plus : L'utilisateur sera redirigé vers la page principale du module tant que le délai du cookie ne sera pas expiré.");
+define('_AM_QUIZMAKER_PLUGIN_FORE_AP_QUIZMAKER_COLOR', 'Textes');
 define('_LG_PLUGIN_BACKGROUND', 'Couleur de fond');
 
 define('_AM_QUIZMAGER_PLUGIN_FONT_SIZE', "Taille de la police (en em, defaut=1.1)");
@@ -568,8 +548,8 @@ define('_AM_QUIZMAKER_QUIZ_ON_CAT_OK', "Le quiz a été transéféré dans la ca
 define('_AM_QUIZMAKER_QUIZ_ON_CAT_NO', "Le quiz n'a pas été transéféré, la catégorie de suppression n'existe pas.<br>Corrigez l'option «Action sur suppresion d'un quiz» dans les préférences du module.");
 define('_AM_QUIZMAKER_QUIZ_DEL_CAT_NOT_EXISTS', "La catégorie de suppression n'existe pas.<br>Corrigez l'option «Action sur suppresion d'un quiz» dans les préférences du module.");
 define('_AM_QUIZMAKER_SURE_TRANSFERT_QUIZ', "Êtes-vous sûr de transférer le quiz <b><span style='color : Red;'>[#%s] %s</span></b> dans la catégorie de suppression");
-define('_AM_QUIZMAKER_SHADOW_COLOR', "Ombre");
-define('_AM_QUIZMAKER_SHADOW_COLOR_DESC', "(Blanc = pas d'ombre, utilisez un gris clair si besoin)");
+define('_AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR', "Ombre");
+define('_AM_QUIZMAKER_SHADOW__AP_QUIZMAKER_COLOR_DESC', "(Blanc = pas d'ombre, utilisez un gris clair si besoin)");
 define('_AM_QUIZMAKER_ANSWER_TO_PREVIEW_QUESTION', "Réponse à la question précédente:");
 define('_AM_QUIZMAKER_PAGEINFO_ALREADY_EXISTS', "Il y a déjà une page d'information liée à cette question");
 define('_AM_QUIZMAKER_PAGEINFO_ADDED_OK', "La page d'information a été ajoutée avec succès.");
@@ -584,6 +564,11 @@ define('_AM_QUIZMAKER_TIMER_SIZE', "Chronomètre");
 define('_AM_QUIZMAKER_TIMER_SIZE_DESC', "Taille du chronomètre en pixels");
 define('_AM_QUIZMAKER_DISABLE_PAGE_ANSWER', "Désactiver les slides réponses [\"pagesAnswer\"]");
 define('_AM_QUIZMAKER_ENABLE_PAGE_ANSWER', "Activer les slides réponses [\"pagesAnswer\"]");
+define('_AM_QUIZMAKER_ENABLE_USE_TIMER_ON', "Activer le chronomètre global");
+define('_AM_QUIZMAKER_ENABLE_USE_TIMER_OF', "Désactiver le chronomètre global");
+define('_AM_QUIZMAKER_RESIZE_IMAGES', "Retailler toutes les images");
+define('_AM_QUIZMAKER_RESIZE_IMAGES_CONFIRM', "Les images vont être redimentionnées à %s pixels de large.<br>Faites un export avant, l'opération est irrémédiable.<br>Confirmez-vous le redimentionneent de toutes les images de ce quiz ?<br>Les images moins larges ne seront pas modifiées.");
+define('_AM_QUIZMAKER_RESIZE_IMAGES_DONE', "%s images ont été traitées.");
 define('_AM_QUIZMAKER_ADD_ANSWER', "Ajouter une réponse");
 define('_AM_QUIZMAKER_EMAIL', "Courriel");
 define('_AM_QUIZMAKER_ATTEMPTS', "Tentatives");
@@ -603,7 +588,11 @@ define('_AM_QUIZMAKER_README_STATUS1', "Le texte \"Texte d'information\" doit ê
 define('_AM_QUIZMAKER_README_STATUS2', "Le texte \"Texte d'information\" doit être validé à chaque lancement d'un quiz de la catégorie.");
 define('_AM_QUIZMAKER_USER', "Uilisateur");
 define('_AM_QUIZMAKER_COUNT', "nb");
-define('_AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS', "Repositionne la quiz");
+define('_AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS', "Repositionne le quiz");
+define('_AM_QUIZMAKER_QUIZ_HIDE_INTERFACE', "Masque l'interface de sorte que l'utilisateur ne peut pus cliquer sur les menus du site.");
+define('_AM_QUIZMAKER_QUIZ_HIDE_INTERFACE_DESC', "Le joueur peut ainsi se concentrer sur le quiz. A la fin du quiz le masque est supprimé et l'utilisateur peut de nouveau inter agir avec le site.");
+define('_AM_QUIZMAKER_QUIZ_FULL_SCREEN', "Passe le navigateur en mod plein écran.");
+define('_AM_QUIZMAKER_QUIZ_FULL_SCREEN_DESC', "A la fin du quiz le masque est supprimé et l'utilisateur peut de nouveau inter agir avec le site.");
 define('_AM_QUIZMAKER_QUIZ_REPOSITIONE_WINDOWS_DESC', "Repositionne systématiquement le quiz pour qu'il tienne dans l'écran.");
 define('_AM_QUIZMAKER_README_LABEL', "Libellé du texte d'information");
 define('_AM_QUIZMAKER_README_LABEL_DESC', "Libellé affiché pour mettre un lien sur la page d'accueuil des catégories.<br>Utile uniquement si un texte est défini et si le status le permet.");
@@ -637,6 +626,37 @@ define('_AM_QUIZMAKER_COUNT_PARTICIPATIONS', 'Nombre de participations');
 define('_AM_QUIZMAKER_COUNT_COOKIES', 'Nombre de tentatives de participation');        
 define('_AM_QUIZMAKER_FORM_SURE_DELETE_PARTICIPATION', "Confirmez la suppression de la participation :<br>quiz_id : %s<br>participationi_id : %s<br>Pseudo : %s<br>Courriel : %s");
 define('_AM_QUIZMAKER_FORM_SURE_DELETE_COOKIE', "Confirmez la suppression du cookie:<br>quiz_id : %s<br>cookie_id : %s<br>Pseudo : %s<br>Courriel : %s");
+define('_AM_QUIZMAKER_CONFIRM_CLEAN_COOKIES', "Confirmez le nettoyage des cookies pour le quiz : [#%s] %s<br>Suprime les enregistrements dont uname, email et ip sont vide.");
+define('_AM_QUIZMAKER_CONFIRM_UPDATE_COOKIES', "Confirmez la mise à jour des cookies pour le quiz : [#%s] %s<br>Mets à jours les champs vide si uid >0.");
+define('_AM_QUIZMAKER_CONFIRM_CLEAAN_RESULTS', "Confirmez le nettoyage des résultats pour le quiz : [#%s] %s<br>Suprime les enregistrements dont uname, email et ip sont vide.");
+
+define('_AM_QUIZMAKER_CONFIRM_RAZ_ENR', "Confirmez lz suppression des <b>%s</b> pour le quiz : [#%s] %s<br>Suprime les enregistrements dont uname, email et ip sont vide.");
+define('_AM_QUIZMAKER_CONFIRM_UPDATE_ENR', "Confirmez la mise à jour des <b>%s</b> pour le quiz : [#%s] %s<br>Mets à jours les champs vide si uid >0.");
+define('_AM_QUIZMAKER_CONFIRM_CLEAN_ENR', "Confirmez le nettoyage des <b>%s</b> pour le quiz : [#%s] %s<br>Suprime les enregistrements dont uname, email et ip sont vide.");
+
+define('_AM_QUIZMAKER_RAZ_ENR_OK', "Suppression avec succès des <b>%s</b> pour le quiz : [#%s] %s");
+define('_AM_QUIZMAKER_UPDATE_ENR_OK', "Mise à jour avec succès des <b>%s</b> pour le quiz : [#%s] %s");
+define('_AM_QUIZMAKER_CLEAN_ENR_OK', "Nettoyage avec succès des <b>%s</b> pour le quiz : [#%s] %s");
+define('_AM_QUIZMAKER_ROW', "Ligne");
+define('_AM_QUIZMAKER_IMG_GRID', "Grille d'images");
+define('_AM_QUIZMAKER_IMG_LIST', "Liste d'images");
+
+define('_AM_QUIZMAKER_VARIANT', "Variante");
+define('_AM_QUIZMAKER_VARIANT_SELECT', "Sélectionnez une variante,  validez et rechargez le formulaire");
+define('_AM_QUIZMAKER_VARIANT_VARIANT_DESC1', ""
+. "<br><span style='color:red;'><b>Important : </b>Valider cette option avant de passer à la suite des paramètres afin d'actualiser l'affichage selon l'option choisie.</span>"
+. "<br><span style='color:red;'>Pour faire apparaitre les paramètres selon l'option choisie cliquez sur <b>\"soumettre et recharger la question\"</b>.</span>"
+. "<br><span style='color:red;'>Il est toujours possible de changer au risque de devoir reparamètrer les nouvelles options qui n'étaient pas disponibles et de perdre les autres.</span>");
+define('_AM_QUIZMAKER_VARIANT_VARIANT_DESC2', "<span style='color:red;'><b>Important : </b>Il est toujours possible de changer ensuite mais au risque de devoir reparamètrer les nouvelles options qui n'étaient pas disponibles et de perdre les autres.</span>");
+
+define('_AM_QUIZMAKER_ANSWERS_ACHIEVED', "Répponses faites");
+define('_AM_QUIZMAKER_ANSWERS_ACHIEVED_DESC', "Nombre de questions que le joueur à faite");
+define('_AM_QUIZMAKER_PLAYER', "Joueur");
+define('_AM_QUIZMAKER_UID', "ID utilisateur");
+define('_AM_QUIZMAKER_DETAIL', "Détail");
+//define('_AM_QUIZMAKER_SENDTO', "Envoyer vers");
+define('_AM_QUIZMAKER_QUESTION_SENDTO', "Envoyer vers");
+define('_AM_QUIZMAKER_QUIZ_UNKNOW', "Quiz [#%s] inconnu");
 
 
 ?>

@@ -180,7 +180,7 @@ function setImgFromImg_event(idFrom, idTo, slideNumber) {
 /*       Fonction de Drag And drop sur des images                   */
 /* **************************************************************** */
 function dad_start(e, isDiv=false){
-console.log("===> dad => " + "dad_start");
+//console.log("===> dad => " + "dad_start");
     e.dataTransfer.effectAllowed = "move";
     if(isDiv){
         e.dataTransfer.setData("text", e.target.parentNode.getAttribute("id"));

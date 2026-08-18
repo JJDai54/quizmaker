@@ -67,6 +67,7 @@ include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/Quiz.php';
 	$crQuiz = new \CriteriaCompo();
     if ($nbCats>0) 
         $crQuiz->add(new Criteria('quiz_cat_id', "({$cats})", 'IN'));
+        $crQuiz->add(new Criteria('quiz_actif', 0, '>'));
     
 
 	switch($typeBlock) {
@@ -74,8 +75,9 @@ include_once XOOPS_ROOT_PATH . '/modules/quizmaker/class/Quiz.php';
 		case 'new':
 		default:
 			// For the block: quiz new
-			$crQuiz->setSort( 'quiz_weight' );
-			$crQuiz->setOrder( 'ASC' );
+			//$crQuiz->setSort( 'quiz_weight' );
+			$crQuiz->setSort( 'quiz_creation' );
+			$crQuiz->setOrder( 'DESC' );
 		break;
 		case 'hits':
 			// For the block: quiz hits

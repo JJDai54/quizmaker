@@ -33,6 +33,8 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 class Plugin_imagesDaDGroups extends XoopsModules\Quizmaker\Plugins
 {
 var $maxGroups = 4;     
+var $obligatorys = 2;
+
 	/**
 	 * Constructor 
 	 *

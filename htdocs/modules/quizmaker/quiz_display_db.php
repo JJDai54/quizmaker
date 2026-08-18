@@ -32,7 +32,7 @@ $op    = Request::getCmd('op', 'run');
 $quizId = Request::getInt('quiz_id', 0);
 $playerId = Request::getInt('player_id', 1);
 $readmeOk = Request::getInt('readmeOk', 0);
-
+//echoArray("gp");exit;
 // Define Stylesheet
 $GLOBALS['xoTheme']->addStylesheet( $style, null );
 
@@ -66,49 +66,8 @@ $catObj = $categoriesHandler->get($catId);
 
 /*
 */
-// 
-// if ($maxAttempt > 0){
-//     $coookieName = "quizmaker" . "-" . $quizId;
-//     $tentativesArr =  Request::getInt($coookieName , 1,'COOKIE');
-//     if($tentatives > $maxAttempt) {
-//         //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
-//         //setcookie($coookieName, "", time() - 3600);
-//         redirect_header('categories.php?cat_id=' . $catId, 8, _MA_QUIZMAKER_MAX_ATTEMPTS_EXCEEDS);
-//         exit;
-//     }
-//     setcookie($coookieName, $tentatives+1, time()+$delaiCookie);  /* expire dans 1 heure */
-// }else{
-//     setcookie($coookieName, $tentatives+1, time() - 3600);  /* Suppression Du Cookie */
-// }
-
-//********************************************************************/
-// recherche dans la table cookies en fonction du uid, et du quizId si il ya connextion
-// sinon recherche à partir utilisation des coolies du navigateur.
-// function quizmaker_readme2($catId, $readmeStatus){
-//     global $xoopsUser, $readmeHandler;
-//     $uid = ($xoopsUser) ? $xoopsUser->uid() : 0;    
-//     $readme = false;    
-//     
-//     if($readmeStatus > 0){
-//         $readmeCount =  $readmeHandler->getReadmeCount($catId, $uid);
-//         if($readmeStatus == 1 && $readmeCount == 0) {
-//             $readme = true;
-//         }else if($readmeStatus == 2){
-//             $readme = true;
-//             }
-//     }
-//     //echo "1-readmeStatus = {$readmeStatus} - readmeOk = {$readmeOk} - readmeCount = {$readmeCount} - readme = " . (($readme) ? 'true': 'false'). "<br>";
-//     return $readme;
-// }
 //---------------------------------------------------------------------
 if($xoopsUser){    
-    /*
-    $readme = quizmaker_readme($catId, $catObj->getVar('cat_readme_status'));
-    if($readme && $readmeOk == 0){
-        $urlTo = 'readme.php' . "?op=isReadmeOk&cat_id={$catId}&quiz_id={$quizId}";
-        redirect_header( $urlTo, 5, _MA_QUIZMAKER_READ_CAT_INFO);
-    }
-    */
     
     if(FQUIZMAKER\isReadme($catObj, $readmeOk)){
         $urlTo = 'readme.php' . "?op=isReadmeOk&cat_id={$catId}&quiz_id={$quizId}&$fromdispplay=";
@@ -174,22 +133,8 @@ if($xoopsUser){
     }
     
     }else{
-        $coookieName = QUIZMAKER_DIRNAME . "-" . $quizId;
-        if ($maxAttempt > 0){
-            $cookieArr =  explode('|', Request::getString($coookieName , '','COOKIE'));
-            $tentatives =  intVal($cookieArr[0]) ;
-        //echoRequest('C',"max = {$maxAttempt} - tentatives = {$cookieArr[0]}");
-            if($cookieArr[0] > $maxAttempt) {
-                //echo "<hr>vous avez déjà tenté de faire ce quiz sans enregistrer les résultats. Vous devez patienter quelques heures avant de recommencer<hr>";
-                //setcookie($coookieName, "", time() - 3600);
-            }
-            $deadLine = time() + $delaiCookie;
-            setcookie($coookieName, ($tentatives+1) . '|' . $deadLine, $deadLine);   
-    }else{
-        setcookie($coookieName, 0, time() - 3600);  /* Suppression Du Cookie */
-    }
 
-}
+    }
 
 
 
@@ -224,21 +169,6 @@ function formatDeadLine ($timestamp1, $timestamp2 = null){
 //$diffInSeconds = $date2->getTimestamp() - $date->getTimestamp();
 
 //echoArray($_COOKIE, "===> _COOKIE : {$coookie}");exit;
-
-///////////////////////////////////////////////////
-//     $rootApp = QUIZMAKER_PATH_QUIZ_JS . "/quiz-js";
-//     $urlApp  = QUIZMAKER_URL_QUIZ_JS  . "/quiz-js";
-// 
-//     //insertion des CSS
-//     $tCss = \JANUS\FSO\getFilePrefixedBy($rootApp.'/css', array('css'), '', false, false,false);
-//     $urlCss = QUIZMAKER_URL_QUIZ_JS. "/quiz-js/css";
-//     foreach($tCss as $css){
-// 		$GLOBALS['xoTheme']->addStylesheet($urlCss .'/'. $css , null );    
-//     }
-//     //----------------------------------------------
-//     //insertion du prototype des tpl
-  
-
 
 		$quizObj = $quizHandler->get($quizId);
         $catId = $quizObj->getVar('quiz_cat_id');

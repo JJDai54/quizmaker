@@ -107,12 +107,35 @@ class Results extends \XoopsObject
         //-----------------------------------------------------------------
         $form->addElement(new \XoopsFormHidden('result_id', $this->getVar('result_id')));
         $form->addElement(new \XoopsFormHidden('result_quiz_id', $this->getVar('result_quiz_id')));            
-                    
-		// Form Text result_uname
-		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_NAME, $this->getVar('result_uname') ));
-        
-		// Form Text result_email
-		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_EMAIL, $this->getVar('result_email') ));
+          
+         if($isAdmin){
+    		// Form Text result_uid
+            $name = 'result_uid';
+    		$form->addElement(new \XoopsFormText(_AM_QUIZMAKER_UID,$name,12,12, $this->getVar($name)));
+            
+    		// Form Text result_uname
+            $name = 'result_uname';
+    		$form->addElement(new \XoopsFormText(_AM_QUIZMAKER_NAME,$name,50,50, $this->getVar($name)));
+    		// Form Text result_email
+
+            $name = 'result_email';
+    		$form->addElement(new \XoopsFormText(_AM_QUIZMAKER_EMAIL,$name,80,80, $this->getVar($name)));
+         }else{
+    		// Form Text result_uid
+            $name = 'result_uid';
+    		$form->addElement(new \XoopsFormLabel(_AM_QUIZMAKER_UID , $this->getVar($name) ));
+    		$form->addElement(new \XoopsFormHidden($name, $this->getVar($name)));       
+            
+    		// Form Text result_uname
+            $name = 'result_uname';
+    		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_NAME, $this->getVar($name) ));
+    		$form->addElement(new \XoopsFormHidden($name, $this->getVar($name)));       
+                 
+    		// Form Text result_email
+            $name = 'result_email';
+    		$form->addElement(new \XoopsFormLabel( _AM_QUIZMAKER_EMAIL, $this->getVar($name) ));
+    		$form->addElement(new \XoopsFormHidden($name, $this->getVar($name)));            
+         }           
         
         // Form Text  result_score_achieved
         $inpScoreAchived = new \XoopsFormNumber(_AM_QUIZMAKER_SCORE_ACHIEVED, 'result_score_achieved', 8, 8, $this->getVar('result_score_achieved'));
@@ -141,12 +164,17 @@ class Results extends \XoopsObject
 		$form->addElement($inpAnsAchived);
 */        
         
+        // Form Text  result_answers_achieved
+        $inpAnsTotal = new \XoopsFormNumber(_AM_QUIZMAKER_ANSWERS_ACHIEVED, 'result_answers_achieved', 8, 8, $this->getVar('result_answers_achieved'));
+        $inpAnsTotal->setMinMax(-100, 100);
+        //$inpTimer->setDescription(_AM_QUIZMAKER_ANSWERS_ACHIEVED_DESC);
+		$form->addElement($inpAnsTotal);
+        
         // Form Text  result_answers_total
         $inpAnsTotal = new \XoopsFormNumber(_AM_QUIZMAKER_PROPOSITIONS_TOTAL, 'result_answers_total', 8, 8, $this->getVar('result_answers_total'));
         $inpAnsTotal->setMinMax(-100, 100);
         //$inpTimer->setDescription(_AM_QUIZMAKER_PROPOSITIONS_TOTAL_DESC);
 		$form->addElement($inpAnsTotal);
-        
         
 // a recalculer
 // Form Text  result_note

@@ -1,0 +1,86 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org\plugins\memory
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+Extensions=*.*
+[Project tree]
+_memory
+	+memory
+		-img
+			-buttons
+				img\buttons\Button_Icon_Black.png
+				img\buttons\Button_Icon_Blue.png
+				img\buttons\Button_Icon_BlueSky.png
+				img\buttons\Button_Icon_Brown.png
+				img\buttons\Button_Icon_Cyan.png
+				img\buttons\Button_Icon_Fuchsia.png
+				img\buttons\Button_Icon_Green.png
+				img\buttons\Button_Icon_GreenBlue.png
+				img\buttons\Button_Icon_GreenForest.png
+				img\buttons\Button_Icon_Lime.png
+				img\buttons\Button_Icon_Orange.png
+				img\buttons\Button_Icon_Pink.png
+				img\buttons\Button_Icon_Red.png
+				img\buttons\Button_Icon_Turquoise.png
+				img\buttons\Button_Icon_Violet.png
+				img\buttons\Button_Icon_Yellow.png
+				img\buttons\Button_to_push_green.png
+				img\buttons\Button_to_push_red.png
+				img\buttons\index.html
+				img\buttons\-no_icon.png
+				img\buttons\pingouin-bleu.png
+				img\buttons\pingouin-gris.png
+				img\buttons\pingouin-marron.png
+				img\buttons\pingouin-or.png
+				img\buttons\pingouin-orange.png
+				img\buttons\pingouin-rose.png
+				img\buttons\pingouin-rouge.png
+				img\buttons\pingouin-vert.png
+				img\buttons\pingouin-vertdegris.png
+				img\buttons\pingouin-violet.png
+			img\index.html
+		_memory.ppr
+		index.html
+		memory.js
+		memory_grille.js
+		memory_liste.js
+		MemoryComponent.js
+		memory-events.js
+		memory-fnc.js
+		..\taquin\TaquinComponent.js
+[Open project files]
+0=memory.js
+1=memory_grille.js
+2=memory_liste.js
+3=MemoryComponent.js
+4=..\taquin\TaquinComponent.js
+[Selected Project Files]
+Main=
+Selected=MemoryComponent.js
+[memory.js]
+TopLine=1
+Caret=1,11
+[memory_grille.js]
+TopLine=129
+Caret=1,170
+[memory_liste.js]
+TopLine=140
+Caret=1,186
+[MemoryComponent.js]
+TopLine=158
+Caret=36,190
+[..\taquin\TaquinComponent.js]
+TopLine=79
+Caret=1,113

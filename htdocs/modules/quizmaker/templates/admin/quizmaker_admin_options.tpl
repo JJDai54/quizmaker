@@ -33,7 +33,7 @@
             
 				<td class='center'>
                   <a href="options.php?op=change_etat&opt_id=<{$binOpt.id}>&field=opt_actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' >
-                      <img src="<{$modUrlIcon16}>actif-<{$binOpt.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
+                      <img src="<{$modUrlIcon16}>/actif-<{$binOpt.actif}>.png" alt="actif" title='<{$smarty.const._AM_QUIZMAKER_ACTIF}>' />
                   </a>
                 </td>
 

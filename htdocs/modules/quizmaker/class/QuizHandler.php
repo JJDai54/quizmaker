@@ -279,19 +279,22 @@ public function getFieldList($FieldName, $quizCatId = 0, $addNull = false){
 
         return $v;        
     }
-	/**
-	 * Returns folder with prefix de categorie si il est defini
-	 * $parram $ret : 0 : return folder
-	 *                1 : return full path
-	 *                2 : return full URL
-	 * @param $subfolder string
-	 * @return folder
-	 */
-	public function getFolderJS($quizId, $ret = 0, $subfolder='')
-	{
-        $quizObj = $this->get($quizId);
-        return $quizObj->getFolderJS($ret, $subfolder);
-    }
+    
+/**
+ * Returns folder with prefix de categorie si il est defini
+ * $parram $ret : 0 : return folder
+ *                1 : return full path
+ *                2 : return full URL
+ * @param $subfolder string
+ * @return folder
+ */
+public function getFolderJS($quizId, $ret = 0, $subfolder='')
+{
+      $quizObj = $this->get($quizId);
+      return $quizObj->getFolderJS($ret, $subfolder);
+  }
+  
+  
 /****************************************************************************
  * getFolderJSValid : renvoie un nom de dossier valid pour les JS du quiz
  * retour err bool:
@@ -420,7 +423,7 @@ global $questionsHandler, $resultsHandler;
 public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
 {
     if (($newValue) < 0){
-        $binValue = pow(2, $bitIndex);
+        $binValue = ( 1 << (2, $bitIndex);
         $sql = "UPDATE {$this->table} SET {$field} = {$field} ^ {$binValue}";
     }
     
@@ -436,19 +439,19 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
         //si bitIndex = -1, change toutes les bit selon $newvalue
         
         if ($newValue == 1){                    //mets tous les bits à 1
-            $binValue = pow(2, 16)-1;
+            $binValue = ( 1 << 16)-1;
             $sql = "UPDATE {$this->table} SET {$field} = {$binValue}";
         }elseif ($newValue == 0){               //mets tous les bits à 0
             $sql = "UPDATE {$this->table} SET {$field} = 0";
         }else{                                  //config definie dans les constante
-            //$binValue = pow(2, 16)-1;
+            //$binValue = ( 1 << 16)-1;
             $sql = "UPDATE {$this->table} SET {$field} = {$newValue}";
             //exit("setBitOn => {$newValue}");
         }
     
         
     }else{
-        $binValue = pow(2, $bitIndex);
+        $binValue = ( 1 << $bitIndex);
         if ($newValue == 1){
             $sql = "UPDATE {$this->table} SET {$field} = {$field} | {$binValue}";
         }elseif ($newValue == 0){
@@ -463,6 +466,7 @@ public function setBitOn($quizId, $field, $bitIndex, $newValue = -1)
     
     $sql .= " WHERE quiz_id={$quizId};";
     $ret = $this->db->queryf($sql);
+//exit("setBitOn : {$quizId} - {$field} - {$bitIndex} - {$newValue}");
     return $ret;
 }
 
@@ -730,16 +734,25 @@ $fldMasterId =  "quiz_cat_id";
     $result = $this->db->queryf($sql);
     return $result;
  }
+ 
  /* ******************************
  *  purgerImages
  * *********************** */
  public function purgerImages($quiz_id){
  global $questionsHandler, $answersHandler, $xoopsDB;
- $nbImgDeleted = 0;
     
     return $this->get($quiz_id)->purgerImages();
  }
 
+ /* ******************************
+ *  resizeImages
+ * *********************** */
+ public function resizeImages($quiz_id){
+ global $questionsHandler, $answersHandler, $xoopsDB;
+    
+    return $this->get($quiz_id)->resizeImages();
+ }
+ 
 /* ******************************
  *  
  * *********************** */
@@ -770,7 +783,7 @@ global $quizUtility;
     $filesArr = ['categories.yml','quiz.yml','questions.yml','answers.yml'];
     for($h = 0; $h < count($filesArr); $h++){
         $f1 = "{$fullPath}/{$filesArr[$h]}"; 
-        echo "<br>isValid ===> {$f1}<br>";
+        //echo "<br>isValid ===> {$f1}<br>";
         //$ok =  file_exists($f1) ;
         //if(!$ok) exit("isValid file not exixts :<br> {$f1}");
         if (!file_exists($f1)) return false;

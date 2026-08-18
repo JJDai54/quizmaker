@@ -47,6 +47,7 @@ $isAdmin = $GLOBALS['xoopsUser']->isAdmin($GLOBALS['xoopsModule']->mid());
 // Load languages
 xoops_loadLanguage('admin');
 xoops_loadLanguage('modinfo');
+xoops_loadLanguage('plugins', 'quizmaker');
 
 // Local admin menu class
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');

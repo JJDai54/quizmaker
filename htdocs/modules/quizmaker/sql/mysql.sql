@@ -102,6 +102,7 @@ CREATE TABLE `quizmaker_questions` (
   `quest_id` INT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
   `quest_parent_id` int(11) NOT NULL DEFAULT '0',
   `quest_reference_id` int(11) NOT NULL DEFAULT '0',
+  `quest_plugin` varchar(30) NOT NULL DEFAULT '',
   `quest_flag` int(8) NOT NULL,
   `quest_quiz_id` int(10) NOT NULL DEFAULT '0',
   `quest_question` varchar(255) NOT NULL DEFAULT '',
@@ -110,7 +111,6 @@ CREATE TABLE `quizmaker_questions` (
   `quest_identifiant2` varchar(50) NOT NULL DEFAULT '',
   `quest_comment1` text NOT NULL,
   `quest_posComment1` tinyint(1) NOT NULL DEFAULT '0',
-  `quest_plugin` varchar(30) NOT NULL DEFAULT '',
   `quest_variant` varchar(30) NOT NULL DEFAULT '',
   `quest_explanation` text NOT NULL,
   `quest_explanation_img` varchar(255) NOT NULL DEFAULT '', 
@@ -133,7 +133,7 @@ CREATE TABLE `quizmaker_questions` (
   `quest_start_timer` tinyint(1) NOT NULL DEFAULT '0',
   `quest_shuffleAnswers` tinyint(4) NOT NULL DEFAULT '0',
   `quest_visible` tinyint(1) NOT NULL DEFAULT '1',
-  `quest_isQuestion` int(1) NOT NULL DEFAULT '1',
+  `quest_isQuestion` int(1) NOT NULL DEFAULT '0',
   `quest_actif` tinyint(1) NOT NULL DEFAULT '1',
   `quest_creation` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
   `quest_update` datetime(6) DEFAULT '0000-00-00 00:00:00.000000',
@@ -259,7 +259,7 @@ INSERT INTO quizmaker_options (opt_id, opt_name, opt_actif, opt_icone, opt_optio
 (8, 'Personal 2', 0, 'binoption-08.png', b'0000000011110111', b'0000000000000000');
 
 
-INSERT INTO quizmaker_categories(cat_id, cat_name, cat_actif, cat_description,  cat_theme, cat_weight) VALUES 
+INSERT INTO quizmaker_categories(cat_id, cat_name, cat_description, cat_actif,  cat_theme, cat_weight) VALUES 
 (1, 'Plugins QuizMaker', 'Catégorie de test', 1, 'default', 900),
 (2, 'Quiz en préapaparation', 'Catégorie de test', 1, 'default', 992),
 (3, 'Quiz à tester', 'Catégorie de test', 1, 'default', 994),

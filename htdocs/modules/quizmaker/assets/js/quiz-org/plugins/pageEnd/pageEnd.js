@@ -34,7 +34,7 @@ var name = this.getName();
     for(var k in currentQuestion.answers){
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
-      console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+      //console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
       if(k==0 && this.isLettrine) {
         currentQuestion.answers[k].proposition = img + currentQuestion.answers[k].proposition;
       }
@@ -70,6 +70,7 @@ getHtmlSubmitBtn(){
 
 //---------------------------------------------------
 getFormSubmitAnswers(){
+    endGame(); // quiz.hide_interface
     var tNamesId = ['quiz_id', 'uid', 'answers_total', 'answers_achieved', 
                     'score_achieved', 'score_max', 'score_min', 'duration', 'isAnonymous', 'pseudo'];
                  
@@ -87,7 +88,7 @@ getFormSubmitAnswers(){
 }  
 //---------------------------------------------------
 submitAnswers(){
-console.log("submitAnswers begin");
+//console.log("submitAnswers begin");
     //---------------------------------------------
 /*
     document.form_submit_quizmaker.quiz_id.value = quiz.quizId;
@@ -120,7 +121,7 @@ onEnter() {
     for(var k in currentQuestion.answers){
       var id = this.getId(k);
       if(currentQuestion.answers[k].proposition == '') continue;
-      console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
+      //console.log("IDS ===>" + currentQuestion.questId + "-" + currentQuestion.parentId);
         var exp = replaceBalisesByValues(currentQuestion.answers[k].proposition, this.slideNumber);
         document.getElementById(id).innerHTML = exp;
     }
@@ -130,7 +131,7 @@ onEnter() {
 
 //---------------------------------------------------
 function submitAnswers(){
-console.log("submitAnswers begin");
+//console.log("submitAnswers begin");
     //---------------------------------------------
     document.form_submit_quizmaker.quiz_id.value = quiz.quizId;
     document.form_submit_quizmaker.uid.value = 0;// quiz.uid;
@@ -149,6 +150,6 @@ console.log("submitAnswers begin");
     document.form_submit_quizmaker.submit();
     //pas utile mais evite un bug inhérent au language
     //alert("submitAnswers end");
-    console.log("submitAnswers end");
+    //console.log("submitAnswers end");
 
 }

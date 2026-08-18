@@ -1,0 +1,379 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+  <title>checkboxSimple : Question à choix multiple</title>
+
+  
+  
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+  
+  <meta name="author" content="JJDai - jjdelalandre@orange.fr">
+
+</head><body>
+<h1>puzzle : Jeux de mémoire visuel<br>
+</h1>
+
+<h3>Description :</h3>
+
+Ce plugin propose une grille avec une suite de valeurs . Cette suite
+est affichée pendant quelques secondes pous est masquée. Le joueur doit
+cliqiée sur les cellule dans l'ordre de la suite.<br>
+
+Le suite de valeurs peut être une suite de nombre, de lettres, .. et le
+nombre d'élément de la suite doit être inférieur ou égal au nombre de
+cellule de la grille.<br>
+
+Exemple de suite : <br>
+
+<br>
+
+<ul>
+
+</ul>
+
+<h3>Objectif : <br>
+</h3>
+
+<p class="MsoNormal"> </p>
+
+<p class="MsoNormal">Touver le suite sur la grille dans le bon ordre.<o:p></o:p></p>
+
+<h3>Options : </h3>
+
+<ul>
+
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">points
+: </span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">Si
+(points<b> == 0)</b> alors c'est le nombre de points affectés aux
+bonnes et mauvaises réponses qui seront comptées. Si <b>points &gt; 0</b>,
+c'est cette valeur qui sera utilisée pour le score.<br>
+dans tous les cas il faut affecter un nombre de points aux bonnes
+réponses pour les identifier et calculer le bon score.<o:p></o:p></span></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">images</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">
+(optionnelle): vous pouvez associer une image qui sera affichée selon
+le <b>template</b> qui sera sélectionné<o:p></o:p></span></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">hauteur
+de l'image </span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">:
+Défini la taille de l'image par la hauteur, attention aux images trop
+larges.<o:p></o:p></span></li>
+  <li><b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;">mélanger
+les propositions</span></b><span style="font-size: 12pt; font-family: &quot;Times New Roman&quot;,&quot;serif&quot;;"> : la
+liste des caractère alphanumériques ou expression sera mélangée à
+chaque lancement du quiz..<o:p></o:p></span></li>
+  <br>
+</ul>
+
+<h3>Options spécifiques au plugin:</h3>
+
+&nbsp;&nbsp;&nbsp;&nbsp; <br>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Libellé<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">code</td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Défaut<br>
+      </td>
+      <td style="vertical-align: top; background-color: rgb(204, 255, 255);">Description<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Variante<br>
+      </td>
+      <td style="vertical-align: top;">variant</td>
+      <td style="vertical-align: top;">NO-VARIANT<br>
+      </td>
+      <td style="vertical-align: top;">inutilisé</td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Nombre de lignes<br>
+      </td>
+      <td style="vertical-align: top;">tblRows</td>
+      <td style="vertical-align: top;">5<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Nombre de colonnes<br>
+      </td>
+      <td style="vertical-align: top;">tblCols</td>
+      <td style="vertical-align: top;">5<br>
+      </td>
+      <td style="vertical-align: top;"><br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Couleur de fond<br>
+      </td>
+      <td style="vertical-align: top;">backgroundColor</td>
+      <td style="vertical-align: top;">#FFFFCC'</td>
+      <td style="vertical-align: top;">Couleur de fond de la grille<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Cellule masquée<br>
+      </td>
+      <td style="vertical-align: top;">maskColor</td>
+      <td style="vertical-align: top;">#FFCCFF'</td>
+      <td style="vertical-align: top;">Couleur des cellules une fois
+masquées<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Couleur de la police<br>
+      </td>
+      <td style="vertical-align: top;">fontColor</td>
+      <td style="vertical-align: top;">black</td>
+      <td style="vertical-align: top;">Couleur de la police de la suite
+de valeurs à découvrir<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Garder la même grille<br>
+      </td>
+      <td style="vertical-align: top;">keepSameGrid</td>
+      <td style="vertical-align: top;">0<br>
+      </td>
+      <td style="vertical-align: top;">Dans le cas d'échec, le joueur
+est invité à recommencer selon le paramètre "masAttempts"<br>
+Oui : il recommencera avec la même grille<br>
+Non : une nouvelles grilles sera proposée avec la même suite ou une
+nouvelle suite selon les propositions faites.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Durée de présentation<br>
+      </td>
+      <td style="vertical-align: top;">preview</td>
+      <td style="vertical-align: top;">5<br>
+      </td>
+      <td style="vertical-align: top;">Durée d'affichage de la suite
+avant de masquer la grille.<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Nombre d'essais<br>
+      </td>
+      <td style="vertical-align: top;">maxAttempts</td>
+      <td style="vertical-align: top;">0<br>
+      </td>
+      <td style="vertical-align: top;">Nombre d'essais que le joueur
+peut faire pour un même slide.<br>
+0 : nombre d'essais illimité. A utiliser en mode développement ou mise
+au point.<br>
+&gt; 0 : Si le joueur échoue à chaque fois, il ne pourra plus
+recommencer au bout du nombre d'essais tenté. A utiliser conjointement
+avec "msg_nextslide_gotonext"<br>
+      </td>
+    </tr>
+    <tr>
+      <td style="vertical-align: top;">Largeur du jeu<br>
+      </td>
+      <td style="vertical-align: top;">gameWidth</td>
+      <td style="vertical-align: top;">300px<br>
+      </td>
+      <td style="vertical-align: top;">Inutilisé pour l'instant<br>
+      </td>
+    </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+  </tbody>
+</table>
+
+<br>
+
+<h3>Messages de transition :</h3>
+
+<span style="font-weight: bold;"></span>
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+<tbody>
+<tr>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">Libellé<br>
+</td>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">code</td>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">Défaut<br>
+</td>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">Description<br>
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+<tr>
+<td style="vertical-align: top;">Slide suivant</td>
+<td style="vertical-align: top;">msg_nextslide_gotonext</td>
+<td style="vertical-align: top;">0<br>
+</td>
+<td style="vertical-align: top;">0 : pas de passage au slide
+suivant n cas d'échec ou de victoire, le joueur doit cliqué lui m^me
+sur le bouton "Suivant"<br>
+: : PAssage automatique au slide suivant en cas de vistoire ou au bout
+du nombre d'essais tentés.</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">Durrée du message<br>
+</td>
+<td style="vertical-align: top;">msg_nextslide_duree</td>
+<td style="vertical-align: top;">3 secondes
+</td>
+<td style="vertical-align: top;">Durrée d'affichage du message de
+transition. Au bout de ce délai le passage automatique au slide suivant
+de fera si "msg_nextslide_gotonext" = oui<br>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">Couleur de fond du message<br>
+</td>
+<td style="vertical-align: top;">msg_nextslide_background<br>
+</td>
+<td style="vertical-align: top;">#FFCCFF'<br>
+
+</td>
+<td style="vertical-align: top;">Couleur de fond du message de
+transition au slide suivant.</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">Message gagnant<br>
+</td>
+<td style="vertical-align: top;">msg_nextslide_winner<br>
+</td>
+<td style="vertical-align: top;">Voir la liste déroulante dans le plugin
+</td>
+<td style="vertical-align: top;">Message affiché lors du passage
+au slide suivant en cas d'échec du jeu.</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">Message perdant<br>
+</td>
+<td style="vertical-align: top;">msg_nextslide_looser<br>
+</td>
+<td style="vertical-align: top;">Voir la liste déroulante dans le plugin
+</td>
+<td style="vertical-align: top;">Message affiché lors du passage
+au slide suivant en cas de réussite du jeu.</td>
+</tr>
+
+
+</tbody>
+</table>
+<br>
+
+<h3>Autres messages :</h3>
+
+<table style="text-align: left; width: 100%;" border="1" cellpadding="2" cellspacing="2">
+
+<tbody>
+<tr>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">Libellé<br>
+</td>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">code</td>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">Défaut<br>
+</td>
+<td style="vertical-align: top; background-color: rgb(204, 255, 255);">Description<br>
+</td>
+</tr>
+
+
+
+
+
+
+
+
+<tr>
+<td style="vertical-align: top;">A vous de jouer !<br>
+</td>
+<td style="vertical-align: top;">atYou</td>
+<td style="vertical-align: top;">Voir la liste déroulante dans le plugin<br>
+</td>
+<td style="vertical-align: top;">Message affiché une fois la grille masquée pour alerter le joueur que c'est à lui de jouer.<br>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">Pedu, a vous de rejouer<br>
+</td>
+<td style="vertical-align: top;">replay</td>
+<td style="vertical-align: top;">Voir la liste déroulante dans le plugin</td>
+<td style="vertical-align: top;">Message affiché en cas d'échec, le joueur est invité à rejouer.<br>
+</td>
+</tr>
+<tr>
+<td style="vertical-align: top;">Nombre d'essais tenté<br>
+</td>
+<td style="vertical-align: top;">attempts</td>
+<td style="vertical-align: top;">Voir la liste déroulante dans le plugin</td>
+<td style="vertical-align: top;">Message affiché qui indique le nombre d'essais tenté par le joueur.<br>
+</td>
+</tr>
+
+
+
+
+
+
+
+</tbody>
+</table>
+<br>
+
+<span style="font-weight: bold;"></span>
+<ul>
+
+</ul>
+
+<h3><br>
+</h3>
+
+<h3>Propositions :</h3>
+
+<span style="font-weight: bold;"></span>Il est possible de définir 3
+listes différentes. La liste à trouver sera tirée au sort, de sortes
+que deux joueurs n'auront pas forcément la même liste à trouver. Dans
+tous les cas l'ordre sera différents.<br>
+Si "keepSameGrid" = oui, c'est la même grille avec la même suite qui sera proposée au joueur.<br>
+Le nombre d'élément de la liste n'est pas limité, si ce n'est auter que par les capacité mémorielles du joueurs. <br>
+La liste&nbsp; doir être ordonnée et facilement identifiable.<br>
+Le séparateur peut être n'importe quel caractère parmi ceux ci <span style="font-weight: bold;">: "<big><big> - . , / _ ; / </big></big>"<br>
+</span>Les espaces seront supprimés, mais peuvent ête utilisés pour aérée la liste lors de la conception.<span style="font-weight: bold;"><br>
+</span>Exemple de liste ordonnée à trouver :<br>
+1,2,3,4,5<br>
+1,2,3,,5,6,7,8<br>
+10,20,30,40,50,60<br>
+a , b , c , d , e , f , g<br>
+O , P , Q , R , S , T<br>
+I , II , III , IV , V , VI<br>
+<br>
+<br>
+
+<br>
+
+<span style="font-weight: bold;">Points :</span><br>
+Le nombre de points est à définiir au niveau de la question.<br>
+Un nombre de points pour chaque propositions pourrait aboutir à des
+scores différents selon le nombre de points affecté à la proposition.<br>
+
+<br>
+
+<br>
+
+<br>
+
+</body></html>

@@ -62,14 +62,6 @@ class Plugin_pageEnd extends XoopsModules\Quizmaker\Plugins
 /* **********************************************************
 *
 * *********************************************************** */
- 	public function isQuestion()
- 	{
-        return false;
-    }
-
-/* **********************************************************
-*
-* *********************************************************** */
  	public function getFormOptions($caption, $optionName, $jsonValues = null)
  	{
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);

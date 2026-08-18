@@ -1,4 +1,52 @@
 ---------------------------------------------------
+2026-08-17a v 8.0 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------   
+- plugins utilisant des images pour lesquelles javascript devaient récupérer la taille :
+    Dorénavant c'est le formulaire php qui transmet la taille des images à javascript,
+    afin d'éviter les problème de chargement des images en streaming compliquant le calcule des images.
+    Ce problème intervenait notamment lors d'un rafraichissement de page avec la commande "Ctrl + F5".
+    plugins concernés : puzzle, taquin, memory, memorsuite, ... 
+    et plus généralement tous les plugins utilisant des grilles d'images. 
+- javascript : creation de plusieurs component-object : BaseGameGrid.js, Chronos.js
+    FocusManager.js, Gauge.js, MessageManager.js, SplitImage.js, ...
+- intégration de ces composants et nettoyage du code.
+- composant 'times-up' : Gestion des evennements centralisé 
+                        dans quizDivChronos.addEventListener('times-up', (e)   
+- fusion du plugin selectInputs avec selectImages sous le code "selectClassic" et le "libellé" : "Coches et Radios classics"      
+    selectInputs sera supprimé dans la prochaine version.
+    Il est conservé pour garder la copatabilité des question qui n'auraient pas été mise à jour
+                  
+---------------------------------------------------
+2026-07-18a v 7.0 beta 1 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------   
+Ajout des plugins :
+    pendu : jeu classic ou il faaut trouver un mot ou une expression avant d'être pendu
+    alumettes : le défi est de constituer un nouvelle figure en déplçant q'un certain nombre d'allumettes
+    equation : le défi est de complèter une équation dont les inconnues sont représntées par de "?"
+    Monkey : Jeu qui consiste a retouver dans l'ordre une liste d'objet, généralement des nombres, préalablement montrée dans une grille
+Mutualisation : 
+    suppresion du fichier "options-transition.php" et mutualissation dans le fichier "options-messages.php".
+    Permet de généraliser le système de messages des plugins dans le javascript.
+options d'interface des quiz:
+    - ajout de l'option "Plein écran". Permet au moment de lancer le quiz sur le premier slide de passer en mode plein écran.
+    - Ajout de l'option "Masque d'interface". Permet d'empecher toute interactioni avec le site, l'utilisateur est concentré sur le quiz et ne peut rien faire d'autre.
+    - Ajout de l'opion "Repositionner le quiz". Permet de recaler le quiz dans l'interfaface de sorte que l'utilisateur n'ai pas a scroller systématiquement pour replacer le quiz au milieu de l'écran.
+Ces trois options combinées permettent à l'utilisateur de rester concentrer sur le quiz et le force à aller jusqu'au bout.
+Après validation sur le dernier slide l'interface revient à la normal.
+L'option "Bouton Mode normal" permet d'annuler le mode plein écran et peut être laisser libre à l'usage de l'utilisateur.
+
+        
+---------------------------------------------------
+2026-05-04a v 6.18 beta 2 - JJDai - jjdelalandre@orange.fr
+---------------------------------------------------   
+Onglet "Participation" : remplacement du bouton "effecer tout" par une liste d'action pour cookies et results :
+    - supprimer les enregistrezments
+    - Mettre à jour les enregistrements : acualise uname et email à partir de uid (concerne les version antérieure)
+    - Nettoyer les enregistrement : suprimme les enr si uid=0 et <>3 et uname='' et courriel =''  (concerne les version antérieure)   
+
+Classe "Plugin" : Ajout de la méthode "toString()"   
+ 
+---------------------------------------------------
 2026-04-10a v 6.18 beta 2 - JJDai - jjdelalandre@orange.fr
 ---------------------------------------------------       
 Ajout du champ quiz_flag_txt : uriliser pour la transmission notammnet lors de l'export de plusieurs quiz
@@ -158,7 +206,7 @@ quiz_background  : valeur par defaut pour tous les slides d'un même quiz
 quest_background : valeur spécifique pour le slide courant, elle prime sur "quiz_background" 
 
 plugins : selectInputs, selectImages, alphaSimple, findObjects :
-    refonte  du passage au slide suivant si "nextSlideDelai" est > 0
+    refonte  du passage au slide suivant si "msg_nextslide_duree" est > 0
     harmonisation des variables utilisées et transfert des inputs dans "plugin_options_transition.php"
     qui par le fait utilise les même noms de variable et simplifie la compréhension du code
     Côté javascript simplification par le tranfert des fonctions des plugins dans "functions.js".

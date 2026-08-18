@@ -192,7 +192,7 @@ function textMixte_update_event(e, idText, idParentList, slideNumber, tag) {
     //change la couleur des mots choisis
     obLists.forEach( (obInput, index) => {
         if(obInput.value != ""){
-            var  tokenName = clQuestion.getName('token',index);
+            let  tokenName = clQuestion.getName('token',index);
             tokens = document.getElementsByName(tokenName);
             //alert(tokens.length);
             //alert(tokenName + ' - ' + tokens[0].innerHTML + '===>' + tokens[0].style.color);

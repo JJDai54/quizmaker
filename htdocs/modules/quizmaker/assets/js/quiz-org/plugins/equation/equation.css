@@ -1,0 +1,137 @@
+.divbody { font-family: sans-serif; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        background: #f0f0f0; 
+        padding: 20px;
+       }
+        
+        /* Grille pour l'équation */
+.equation-grid {
+    display: grid;
+
+    gap: 10px;
+    align-items: center;
+    background: transparent;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+
+    background-size: 100% 100%;
+
+    background-repeat: no-repeat;
+    width:450px; 
+}
+
+.token { width: 50px; 
+         height: 50px; 
+         background: #DEB887; 
+         border-radius: 50%; 
+         display: flex; 
+         align-items: center; 
+         justify-content: center; 
+         border: 2px solid #8B4513; 
+         cursor: grab; 
+         font-weight: bold;
+         }
+         
+.jeton { width: 50px; 
+         height: 50px; 
+         background: transparent; 
+         border-radius: 00%; 
+         display: flex; 
+         align-items: center; 
+         justify-content: center; 
+         border: 0px solid #8B4513; 
+         cursor: grab;
+ 
+         font-weight: bold;
+         font-size: 2em;
+         background-repeat: no-repeat;
+         background-size: cover;
+         }
+                 
+.operande { width: 50px; 
+         height: 50px; 
+         background: transparent; 
+         border-radius: 00%; 
+         display: flex; 
+         align-items: center; 
+         justify-content: center; 
+         border: 0px solid #8B4513; 
+         cursor: not-allowed;
+ 
+         font-weight: bold;
+         font-size: 2em;
+         background-repeat: no-repeat;
+         background-size: cover;
+         }
+         
+.inconnue { width: 50px; 
+        height: 50px; 
+        border: 0px dashed #8B4513; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        background-size:cover;
+        font-size:2em;
+        font-weight:bold;
+        color:red;
+        cursor: not-allowed;
+
+        }
+                
+.operateur {
+        font-weight: bold; 
+        background:transparent;
+        font-size:2em;
+        width: 30px; 
+        text-align: center; 
+         cursor: not-allowed;
+         background-size: cover;
+         justify-content: center; 
+         align-items: center; 
+         background-repeat: no-repeat;
+        }
+        
+.parenthese {
+        font-weight: bold; 
+        background:transparent;
+        font-size:2em;
+        width: 30px; 
+        height: 50px; 
+        text-align: center; 
+         cursor: not-allowed;
+         background-size: cover;
+         justify-content: center; 
+         align-items: center; 
+         background-repeat: no-repeat;
+        }
+        
+.theStock { display: flex; 
+        gap: 10px; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        width: 400px; 
+        background-size: 100% 100%;
+        padding: 30px;
+        }
+                
+.theStockDeJetons { 
+        gap: 10px; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        width: 400px; 
+        background-size: 100% 100%;
+        padding: 30px;
+        width: 400px; 
+        height:150px;
+        background-size: 100% 100%;
+        }
+                
+.btnVerifier{
+    background:lime;
+    font-soze:1.2em;
+    font-weight:bold;
+}

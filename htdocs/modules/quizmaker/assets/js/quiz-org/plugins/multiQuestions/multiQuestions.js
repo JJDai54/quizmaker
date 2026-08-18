@@ -75,9 +75,9 @@ getHtmlMultiListbox(k, listArr, nbInp, br){
     var itemName = this.getId(k);
 
     var tHtml = [];
-    var  size = 50/nbInp;
-    var  inpWidth = (br) ? 80 : 80/nbInp;
-console.log('===>getHtmlTextbox : nbInp = ' + nbInp)    ; 
+    let  size = 50/nbInp;
+    let  inpWidth = (br) ? 80 : 80/nbInp;
+//console.log('===>getHtmlTextbox : nbInp = ' + nbInp)    ; 
     for (var j = 0; j < nbInp; j++){
         var itemId = this.getId(k, j);
       //tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${width}%">`);
@@ -94,9 +94,9 @@ getHtmlMultiTextbox(k, nbInp, br){
     var name = this.getId(k);
 
     var tHtml = [];
-    var  inpWidth = (br) ? 80 : 80/nbInp;
+    let  inpWidth = (br) ? 80 : 80/nbInp;
     var maxLength= (br) ? 50 : 50/nbInp;
-console.log('===>getHtmlTextbox : nbInp = ' + nbInp)    ; 
+//console.log('===>getHtmlTextbox : nbInp = ' + nbInp)    ; 
     for (var j = 0; j < nbInp; j++){
       //tInp.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${inpWidth}%">`);
       tHtml.push(`<input type="text"  id="${name}-${j}" name="${name}" value="" style="width:${inpWidth}%;margin:2px 0px 2px 0px;" minlength="${maxLength}"   maxlength="${maxLength}">`);
@@ -113,7 +113,7 @@ getHtmlMultiCheckbox(k, itemsArr, strType, br){
     
    // var itemsArr = shuffleArray(itemsArr);
    var nbInp = itemsArr.length;
-    var  inpWidth = (br) ? 80 : 80/nbInp;
+    let  inpWidth = (br) ? 80 : 80/nbInp;
     
     for (var j = 0; j < itemsArr.length; j++){
       var itemId = this.getId(k, j);
@@ -201,7 +201,7 @@ getScoreByProposition (answerContainer){
 /***************************************************/
 
  getValuesArr(k, ans){
- console.log(`===>getValuesArr : ${ans.caption}`);
+ //console.log(`===>getValuesArr : ${ans.caption}`);
     var currentQuestion = this.question;
     var obs = document.getElementsByName(this.getId(k));    
     
@@ -291,7 +291,7 @@ getAllPropositions  (flag=0){
 console.clear();    
     for (var k=0; k < currentQuestion.answers.length; k++){
         var ans = currentQuestion.answers[k];
- console.log(`===>showGoodAnswers : ${ans.caption} - type = ${ans.typeInput}`);
+ //console.log(`===>showGoodAnswers : ${ans.caption} - type = ${ans.typeInput}`);
         if (ans.typeInput < 2){
             this.showAnswers_listbox_and_textbox(k, ans, true);
         }else{
@@ -348,7 +348,7 @@ console.clear();
 /***************************************************/
 
  showAnswers_checktbox_and_radio(k, ans, goodbad){
- console.log(`===>showAnswers_listbox_and_textbox : ${ans.caption}`);
+ //console.log(`===>showAnswers_listbox_and_textbox : ${ans.caption}`);
     var currentQuestion = this.question;
     var listArr = (goodbad) ? shuffleArray(ans.proposArr) : shuffleArray(ans.itemsArr);  
     var obs = document.getElementsByName(this.getId(k));

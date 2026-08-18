@@ -45,20 +45,17 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
         parent::__construct("alphaSimple", 0, "text");
         $this->setVersion('1.2', '2025-04-20', 'JJDai (jjd@orange.fr)');
 
+        $this->hasImageMain = true;
+        $this->multiPoints = true;
+        $this->hasShuffleAnswers = true;
+
         $this->optionsDefaults = ['directive'      => _CO_QUIZMAKER_NEW, 
                                   'propositions'   => '', 
                                   'disposition'    => '',
                                   'ignoreAccents'  => 0,
-                                  'togodo'         => 0,
-                                  'nextSlideMessageWinner'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_WINNER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_WINNER_0 : ''),
-                                  'nextSlideMessageLooser'      => (defined('_AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0') ? _AM_QUIZMAKER_NEXT_SLIDE_LOOSER_0 : ''),
-                                  'nextSlideDelai'              => 0,
-                                  'nextSlideBG'                 =>'#FFCC00'];
-
-        $this->hasImageMain = true;
-        $this->multiPoints = true;
-        $this->hasShuffleAnswers = true;
+                                  'togodo'         => 0];
         
+        $this->addMessages();        
     }
 
 	/**
@@ -89,9 +86,9 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElementOption($inpIgnoreAccents);      
       
       $name = 'directive';  
-      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB;
-      $inpDirective = new \XoopsFormText(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
-      $inpDirective->setDescription(_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC);
+      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_DIRECTIVE_LIB;
+      $inpDirective = new \XoopsFormText(_AP_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
+      $inpDirective->setDescription(_AP_QUIZMAKER_DIRECTIVE_DESC);
       $trayOptions ->addElementOption($inpDirective);     
       
       //--------------------------------------------------
@@ -129,9 +126,7 @@ class Plugin_alphaSimple extends XoopsModules\Quizmaker\Plugins
 
       //--------------------------------------------------------------------   
       //insertion des messages de transition
-      $prefixPluginWinner = '';
-      $prefixPluginLlooser = '';
-      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_transition.php");
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_messages.php");
 
       //--------------------------------------------------------------------           
       

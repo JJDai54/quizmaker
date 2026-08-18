@@ -41,6 +41,7 @@ return (object)[
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/messages',
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/temp',
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/import_batch',
+		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/quiz-min',
 	],
 	'copyBlankFiles'  => [
 		XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/quiz-js',

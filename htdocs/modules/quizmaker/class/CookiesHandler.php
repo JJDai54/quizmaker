@@ -238,8 +238,8 @@ public function exportCookiesToCSV($quizId){
         $lineData[] = $arr['cookie_ip'];
         $lineData[] = $arr['cookie_attempts'];
         $lineData[] = $arr['cookie_dead_line'];
-        $lineData[] = $arr['creation'];
-        $lineData[] = $arr['update'];
+        $lineData[] = $arr['cookie_creation'];
+        $lineData[] = $arr['cookie_update'];
         //$lineData[] = $arr[''];
             
         fputcsv($f, $lineData, $delimiter);
@@ -250,5 +250,77 @@ public function exportCookiesToCSV($quizId){
 
 
 }
+
+public function updateEmptyFields($quizId){
+    $usershandler = xoops_getHandler('user');
+        
+    $criteria = new \CriteriaCompo();            
+    $criteria->add(new \Criteria('cookie_quiz_id',$quizId, "="));
+    $criteria->add(new \Criteria('cookie_uid', 0, ">"));
+//    $criteria->add(new \Criteria('cookie_uid', 3, "<>"));
+
+    $criteria2 = new \CriteriaCompo();
+    $criteria2->add(new \Criteria('', 0, '=',null,'length(cookie_uname)'));
+    $criteria2->add(new \Criteria('', 0, '=',null,'length(cookie_email)'),"OR");
+    $criteria->add($criteria2);
+
     
+    $result = $this->getAllCookiesArr($criteria); 
+    if(count($result) ==  0) return 0;
+    foreach($result AS $key=>$arr){
+    //echoArray($arr);
+        $uid = $arr['uid'];
+        $user = $usershandler->get($uid);
+        $cookieObj = $this->get($arr['id']);
+        if($user){
+          $cookieObj->setVar('cookie_uname', $user->getVar('uname'));
+          $cookieObj->setVar('cookie_email', $user->getVar('email'));
+          $this->insert($cookieObj);
+        }else{
+          //le user n'existe plus
+          $this->delete($cookieObj);
+        }        
+    }
+ 
+    return count($result);
+}
+public function deleteEmptyFields($quizId){
+
+    //on ne supprime pas les anonymes dont l'email est renseigné
+    $criteria = new \CriteriaCompo();            
+    $criteria->add(new \Criteria('cookie_quiz_id',$quizId, "="));
+    $criteria->add(new \Criteria('', 0, '=',null,'length(cookie_uname)'));
+    $criteria->add(new \Criteria('', 0, '=',null,'length(cookie_email)'),"OR");
+    $this->deleteAll($criteria);
+
+    return true;
+}
+
+/* ******************************
+ * renvoie une liste "id=>name" pour les formSelect 
+ * *********************** */
+    public function getListKeyName($criteria = null, $keyField=null, $nameField = null, $addAll=false, $addNull=false)
+    {
+        if(!$keyField) $nameField = 'cookie_id';
+        if(!$nameField) $nameField = 'cookie_email';
+        
+        $obs = $this->getObjects($criteria, true);
+        $ret = array();
+        if ($addAll) $ret[0] = "(*)";
+        
+        foreach (array_keys($obs) as $i) {
+            $key = $obs[$i]->getVar($keyField);
+            //echo "i = {$i} - key = {$key}<br>";
+            if (($key) == $obs[$i]->getVar($nameField)){
+                $ret[$key] = $obs[$i]->getVar($nameField) ;
+            }else{
+                $ret[$key] = ((QUIZMAKER_ADD_ID) ? " (#{$key}) - " : "") . $obs[$i]->getVar($nameField) ;
+            }
+            //$ret[$key] = $obs[$i]->getVar($nameField) . ((QUIZMAKER_ADD_ID) ? " (#{$key})" : "");
+        
+        }
+        //echoArray($ret);exit;
+        return $ret;
+    }
+     
 } // ------------ FIN DE LA CLASSE ---------------

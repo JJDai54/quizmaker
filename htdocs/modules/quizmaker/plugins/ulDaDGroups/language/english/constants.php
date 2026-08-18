@@ -28,6 +28,6 @@ define('_LG_PLUGIN_ULDADGROUPS', "Distribute the suggestions into groups");
 define('_LG_PLUGIN_ULDADGROUPS_DESC', "This slide is composed of several groups into which the suggestions must be distributed.");
 define('_LG_PLUGIN_ULDADGROUPS_CONSIGNE', "Click and drag the items to group the correct answers.<br>Some items may already be in the correct position.");
 
-define('_LG_PLUGIN_ULDADGROUPS_UL_WIDTH', "Item width");
+define('_AP_QUIZMAKER_UL_WIDTH', "Item width");
 
 ?>

@@ -35,6 +35,7 @@ $quizId  = Request::getInt('quiz_id', 0);
 $questId  = Request::getInt('quest_id', 0);
 $quizSubject = Request::getString('quiz_subject', '');
 $quizDifficulty = Request::getInt('quiz_difficulty', 0);
+$playerId = Request::getInt('player_id', 0);
 //        echo "===>1quizId = {$quizId} - catId  = {$catId}<br>";
 
 if($quizId > 0 && $catId == 0){
@@ -102,6 +103,7 @@ global $quizHandler, $quest_Handler;
     return $params = implode('&', $params);
 }
 //////////////////////////////////////////////
+if(isset($_POST['btnSubmitCopy'])) $op = 'sendto_ok';
 switch($op) {
 	default:
         $op = 'list';
@@ -113,6 +115,7 @@ switch($op) {
 	case 'save':
 	case 'delete':
 	case 'addanswer':
+	case 'sendto':
         include_once("questions-{$op}.php");
         break;
     
@@ -133,8 +136,9 @@ switch($op) {
         $questionsHandler->updateWeight($questId, $action);
         $questionsHandler->incrementeWeight($quizId);
         $url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
-        \redirect_header($url, 0, "");
-        break;
+        redirect_header($url, 0, "");
+	    break;
+
 
 	case 'build_quiz':
         $buildArr = $quizUtility::buildQuiz($quizId);
@@ -147,7 +151,7 @@ switch($op) {
         $modulo = Request::getInt('modulo', 2);
         $doItForGroup = ($field == 'quest_actif') ? true : false;
         $questionsHandler->changeEtat($questId, $field, $modulo, $doItForGroup);
-        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
+        redirect_header("questions.php?op=list&questId={$questId}&sender=&cat_id={$catId}&quiz_id={$quizId}#question-{$questId}", 5, "Etat de {$field} Changé");
 	    break;
     
 	case 'disable_pageanswer':
@@ -162,8 +166,30 @@ switch($op) {
         redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, $msg);
 	    break;
 
+	case 'set_chrono_on':
+        $quizHandler->setBitOn($quizId, 'quiz_optionsIhm', QUIZMAKER_BIT_USETIMER, 1);
+        $buildArr = $quizUtility::buildQuiz($quizId);
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$buildArr['name'],$buildArr['id'],$buildArr['build']);
+        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, $msg);
+	    break;
+    case 'set_chrono_of':
+        $quizHandler->setBitOn($quizId, 'quiz_optionsIhm', QUIZMAKER_BIT_USETIMER, 0);
+        $buildArr = $quizUtility::buildQuiz($quizId);
+        $msg = sprintf(_AM_QUIZMAKER_QUIZ_BUILD_OK,$buildArr['name'],$buildArr['id'],$buildArr['build']);
+        redirect_header("questions.php?op=list&" . getParams2list($quizId, $quest_plugin), 5, $msg);
+	    break;
 
+    case 'resize_images':
+        $msg = sprintf(_AM_QUIZMAKER_RESIZE_IMAGES_CONFIRM, $quizmakerHelper->getConfig('resize_img_width'));
+      	xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'resize_images_ok'], $_SERVER['REQUEST_URI'], $msg);
+	    break;
 
+    case 'resize_images_ok':
+        $quizObj = $quizHandler->get($quizId);
+        $nbImages = $quizObj->resizeImages();
+        $msg = sprintf(_AM_QUIZMAKER_RESIZE_IMAGES_DONE, $nbImages);
+        redirect_header("questions.php?op=list&questId=$questId&sender=&cat_id={$catId}&quiz_id={$quizId}", 5, $msg);
+	    break;
 
 	case 'set_value':
         $field = Request::getString('field');
@@ -179,7 +205,7 @@ switch($op) {
         }
 
         $uploadArr = $quizUtility::quiz_export($quizId);
-        if($uploadArr['err'] > 0){
+        if($uploadArr && $uploadArr['err'] > 0){
             redirect_header("question.php?cat_id={$catId}&quiz_id={$quizId}", 5, $uploadArr['errlib']);
         }
         include_once("questions-list.php");
@@ -213,13 +239,13 @@ switch($op) {
         //echo "===>quizId = {$quizId} - catId  = {$catId}<br>";
 
         $list = Request::getArray('quest_list');
-        //echo "<hr>_GET/_POST<pre>" . print_r($gp, true) . "</pre><hr>";
-        //  echo "<hr>quest_timer<pre>" . print_r($list, true) . "</pre><hr>";
+        //echoArray("gp"); exit;
         foreach($list AS $id => $arr){
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('quest_id', $id, "="));
             $questionsHandler->updateAll('quest_timer', $arr['timer'], $criteria, $force = false);
-            $startTimer = (isset($arr['startTimer']) ? 1 : 0);
+            //$startTimer = (isset($arr['startTimer']) ? 1 : 0);
+            $startTimer = $arr['startTimer'];
             $questionsHandler->updateAll('quest_start_timer', $startTimer, $criteria, $force = false);
             
             //exclure pageBegin et pageEnd
@@ -258,6 +284,15 @@ switch($op) {
         }  
   		redirect_header('questions.php?' . getParams2list($quizId, $quest_plugin), 3, _AM_QUIZMAKER_FORM_DELETE_OK);
 	   break;
+       
+       
+	case 'sendto_ok':
+        $url = "questions.php?op=list&" . getParams2list($quizId, $quest_plugin)."#question-{$questId}";
+        redirect_header($url, 5, "Fonctionalité en cours de développement !");
+        exit('sendto_ok');
+
+	   break;
+       
     } // fin du switch maitre
     
 require __DIR__ . '/footer.php';

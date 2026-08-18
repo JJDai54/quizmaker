@@ -65,6 +65,10 @@ switch($op) {
         }
 		$resultsObj = $resultsHandler->get($resultId);
         
+		$resultsObj->setVar('result_uid', Request::getString('result_uid', 0));        
+		$resultsObj->setVar('result_uname', Request::getString('result_uname', ''));        
+		$resultsObj->setVar('result_email', Request::getString('result_email', ''));    
+                        
 		$resultsObj->setVar('result_score_achieved', Request::getInt('result_score_achieved', '0'));        
 		$resultsObj->setVar('result_score_max', Request::getInt('result_score_max', '0'));        
 		$resultsObj->setVar('result_score_min', Request::getInt('result_score_min', '0'));        
@@ -101,19 +105,7 @@ switch($op) {
 
         }
 	break;
-/*
 
-
-	case 'submit_answers':
-	break;
-
-
-	case 'new':
-	break;
-
-    
-	break;
-*/
 	case 'delete':
         $resultId = Request::getInt('result_id', 0);
 		$resultsObj = $resultsHandler->get($resultId);
@@ -142,7 +134,7 @@ switch($op) {
             xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'result_id' => $resultId, 'op' => 'delete'], $_SERVER['REQUEST_URI'], $msg);
 		}
 	break;
-
+/*
 	case 'delete_all':
 		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
 			if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -163,5 +155,58 @@ switch($op) {
 			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'delete_all'], $_SERVER['REQUEST_URI'], $msg);
 		}
 	break;
+*/
+
+	case 'delete_all':
+		//$cookiesObj = $cookiesHandler->get($cookieId);
+		//$quizId = $cookiesObj->getVar('quiz_id');
+		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+			if (!$GLOBALS['xoopsSecurity']->check()) {
+				redirect_header('participation.php', 3, implode(', ', $GLOBALS['xoopsSecurity']->getErrors()));
+			}
+            $criteria = new \CriteriaCompo();            
+            $criteria->add(new \Criteria('result_quiz_id',$quizId, "="));
+            
+            $ret = $resultsHandler->deleteAll($criteria);
+            $msg = sprintf(_AM_QUIZMAKER_RAZ_ENR_OK, 'results', $quizId, $name); 
+			redirect_header("participation.php?quiz_id={$quizId}&domaine={$domaine}", 3, $msg);
+		} else {
+            $quiz = $quizHandler->get($quizId);
+            $name = $quiz->getVar('quiz_name');
+        
+            $msg = sprintf(_AM_QUIZMAKER_CONFIRM_RAZ_ENR, 'results', $quizId, $name); 
+			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'delete_all', 'domaine' => $domaine], $_SERVER['REQUEST_URI'], $msg);
+		}
+	break;
+        
+	case 'update_all':
+		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+
+            $resultsHandler->updateEmptyFields($quizId);
+            $msg = sprintf(_AM_QUIZMAKER_UPDATE_ENR_OK, 'results', $quizId, $name); 
+			redirect_header("participation.php?quiz_id={$quizId}&domaine={$domaine}", 3, $msg);
+		} else {
+            $quiz = $quizHandler->get($quizId);
+            $name = $quiz->getVar('quiz_name');
+        
+            $msg = sprintf(_AM_QUIZMAKER_CONFIRM_UPDATE_ENR, 'results', $quizId, $name); 
+			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'update_all', 'domaine' => $domaine], $_SERVER['REQUEST_URI'], $msg);
+		}
+	break;
+    
+	case 'clean_all':
+		if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+            $resultsHandler->deleteEmptyFields($quizId);
+            $msg = sprintf(_AM_QUIZMAKER_CLEAN_ENR_OK, 'results', $quizId, $name); 
+			redirect_header("participation.php?quiz_id={$quizId}&domaine={$domaine}", 3, $msg);
+		} else {
+            $quiz = $quizHandler->get($quizId);
+            $name = $quiz->getVar('quiz_name');
+        
+            $msg = sprintf(_AM_QUIZMAKER_CONFIRM_CLEAN_ENR, 'cookies', $quizId, $name); 
+			xoops_confirm(['ok' => 1, 'quiz_id' => $quizId, 'op' => 'clean_all', 'domaine' => $domaine], $_SERVER['REQUEST_URI'], $msg);
+		}
+	break;
+    
 }
 

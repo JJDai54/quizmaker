@@ -301,9 +301,9 @@ function imagesColor_showPicker(e, idPicker, etat){
     obDivImg =  e.currentTarget.parentNode;
     obDivColor =  e.currentTarget;
     
-console.log("imagesColor_showPicker = " + obPicker.id);
-console.log('top = ' +  obDivImg.id + " = " +  obDivImg.offsetTop);
-console.log('==================');
+//console.log("imagesColor_showPicker = " + obPicker.id);
+//console.log('top = ' +  obDivImg.id + " = " +  obDivImg.offsetTop);
+//console.log('==================');
     if (etat == 1){
         obPicker.style.display='block';
        // obPicker.style.top = e.currentTarget.style.top;

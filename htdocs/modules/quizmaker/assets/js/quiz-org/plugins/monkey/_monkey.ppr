@@ -1,0 +1,64 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org\plugins\monkey
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+HTServer=localhost
+Extensions=*.*
+[Project tree]
+_monkey
+	+monkey
+		-img
+			img\index.html
+		_monkey.ppr
+		index.html
+		monkey.css
+		monkey.js
+		monkey-events.js
+		monkey-fnc.js
+[Open project files]
+0=monkey-fnc.js
+1=monkey-events.js
+2=monkey.js
+3=monkey.css
+4=..\..\js\composantsJS\index.js
+5=..\..\js\composantsJS\Gauge.js
+6=..\..\js\composantsJS\MessageManager.js
+7=..\..\js\composantsJS\MessageManager-v01.js
+[Selected Project Files]
+Main=
+Selected=monkey.js
+[monkey-fnc.js]
+TopLine=1
+Caret=5,7
+[monkey-events.js]
+TopLine=1
+Caret=1,22
+[monkey.js]
+TopLine=147
+Caret=28,182
+[monkey.css]
+TopLine=1
+Caret=1,44
+[..\..\js\composantsJS\index.js]
+TopLine=3
+Caret=1,45
+[..\..\js\composantsJS\Gauge.js]
+TopLine=1
+Caret=1,36
+[..\..\js\composantsJS\MessageManager.js]
+TopLine=10
+Caret=12,26
+[..\..\js\composantsJS\MessageManager-v01.js]
+TopLine=1
+Caret=9,46

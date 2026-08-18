@@ -32,7 +32,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 /**
  * Class Object Answers
  */
-class Plugin_pageAnswer extends  Plugin_pageInfo 
+class Plugin_pageAnswer extends XoopsModules\Quizmaker\Plugins 
 {
      
 	/**
@@ -41,26 +41,125 @@ class Plugin_pageAnswer extends  Plugin_pageInfo
 	 */
 	public function __construct()
 	{
-        parent::__construct();
-        $pluginName = "pageAnswer";
-        $this->pluginName = $pluginName;
-        $this->type = $pluginName;
-        $this->typeForm = QUIZMAKER_TYPE_FORM_ANSWER;
-        $this->typeForm_lib = _CO_QUIZMAKER_FORM_ANSWER;
-                
-        $this->isParent = false; 
-        $this->isQuestion = 0; 
-        $this->canDelete = true;  
+        parent::__construct("pageAnswer", 0, "page");
+        $this->setVersion('1.1', '2025-010-08', 'JJDai (jjd@orange.fr)');
 
-        $this->pathArr = $this->getPluginPath();
-//echo "<hr><pre>" . print_r($this->pathArr,true) . "</pre><hr>";
-        $this->name        = constant($this->prefix . strToUpper($pluginName));
-        $this->description = constant($this->prefix . strToUpper($pluginName) . '_DESC');
-        $this->consigne    = constant($this->prefix . strToUpper($pluginName) . '_CONSIGNE');
- 
-        $this->category = "page"; //first_last
-        $this->categoryLib = constant(QUIZMAKER_PREFIX_CAT . strToUpper($this->category));
+        $this->optionsDefaults = [];
+        $this->hasImageMain = true;
+        $this->hasZoom = true;
+
+
         //$this->categoryWeight = constant('QUIZMAKER_PLUGIN_CAT_' . strToUpper($cat));
     }
+	/**
+	 * @static function &getInstance
+	 *
+	 * @param null
+	 */
+	public static function getInstance()
+	{
+		static $instance = false;
+		if (!$instance) {
+			$instance = new self();
+		}
+	}
+
+    
+/* **********************************************************
+*
+* *********************************************************** */
+ 	public function getFormOptions($caption, $optionName, $jsonValues = null)
+ 	{
+      $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
+      $trayOptions = $this->getNewXFTableOptions($caption);     
+  
+      //--------------------------------------------------------------------   
+
+      $trayOptions ->addElementOption(new XoopsFormLabel('', _AM_QUIZMAKER_NO_OPTIONS));     
+     
+      //--------------------------------------------------------------------           
+      
+      return $trayOptions;
+    }
+
+/* ************************************************
+*
+* *************************************************/
+ 	public function getForm($questId, $quizId)
+ 	{
+        global $utility, $quizUtility, $answersHandler;
+
+        $answers = $answersHandler->getListByParent($questId);
+        $this->initFormForQuestion();
+        $this->maxPropositions = 2;
+        //-------------------------------------------------
+//    echo "<hr>answers<pre>" . print_r($answers, true) . "</pre><hr>";
+
+        $trayAllAns = new XoopsFormElementTray  ('', $delimeter = '<br>'); //, $name = '');
+        
+        for($i = 0; $i < $this->maxPropositions ; $i++){
+            
+            $name = $this->getName($i,'proposition');
+            $proposition = (isset($answers[$i])) ? $answers[$i]->getVar('answer_proposition', 'e') : '';
+            //$inpPropo = $this->getformTextarea(_AM_QUIZMAKER_PLUGIN_TEXTES, $name, $proposition);        
+            //$inpPropo = $this->getformAdmin(_AM_QUIZMAKER_PLUGIN_TEXTES, $name, $proposition);      
+            $inpPropo  = $quizUtility->getEditor2(_AM_QUIZMAKER_PLUGIN_TEXTES, $name, $proposition,  null , null, null);
+              
+            $trayAllAns->addElement($inpPropo);      
+        }
+
+        //----------------------------------------------------------
+        $this->trayGlobal->addElement($trayAllAns);
+		return $this->trayGlobal;
+	}
+
+/* ************************************************
+*
+* *************************************************/
+ 	public function saveAnswers($answers, $questId, $quizId)
+ 	{
+        global $utility, $answersHandler, $pluginsHandler;
+        //$this->echoAns ($answers, $questId, $bExit = true);    
+        $answersHandler->deleteAnswersByQuestId($questId); 
+        //--------------------------------------------------------        
+       //echo "===>nb request : " . count($answers) . "<br>";
+       foreach ($answers as $key=>$v){
+            //if($v['proposition'] === '')continue;
+            
+            //echo "===>proposition = {$v['proposition']} - points = {$v['points']}<br>";
+			$ansObj = $answersHandler->create();
+    		$ansObj->setVar('answer_quest_id', $questId);
+            
+    		$ansObj->setVar('answer_proposition', $v['proposition']);
+    		$ansObj->setVar('answer_points', 0);
+    		$ansObj->setVar('answer_weight', $key*10);
+            
+    		$ansObj->setVar('answer_caption', '');
+    		$ansObj->setVar('answer_inputs', 1);
+
+            $ret = $answersHandler->insert($ansObj);
+      }
+    }
+/* ********************************************
+*
+*********************************************** */
+  public function getSolutions($questId, $boolAllSolutions = true){
+  global $answersHandler, $quizHandler, $questionsHandler;
+ 
+    $question = $questionsHandler->get($questId);
+    $quizId = $questionsHandler->get($questId, ["quest_quiz_id"])->getVar("quest_quiz_id");
+//    echo("getSolutions - quizId = <hr><pre>" . print_r($quizId,true) . "</pre><hr>");
+    //recherche du dossier upload du quiz
+    $urlImg = $quizHandler->getFolderJS($quizId, 2, 'images');
+    $img = $urlImg . '/' . $question->getVar('quest_image');
+    $tplImg = "<img src='{$img}' alt='' title='' style='height:250px;>";
+    //$ret['answers'] = implode("\n", $html);
+    
+    $ret['answers'] = $tplImg;
+    $ret['scoreMin'] = 0;
+    $ret['scoreMax'] = 0;
+    //echoArray($ret);
+    return $ret;
+}
 
 } // ----------------- FIN DE LA classe ------------------

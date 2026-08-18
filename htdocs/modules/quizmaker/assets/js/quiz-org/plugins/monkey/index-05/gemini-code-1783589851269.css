@@ -1,0 +1,20 @@
+table { 
+    border-collapse: separate; /* Important pour border-spacing */
+    border-spacing: 5px;       /* Espace entre les cases (si vous en voulez) */
+    margin-top: 20px; 
+}
+
+td {
+    width: 60px; height: 60px;
+    border: none;              /* On enlève la bordure par défaut */
+    background-color: #ddd;    /* Couleur de fond par défaut */
+    text-align: center; 
+    font-size: 20px; 
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 8px;        /* Coins arrondis pour un look moderne */
+}
+
+/* On garde le style pour les cases à deviner */
+.a-deviner { background-color: #fff3cd; }

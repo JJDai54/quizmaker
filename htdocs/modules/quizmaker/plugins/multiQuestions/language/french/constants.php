@@ -41,7 +41,7 @@ define('_LG_PLUGIN_MULTIQUESTIONS_TYPE_RADIO', "Bouton radio");
 
 define('_LG_PLUGIN_MULTIQUESTIONS_CONSIGNE', "A definir");
 define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH', "Taille des zones d'entrèes en nombre de caractères");
-define('_LG_PLUGIN_MULTIQUESTIONS_INP_WIDTH_DESC', "Nombre de caractères maximum à saisir");
+define('_LG_PLUGIN_MULTIQUESTIONS_INP__AP_QUIZMAKER_WIDTH_DESC', "Nombre de caractères maximum à saisir");
 
 define('_LG_PLUGIN_MULTIQUESTIONS_COUNT_MODE',"Mode de comptage");
 define('_LG_PLUGIN_MULTIQUESTIONS_COUNT_MODE_DESC',"Mode de comptage des points par question");

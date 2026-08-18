@@ -58,9 +58,35 @@ global $clPerms;
 }
 $templateMain = 'quizmaker_admin_ressources.tpl';
 //--------------------------------------------------------
+/*
+$imgPath = QUIZMAKER_PATH_UPLOAD_QUIZ . QUIZMAKER_FLD_IMAGES . '/' . $folder;
+$imgURL  = QUIZMAKER_URL_UPLOAD_QUIZ . QUIZMAKER_FLD_IMAGES . '/' . $folder;
+$imgURL  = QUIZMAKER_URL_UPLOAD_QUIZ .  QUIZMAKER_FLD_IMAGES . '/' . $folder;
+$imgPath = QUIZMAKER_PATH_QUIZ_ORG .    QUIZMAKER_FLD_IMAGES . '/' .   $folder;
+$imgURL  = QUIZMAKER_URL_QUIZ_ORG .  QUIZMAKER_FLD_IMAGES . '/' . $folder;
+$uploadFolder =  QUIZMAKER_FLD_IMAGES . '/' . $folder;
 
-$imgPath = QUIZMAKER_PATH_QUIZ_ORG . '/images/' . $folder;
 
+$imgPath = QUIZMAKER_PATH_UPLOAD . $uploadFolder;
+$imgURL  = QUIZMAKER_URL_UPLOAD  . $uploadFolder;
+
+
+﻿﻿D:/_JJD-WorkSpace-D/Wamp-Serveur/Sites/xoops-2511b-fr/htdocs/uploads/quizmaker/__images__/coches
+ D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\uploads\quizmaker\__images__\coches
+
+
+http:/127.0.0.16/uploads/quizmaker/__images__/coches
+                \uploads\quizmaker\__images__\coches
+
+http://127.0.0.16/127.0.0.16/uploads/quizmaker/__images__/coches/69d827c68a39b.png
+
+*/
+
+$imgPath = FQUIZMAKER\getFolder('p', 'u', QUIZMAKER_FLD_IMAGES, true) . $folder;
+$imgURL  = FQUIZMAKER\getFolder('u', 'u', QUIZMAKER_FLD_IMAGES, true) . $folder;
+
+
+//echo "{$imgPath}<br>{$imgURL}";
 
 switch($op) {
 	default:
@@ -95,7 +121,7 @@ switch($op) {
  
      foreach($imgList as $k => $img){
          $arr = array();
-         $arr['url'] = QUIZMAKER_URL_QUIZ_ORG . "/images/{$folder}/{$img}";
+         $arr['url'] = $imgURL . "/". $img;
          $arr['name'] = $img;
          
          $imgArr[] = $arr;

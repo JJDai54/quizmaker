@@ -25,9 +25,10 @@ defined( 'XOOPS_ROOT_PATH' ) or die( 'Accès restreint' );
 
 //------------------------------------------------------------------
 define('_LG_PLUGIN_ALPHASIMPLE', "Trouver les lettres ou expressions");
-define('_LG_PLUGIN_ALPHASIMPLE_DESC', "Ce slide est composé d'une question et de plusieurs caractères ou expressions alpha-nummériques à sélectionner.");
+define('_LG_PLUGIN_ALPHASIMPLE_DESC', "Ce jeu consiste à trouver un ou plusieurs caractères ou expressions, qui réponde aux critères définis par la question..");
+define('_LG_PLUGIN_ALPHASIMPLE_CONSIGNE', "Ce jeu consiste à trouver un ou plusieurs caractères pour modifier un mot ou une expression.<br>Action : Cliquez sur une lettre ou une expression proposée.<br>Dans le cas ou plusieurs lettres ou expressions à trouver, cliquez autant de fois que néssaire sur les lettres ou espressions proposées pour compplèter et trouver la solution.");
+//---------------------------------------------------------------
 
-define('_LG_PLUGIN_ALPHASIMPLE_CONSIGNE', "Sélectionnez un ou plusieurs caractères ou expressions alpha-numérique qui correspond à la question.");
 define('_LG_PLUGIN_ALPHASIMPLE_INTRUS', "Expressions erronées");
 
 define('_LG_PLUGIN_ALPHASIMPLE_LETTERS_DESC', <<<__exp__
@@ -38,9 +39,7 @@ Liste de caractères ou d'expressions qui vient complèter les propositions pour
 <br>Quand cette liste est utilisée, Il n'est pas utile de les saisir dans la liste des propositions.
 __exp__);
 
-define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE', "Directive");
-define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_DESC', "Action à faire affichée au dessus des lettres.");
-define('_LG_PLUGIN_ALPHASIMPLE_DIRECTIVE_LIB', "Cliquez sur une ou plusieurs lettres ou chiffres.");
+define('_LG_PLUGIN_DIRECTIVE_LIB', "Cliquez sur une ou plusieurs lettres ou chiffres.");
 define('_LG_PLUGIN_ALPHASIMPLE_IGNORE_ACCENTS', "Ignorer les accents.");
 
 ?>

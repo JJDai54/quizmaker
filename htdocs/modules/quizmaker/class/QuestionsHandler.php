@@ -197,7 +197,7 @@ class QuestionsHandler extends \XoopsPersistableObjectHandler
         
         }
         //echo "<hr>{}<hr>";
-        echoArray($ret);exit;
+        //echoArray($ret);exit;
         return $ret;
     }
  /* ******************************

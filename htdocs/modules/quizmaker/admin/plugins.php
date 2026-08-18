@@ -42,7 +42,7 @@ switch($op) {
 	default:
         $GLOBALS['xoopsTpl']->assign('buttons', '');
         // Define Stylesheet
-		$GLOBALS['xoTheme']->addStylesheet( $style, null );
+		//$GLOBALS['xoTheme']->addStylesheet( $style, null );
 		$start = Request::getInt('start', 0);
 		$limit = Request::getInt('limit', $quizmakerHelper->getConfig('adminpager'));
 		$templateMain = 'quizmaker_admin_plugins.tpl';
@@ -65,13 +65,14 @@ switch($op) {
   	    $GLOBALS['xoopsTpl']->assign('inpCatTQ', $inpCatTQ->render());
 
         $catId = $categoriesHandler->getId(QUIZMAKER_CAT_NAME_FOR_EXEMPLE, true, false);
-        $allQuiz = $quizHandler->getKeysByCat($catId, 'quiz_name');
-//        echoArray($allQuiz,"=========================================");
+        $allQuiz = array_change_key_case($quizHandler->getKeysByCat($catId, 'quiz_name'), CASE_LOWER);
+        //echoArray($allQuiz,"=========================================");
         
         //recuperation du quiz si il existe
         foreach($pluginAll AS $key=>$tQuestions){
-             $plugin = "plugin_" . $pluginAll[$key]['type'];
-             if (isset($allQuiz[$plugin])){
+             $plugin = strtolower("plugin_" . $pluginAll[$key]['type']);
+             //if (isset($allQuiz[$plugin])){
+             if (array_key_exists($plugin, $allQuiz)){
                  $pluginAll[$key]['quiz_id'] =  $allQuiz[$plugin];    
              }else{$pluginAll[$key]['quiz_id'] = 0;}
         }        

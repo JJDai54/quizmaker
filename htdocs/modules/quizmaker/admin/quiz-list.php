@@ -64,9 +64,9 @@ use XoopsModules\Quizmaker\Utility;
 //     $criteriaSet = new CriteriaCompo(new Criteria('quiz_subject', $quizSubject));
 //     $criteriaSet->add(new Criteria('quiz_cat_id', $catId));
         
-    //$setArr =  $quizHandler->getAll($criteriaSet, 'quiz_subject,quiz_name', false);
-    $setArr =  $quizHandler->getFieldList('quiz_subject', $catId);
-    //echoArray($setArr, "catId = {$catId} - quiz_subject = {$quizSubject}");
+    //$subjectArr =  $quizHandler->getAll($criteriaSet, 'quiz_subject,quiz_name', false);
+    $subjectArr =  $quizHandler->getFieldList('quiz_subject', $catId);
+    //echoArray($subjectArr, "catId = {$catId} - quiz_subject = {$quizSubject}");
            
         
 		$GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
@@ -75,7 +75,7 @@ use XoopsModules\Quizmaker\Utility;
         $criteria = new CriteriaCompo();
         if ($catId > 0)
             $criteria->add(new Criteria('quiz_cat_id',$catId));
-        if ($quizSubject != '' && array_key_exists($quizSubject, $setArr))
+        if ($quizSubject != '' && array_key_exists($quizSubject, $subjectArr))
             $criteria->add(new Criteria('quiz_subject',$quizSubject));
         if ($quizDifficulty != 0 )
             $criteria->add(new Criteria('quiz_difficulty', $quizDifficulty));

@@ -45,6 +45,13 @@ var $questId = 0;
 var $type = '';
 var $pluginName = '';//idem type
 var $name = '';
+
+var $hasImageMain = false;
+var $hasShuffleAnswers = false;
+var $hasZoom = false;
+var $hasGlobalPoints = true;
+
+
 var $categoryWeight = 0;
 var $description = '';
 var $example = '';
@@ -71,13 +78,10 @@ var $typeForm = ''; // Type de slide : page intro, page groupe ou question
 var $typeForm_lib = ''; // libelle du type de slide
 var $isParent = false;  
 var $consigne  = ''; // Consigne qui apparait dans l'icone du point d'iterogation de chaque slide
-
-var $optionsDefaults = array('test'=>'JJD');
 var $multiPoints = false;
-var $hasImageMain = false;
-var $hasShuffleAnswers = false;
 var $numbering = -1;
-var $hasZoom = false;
+var $optionsDefaults = array('test'=>'JJD');
+var $optionsMsg = null;
 
 //si true, ne sera plus dans les listes de sélection pour une création, 
 //mais permet de garder la compatibilité avec des slides créés avec ce type de question.
@@ -85,11 +89,15 @@ var $obsolette = false;
 var $pathArr = false; 
 var $prefix = '_LG_PLUGIN_';
 
+//variables utilisé pour l'ajout de messages transmis au javascript
+var $messagesArr  = null;
+
 const bgColor1 = '#CCFFFF';
 const bgColor2 = '#FFCC99';
 const bgColor3 = '#FFFFCC';
 
 const noClass = "00-none";     
+        
 
 	/**
 	 * Constructor 
@@ -109,10 +117,10 @@ const noClass = "00-none";
         
         switch($pluginName){
         case 'pageBegin' : $this->typeForm = QUIZMAKER_TYPE_FORM_BEGIN;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_INTRO;    break;
-        case 'pageGroup' : $this->typeForm = QUIZMAKER_TYPE_FORM_GROUP;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_GROUP;    break;
         case 'pageEnd'   : $this->typeForm = QUIZMAKER_TYPE_FORM_END;        $this->isParent = false; $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_RESULT;   break;
+        case 'pageGroup' : $this->typeForm = QUIZMAKER_TYPE_FORM_GROUP;      $this->isParent = true;  $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_GROUP;    break;
         case 'pageInfo'  : $this->typeForm = QUIZMAKER_TYPE_FORM_INFO;       $this->isParent = false; $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_INFO;     break;
-        case 'pageAnswer': $this->typeForm = QUIZMAKER_TYPE_FORM_ANSWER;     $this->isParent = false; $this->isQuestion = 0; $this->canDelete = false; $this->typeForm_lib = _CO_QUIZMAKER_FORM_ANSWER;   break;
+        case 'pageAnswer': $this->typeForm = QUIZMAKER_TYPE_FORM_ANSWER;     $this->isParent = false; $this->isQuestion = 0; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_ANSWER;   break;
         default          : $this->typeForm = QUIZMAKER_TYPE_FORM_QUESTION;   $this->isParent = false; $this->isQuestion = 1; $this->canDelete = true;  $this->typeForm_lib = _CO_QUIZMAKER_FORM_QUESTION; break;
         }
 //exit("this->isQuestion = {$this->isQuestion}");
@@ -127,6 +135,38 @@ const noClass = "00-none";
         $this->categoryLib = constant(QUIZMAKER_PREFIX_CAT . strToUpper($cat));
         $this->categoryWeight = constant('QUIZMAKER_PLUGIN_CAT_' . strToUpper($cat));
 	}
+	/**
+	 * @static function &toString
+	 *
+	 * @param zrrzy of properties
+	 */
+	public function toString()
+	{
+    //echo "<hr>pluginName : " . $this->pluginName . '<hr>';
+        $arr = array();
+        $arr['pluginName'] = $this->pluginName;
+        $arr['typeForm'] = $this->typeForm;
+        $arr['isParent'] = ($this->isParent) ? 'true' : 'false';
+        $arr['isQuestion'] = ($this->isQuestion) ? 'true' : 'false';
+        $arr['canDelete'] = ($this->canDelete) ? 'true' : 'false';
+        $arr['typeForm_lib'] = $this->typeForm_lib;
+        $arr['pathArr'] = $this->pathArr;
+        $arr['name'] = $this->name;
+        $arr['description'] = $this->description;
+        $arr['consigne'] = $this->consigne;
+        $arr['category'] = $this->category;
+        $arr['categoryLib'] = $this->categoryLib;
+        $arr['categoryWeight'] = $this->categoryWeight;
+        /*
+        $arr[''] = $this->;
+        $arr[''] = $this->;
+        $arr[''] = ($this->) ? 'true' : 'false';
+        $arr[''] = ($this->) ? 'true' : 'false';
+        $arr[''] = ($this->) ? 'true' : 'false';
+        */
+        return $arr;
+        
+    }
 
 	/**
 	 * @static function &getInstance
@@ -183,6 +223,52 @@ const noClass = "00-none";
 
     }
 	/**
+	* function addMessages($messagegArr)
+    * ajoute la liste des message spcifique au plugin dans le tableau des options
+    * il seront afficher dans forOptions avec l'include :
+    * $messagesArr = $this->messagegArr;    
+    * @$messagegArr  : tableau cles des de messages a ajouter.(ils doivent tous avoir le même prefixe) 
+    *  include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_messages.php");
+        addMessages()
+    * */
+	public function addMessages($messagesArr = null)
+	{
+ $this->messagesArr = $messagesArr; 
+  
+        //$this->optionsMsg = array();
+        $this->optionsDefaults['msg_nextslide_duree'] = 0;
+        $this->optionsDefaults['msg_nextslide_gotonext'] = 0;
+        $this->optionsDefaults['msg_nextslide_background'] = '#FFCCFF';
+        
+        $this->optionsDefaults['msg_nextslide_bgWinner'] = '#66FF66';
+        $this->optionsDefaults['msg_nextslide_bgLooser'] = '#FF9966';
+  
+        $this->optionsDefaults['msg_nextslide_winner'] = (defined('_AP_QUIZMAKER_MSG_NEXTSLIDE_WINNER_0') ? _AP_QUIZMAKER_MSG_NEXTSLIDE_WINNER_0 : '');
+        $this->optionsDefaults['msg_nextslide_looser'] = (defined('_AP_QUIZMAKER_MSG_NEXTSLIDE_LOOSER_0') ? _AP_QUIZMAKER_MSG_NEXTSLIDE_LOOSER_0 : '');
+        //$this->messagesArr = array();
+        
+        //--- messages spécifiques au plugin
+        //if($this->messagesArr)    echoArray($this->messagesArr, $this->pluginName);
+        if($messagesArr){
+            $plugin = $this->pluginName;
+            
+            $this->optionsDefaults['msg_duree'] = 3;
+            $this->optionsDefaults['msg_background'] = '#99FF00';
+        
+            foreach($messagesArr as $key) {
+                //$keyName = strtolower($key);
+                $keyName = $key;
+                $msgDefaut = "_LG_PLUGIN_{$plugin}_MSG_{$keyName}_0";
+                $this->optionsDefaults["msg_{$keyName}"] = constant(strtoupper($msgDefaut));
+            }
+            //echoArray($this->messagesArr);
+//echoArray($messagesArr,'addMessages',true);        
+//echoArray($this->optionsDefaults,'addMessages',true);        
+        }
+	}
+
+
+	/**
 	 * @public function initFormForQuestion
 	 * @param bool $action
 	 * @return \XoopsThemeForm
@@ -203,7 +289,7 @@ const noClass = "00-none";
 	public function getSlideHelper($isOpen = false)
 	{
 
-
+        //function __construct($caption, $name , $value, $isOpen = false)
         $trayHeader = new \XoopsFormShowHide(_AM_QUIZMAKER_PLUGIN_HELP, 'quizmaker_help', $this->getInpHelp()); 
         $trayHeader->setLibelle('caption', _AM_QUIZMAKER_PLUGIN_HELP_LIBELLE);
         $trayHeader->setLibelle('show', _AM_QUIZMAKER_PLUGIN_HELP_SHOW);
@@ -396,7 +482,7 @@ global $xoopDB;
 
     if(is_object($answers)) $answers = $xoopsDB->fetchArray($answers);
     
-    echo "<hr>Question questId = {$questId}<pre>" . print_r($answers, true) . "</pre><hr>";
+    //echo "<hr>Question questId = {$questId}<pre>" . print_r($answers, true) . "</pre><hr>";
     if ($bExit) exit;         
 }
 
@@ -507,10 +593,10 @@ global $xoopDB;
 /* **********************************************************
 *
 * *********************************************************** */
- 	public function isQuestion()
- 	{
-        return ($this->isQuestion);
-    }
+//  	public function isQuestion()
+//  	{
+//         return ($this->isQuestion);
+//     }
     
 /* **********************************************************
 *

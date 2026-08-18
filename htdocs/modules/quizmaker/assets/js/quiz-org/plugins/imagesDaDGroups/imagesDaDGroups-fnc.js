@@ -5,7 +5,7 @@
 var imagesDaDGroups_dataTransfer = "text";
 
 function imagesDaDGroups_start(e, isDiv=false){
-console.log("===> dad => " + "imagesDaDGroups_start" + " - " + e.target.getAttribute("id"));
+//console.log("===> dad => " + "imagesDaDGroups_start" + " - " + e.target.getAttribute("id"));
 
     e.dataTransfer.setData(imagesDaDGroups_dataTransfer, e.target.parentNode.getAttribute("id"));
     
@@ -25,7 +25,7 @@ console.log("===> dad => " + "imagesDaDGroups_start" + " - " + e.target.getAttri
 /* *********************************** */
 function imagesDaDGroups_over(e){
 e.preventDefault();    
-console.log("===> dad => " + "imagesDaDGroups_over");
+//console.log("===> dad => " + "imagesDaDGroups_over");
     
     //seul firefox peut acceder aux valeurx de dataTransfer dans le over
     //mais il y en a besoin pour idenfier le group survolé
@@ -85,7 +85,7 @@ function imagesDaDGroups_get_group(obOver, isGroup){
 /* ************************************************************* */
 function imagesDaDGroups_drop(e){
 e.preventDefault();    
-console.log("===> dad => " + "imagesDaDGroups_drop" + " | " + e.target.getAttribute("src"));
+//console.log("===> dad => " + "imagesDaDGroups_drop" + " | " + e.target.getAttribute("src"));
 //alert("===> dad => " + "imagesDaDGroups_drop" + " | " + e.target.getAttribute("src"));
     obOver = imagesDaDGroups_get_group(e.target);
     
@@ -106,7 +106,7 @@ console.log("===> dad => " + "imagesDaDGroups_drop" + " | " + e.target.getAttrib
 }
 /* *********************************** */
 function imagesDaDGroups_leave(e){
-console.log("===> dad => " + "imagesDaDGroups_leave");
+//console.log("===> dad => " + "imagesDaDGroups_leave");
     var isGroup = (e.target.getAttribute("attSelGroup")=="1") ? true : false;
     if(isGroup){
       imagesDaDGroups_set_style(e.target, 0);
@@ -117,7 +117,7 @@ console.log("===> dad => " + "imagesDaDGroups_leave");
 }
 /* *********************************** */
 function imagesDaDGroups_end(e){
-console.log("===> dad => " + "imagesDaDGroups_end");
+//console.log("===> dad => " + "imagesDaDGroups_end");
     var idDivImg = e.dataTransfer.getData(imagesDaDGroups_dataTransfer);
     var obDivImg = document.getElementById(idDivImg);
     imagesDaDGroups_set_style(obDivImg, 0);
@@ -129,7 +129,7 @@ console.log("===> dad => " + "imagesDaDGroups_end");
 
 /* *********************************** */
 function imagesDaDGroups_set_style(ob, numStyle, mod = 2){
-console.log("===> dad => " + "imagesDaDGroups_set_style");
+//console.log("===> dad => " + "imagesDaDGroups_set_style");
     var oldStyle = ((numStyle*1)+1) % mod;
 
     ob.classList.remove('imagesDaDGroups_div' + oldStyle);
@@ -139,7 +139,7 @@ console.log("===> dad => " + "imagesDaDGroups_set_style");
     var isGroup = (ob.getAttribute("attSelGroup")=="1") ? true : false;
     if(isGroup){
         var idGroup = ob.getAttribute("id");      
-console.log (idGroup + " ===> " + 'imagesDaDGroups_div' + numStyle);
+//console.log (idGroup + " ===> " + 'imagesDaDGroups_div' + numStyle);
        imagesDaDGroups_set_style(document.getElementById(idGroup + "-span"), numStyle);      
     }
 

@@ -82,33 +82,24 @@ var $noClass = "00-none";
       $tValues = $this->getOptions($jsonValues, $this->optionsDefaults);
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------           
-     
-      $name = 'variant';
-      $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_SORTITEMS_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
-      if (!$tValues[$name] || $tValues[$name] == $this::noClass) $inpClasse->addOption($this::noClass, _LG_PLUGIN_SORTITEMS_VARIANT_SELECT);
-      $inpClasse->addOption('01-listbox', _LG_PLUGIN_SORTITEMS_VARIANT_LISTBOX);
-      $inpClasse->addOption('02-combobox', _LG_PLUGIN_SORTITEMS_VARIANT_COMBOBOX);
-      $inpClasse->addOption('03-listeapuces', _LG_PLUGIN_SORTITEMS_VARIANT_LISTUL);
-      $inpClasse->addOption('04-imagesdadFixedHeight', _LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_FH);
-      $inpClasse->addOption('05-imagesdadFixedWidth', _LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_WH);
+      $variantsArr = ['01-listbox'              => _LG_PLUGIN_SORTITEMS_VARIANT_LISTBOX,
+                      '02-combobox'             => _LG_PLUGIN_SORTITEMS_VARIANT_COMBOBOX,
+                      '03-listeapuces'          => _LG_PLUGIN_SORTITEMS_VARIANT_LISTUL,
+                      '04-imagesdadFixedHeight' => _LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_FH,
+                      '05-imagesdadFixedWidth'  => _LG_PLUGIN_SORTITEMS_VARIANT_IMAGEDAD_WH];
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_variant.php");
+      if(!$isSelectOk) return $trayOptions;
 
-      $inpClasse->setDescription(_LG_PLUGIN_SORTITEMS_VARIANT_DESC);
-      // change la couleur de fond selon que la variante a été selectionnée ou pas
-      if($tValues['variant'] == $this::noClass){ 
-            $inpClasse->setExtra('style="background:#FFCCCC;color:red"');
-      }else{
-            $inpClasse->setExtra('style="background:lime;"');
-      }
-      $trayOptions->addElementOption($inpClasse, true);     
-
+      // =======================================================
+    
       switch($tValues['variant']){ // correspond au nom des images dans "plugins\sortItems\img\classes"
         case '01-listbox' : 
             /* *********************************************************** */  
-            $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX . "</div>");  
+            $trayOptions->insertBreak(sprintf(QUIZMAKER_OPTIONS_BREAK_STYLE, _LG_PLUGIN_SORTITEMS_OPTIONS_LISTBOX));  
        
             $name = 'btnColor'; 
             $path = $this->pathArr['img'] . "/buttons"; 
-            $btnColors = new \XoopsFormIconSelect(_AM_QUIZMAKER_BUTTONS_COLOR, "{$optionName}[{$name}]", $tValues[$name], $path);
+            $btnColors = new \XoopsFormIconSelect(_AM_QUIZMAKER_BUTTONS__AP_QUIZMAKER_COLOR, "{$optionName}[{$name}]", $tValues[$name], $path);
             $btnColors->setExtension(false);
 
             $btnColors->setHorizontalIconNumber(3);
@@ -124,7 +115,7 @@ var $noClass = "00-none";
             break;
         case '03-listeapuces' : 
             /* *********************************************************** */  
-            $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_SORTITEMS_OPTIONS_LISTUL . "</div>");  
+            $trayOptions->insertBreak(sprintf(QUIZMAKER_OPTIONS_BREAK_STYLE, _LG_PLUGIN_SORTITEMS_OPTIONS_LISTUL));  
             
             $name = 'liBgDefault';   /* background des items par defaut f5f5f5*/
             $inpLiBgDefault = new XoopsFormColorPicker('Couleur par defaut', "{$optionName}[{$name}]", $tValues[$name]);
@@ -142,7 +133,7 @@ var $noClass = "00-none";
         case '04-imagesdadFixedHeight' : 
         case '05-imagesdadFixedWidth' : 
             /* *********************************************************** */  
-            $trayOptions->insertBreak("<hr><div style='background:#99CCFF;width:100%;padding:0px;margin:0px;'>" . _LG_PLUGIN_SORTITEMS_OPTIONS_DADIMAGE . "</div>");  
+            $trayOptions->insertBreak(sprintf(QUIZMAKER_OPTIONS_BREAK_STYLE, _LG_PLUGIN_SORTITEMS_OPTIONS_DADIMAGE));  
             
             if($tValues['variant'] == '04-imagesdadFixedHeight'){
                 $name = 'imgHeight1';  
@@ -156,7 +147,7 @@ var $noClass = "00-none";
                 $trayOptions ->addElementOption($inpHeight2);     
             }else{ // '05-imagesdadFixedWidth'
                 $name = 'imgWidth1';  
-                $inpWidth1 = new \XoopsFormNumber(_LG_PLUGIN_SORTITEMS_IMG1_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+                $inpWidth1 = new \XoopsFormNumber(_AP_QUIZMAKER_IMGS_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
                 $inpWidth1->setMinMax(32, 300, _AM_QUIZMAKER_UNIT_PIXELS);
                 $trayOptions ->addElementOption($inpWidth1);     
             }

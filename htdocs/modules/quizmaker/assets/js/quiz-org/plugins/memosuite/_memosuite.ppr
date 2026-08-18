@@ -1,0 +1,91 @@
+[Config]
+Compilator.SaveAll=0
+Compilator.Capture=0
+Compilator.CompileOnBackground=0
+Compilator.ProgSaveAll=0
+Compilator.ProgRunSelection=0
+Compilator.LogType=0
+Compilator.LogEncoding=0
+DefaultDir=D:\_JJD-WorkSpace-D\Wamp-Serveur\Sites\xoops-2511b-fr\htdocs\modules\quizmaker\assets\js\quiz-org\plugins\memosuite
+DefaultCP=0
+LogtoEnd=1
+DontOpen=0
+AbsolutePath=0
+FileFormat=0
+ProjectFilesOnly=0
+Extensions=*.*
+[Project tree]
+_memosuite
+	+ext
+		..\..\js\clsGame.js
+		..\..\js\clsGridImg.js
+		..\..\js\clsListImg.js
+	+memosuite
+		-img
+			-buttons
+				img\buttons\Button_Icon_Black.png
+				img\buttons\Button_Icon_Blue.png
+				img\buttons\Button_Icon_BlueSky.png
+				img\buttons\Button_Icon_Brown.png
+				img\buttons\Button_Icon_Cyan.png
+				img\buttons\Button_Icon_Fuchsia.png
+				img\buttons\Button_Icon_Green.png
+				img\buttons\Button_Icon_GreenBlue.png
+				img\buttons\Button_Icon_GreenForest.png
+				img\buttons\Button_Icon_Lime.png
+				img\buttons\Button_Icon_Orange.png
+				img\buttons\Button_Icon_Pink.png
+				img\buttons\Button_Icon_Red.png
+				img\buttons\Button_Icon_Turquoise.png
+				img\buttons\Button_Icon_Violet.png
+				img\buttons\Button_Icon_Yellow.png
+				img\buttons\Button_to_push_green.png
+				img\buttons\Button_to_push_red.png
+				img\buttons\index.html
+				img\buttons\-no_icon.png
+				img\buttons\pingouin-bleu.png
+				img\buttons\pingouin-gris.png
+				img\buttons\pingouin-marron.png
+				img\buttons\pingouin-or.png
+				img\buttons\pingouin-orange.png
+				img\buttons\pingouin-rose.png
+				img\buttons\pingouin-rouge.png
+				img\buttons\pingouin-vert.png
+				img\buttons\pingouin-vertdegris.png
+				img\buttons\pingouin-violet.png
+			img\index.html
+		_memosuite.ppr
+		..\..\js\clsGame.js
+		..\..\js\clsGridImg.js
+		..\..\js\clsListImg.js
+		index.html
+		memosuite.css
+		memosuite.js
+		memosuite_grille.js
+		memosuite_liste.js
+		memosuite-events.js
+		memosuite-fnc.js
+[Open project files]
+0=memosuite.js
+1=memosuite_grille.js
+2=memosuite_liste.js
+3=..\..\js\clsGridImg.js
+4=..\..\js\clsListImg.js
+[Selected Project Files]
+Main=
+Selected=..\..\js\clsListImg.js
+[memosuite.js]
+TopLine=132
+Caret=1,142
+[memosuite_grille.js]
+TopLine=19
+Caret=10,41
+[memosuite_liste.js]
+TopLine=56
+Caret=1,77
+[..\..\js\clsGridImg.js]
+TopLine=51
+Caret=1,89
+[..\..\js\clsListImg.js]
+TopLine=1
+Caret=101,38

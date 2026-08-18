@@ -59,11 +59,31 @@ global $quizHandler, $questionsHandler, $answersHandler;
     self::create_quiz_arborescense($path);     
     
     
-    // --- copies du dossier des images si il n'existe pas---
+    // --- copies du dossier des images de quiz maker si il n'existe pas---
     //copie des images utilisées notamment pour pour les liste a trier
-    self::copie_ressources_images(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images');
-    \JANUS\FSO\setChmodRecursif(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images', 0777);   
-     
+    //self::copie_ressources_images(QUIZMAKER_PATH_UPLOAD_QUIZ . '/images');
+    //self::copie_ressources_images(QUIZMAKER_PATH_UPLOAD_QUIZ . QUIZMAKER_FLD_IMAGES);
+   
+   
+    //ancienne version a garder pour l'instant tannt que tous les quiz n'auraont pas été recompiler
+    //a virer des que possible
+    /*
+    $pathSource = QUIZMAKER_PATH_QUIZ_JS . QUIZMAKER_FLD_PLUGIN_IMAGES;
+    $pathDest = QUIZMAKER_PATH_UPLOAD_QUIZ . QUIZMAKER_FLD_PLUGIN_IMAGES;
+    self::copie_ressources_images($pathSource, $pathDest);
+    */
+    
+    //nouvelle version vers un dossier dont le nom ne risque pas d'etre mélanger avec un quiz du nom "images" 
+    $pathSource = FQUIZMAKER\getFolder('p', 'u', QUIZMAKER_FLD_IMAGES); 
+    $pathDest   = FQUIZMAKER\getFolder('p', 'u', QUIZMAKER_FLD_UPLOAD_QUIZ_JS . QUIZMAKER_FLD_IMAGES); 
+    self::copie_ressources_images($pathSource, $pathDest);
+
+
+//     
+//     $pathSource = QUIZMAKER_PATH_QUIZ_JS . QUIZMAKER_FLD_IMAGES;
+//     $pathDest = QUIZMAKER_PATH_UPLOAD_QUIZ . QUIZMAKER_FLD_IMAGES;
+//     self::copie_ressources_images($pathSource, $pathDest);
+//     
     // --- Génération du fichier d'option ---
     self::export_options2Jason($quiz, $path);
     
@@ -95,16 +115,16 @@ global $quizHandler, $questionsHandler, $answersHandler;
 /* ************************************************
 *
 * ************************************************* */
-static function copie_ressources_images($pathDest){
+static function copie_ressources_images($pathSource, $pathDest){
+    //echo "===>{$pathSource}<br>===>{$pathDest}<hr>"; exit;
+
     //if (is_dir($pathDest . "images")) return true;
-    $pathSource = QUIZMAKER_PATH_QUIZ_JS . "/images";
-//             xoops_load('XoopsFile');
-//         $folderHandler   = XoopsFile::getHandler('folder');
-//             
-//     $folderHandler->copy($pathSource,$pathDest);
-self:: copyFolder ($pathSource,$pathDest) ;
-
-
+    //$pathSource = QUIZMAKER_PATH_QUIZ_JS . "/images";
+    \JANUS\FSO\setChmodRecursif($pathSource, 0777);
+    \JANUS\FSO\setChmodRecursif($pathDest, 0777);
+       
+    self::copyFolder ($pathSource, $pathDest) ;
+    //echo "<hr>source : {$pathSource}<br>dest : {$pathDest}<hr>";exit;
     return true;
 }
 
@@ -185,6 +205,9 @@ global $utility, $xoopsConfig, $messagesHandler;
 // echoArray($allPlugins,'$allPlugins',true);        
 //     
     //chargement des JS de tous les plugins
+    //$tpl->assign('composantsJS', "import { Gauge, Disc } from './composantsJS/index.js';");
+    
+    //chargement des JS de tous les plugins
     $tpl->assign('allPluginsJS', $allPluginsJS);
     //Chargement des CSS de tous les plugins
     $tpl->assign('allPluginsCSS', $allPluginsCSS);
@@ -213,8 +236,9 @@ global $utility, $xoopsConfig, $messagesHandler;
     $tpl->assign('options', 'quiz-options');
  
     //attention à l'ordre de chargement des JS, "quiz-main" doit absolument être en dernier
-    $jsArr = ['fnc_timer','fnc_progressBar','fnc_zoom','fnc_array','fnc_string',
-              'fnc_htmlObjects','quiz_functions','quiz_events','quiz_main'];
+    $jsArr = ['fnc_timer','fnc_progressBar','fnc_zoom','fnc_array','fnc_string', 'clsGroup',
+              'fnc_htmlObjects','quiz_functions','fnc_interface','quiz_events','quiz_main',
+              'clsGame', 'clsGridImg', 'clsListImg'];
     $tpl->assign('jsArr', $jsArr);
 
     //-------------------------------------------------
@@ -267,6 +291,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     $optionsArr['url']                      = QUIZMAKER_URL_UPLOAD_QUIZ;
     $optionsArr['urlMain']                  = QUIZMAKER_URL_QUIZ_JS;
     $optionsArr['execution']                = $quizValues['actif'];
+    $optionsArr['images']                   = QUIZMAKER_FLD_IMAGES;
           
     //options d'interface
     $optionsArr['optionsIhm']               = $quizValues['optionsIhm'];
@@ -276,7 +301,7 @@ global $categoriesHandler, $quizHandler, $questionsHandler, $answersHandler, $ut
     
     $optionsArr['mode']                     = 0;
 
-      
+//echoArray($optionsArr,'export_options2Jason',true);      
 
     //---------------------------------------------------------
 //echo "<hr><pre>optionsArr : " . print_r($optionsArr, true) . "</pre><hr>";

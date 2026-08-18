@@ -41,12 +41,12 @@ define('_LG_PLUGIN_MATCHITEMS_LABEL', "Label");
 define('_LG_PLUGIN_MATCHITEMS_TEXTBOX', "Text input box");
 define('_LG_PLUGIN_MATCHITEMS_LISTBOX', "Drop-down list");
 define('_LG_PLUGIN_MATCHITEMS_CONJUNCTION', "Conjunction");
-define('_LG_PLUGIN_MATCHITEMS_GLOBALS_OPTIONS', "Global options");
+define('_AP_QUIZMAKER_GLOBALS_OPTIONS', "Global options");
 
-define('_LG_PLUGIN_MATCHITEMS_TITLE_LIST', "List title: ");
-define('_LG_PLUGIN_MATCHITEMS_TITLE_DEFAULT', "List: ");
-define('_LG_PLUGIN_MATCHITEMS_INTRUS', "Intruder (accepted separators: \"<b> , ; | </b>\")");
-define('_LG_PLUGIN_MATCHITEMS_TITLE_WIDTH', "List width: ");
+define('_AP_QUIZMAKER_TITLE_LIST', "List title: ");
+define('_AP_QUIZMAKER_TITLE_DEFAULT', "List: ");
+define('_AP_QUIZMAKER_INTRUS_LIST', "Intruder (accepted separators: \"<b> , ; | </b>\")");
+define('_AP_QUIZMAKER_LIST_WIDTH', "List width: ");
 
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN', "Alignment");
 define('_LG_PLUGIN_MATCHITEMS_TEXTALIGN_LEFT', "Left");

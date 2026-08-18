@@ -100,6 +100,7 @@ define('_CO_QUIZMAKER_PLUGIN_CAT_TEXT', "Textes");
 define('_CO_QUIZMAKER_PLUGIN_CAT_IMAGES', "Images à délpacer ou à cliquer");
 define('_CO_QUIZMAKER_PLUGIN_CAT_MISCELLANEOUS', "Divers plugins inclassables");
 define('_CO_QUIZMAKER_PLUGIN_CAT_FIRST_LAST', "Pages de débutet de fin");
+define('_CO_QUIZMAKER_PLUGIN_CAT_GAMES', "Jeux");
 
 define('_CO_QUIZMAKER_NEW', 'Nouveau');
 define('_CO_QUIZMAKER_PLAYER_STATUS', "Etat");

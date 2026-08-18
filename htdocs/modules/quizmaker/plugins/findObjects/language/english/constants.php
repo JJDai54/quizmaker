@@ -29,19 +29,18 @@ define('_LG_PLUGIN_FINDOBJECTS_DESC', "This slide is composed of one or two imag
 define('_LG_PLUGIN_FINDOBJECTS_CONSIGNE', "Instructions to complete");
 
 define('_LG_PLUGIN_FINDOBJECTS_WIDTH', "Image width %s");
-define('_LG_PLUGIN_FINDOBJECTS_MAXTRY', "Maximum number of tries");
 define('_LG_PLUGIN_FINDOBJECTS_MAXTOUCHES', "Maximum number of touches");
 
 define('_LG_FINDOBJECTS_NB_OBJETS', "Number of objects");
-define('_LG_FINDOBJECTS_DELETE', "X");
-define('_LG_FINDOBJECTS_TITLE', "Title");
-define('_LG_FINDOBJECTS_COLOR', "Color");
-define('_LG_FINDOBJECTS_LEFT', "Left");
-define('_LG_FINDOBJECTS_TOP', "Top");
-define('_LG_FINDOBJECTS_WIDTH', "Width");
-define('_LG_FINDOBJECTS_HEIGHT', "Height");
-define('_LG_FINDOBJECTS_BORDER_WIDTH', "Thickness");
-define('_LG_FINDOBJECTS_BORDER_RADIUS', "Rounding");
+define('_AP_QUIZMAKER_BTN_DELETE', "X");
+define('_AP_QUIZMAKER_TITLE', "Title");
+define('_AP_QUIZMAKER_COLOR', "Color");
+define('_AP_QUIZMAKER_LEFT', "Left");
+define('_AP_QUIZMAKER_TOP', "Top");
+define('_AP_QUIZMAKER_WIDTH', "Width");
+define('_AP_QUIZMAKER_HEIGHT', "Height");
+define('_AP_QUIZMAKER_BORDER_WIDTH', "Thickness");
+define('_AP_QUIZMAKER_BORDER_RADIUS', "Rounding");
 
 define('_LG_FINDOBJECTS_TOUCHES_PARAMS', "Keyboard parameters (Validate and reload the form to apply these settings)");
 define('_LG_FINDOBJECTS_NEXT_SLIDE_PARAMS', "Automatic message parameters");
@@ -51,15 +50,15 @@ define('_LG_FINDOBJECTS_DISPOSITION_DESC', "The first image is mandatory for hid
 define('_LG_FINDOBJECTS_IMAGES_ATTEMPTS_MAX_DESC', "The number of attempts is limited to prevent cheating by clicking dozens of times randomly.<br>It is important to set this value, which should be greater than or equal to the number of touches.<br>Although possible, it is not recommended to set a value lower than the number of touches.<br>0 = Unlimited number of attempts.");
 define('_LG_FINDOBJECTS_REFRESH_IMG_SIZES', "Apply the reference image size");
 
-define('_LG_PLUGIN_FINDOBJECTS_NEXT_SLIDE_DELAI', "Delay before displaying the next slide");
-define('_LG_PLUGIN_FINDOBJECTS_NEXT_SLIDE_DELAI_DESC', "<b>Delay = 0</b>: The user must press the next button themselves. <br><b>Delay > 0</b>: The slide will move automatically in two cases: the user has failed, or the user has exhausted the number of possible tests.");
-define('_LG_PLUGIN_FINDOBJECTS_NEXT_SLIDE_MESSAGE', "Message");
-define('_LG_PLUGIN_FINDOBJECTS_NEXT_SLIDE_MESSAGE_DESC', "Message displayed when moving to the next slide. Used if the delay is zero");
-define('_LG_PLUGIN_FINDOBJECTS_NEXT_SLIDE_BG', "Message background color");
-define('_LG_PLUGIN_FINDOBJECTS_NEXT_SLIDET_MESSAGE_DEFAULT', "Next question!");
+define('_AP_QUIZMAKER_NEXT_SLIDE_DUREE', "Delay before displaying the next slide");
+define('_AP_QUIZMAKER_NEXT_SLIDE_DUREE_DESC', "<b>Delay = 0</b>: The user must press the next button themselves. <br><b>Delay > 0</b>: The slide will move automatically in two cases: the user has failed, or the user has exhausted the number of possible tests.");
+define('_AP_QUIZMAKER_NEXT_SLIDE_MESSAGE', "Message");
+define('_AP_QUIZMAKER_NEXT_SLIDE_MESSAGE_DESC', "Message displayed when moving to the next slide. Used if the delay is zero");
+define('_AP_QUIZMAKER_NEXT_SLIDE_BG', "Message background color");
+define('_AP_QUIZMAKER_NEXT_SLIDET_MESSAGE_DEFAULT', "Next question!");
 
-define('_LG_PLUGIN_FINDSOBJECTS_NEXTSLIDE_AUTO', "Automatic next slide");
-define('_LG_PLUGIN_FINDSOBJECTS_NEXTSLIDE_AUTO_DESC', "<b>No</b>: The user must click the next button.<br><b>Yes</b>: The next slide will be automatically advanced in two cases:<br>1) The number of attempts has been reached,<br>2) All objects have been found.");
+define('_AP_QUIZMAKER_NEXT_SLIDE_AUTO', "Automatic next slide");
+define('_AP_QUIZMAKER_NEXT_SLIDE_AUTO_DESC', "<b>No</b>: The user must click the next button.<br><b>Yes</b>: The next slide will be automatically advanced in two cases:<br>1) The number of attempts has been reached,<br>2) All objects have been found.");
 
 define('_LG_PLUGIN_FINDOBJECTS_INFO', "You have made {total} attempts on {max}//including {winning} objects found on {length}!");
 

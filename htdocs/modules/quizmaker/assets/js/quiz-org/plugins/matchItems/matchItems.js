@@ -43,7 +43,7 @@ getInnerHTML(bShuffle = true){
         delta -= this.data.listArr[h].width;
     }
 
-console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQuestion.options.list2_type}`);    
+//console.log(`getInnerHTML : ${currentQuestion.options.list1_type} - ${currentQuestion.options.list2_type}`);    
     htmlArr.push(`<center><table style="font-size:${currentQuestion.options.fontSize}em;">`);
     if(this.data.titleExists){
         if(delta  > 0){
@@ -170,7 +170,7 @@ prepareData(){
     
     var nbMaxList = currentQuestion.options.nbMaxList;
     var listArr = [];
-    console.log("=============> nbMaxList = " + nbMaxList);
+    //console.log("=============> nbMaxList = " + nbMaxList);
     var nbColumns = currentQuestion.options.nbColumns;
     
     //chargement des listes
@@ -205,7 +205,7 @@ prepareData(){
     for(var k = 0; k < answers.length; k++){
         var ans = answers[k];
         
-        console.log(k + "--->" + ans.proposition);
+        //console.log(k + "--->" + ans.proposition);
         ans.items = [];
         
         var sep = (ans.proposition.indexOf('|') == -1 ) ? ',' : '|';
@@ -271,7 +271,7 @@ getScoreByProposition (answerContainer){
                     nbRep++;
                     var obInp = document.getElementById(itemId);
                     if(obInp.value == ans.items[h]) { nbGood++;}
-                    console.log(`getScoreByProposition : ${p} - ${obInp.value}`);           
+                    //console.log(`getScoreByProposition : ${p} - ${obInp.value}`);           
                     break;
                 case 2 : //textbox
                     nbRep++;
@@ -290,7 +290,7 @@ getScoreByProposition (answerContainer){
              }
         }
         if (nbGood == nbRep) {points += ans.points;}
-        console.log(`===> ${ans.items[h]} - points : ${nbGood} / ${nbRep} => ${points}`);
+        //console.log(`===> ${ans.items[h]} - points : ${nbGood} / ${nbRep} => ${points}`);
      }
 
     return points;
@@ -298,7 +298,7 @@ getScoreByProposition (answerContainer){
 
 // //---------------------------------------------------
 getAllPropositions (flag = 0){
- console.log('getAllPropositions');  
+ //console.log('getAllPropositions');  
    var currentQuestion = this.question;
     var htmlArr = [];
 
@@ -367,7 +367,7 @@ getAllPropositions (flag = 0){
 
 //---------------------------------------------------
 getGoodReponses (){
-console.log('getGoodReponses');  
+//console.log('getGoodReponses');  
   
     var currentQuestion = this.question;
     var htmlArr = [];
@@ -452,7 +452,7 @@ showBadAnswers (answerContainer){
 *
 * **** */
 showAnswers (goodAnswers = true){
-console.log('===========> showAnswers');
+//console.log('===========> showAnswers');
   var currentQuestion = this.question;
 
 
@@ -463,7 +463,7 @@ console.log('===========> showAnswers');
             if(goodAnswers){
                 var value = ans.items[h];
             }else{
-                var value = getRandomArray(this.data.listArr[h].items);
+                var value = getRandomIndexFromArray(this.data.listArr[h].items);
             }
             
             switch(this.data.listArr[h].type*1){

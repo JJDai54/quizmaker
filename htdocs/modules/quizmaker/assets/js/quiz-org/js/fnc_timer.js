@@ -6,7 +6,7 @@ const FULL_DASH_ARRAY = 283;
 const WARNING_THRESHOLD = 10;
 const ALERT_THRESHOLD = 5;
 
-const COLOR_CODES = {
+const _AP_QUIZMAKER_COLOR_CODES = {
   info: {
     color: "green"
   },
@@ -27,7 +27,7 @@ passed : 0,
 left : 20, // .limit
 interval : null,
 isRunning : false,
-remainingPathColor : COLOR_CODES.info.color
+remainingPathColor : _AP_QUIZMAKER_COLOR_CODES.info.color
 };
 
 const bgColor = "#ffffff";
@@ -37,7 +37,7 @@ let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let timerIsRunning = false;
-let remainingPathColor = COLOR_CODES.info.color;
+let remainingPathColor = _AP_QUIZMAKER_COLOR_CODES.info.color;
 
 function build_timer(){
 //console.log('build_timer');
@@ -112,8 +112,8 @@ timerIsRunning = true;
     switch(position){  
     case 0: return '';break;        
     case 2:  obTimer.style.top    = "+5px"; obTimer.style.right  = "5px"; break;    // Top/Right
-    case 3:  obTimer.style.bottom =   "+5px"; obTimer.style.right  = "5px"; break;    // Bottom/Right
-    case 4:  obTimer.style.bottom =   "+5px"; obTimer.style.left   = "5px"; break;    // Bottom/Left
+    case 3:  obTimer.style.bottom = "+5px"; obTimer.style.right  = "5px"; break;    // Bottom/Right
+    case 4:  obTimer.style.bottom = "+5px"; obTimer.style.left   = "5px"; break;    // Bottom/Left
     default: obTimer.style.top    = "+5px"; obTimer.style.left   = "5px"; break;    // Top/Left
     }                                                                                                                //
     
@@ -143,19 +143,19 @@ timerInterval = null;
 
     document
       .getElementById("base-timer-path-remaining")
-      .classList.remove(COLOR_CODES.alert.color);
+      .classList.remove(_AP_QUIZMAKER_COLOR_CODES.alert.color);
     document
       .getElementById("base-timer-path-remaining")
-      .classList.remove(COLOR_CODES.warning.color);
+      .classList.remove(_AP_QUIZMAKER_COLOR_CODES.warning.color);
     document
       .getElementById("base-timer-path-remaining")
-      .classList.add(COLOR_CODES.info.color);
+      .classList.add(_AP_QUIZMAKER_COLOR_CODES.info.color);
 }
 
 function startChronometre(chrono) {
 //console.log('startChronometre');
     if(timerIsRunning) return false;
-     razTimer(chrono);
+    razTimer(chrono);
     timerIsRunning = false;
     document.getElementById('chronometre').style.display ='block';;
     //--------------------------------------------------
@@ -189,7 +189,7 @@ function formatTime(time) {
 
 function setRemainingPathColor(timeLeft) {
 //console.log('setRemainingPathColor');
-  const { alert, warning, info } = COLOR_CODES;
+  const { alert, warning, info } = _AP_QUIZMAKER_COLOR_CODES;
   if (timeLeft <= alert.threshold) {
     document
       .getElementById("base-timer-path-remaining")

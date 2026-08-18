@@ -117,7 +117,7 @@ var points = 0;
      obList = this.getQuerySelector('select', this.getName('inp'));
     for(var i=0; i < obList.length; i++) {
         var ob = document.getElementById(this.getId(i));
-        console.log(`textarea->getScoreByProposition : ${obList[i].id} - ${obList[i].value} - ${this.data.words[i]}`);
+        //console.log(`textarea->getScoreByProposition : ${obList[i].id} - ${obList[i].value} - ${this.data.words[i]}`);
         if(sanityseTextForComparaison(obList[i].value) == sanityseTextForComparaison(this.data.words[i])){
             points += currentQuestion.options.scoreByGoodWord*1;
         }
@@ -178,7 +178,7 @@ var points = 0;
 //         if(!ans.allWords[idx] || idx==-1 || idx > ans.allWords.length){
 //             alert(`showBadAnswers : k = ${k} - idx = ${idx} - length = ${ans.allWords.length}`);
 //         }
-        console.log(`showBadAnswers : k = ${k} - idx = ${idx} - length = ${ans.allWords.length} - word = ${ans.allWords[idx]}`);
+        //console.log(`showBadAnswers : k = ${k} - idx = ${idx} - length = ${ans.allWords.length} - word = ${ans.allWords[idx]}`);
         obs[k].value = ans.allWords[idx];
       }
 
@@ -210,7 +210,7 @@ function textListbox2_update_event(e, idText, idParentList, slideNumber, tag) {
     //change la couleur des mots choisis
     obLists.forEach( (obInput, index) => {
         if(obInput.value != ""){
-            var  tokenName = clQuestion.getName('token',index);
+            let  tokenName = clQuestion.getName('token',index);
             tokens = document.getElementsByName(tokenName);
             //alert(tokens.length);
             //alert(tokenName + ' - ' + tokens[0].innerHTML + '===>' + tokens[0].style.color);

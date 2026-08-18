@@ -117,7 +117,7 @@ class Plugin_imagesSimple extends XoopsModules\Quizmaker\Plugins
       $trayOptions ->addElementOption($inpImgRed);   
 
       $name = 'directive';  
-      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _LG_PLUGIN_IMAGESSIMPLE_DIRECTIVE;
+      if ($tValues[$name] == _CO_QUIZMAKER_NEW) $tValues[$name] = _AP_QUIZMAKER_DIRECTIVE;
       $inpDirective = new \XoopsFormText(_AM_QUIZMAKER_DIRECTIVE, "{$optionName}[{$name}]", $this->lgMot3, $this->lgMot5, $tValues[$name]);
       $inpDirective->setDescription(_AM_QUIZMAKER_DIRECTIVE_DESC);
       $trayOptions ->addElementOption($inpDirective);     

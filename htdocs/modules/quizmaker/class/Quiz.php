@@ -124,19 +124,21 @@ class Quiz extends \XoopsObject
 		$title = $this->isNew() ? sprintf(_AM_QUIZMAKER_QUIZ_ADD) : sprintf(_AM_QUIZMAKER_QUIZ_EDIT);
 		// Get Theme Form
 		xoops_load('XoopsFormLoader');
-		$form = new \XoopsThemeForm($title . " (#{$quiId})", 'form', $action, 'post', true);
+		//$form = new \XoopsThemeForm($title . " (#{$quiId})", 'form', $action, 'post', true);
+		$form = new \XoopsFormJanus($title . " (#{$quiId})", 'form', $action, 'post', true);
 		$form->setExtra('enctype="multipart/form-data"');
+
 		// Quiz Handler
 		$quizHandler = $quizmakerHelper->getHandler('Quiz');
-        $form->addElement(new \XoopsFormHidden('quiz_id', $quiId));
+        $form->addXtrayElement(new \XoopsFormHidden('quiz_id', $quiId));
 		
         // Form Select quizCat_id
 		$quizCat_idSelect = new \XoopsFormSelect( _AM_QUIZMAKER_CATEGORY, 'quiz_cat_id', $this->getVar('quiz_cat_id'));
 		$quizCat_idSelect->addOptionArray($categoriesHandler->getListKeyName());
-		$form->addElement($quizCat_idSelect, true);
+		$form->addXtrayElement($quizCat_idSelect, true);
         
         // Form Text quizName
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
+		$form->addXtrayElement(new \XoopsFormText( _AM_QUIZMAKER_NAME, 'quiz_name', 50, 255, $this->getVar('quiz_name') ), true);
        
         // Form Text quiz_subject
         $fldName = 'quiz_subject';
@@ -155,7 +157,7 @@ class Quiz extends \XoopsObject
             $inpSet = new \XoopsFormText( _CO_QUIZMAKER_QUIZ_SUBJECT, $fldName, 50, 255, $this->getVar($fldName));
             $inpSet->setDescription(_CO_QUIZMAKER_QUIZ_SUBJECT_DESC);
         }  
-        $form->addElement($inpSet, false);
+        $form->addXtrayElement($inpSet, false);
 /* **************
 
 
@@ -169,11 +171,11 @@ class Quiz extends \XoopsObject
   $xf[$k]->setBackground('#C4DDF3');
 
   $xf[$k]->setHeight(80);
-  $form->addElement($xf[$k], false);     
+  $form->addXtrayElement($xf[$k], false);     
   
   $name = sprintf($xName,'old_'.$k);
   $xf[$name] = new XoopsFormHidden($name,$t[$k]);
-  $form->addElement($xf[$name], false);     
+  $form->addXtrayElement($xf[$name], false);     
 
 
 ***************** */        
@@ -184,10 +186,10 @@ class Quiz extends \XoopsObject
 		$quizDifficulty->addOption(2, _CO_QUIZMAKER_DIFFICULT_2);
 		$quizDifficulty->addOption(3, _CO_QUIZMAKER_DIFFICULT_3);
 		$quizDifficulty->addOption(4, _CO_QUIZMAKER_DIFFICULT_4);
-		$form->addElement($quizDifficulty, true);
+		$form->addXtrayElement($quizDifficulty, true);
 		
         // Form Text quiz_author
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_AUTHOR, 'quiz_author', 50, 255, $this->getVar('quiz_author') ), false);
+		$form->addXtrayElement(new \XoopsFormText( _AM_QUIZMAKER_QUIZ_AUTHOR, 'quiz_author', 50, 255, $this->getVar('quiz_author') ), false);
 
         //----------------------------------------------------------
         $fileNameTray = new \XoopsFormElementTray(_AM_QUIZMAKER_FILE_NAME_JS, ' ');        
@@ -203,48 +205,48 @@ class Quiz extends \XoopsObject
         $inpBuild->setMinMax(0, 500);
 		$fileNameTray->addElement($inpBuild);
         
-		$form->addElement($fileNameTray);
+		$form->addXtrayElement($fileNameTray);
         
         // Form Text quiz_weight
-		$form->addElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quiz_weight', 50, 255, $this->getVar('quiz_weight') ), false);
+		$form->addXtrayElement(new \XoopsFormText( _AM_QUIZMAKER_WEIGHT, 'quiz_weight', 50, 255, $this->getVar('quiz_weight') ), false);
         //----------------------------------------------------------
 		// Form Editor DhtmlTextArea quizDescription
         /* champ a supprimer fait double emploi avec les champs du premier slide "page_info/intro"
         $editDescription = $quizUtility->getEditor2(_AM_QUIZMAKER_DESCRIPTION, 'quiz_description', $this->getVar('quiz_description', 'e'),  _AM_QUIZMAKER_DESCRIPTION_DESC, null, $quizmakerHelper);
-		$form->addElement($editDescription, true);
+		$form->addXtrayElement($editDescription, true);
         */
             
 
         //-------------------------------------------------------
         // quiz_max_attempts : Maximum de tentives pour une meme cession
         $name = 'quiz_max_attempts';
-        $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
-            
-        $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_MAX_ATTEMPTS_UNIT);
-        $inpMaxAttempts->setDescription(_AM_QUIZMAKER_MAX_ATTEMPTS_DESC);
-        $form->addElement($inpMaxAttempts);    
+        $inpMaxAttempts = new \XoopsFormNumber(_AM_QUIZMAKER_QUIZ_MAX_ATTEMPTS,  $name, 3, 1, $this->getVar($name));
+        $inpMaxAttempts->setMinMax(0, QUIZMAKER_MAX_ATTEMPTS, _AM_QUIZMAKER_UNIT_ATTEMPTS);
+        $inpMaxAttempts->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_CAT));
+        $inpMaxAttempts->setDescription(_AM_QUIZMAKER_QUIZ_MAX_ATTEMPTS_DESC);
+        $form->addXtrayElement($inpMaxAttempts);    
          
         // quiz_delai_cookie
         $name = 'quiz_delai_cookie';
 		$inpDuration = new \XoopsFormDuration( _AM_QUIZMAKER_COOKIE_DURATION, $name, $this->getVar($name));
         $inpDuration->setDescription(_AM_QUIZMAKER_COOKIE_DURATION_DESC);
         $inpDuration->setCompteurs("dhms");
-		$form->addElement($inpDuration);
+		$form->addXtrayElement($inpDuration);
         
         //-------------------------------------------------------
 
 		// Form Check Box quizDateBegin
         $quizDateBegin = \JANUS\xoopsformDateOkTray(_AM_QUIZMAKER_DATEBEGIN, 'quiz_dateBeginOk', $this->getVar('quiz_dateBeginOk'), 'quiz_dateBegin', $this->getVar('quiz_dateBegin'));
-		$form->addElement($quizDateBegin);
+		$form->addXtrayElement($quizDateBegin);
         
 		// Form Check Box quizDateEnd
         $quizDateEnd = \JANUS\xoopsformDateOkTray(_AM_QUIZMAKER_DATEEND, 'quiz_dateEndOk', $this->getVar('quiz_dateEndOk'), 'quiz_dateEnd', $this->getVar('quiz_dateEnd'));
-		$form->addElement($quizDateEnd);
+		$form->addXtrayElement($quizDateEnd);
         
 		// Form Check Box quiz_actif
 		$quizActif = $this->isNew() ? 1 : $this->getVar('quiz_actif');
 		$inpActif = new \XoopsFormRadioYN( _AM_QUIZMAKER_ACTIF, 'quiz_actif', $quizActif);
-		$form->addElement($inpActif);
+		$form->addXtrayElement($inpActif);
         
 		// Form Check Box quiz_publishQuiz
 		$quizExecution = $this->isNew() ? 0 : $this->getVar('quiz_publishQuiz');
@@ -253,20 +255,20 @@ class Quiz extends \XoopsObject
 		$inpExecution->addOption(0, _CO_QUIZMAKER_PUBLISH_NONE);
 		$inpExecution->addOption(1, _CO_QUIZMAKER_PUBLISH_INLINE);
 		$inpExecution->addOption(2, _CO_QUIZMAKER_PUBLISH_OUTLINE);
-		$form->addElement($inpExecution);
+		$form->addXtrayElement($inpExecution);
 
         $name = 'quiz_publishResults';
         $publishArr = array(1=>_YES, 0=>_NO, 2=>_AM_QUIZMAKER_AUTO);
         $inpPublishResults = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_RESULTS , $name, $this->getVar($name));
         $inpPublishResults->addOptionArray($publishArr);
         $inpPublishResults->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
-		$form->addElement($inpPublishResults);
+		$form->addXtrayElement($inpPublishResults);
         
         $name = 'quiz_publishAnswers';
         $inpPublishAnswers = new \XoopsFormRadio(_AM_QUIZMAKER_PUBLISH_ANSWERS , $name, $this->getVar($name));
         $inpPublishAnswers->addOptionArray($publishArr);
         $inpPublishAnswers->setDescription(_AM_QUIZMAKER_PUBLISH_AUTO_DESC);
-		$form->addElement($inpPublishAnswers);
+		$form->addXtrayElement($inpPublishAnswers);
 
         /* JJDai - Pas vraiment utile, mais je garde des fois que ça puisse servir a autre chose
         oui : ce bouton est activer sur le dernier slide
@@ -274,15 +276,14 @@ class Quiz extends \XoopsObject
         */
         
         //========================================================
-        $form->insertBreak(_AM_QUIZMAKER_OPTIONS_FOR_QUIZ, 'quizmaker_linebreak_' . 'black');
-        //========================================================
-     
+        $form->insertBreakJanus(_AM_QUIZMAKER_OPTIONS_FOR_QUIZ, 'black');
+
         // Form Text quiz_theme
         $inpTheme = new \XoopsFormSelect(_AM_QUIZMAKER_THEME, 'quiz_theme', $this->getVar('quiz_theme'));
 		$inpTheme->setDescription(_AM_QUIZMAKER_THEME_DESC);
         //$inpTheme->addOptionArray($quizUtility::get_css_color(true));
         $inpTheme->addOptionArray( \JANUS\get_css_color());
-		$form->addElement($inpTheme, false);
+		$form->addXtrayElement($inpTheme, false);
 
         //--------------------------------------------
         $urlImg =  QUIZMAKER_URL_UPLOAD_QUIZ . "/{$folderJS}/images";
@@ -290,31 +291,31 @@ class Quiz extends \XoopsObject
         
         $image = $this->getVar('quiz_image');
         $inpImage = new \XoopsFormImage(_AM_QUIZMAKER_IMAGE , 'quiz_image', $maxSize, $image,  $urlImg);
-		$form->addElement($inpImage);
+		$form->addXtrayElement($inpImage);
         
         //--------------------------------------------
         // Form Text quiz_background
         $background = $this->getVar('quiz_background');
-        $inpBakground = new \XoopsFormImage(_AM_QUIZMAKER_BACKGROUND_MAIN , 'quiz_background', $maxSize, $background,  $urlImg);
-		$form->addElement($inpBakground);
+        $inpBakground = new \XoopsFormImage(_AP_QUIZMAKER_BACKGROUND_MAIN , 'quiz_background', $maxSize, $background,  $urlImg);
+		$form->addXtrayElement($inpBakground);
         
         // Form Text quiz_libBegin
         $libBegin = ($this->getVar('quiz_libBegin')) ? $this->getVar('quiz_libBegin') :  _CO_QUIZMAKER_LIB_BEGIN_DEFAULT;
         $inpLibBegin = new \XoopsFormText(_CO_QUIZMAKER_LIB_BEGIN , 'quiz_libBegin', 120, 120, $libBegin);  
         $inpLibBegin->setDescription(_CO_QUIZMAKER_LIB_BEGIN_DESC);  
-		$form->addElement($inpLibBegin, false);
+		$form->addXtrayElement($inpLibBegin, false);
         
         // Form Text quiz_libEnd
         $libEnd = ($this->getVar('quiz_libEnd')) ? $this->getVar('quiz_libEnd') :  _CO_QUIZMAKER_LIB_END_DEFAULT;
         $inpLibEnd = new \XoopsFormText(_CO_QUIZMAKER_LIB_END , 'quiz_libEnd', 120, 120, $libEnd);  
         $inpLibEnd->setDescription(_CO_QUIZMAKER_LIB_END_DESC);  
-		$form->addElement($inpLibEnd, false);
+		$form->addXtrayElement($inpLibEnd, false);
         
 		// Form Check Box quiz_questPosComment1
 		$inpPosComment = new \XoopsFormRadio(_AM_QUIZMAKER_POS_COMMENT, 'quiz_questPosComment1', $this->getVar('quiz_questPosComment1'));
         $inpPosComment->addOptionArray(['1'=>_AM_QUIZMAKER_POS_COMMENT_1, '2'=>_AM_QUIZMAKER_POS_COMMENT_2 , '3'=>_AM_QUIZMAKER_POS_COMMENT_3]);
         $inpPosComment->setDescription(_AM_QUIZMAKER_POS_COMMENT_DESC);
-        $form->addElement($inpPosComment);
+        $form->addXtrayElement($inpPosComment);
 
 		// Form Check Box quiz_showConsigne
 		$quizShowConsigne = $this->isNew() ? 0 : $this->getVar('quiz_showConsigne');
@@ -325,7 +326,8 @@ class Quiz extends \XoopsObject
         $inpShowConsigne->addOption(2, _AM_QUIZMAKER_POSITION_TR);
         $inpShowConsigne->addOption(3, _AM_QUIZMAKER_POSITION_BR);
         $inpShowConsigne->addOption(4, _AM_QUIZMAKER_POSITION_BL);
-		$form->addElement($inpShowConsigne);
+		//$form->addXtrayElement($inpShowConsigne);
+		$form->addXtrayElement($inpShowConsigne);
         
 		// Form Check Box quiz_showTimer
 		$quizShowTimer = $this->isNew() ? 1 : $this->getVar('quiz_showTimer');
@@ -336,7 +338,7 @@ class Quiz extends \XoopsObject
         $quizShowTimer->addOption(2, _AM_QUIZMAKER_POSITION_TR);
         $quizShowTimer->addOption(3, _AM_QUIZMAKER_POSITION_BR);
         $quizShowTimer->addOption(4, _AM_QUIZMAKER_POSITION_BL);
-		$form->addElement($quizShowTimer);
+		$form->addXtrayElement($quizShowTimer);
         
         
 		// Form Check Box quiz_timerSize
@@ -346,7 +348,7 @@ class Quiz extends \XoopsObject
         $inpTimerSize = new \XoopsFormNumber(_AM_QUIZMAKER_TIMER_SIZE,  $name, 3, 1, $timerSieze);
         $inpTimerSize->setMinMax($minSize, 200, _AM_QUIZMAKER_UNIT_PIXELS);
         $inpTimerSize->setDescription(_AM_QUIZMAKER_TIMER_SIZE_DESC);
-        $form->addElement($inpTimerSize);    
+        $form->addXtrayElement($inpTimerSize);    
 
 //         $inpTimerJson = new \XoopsFormJson(_AM_QUIZMAKER_TIMER_SIZE, $name, $style);                  
 //         //$inpTimerJson->setTextBoxVisible(true);        
@@ -358,39 +360,42 @@ class Quiz extends \XoopsObject
 // //               $inpTimerJson->updateOptions('height', ['value'=>$this->getVar('quest_height')]);
 // //               $inpTimerJson->updateOptions('font_size', ['value'=>$this->getVar('quest_fontSize')]);
 // //         }       
-//         $form->addElement($inpTimerJson);    
+//         $form->addXtrayElement($inpTimerJson);    
 
 /*
         // Form Editor DhtmlTextArea quizLegend
         $editLegend = \JANUS\getformTextarea(_AM_QUIZMAKER_LEGEND, 'quiz_legend', $this->getVar('quiz_legend', 'e'), _AM_QUIZMAKER_LEGEND_DESC);
-		$form->addElement($editLegend, false);
+		$form->addXtrayElement($editLegend, false);
 */		
         
         //========================================================
 		// Form CheckBoxBin quiz_optionsIhm
         //========================================================
+        $form->insertBreakJanus(_AM_QUIZMAKER_OPTIONS_FOR_QUIZ, 'blue');
+        
         $inpOptionsIhm = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM . "[{$this->getVar('quiz_optionsIhm')}]", 'quiz_optionsIhm', $this->getVar('quiz_optionsIhm'),1,true);
         $inpOptionsIhm->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_IHM_DESC);
         $inpOptionsIhm->addOptionArray(getBinOptionsArr('ihm'));
-		$form->addElement($inpOptionsIhm);
+		$form->addXtrayElement($inpOptionsIhm);
         
         //========================================================
-        $form->insertBreak(_AM_QUIZMAKER_OPTIONS_FOR_DEV, 'quizmaker_linebreak_' . 'black');
+		// Form CheckBoxBin quiz_optionsDev
         //========================================================
+        $form->insertBreakJanus(_AM_QUIZMAKER_OPTIONS_FOR_DEV, 'red');
+
 		// Form CheckBoxBin quiz_optionsDev
         $inpOptionsDev = new \xoopsFormCheckboxBin(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV . "[{$this->getVar('quiz_optionsDev')}]", 'quiz_optionsDev', $this->getVar('quiz_optionsDev'),1,true);
         $inpOptionsDev->setDescription(_AM_QUIZMAKER_QUIZ_OPTIONS_DEV_DESC);
         $inpOptionsDev->addOptionArray(getBinOptionsArr('dev'));
-		$form->addElement($inpOptionsDev);
+		$form->addXtrayElement($inpOptionsDev);
 
 
         //========================================================
-        $form->insertBreak(_AM_QUIZMAKER_PERMISSIONS, 'quizmaker_linebreak_' . 'black');
-        //========================================================
+        //$form->insertBreakJanus(_AM_QUIZMAKER_PERMISSIONS, 'green');
         
 		// To Save
-		$form->addElement(new \XoopsFormHidden('op', 'save'));
-		$form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+		$form->addXtrayElement(new \XoopsFormHidden('op', 'save'));
+		$form->addXtrayElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
 		return $form;
 	}
 
@@ -512,6 +517,7 @@ class Quiz extends \XoopsObject
 	{
         $fldJS = $this->getVar('quiz_folderJS');
         if ($subfolder) $fldJS .= '/' . $subfolder;
+        $fldJS = str_replace('//', '/' , $fldJS);
         
         switch($ret){
             case 1: return QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $fldJS; break;
@@ -520,6 +526,14 @@ class Quiz extends \XoopsObject
         }
         
         return false;
+    }
+	public function getFolderImages($ret = 0, $subfolder='')
+	{
+        return getFolderJS($ret, QUIZMAKER_FLD_PLUGIN_IMAGES);
+    }
+	public function getFolderSounds($ret = 0, $subfolder='')
+	{
+        return getFolderJS($ret, QUIZMAKER_FLD_PLUGIN_SOUNDS);
     }
         
 
@@ -559,10 +573,12 @@ class Quiz extends \XoopsObject
     
     $criteria = new \CriteriaCompo();
     $criteria->add( new \Criteria("quest_quiz_id",  $this->getVar('quiz_id'), "="));
-    $criteria->add( new \Criteria("quest_plugin",  'pageBegin', "<>"));
-    $criteria->add( new \Criteria("quest_plugin",  'pageEnd', "<>"));
-    $criteria->add( new \Criteria("quest_plugin",  'pageGroup', "<>"));
-    $criteria->add( new \Criteria("quest_plugin",  'pageInfo', "<>"));
+//     $criteria->add( new \Criteria("quest_plugin",  'pageBegin', "<>"));
+//     $criteria->add( new \Criteria("quest_plugin",  'pageEnd', "<>"));
+//     $criteria->add( new \Criteria("quest_plugin",  'pageGroup', "<>"));
+//     $criteria->add( new \Criteria("quest_plugin",  'pageInfo', "<>"));
+//     $criteria->add( new \Criteria("quest_plugin",  'pageReponse', "<>"));
+    $criteria->add( new \Criteria("quest_isQuestion",  1, "="));
     $count = $questionsHandler->getCount($criteria);
     return $count;
     }
@@ -623,6 +639,29 @@ class Quiz extends \XoopsObject
     return $nbImgDeleted;
  }
 
+ /* ******************************
+ *  resizeImages
+ * *********************** */
+ public function resizeImages(){
+ global $questionsHandler, $answersHandler, $xoopsDB, $quizmakerHelper;
+ $nbImgResized = 0;
+ 
+    $tExtImg = array('jpg', 'jpeg','png','gif');
+    $folder = $this->getVar('quiz_folderJS');
+    $imgPath = QUIZMAKER_PATH_UPLOAD_QUIZ . '/' . $folder . '/images';
+    $imgList = \XoopsLists::getFileListByExtension($imgPath,  $tExtImg);    
+    //$imgList = array_values($imgList);
+
+    foreach($imgList as $key=>$file){
+        $fullName = $imgPath . '/' . $file;  
+        //echo "{$fullName}<br>";
+        chmod($fullName, 0777);
+        \ImageBuilder::redimensionnerEtRemplacer($fullName, $quizmakerHelper->getConfig('resize_img_width')); 
+        $nbImgResized++;
+    }
+    
+    return $nbImgResized;
+ }
 /**************************************************************
  * get_quest_images : renvoie un tableau des images de la question pass en paramètre
  * utilisé pour deplacer ou compié une question dans un autre quiz.
@@ -645,7 +684,7 @@ global $questionsHandler, $answersHandler;
     $questIds = $questionsHandler->getIds($criteria);
     //echoArray ($questIds, "zzzzz");  
     
-    $allImg = array();   
+   
     foreach($questIds as $key=>$questID){
         $questObj = $questionsHandler->get($questID);
         $imgArr = $questObj->getImages();

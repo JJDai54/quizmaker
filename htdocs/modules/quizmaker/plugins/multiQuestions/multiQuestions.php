@@ -259,7 +259,7 @@ $input = 5;
         //$answersHandler->deleteAnswersByQuestId($questId); 
         //--------------------------------------------------------        
         foreach ($answers as $anskey=>$ans){
-        echo ("===>id = {$ans['id']}<br>");
+        //echo ("===>id = {$ans['id']}<br>");
             //chargement des operations communes à tous les plugins
             include(QUIZMAKER_PATH_PLUGINS_INCLUDE . "/saveAnswers.php");
             if (is_null($ansObj)) continue;

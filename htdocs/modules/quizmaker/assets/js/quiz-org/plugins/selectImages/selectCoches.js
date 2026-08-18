@@ -35,8 +35,8 @@ getInnerHTML(bShuffle = true){
     var posLibelleV = options.posLibelleV;
     var pStyle = `top:${posLibelleV}%;font-size:${options.fontSize}em;padding-left:12px;`;
     
-    var intervalVertical =  getMarginStyle(currentQuestion.answers.length,0,'',options.intervalVertical,options.intervalVertical,'em');   
-    var divIntervalVertical = '';
+//     var intervalVertical =  getMarginStyle(currentQuestion.answers.length,0,'',options.intervalVertical,options.intervalVertical,'em');   
+//     var divIntervalVertical = '';
 
     //var pStyle = `position:absolute;top:0px;transition:50% 30%;font-size:${options.fontSize}em;`;
     
@@ -55,18 +55,26 @@ getInnerHTML(bShuffle = true){
         var ans = ansArr[k];
         //alert(src);
         if (ans.proposition == '') continue;
-        if(k > 0){divIntervalVertical = intervalVertical;} //pas de marge sur le premier item
+        //if(k > 0){divIntervalVertical = intervalVertical;} //pas de marge sur le premier item
         var pStyle2 = pStyle + `color:${ans.color};`;       
          //alert( `reponse ${k} = ${ans.proposition} - img : ${ans.image1}`);
         
         var idCoche = ans.ansId + quiz_config.suffixCoche;
-        var cocheImgName = (options.cocheImgName) ? options.cocheImgName : 'coche_01.png';
+        if(ans.image1 != ''){
+            var imgCoche = quiz_config.urlQuizImg + '/' + ans.image1;
+        }else if(ans.image2 != ''){
+            var imgCoche = quiz_config.urlImgRoot + '/coches/' + ans.image2;
+        }else{
+            var cocheImgName = (options.cocheImgName) ? options.cocheImgName : 'coche_01.png';
+            var imgCoche= `${quiz_config.urlImgRoot}/coches/${cocheImgName} `;   
+        }
+//alert(`images : image1 = ${ans.image1} - image2 = ${ans.image2}\n${imgCoche}`)        
+       
         //var imgCoche= `${currentQuestion.urlPlugin}/img/coches/${cocheImgName} `;   
-        var imgCoche= `${quiz_config.urlImgRoot}/coches/${cocheImgName} `;   
         var onClickLabel = `onclick="document.getElementById('${ans.cocheId}').click();"`;
 
         tHtml.push (`<tr style='height:${options.trHeight}px'>
-                     <td><img id='${idCoche}' name='${nameCoche}' src='${imgCoche}' coche style='${styleCoche}' alt='' title='' ${eventOnClick}><td>
+                     <td><img id='${ans.cocheId}' name='${nameCoche}' src='${imgCoche}' coche style='${styleCoche}' alt='' title='' ${eventOnClick}><td>
                      <td style='vertical-align:middle;'><label style='${pStyle2}' ${onClickLabel}>${getNumAlpha(k, currentQuestion.numbering, 0)}${ans.proposition}</label></td>
                      </tr>`);
 

@@ -32,9 +32,9 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Plugin_textMixte extends XoopsModules\Quizmaker\Plugins
 {
-const maxBadWords = 6;
+const maxBadWords = 10;
 const maxPropositions = 12;
-const maxIntrus = 6;     
+const maxIntrus = 12;     
 	/**
 	 * Constructor 
 	 *
@@ -90,15 +90,21 @@ const maxIntrus = 6;
       $trayOptions = $this->getNewXFTableOptions($caption);  
       //--------------------------------------------------------------------   
       $trayOptions->addElementOption(new \XoopsFormLabel('presentation = ', $tValues['presentation']));    
+      //--------------------------------------------------------------------           
+      $variantsArr = ['listbox1' => _LG_PLUGIN_TEXTMIXTE_VARIANT_LISTBOX1,
+                      'listbox2' => _LG_PLUGIN_TEXTMIXTE_VARIANT_LISTBOX2,
+                      'textbox'  => _LG_PLUGIN_TEXTMIXTE_VARIANT_TEXTEBOX,
+                      'textarea' => _LG_PLUGIN_TEXTMIXTE_VARIANT_TEXTAREA];
+      include (QUIZMAKER_PATH_PLUGINS_INCLUDE . "/options_variant.php");
+      if(!$isSelectOk) return $trayOptions;
+
+      // =======================================================
 
       $name = 'variant';  
       if(!$tValues[$name]) $tValues[$name] = $tValues['presentation'];
       $inpClasse = new \XoopsFormSelect(_LG_PLUGIN_TEXTMIXTE_VARIANT, "{$optionName}[{$name}]", $tValues[$name]);
       if (!$tValues[$name] || $tValues[$name] == $this::noClass) $inpClasse->addOption($this::noClass, _LG_PLUGIN_TEXTMIXTE_VARIANT_SELECT);
-      $inpClasse->addOptionArray(['listbox1' => _LG_PLUGIN_TEXTMIXTE_VARIANT_LISTBOX1,
-                                  'listbox2' => _LG_PLUGIN_TEXTMIXTE_VARIANT_LISTBOX2,
-                                  'textbox'  => _LG_PLUGIN_TEXTMIXTE_VARIANT_TEXTEBOX,
-                                  'textarea' => _LG_PLUGIN_TEXTMIXTE_VARIANT_TEXTAREA]);
+      $inpClasse->addOptionArray();
 
       // change la couleur de fond selon que la variante a été selectionnée ou pas
       if($tValues['variant'] == $this::noClass){ 
@@ -133,11 +139,11 @@ const maxIntrus = 6;
 
              
       $name = 'tokenColor';  
-      $inpTokenColor = new XoopsFormColorPicker(_LG_PLUGIN_TEXTMIXTE_TOKEN_COLOR, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpTokenColor = new XoopsFormColorPicker(_LG_PLUGIN_TEXTMIXTE_TOKEN__AP_QUIZMAKER_COLOR, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElementOption($inpTokenColor);     
       
       $name = 'wordColor';  
-      $inpWordColor = new XoopsFormColorPicker(_LG_PLUGIN_TEXTMIXTE_WORD_COLOR, "{$optionName}[{$name}]", $tValues[$name]);
+      $inpWordColor = new XoopsFormColorPicker(_LG_PLUGIN_TEXTMIXTE_WORD__AP_QUIZMAKER_COLOR, "{$optionName}[{$name}]", $tValues[$name]);
       $trayOptions->addElementOption($inpWordColor);   
         
       $name = 'fontsize';  
@@ -148,7 +154,7 @@ const maxIntrus = 6;
       $trayOptions->addElementOption($inpFontSize);     
       
 //       $name = 'lineheight';  
-//       $inpLineHeight = new XoopsFormSelect(_LG_PLUGIN_TEXTMIXTE_LINE_HEIGHT, "{$optionName}[{$name}]", $tValues[$name]);
+//       $inpLineHeight = new XoopsFormSelect(_AP_QUIZMAKER_TEXT_LINE_HEIGHT, "{$optionName}[{$name}]", $tValues[$name]);
 //       for($h=0; $h<15;$h++){
 //         $inpLineHeight->addOption($h, ($h+10)*0.1);
 //       }
@@ -162,7 +168,7 @@ const maxIntrus = 6;
 
 
       $name = 'textWidth';  
-      $inpTextWidth = new \XoopsFormNumber(_LG_PLUGIN_TEXTMIXTE_TEXT_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
+      $inpTextWidth = new \XoopsFormNumber(_AP_QUIZMAKER_TEXT_WIDTH,  "{$optionName}[{$name}]", $this->lgPoints, $this->lgPoints, $tValues[$name]);
       $inpTextWidth->setMinMax(30, 70, _AM_QUIZMAKER_UNIT_PERCENT);
       $inpTextWidth->setExtra(FQUIZMAKER\getStyle(QUIZMAKER_BG_LIST_TIMER));
       $trayOptions->addElementOption($inpTextWidth);     
@@ -319,13 +325,7 @@ public function getFormGroup(&$trayAllAns, $answers, $maxPropositions, $maxBadWo
 { 
         //suppression des enregistrement en trop
         if(count($answers) > $maxPropositions) $this->deleteToMuchItems($answers, $maxPropositions);
-//        $lib = "<div style='background:black;color:white;'><center>" . $titleGroup . "</center></div>";        
-//        $trayAllAns->addElement(new \XoopsFormLabel('',$lib));
         $weight = 0;
-        $imgPath = QUIZMAKER_PATH_QUIZ_JS . '/images/substitut';
-        $imgUrl = QUIZMAKER_URL_QUIZ_JS . '/images/substitut';
-        //$imgList = XoopsLists::getFileListByExtension($imgPath,  array('jpg','png','gif'), '');
-//$this->echoAns ($imgList,'{$imgPath}', false);   
       
         $tbl = $this->getNewXoopsTableXtray();
             if ($maxPropositions > 1) {
